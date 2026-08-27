@@ -1,0 +1,9 @@
+[
+  { "name": "Palo Alto City Library", "domain": "library.cityofpaloalto.org", "query": "events kids family" },
+  { "name": "San José Public Library", "domain": "sjpl.org", "query": "events kids family" },
+  { "name": "Santa Clara County Parks", "domain": "parks.santaclaracounty.gov", "query": "events family" },
+  { "name": "Midpeninsula Regional Open Space District", "domain": "openspace.org", "query": "events family" },
+  { "name": "The Tech Interactive", "domain": "thetech.org", "query": "events family" },
+  { "name": "City of Palo Alto", "domain": "paloalto.gov", "query": "events kids family" },
+  { "name": "City of San José", "domain": "sanjoseca.gov", "query": "events kids family" }
+]

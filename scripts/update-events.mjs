@@ -8,12 +8,6 @@ import { readFile, writeFile } from 'node:fs/promises';
 const key = process.env.SERPAPI_KEY;
 if (!key) throw new Error('SERPAPI_KEY is required to refresh events.');
 
-const queries = [
-  'South Bay California family events this weekend',
-  'Palo Alto kids activities this weekend',
-  'San Jose family events this weekend'
-];
-
 const typeFor = text => /hike|nature|park|outdoor|garden/i.test(text) ? 'outdoor'
   : /art|craft|paint|music|theater|museum/i.test(text) ? 'arts'
   : /science|stem|robot|tech|library|learn/i.test(text) ? 'learning' : 'community';
@@ -46,11 +40,31 @@ function eventNodes(value) {
   return [value, ...eventNodes(value['@graph'])];
 }
 
+function isOfficialUrl(url, domain) {
+  try {
+    const hostname = new URL(url).hostname.toLowerCase();
+    return hostname === domain || hostname.endsWith(`.${domain}`);
+  } catch { return false; }
+}
+
+function isSameEvent(resultTitle, eventTitle) {
+  const words = text => new Set(String(text || '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(word => word.length > 3));
+  const result = words(resultTitle);
+  const event = words(eventTitle);
+  if (!result.size || !event.size) return false;
+  const shared = [...result].filter(word => event.has(word)).length;
+  return shared >= Math.min(2, result.size, event.size);
+}
+
+function isUpcoming(value) {
+  const match = String(value || '').match(/\d{4}-\d{2}-\d{2}/);
+  if (!match) return false;
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
+  return match[0] >= today;
+}
+
 async function displayTime(item) {
-  const direct = [item.date?.start_date, item.date?.when, item.start_date, item.rich_snippet?.top?.detected_extensions?.date]
-    .map(displayEventDate).find(Boolean);
-  if (direct) return direct;
-  // Publisher-provided Event metadata is preferred over search-result snippets.
+  // The card date must come from the same publisher page as the activity.
   try {
     const response = await fetch(item.link, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(8000) });
     if (!response.ok) return fallbackTime;
@@ -61,8 +75,10 @@ async function displayTime(item) {
         const schema = JSON.parse(block[1].trim());
         const event = eventNodes(schema).find(node => {
           const type = node['@type'];
-          return type === 'Event' || (Array.isArray(type) && type.includes('Event'));
+          const isEvent = type === 'Event' || (Array.isArray(type) && type.includes('Event'));
+          return isEvent && isSameEvent(item.title, node.name);
         });
+        if (!isUpcoming(event?.startDate)) continue;
         const date = displayEventDate(event?.startDate);
         if (date) return date;
       } catch { /* Ignore malformed metadata and try the next source. */ }
@@ -71,20 +87,26 @@ async function displayTime(item) {
   return fallbackTime;
 }
 
-async function search(query) {
+async function search(source) {
   const url = new URL('https://serpapi.com/search.json');
-  url.search = new URLSearchParams({ engine: 'google', q: query, api_key: key, hl: 'en', gl: 'us', location: 'Santa Clara, California, United States' });
+  url.search = new URLSearchParams({
+    engine: 'google', q: `site:${source.domain} ${source.query}`, api_key: key, hl: 'en', gl: 'us',
+    location: 'Santa Clara, California, United States'
+  });
   const response = await fetch(url);
   const payload = await response.json();
   if (!response.ok || payload.error) {
     throw new Error(`Search failed: ${response.status}${payload.error ? ` — ${payload.error}` : ''}`);
   }
-  return payload.organic_results || [];
+  return (payload.organic_results || [])
+    .filter(item => item.title && item.link && isOfficialUrl(item.link, source.domain))
+    .map(item => ({ ...item, source: source.name }));
 }
 
 const target = new URL('../data/events.json', import.meta.url);
-const currentEvents = JSON.parse(await readFile(target, 'utf8'));
-const attempts = await Promise.allSettled(queries.map(search));
+await readFile(target, 'utf8'); // Ensure the published target exists before updating it.
+const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
+const attempts = await Promise.allSettled(sources.map(search));
 const failures = attempts.filter(result => result.status === 'rejected');
 failures.forEach(result => console.warn(`Skipping one search: ${result.reason.message}`));
 const raw = attempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
