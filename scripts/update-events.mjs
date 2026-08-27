@@ -269,6 +269,9 @@ const feedAttempts = await Promise.allSettled(directSources.map(source => source
 const searchAttempts = await Promise.allSettled(searchSources.map(search));
 const failures = [...feedAttempts, ...searchAttempts].filter(result => result.status === 'rejected');
 failures.forEach(result => console.warn(`Skipping one search: ${result.reason.message}`));
+if (directSources.length && feedAttempts.every(result => result.status === 'rejected')) {
+  throw new Error('All official calendars failed; leaving the published list unchanged.');
+}
 const feedEvents = feedAttempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
 const raw = searchAttempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
 const unique = [...new Map(raw.filter(item => item.title && item.link).map(item => [item.link.toLowerCase(), item])).values()];
@@ -290,6 +293,8 @@ const candidates = await Promise.all(unique.slice(0, 18).map(async (item, index)
 const events = [...new Map([...feedEvents, ...candidates.filter(event => event.date !== fallbackTime)]
   .map(event => [event.url.toLowerCase(), event])).values()]
   .sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
+
+if (!events.length) throw new Error('No verified upcoming events; leaving the published list unchanged.');
 
 await writeFile(target, `${JSON.stringify(events, null, 2)}\n`);
 // A same-origin script works both on GitHub Pages and when the user opens the

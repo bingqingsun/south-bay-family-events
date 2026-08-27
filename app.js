@@ -43,7 +43,9 @@ function dateMatches(event, filter) {
   if (filter === 'month') return date.slice(0, 7) === todayKey.slice(0, 7);
   if (filter === 'weekend') {
     const todayDate = new Date(`${todayKey}T12:00:00`);
-    const daysUntilSaturday = todayDate.getDay() === 0 ? 0 : 6 - todayDate.getDay();
+    // Sunday belongs to the weekend that began yesterday; it must not spill
+    // into the following Monday.
+    const daysUntilSaturday = todayDate.getDay() === 0 ? -1 : 6 - todayDate.getDay();
     const start = new Date(todayDate); start.setDate(todayDate.getDate() + daysUntilSaturday);
     const end = new Date(start); end.setDate(start.getDate() + 1);
     const eventDate = new Date(`${date}T12:00:00`);
