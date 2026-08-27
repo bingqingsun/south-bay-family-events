@@ -65,7 +65,8 @@ function isUpcoming(value) {
 function decodeXml(value) {
   return String(value || '').replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
     .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, ' ');
+    .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, ' ')
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)));
 }
 
 function xmlText(item, tag) {
@@ -143,6 +144,26 @@ async function readRss(source) {
   });
 }
 
+async function readTribe(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const payload = await response.json();
+  if (!response.ok || !Array.isArray(payload.events)) throw new Error('Official calendar API was not valid: ' + response.status);
+  return payload.events.flatMap((item, index) => {
+    const startDate = String(item.start_date || '').replace(' ', 'T');
+    const title = decodeXml(item.title || '').trim();
+    const categories = (item.categories || []).map(category => decodeXml(category.name || '')).join(' ').toLowerCase();
+    if (!title || !item.url || !isUpcoming(startDate)) return [];
+    const type = typeFor(title + ' ' + categories);
+    const ages = agesFor(`family kids ${categories}`);
+    return [{
+      id: 'calendar-' + (item.id || index), title, date: displayEventDate(startDate), dateValue: startDate, age: ages[0], ages,
+      type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'calendar',
+      description: cardSummary(item.description || item.excerpt || '') || '请查看主办方页面了解活动详情与报名要求。',
+      image: item.image?.url || '', place: item.venue?.venue || source.name, source: source.name, url: item.url
+    }];
+  });
+}
+
 async function displayTime(item) {
   // The card date must come from the same publisher page as the activity.
   try {
@@ -187,7 +208,7 @@ const target = new URL('../data/events.json', import.meta.url);
 const browserTarget = new URL('../data/events.js', import.meta.url);
 await readFile(target, 'utf8'); // Ensure the published target exists before updating it.
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const feedSources = sources.filter(source => source.method === 'rss' && source.feedUrl);
+const directSources = sources.filter(source => ['rss', 'tribe'].includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
 // Tuesday/Thursday fallback. A manually dispatched `false` explicitly disables
@@ -195,10 +216,10 @@ const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: '
 const serpapiInput = process.env.INCLUDE_SERPAPI;
 const includeSerpapi = serpapiInput === 'true'
   || (serpapiInput !== 'false' && ['Tue', 'Thu'].includes(weekday));
-const searchSources = includeSerpapi ? sources.filter(source => source.method !== 'rss') : [];
+const searchSources = includeSerpapi ? sources.filter(source => !['rss', 'tribe'].includes(source.method)) : [];
 if (searchSources.length && !key) throw new Error('SERPAPI_KEY is required when the fallback search is scheduled or manually enabled.');
 
-const feedAttempts = await Promise.allSettled(feedSources.map(readRss));
+const feedAttempts = await Promise.allSettled(directSources.map(source => source.method === 'tribe' ? readTribe(source) : readRss(source)));
 const searchAttempts = await Promise.allSettled(searchSources.map(search));
 const failures = [...feedAttempts, ...searchAttempts].filter(result => result.status === 'rejected');
 failures.forEach(result => console.warn(`Skipping one search: ${result.reason.message}`));
@@ -226,4 +247,4 @@ await writeFile(target, `${JSON.stringify(events, null, 2)}\n`);
 // A same-origin script works both on GitHub Pages and when the user opens the
 // local HTML file directly, where browsers often block fetch() of JSON files.
 await writeFile(browserTarget, `window.SOUTH_BAY_EVENTS = ${JSON.stringify(events)};\n`);
-console.log(`Published ${events.length} verified activities from ${feedSources.length} RSS feeds and ${searchSources.length} fallback sources.`);
+console.log(`Published ${events.length} verified activities from ${directSources.length} official calendars and ${searchSources.length} fallback sources.`);

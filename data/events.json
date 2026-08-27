@@ -857,5 +857,173 @@
     "place": "Palo Alto City Library",
     "source": "Palo Alto City Library",
     "url": "https://paloalto.bibliocommons.com/events/6a3dbc0bfddb082f00fe149a"
+  },
+  {
+    "id": "calendar-24561",
+    "title": "Second Saturday (September)",
+    "date": "9月12日 10:00",
+    "dateValue": "2026-09-12T10:00:00",
+    "age": "k5",
+    "ages": [
+      "k5",
+      "all"
+    ],
+    "type": "community",
+    "icon": "✨",
+    "color": "#ffe9a8",
+    "tag": "社区活动",
+    "verification": "calendar",
+    "description": "请查看主办方页面了解活动详情与报名要求。",
+    "image": "",
+    "place": "Gamble Garden",
+    "source": "Gamble Garden",
+    "url": "https://www.gamblegarden.org/event/septembersaturday/"
+  },
+  {
+    "id": "calendar-25393",
+    "title": "Parent & Me Yoga",
+    "date": "9月19日 09:00",
+    "dateValue": "2026-09-19T09:00:00",
+    "age": "k5",
+    "ages": [
+      "k5",
+      "all"
+    ],
+    "type": "community",
+    "icon": "✨",
+    "color": "#ffe9a8",
+    "tag": "社区活动",
+    "verification": "calendar",
+    "description": "请查看主办方页面了解活动详情与报名要求。",
+    "image": "",
+    "place": "Gamble Garden",
+    "source": "Gamble Garden",
+    "url": "https://www.gamblegarden.org/event/yoga/"
+  },
+  {
+    "id": "calendar-22757",
+    "title": "Second Saturday (October)",
+    "date": "10月10日 10:00",
+    "dateValue": "2026-10-10T10:00:00",
+    "age": "k5",
+    "ages": [
+      "k5",
+      "all"
+    ],
+    "type": "community",
+    "icon": "✨",
+    "color": "#ffe9a8",
+    "tag": "社区活动",
+    "verification": "calendar",
+    "description": "请查看主办方页面了解活动详情与报名要求。",
+    "image": "",
+    "place": "Gamble Garden",
+    "source": "Gamble Garden",
+    "url": "https://www.gamblegarden.org/event/octobersaturday/"
+  },
+  {
+    "id": "calendar-24500",
+    "title": "Halloween Magic",
+    "date": "10月24日 10:30",
+    "dateValue": "2026-10-24T10:30:00",
+    "age": "k5",
+    "ages": [
+      "k5",
+      "all"
+    ],
+    "type": "community",
+    "icon": "✨",
+    "color": "#ffe9a8",
+    "tag": "社区活动",
+    "verification": "calendar",
+    "description": "请查看主办方页面了解活动详情与报名要求。",
+    "image": "",
+    "place": "Gamble Garden",
+    "source": "Gamble Garden",
+    "url": "https://www.gamblegarden.org/event/halloween/"
+  },
+  {
+    "id": "calendar-25388",
+    "title": "Halloween Tea",
+    "date": "10月24日 15:00",
+    "dateValue": "2026-10-24T15:00:00",
+    "age": "k5",
+    "ages": [
+      "k5",
+      "all"
+    ],
+    "type": "community",
+    "icon": "✨",
+    "color": "#ffe9a8",
+    "tag": "社区活动",
+    "verification": "calendar",
+    "description": "请查看主办方页面了解活动详情与报名要求。",
+    "image": "",
+    "place": "Gamble Garden",
+    "source": "Gamble Garden",
+    "url": "https://www.gamblegarden.org/event/halloweentea/"
+  },
+  {
+    "id": "calendar-25497",
+    "title": "Family Fun with Flowers",
+    "date": "10月31日 09:30",
+    "dateValue": "2026-10-31T09:30:00",
+    "age": "k5",
+    "ages": [
+      "k5",
+      "all"
+    ],
+    "type": "community",
+    "icon": "✨",
+    "color": "#ffe9a8",
+    "tag": "社区活动",
+    "verification": "calendar",
+    "description": "请查看主办方页面了解活动详情与报名要求。",
+    "image": "",
+    "place": "Gamble Garden",
+    "source": "Gamble Garden",
+    "url": "https://www.gamblegarden.org/event/family-fun-with-flowers/"
+  },
+  {
+    "id": "calendar-24579",
+    "title": "Worm Composting Workshop",
+    "date": "11月7日 10:00",
+    "dateValue": "2026-11-07T10:00:00",
+    "age": "k5",
+    "ages": [
+      "k5",
+      "all"
+    ],
+    "type": "community",
+    "icon": "✨",
+    "color": "#ffe9a8",
+    "tag": "社区活动",
+    "verification": "calendar",
+    "description": "请查看主办方页面了解活动详情与报名要求。",
+    "image": "",
+    "place": "Gamble Garden",
+    "source": "Gamble Garden",
+    "url": "https://www.gamblegarden.org/event/worm-composting-workshop-3/"
+  },
+  {
+    "id": "calendar-22758",
+    "title": "Second Saturday (November)",
+    "date": "11月14日 10:00",
+    "dateValue": "2026-11-14T10:00:00",
+    "age": "k5",
+    "ages": [
+      "k5",
+      "all"
+    ],
+    "type": "community",
+    "icon": "✨",
+    "color": "#ffe9a8",
+    "tag": "社区活动",
+    "verification": "calendar",
+    "description": "请查看主办方页面了解活动详情与报名要求。",
+    "image": "",
+    "place": "Gamble Garden",
+    "source": "Gamble Garden",
+    "url": "https://www.gamblegarden.org/event/novembersaturday/"
   }
 ]

@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       include_serpapi:
-        description: '同时运行 SerpApi 兜底搜索（约消耗 19 次查询）'
+        description: '同时运行 SerpApi 兜底搜索（约消耗 18 次查询）'
         required: false
         default: false
         type: boolean
