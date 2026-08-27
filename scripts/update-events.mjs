@@ -151,11 +151,17 @@ async function search(source) {
 }
 
 const target = new URL('../data/events.json', import.meta.url);
+const browserTarget = new URL('../data/events.js', import.meta.url);
 await readFile(target, 'utf8'); // Ensure the published target exists before updating it.
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
 const feedSources = sources.filter(source => source.method === 'rss' && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
-const includeSerpapi = process.env.INCLUDE_SERPAPI === 'true' || ['Tue', 'Thu'].includes(weekday);
+// Scheduled runs have no workflow input (empty value), so they use the normal
+// Tuesday/Thursday fallback. A manually dispatched `false` explicitly disables
+// it; `true` explicitly enables it on any weekday.
+const serpapiInput = process.env.INCLUDE_SERPAPI;
+const includeSerpapi = serpapiInput === 'true'
+  || (serpapiInput !== 'false' && ['Tue', 'Thu'].includes(weekday));
 const searchSources = includeSerpapi ? sources.filter(source => source.method !== 'rss') : [];
 if (searchSources.length && !key) throw new Error('SERPAPI_KEY is required when the fallback search is scheduled or manually enabled.');
 
@@ -182,4 +188,7 @@ const events = [...new Map([...feedEvents, ...candidates.filter(event => event.d
   .map(event => [event.url.toLowerCase(), event])).values()];
 
 await writeFile(target, `${JSON.stringify(events, null, 2)}\n`);
+// A same-origin script works both on GitHub Pages and when the user opens the
+// local HTML file directly, where browsers often block fetch() of JSON files.
+await writeFile(browserTarget, `window.SOUTH_BAY_EVENTS = ${JSON.stringify(events)};\n`);
 console.log(`Published ${events.length} verified activities from ${feedSources.length} RSS feeds and ${searchSources.length} fallback sources.`);

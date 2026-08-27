@@ -32,6 +32,6 @@ jobs:
         run: |
           git config user.name "south-bay-events-bot"
           git config user.email "actions@github.com"
-          git add data/events.json
+          git add data/events.json data/events.js
           git diff --staged --quiet || git commit -m "chore: refresh South Bay events"
           git push

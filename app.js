@@ -1,9 +1,9 @@
-let events = [];
+let events = Array.isArray(window.SOUTH_BAY_EVENTS) ? window.SOUTH_BAY_EVENTS : [];
 const state = { type: 'all', age: 'all', date: 'all', saved: JSON.parse(localStorage.getItem('southBaySaved') || '[]'), onlySaved: false };
 const grid = document.querySelector('#eventGrid');
 const template = document.querySelector('#cardTemplate');
 const today = new Intl.DateTimeFormat('zh-CN', { month: 'long', day: 'numeric' }).format(new Date());
-document.querySelector('#updateText').textContent = `${today} 已更新 · 来自本地活动来源`;
+document.querySelector('#updateText').textContent = `${today} 已更新 · 来自官方活动来源`;
 
 function render() {
   const visible = events.filter(event => (state.type === 'all' || event.type === state.type) && (state.age === 'all' || event.age === state.age || event.age === 'all') && (state.date === 'all' || event.when === state.date) && (!state.onlySaved || state.saved.includes(event.id)));
