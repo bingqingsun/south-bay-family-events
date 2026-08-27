@@ -65,7 +65,6 @@ function render() {
     costFact.title = event.costSource || '主办方页面未注明费用';
     costFact.hidden = !event.costSource;
     node.querySelector('.card-facts').hidden = !event.ageSource && !event.costSource;
-    node.querySelector('.cost-note').hidden = !event.costSource;
     node.querySelector('.time').textContent = event.date === '请查看主办方时间' ? '请点击活动详情查看活动时间' : event.date;
     node.querySelector('.place').textContent = event.place;
     const link = node.querySelector('.source-link'); link.href = event.url; link.firstChild.textContent = event.source ? `查看 ${event.source} 详情 ` : '查看活动详情 ';
