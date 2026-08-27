@@ -5,8 +5,40 @@ const template = document.querySelector('#cardTemplate');
 const today = new Intl.DateTimeFormat('zh-CN', { month: 'long', day: 'numeric' }).format(new Date());
 document.querySelector('#updateText').textContent = `${today} 已更新 · 来自官方活动来源`;
 
+function dateKey(value) {
+  return String(value || '').match(/^\d{4}-\d{2}-\d{2}/)?.[0] || '';
+}
+
+function localToday() {
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
+}
+
+function dateMatches(event, filter) {
+  if (filter === 'all') return true;
+  const date = dateKey(event.dateValue);
+  if (!date) return false;
+  const todayKey = localToday();
+  if (filter === 'today') return date === todayKey;
+  if (filter === 'month') return date.slice(0, 7) === todayKey.slice(0, 7);
+  if (filter === 'weekend') {
+    const todayDate = new Date(`${todayKey}T12:00:00`);
+    const daysUntilSaturday = todayDate.getDay() === 0 ? 0 : 6 - todayDate.getDay();
+    const start = new Date(todayDate); start.setDate(todayDate.getDate() + daysUntilSaturday);
+    const end = new Date(start); end.setDate(start.getDate() + 1);
+    const eventDate = new Date(`${date}T12:00:00`);
+    return eventDate >= start && eventDate <= end;
+  }
+  return false;
+}
+
+function ageMatches(event, age) {
+  if (age === 'all') return true;
+  const ages = event.ages || [event.age];
+  return ages.includes(age) || ages.includes('all');
+}
+
 function render() {
-  const visible = events.filter(event => (state.type === 'all' || event.type === state.type) && (state.age === 'all' || event.age === state.age || event.age === 'all') && (state.date === 'all' || event.when === state.date) && (!state.onlySaved || state.saved.includes(event.id)));
+  const visible = events.filter(event => (state.type === 'all' || event.type === state.type) && ageMatches(event, state.age) && dateMatches(event, state.date) && (!state.onlySaved || state.saved.includes(event.id)));
   grid.innerHTML = '';
   visible.forEach(event => {
     const node = template.content.cloneNode(true);
@@ -35,7 +67,6 @@ document.querySelector('#ageFilter').addEventListener('change', e => { state.age
 document.querySelector('#dateFilter').addEventListener('change', e => { state.date = e.target.value; render(); });
 grid.addEventListener('click', e => { const button = e.target.closest('.heart'); if (!button) return; const id = button.dataset.id; state.saved = state.saved.includes(id) ? state.saved.filter(item => item !== id) : [...state.saved, id]; localStorage.setItem('southBaySaved', JSON.stringify(state.saved)); render(); });
 document.querySelector('#savedButton').addEventListener('click', () => { state.onlySaved = !state.onlySaved; document.querySelector('#savedButton').classList.toggle('active', state.onlySaved); render(); });
-document.querySelector('#signupForm').addEventListener('submit', e => { e.preventDefault(); document.querySelector('#formMessage').textContent = '已收到！周四见。'; e.target.reset(); });
 fetch('./data/events.json', { cache: 'no-store' })
   .then(response => response.ok ? response.json() : Promise.reject())
   .then(data => { if (Array.isArray(data)) events = data; })

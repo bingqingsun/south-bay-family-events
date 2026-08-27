@@ -109,6 +109,15 @@ function officialImageUrl(item) {
   return url ? url.replace(/^http:/i, 'https:') : '';
 }
 
+function agesFor(categories) {
+  const ages = new Set();
+  if (/young children|kids|children|school age/.test(categories)) ages.add('k5');
+  if (/pre-teens|pre teens|middle school/.test(categories)) ages.add('middle');
+  if (/teens/.test(categories)) ages.add('high');
+  if (!ages.size || /family|all ages/.test(categories)) ages.add('all');
+  return [...ages];
+}
+
 async function readRss(source) {
   const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
   const xml = await response.text();
@@ -122,9 +131,10 @@ async function readRss(source) {
     const familyAudience = /young children|kids|children|teens|family|all ages|school age/.test(categories);
     if (!title || !link || !isUpcoming(startDate) || !familyAudience || xmlText(item, 'is_cancelled') === 'true') return [];
     const type = typeFor(title + ' ' + categories);
+    const ages = agesFor(categories);
     const eventId = (xmlText(item, 'guid') || link).split('/').filter(Boolean).pop() || String(index);
     return [{
-      id: 'rss-' + eventId, title, date: displayEventDate(startDate), when: 'weekend', age: 'all',
+      id: 'rss-' + eventId, title, date: displayEventDate(startDate), dateValue: startDate, age: ages[0], ages,
       type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'rss',
       description: cardSummary(xmlText(item, 'description')) || '请查看主办方页面了解活动详情与报名要求。',
       image: officialImageUrl(item),
@@ -200,7 +210,7 @@ const candidates = await Promise.all(unique.slice(0, 18).map(async (item, index)
   const type = typeFor(source);
   return {
     id: `daily-${Date.now()}-${index}`, title: item.title, date: await displayTime(item),
-    when: 'weekend', age: 'all', type, icon: icons[type], color: colors[type], tag: labels[type],
+    dateValue: '', age: 'all', ages: ['all'], type, icon: icons[type], color: colors[type], tag: labels[type],
     description: cardSummary(item.snippet || item.description || '') || '请查看主办方页面了解活动详情与报名要求。',
     image: '',
     place: item.source || '南湾地区', url: item.link
@@ -209,7 +219,8 @@ const candidates = await Promise.all(unique.slice(0, 18).map(async (item, index)
 // Do not publish unverified directory pages or search snippets. A card must
 // carry a direct search date or publisher-provided Event startDate.
 const events = [...new Map([...feedEvents, ...candidates.filter(event => event.date !== fallbackTime)]
-  .map(event => [event.url.toLowerCase(), event])).values()];
+  .map(event => [event.url.toLowerCase(), event])).values()]
+  .sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
 
 await writeFile(target, `${JSON.stringify(events, null, 2)}\n`);
 // A same-origin script works both on GitHub Pages and when the user opens the

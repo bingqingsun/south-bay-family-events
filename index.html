@@ -36,7 +36,7 @@
       <section class="filter-area wrap" id="events">
         <div class="section-heading"><div><p class="eyebrow">CURATED FOR YOU</p><h2>今天想做点什么？</h2></div><p id="resultCount" class="result-count"></p></div>
         <div class="filters" aria-label="筛选活动">
-          <div class="select-wrap"><label for="dateFilter">日期</label><select id="dateFilter"><option value="all">任意时间</option><option value="today">今天</option><option value="weekend">这个周末</option></select></div>
+          <div class="select-wrap"><label for="dateFilter">日期</label><select id="dateFilter"><option value="all">任意时间</option><option value="today">今天</option><option value="weekend">本周末</option><option value="month">本月</option></select></div>
           <div class="select-wrap"><label for="ageFilter">年龄</label><select id="ageFilter"><option value="all">所有年龄</option><option value="k5">K–5</option><option value="middle">6–8 年级</option><option value="high">9–12 年级</option></select></div>
           <div class="chips" id="typeFilters"><button class="chip active" data-type="all">全部</button><button class="chip" data-type="outdoor">户外自然</button><button class="chip" data-type="arts">艺术创作</button><button class="chip" data-type="learning">科学与学习</button><button class="chip" data-type="community">社区活动</button></div>
         </div>
@@ -46,7 +46,7 @@
 
       <section class="newsletter wrap">
         <div><p class="eyebrow">WEEKEND NOTES</p><h2>每周四，把周末灵感送到你手上。</h2><p>一封轻松的邮件，装下适合全家的南湾好去处。</p></div>
-        <form id="signupForm"><label class="sr-only" for="email">邮箱</label><input id="email" type="email" placeholder="你的邮箱地址" required /><button type="submit">订阅周末灵感 →</button><p class="form-message" id="formMessage"></p></form>
+        <div class="newsletter-unavailable" aria-live="polite"><p>邮件订阅正在准备中，暂不收集邮箱。</p><button type="button" disabled>即将上线</button></div>
       </section>
 
       <section class="how wrap" id="how"><p class="eyebrow">ALWAYS FRESH</p><h2>不只是活动清单。</h2><div class="how-grid"><article><b>01</b><h3>每天寻找</h3><p>自动巡检本地博物馆、公园、图书馆与活动平台的公开页面。</p></article><article><b>02</b><h3>去重与整理</h3><p>合并重复活动，标注适合年龄、地点、花费与是否需要预约。</p></article><article><b>03</b><h3>为家庭而选</h3><p>优先呈现真正值得全家出门的活动；每条都保留原始来源链接。</p></article></div></section>
