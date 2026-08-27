@@ -6,7 +6,6 @@
 import { readFile, writeFile } from 'node:fs/promises';
 
 const key = process.env.SERPAPI_KEY;
-if (!key) throw new Error('SERPAPI_KEY is required to refresh events.');
 
 const typeFor = text => /hike|nature|park|outdoor|garden/i.test(text) ? 'outdoor'
   : /art|craft|paint|music|theater|museum/i.test(text) ? 'arts'
@@ -63,6 +62,49 @@ function isUpcoming(value) {
   return match[0] >= today;
 }
 
+function decodeXml(value) {
+  return String(value || '').replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
+    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, ' ');
+}
+
+function xmlText(item, tag) {
+  const match = item.match(new RegExp('<' + tag + '(?:\\s[^>]*)?>([\\s\\S]*?)<\\/' + tag + '>', 'i'));
+  return match ? decodeXml(match[1]).trim() : '';
+}
+
+function xmlTexts(item, tag) {
+  return [...item.matchAll(new RegExp('<' + tag + '(?:\\s[^>]*)?>([\\s\\S]*?)<\\/' + tag + '>', 'gi'))]
+    .map(match => decodeXml(match[1]).trim());
+}
+
+function plainText(html) {
+  return decodeXml(html).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+async function readRss(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const xml = await response.text();
+  if (!response.ok || !/<rss[\s>]/i.test(xml)) throw new Error('RSS feed was not valid: ' + response.status);
+  const itemBlocks = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/gi)].map(match => match[1]);
+  return itemBlocks.flatMap((item, index) => {
+    const title = xmlText(item, 'title');
+    const link = xmlText(item, 'link');
+    const startDate = xmlText(item, 'start_date_local');
+    const categories = xmlTexts(item, 'category').join(' ').toLowerCase();
+    const familyAudience = /young children|kids|children|teens|family|all ages|school age/.test(categories);
+    if (!title || !link || !isUpcoming(startDate) || !familyAudience || xmlText(item, 'is_cancelled') === 'true') return [];
+    const type = typeFor(title + ' ' + categories);
+    const eventId = (xmlText(item, 'guid') || link).split('/').filter(Boolean).pop() || String(index);
+    return [{
+      id: 'rss-' + eventId, title, date: displayEventDate(startDate), when: 'weekend', age: 'all',
+      type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'rss',
+      description: plainText(xmlText(item, 'description')) || '请查看主办方页面了解活动详情与报名要求。',
+      place: source.name, source: source.name, url: link
+    }];
+  });
+}
+
 async function displayTime(item) {
   // The card date must come from the same publisher page as the activity.
   try {
@@ -106,11 +148,17 @@ async function search(source) {
 const target = new URL('../data/events.json', import.meta.url);
 await readFile(target, 'utf8'); // Ensure the published target exists before updating it.
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const attempts = await Promise.allSettled(sources.map(search));
-const failures = attempts.filter(result => result.status === 'rejected');
+const feedSources = sources.filter(source => source.method === 'rss' && source.feedUrl);
+const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
+const searchSources = ['Tue', 'Thu'].includes(weekday) ? sources.filter(source => source.method !== 'rss') : [];
+if (searchSources.length && !key) throw new Error('SERPAPI_KEY is required for Tuesday and Thursday fallback searches.');
+
+const feedAttempts = await Promise.allSettled(feedSources.map(readRss));
+const searchAttempts = await Promise.allSettled(searchSources.map(search));
+const failures = [...feedAttempts, ...searchAttempts].filter(result => result.status === 'rejected');
 failures.forEach(result => console.warn(`Skipping one search: ${result.reason.message}`));
-const raw = attempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
-if (!raw.length) throw new Error('All event searches failed; leaving the published list unchanged.');
+const feedEvents = feedAttempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
+const raw = searchAttempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
 const unique = [...new Map(raw.filter(item => item.title && item.link).map(item => [item.link.toLowerCase(), item])).values()];
 const candidates = await Promise.all(unique.slice(0, 18).map(async (item, index) => {
   const source = `${item.title} ${item.snippet || item.description || ''}`;
@@ -124,7 +172,8 @@ const candidates = await Promise.all(unique.slice(0, 18).map(async (item, index)
 }));
 // Do not publish unverified directory pages or search snippets. A card must
 // carry a direct search date or publisher-provided Event startDate.
-const events = candidates.filter(event => event.date !== fallbackTime);
+const events = [...new Map([...feedEvents, ...candidates.filter(event => event.date !== fallbackTime)]
+  .map(event => [event.url.toLowerCase(), event])).values()];
 
 await writeFile(target, `${JSON.stringify(events, null, 2)}\n`);
-console.log(`Published ${events.length} verified activities; skipped ${candidates.length - events.length} unverified results.`);
+console.log(`Published ${events.length} verified activities from ${feedSources.length} RSS feeds and ${searchSources.length} fallback sources.`);

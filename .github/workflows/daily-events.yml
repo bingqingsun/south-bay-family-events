@@ -2,9 +2,9 @@ name: Refresh South Bay events
 
 on:
   schedule:
-    # Tuesday and Thursday at 06:20 PST / 07:20 PDT.
-    # SerpApi fallback only: RSS/ICS sources can be refreshed independently.
-    - cron: '20 14 * * 2,4'
+    # Weekdays at 06:20 PST / 07:20 PDT. RSS feeds refresh every weekday;
+    # SerpApi fallback runs only on Tuesday and Thursday.
+    - cron: '20 14 * * 1-5'
   workflow_dispatch:
 
 permissions:
