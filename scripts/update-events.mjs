@@ -68,7 +68,7 @@ async function displayTime(item) {
       } catch { /* Ignore malformed metadata and try the next source. */ }
     }
   } catch { /* A source may block automated reads; link users to its details page. */ }
-  return displayEventDate(item.snippet) || fallbackTime;
+  return fallbackTime;
 }
 
 async function search(query) {
@@ -90,7 +90,7 @@ failures.forEach(result => console.warn(`Skipping one search: ${result.reason.me
 const raw = attempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
 if (!raw.length) throw new Error('All event searches failed; leaving the published list unchanged.');
 const unique = [...new Map(raw.filter(item => item.title && item.link).map(item => [item.link.toLowerCase(), item])).values()];
-const events = await Promise.all(unique.slice(0, 18).map(async (item, index) => {
+const candidates = await Promise.all(unique.slice(0, 18).map(async (item, index) => {
   const source = `${item.title} ${item.snippet || item.description || ''}`;
   const type = typeFor(source);
   return {
@@ -100,9 +100,9 @@ const events = await Promise.all(unique.slice(0, 18).map(async (item, index) => 
     place: item.source || '南湾地区', url: item.link
   };
 }));
+// Do not publish unverified directory pages or search snippets. A card must
+// carry a direct search date or publisher-provided Event startDate.
+const events = candidates.filter(event => event.date !== fallbackTime);
 
-if (events.length < 3) throw new Error('Too few event results; leaving the published list unchanged.');
-// Keep seasonally scheduled activities that are maintained from their official pages.
-const curated = currentEvents.filter(event => event.id === 'foothill-physics-show');
-await writeFile(target, `${JSON.stringify([...events, ...curated], null, 2)}\n`);
-console.log(`Updated ${events.length} searched activities and retained ${curated.length} curated activities.`);
+await writeFile(target, `${JSON.stringify(events, null, 2)}\n`);
+console.log(`Published ${events.length} verified activities; skipped ${candidates.length - events.length} unverified results.`);
