@@ -1,7 +1,7 @@
 /*
  * Daily South Bay family-event refresh.
- * Requires SERPAPI_KEY in the environment. SerpApi's Google Events endpoint
- * returns public event listings; the site always links visitors to the source.
+ * Requires SERPAPI_KEY in the environment. Uses SerpApi's standard Google
+ * search engine so the job also works on plans without Google Events access.
  */
 import { readFile, writeFile } from 'node:fs/promises';
 
@@ -9,9 +9,9 @@ const key = process.env.SERPAPI_KEY;
 if (!key) throw new Error('SERPAPI_KEY is required to refresh events.');
 
 const queries = [
-  'kids family events South Bay California this weekend',
-  'children activities Palo Alto Mountain View San Jose this weekend',
-  'family events Santa Clara County this weekend'
+  'South Bay California family events this weekend',
+  'Palo Alto kids activities this weekend',
+  'San Jose family events this weekend'
 ];
 
 const typeFor = text => /hike|nature|park|outdoor|garden/i.test(text) ? 'outdoor'
@@ -23,13 +23,13 @@ const colors = { outdoor: '#d8eee0', arts: '#ffd9bd', learning: '#dce7fa', commu
 
 async function search(query) {
   const url = new URL('https://serpapi.com/search.json');
-  url.search = new URLSearchParams({ engine: 'google_events', q: query, api_key: key, hl: 'en', gl: 'us' });
+  url.search = new URLSearchParams({ engine: 'google', q: query, api_key: key, hl: 'en', gl: 'us', location: 'Santa Clara, California, United States' });
   const response = await fetch(url);
   const payload = await response.json();
   if (!response.ok || payload.error) {
     throw new Error(`Search failed: ${response.status}${payload.error ? ` — ${payload.error}` : ''}`);
   }
-  return payload.events_results || [];
+  return payload.organic_results || [];
 }
 
 const target = new URL('../data/events.json', import.meta.url);
@@ -39,16 +39,15 @@ const failures = attempts.filter(result => result.status === 'rejected');
 failures.forEach(result => console.warn(`Skipping one search: ${result.reason.message}`));
 const raw = attempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
 if (!raw.length) throw new Error('All event searches failed; leaving the published list unchanged.');
-const unique = [...new Map(raw.filter(item => item.title && item.link).map(item => [`${item.title}|${item.date?.start_date || ''}`.toLowerCase(), item])).values()];
+const unique = [...new Map(raw.filter(item => item.title && item.link).map(item => [item.link.toLowerCase(), item])).values()];
 const events = unique.slice(0, 18).map((item, index) => {
   const source = `${item.title} ${item.description || ''}`;
   const type = typeFor(source);
-  const date = [item.date?.start_date, item.date?.when].filter(Boolean).join(' · ') || '请查看主办方时间';
   return {
-    id: `daily-${Date.now()}-${index}`, title: item.title, date,
-    when: /today/i.test(date) ? 'today' : 'weekend', age: 'all', type, icon: icons[type], color: colors[type], tag: labels[type],
-    description: item.description || '请查看主办方页面了解活动详情与报名要求。',
-    place: item.venue?.name || item.address?.join(', ') || '南湾地区', url: item.link
+    id: `daily-${Date.now()}-${index}`, title: item.title, date: '请查看主办方时间',
+    when: 'weekend', age: 'all', type, icon: icons[type], color: colors[type], tag: labels[type],
+    description: item.snippet || '请查看主办方页面了解活动详情与报名要求。',
+    place: item.source || '南湾地区', url: item.link
   };
 });
 

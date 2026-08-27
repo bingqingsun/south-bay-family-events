@@ -4,7 +4,7 @@
 
 ## 每日自动更新
 
-页面会从 `data/events.json` 读取活动；网络不可用时才显示内置示例。仓库已提供每日更新脚本（`scripts/update-events.mjs`）和 GitHub Actions 定时任务（`.github/workflows/daily-events.yml`）。它使用 SerpApi 的 Google Events 搜索结果，自动去重并写回 JSON。
+页面会从 `data/events.json` 读取活动；网络不可用时才显示内置示例。仓库已提供每日更新脚本（`scripts/update-events.mjs`）和 GitHub Actions 定时任务（`.github/workflows/daily-events.yml`）。它使用 SerpApi 的 Google 搜索结果，自动去重并写回 JSON；不需要 Google Events 引擎权限。
 
 - Santa Clara County Parks、Midpeninsula Regional Open Space District
 - Palo Alto / San José / Mountain View 图书馆
