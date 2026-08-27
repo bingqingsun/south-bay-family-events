@@ -1,6 +1,14 @@
 name: Refresh South Bay events
 
 on:
+  # A source or refresh-script change should immediately rebuild the published
+  # list (including cached translations), without asking the maintainer to run
+  # Actions manually after pushing the configuration.
+  push:
+    paths:
+      - 'scripts/update-events.mjs'
+      - 'data/sources.json'
+      - '.github/workflows/daily-events.yml'
   schedule:
     # Weekdays at 06:20 PST / 07:20 PDT. RSS feeds refresh every weekday;
     # SerpApi fallback runs only on Tuesday and Thursday.
