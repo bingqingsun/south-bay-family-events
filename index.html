@@ -15,7 +15,7 @@
       <nav class="nav wrap">
         <a class="brand" href="#top" aria-label="周末去哪儿首页"><span>◌</span> 周末去哪儿</a>
         <div class="nav-links"><a href="#events">找活动</a><a href="#how">如何更新</a></div>
-        <button class="saved-button" id="savedButton" type="button">♡ 已收藏 <b id="savedCount">0</b></button>
+        <button class="saved-button" id="savedButton" type="button" aria-pressed="false" aria-label="只查看收藏活动">♡ 已收藏 <b id="savedCount">0</b></button>
       </nav>
 
       <section class="hero wrap" id="top">
@@ -38,15 +38,15 @@
         <div class="filters" aria-label="筛选活动">
           <div class="select-wrap"><label for="dateFilter">日期</label><select id="dateFilter"><option value="all">任意时间</option><option value="today">今天</option><option value="weekend">本周末</option><option value="month">本月</option></select></div>
           <div class="select-wrap"><label for="ageFilter">适合年龄</label><select id="ageFilter"><option value="all">不限年龄</option><option value="0-2">0–2 岁</option><option value="3-5">3–5 岁</option><option value="k5">K–5</option><option value="middle">6–8 年级</option><option value="high">9–12 年级</option><option value="family">全家适合</option></select></div>
-          <div class="chips" id="typeFilters"><button class="chip active" data-type="all">全部</button><button class="chip" data-type="outdoor">户外自然</button><button class="chip" data-type="arts">艺术创作</button><button class="chip" data-type="learning">科学与学习</button><button class="chip" data-type="community">社区活动</button></div>
+          <div class="chips" id="typeFilters" aria-label="活动类别"><button class="chip active" data-type="all" aria-pressed="true">全部</button><button class="chip" data-type="outdoor" aria-pressed="false">户外自然</button><button class="chip" data-type="arts" aria-pressed="false">艺术创作</button><button class="chip" data-type="learning" aria-pressed="false">科学与学习</button><button class="chip" data-type="community" aria-pressed="false">社区活动</button></div>
         </div>
         <div class="cards" id="eventGrid" aria-live="polite"></div>
         <div class="empty" id="emptyState" hidden><p id="emptyMessage"></p><button class="clear-filters" id="clearFilters" type="button">清除筛选</button></div>
       </section>
 
       <section class="newsletter wrap">
-        <div><p class="eyebrow">WEEKEND NOTES</p><h2>每周四，把周末灵感送到你手上。</h2><p>一封轻松的邮件，装下适合全家的南湾好去处。</p></div>
-        <div class="newsletter-unavailable" aria-live="polite"><p>邮件订阅正在准备中，暂不收集邮箱。</p><button type="button" disabled>即将上线</button></div>
+        <div><p class="eyebrow">WEEKEND NOTES</p><h2>周末精选正在筹备中。</h2><p>未来会用一封轻松的邮件，装下适合全家的南湾好去处。</p></div>
+        <div class="newsletter-unavailable" aria-live="polite"><p>目前暂不收集邮箱，准备好后会在这里公布。</p><button type="button" disabled>即将上线</button></div>
       </section>
 
       <section class="how wrap" id="how"><p class="eyebrow">ALWAYS FRESH</p><h2>不只是活动清单。</h2><div class="how-grid"><article><b>01</b><h3>工作日更新</h3><p>自动巡检官方日历；搜索兜底每周二、周四运行，不在周末查询。</p></article><article><b>02</b><h3>去重与整理</h3><p>合并重复活动，标注适合年龄、地点、花费与是否需要预约。</p></article><article><b>03</b><h3>为家庭而选</h3><p>优先呈现真正值得全家出门的活动；每条都保留原始来源链接。</p></article></div></section>

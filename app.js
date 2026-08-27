@@ -24,6 +24,16 @@ function localToday() {
   return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
 }
 
+function dateLabel(value) {
+  const match = String(value || '').match(/^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}))?/);
+  if (!match) return null;
+  const currentYear = localToday().slice(0, 4);
+  const weekday = new Intl.DateTimeFormat('zh-CN', { timeZone: 'UTC', weekday: 'short' })
+    .format(new Date(`${match[1]}-${match[2]}-${match[3]}T12:00:00Z`));
+  const prefix = match[1] === currentYear ? '' : `${match[1]}年`;
+  return `${prefix}${Number(match[2])}月${Number(match[3])}日（${weekday}）${match[4] ? ` ${match[4]}:${match[5]}` : ''}`;
+}
+
 function dateMatches(event, filter) {
   if (filter === 'all') return true;
   const date = dateKey(event.dateValue);
@@ -76,10 +86,14 @@ function render() {
     costFact.title = event.costSource || '主办方页面未注明费用';
     costFact.hidden = !event.costSource;
     node.querySelector('.card-facts').hidden = !event.ageSource && !event.costSource;
-    node.querySelector('.time').textContent = event.date === '请查看主办方时间' ? '请点击活动详情查看活动时间' : event.date;
+    node.querySelector('.time').textContent = dateLabel(event.dateValue) || (event.date === '请查看主办方时间' ? '请点击活动详情查看活动时间' : event.date);
     node.querySelector('.place').textContent = event.place;
     const link = node.querySelector('.source-link'); link.href = event.url; link.firstChild.textContent = event.source ? `查看 ${event.source} 详情 ` : '查看活动详情 ';
-    const heart = node.querySelector('.heart'); heart.dataset.id = event.id; heart.classList.toggle('saved', state.saved.includes(event.id)); heart.textContent = state.saved.includes(event.id) ? '♥' : '♡';
+    const heart = node.querySelector('.heart');
+    const isSaved = state.saved.includes(event.id);
+    heart.dataset.id = event.id; heart.classList.toggle('saved', isSaved); heart.textContent = isSaved ? '♥' : '♡';
+    heart.setAttribute('aria-pressed', String(isSaved));
+    heart.setAttribute('aria-label', isSaved ? `取消收藏：${event.title}` : `收藏：${event.title}`);
     grid.append(node);
   });
   document.querySelector('#emptyState').hidden = visible.length !== 0;
@@ -90,15 +104,25 @@ function render() {
   document.querySelector('#clearFilters').hidden = !hasActiveFilters;
   document.querySelector('#resultCount').textContent = state.onlySaved ? `已收藏 ${visible.length} 个活动` : `发现 ${visible.length} 个活动`;
   document.querySelector('#savedCount').textContent = state.saved.length;
+  const savedButton = document.querySelector('#savedButton');
+  savedButton.setAttribute('aria-pressed', String(state.onlySaved));
+  savedButton.setAttribute('aria-label', state.onlySaved ? '显示全部活动' : '只查看收藏活动');
 }
-document.querySelector('#typeFilters').addEventListener('click', e => { if (!e.target.matches('.chip')) return; document.querySelectorAll('.chip').forEach(c => c.classList.remove('active')); e.target.classList.add('active'); state.type = e.target.dataset.type; render(); });
+function setActiveType(type) {
+  document.querySelectorAll('.chip').forEach(chip => {
+    const active = chip.dataset.type === type;
+    chip.classList.toggle('active', active);
+    chip.setAttribute('aria-pressed', String(active));
+  });
+}
+document.querySelector('#typeFilters').addEventListener('click', e => { if (!e.target.matches('.chip')) return; state.type = e.target.dataset.type; setActiveType(state.type); render(); });
 document.querySelector('#ageFilter').addEventListener('change', e => { state.age = e.target.value; render(); });
 document.querySelector('#dateFilter').addEventListener('change', e => { state.date = e.target.value; render(); });
 document.querySelector('#clearFilters').addEventListener('click', () => {
   state.type = 'all'; state.age = 'all'; state.date = 'all'; state.onlySaved = false;
   document.querySelector('#ageFilter').value = 'all';
   document.querySelector('#dateFilter').value = 'all';
-  document.querySelectorAll('.chip').forEach(chip => chip.classList.toggle('active', chip.dataset.type === 'all'));
+  setActiveType('all');
   document.querySelector('#savedButton').classList.remove('active');
   render();
 });
