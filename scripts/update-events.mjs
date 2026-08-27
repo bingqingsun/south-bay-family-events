@@ -25,8 +25,11 @@ async function search(query) {
   const url = new URL('https://serpapi.com/search.json');
   url.search = new URLSearchParams({ engine: 'google_events', q: query, api_key: key, hl: 'en', gl: 'us' });
   const response = await fetch(url);
-  if (!response.ok) throw new Error(`Search failed: ${response.status}`);
-  return (await response.json()).events_results || [];
+  const payload = await response.json();
+  if (!response.ok || payload.error) {
+    throw new Error(`Search failed: ${response.status}${payload.error ? ` — ${payload.error}` : ''}`);
+  }
+  return payload.events_results || [];
 }
 
 const target = new URL('../data/events.json', import.meta.url);
