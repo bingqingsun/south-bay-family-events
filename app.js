@@ -74,7 +74,6 @@ function render() {
     imageArea.classList.add('has-image');
     node.querySelector('.event-icon').textContent = event.icon;
     node.querySelector('.tag').textContent = event.tag;
-    node.querySelector('.card-meta').textContent = event.source ? (event.verification === 'rss' ? '官方 RSS 日历 · 日期来自主办方' : event.verification === 'calendar' ? '官方活动日历 · 日期来自主办方' : '官方页面自动核验 · 日期来自主办方') : '官方页面自动核验 · 日期来自主办方';
     node.querySelector('h3').textContent = event.title;
     node.querySelector('.description').textContent = event.description;
     const ageFact = node.querySelector('.fact-age');
@@ -115,16 +114,29 @@ function setActiveType(type) {
     chip.setAttribute('aria-pressed', String(active));
   });
 }
+function syncDatePriority() {
+  document.querySelector('.date-priority').classList.toggle('is-active', state.date !== 'all');
+}
+function resetFilters({ date = 'all' } = {}) {
+  state.type = 'all'; state.age = 'all'; state.date = date; state.onlySaved = false;
+  document.querySelector('#ageFilter').value = 'all';
+  document.querySelector('#dateFilter').value = date;
+  setActiveType('all');
+  syncDatePriority();
+  document.querySelector('#savedButton').classList.remove('active');
+}
 document.querySelector('#typeFilters').addEventListener('click', e => { if (!e.target.matches('.chip')) return; state.type = e.target.dataset.type; setActiveType(state.type); render(); });
 document.querySelector('#ageFilter').addEventListener('change', e => { state.age = e.target.value; render(); });
-document.querySelector('#dateFilter').addEventListener('change', e => { state.date = e.target.value; render(); });
+document.querySelector('#dateFilter').addEventListener('change', e => { state.date = e.target.value; syncDatePriority(); render(); });
 document.querySelector('#clearFilters').addEventListener('click', () => {
-  state.type = 'all'; state.age = 'all'; state.date = 'all'; state.onlySaved = false;
-  document.querySelector('#ageFilter').value = 'all';
-  document.querySelector('#dateFilter').value = 'all';
-  setActiveType('all');
-  document.querySelector('#savedButton').classList.remove('active');
+  resetFilters();
   render();
+});
+document.querySelector('#weekendCta').addEventListener('click', event => {
+  event.preventDefault();
+  resetFilters({ date: 'weekend' });
+  render();
+  document.querySelector('#events').scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 grid.addEventListener('click', e => { const button = e.target.closest('.heart'); if (!button) return; const id = button.dataset.id; state.saved = state.saved.includes(id) ? state.saved.filter(item => item !== id) : [...state.saved, id]; localStorage.setItem('southBaySaved', JSON.stringify(state.saved)); render(); });
 document.querySelector('#savedButton').addEventListener('click', () => { state.onlySaved = !state.onlySaved; document.querySelector('#savedButton').classList.toggle('active', state.onlySaved); render(); });
