@@ -4,9 +4,8 @@
     "title": "1:1 Tech Mentor Appointment",
     "date": "8月27日",
     "dateValue": "2026-08-27",
-    "age": "all",
-    "ages": [
-      "all"
+    "ageBands": [
+      "family"
     ],
     "type": "learning",
     "icon": "🔭",
@@ -24,8 +23,7 @@
     "title": "\"Voices from WAR\" Exploring Human Experiences in War Exhibit",
     "date": "8月27日",
     "dateValue": "2026-08-27",
-    "age": "middle",
-    "ages": [
+    "ageBands": [
       "middle",
       "high"
     ],
@@ -45,8 +43,7 @@
     "title": "3D Printing On Demand",
     "date": "8月27日",
     "dateValue": "2026-08-27",
-    "age": "high",
-    "ages": [
+    "ageBands": [
       "high"
     ],
     "type": "arts",
@@ -65,12 +62,10 @@
     "title": "I SPY: Back to School Scavenger Hunt",
     "date": "8月27日",
     "dateValue": "2026-08-27",
-    "age": "k5",
-    "ages": [
-      "k5",
+    "ageBands": [
       "middle",
       "high",
-      "all"
+      "family"
     ],
     "type": "community",
     "icon": "✨",
@@ -88,8 +83,7 @@
     "title": "Bay Area Comics and Comix Exhibition",
     "date": "8月27日",
     "dateValue": "2026-08-27",
-    "age": "high",
-    "ages": [
+    "ageBands": [
       "high"
     ],
     "type": "community",
@@ -108,8 +102,7 @@
     "title": "Community Puzzle Swap",
     "date": "8月27日",
     "dateValue": "2026-08-27",
-    "age": "middle",
-    "ages": [
+    "ageBands": [
       "middle",
       "high"
     ],
@@ -129,9 +122,7 @@
     "title": "Make a Wish for Tanabata/Star Festival!",
     "date": "8月27日",
     "dateValue": "2026-08-27",
-    "age": "k5",
-    "ages": [
-      "k5",
+    "ageBands": [
       "middle",
       "high"
     ],
@@ -147,33 +138,12 @@
     "url": "https://sjpl.bibliocommons.com/events/6a5280b9dee4ff5300c90428"
   },
   {
-    "id": "rss-6a20a9d7caf93436006077f4",
-    "title": "*In Person* Interview & Networking Skills Workshop",
-    "date": "8月27日 12:00",
-    "dateValue": "2026-08-27T12:00",
-    "age": "high",
-    "ages": [
-      "high"
-    ],
-    "type": "community",
-    "icon": "✨",
-    "color": "#ffe9a8",
-    "tag": "社区活动",
-    "verification": "rss",
-    "description": "About this Event: In this dual focused workshop a SJPL Works Business Librarian help you learn interview and networking skills.",
-    "image": "https://sjpl.bibliocommons.com/events/uploads/images/full/091ebc59c4a87f0b60bf996507e8f7d7/people%20to0gether.png",
-    "place": "San José Public Library",
-    "source": "San José Public Library",
-    "url": "https://sjpl.bibliocommons.com/events/6a20a9d7caf93436006077f4"
-  },
-  {
     "id": "rss-6a21e0423afbb4961bdc1b8f",
     "title": "Seven Trees Overfelt Adult Education ESL Class",
     "date": "8月27日 12:30",
     "dateValue": "2026-08-27T12:30",
-    "age": "all",
-    "ages": [
-      "all"
+    "ageBands": [
+      "family"
     ],
     "type": "learning",
     "icon": "🔭",
@@ -191,9 +161,8 @@
     "title": "ESL Class for beginners (Level 0-1) / Clase de inglés para principiantes (Nivel 0-1)",
     "date": "8月27日 13:00",
     "dateValue": "2026-08-27T13:00",
-    "age": "all",
-    "ages": [
-      "all"
+    "ageBands": [
+      "family"
     ],
     "type": "learning",
     "icon": "🔭",
@@ -211,8 +180,7 @@
     "title": "Knitting and Crochet Weekly Meetup / Tejido y crochet",
     "date": "8月27日 13:00",
     "dateValue": "2026-08-27T13:00",
-    "age": "high",
-    "ages": [
+    "ageBands": [
       "high"
     ],
     "type": "arts",
@@ -231,8 +199,7 @@
     "title": "ESL Conversation Club",
     "date": "8月27日 13:30",
     "dateValue": "2026-08-27T13:30",
-    "age": "high",
-    "ages": [
+    "ageBands": [
       "high"
     ],
     "type": "learning",
@@ -251,8 +218,7 @@
     "title": "Whispers Through the Trees",
     "date": "8月27日 14:00",
     "dateValue": "2026-08-27T14:00",
-    "age": "middle",
-    "ages": [
+    "ageBands": [
       "middle",
       "high"
     ],
@@ -272,8 +238,7 @@
     "title": "Learn to Code with Swift Playground",
     "date": "8月27日 15:15",
     "dateValue": "2026-08-27T15:15",
-    "age": "middle",
-    "ages": [
+    "ageBands": [
       "middle",
       "high"
     ],
@@ -293,10 +258,8 @@
     "title": "Summer Movie for Kids",
     "date": "8月27日 15:30",
     "dateValue": "2026-08-27T15:30",
-    "age": "k5",
-    "ages": [
-      "k5",
-      "all"
+    "ageBands": [
+      "family"
     ],
     "type": "community",
     "icon": "✨",
@@ -314,10 +277,9 @@
     "title": "Preschool Storytime",
     "date": "8月27日 15:30",
     "dateValue": "2026-08-27T15:30",
-    "age": "k5",
-    "ages": [
-      "k5",
-      "all"
+    "ageBands": [
+      "3-5",
+      "family"
     ],
     "type": "learning",
     "icon": "🔭",
@@ -335,10 +297,7 @@
     "title": "Reading Buddies",
     "date": "8月27日 16:00",
     "dateValue": "2026-08-27T16:00",
-    "age": "k5",
-    "ages": [
-      "k5"
-    ],
+    "ageBands": [],
     "type": "community",
     "icon": "✨",
     "color": "#ffe9a8",
@@ -355,10 +314,7 @@
     "title": "Reading To Children at the Willow Glen Library",
     "date": "8月27日 16:00",
     "dateValue": "2026-08-27T16:00",
-    "age": "k5",
-    "ages": [
-      "k5"
-    ],
+    "ageBands": [],
     "type": "learning",
     "icon": "🔭",
     "color": "#dce7fa",
@@ -371,12 +327,47 @@
     "url": "https://sjpl.bibliocommons.com/events/693c85b58b29ea2800c3f82e"
   },
   {
+    "id": "rss-6a4bcf2d4407827f8aa9a6c1",
+    "title": "LEGO® Fun",
+    "date": "8月27日 16:00",
+    "dateValue": "2026-08-27T16:00",
+    "ageBands": [
+      "family"
+    ],
+    "type": "community",
+    "icon": "✨",
+    "color": "#ffe9a8",
+    "tag": "社区活动",
+    "verification": "rss",
+    "description": "Join us at Tully library every Tuesday for LEGO® fun.",
+    "image": "https://sjpl.bibliocommons.com/events/uploads/images/full/0667e6d8f8036dd38715cfb8f644ba3c/th-2112806826.jpg",
+    "place": "San José Public Library",
+    "source": "San José Public Library",
+    "url": "https://sjpl.bibliocommons.com/events/6a4bcf2d4407827f8aa9a6c1"
+  },
+  {
+    "id": "rss-6a1df8980c0f2c4503fc09a4",
+    "title": "Messy Play: Erupting Volcanoes",
+    "date": "8月27日 16:00",
+    "dateValue": "2026-08-27T16:00",
+    "ageBands": [],
+    "type": "community",
+    "icon": "✨",
+    "color": "#ffe9a8",
+    "tag": "社区活动",
+    "verification": "rss",
+    "description": "Children will get to build and erupt their own playdough volcanoes!",
+    "image": "https://sjpl.bibliocommons.com/events/uploads/images/full/658e26c504ef2580a1d1790460132fa8/messyplay2.jpg",
+    "place": "San José Public Library",
+    "source": "San José Public Library",
+    "url": "https://sjpl.bibliocommons.com/events/6a1df8980c0f2c4503fc09a4"
+  },
+  {
     "id": "rss-693b4639ddf5632800207364",
     "title": "Teen Dungeons and Dragons Social Club",
     "date": "8月27日 16:30",
     "dateValue": "2026-08-27T16:30",
-    "age": "high",
-    "ages": [
+    "ageBands": [
       "high"
     ],
     "type": "community",
@@ -395,8 +386,7 @@
     "title": "The Peaceful Poets",
     "date": "8月27日 17:30",
     "dateValue": "2026-08-27T17:30",
-    "age": "high",
-    "ages": [
+    "ageBands": [
       "high"
     ],
     "type": "arts",
@@ -415,9 +405,8 @@
     "title": "Preschool Storytime for Ages 3-5",
     "date": "8月27日 18:30",
     "dateValue": "2026-08-27T18:30",
-    "age": "k5",
-    "ages": [
-      "k5"
+    "ageBands": [
+      "3-5"
     ],
     "type": "learning",
     "icon": "🔭",
@@ -435,11 +424,10 @@
     "title": "Bike Repair / Reparación de Bicicletas",
     "date": "8月28日 10:00",
     "dateValue": "2026-08-28T10:00",
-    "age": "k5",
-    "ages": [
-      "k5",
+    "ageBands": [
+      "3-5",
       "high",
-      "all"
+      "family"
     ],
     "type": "arts",
     "icon": "🎨",
@@ -457,9 +445,8 @@
     "title": "Tiny Tot Jamboree",
     "date": "8月28日 10:30",
     "dateValue": "2026-08-28T10:30",
-    "age": "k5",
-    "ages": [
-      "k5"
+    "ageBands": [
+      "0-2"
     ],
     "type": "learning",
     "icon": "🔭",
@@ -477,9 +464,8 @@
     "title": "Stay and Play Cafe for Ages 0-5",
     "date": "8月28日 11:00",
     "dateValue": "2026-08-28T11:00",
-    "age": "k5",
-    "ages": [
-      "k5"
+    "ageBands": [
+      "0-2"
     ],
     "type": "learning",
     "icon": "🔭",
@@ -497,9 +483,8 @@
     "title": "Itty Bitty Jamboree",
     "date": "8月28日 12:00",
     "dateValue": "2026-08-28T12:00",
-    "age": "k5",
-    "ages": [
-      "k5"
+    "ageBands": [
+      "0-2"
     ],
     "type": "learning",
     "icon": "🔭",
@@ -517,8 +502,9 @@
     "title": "External Event: Flamingo Chick Storytime",
     "date": "8月28日 14:00",
     "dateValue": "2026-08-28T14:00",
-    "age": "k5",
-    "ages": [
+    "ageBands": [
+      "0-2",
+      "3-5",
       "k5"
     ],
     "type": "community",
@@ -537,9 +523,7 @@
     "title": "Knit & Crochet Circle at Milpitas Library",
     "date": "8月28日 14:00",
     "dateValue": "2026-08-28T14:00",
-    "age": "k5",
-    "ages": [
-      "k5",
+    "ageBands": [
       "high"
     ],
     "type": "arts",
@@ -558,8 +542,9 @@
     "title": "LEGO Fridays!",
     "date": "8月28日 16:00",
     "dateValue": "2026-08-28T16:00",
-    "age": "k5",
-    "ages": [
+    "ageBands": [
+      "0-2",
+      "3-5",
       "k5"
     ],
     "type": "community",
@@ -578,9 +563,8 @@
     "title": "Sensory Playtime",
     "date": "8月28日 16:00",
     "dateValue": "2026-08-28T16:00",
-    "age": "k5",
-    "ages": [
-      "k5"
+    "ageBands": [
+      "3-5"
     ],
     "type": "learning",
     "icon": "🔭",
@@ -598,8 +582,7 @@
     "title": "Safe Space meeting for LGBTQ+ youth ages 13-25",
     "date": "8月28日 16:00",
     "dateValue": "2026-08-28T16:00",
-    "age": "high",
-    "ages": [
+    "ageBands": [
       "high"
     ],
     "type": "community",
@@ -618,8 +601,7 @@
     "title": "Meditation with Sara",
     "date": "8月29日 10:15",
     "dateValue": "2026-08-29T10:15",
-    "age": "high",
-    "ages": [
+    "ageBands": [
       "high"
     ],
     "type": "learning",
@@ -638,8 +620,9 @@
     "title": "Chill Out with Mindfulness Meditation",
     "date": "8月29日 11:00",
     "dateValue": "2026-08-29T11:00",
-    "age": "k5",
-    "ages": [
+    "ageBands": [
+      "0-2",
+      "3-5",
       "k5",
       "middle",
       "high"
@@ -660,8 +643,7 @@
     "title": "Mindfulness Meditation",
     "date": "8月29日 13:00",
     "dateValue": "2026-08-29T13:00",
-    "age": "high",
-    "ages": [
+    "ageBands": [
       "high"
     ],
     "type": "learning",
@@ -680,8 +662,7 @@
     "title": "STEAM Lab Saturday: Build a Popsicle Tower!",
     "date": "8月29日 15:30",
     "dateValue": "2026-08-29T15:30",
-    "age": "k5",
-    "ages": [
+    "ageBands": [
       "k5"
     ],
     "type": "learning",
@@ -700,8 +681,7 @@
     "title": "Photography Meetup",
     "date": "8月30日 10:00",
     "dateValue": "2026-08-30T10:00",
-    "age": "high",
-    "ages": [
+    "ageBands": [
       "high"
     ],
     "type": "community",
@@ -720,8 +700,7 @@
     "title": "Tai Chi with Nelson Ng",
     "date": "8月30日 10:00",
     "dateValue": "2026-08-30T10:00",
-    "age": "k5",
-    "ages": [
+    "ageBands": [
       "k5",
       "high"
     ],
@@ -741,8 +720,9 @@
     "title": "Family Storytime",
     "date": "9月1日 10:30",
     "dateValue": "2026-09-01T10:30",
-    "age": "k5",
-    "ages": [
+    "ageBands": [
+      "0-2",
+      "3-5",
       "k5"
     ],
     "type": "community",
@@ -761,8 +741,9 @@
     "title": "LEGO Tuesdays!",
     "date": "9月1日 16:00",
     "dateValue": "2026-09-01T16:00",
-    "age": "k5",
-    "ages": [
+    "ageBands": [
+      "0-2",
+      "3-5",
       "k5",
       "middle"
     ],
@@ -782,8 +763,7 @@
     "title": "Mindfulness Meditation (Online)",
     "date": "9月1日 19:00",
     "dateValue": "2026-09-01T19:00",
-    "age": "high",
-    "ages": [
+    "ageBands": [
       "high"
     ],
     "type": "learning",
@@ -802,9 +782,8 @@
     "title": "Little Ones Storytime",
     "date": "9月2日 10:30",
     "dateValue": "2026-09-02T10:30",
-    "age": "k5",
-    "ages": [
-      "k5"
+    "ageBands": [
+      "0-2"
     ],
     "type": "community",
     "icon": "✨",
@@ -822,8 +801,7 @@
     "title": "Year of Letters: Celebrate Connection Through Greeting Cards",
     "date": "9月2日 16:30",
     "dateValue": "2026-09-02T16:30",
-    "age": "k5",
-    "ages": [
+    "ageBands": [
       "k5",
       "high"
     ],
@@ -843,8 +821,9 @@
     "title": "Music & Movement",
     "date": "9月2日 18:30",
     "dateValue": "2026-09-02T18:30",
-    "age": "k5",
-    "ages": [
+    "ageBands": [
+      "0-2",
+      "3-5",
       "k5"
     ],
     "type": "arts",
@@ -863,10 +842,8 @@
     "title": "Second Saturday (September)",
     "date": "9月12日 10:00",
     "dateValue": "2026-09-12T10:00:00",
-    "age": "k5",
-    "ages": [
-      "k5",
-      "all"
+    "ageBands": [
+      "family"
     ],
     "type": "community",
     "icon": "✨",
@@ -884,10 +861,8 @@
     "title": "Parent & Me Yoga",
     "date": "9月19日 09:00",
     "dateValue": "2026-09-19T09:00:00",
-    "age": "k5",
-    "ages": [
-      "k5",
-      "all"
+    "ageBands": [
+      "family"
     ],
     "type": "community",
     "icon": "✨",
@@ -905,10 +880,8 @@
     "title": "Second Saturday (October)",
     "date": "10月10日 10:00",
     "dateValue": "2026-10-10T10:00:00",
-    "age": "k5",
-    "ages": [
-      "k5",
-      "all"
+    "ageBands": [
+      "family"
     ],
     "type": "community",
     "icon": "✨",
@@ -926,10 +899,8 @@
     "title": "Halloween Magic",
     "date": "10月24日 10:30",
     "dateValue": "2026-10-24T10:30:00",
-    "age": "k5",
-    "ages": [
-      "k5",
-      "all"
+    "ageBands": [
+      "family"
     ],
     "type": "community",
     "icon": "✨",
@@ -947,10 +918,8 @@
     "title": "Halloween Tea",
     "date": "10月24日 15:00",
     "dateValue": "2026-10-24T15:00:00",
-    "age": "k5",
-    "ages": [
-      "k5",
-      "all"
+    "ageBands": [
+      "family"
     ],
     "type": "community",
     "icon": "✨",
@@ -968,10 +937,8 @@
     "title": "Family Fun with Flowers",
     "date": "10月31日 09:30",
     "dateValue": "2026-10-31T09:30:00",
-    "age": "k5",
-    "ages": [
-      "k5",
-      "all"
+    "ageBands": [
+      "family"
     ],
     "type": "community",
     "icon": "✨",
@@ -989,10 +956,8 @@
     "title": "Worm Composting Workshop",
     "date": "11月7日 10:00",
     "dateValue": "2026-11-07T10:00:00",
-    "age": "k5",
-    "ages": [
-      "k5",
-      "all"
+    "ageBands": [
+      "family"
     ],
     "type": "community",
     "icon": "✨",
@@ -1010,10 +975,8 @@
     "title": "Second Saturday (November)",
     "date": "11月14日 10:00",
     "dateValue": "2026-11-14T10:00:00",
-    "age": "k5",
-    "ages": [
-      "k5",
-      "all"
+    "ageBands": [
+      "family"
     ],
     "type": "community",
     "icon": "✨",

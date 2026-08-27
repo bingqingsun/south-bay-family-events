@@ -110,13 +110,20 @@ function officialImageUrl(item) {
   return url ? url.replace(/^http:/i, 'https:') : '';
 }
 
-function agesFor(categories) {
-  const ages = new Set();
-  if (/young children|kids|children|school age/.test(categories)) ages.add('k5');
-  if (/pre-teens|pre teens|tweens|middle school/.test(categories)) ages.add('middle');
-  if (/teens/.test(categories)) ages.add('high');
-  if (!ages.size || /family|all ages/.test(categories)) ages.add('all');
-  return [...ages];
+// Keep audience labels deliberately conservative. A generic "kids" category
+// does not prove a grade range, and "family" does not prove that every age is
+// suitable. The original publisher categories remain the source of truth.
+function ageBandsFor(categories) {
+  const text = String(categories || '').toLowerCase();
+  const bands = new Set();
+  if (/bab(?:y|ies)|infant|toddler|18\s*(?:months?|mos?)/.test(text)) bands.add('0-2');
+  if (/pre[ -]?school(?:er|ers)?|ages?\s*3\s*(?:-|–|to)\s*5/.test(text)) bands.add('3-5');
+  if (/elementary|school[ -]?age|kids?\s*\(\s*6\s*(?:-|–|to)\s*11\s*\)|ages?\s*6\s*(?:-|–|to)\s*11/.test(text)) bands.add('k5');
+  if (/pre[ -]?teens?|tweens?|middle[ -]?school|ages?\s*11\s*(?:-|–|to)\s*13/.test(text)) bands.add('middle');
+  if (/teens?|high[ -]?school|ages?\s*14\s*(?:-|–|to)\s*18/.test(text)) bands.add('high');
+  if (/all ages/.test(text)) bands.add('all-ages');
+  if (/family/.test(text)) bands.add('family');
+  return [...bands];
 }
 
 async function readRss(source) {
@@ -132,10 +139,10 @@ async function readRss(source) {
     const familyAudience = /young children|kids|children|teens|family|all ages|school age/.test(categories);
     if (!title || !link || !isUpcoming(startDate) || !familyAudience || xmlText(item, 'is_cancelled') === 'true') return [];
     const type = typeFor(title + ' ' + categories);
-    const ages = agesFor(categories);
+    const ageBands = ageBandsFor(categories);
     const eventId = (xmlText(item, 'guid') || link).split('/').filter(Boolean).pop() || String(index);
     return [{
-      id: 'rss-' + eventId, title, date: displayEventDate(startDate), dateValue: startDate, age: ages[0], ages,
+      id: 'rss-' + eventId, title, date: displayEventDate(startDate), dateValue: startDate, ageBands,
       type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'rss',
       description: cardSummary(xmlText(item, 'description')) || '请查看主办方页面了解活动详情与报名要求。',
       image: officialImageUrl(item),
@@ -154,9 +161,9 @@ async function readTribe(source) {
     const categories = (item.categories || []).map(category => decodeXml(category.name || '')).join(' ').toLowerCase();
     if (!title || !item.url || !isUpcoming(startDate)) return [];
     const type = typeFor(title + ' ' + categories);
-    const ages = agesFor(`family kids ${categories}`);
+    const ageBands = ageBandsFor(`family ${categories}`);
     return [{
-      id: 'calendar-' + (item.id || index), title, date: displayEventDate(startDate), dateValue: startDate, age: ages[0], ages,
+      id: 'calendar-' + (item.id || index), title, date: displayEventDate(startDate), dateValue: startDate, ageBands,
       type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'calendar',
       description: cardSummary(item.description || item.excerpt || '') || '请查看主办方页面了解活动详情与报名要求。',
       image: item.image?.url || '', place: item.venue?.venue || source.name, source: source.name, url: item.url
@@ -231,7 +238,7 @@ const candidates = await Promise.all(unique.slice(0, 18).map(async (item, index)
   const type = typeFor(source);
   return {
     id: `daily-${Date.now()}-${index}`, title: item.title, date: await displayTime(item),
-    dateValue: '', age: 'all', ages: ['all'], type, icon: icons[type], color: colors[type], tag: labels[type],
+    dateValue: '', ageBands: [], type, icon: icons[type], color: colors[type], tag: labels[type],
     description: cardSummary(item.snippet || item.description || '') || '请查看主办方页面了解活动详情与报名要求。',
     image: '',
     place: item.source || '南湾地区', url: item.link

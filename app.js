@@ -33,8 +33,12 @@ function dateMatches(event, filter) {
 
 function ageMatches(event, age) {
   if (age === 'all') return true;
-  const ages = event.ages || [event.age];
-  return ages.includes(age) || ages.includes('all');
+  const ageBands = event.ageBands || [];
+  if (age === 'family') return ageBands.includes('family') || ageBands.includes('all-ages');
+  // Only an explicit "all ages" label can satisfy every age-band filter.
+  // A generic family activity stays discoverable under “全家适合”, but is not
+  // silently treated as suitable for a particular child age.
+  return ageBands.includes(age) || ageBands.includes('all-ages');
 }
 
 function render() {
@@ -49,7 +53,7 @@ function render() {
     imageArea.classList.add('has-image');
     node.querySelector('.event-icon').textContent = event.icon;
     node.querySelector('.tag').textContent = event.tag;
-    node.querySelector('.card-meta').textContent = event.source ? (event.verification === 'rss' ? '官方 RSS 日历 · 日期来自主办方' : event.verification === 'calendar' ? '官方活动日历 · 日期来自主办方' : '官方页面自动核验 · 日期来自主办方') : (event.age === 'all' ? '适合全家' : `适合 ${event.age === 'k5' ? 'K–5' : event.age === 'middle' ? '6–8 年级' : '9–12 年级'}`);
+    node.querySelector('.card-meta').textContent = event.source ? (event.verification === 'rss' ? '官方 RSS 日历 · 日期来自主办方' : event.verification === 'calendar' ? '官方活动日历 · 日期来自主办方' : '官方页面自动核验 · 日期来自主办方') : '官方页面自动核验 · 日期来自主办方';
     node.querySelector('h3').textContent = event.title;
     node.querySelector('.description').textContent = event.description;
     node.querySelector('.time').textContent = event.date === '请查看主办方时间' ? '请点击活动详情查看活动时间' : event.date;
