@@ -10,7 +10,11 @@ function render() {
   grid.innerHTML = '';
   visible.forEach(event => {
     const node = template.content.cloneNode(true);
-    node.querySelector('.card-image').style.background = event.color;
+    const image = event.image || `assets/fallback/${event.type || 'community'}.png`;
+    const imageArea = node.querySelector('.card-image');
+    imageArea.style.backgroundColor = event.color;
+    imageArea.style.backgroundImage = `linear-gradient(0deg, rgba(18, 49, 42, .08), rgba(18, 49, 42, .08)), url(${JSON.stringify(image)})`;
+    imageArea.classList.add('has-image');
     node.querySelector('.event-icon').textContent = event.icon;
     node.querySelector('.tag').textContent = event.tag;
     node.querySelector('.card-meta').textContent = event.source ? (event.verification === 'rss' ? '官方 RSS 日历 · 日期来自主办方' : '官方页面自动核验 · 日期来自主办方') : (event.age === 'all' ? '适合全家' : `适合 ${event.age === 'k5' ? 'K–5' : event.age === 'middle' ? '6–8 年级' : '9–12 年级'}`);

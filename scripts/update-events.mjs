@@ -83,8 +83,30 @@ function xmlTexts(item, tag) {
     .map(match => decodeXml(match[1]).trim());
 }
 
+function xmlAttribute(item, tag, attribute) {
+  const field = '(?:[A-Za-z][\\w-]*:)?' + tag;
+  const element = item.match(new RegExp('<' + field + '\\b([^>]*)>', 'i'));
+  if (!element) return '';
+  const value = element[1].match(new RegExp('\\b' + attribute + '=["\\\']([^"\\\']*)["\\\']', 'i'));
+  return value ? decodeXml(value[1]).trim() : '';
+}
+
 function plainText(html) {
   return decodeXml(html).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+function cardSummary(html) {
+  const text = plainText(html).replace(/https?:\/\/\S+/g, '').trim();
+  const sentences = text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [];
+  const useful = sentences.map(sentence => sentence.trim()).find(sentence =>
+    sentence.length >= 24 && !/ada accommodation|for more information|registration (is )?required|please (call|email|visit)|click here/i.test(sentence)
+  ) || text;
+  return useful.length > 138 ? `${useful.slice(0, 135).trimEnd()}…` : useful;
+}
+
+function officialImageUrl(item) {
+  const url = xmlAttribute(item, 'enclosure', 'url');
+  return url ? url.replace(/^http:/i, 'https:') : '';
 }
 
 async function readRss(source) {
@@ -104,7 +126,8 @@ async function readRss(source) {
     return [{
       id: 'rss-' + eventId, title, date: displayEventDate(startDate), when: 'weekend', age: 'all',
       type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'rss',
-      description: plainText(xmlText(item, 'description')) || '请查看主办方页面了解活动详情与报名要求。',
+      description: cardSummary(xmlText(item, 'description')) || '请查看主办方页面了解活动详情与报名要求。',
+      image: officialImageUrl(item),
       place: source.name, source: source.name, url: link
     }];
   });
@@ -178,7 +201,8 @@ const candidates = await Promise.all(unique.slice(0, 18).map(async (item, index)
   return {
     id: `daily-${Date.now()}-${index}`, title: item.title, date: await displayTime(item),
     when: 'weekend', age: 'all', type, icon: icons[type], color: colors[type], tag: labels[type],
-    description: item.snippet || '请查看主办方页面了解活动详情与报名要求。',
+    description: cardSummary(item.snippet || item.description || '') || '请查看主办方页面了解活动详情与报名要求。',
+    image: '',
     place: item.source || '南湾地区', url: item.link
   };
 }));
