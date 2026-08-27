@@ -10,7 +10,7 @@ function renderUpdateTime() {
     return;
   }
   const display = new Intl.DateTimeFormat('zh-CN', {
-    timeZone: 'America/Los_Angeles', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false
+    timeZone: 'America/Los_Angeles', month: 'long', day: 'numeric'
   }).format(new Date(generatedAt));
   document.querySelector('#updateText').textContent = `最近更新：${display}（南湾时间）· 官方来源`;
 }
