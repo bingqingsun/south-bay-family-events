@@ -15,5 +15,10 @@
   { "name": "Computer History Museum", "domain": "computerhistory.org", "query": "events family" },
   { "name": "Cantor Arts Center", "domain": "museum.stanford.edu", "query": "events family" },
   { "name": "Happy Hollow Park & Zoo", "domain": "happyhollow.org", "query": "events family" },
-  { "name": "Gilroy Gardens", "domain": "gilroygardens.org", "query": "events family" }
+  { "name": "Gilroy Gardens", "domain": "gilroygardens.org", "query": "events family" },
+  { "name": "Foothill College", "domain": "foothill.edu", "query": "Physics Show Observatory public viewing family" },
+  { "name": "De Anza College Planetarium", "domain": "deanza.edu", "query": "Planetarium public shows family" },
+  { "name": "SLAC National Accelerator Laboratory", "domain": "slac.stanford.edu", "query": "STEM Community Day public tours family" },
+  { "name": "Stanford Events", "domain": "events.stanford.edu", "query": "kids family youth science events" },
+  { "name": "Gamble Garden", "domain": "gamblegarden.org", "query": "Family Kids events" }
 ]
