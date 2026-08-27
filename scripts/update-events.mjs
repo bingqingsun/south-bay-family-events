@@ -4,8 +4,10 @@
  * search engine so the job also works on plans without Google Events access.
  */
 import { readFile, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 
 const key = process.env.SERPAPI_KEY;
+const translationKey = process.env.GOOGLE_TRANSLATE_API_KEY;
 
 const typeFor = text => /hike|nature|park|outdoor|garden/i.test(text) ? 'outdoor'
   : /art|craft|paint|music|theater|museum/i.test(text) ? 'arts'
@@ -252,7 +254,7 @@ async function search(source) {
 
 const target = new URL('../data/events.json', import.meta.url);
 const browserTarget = new URL('../data/events.js', import.meta.url);
-await readFile(target, 'utf8'); // Ensure the published target exists before updating it.
+const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
 const directSources = sources.filter(source => ['rss', 'tribe'].includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
@@ -296,8 +298,66 @@ const events = [...new Map([...feedEvents, ...candidates.filter(event => event.d
 
 if (!events.length) throw new Error('No verified upcoming events; leaving the published list unchanged.');
 
+function translationFingerprint(event) {
+  return createHash('sha256').update(String(event.title || '') + '\n' + String(event.description || '')).digest('hex');
+}
+
+function needsChineseTranslation(text) {
+  const value = String(text || '').trim();
+  return /[A-Za-z]/.test(value) && !(/^[\u3400-\u9fff\s\p{P}\p{N}]+$/u.test(value));
+}
+
+async function translateToChinese(texts) {
+  const endpoint = 'https://translation.googleapis.com/language/translate/v2?key=' + encodeURIComponent(translationKey);
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ q: texts, source: 'en', target: 'zh-CN', format: 'text' }),
+    signal: AbortSignal.timeout(30000)
+  });
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok || !Array.isArray(payload.data?.translations)) {
+    throw new Error('Google Translation failed: ' + response.status + (payload.error?.message ? ' — ' + payload.error.message : ''));
+  }
+  return payload.data.translations.map(item => decodeXml(item.translatedText || '').trim());
+}
+
+async function addChineseTranslations(items) {
+  const existingByUrl = new Map(existingEvents.filter(event => event.url).map(event => [event.url.toLowerCase(), event]));
+  const missing = [];
+  for (const event of items) {
+    const prior = existingByUrl.get(event.url.toLowerCase());
+    const fingerprint = translationFingerprint(event);
+    const cached = prior?.translations?.zh;
+    if (cached?.fingerprint === fingerprint && cached.title && cached.description) {
+      event.translations = { zh: cached };
+    } else if (needsChineseTranslation(event.title) || needsChineseTranslation(event.description)) {
+      missing.push({ event, fingerprint });
+    } else {
+      event.translations = { zh: { title: event.title, description: event.description, fingerprint, translatedAt: generatedAt } };
+    }
+  }
+  if (!missing.length) return { cached: items.length, translated: 0 };
+  if (!translationKey) {
+    console.warn('Google translation is not configured; ' + missing.length + ' new or changed cards remain in the organizer original language.');
+    return { cached: items.length - missing.length, translated: 0 };
+  }
+  // Batch title and short card summary. Only new or changed content consumes quota.
+  const texts = missing.flatMap(({ event }) => [event.title, event.description]);
+  const translated = [];
+  for (let index = 0; index < texts.length; index += 80) {
+    translated.push(...await translateToChinese(texts.slice(index, index + 80)));
+  }
+  missing.forEach(({ event, fingerprint }, index) => {
+    event.translations = { zh: { title: translated[index * 2], description: translated[index * 2 + 1], fingerprint, translatedAt: generatedAt } };
+  });
+  return { cached: items.length - missing.length, translated: missing.length };
+}
+
+const translationStats = await addChineseTranslations(events);
+
 await writeFile(target, `${JSON.stringify(events, null, 2)}\n`);
 // A same-origin script works both on GitHub Pages and when the user opens the
 // local HTML file directly, where browsers often block fetch() of JSON files.
 await writeFile(browserTarget, `window.SOUTH_BAY_EVENTS = ${JSON.stringify(events)};\nwindow.SOUTH_BAY_EVENTS_META = ${JSON.stringify({ generatedAt })};\n`);
-console.log(`Published ${events.length} verified activities from ${directSources.length} official calendars and ${searchSources.length} fallback sources.`);
+console.log(`Published ${events.length} verified activities from ${directSources.length} official calendars and ${searchSources.length} fallback sources; ${translationStats.translated} translated and ${translationStats.cached} reused from cache.`);
