@@ -251,8 +251,9 @@
     "title": "Whispers Through the Trees",
     "date": "8月27日 14:00",
     "dateValue": "2026-08-27T14:00",
-    "age": "high",
+    "age": "middle",
     "ages": [
+      "middle",
       "high"
     ],
     "type": "arts",
@@ -620,6 +621,7 @@
     "age": "k5",
     "ages": [
       "k5",
+      "middle",
       "high"
     ],
     "type": "learning",
@@ -741,7 +743,8 @@
     "dateValue": "2026-09-01T16:00",
     "age": "k5",
     "ages": [
-      "k5"
+      "k5",
+      "middle"
     ],
     "type": "community",
     "icon": "✨",

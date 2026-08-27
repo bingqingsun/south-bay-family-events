@@ -112,7 +112,7 @@ function officialImageUrl(item) {
 function agesFor(categories) {
   const ages = new Set();
   if (/young children|kids|children|school age/.test(categories)) ages.add('k5');
-  if (/pre-teens|pre teens|middle school/.test(categories)) ages.add('middle');
+  if (/pre-teens|pre teens|tweens|middle school/.test(categories)) ages.add('middle');
   if (/teens/.test(categories)) ages.add('high');
   if (!ages.size || /family|all ages/.test(categories)) ages.add('all');
   return [...ages];
