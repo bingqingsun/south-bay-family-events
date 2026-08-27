@@ -2,8 +2,19 @@ let events = Array.isArray(window.SOUTH_BAY_EVENTS) ? window.SOUTH_BAY_EVENTS : 
 const state = { type: 'all', age: 'all', date: 'all', saved: JSON.parse(localStorage.getItem('southBaySaved') || '[]'), onlySaved: false };
 const grid = document.querySelector('#eventGrid');
 const template = document.querySelector('#cardTemplate');
-const today = new Intl.DateTimeFormat('zh-CN', { month: 'long', day: 'numeric' }).format(new Date());
-document.querySelector('#updateText').textContent = `${today} 已更新 · 来自官方活动来源`;
+
+function renderUpdateTime() {
+  const generatedAt = window.SOUTH_BAY_EVENTS_META?.generatedAt;
+  if (!generatedAt) {
+    document.querySelector('#updateText').textContent = '最近更新信息暂不可用 · 来自官方活动来源';
+    return;
+  }
+  const display = new Intl.DateTimeFormat('zh-CN', {
+    timeZone: 'America/Los_Angeles', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false
+  }).format(new Date(generatedAt));
+  document.querySelector('#updateText').textContent = `最近更新：${display}（南湾时间）· 官方来源`;
+}
+renderUpdateTime();
 
 function dateKey(value) {
   return String(value || '').match(/^\d{4}-\d{2}-\d{2}/)?.[0] || '';
@@ -72,12 +83,25 @@ function render() {
     grid.append(node);
   });
   document.querySelector('#emptyState').hidden = visible.length !== 0;
+  const hasActiveFilters = state.type !== 'all' || state.age !== 'all' || state.date !== 'all' || state.onlySaved;
+  document.querySelector('#emptyMessage').textContent = hasActiveFilters
+    ? '当前筛选条件下暂无活动。试试放宽日期、年龄或类别。'
+    : '暂时没有已核验的活动，请稍后再试。';
+  document.querySelector('#clearFilters').hidden = !hasActiveFilters;
   document.querySelector('#resultCount').textContent = state.onlySaved ? `已收藏 ${visible.length} 个活动` : `发现 ${visible.length} 个活动`;
   document.querySelector('#savedCount').textContent = state.saved.length;
 }
 document.querySelector('#typeFilters').addEventListener('click', e => { if (!e.target.matches('.chip')) return; document.querySelectorAll('.chip').forEach(c => c.classList.remove('active')); e.target.classList.add('active'); state.type = e.target.dataset.type; render(); });
 document.querySelector('#ageFilter').addEventListener('change', e => { state.age = e.target.value; render(); });
 document.querySelector('#dateFilter').addEventListener('change', e => { state.date = e.target.value; render(); });
+document.querySelector('#clearFilters').addEventListener('click', () => {
+  state.type = 'all'; state.age = 'all'; state.date = 'all'; state.onlySaved = false;
+  document.querySelector('#ageFilter').value = 'all';
+  document.querySelector('#dateFilter').value = 'all';
+  document.querySelectorAll('.chip').forEach(chip => chip.classList.toggle('active', chip.dataset.type === 'all'));
+  document.querySelector('#savedButton').classList.remove('active');
+  render();
+});
 grid.addEventListener('click', e => { const button = e.target.closest('.heart'); if (!button) return; const id = button.dataset.id; state.saved = state.saved.includes(id) ? state.saved.filter(item => item !== id) : [...state.saved, id]; localStorage.setItem('southBaySaved', JSON.stringify(state.saved)); render(); });
 document.querySelector('#savedButton').addEventListener('click', () => { state.onlySaved = !state.onlySaved; document.querySelector('#savedButton').classList.toggle('active', state.onlySaved); render(); });
 fetch('./data/events.json', { cache: 'no-store' })

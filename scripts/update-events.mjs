@@ -14,6 +14,7 @@ const labels = { outdoor: '户外自然', arts: '艺术创作', learning: '科�
 const icons = { outdoor: '🌿', arts: '🎨', learning: '🔭', community: '✨' };
 const colors = { outdoor: '#d8eee0', arts: '#ffd9bd', learning: '#dce7fa', community: '#ffe9a8' };
 const fallbackTime = '请点击活动详情查看活动时间';
+const generatedAt = new Date().toISOString();
 
 const months = { jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12 };
 
@@ -145,15 +146,21 @@ function ageInfo(categories) {
 function costInfo(cost, description = '') {
   const officialCost = plainText(cost).replace(/\s+/g, ' ').trim();
   const officialText = plainText(description).replace(/\s+/g, ' ').trim();
-  const classify = text => {
+  const classifyField = text => {
     if (!text) return null;
-    if (/suggested donation/i.test(text)) return '建议捐赠';
-    if (/\bfree\b|no cost|no charge|free admission/i.test(text)) return '免费';
-    if (/member.{0,35}(?:\$|\d)|(?:\$|\d).{0,35}member/i.test(text)) return '会员／非会员价格见详情';
-    if (/\$\s*\d|\b(?:usd|fee|admission|ticket price)\b/i.test(text)) return officialCost || '需购票／价格见详情';
+    if (/^(?:free|no cost|no charge|\$?0(?:\.00)?)$/i.test(text)) return '免费';
+    if (/^suggested donation/i.test(text)) return '建议捐赠';
+    if (/member/i.test(text) && /\$|\d|price|fee|admission/i.test(text)) return '会员／非会员价格见详情';
+    if (/\$\s*\d|\b(?:usd|fee|admission|ticket|price)\b/i.test(text)) return text;
     return null;
   };
-  const label = classify(officialCost) || classify(officialText) || '费用未注明';
+  const classifyDescription = text => {
+    if (/suggested donation/i.test(text)) return '建议捐赠';
+    if (/\b(?:free admission|free event|free program|free activity|free entry|free to attend|admission is free|registration is free|free (?:class|workshop|tour|screening|concert|performance|bicycle repair|repair service|drop-?in))\b/i.test(text)) return '免费';
+    if (/\b(?:tickets?|admission|registration|entry|fee|cost|price)\b[^.!?]{0,45}(?:\$\s*\d|purchase|required|available)/i.test(text)) return '需购票／价格见详情';
+    return null;
+  };
+  const label = classifyField(officialCost) || classifyDescription(officialText) || '费用未注明';
   return { costLabel: label, costSource: label === '费用未注明' ? '' : officialCost ? '官方费用字段' : '官方活动说明' };
 }
 
@@ -175,7 +182,7 @@ async function readRss(source) {
     const eventId = (xmlText(item, 'guid') || link).split('/').filter(Boolean).pop() || String(index);
     return [{
       id: 'rss-' + eventId, title, date: displayEventDate(startDate), dateValue: startDate, ...age, ...cost,
-      type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'rss', lastVerifiedAt: new Date().toISOString(),
+      type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'rss', lastVerifiedAt: generatedAt,
       description: cardSummary(xmlText(item, 'description')) || '请查看主办方页面了解活动详情与报名要求。',
       image: officialImageUrl(item),
       place: source.name, source: source.name, url: link
@@ -197,18 +204,18 @@ async function readTribe(source) {
     const cost = costInfo(item.cost, item.description || item.excerpt || '');
     return [{
       id: 'calendar-' + (item.id || index), title, date: displayEventDate(startDate), dateValue: startDate, ...age, ...cost,
-      type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'calendar', lastVerifiedAt: new Date().toISOString(),
+      type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'calendar', lastVerifiedAt: generatedAt,
       description: cardSummary(item.description || item.excerpt || '') || '请查看主办方页面了解活动详情与报名要求。',
       image: item.image?.url || '', place: item.venue?.venue || source.name, source: source.name, url: item.url
     }];
   });
 }
 
-async function displayTime(item) {
+async function officialStartDate(item) {
   // The card date must come from the same publisher page as the activity.
   try {
     const response = await fetch(item.link, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(8000) });
-    if (!response.ok) return fallbackTime;
+    if (!response.ok) return '';
     const html = await response.text();
     const blocks = [...html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)];
     for (const block of blocks) {
@@ -220,12 +227,11 @@ async function displayTime(item) {
           return isEvent && isSameEvent(item.title, node.name);
         });
         if (!isUpcoming(event?.startDate)) continue;
-        const date = displayEventDate(event?.startDate);
-        if (date) return date;
+        if (event?.startDate) return String(event.startDate);
       } catch { /* Ignore malformed metadata and try the next source. */ }
     }
   } catch { /* A source may block automated reads; link users to its details page. */ }
-  return fallbackTime;
+  return '';
 }
 
 async function search(source) {
@@ -269,10 +275,11 @@ const unique = [...new Map(raw.filter(item => item.title && item.link).map(item 
 const candidates = await Promise.all(unique.slice(0, 18).map(async (item, index) => {
   const source = `${item.title} ${item.snippet || item.description || ''}`;
   const type = typeFor(source);
+  const dateValue = await officialStartDate(item);
   return {
-    id: `daily-${Date.now()}-${index}`, title: item.title, date: await displayTime(item),
-    dateValue: '', ageBands: [], ageLabel: '年龄未注明', ageSource: '', costLabel: '费用未注明', costSource: '',
-    lastVerifiedAt: new Date().toISOString(), type, icon: icons[type], color: colors[type], tag: labels[type],
+    id: `daily-${Date.now()}-${index}`, title: item.title, date: displayEventDate(dateValue) || fallbackTime, dateValue,
+    ageBands: [], ageLabel: '年龄未注明', ageSource: '', costLabel: '费用未注明', costSource: '',
+    lastVerifiedAt: generatedAt, type, icon: icons[type], color: colors[type], tag: labels[type],
     description: cardSummary(item.snippet || item.description || '') || '请查看主办方页面了解活动详情与报名要求。',
     image: '',
     place: item.source || '南湾地区', url: item.link
@@ -287,5 +294,5 @@ const events = [...new Map([...feedEvents, ...candidates.filter(event => event.d
 await writeFile(target, `${JSON.stringify(events, null, 2)}\n`);
 // A same-origin script works both on GitHub Pages and when the user opens the
 // local HTML file directly, where browsers often block fetch() of JSON files.
-await writeFile(browserTarget, `window.SOUTH_BAY_EVENTS = ${JSON.stringify(events)};\n`);
+await writeFile(browserTarget, `window.SOUTH_BAY_EVENTS = ${JSON.stringify(events)};\nwindow.SOUTH_BAY_EVENTS_META = ${JSON.stringify({ generatedAt })};\n`);
 console.log(`Published ${events.length} verified activities from ${directSources.length} official calendars and ${searchSources.length} fallback sources.`);
