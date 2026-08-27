@@ -91,7 +91,7 @@ const raw = attempts.flatMap(result => result.status === 'fulfilled' ? result.va
 if (!raw.length) throw new Error('All event searches failed; leaving the published list unchanged.');
 const unique = [...new Map(raw.filter(item => item.title && item.link).map(item => [item.link.toLowerCase(), item])).values()];
 const events = await Promise.all(unique.slice(0, 18).map(async (item, index) => {
-  const source = `${item.title} ${item.description || ''}`;
+  const source = `${item.title} ${item.snippet || item.description || ''}`;
   const type = typeFor(source);
   return {
     id: `daily-${Date.now()}-${index}`, title: item.title, date: await displayTime(item),
