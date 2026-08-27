@@ -22,15 +22,22 @@ const icons = { outdoor: '🌿', arts: '🎨', learning: '🔭', community: '✨
 const colors = { outdoor: '#d8eee0', arts: '#ffd9bd', learning: '#dce7fa', community: '#ffe9a8' };
 const fallbackTime = '请点击活动详情查看活动时间';
 
-function formatEventDate(value) {
+const months = { jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12 };
+
+// Returns date + time when available, then date-only, never a guessed date.
+function displayEventDate(value) {
   if (!value) return null;
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return null;
-  const hasTime = /T\d{2}:\d{2}|\d{1,2}:\d{2}\s*(AM|PM)/i.test(value);
-  return new Intl.DateTimeFormat('zh-CN', {
-    timeZone: 'America/Los_Angeles', month: 'long', day: 'numeric', weekday: 'short',
-    ...(hasTime ? { hour: '2-digit', minute: '2-digit', hour12: false } : {})
-  }).format(date);
+  const text = String(value).replace(/\s+/g, ' ').trim();
+  const iso = text.match(/^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}))?/);
+  if (iso) return `${Number(iso[2])}月${Number(iso[3])}日${iso[4] ? ` ${iso[4]}:${iso[5]}` : ''}`;
+
+  const natural = text.match(/\b(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\.?\s+(\d{1,2})(?:,?\s+\d{4})?/i);
+  if (!natural) return null;
+  const month = months[natural[1].slice(0, 3).toLowerCase()];
+  const date = `${month}月${Number(natural[2])}日`;
+  const time = text.match(/(?:\bat\b|@|·)\s*(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.)?)/i)?.[1]
+    || text.match(/\b(\d{1,2}:\d{2})\b/)?.[1];
+  return `${date}${time ? ` ${time.toUpperCase().replace(/\./g, '')}` : ''}`;
 }
 
 function eventNodes(value) {
@@ -39,11 +46,11 @@ function eventNodes(value) {
   return [value, ...eventNodes(value['@graph'])];
 }
 
-async function verifiedTime(item) {
-  const direct = item.date?.start_date || item.date?.when || item.start_date;
-  if (direct) return formatEventDate(direct) || direct;
-  // Read Event schema only: it is publisher-provided structured metadata rather
-  // than a guess made from a search snippet.
+async function displayTime(item) {
+  const direct = [item.date?.start_date, item.date?.when, item.start_date, item.rich_snippet?.top?.detected_extensions?.date]
+    .map(displayEventDate).find(Boolean);
+  if (direct) return direct;
+  // Publisher-provided Event metadata is preferred over search-result snippets.
   try {
     const response = await fetch(item.link, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(8000) });
     if (!response.ok) return fallbackTime;
@@ -56,12 +63,12 @@ async function verifiedTime(item) {
           const type = node['@type'];
           return type === 'Event' || (Array.isArray(type) && type.includes('Event'));
         });
-        const date = formatEventDate(event?.startDate);
+        const date = displayEventDate(event?.startDate);
         if (date) return date;
       } catch { /* Ignore malformed metadata and try the next source. */ }
     }
   } catch { /* A source may block automated reads; link users to its details page. */ }
-  return fallbackTime;
+  return displayEventDate(item.snippet) || fallbackTime;
 }
 
 async function search(query) {
@@ -87,7 +94,7 @@ const events = await Promise.all(unique.slice(0, 18).map(async (item, index) => 
   const source = `${item.title} ${item.description || ''}`;
   const type = typeFor(source);
   return {
-    id: `daily-${Date.now()}-${index}`, title: item.title, date: await verifiedTime(item),
+    id: `daily-${Date.now()}-${index}`, title: item.title, date: await displayTime(item),
     when: 'weekend', age: 'all', type, icon: icons[type], color: colors[type], tag: labels[type],
     description: item.snippet || '请查看主办方页面了解活动详情与报名要求。',
     place: item.source || '南湾地区', url: item.link
