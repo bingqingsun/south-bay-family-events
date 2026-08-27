@@ -69,12 +69,17 @@ function decodeXml(value) {
 }
 
 function xmlText(item, tag) {
-  const match = item.match(new RegExp('<' + tag + '(?:\\s[^>]*)?>([\\s\\S]*?)<\\/' + tag + '>', 'i'));
+  // BiblioCommons puts event-specific fields in its `bc:` XML namespace.
+  // Accept either a plain RSS field (`title`) or a namespaced field
+  // (`bc:start_date_local`) while keeping the caller's field names simple.
+  const field = '(?:[A-Za-z][\\w-]*:)?' + tag;
+  const match = item.match(new RegExp('<' + field + '(?:\\s[^>]*)?>([\\s\\S]*?)<\\/' + field + '>', 'i'));
   return match ? decodeXml(match[1]).trim() : '';
 }
 
 function xmlTexts(item, tag) {
-  return [...item.matchAll(new RegExp('<' + tag + '(?:\\s[^>]*)?>([\\s\\S]*?)<\\/' + tag + '>', 'gi'))]
+  const field = '(?:[A-Za-z][\\w-]*:)?' + tag;
+  return [...item.matchAll(new RegExp('<' + field + '(?:\\s[^>]*)?>([\\s\\S]*?)<\\/' + field + '>', 'gi'))]
     .map(match => decodeXml(match[1]).trim());
 }
 
