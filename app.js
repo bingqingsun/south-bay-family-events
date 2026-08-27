@@ -25,7 +25,7 @@ function render() {
     node.querySelector('.card-meta').textContent = event.age === 'all' ? '适合全家' : `适合 ${event.age === 'k5' ? 'K–5' : event.age === 'middle' ? '6–8 年级' : '9–12 年级'}`;
     node.querySelector('h3').textContent = event.title;
     node.querySelector('.description').textContent = event.description;
-    node.querySelector('.time').textContent = event.date;
+    node.querySelector('.time').textContent = event.date === '请查看主办方时间' ? '请点击活动详情查看活动时间' : event.date;
     node.querySelector('.place').textContent = event.place;
     const link = node.querySelector('.source-link'); link.href = event.url;
     const heart = node.querySelector('.heart'); heart.dataset.id = event.id; heart.classList.toggle('saved', state.saved.includes(event.id)); heart.textContent = state.saved.includes(event.id) ? '♥' : '♡';
