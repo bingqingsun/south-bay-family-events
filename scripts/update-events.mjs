@@ -11,8 +11,7 @@ if (!key) throw new Error('SERPAPI_KEY is required to refresh events.');
 const queries = [
   'kids family events South Bay California this weekend',
   'children activities Palo Alto Mountain View San Jose this weekend',
-  'family events Santa Clara County this weekend',
-  'Foothill College Physics Show upcoming dates'
+  'family events Santa Clara County this weekend'
 ];
 
 const typeFor = text => /hike|nature|park|outdoor|garden/i.test(text) ? 'outdoor'
@@ -30,7 +29,13 @@ async function search(query) {
   return (await response.json()).events_results || [];
 }
 
-const raw = (await Promise.all(queries.map(search))).flat();
+const target = new URL('../data/events.json', import.meta.url);
+const currentEvents = JSON.parse(await readFile(target, 'utf8'));
+const attempts = await Promise.allSettled(queries.map(search));
+const failures = attempts.filter(result => result.status === 'rejected');
+failures.forEach(result => console.warn(`Skipping one search: ${result.reason.message}`));
+const raw = attempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
+if (!raw.length) throw new Error('All event searches failed; leaving the published list unchanged.');
 const unique = [...new Map(raw.filter(item => item.title && item.link).map(item => [`${item.title}|${item.date?.start_date || ''}`.toLowerCase(), item])).values()];
 const events = unique.slice(0, 18).map((item, index) => {
   const source = `${item.title} ${item.description || ''}`;
@@ -45,6 +50,7 @@ const events = unique.slice(0, 18).map((item, index) => {
 });
 
 if (events.length < 3) throw new Error('Too few event results; leaving the published list unchanged.');
-await readFile(new URL('../data/events.json', import.meta.url)); // ensure target exists before overwriting
-await writeFile(new URL('../data/events.json', import.meta.url), `${JSON.stringify(events, null, 2)}\n`);
-console.log(`Updated ${events.length} events.`);
+// Keep seasonally scheduled activities that are maintained from their official pages.
+const curated = currentEvents.filter(event => event.id === 'foothill-physics-show');
+await writeFile(target, `${JSON.stringify([...events, ...curated], null, 2)}\n`);
+console.log(`Updated ${events.length} searched activities and retained ${curated.length} curated activities.`);
