@@ -150,8 +150,9 @@ await readFile(target, 'utf8'); // Ensure the published target exists before upd
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
 const feedSources = sources.filter(source => source.method === 'rss' && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
-const searchSources = ['Tue', 'Thu'].includes(weekday) ? sources.filter(source => source.method !== 'rss') : [];
-if (searchSources.length && !key) throw new Error('SERPAPI_KEY is required for Tuesday and Thursday fallback searches.');
+const includeSerpapi = process.env.INCLUDE_SERPAPI === 'true' || ['Tue', 'Thu'].includes(weekday);
+const searchSources = includeSerpapi ? sources.filter(source => source.method !== 'rss') : [];
+if (searchSources.length && !key) throw new Error('SERPAPI_KEY is required when the fallback search is scheduled or manually enabled.');
 
 const feedAttempts = await Promise.allSettled(feedSources.map(readRss));
 const searchAttempts = await Promise.allSettled(searchSources.map(search));

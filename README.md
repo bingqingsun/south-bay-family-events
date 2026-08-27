@@ -10,6 +10,8 @@
 
 目前来源清单有 17 个机构，其中 3 个图书馆已接入官方 RSS 活动日历，每个工作日刷新且不消耗 SerpApi 额度。其余 14 个来源的 SerpApi 兜底搜索固定在每周二、周四执行，不在周末运行；约每月 112 次查询，适配 250 次免费额度。
 
+手动运行 Actions 时，SerpApi 兜底搜索默认关闭，只刷新免费 RSS；只有勾选 include_serpapi 后才会额外消耗约 14 次查询额度。
+
 - Santa Clara County Parks、Midpeninsula Regional Open Space District
 - Palo Alto / San José / Mountain View 图书馆
 - The Tech Interactive、San José Museum of Art、Children's Discovery Museum
