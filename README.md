@@ -6,6 +6,10 @@
 
 页面只从 `data/events.json` 读取已核验活动。每日更新脚本（`scripts/update-events.mjs`）会搜索 `data/sources.json` 中预先批准的官方南湾来源，且只发布活动标题与主办方页面 Event 数据匹配、并能读到开始日期的条目。不能验证的搜索结果不会发布。
 
+活动卡会注明“官方页面自动核验 · 日期来自主办方”。这表示系统确认链接属于已批准的主办方域名，且该活动的标题与该页面的结构化活动数据相符、开始日期仍在未来；它不表示人工确认过票务余量或临时取消状态。出发前仍应查看主办方详情页。
+
+目前来源清单有 16 个机构；每次刷新约消耗 16 次 SerpApi 查询额度。上线前应根据账户额度决定是否每天完整刷新，或改为分批刷新／直接对接各机构的公开日历 feed。
+
 - Santa Clara County Parks、Midpeninsula Regional Open Space District
 - Palo Alto / San José / Mountain View 图书馆
 - The Tech Interactive、San José Museum of Art、Children's Discovery Museum

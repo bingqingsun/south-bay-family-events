@@ -5,5 +5,15 @@
   { "name": "Midpeninsula Regional Open Space District", "domain": "openspace.org", "query": "events family" },
   { "name": "The Tech Interactive", "domain": "thetech.org", "query": "events family" },
   { "name": "City of Palo Alto", "domain": "paloalto.gov", "query": "events kids family" },
-  { "name": "City of San José", "domain": "sanjoseca.gov", "query": "events kids family" }
+  { "name": "Palo Alto Junior Museum & Zoo", "domain": "paloalto.gov", "query": "Junior Museum Zoo events family" },
+  { "name": "City of San José", "domain": "sanjoseca.gov", "query": "events kids family" },
+  { "name": "Santa Clara County Library District", "domain": "sccld.org", "query": "events kids family" },
+  { "name": "City of Sunnyvale", "domain": "sunnyvale.ca.gov", "query": "events kids family" },
+  { "name": "City of Mountain View", "domain": "mountainview.gov", "query": "events kids family" },
+  { "name": "City of Cupertino", "domain": "cupertino.gov", "query": "events kids family" },
+  { "name": "City of Santa Clara", "domain": "santaclaraca.gov", "query": "events kids family" },
+  { "name": "Computer History Museum", "domain": "computerhistory.org", "query": "events family" },
+  { "name": "Cantor Arts Center", "domain": "museum.stanford.edu", "query": "events family" },
+  { "name": "Happy Hollow Park & Zoo", "domain": "happyhollow.org", "query": "events family" },
+  { "name": "Gilroy Gardens", "domain": "gilroygardens.org", "query": "events family" }
 ]
