@@ -56,6 +56,14 @@ function render() {
     node.querySelector('.card-meta').textContent = event.source ? (event.verification === 'rss' ? '官方 RSS 日历 · 日期来自主办方' : event.verification === 'calendar' ? '官方活动日历 · 日期来自主办方' : '官方页面自动核验 · 日期来自主办方') : '官方页面自动核验 · 日期来自主办方';
     node.querySelector('h3').textContent = event.title;
     node.querySelector('.description').textContent = event.description;
+    const ageFact = node.querySelector('.fact-age');
+    ageFact.textContent = `适合：${event.ageLabel || '年龄未注明'}`;
+    ageFact.title = event.ageSource || '主办方页面未注明年龄';
+    ageFact.classList.toggle('is-unknown', !event.ageSource);
+    const costFact = node.querySelector('.fact-cost');
+    costFact.textContent = `费用：${event.costLabel || '费用未注明'}`;
+    costFact.title = event.costSource || '主办方页面未注明费用';
+    costFact.classList.toggle('is-unknown', !event.costSource);
     node.querySelector('.time').textContent = event.date === '请查看主办方时间' ? '请点击活动详情查看活动时间' : event.date;
     node.querySelector('.place').textContent = event.place;
     const link = node.querySelector('.source-link'); link.href = event.url; link.firstChild.textContent = event.source ? `查看 ${event.source} 详情 ` : '查看活动详情 ';

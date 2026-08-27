@@ -126,6 +126,37 @@ function ageBandsFor(categories) {
   return [...bands];
 }
 
+const ageLabels = {
+  '0-2': '0–2 岁', '3-5': '3–5 岁', k5: 'K–5', middle: '6–8 年级',
+  high: '9–12 年级', 'all-ages': '所有年龄', family: '全家适合'
+};
+const ageOrder = ['0-2', '3-5', 'k5', 'middle', 'high', 'all-ages', 'family'];
+
+function ageInfo(categories) {
+  const ageBands = ageBandsFor(categories);
+  const ordered = ageOrder.filter(band => ageBands.includes(band));
+  return {
+    ageBands: ordered,
+    ageLabel: ordered.length ? ordered.map(band => ageLabels[band]).join(' · ') : '年龄未注明',
+    ageSource: ordered.length ? '官方受众分类' : ''
+  };
+}
+
+function costInfo(cost, description = '') {
+  const officialCost = plainText(cost).replace(/\s+/g, ' ').trim();
+  const officialText = plainText(description).replace(/\s+/g, ' ').trim();
+  const classify = text => {
+    if (!text) return null;
+    if (/suggested donation/i.test(text)) return '建议捐赠';
+    if (/\bfree\b|no cost|no charge|free admission/i.test(text)) return '免费';
+    if (/member.{0,35}(?:\$|\d)|(?:\$|\d).{0,35}member/i.test(text)) return '会员／非会员价格见详情';
+    if (/\$\s*\d|\b(?:usd|fee|admission|ticket price)\b/i.test(text)) return officialCost || '需购票／价格见详情';
+    return null;
+  };
+  const label = classify(officialCost) || classify(officialText) || '费用未注明';
+  return { costLabel: label, costSource: label === '费用未注明' ? '' : officialCost ? '官方费用字段' : '官方活动说明' };
+}
+
 async function readRss(source) {
   const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
   const xml = await response.text();
@@ -139,11 +170,12 @@ async function readRss(source) {
     const familyAudience = /young children|kids|children|teens|family|all ages|school age/.test(categories);
     if (!title || !link || !isUpcoming(startDate) || !familyAudience || xmlText(item, 'is_cancelled') === 'true') return [];
     const type = typeFor(title + ' ' + categories);
-    const ageBands = ageBandsFor(categories);
+    const age = ageInfo(categories);
+    const cost = costInfo(xmlText(item, 'cost'), xmlText(item, 'description'));
     const eventId = (xmlText(item, 'guid') || link).split('/').filter(Boolean).pop() || String(index);
     return [{
-      id: 'rss-' + eventId, title, date: displayEventDate(startDate), dateValue: startDate, ageBands,
-      type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'rss',
+      id: 'rss-' + eventId, title, date: displayEventDate(startDate), dateValue: startDate, ...age, ...cost,
+      type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'rss', lastVerifiedAt: new Date().toISOString(),
       description: cardSummary(xmlText(item, 'description')) || '请查看主办方页面了解活动详情与报名要求。',
       image: officialImageUrl(item),
       place: source.name, source: source.name, url: link
@@ -161,10 +193,11 @@ async function readTribe(source) {
     const categories = (item.categories || []).map(category => decodeXml(category.name || '')).join(' ').toLowerCase();
     if (!title || !item.url || !isUpcoming(startDate)) return [];
     const type = typeFor(title + ' ' + categories);
-    const ageBands = ageBandsFor(`family ${categories}`);
+    const age = ageInfo(`family ${categories}`);
+    const cost = costInfo(item.cost, item.description || item.excerpt || '');
     return [{
-      id: 'calendar-' + (item.id || index), title, date: displayEventDate(startDate), dateValue: startDate, ageBands,
-      type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'calendar',
+      id: 'calendar-' + (item.id || index), title, date: displayEventDate(startDate), dateValue: startDate, ...age, ...cost,
+      type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'calendar', lastVerifiedAt: new Date().toISOString(),
       description: cardSummary(item.description || item.excerpt || '') || '请查看主办方页面了解活动详情与报名要求。',
       image: item.image?.url || '', place: item.venue?.venue || source.name, source: source.name, url: item.url
     }];
@@ -238,7 +271,8 @@ const candidates = await Promise.all(unique.slice(0, 18).map(async (item, index)
   const type = typeFor(source);
   return {
     id: `daily-${Date.now()}-${index}`, title: item.title, date: await displayTime(item),
-    dateValue: '', ageBands: [], type, icon: icons[type], color: colors[type], tag: labels[type],
+    dateValue: '', ageBands: [], ageLabel: '年龄未注明', ageSource: '', costLabel: '费用未注明', costSource: '',
+    lastVerifiedAt: new Date().toISOString(), type, icon: icons[type], color: colors[type], tag: labels[type],
     description: cardSummary(item.snippet || item.description || '') || '请查看主办方页面了解活动详情与报名要求。',
     image: '',
     place: item.source || '南湾地区', url: item.link
