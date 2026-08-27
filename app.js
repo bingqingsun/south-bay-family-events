@@ -59,11 +59,13 @@ function render() {
     const ageFact = node.querySelector('.fact-age');
     ageFact.textContent = `适合：${event.ageLabel || '年龄未注明'}`;
     ageFact.title = event.ageSource || '主办方页面未注明年龄';
-    ageFact.classList.toggle('is-unknown', !event.ageSource);
+    ageFact.hidden = !event.ageSource;
     const costFact = node.querySelector('.fact-cost');
     costFact.textContent = `费用：${event.costLabel || '费用未注明'}`;
     costFact.title = event.costSource || '主办方页面未注明费用';
-    costFact.classList.toggle('is-unknown', !event.costSource);
+    costFact.hidden = !event.costSource;
+    node.querySelector('.card-facts').hidden = !event.ageSource && !event.costSource;
+    node.querySelector('.cost-note').hidden = !event.costSource;
     node.querySelector('.time').textContent = event.date === '请查看主办方时间' ? '请点击活动详情查看活动时间' : event.date;
     node.querySelector('.place').textContent = event.place;
     const link = node.querySelector('.source-link'); link.href = event.url; link.firstChild.textContent = event.source ? `查看 ${event.source} 详情 ` : '查看活动详情 ';
