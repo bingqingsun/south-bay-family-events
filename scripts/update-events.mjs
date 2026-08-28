@@ -584,12 +584,37 @@ searchSources.forEach(source => {
 });
 // Do not publish unverified directory pages or search snippets. A card must
 // carry a direct search date or publisher-provided Event startDate.
-const events = [...new Map([...feedEvents, ...candidates]
+const individualEvents = [...new Map([...feedEvents, ...candidates]
   .map(event => [event.url.toLowerCase(), event])).values()]
   // A card must explain what the activity is. We do not replace missing
   // organizer copy with generic prompts or publish logistics-only text.
   .filter(event => hasActivitySummary(event.description))
   .sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
+
+function seriesKey(event) {
+  // Deliberately conservative: different themes, venues, audience rules, or
+  // pricing stay as separate cards even when a host reuses the same title.
+  return [event.source, event.title, event.description, event.place, event.address, event.city, event.type,
+    (event.ageBands || []).join(','), event.costLabel, event.costSource].join('\u001f');
+}
+
+function groupRepeatedSessions(items) {
+  const groups = new Map();
+  items.forEach(event => { const key = seriesKey(event); (groups.get(key) || groups.set(key, []).get(key)).push(event); });
+  return [...groups.entries()].flatMap(([key, group]) => {
+    const ordered = group.sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
+    if (ordered.length === 1) return ordered;
+    const first = ordered[0];
+    return [{
+      ...first,
+      id: 'series-' + createHash('sha256').update(key).digest('hex').slice(0, 16),
+      legacyIds: ordered.map(event => event.id),
+      sessions: ordered.map(event => ({ id: event.id, date: event.date, dateValue: event.dateValue, url: event.url }))
+    }];
+  }).sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
+}
+
+const events = groupRepeatedSessions(individualEvents);
 
 if (!events.length) throw new Error('No verified upcoming events; leaving the published list unchanged.');
 
