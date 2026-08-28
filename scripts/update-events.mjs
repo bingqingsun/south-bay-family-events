@@ -136,7 +136,9 @@ function cardSummary(html) {
     return result;
   };
   const useful = candidates.sort((a, b) => score(b) - score(a)).find(hasActivitySummary) || '';
-  return useful.length > 138 ? `${useful.slice(0, 135).trimEnd()}…` : useful;
+  // Keep enough of the organizer-derived summary for the in-card “expand”
+  // control. The collapsed card remains short through CSS line clamping.
+  return useful.length > 320 ? `${useful.slice(0, 317).trimEnd()}…` : useful;
 }
 
 function officialImageUrl(item) {
