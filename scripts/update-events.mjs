@@ -109,7 +109,8 @@ function plainText(html) {
 
 function isLogisticsOnly(text) {
   return /^(?:free|by appointment|call(?:\s|\.|$)|contact\b|same day|offered in|registration|reserve\b|tickets?\b|admission\b|please\b|drop-?ins?\b|no registration|must\b|participants?\b)/i.test(text)
-    || /ada accommodation|for more information|please (?:call|email|visit)|click here|all minors under|parent\/guardian approval|release of liability|difficulty rating|terms & conditions|reserves the right to cancel/i.test(text);
+    || /^(?:designs?|prints?|library staff|color|file format|materials?)\b.*\b(?:must|are|will|may|if|criteria|available)\b/i.test(text)
+    || /ada accommodation|for more information|please (?:call|email|visit)|click here|all minors under|parent\/guardian approval|release of liability|difficulty rating|terms & conditions|reserves the right to (?:cancel|refuse)|printable if|load and save|file format/i.test(text);
 }
 
 function hasActivitySummary(text) {
@@ -119,6 +120,12 @@ function hasActivitySummary(text) {
 
 function cardSummary(html) {
   const text = plainText(html).replace(/https?:\/\/\S+/g, '').trim();
+  // Some official pages lead with a question and then bury the activity in
+  // printer requirements. Preserve the actual service in a short, faithful
+  // summary rather than exposing a technical or safety-rule fragment.
+  if (/\b3d printer\b/i.test(text) && /\bthingiverse\b/i.test(text) && /\b(?:choose a design|provide (?:their|your) own design)\b/i.test(text)) {
+    return 'Submit a design to print on the library’s 3D printer—choose from Thingiverse or provide your own.';
+  }
   const sentences = text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [];
   const listItems = [...String(html || '').matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)].map(match => plainText(match[1])).filter(Boolean);
   const listText = listItems.slice(0, 5).map(item => {
@@ -140,7 +147,8 @@ function cardSummary(html) {
     // organizer page, but do not explain what the activity itself is.
     if (/\b(?:we will also|also host|these dates|every (?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)|on (?:mondays|tuesdays|wednesdays|thursdays|fridays|saturdays|sundays))\b|\b(?:january|february|march|april|may|june|july|august|september|october|november|december)\b[^.!?]{0,100}\b(?:january|february|march|april|may|june|july|august|september|october|november|december)\b/i.test(value)) result -= 18;
     if (/^[\W_–—-]{3,}|[¡¿]/.test(candidate)) result -= 12;
-    if (/\b(?:arrive early|first-come|space is limited|we do not offer|not available|not permitted|must not|limit to|do not trade|not (?:accepted|allowed)|requirements?)\b/i.test(value)) result -= 16;
+    if (/\b(?:arrive early|first-come|space is limited|we do not offer|not available|not permitted|must not|limit to|do not trade|not (?:accepted|allowed)|requirements?|no weapons?|personal use only|lawful purposes?|copyright|patent|trademark|liability)\b/i.test(value)) result -= 16;
+    if (/\b(?:printable if|load and save|file format|filament availability|staff have the right|reserve the right to refuse|technical specifications?)\b/i.test(value)) result -= 18;
     if (/\b(?:will be offering|offers?|provides?|join us for|come (?:to|and)|enjoy|take part|explore)\b/i.test(value)) result += 5;
     if (/\b(?:learn|explore|discover|create|build|make|play|story|song|meditat\w*|yoga|computer|tech|science|stem|hike|nature|art|music|read|watch|design|help|practice|harvest|taste|garden|repair|volunteer|cook|craft|exercise|football|dance|robot|marsh|slug|berry|puzzle|print|knit|crochet)\b/.test(value)) result += 8;
     if (/would you like|do you love|do you have what it takes/.test(value)) result -= 3;
