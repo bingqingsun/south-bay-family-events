@@ -120,7 +120,9 @@ function officialImageUrl(item) {
 // city. Postal codes and state are intentionally omitted for this South Bay
 // product, where a short, scannable address is more useful on a card.
 function shortAddress(street, city) {
-  const cleanStreet = plainText(street);
+  // The card adds its own comma before the city. Remove a trailing period
+  // from source abbreviations (for example, "Ave., San Jose" → "Ave, San Jose").
+  const cleanStreet = plainText(street).replace(/[.,;:]$/, '');
   const cleanCity = plainText(city);
   return cleanStreet && cleanCity ? `${cleanStreet}, ${cleanCity}` : '';
 }
