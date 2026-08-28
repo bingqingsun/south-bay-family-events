@@ -392,6 +392,7 @@ function conciseOfficialMeetingPoint(value) {
   text = (text.match(/^[\s\S]*?[.!?](?:\s|$)/)?.[0] || text).trim();
   return text
     .replace(/^For this activity at [^,]+,\s*/i, '')
+    .replace(/^Meet at\s+/i, '')
     .replace(/^The\s+/i, '')
     .replace(/\s+at the lower portion of the preserve\s+is located on\s+/i, ' · ')
     .replace(/\s+is located on\s+/i, ' · ')
