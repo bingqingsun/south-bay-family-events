@@ -116,6 +116,7 @@ function plainText(html) {
 
 function isLogisticsOnly(text) {
   return /^(?:free|by appointment|call(?:\s|\.|$)|contact\b|same day|offered in|registration|reserve\b|tickets?\b|admission\b|please\b|drop-?ins?\b|no registration|must\b|participants?\b)/i.test(text)
+    || /^(?:children|kids?|adults?|teens?|famil(?:y|ies)|participants?)\b[\s\S]{0,120}\b(?:welcome|must|should|need|able to|can comfortably|may participate)\b/i.test(text)
     || /^(?:designs?|prints?|library staff|color|file format|materials?)\b.*\b(?:must|are|will|may|if|criteria|available)\b/i.test(text)
     || /ada accommodation|for more information|please (?:call|email|visit)|click here|all minors under|parent\/guardian approval|release of liability|difficulty rating|terms & conditions|reserves the right to (?:cancel|refuse)|printable if|load and save|file format/i.test(text);
 }
@@ -135,6 +136,9 @@ function cardSummary(html, title = '') {
   }
   if (/\b(?:DIY|hazlo)\b/i.test(title) && /decor(?:a|ar) velas con servilletas/i.test(text)) {
     return 'Hands-on adult DIY activity focused on decorating candles with napkins.';
+  }
+  if (/^giving thanks$/i.test(title) && /Native Californians/i.test(text)) {
+    return 'A moderately paced docent-led hike exploring how Native Californians have cared for local land and plants.';
   }
   const sentences = (text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || []).map(sentence => sentence
     .replace(/^(?:[a-z]+,?\s+)?[a-z]+\s+\d{1,2}\s*[-:–—]\s*/i, '')
@@ -164,6 +168,9 @@ function cardSummary(html, title = '') {
     if (/\b(?:is|are)\s+\d+\s+minutes?\b|\bfollowed by\s+(?:stay|free|open)\b|\buntil\s+\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?)?\b/i.test(value)) result -= 16;
     if (/\b(?:will be offering|offers?|provides?|join us for|come (?:to|and)|enjoy|take part|explore)\b/i.test(value)) result += 5;
     if (/\b(?:stories|storytime|rhymes?|fingerplays?|songs?|toddlers?|babies|children|kids?|hands-on|crafts?|games?)\b/i.test(value)) result += 7;
+    // Eligibility or fitness requirements can mention children and hiking,
+    // but they do not tell a parent what the activity actually is.
+    if (isLogisticsOnly(candidate)) result -= 18;
     if (/\b(?:learn|explore|discover|create|build|make|play|story|song|meditat\w*|yoga|computer|tech|science|stem|hike|nature|art|music|read|watch|design|help|practice|harvest|taste|garden|repair|volunteer|cook|craft|exercise|football|dance|robot|marsh|slug|berry|puzzle|print|knit|crochet)\b/.test(value)) result += 8;
     if (/would you like|do you love|do you have what it takes/.test(value)) result -= 3;
     return result;
@@ -430,7 +437,7 @@ function officialMeetupLocation(html, pageUrl) {
   };
 }
 
-async function midpenPageDetails(url) {
+async function midpenPageDetails(url, title = '') {
   try {
     const response = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
     const html = await response.text();
@@ -442,7 +449,7 @@ async function midpenPageDetails(url) {
     // above our generated fallback image.
     const image = officialPageImage(html, url, /<section[^>]+\bid=(?:["']block-guidedactivityfallbackheroimage["']|block-guidedactivityfallbackheroimage)[^>]*>([\s\S]*?)<\/section>/i)
       || officialPageImage(html, url, /<div class=["']event-page__image["']>([\s\S]*?)<\/div>/i);
-    return { description: cardSummary(description), image, ...officialMeetupLocation(html, url) };
+    return { description: cardSummary(description, title), image, ...officialMeetupLocation(html, url) };
   } catch {
     return { description: '', image: '', meetingPoint: '', mapUrl: '' };
   }
@@ -492,7 +499,7 @@ async function readMidpen(source) {
       place: preserve, url: new URL(href, source.feedUrl).href }];
   });
   return Promise.all(seeds.map(async seed => {
-    const details = await midpenPageDetails(seed.url);
+    const details = await midpenPageDetails(seed.url, seed.title);
     const event = directEvent({ ...seed, ...details, source: source.name, ageText: 'family' });
     event.ageSource = '官方 Family-Friendly 分类';
     return event;
