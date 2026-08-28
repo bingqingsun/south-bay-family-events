@@ -301,6 +301,59 @@ async function readTheTech(source) {
   });
 }
 
+async function readMidpen(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const html = await response.text();
+  if (!response.ok || !/activity-search-date/i.test(html)) throw new Error('Midpen family calendar was not valid: ' + response.status);
+  return [...html.matchAll(/<tr>([\s\S]*?)<\/tr>/gi)].flatMap(match => {
+    const row = match[1];
+    const href = htmlAttribute(row, /views-field-title[\s\S]*?<a[^>]+href=["']([^"']+)["']/i);
+    const titleHtml = row.match(/views-field-title[\s\S]*?<a[^>]*>([\s\S]*?)<\/a>/i)?.[1];
+    const dateText = htmlAttribute(row, /activity-search-date[^>]*>([\s\S]*?)<\/div>/i);
+    const timeText = htmlAttribute(row, /activity-search-time[^>]*>([\s\S]*?)<\/div>/i);
+    const preserve = htmlAttribute(row, /views-field-field-preserve-term-1[^>]*>([\s\S]*?)<\/td>/i) || source.name;
+    const title = plainText(titleHtml);
+    const dateValue = isoDateFromOfficialText(plainText(dateText), plainText(timeText));
+    if (!title || !href || !isUpcoming(dateValue)) return [];
+    const event = directEvent({
+      id: 'midpen-' + createHash('sha256').update(href).digest('hex').slice(0, 16),
+      title, dateValue, description: 'Midpen 官方标记为 Family-Friendly 的自然活动。请查看主办方页面确认难度、预约与参与要求。',
+      place: preserve, source: source.name, url: new URL(href, source.feedUrl).href, ageText: 'family'
+    });
+    event.ageSource = '官方 Family-Friendly 分类';
+    return [event];
+  });
+}
+
+async function readStanford(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const payload = await response.json();
+  if (!response.ok || !Array.isArray(payload.events)) throw new Error('Stanford official event API was not valid: ' + response.status);
+  // “Everyone” in Stanford's calendar includes adult lectures. We only accept
+  // entries with an explicit youth/family signal in the organizer's own copy.
+  const youthSignal = /family day|family-friendly|families welcome|for families|family program|family event|family workshop|family activit(?:y|ies)|\b(?:kids?|children|teens?|tweens?)\b|youth (?:program|workshop|activit(?:y|ies)|camp)|for youth|K[-– ]?12|elementary|middle school|high school|school[- ]age|girl scout|summer camp|homeschool/i;
+  return payload.events.flatMap(wrapper => {
+    const item = wrapper.event || wrapper;
+    const instance = item.event_instances?.[0]?.event_instance;
+    const dateValue = String(instance?.start || '');
+    const title = decodeXml(item.title || '').trim();
+    const description = item.description_text || item.description || '';
+    const audiences = (item.filters?.event_audience || []).map(value => value.name || '').join(' ');
+    const departments = (item.departments || []).map(value => value.name || '').join(' ');
+    const tags = [...(item.tags || []), ...(item.keywords || [])].join(' ');
+    const audienceText = [title, description, audiences, departments, tags].join(' ');
+    const url = item.localist_url || item.url;
+    if (!title || !url || !isUpcoming(dateValue) || item.private || item.status !== 'live' || /\bcancel+ed\b/i.test(title) || !youthSignal.test(audienceText)) return [];
+    const event = directEvent({
+      id: 'stanford-' + createHash('sha256').update(String(item.id || url)).digest('hex').slice(0, 16),
+      title, dateValue, description, image: item.photo_url || '',
+      place: item.location_name || item.location || 'Stanford University',
+      source: source.name, url, ageText: audienceText
+    });
+    return [{ ...event, ...costInfo(item.ticket_cost || '', description) }];
+  });
+}
+
 async function officialStartDate(item) {
   // The card date must come from the same publisher page as the activity.
   try {
@@ -346,7 +399,7 @@ const target = new URL('../data/events.json', import.meta.url);
 const browserTarget = new URL('../data/events.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directSources = sources.filter(source => ['rss', 'tribe', 'thetech', 'foothill'].includes(source.method) && source.feedUrl);
+const directSources = sources.filter(source => ['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford'].includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
 // Tuesday/Thursday fallback. A manually dispatched `false` explicitly disables
@@ -354,13 +407,15 @@ const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: '
 const serpapiInput = process.env.INCLUDE_SERPAPI;
 const includeSerpapi = serpapiInput === 'true'
   || (serpapiInput !== 'false' && ['Tue', 'Thu'].includes(weekday));
-const searchSources = includeSerpapi ? sources.filter(source => !['rss', 'tribe', 'thetech', 'foothill'].includes(source.method)) : [];
+const searchSources = includeSerpapi ? sources.filter(source => !['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford'].includes(source.method)) : [];
 if (searchSources.length && !key) throw new Error('SERPAPI_KEY is required when the fallback search is scheduled or manually enabled.');
 
 const feedAttempts = await Promise.allSettled(directSources.map(source => {
   if (source.method === 'tribe') return readTribe(source);
   if (source.method === 'thetech') return readTheTech(source);
   if (source.method === 'foothill') return readFoothill(source);
+  if (source.method === 'midpen') return readMidpen(source);
+  if (source.method === 'stanford') return readStanford(source);
   return readRss(source);
 }));
 const searchAttempts = await Promise.allSettled(searchSources.map(search));

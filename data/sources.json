@@ -2,7 +2,7 @@
   { "name": "Palo Alto City Library", "domain": "library.cityofpaloalto.org", "method": "rss", "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/paloalto/rss/events" },
   { "name": "San José Public Library", "domain": "sjpl.org", "method": "rss", "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/sjpl/rss/events" },
   { "name": "Santa Clara County Parks", "domain": "parks.santaclaracounty.gov", "query": "events family" },
-  { "name": "Midpeninsula Regional Open Space District", "domain": "openspace.org", "query": "events family" },
+  { "name": "Midpeninsula Regional Open Space District", "domain": "openspace.org", "method": "midpen", "feedUrl": "https://www.openspace.org/get-involved/events-activities?f%5B0%5D=rating%3A146" },
   { "name": "The Tech Interactive", "domain": "thetech.org", "method": "thetech", "feedUrl": "https://www.thetech.org/explore/upcoming-events" },
   { "name": "City of Palo Alto", "domain": "paloalto.gov", "query": "events kids family" },
   { "name": "Palo Alto Junior Museum & Zoo", "domain": "paloalto.gov", "query": "Junior Museum Zoo events family" },
@@ -19,6 +19,6 @@
   { "name": "Foothill College", "domain": "foothill.edu", "method": "foothill", "feedUrl": "https://foothill.edu/" },
   { "name": "De Anza College Planetarium", "domain": "deanza.edu", "query": "Planetarium public shows family" },
   { "name": "SLAC National Accelerator Laboratory", "domain": "slac.stanford.edu", "query": "STEM Community Day public tours family" },
-  { "name": "Stanford Events", "domain": "events.stanford.edu", "query": "kids family youth science events" },
+  { "name": "Stanford Events", "domain": "events.stanford.edu", "method": "stanford", "feedUrl": "https://events.stanford.edu/api/2/events?pp=100&days=120" },
   { "name": "Gamble Garden", "domain": "gamblegarden.org", "method": "tribe", "feedUrl": "https://www.gamblegarden.org/wp-json/tribe/events/v1/events?per_page=50&categories=kids" }
 ]

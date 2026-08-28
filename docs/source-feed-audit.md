@@ -2,7 +2,7 @@
 
 审计日期：2026-08-27  
 审计范围：网站当前配置的 22 个来源。
-实现状态更新：The Tech Interactive 与 Foothill College 已于本轮改为直接读取官方活动页面，不再消耗 SerpApi 额度。
+实现状态更新：The Tech Interactive、Foothill College、Midpen 与 Stanford Events 已改为直接读取官方活动页面/API，不再消耗 SerpApi 额度。
 
 ## 判定标准
 
@@ -14,7 +14,7 @@
 
 “有活动页面”不等于“已经自动接入”；“可加入日历”也不等于“有全量可订阅日历”。
 
-## 已接入：6 个（不消耗搜索额度）
+## 已接入：8 个（不消耗搜索额度）
 
 | 来源 | 类型 | 已验证的入口 | 当前处理 |
 | --- | --- | --- | --- |
@@ -24,13 +24,15 @@
 | Gamble Garden | 官方活动 API | `https://www.gamblegarden.org/wp-json/tribe/events/v1/events?per_page=50&categories=kids` | 已读取官方 Family & Kids 日历 API；有准确开始日期与活动页。 |
 | The Tech Interactive | 官方网页日历 | `https://www.thetech.org/explore/upcoming-events` | 直接读取官方活动卡片的日期、地点、摘要、图片与链接；排除会员专属和非亲子/学习活动。 |
 | Foothill College | 官方网页活动区 | `https://foothill.edu/` | 直接读取官方首页活动区；目前已收录 Physics Show 的明确场次，排除校园关闭等非亲子条目。 |
+| Midpeninsula Regional Open Space District | 官方网页日历 | `https://www.openspace.org/get-involved/events-activities?f%5B0%5D=rating%3A146` | 直接读取官方 Family-Friendly 筛选日历，保留官方日期、时间、地点与详情链接。 |
+| Stanford Events | 官方 Localist API | `https://events.stanford.edu/api/2/events` | 直接读取官方 API；只发布明确出现儿童/青少年/家庭活动信号且未取消的公开活动。 |
 
 ## 逐个审计：其余来源与本轮转为直接接入的来源
 
 | # | 来源 | 审计结果 | 可靠入口／证据 | 当前结论与下一步 |
 | --- | --- | --- | --- | --- |
 | 1 | Santa Clara County Parks | 官方网页日历 | [活动日历](https://parks.santaclaracounty.gov/events/)列出自然教育、导览和亲子活动。 | 官方内容很适合；自动访问曾被站点限制。本轮未发现公开批量 feed，保留搜索兜底，后续仅在获得稳定公开读取方式后做网页接入。 |
-| 2 | Midpeninsula Regional Open Space District | 官方网页日历 | [Events & Activities Calendar](https://www.openspace.org/calendar)；机构说明每年有 300+ 场导览等活动。 | 很有价值，尤其自然教育／青少年活动；未找到可验证的全量 RSS/ICS/API。 |
+| 2 | Midpeninsula Regional Open Space District | **已直接接入：官方网页解析** | [Family-Friendly Events & Activities](https://www.openspace.org/get-involved/events-activities?f%5B0%5D=rating%3A146)。 | 已读取官方 Family-Friendly 筛选结果；不使用 SerpApi。 |
 | 3 | The Tech Interactive | **已直接接入：官方网页解析** | [Upcoming Events](https://www.thetech.org/explore/upcoming-events)含具体日期、图片及 STEM/家庭项目。 | 已读取官方活动卡片并以官方日期、链接发布；不使用 SerpApi。 |
 | 4 | City of Palo Alto | 官方网页日历 | [City Calendar](https://www.paloalto.gov/Home/Calendar)含 Community / City Sponsored Events。 | 有真实亲子条目；未发现全量 feed。市图书馆已由单独 RSS 覆盖，避免重复发布。 |
 | 5 | Palo Alto Junior Museum & Zoo | 官方网页日历 | [JMZ 首页及活动日历入口](https://www.paloaltozoo.org/Home)明确说明其活动面向各种能力与学习方式的儿童。 | 适合度很高；独立于市政府日历，未找到公开批量 feed，需单独定位和测试其日历实现。 |
@@ -46,12 +48,12 @@
 | 15 | Foothill College | **已直接接入：官方网页解析** | [Physics](https://foothill.edu/physics/)说明 Physics Show 于秋冬举办；[首页活动区](https://foothill.edu/)列出具体场次。 | **已收录你提到的 Physics Show。** 直接读取官方日期、时间、地点和详情链接；排除校园关闭等非亲子条目。 |
 | 16 | De Anza College Planetarium | 官方网页日历 | [Planetarium](https://www.deanza.edu/planetarium/index.html)说明公众天文秀通常在 10–5 月的周六，并提供 Public Show Calendar。 | 极适合家庭／学生；尚未验证批量 feed。 |
 | 17 | SLAC National Accelerator Laboratory | 官方网页日历 | [官方活动页](https://www6.slac.stanford.edu/news-and-events/events)及[公开参观](https://www6.slac.stanford.edu/news-and-events/events/public-tours)。 | 有 STEM Community Day、公开参观等；参观通常 12+，所以不能一概标 K–12。未发现批量 feed。 |
-| 18 | Stanford Events | 可直接接入候选 | [官方 RSS/ICS 说明](https://events-help.stanford.edu/connect-events-calendar/rss-and-calendar-feeds)；公开 [Localist API](https://events.stanford.edu/api/2/events?pp=5&days=365)返回活动 JSON。 | **不消耗 SerpApi 的技术路径已经存在**，但 API 是全校活动，直接读取会混入成人讲座／内部活动。必须先实现并验证保守的公开、家庭／K–12 受众筛选，才可接入。 |
+| 18 | Stanford Events | **已直接接入：官方 Localist API** | [官方 RSS/ICS 说明](https://events-help.stanford.edu/connect-events-calendar/rss-and-calendar-feeds)；公开 [Localist API](https://events.stanford.edu/api/2/events?pp=5&days=365)返回活动 JSON。 | 已实施保守筛选：仅明确儿童/青少年/家庭活动信号、公开、未来且未取消的活动可发布。 |
 
 ## 最终数量与搜索影响
 
-- 当前直接来源：**6** 个。
-- 尚在搜索兜底的来源：**16** 个；按每周二、周四运行，约为 **128 次／4 周**（或 5 周月份约 160 次）SerpApi 查询。
+- 当前直接来源：**8** 个。
+- 尚在搜索兜底的来源：**14** 个；按每周二、周四运行，约为 **112 次／4 周**（或 5 周月份约 140 次）SerpApi 查询。
 - 已发现但尚未安全接入的免费官方路径：**Stanford Events API**；其余 17 个没有在本轮验证到可稳定使用的全量订阅入口。
 
 ## 接入顺序（不牺牲真实性）
