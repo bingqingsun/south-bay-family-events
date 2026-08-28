@@ -64,7 +64,8 @@ function render() {
   visible.forEach(event => {
     const node = template.content.cloneNode(true); const image = event.image || `assets/fallback/${event.type || 'community'}.png`; const imageArea = node.querySelector('.card-image');
     imageArea.style.backgroundColor = event.color; imageArea.style.backgroundImage = `linear-gradient(0deg, rgba(18, 49, 42, .08), rgba(18, 49, 42, .08)), url(${JSON.stringify(image)})`; imageArea.classList.add('has-image');
-    node.querySelector('.event-icon').textContent = event.icon; node.querySelector('.tag').textContent = categoryLabel(event); node.querySelector('h3').textContent = eventText(event, 'title'); node.querySelector('.description').textContent = eventText(event, 'description');
+    node.querySelector('.event-icon').textContent = event.icon; node.querySelector('.tag').textContent = categoryLabel(event); node.querySelector('h3').textContent = eventText(event, 'title');
+    const description = node.querySelector('.description'); description.textContent = eventText(event, 'description'); description.hidden = !description.textContent.trim();
     const ageFact = node.querySelector('.fact-age'); ageFact.textContent = t('ageFact')(eventAgeLabel(event)); ageFact.title = event.ageSource || ''; ageFact.hidden = !event.ageSource;
     const costFact = node.querySelector('.fact-cost'); costFact.textContent = t('costFact')(eventCostLabel(event)); costFact.title = event.costSource || ''; costFact.hidden = !event.costSource;
     node.querySelector('.card-facts').hidden = !event.ageSource && !event.costSource;

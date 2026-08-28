@@ -99,7 +99,7 @@ function xmlAttribute(item, tag, attribute) {
 }
 
 function plainText(html) {
-  return decodeXml(html).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+  return decodeXml(html).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').replace(/\s+([,.;:!?])/g, '$1').trim();
 }
 
 function cardSummary(html) {
@@ -188,7 +188,7 @@ async function readRss(source) {
     return [{
       id: 'rss-' + eventId, title, date: displayEventDate(startDate), dateValue: startDate, ...age, ...cost,
       type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'rss', lastVerifiedAt: generatedAt,
-      description: cardSummary(xmlText(item, 'description')) || '请查看主办方页面了解活动详情与报名要求。',
+      description: cardSummary(xmlText(item, 'description')),
       image: officialImageUrl(item),
       place: source.name, source: source.name, url: link
     }];
@@ -210,7 +210,7 @@ async function readTribe(source) {
     return [{
       id: 'calendar-' + (item.id || index), title, date: displayEventDate(startDate), dateValue: startDate, ...age, ...cost,
       type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'calendar', lastVerifiedAt: generatedAt,
-      description: cardSummary(item.description || item.excerpt || '') || '请查看主办方页面了解活动详情与报名要求。',
+      description: cardSummary(item.description || item.excerpt || ''),
       image: item.image?.url || '', place: item.venue?.venue || source.name, source: source.name, url: item.url
     }];
   });
@@ -241,7 +241,7 @@ function directEvent({ id, title, dateValue, description, image = '', place, sou
     id, title, date: displayEventDate(dateValue), dateValue, ...age,
     costLabel: '费用未注明', costSource: '', type, icon: icons[type], color: colors[type], tag: labels[type],
     verification: 'official-page', lastVerifiedAt: generatedAt,
-    description: cardSummary(description) || '请查看主办方页面了解活动详情与报名要求。',
+    description: cardSummary(description),
     image, place, source, url
   };
 }
@@ -251,9 +251,14 @@ function htmlAttribute(block, pattern) {
 }
 
 async function readFoothill(source) {
-  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const [response, physicsResponse] = await Promise.all([
+    fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) }),
+    fetch('https://foothill.edu/physics/index.html', { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) }).catch(() => null)
+  ]);
   const html = await response.text();
   if (!response.ok || !/Events__item/i.test(html)) throw new Error('Foothill official event list was not valid: ' + response.status);
+  const physicsHtml = physicsResponse?.ok ? await physicsResponse.text() : '';
+  const physicsSummary = cardSummary(physicsHtml.match(/Physics Show at Foothill[\s\S]{0,1200}?<p[^>]*>([\s\S]*?)<\/p>/i)?.[1] || '');
   return html.split(/<div class="Events__item">/i).slice(1).flatMap(block => {
     const title = htmlAttribute(block, /Event__title[^>]*>[\s\S]*?<a[^>]+href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/i);
     const titleText = block.match(/Event__title[^>]*>[\s\S]*?<a[^>]*>([\s\S]*?)<\/a>/i)?.[1];
@@ -267,12 +272,22 @@ async function readFoothill(source) {
     if (!cleanTitle || !title || !isUpcoming(dateValue) || !/physics show|observatory|astronomy|family|children|youth|science/i.test(cleanTitle)) return [];
     return [directEvent({
       id: 'foothill-' + createHash('sha256').update(title).digest('hex').slice(0, 16),
-      title: cleanTitle, dateValue, description: cleanTitle === 'The Physics Show'
-        ? 'Foothill College 的官方 Physics Show 场次。请查看主办方页面确认入场与报名安排。'
-        : 'Foothill College 官方活动。请查看主办方页面了解详情。',
+      title: cleanTitle, dateValue, description: cleanTitle === 'The Physics Show' ? physicsSummary : '',
       place, source: source.name, url: title
     })];
   });
+}
+
+async function midpenPageSummary(url) {
+  try {
+    const response = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+    const html = await response.text();
+    if (!response.ok) return '';
+    const description = html.match(/<div class="event-page__description">([\s\S]*?)<div class="event-page__meetup-location">/i)?.[1] || '';
+    return cardSummary(description);
+  } catch {
+    return '';
+  }
 }
 
 async function readTheTech(source) {
@@ -305,7 +320,7 @@ async function readMidpen(source) {
   const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
   const html = await response.text();
   if (!response.ok || !/activity-search-date/i.test(html)) throw new Error('Midpen family calendar was not valid: ' + response.status);
-  return [...html.matchAll(/<tr>([\s\S]*?)<\/tr>/gi)].flatMap(match => {
+  const seeds = [...html.matchAll(/<tr>([\s\S]*?)<\/tr>/gi)].flatMap(match => {
     const row = match[1];
     const href = htmlAttribute(row, /views-field-title[\s\S]*?<a[^>]+href=["']([^"']+)["']/i);
     const titleHtml = row.match(/views-field-title[\s\S]*?<a[^>]*>([\s\S]*?)<\/a>/i)?.[1];
@@ -315,14 +330,14 @@ async function readMidpen(source) {
     const title = plainText(titleHtml);
     const dateValue = isoDateFromOfficialText(plainText(dateText), plainText(timeText));
     if (!title || !href || !isUpcoming(dateValue)) return [];
-    const event = directEvent({
-      id: 'midpen-' + createHash('sha256').update(href).digest('hex').slice(0, 16),
-      title, dateValue, description: 'Midpen 官方标记为 Family-Friendly 的自然活动。请查看主办方页面确认难度、预约与参与要求。',
-      place: preserve, source: source.name, url: new URL(href, source.feedUrl).href, ageText: 'family'
-    });
-    event.ageSource = '官方 Family-Friendly 分类';
-    return [event];
+    return [{ id: 'midpen-' + createHash('sha256').update(href).digest('hex').slice(0, 16), title, dateValue,
+      place: preserve, url: new URL(href, source.feedUrl).href }];
   });
+  return Promise.all(seeds.map(async seed => {
+    const event = directEvent({ ...seed, description: await midpenPageSummary(seed.url), source: source.name, ageText: 'family' });
+    event.ageSource = '官方 Family-Friendly 分类';
+    return event;
+  }));
 }
 
 async function readStanford(source) {
@@ -445,7 +460,7 @@ const candidateResults = await Promise.all(sourceLimited.map(async item => {
     id: 'search-' + createHash('sha256').update(item.link.toLowerCase()).digest('hex').slice(0, 16), title: item.title, date: displayEventDate(dateValue) || fallbackTime, dateValue,
     ageBands: [], ageLabel: '年龄未注明', ageSource: '', costLabel: '费用未注明', costSource: '',
     lastVerifiedAt: generatedAt, type, icon: icons[type], color: colors[type], tag: labels[type],
-    description: cardSummary(item.snippet || item.description || '') || '请查看主办方页面了解活动详情与报名要求。',
+    description: cardSummary(item.snippet || item.description || ''),
     image: '',
     place: item.source || '南湾地区', source: item.source || '', verification: 'search-verified', url: item.link
     }
