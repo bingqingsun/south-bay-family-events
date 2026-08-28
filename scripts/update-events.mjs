@@ -133,7 +133,7 @@ function ageBandsFor(categories) {
 }
 
 const ageLabels = {
-  '0-2': '0–2 岁', '3-5': '3–5 岁', k5: 'K–5', middle: '6–8 年级',
+  '0-2': '0–2 岁', '3-5': '3–5 岁', k5: 'K–5 年级', middle: '6–8 年级',
   high: '9–12 年级', 'all-ages': '所有年龄', family: '全家适合'
 };
 const ageOrder = ['0-2', '3-5', 'k5', 'middle', 'high', 'all-ages', 'family'];
