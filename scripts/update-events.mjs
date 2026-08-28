@@ -12,9 +12,16 @@ const key = process.env.SERPAPI_KEY;
 const translationEnabled = false;
 const translationKey = translationEnabled ? process.env.GOOGLE_TRANSLATE_API_KEY : '';
 
-const typeFor = text => /hike|nature|park|outdoor|garden/i.test(text) ? 'outdoor'
-  : /art|craft|paint|music|theater|museum/i.test(text) ? 'arts'
-  : /science|stem|robot|tech|library|learn/i.test(text) ? 'learning' : 'community';
+function typeFor(text) {
+  const value = String(text || '').toLowerCase();
+  // Service, mutual-aid, and community-care activities take precedence over
+  // a host site's broad “maker” or “craft” category.
+  if (/\b(?:bike|bicycle)\b[^.!?]{0,48}\brepair\b|\b(?:community service|volunteer(?:ing)?|cleanup|donation|food drive|swap|mento(?:r|ring)|appointment|customer service|career help)\b/.test(value)) return 'community';
+  if (/\b(?:hike|nature|park|outdoor|garden|trail|wildlife|marsh|forest|creek|pond)\b/.test(value)) return 'outdoor';
+  if (/\b(?:science|stem|robot(?:ics)?|technology|tech|learn(?:ing)?|engineering|coding|computer|3d print(?:ing)?|forensics|dna|astronomy)\b/.test(value)) return 'learning';
+  if (/\b(?:art|crafts?|paint(?:ing)?|music|theat(?:er|re)|museum|knit(?:ting)?|crochet|dance|cooking|baking|design)\b/.test(value)) return 'arts';
+  return 'community';
+}
 const labels = { outdoor: '户外自然', arts: '艺术创作', learning: '科学与学习', community: '社区活动' };
 const icons = { outdoor: '🌿', arts: '🎨', learning: '🔭', community: '✨' };
 const colors = { outdoor: '#d8eee0', arts: '#ffd9bd', learning: '#dce7fa', community: '#ffe9a8' };
@@ -258,9 +265,10 @@ async function readRss(source) {
     const categories = xmlTexts(item, 'category').join(' ').toLowerCase();
     const familyAudience = /young children|kids|children|teens|family|all ages|school age/.test(categories);
     if (!title || !link || !isUpcoming(startDate) || !familyAudience || xmlText(item, 'is_cancelled') === 'true') return [];
-    const type = typeFor(title + ' ' + categories);
+    const description = xmlText(item, 'description');
+    const type = typeFor(title + ' ' + categories + ' ' + description);
     const age = ageInfo(categories);
-    const cost = costInfo(xmlText(item, 'cost'), xmlText(item, 'description'));
+    const cost = costInfo(xmlText(item, 'cost'), description);
     const eventId = (xmlText(item, 'guid') || link).split('/').filter(Boolean).pop() || String(index);
     const location = xmlText(item, 'location');
     const venue = xmlText(location, 'name');
@@ -270,7 +278,7 @@ async function readRss(source) {
     return [{
       id: 'rss-' + eventId, title, date: displayEventDate(startDate), dateValue: startDate, ...age, ...cost,
       type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'rss', lastVerifiedAt: generatedAt,
-      description: cardSummary(xmlText(item, 'description'), title),
+      description: cardSummary(description, title),
       image: officialImageUrl(item),
       place: [venue, room].filter(Boolean).join(' · ') || source.name, address, city, source: source.name, url: link
     }];
