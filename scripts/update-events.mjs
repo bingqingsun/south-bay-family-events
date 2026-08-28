@@ -117,6 +117,7 @@ function plainText(html) {
 function isLogisticsOnly(text) {
   return /^(?:free|by appointment|call(?:\s|\.|$)|contact\b|same day|offered in|registration|reserve\b|tickets?\b|admission\b|please\b|drop-?ins?\b|no registration|must\b|participants?\b)/i.test(text)
     || /^(?:children|kids?|adults?|teens?|famil(?:y|ies)|participants?)\b[\s\S]{0,120}\b(?:welcome|must|should|need|able to|can comfortably|may participate)\b/i.test(text)
+    || /^(?:all ages|families|everyone|you(?:'re| are)?)\b[\s\S]{0,120}\b(?:invited|welcome|join us|spend a (?:beautiful|fun|lovely))\b/i.test(text)
     || /^(?:designs?|prints?|library staff|color|file format|materials?)\b.*\b(?:must|are|will|may|if|criteria|available)\b/i.test(text)
     || /ada accommodation|for more information|please (?:call|email|visit)|click here|all minors under|parent\/guardian approval|release of liability|difficulty rating|terms & conditions|reserves the right to (?:cancel|refuse)|printable if|load and save|file format/i.test(text);
 }
@@ -144,12 +145,15 @@ function cardSummary(html, title = '') {
     .replace(/^(?:[a-z]+,?\s+)?[a-z]+\s+\d{1,2}\s*[-:–—]\s*/i, '')
     .replace(/^\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4}\s*[-:–—]\s*/, ''));
   const listItems = [...String(html || '').matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)].map(match => plainText(match[1])).filter(Boolean);
-  const listText = listItems.slice(0, 5).map(item => {
+  const bulletItems = [...decodeXml(String(html || '')).replace(/<br\s*\/?\s*>/gi, '\n').replace(/<\/(?:p|li|h[1-6])>/gi, '\n').replace(/<[^>]*>/g, ' ').matchAll(/(?:^|\n)\s*(?:[•●▪◦]|\*)\s*([^\n]+)/g)].map(match => plainText(match[1])).filter(Boolean);
+  const activityItems = [...new Set([...listItems, ...bulletItems])];
+  const listText = activityItems.slice(0, 5).map(item => {
     let cleaned = item.replace(/^intro to\s+/i, '').replace(/[.!?]+$/, '');
     if (/what we do/i.test(html)) cleaned = cleaned.replace(/^(Account|Job|Navigating)\b/, match => match.toLowerCase());
+    else cleaned = cleaned.replace(/^[A-Z]/, match => match.toLowerCase());
     return cleaned;
   }).join(', ');
-  const listSummary = listItems.length >= 2 ? /what we do/i.test(html) ? `One-on-one help with ${listText}.` : `Includes ${listText}.` : '';
+  const listSummary = activityItems.length >= 2 ? /what we do/i.test(html) ? `One-on-one help with ${listText}.` : `Includes ${listText}.` : '';
   const candidates = [...sentences.map(sentence => sentence.trim()), listSummary].filter(Boolean);
   const score = candidate => {
     const value = candidate.toLowerCase();
