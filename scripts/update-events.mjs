@@ -343,7 +343,7 @@ function isoDateFromOfficialText(dateText, timeText = '') {
   return date + 'T' + String(hour).padStart(2, '0') + ':' + (time[2] || '00');
 }
 
-function directEvent({ id, title, dateValue, description, image = '', place, address = '', city = '', source, url, ageText = '' }) {
+function directEvent({ id, title, dateValue, description, image = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, ageText = '' }) {
   const type = typeFor(title + ' ' + description + ' ' + ageText);
   const age = ageInfo(ageText);
   return {
@@ -351,7 +351,7 @@ function directEvent({ id, title, dateValue, description, image = '', place, add
     costLabel: '费用未注明', costSource: '', type, icon: icons[type], color: colors[type], tag: labels[type],
     verification: 'official-page', lastVerifiedAt: generatedAt,
     description: cardSummary(description),
-    image, place, address, city: canonicalCity(city), source, url
+    image, place, address, city: canonicalCity(city), meetingPoint, mapUrl, source, url
   };
 }
 
@@ -387,16 +387,40 @@ async function readFoothill(source) {
   });
 }
 
-async function midpenPageSummary(url) {
+function conciseOfficialMeetingPoint(value) {
+  let text = plainText(value).replace(/\b(?:Link to Google Map|Register on Eventbrite)\b[\s\S]*$/i, '').trim();
+  text = (text.match(/^[\s\S]*?[.!?](?:\s|$)/)?.[0] || text).trim();
+  return text
+    .replace(/^For this activity at [^,]+,\s*/i, '')
+    .replace(/^The\s+/i, '')
+    .replace(/\s+at the lower portion of the preserve\s+is located on\s+/i, ' · ')
+    .replace(/\s+is located on\s+/i, ' · ')
+    .replace(/,\s*(?:\d+(?:\.\d+)? miles?|Those traveling|Please note:).*/i, '')
+    .replace(/\s+/g, ' ').trim();
+}
+
+function officialMeetupLocation(html, pageUrl) {
+  const meetupHtml = html.match(/<div class="event-page__meetup-location">([\s\S]*?)<\/div>\s*<\/div>\s*<\/div>/i)?.[1] || '';
+  const meetingPoint = conciseOfficialMeetingPoint(plainText(meetupHtml).replace(/^Where to Meet\s*/i, ''));
+  const rawMapUrl = htmlAttribute(meetupHtml, /location-info__address-link[^>]+href=["']([^"']+)["']/i);
+  return {
+    // A named meeting point is intentionally kept separate from a street
+    // address. It is shown only when the organizer also provides its map.
+    meetingPoint: rawMapUrl ? meetingPoint : '',
+    mapUrl: rawMapUrl ? new URL(rawMapUrl.replace(/^http:/i, 'https:'), pageUrl).href : ''
+  };
+}
+
+async function midpenPageDetails(url) {
   try {
     const response = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
     const html = await response.text();
-    if (!response.ok) return '';
+    if (!response.ok) return { description: '', meetingPoint: '', mapUrl: '' };
     const description = html.match(/<div class="event-page__description">([\s\S]*?)<div class="event-page__meetup-location">/i)?.[1]
       || html.match(/<h2[^>]*>Description<\/h2>[\s\S]*?<div class="section-content[^>]*">([\s\S]*?)<\/div>/i)?.[1] || '';
-    return cardSummary(description);
+    return { description: cardSummary(description), ...officialMeetupLocation(html, url) };
   } catch {
-    return '';
+    return { description: '', meetingPoint: '', mapUrl: '' };
   }
 }
 
@@ -444,7 +468,8 @@ async function readMidpen(source) {
       place: preserve, url: new URL(href, source.feedUrl).href }];
   });
   return Promise.all(seeds.map(async seed => {
-    const event = directEvent({ ...seed, description: await midpenPageSummary(seed.url), source: source.name, ageText: 'family' });
+    const details = await midpenPageDetails(seed.url);
+    const event = directEvent({ ...seed, ...details, source: source.name, ageText: 'family' });
     event.ageSource = '官方 Family-Friendly 分类';
     return event;
   }));
@@ -594,7 +619,7 @@ const individualEvents = [...new Map([...feedEvents, ...candidates]
 function seriesKey(event) {
   // Deliberately conservative: different themes, venues, audience rules, or
   // pricing stay as separate cards even when a host reuses the same title.
-  return [event.source, event.title, event.description, event.place, event.address, event.city, event.type,
+  return [event.source, event.title, event.description, event.place, event.address, event.meetingPoint, event.city, event.type,
     (event.ageBands || []).join(','), event.costLabel, event.costSource].join('\u001f');
 }
 
