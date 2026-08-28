@@ -116,6 +116,15 @@ function officialImageUrl(item) {
   return url ? url.replace(/^http:/i, 'https:') : '';
 }
 
+// Addresses are shown only when the organizer supplies both a street and a
+// city. Postal codes and state are intentionally omitted for this South Bay
+// product, where a short, scannable address is more useful on a card.
+function shortAddress(street, city) {
+  const cleanStreet = plainText(street);
+  const cleanCity = plainText(city);
+  return cleanStreet && cleanCity ? `${cleanStreet}, ${cleanCity}` : '';
+}
+
 // Keep audience labels deliberately conservative. A generic "kids" category
 // does not prove a grade range, and "family" does not prove that every age is
 // suitable. The original publisher categories remain the source of truth.
@@ -185,12 +194,16 @@ async function readRss(source) {
     const age = ageInfo(categories);
     const cost = costInfo(xmlText(item, 'cost'), xmlText(item, 'description'));
     const eventId = (xmlText(item, 'guid') || link).split('/').filter(Boolean).pop() || String(index);
+    const location = xmlText(item, 'location');
+    const venue = xmlText(location, 'name');
+    const room = xmlText(location, 'location_details');
+    const address = shortAddress(`${xmlText(location, 'number')} ${xmlText(location, 'street')}`, xmlText(location, 'city'));
     return [{
       id: 'rss-' + eventId, title, date: displayEventDate(startDate), dateValue: startDate, ...age, ...cost,
       type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'rss', lastVerifiedAt: generatedAt,
       description: cardSummary(xmlText(item, 'description')),
       image: officialImageUrl(item),
-      place: source.name, source: source.name, url: link
+      place: [venue, room].filter(Boolean).join(' · ') || source.name, address, source: source.name, url: link
     }];
   });
 }
@@ -211,7 +224,8 @@ async function readTribe(source) {
       id: 'calendar-' + (item.id || index), title, date: displayEventDate(startDate), dateValue: startDate, ...age, ...cost,
       type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'calendar', lastVerifiedAt: generatedAt,
       description: cardSummary(item.description || item.excerpt || ''),
-      image: item.image?.url || '', place: item.venue?.venue || source.name, source: source.name, url: item.url
+      image: item.image?.url || '', place: item.venue?.venue || source.name,
+      address: shortAddress(item.venue?.address, item.venue?.city), source: source.name, url: item.url
     }];
   });
 }
@@ -234,7 +248,7 @@ function isoDateFromOfficialText(dateText, timeText = '') {
   return date + 'T' + String(hour).padStart(2, '0') + ':' + (time[2] || '00');
 }
 
-function directEvent({ id, title, dateValue, description, image = '', place, source, url, ageText = '' }) {
+function directEvent({ id, title, dateValue, description, image = '', place, address = '', source, url, ageText = '' }) {
   const type = typeFor(title + ' ' + description + ' ' + ageText);
   const age = ageInfo(ageText);
   return {
@@ -242,7 +256,7 @@ function directEvent({ id, title, dateValue, description, image = '', place, sou
     costLabel: '费用未注明', costSource: '', type, icon: icons[type], color: colors[type], tag: labels[type],
     verification: 'official-page', lastVerifiedAt: generatedAt,
     description: cardSummary(description),
-    image, place, source, url
+    image, place, address, source, url
   };
 }
 
@@ -273,7 +287,7 @@ async function readFoothill(source) {
     return [directEvent({
       id: 'foothill-' + createHash('sha256').update(title).digest('hex').slice(0, 16),
       title: cleanTitle, dateValue, description: cleanTitle === 'The Physics Show' ? physicsSummary : '',
-      place, source: source.name, url: title
+      place, address: source.address || '', source: source.name, url: title
     })];
   });
 }
@@ -311,7 +325,7 @@ async function readTheTech(source) {
     return [directEvent({
       id: 'thetech-' + createHash('sha256').update(url).digest('hex').slice(0, 16),
       title, dateValue, description, image: image ? new URL(image, source.feedUrl).href : '',
-      place, source: source.name, url, ageText: audienceText
+      place, address: source.address || '', source: source.name, url, ageText: audienceText
     })];
   });
 }

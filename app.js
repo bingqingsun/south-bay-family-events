@@ -70,6 +70,7 @@ function render() {
     const costFact = node.querySelector('.fact-cost'); costFact.textContent = t('costFact')(eventCostLabel(event)); costFact.title = event.costSource || ''; costFact.hidden = !event.costSource;
     node.querySelector('.card-facts').hidden = !event.ageSource && !event.costSource;
     node.querySelector('.time').textContent = dateLabel(event.dateValue) || (event.date === '请查看主办方时间' ? t('timeUnavailable') : event.date); node.querySelector('.place').textContent = event.place;
+    const address = node.querySelector('.address'); address.textContent = event.address || ''; address.hidden = !address.textContent.trim();
     const link = node.querySelector('.source-link'); link.href = event.url; link.firstChild.textContent = `${t('viewDetails')(event.source)} `;
     const heart = node.querySelector('.heart'); const isSaved = state.saved.includes(event.id); heart.dataset.id = event.id; heart.classList.toggle('saved', isSaved); heart.textContent = isSaved ? '♥' : '♡'; heart.setAttribute('aria-pressed', String(isSaved)); heart.setAttribute('aria-label', isSaved ? t('unsave')(eventText(event, 'title')) : t('save')(eventText(event, 'title'))); grid.append(node);
   });
