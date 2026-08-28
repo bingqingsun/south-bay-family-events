@@ -99,15 +99,43 @@ function xmlAttribute(item, tag, attribute) {
 }
 
 function plainText(html) {
-  return decodeXml(html).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').replace(/\s+([,.;:!?])/g, '$1').trim();
+  return decodeXml(html).replace(/<script\b[^>]*>[\s\S]*?<\/script>|<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').replace(/\s+([,.;:!?])/g, '$1').trim();
+}
+
+function isLogisticsOnly(text) {
+  return /^(?:free|by appointment|call(?:\s|\.|$)|contact\b|same day|offered in|registration|reserve\b|tickets?\b|admission\b|please\b|drop-?ins?\b|no registration|must\b|participants?\b)/i.test(text)
+    || /ada accommodation|for more information|please (?:call|email|visit)|click here|all minors under|parent\/guardian approval|release of liability|difficulty rating|terms & conditions|reserves the right to cancel/i.test(text);
+}
+
+function hasActivitySummary(text) {
+  const value = plainText(text);
+  return value.length >= 20 && !isLogisticsOnly(value);
 }
 
 function cardSummary(html) {
   const text = plainText(html).replace(/https?:\/\/\S+/g, '').trim();
   const sentences = text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [];
-  const useful = sentences.map(sentence => sentence.trim()).find(sentence =>
-    sentence.length >= 24 && !/ada accommodation|for more information|registration (is )?required|please (call|email|visit)|click here/i.test(sentence)
-  ) || text;
+  const listItems = [...String(html || '').matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)].map(match => plainText(match[1])).filter(Boolean);
+  const listText = listItems.slice(0, 5).map(item => {
+    let cleaned = item.replace(/^intro to\s+/i, '');
+    if (/what we do/i.test(html)) cleaned = cleaned.replace(/^(Account|Job|Navigating)\b/, match => match.toLowerCase());
+    return cleaned;
+  }).join(', ');
+  const listSummary = listItems.length >= 2 ? /what we do/i.test(html) ? `One-on-one help with ${listText}.` : `Includes ${listText}.` : '';
+  const candidates = [...sentences.map(sentence => sentence.trim()), listSummary].filter(Boolean);
+  const score = candidate => {
+    const value = candidate.toLowerCase();
+    let result = Math.min(candidate.length, 150) / 30;
+    if (candidate.length < 20) result -= 5;
+    if (isLogisticsOnly(candidate)) result -= 12;
+    if (/^one-on-one help with/i.test(candidate)) result += 3;
+    if (/^what we do:/i.test(candidate)) result -= 4;
+    if (/\b(?:learn|explore|discover|create|build|make|play|story|song|meditat\w*|yoga|computer|tech|science|stem|hike|nature|art|music|read|watch|design|help|practice|harvest|taste|garden|repair|volunteer|cook|craft|exercise|football|dance|robot|marsh|slug|berry|puzzle|print|knit|crochet)\b/.test(value)) result += 8;
+    if (/would you like|do you love|do you have what it takes/.test(value)) result -= 3;
+    return result;
+  };
+  const useful = candidates.sort((a, b) => score(b) - score(a)).find(hasActivitySummary) || '';
   return useful.length > 138 ? `${useful.slice(0, 135).trimEnd()}…` : useful;
 }
 
@@ -219,11 +247,24 @@ async function readRss(source) {
   });
 }
 
+async function tribePageSummary(url) {
+  try {
+    const response = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+    const html = await response.text();
+    if (!response.ok) return '';
+    const body = html.match(/tribe-events-single-event-description[\s\S]*?<div class="text">([\s\S]*?)<\/div>\s*<\/div>/i)?.[1] || '';
+    const meta = html.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)["']/i)?.[1] || '';
+    return cardSummary(body) || cardSummary(meta);
+  } catch {
+    return '';
+  }
+}
+
 async function readTribe(source) {
   const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
   const payload = await response.json();
   if (!response.ok || !Array.isArray(payload.events)) throw new Error('Official calendar API was not valid: ' + response.status);
-  return payload.events.flatMap((item, index) => {
+  const seeds = payload.events.flatMap((item, index) => {
     const startDate = String(item.start_date || '').replace(' ', 'T');
     const title = decodeXml(item.title || '').trim();
     const categories = (item.categories || []).map(category => decodeXml(category.name || '')).join(' ').toLowerCase();
@@ -239,6 +280,11 @@ async function readTribe(source) {
       address: shortAddress(item.venue?.address, item.venue?.city), city: canonicalCity(item.venue?.city), source: source.name, url: item.url
     }];
   });
+  const enriched = await Promise.all(seeds.map(async event => ({
+    ...event,
+    description: hasActivitySummary(event.description) ? event.description : await tribePageSummary(event.url)
+  })));
+  return enriched.filter(event => hasActivitySummary(event.description));
 }
 
 function isoDateFromOfficialText(dateText, timeText = '') {
@@ -308,7 +354,8 @@ async function midpenPageSummary(url) {
     const response = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
     const html = await response.text();
     if (!response.ok) return '';
-    const description = html.match(/<div class="event-page__description">([\s\S]*?)<div class="event-page__meetup-location">/i)?.[1] || '';
+    const description = html.match(/<div class="event-page__description">([\s\S]*?)<div class="event-page__meetup-location">/i)?.[1]
+      || html.match(/<h2[^>]*>Description<\/h2>[\s\S]*?<div class="section-content[^>]*">([\s\S]*?)<\/div>/i)?.[1] || '';
     return cardSummary(description);
   } catch {
     return '';
@@ -501,6 +548,9 @@ searchSources.forEach(source => {
 // carry a direct search date or publisher-provided Event startDate.
 const events = [...new Map([...feedEvents, ...candidates]
   .map(event => [event.url.toLowerCase(), event])).values()]
+  // A card must explain what the activity is. We do not replace missing
+  // organizer copy with generic prompts or publish logistics-only text.
+  .filter(event => hasActivitySummary(event.description))
   .sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
 
 if (!events.length) throw new Error('No verified upcoming events; leaving the published list unchanged.');
