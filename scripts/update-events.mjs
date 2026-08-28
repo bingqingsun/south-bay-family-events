@@ -100,7 +100,8 @@ function xmlAttribute(item, tag, attribute) {
 
 function plainText(html) {
   return decodeXml(html).replace(/<script\b[^>]*>[\s\S]*?<\/script>|<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
-    .replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').replace(/\s+([,.;:!?])/g, '$1').trim();
+    .replace(/<[^>]*>/g, ' ').replace(/[\u200B-\u200D\uFEFF]/g, ' ')
+    .replace(/(?:\s*[-–—_]\s*){3,}/g, ' ').replace(/\s+/g, ' ').replace(/\s+([,.;:!?])/g, '$1').trim();
 }
 
 function isLogisticsOnly(text) {
@@ -118,7 +119,7 @@ function cardSummary(html) {
   const sentences = text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [];
   const listItems = [...String(html || '').matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)].map(match => plainText(match[1])).filter(Boolean);
   const listText = listItems.slice(0, 5).map(item => {
-    let cleaned = item.replace(/^intro to\s+/i, '');
+    let cleaned = item.replace(/^intro to\s+/i, '').replace(/[.!?]+$/, '');
     if (/what we do/i.test(html)) cleaned = cleaned.replace(/^(Account|Job|Navigating)\b/, match => match.toLowerCase());
     return cleaned;
   }).join(', ');
@@ -130,7 +131,14 @@ function cardSummary(html) {
     if (candidate.length < 20) result -= 5;
     if (isLogisticsOnly(candidate)) result -= 12;
     if (/^one-on-one help with/i.test(candidate)) result += 3;
+    if (/^(?:includes|one-on-one help with)/i.test(candidate)) result -= 2;
     if (/^what we do:/i.test(candidate)) result -= 4;
+    // Supplementary schedules and bilingual duplicates are useful on the
+    // organizer page, but do not explain what the activity itself is.
+    if (/\b(?:we will also|also host|these dates|every (?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)|on (?:mondays|tuesdays|wednesdays|thursdays|fridays|saturdays|sundays))\b|\b(?:january|february|march|april|may|june|july|august|september|october|november|december)\b[^.!?]{0,100}\b(?:january|february|march|april|may|june|july|august|september|october|november|december)\b/i.test(value)) result -= 18;
+    if (/^[\W_–—-]{3,}|[¡¿]/.test(candidate)) result -= 12;
+    if (/\b(?:arrive early|first-come|space is limited|we do not offer|not available|not permitted|must not|limit to|do not trade|not (?:accepted|allowed)|requirements?)\b/i.test(value)) result -= 16;
+    if (/\b(?:will be offering|offers?|provides?|join us for|come (?:to|and)|enjoy|take part|explore)\b/i.test(value)) result += 5;
     if (/\b(?:learn|explore|discover|create|build|make|play|story|song|meditat\w*|yoga|computer|tech|science|stem|hike|nature|art|music|read|watch|design|help|practice|harvest|taste|garden|repair|volunteer|cook|craft|exercise|football|dance|robot|marsh|slug|berry|puzzle|print|knit|crochet)\b/.test(value)) result += 8;
     if (/would you like|do you love|do you have what it takes/.test(value)) result -= 3;
     return result;
