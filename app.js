@@ -2,18 +2,18 @@ let events = Array.isArray(window.SOUTH_BAY_EVENTS) ? window.SOUTH_BAY_EVENTS : 
 // Kept as a single switch so bilingual presentation can be restored later
 // without changing the canonical, organizer-supplied event data.
 const translationEnabled = false;
-const state = { type: 'all', age: 'all', city: 'all', date: 'all', saved: JSON.parse(localStorage.getItem('southBaySaved') || '[]'), onlySaved: false, language: 'zh' };
+const state = { type: 'all', age: 'all', city: 'all', date: 'all', sort: 'date', position: null, saved: JSON.parse(localStorage.getItem('southBaySaved') || '[]'), onlySaved: false, language: 'zh' };
 const grid = document.querySelector('#eventGrid');
 const template = document.querySelector('#cardTemplate');
 
 const copy = {
   zh: {
-    brand: '周末去哪儿', findEvents: '找活动', howItWorks: '出发小提示', heroTitle: '把这个周末，<br /><em>留给一起探索。</em>', heroIntro: '为南湾 K–12 孩子与家庭精选周末活动：从林间徒步、创意工坊到博物馆夜场，帮你更轻松地找到值得一起出发的好去处。', weekendCta: '查看本周末活动', sectionTitle: '今天想做点什么？', date: '日期', anyTime: '任意时间', today: '今天', weekend: '本周末', month: '本月', city: '城市', allCities: '全部城市', age: '适合年龄', allAges: '不限年龄', age02: '0–2 岁', age35: '3–5 岁', middle: '6–8 年级', high: '9–12 年级', family: '全家适合', all: '全部', outdoor: '户外自然', arts: '艺术创作', learning: '科学与学习', community: '社区活动', clearFilters: '清除筛选',
+    brand: '周末去哪儿', findEvents: '找活动', howItWorks: '出发小提示', heroTitle: '把这个周末，<br /><em>留给一起探索。</em>', heroIntro: '为南湾 K–12 孩子与家庭精选周末活动：从林间徒步、创意工坊到博物馆夜场，帮你更轻松地找到值得一起出发的好去处。', weekendCta: '查看本周末活动', sectionTitle: '今天想做点什么？', date: '日期', anyTime: '任意时间', today: '今天', weekend: '本周末', month: '本月', sort: '排序', sortDate: '按时间', sortDistance: '离我最近', locating: '正在确认你的位置…', nearbyReady: '已按离你最近排序；距离为直线估算。', locationUnavailable: '未能取得你的位置，已按时间排序。你可以在浏览器中允许定位后再试。', distance: miles => `距你约 ${miles} 英里`, city: '城市', allCities: '全部城市', age: '适合年龄', allAges: '不限年龄', age02: '0–2 岁', age35: '3–5 岁', middle: '6–8 年级', high: '9–12 年级', family: '全家适合', all: '全部', outdoor: '户外自然', arts: '艺术创作', learning: '科学与学习', community: '社区活动', clearFilters: '清除筛选',
     tipsEyebrow: '出发前看看', howTitle: '周末出发小提示', how1Title: '出门前确认', how1Body: '活动时间、名额和费用可能变化；出发前请查看主办方页面。', how2Title: '提前安排', how2Body: '热门活动建议先预约；户外活动留意天气、停车和步行距离。', how3Title: '先收藏，再决定', how3Body: '点击心形收藏感兴趣的活动，周末可在“已收藏”中集中查看。', footer: '为南湾的好奇心而做 · 活动信息请以主办方页面为准',
     saved: '已收藏', results: count => `发现 ${count} 个活动`, savedResults: count => `已收藏 ${count} 个活动`, emptyFiltered: '当前筛选条件下暂无活动。试试放宽日期、年龄或类别。', emptyAll: '暂时没有已核验的活动，请稍后再试。', updateUnavailable: '最近更新信息暂不可用 · 来自官方活动来源', update: date => `最近更新：${date}（南湾时间）· 官方来源`, ageFact: label => `适合：${label}`, costFact: label => `费用：${label}`, ageUnknown: '年龄未注明', costUnknown: '费用未注明', viewDetails: source => source ? `查看 ${source} 详情` : '查看活动详情', directions: '导航', expandDescription: '展开简介', collapseDescription: '收起简介', save: title => `收藏：${title}`, unsave: title => `取消收藏：${title}`, showAll: '显示全部活动', showSaved: '只查看收藏活动', timeUnavailable: '请点击活动详情查看活动时间'
   },
   en: {
-    brand: 'Weekend Plans', findEvents: 'Find events', howItWorks: 'Before you go', heroTitle: 'Make this weekend<br /><em>an adventure together.</em>', heroIntro: 'Weekend activities handpicked for South Bay K–12 kids and families—from nature walks and creative workshops to museum evenings—so it’s easier to find somewhere worth going together.', weekendCta: 'See this weekend', sectionTitle: 'What would you like to do?', date: 'Date', anyTime: 'Any time', today: 'Today', weekend: 'This weekend', month: 'This month', city: 'City', allCities: 'All cities', age: 'Ages', allAges: 'All ages', age02: 'Ages 0–2', age35: 'Ages 3–5', middle: 'Grades 6–8', high: 'Grades 9–12', family: 'Family-friendly', all: 'All', outdoor: 'Outdoors', arts: 'Arts & making', learning: 'Learning & STEM', community: 'Community', clearFilters: 'Clear filters',
+    brand: 'Weekend Plans', findEvents: 'Find events', howItWorks: 'Before you go', heroTitle: 'Make this weekend<br /><em>an adventure together.</em>', heroIntro: 'Weekend activities handpicked for South Bay K–12 kids and families—from nature walks and creative workshops to museum evenings—so it’s easier to find somewhere worth going together.', weekendCta: 'See this weekend', sectionTitle: 'What would you like to do?', date: 'Date', anyTime: 'Any time', today: 'Today', weekend: 'This weekend', month: 'This month', sort: 'Sort', sortDate: 'By date', sortDistance: 'Nearest to me', locating: 'Confirming your location…', nearbyReady: 'Sorted by nearby; distances are straight-line estimates.', locationUnavailable: 'We could not get your location, so activities are sorted by date. Allow location in your browser and try again.', distance: miles => `About ${miles} mi away`, city: 'City', allCities: 'All cities', age: 'Ages', allAges: 'All ages', age02: 'Ages 0–2', age35: 'Ages 3–5', middle: 'Grades 6–8', high: 'Grades 9–12', family: 'Family-friendly', all: 'All', outdoor: 'Outdoors', arts: 'Arts & making', learning: 'Learning & STEM', community: 'Community', clearFilters: 'Clear filters',
     tipsEyebrow: 'BEFORE YOU GO', howTitle: 'A few tips for the weekend', how1Title: 'Confirm before leaving', how1Body: 'Times, capacity, and prices can change. Check the organizer’s page before you head out.', how2Title: 'Plan ahead', how2Body: 'Reserve popular activities early, and check weather, parking, and walking distance for outdoor plans.', how3Title: 'Save now, decide later', how3Body: 'Tap the heart to save activities and review them together in Saved when the weekend arrives.', footer: 'Made for curious South Bay families · Please confirm details with the organizer',
     saved: 'Saved', results: count => `${count} activities found`, savedResults: count => `${count} saved activities`, emptyFiltered: 'No activities match these filters. Try widening the date, age, or category.', emptyAll: 'No verified activities are available right now. Please try again soon.', updateUnavailable: 'Latest refresh information is unavailable · Official sources', update: date => `Last updated: ${date} · Official sources`, ageFact: label => `Ages: ${label}`, costFact: label => `Cost: ${label}`, ageUnknown: 'Age not specified', costUnknown: 'Cost not specified', viewDetails: source => source ? `View ${source} details` : 'View activity details', directions: 'Directions', expandDescription: 'Show description', collapseDescription: 'Hide description', save: title => `Save: ${title}`, unsave: title => `Remove saved activity: ${title}`, showAll: 'Show all activities', showSaved: 'Show saved activities', timeUnavailable: 'See organizer details for the event time'
   }
@@ -21,6 +21,11 @@ const copy = {
 const categoryLabels = { outdoor: ['户外自然', 'Outdoors'], arts: ['艺术创作', 'Arts & making'], learning: ['科学与学习', 'Learning & STEM'], community: ['社区活动', 'Community'] };
 const ageLabels = { '0-2': ['0–2 岁', '0–2'], '3-5': ['3–5 岁', '3–5'], k5: ['K–5 年级', 'Grades K–5'], middle: ['6–8 年级', 'Grades 6–8'], high: ['9–12 年级', 'Grades 9–12'], 'all-ages': ['所有年龄', 'All ages'], family: ['全家适合', 'Family-friendly'] };
 const costLabels = { '免费': ['免费', 'Free'], '建议捐赠': ['建议捐赠', 'Suggested donation'], '会员／非会员价格见详情': ['会员／非会员价格见详情', 'Member / non-member price—see details'], '需购票／价格见详情': ['需购票／价格见详情', 'Tickets / price—see details'] };
+// Coordinates are only supplied for a specific organizer-provided street address.
+// Missing entries intentionally remain unlocated instead of falling back to a city center.
+const venueCoordinates = {
+  '6445 Camden Ave, San Jose': [37.2214644, -121.8691377], '4270 Pearl Ave, San Jose': [37.2677995, -121.8664471], '3090 Alum Rock Ave, San Jose': [37.3652963, -121.8280550], '150 E San Fernando St, San Jose': [37.3355074, -121.8850772], '290 International Circle, San Jose': [37.2374873, -121.79983], '1450 Blossom Hill Rd, San Jose': [37.24027, -121.8921881], '660 West Main Ave, Morgan Hill': [37.1244091, -121.6628141], '160 North Main Street, Milpitas': [37.4324266, -121.9070434], '1451 Middlefield Road, Palo Alto': [37.4434284, -122.1444282], '3411 Rocky Mountain Dr, San Jose': [37.352429, -121.8018853], '4001 Evergreen Village Square, San Jose': [37.3134183, -121.7744198], '3590 Cas Dr, San Jose': [37.2850574, -121.8328893], '2300 Wellesley St, Palo Alto': [37.4231855, -122.1488209], '1102 E Santa Clara St, San Jose': [37.3464402, -121.8682181], '1000 S. Bascom Ave, San Jose': [37.3075348, -121.9311591], '13650 Saratoga Avenue, Saratoga': [37.2700537, -122.0152172], '201 S Market St, San Jose': [37.331404, -121.8901566], '12345 El Monte Rd, Los Altos Hills': [37.3617195, -122.1283018], '1431 Waverley Street, Palo Alto': [37.4397144, -122.1480637]
+};
 const t = key => copy[state.language][key];
 const eventText = (event, field) => translationEnabled && state.language === 'zh' ? event.translations?.zh?.[field] || event[field] : event[field];
 const categoryLabel = event => categoryLabels[event.type || 'community']?.[state.language === 'zh' ? 0 : 1] || event.tag;
@@ -58,6 +63,25 @@ function dateMatches(event, filter) {
   return false;
 }
 function ageMatches(event, age) { if (age === 'all') return true; const bands = event.ageBands || []; return age === 'family' ? bands.includes('family') || bands.includes('all-ages') : bands.includes(age) || bands.includes('all-ages'); }
+function eventDistance(event) {
+  const venue = venueCoordinates[event.address];
+  if (!state.position || !venue) return null;
+  const toRadians = value => value * Math.PI / 180;
+  const [lat, lon] = venue; const { lat: userLat, lon: userLon } = state.position;
+  const a = Math.sin(toRadians(lat - userLat) / 2) ** 2 + Math.cos(toRadians(userLat)) * Math.cos(toRadians(lat)) * Math.sin(toRadians(lon - userLon) / 2) ** 2;
+  return 3958.8 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+function sortEvents(items) {
+  const dated = [...items].sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')) || String(a.title).localeCompare(String(b.title)));
+  if (state.sort !== 'distance' || !state.position) return dated;
+  return dated.sort((a, b) => {
+    const distanceA = eventDistance(a); const distanceB = eventDistance(b);
+    if (distanceA === null && distanceB === null) return 0;
+    if (distanceA === null) return 1;
+    if (distanceB === null) return -1;
+    return distanceA - distanceB;
+  });
+}
 function populateCityFilter() {
   const select = document.querySelector('#cityFilter');
   const previous = state.city;
@@ -69,7 +93,7 @@ function populateCityFilter() {
   select.value = state.city;
 }
 function render() {
-  const visible = events.filter(event => (state.type === 'all' || event.type === state.type) && (state.city === 'all' || event.city === state.city) && ageMatches(event, state.age) && dateMatches(event, state.date) && (!state.onlySaved || state.saved.includes(event.id)));
+  const visible = sortEvents(events.filter(event => (state.type === 'all' || event.type === state.type) && (state.city === 'all' || event.city === state.city) && ageMatches(event, state.age) && dateMatches(event, state.date) && (!state.onlySaved || state.saved.includes(event.id))));
   grid.innerHTML = '';
   visible.forEach(event => {
     const node = template.content.cloneNode(true); const image = event.image || `assets/fallback/${event.type || 'community'}.png`; const imageArea = node.querySelector('.card-image');
@@ -80,6 +104,7 @@ function render() {
     const ageFact = node.querySelector('.fact-age'); ageFact.textContent = t('ageFact')(eventAgeLabel(event)); ageFact.title = event.ageSource || ''; ageFact.hidden = !event.ageSource;
     const costFact = node.querySelector('.fact-cost'); costFact.textContent = t('costFact')(eventCostLabel(event)); costFact.title = event.costSource || ''; costFact.hidden = !event.costSource;
     node.querySelector('.card-facts').hidden = !event.ageSource && !event.costSource;
+    const distance = eventDistance(event); const distanceNode = node.querySelector('.distance'); distanceNode.hidden = distance === null; distanceNode.textContent = distance === null ? '' : t('distance')(distance < 10 ? distance.toFixed(1) : Math.round(distance));
     node.querySelector('.time .detail-text').textContent = dateLabel(event.dateValue) || (event.date === '请查看主办方时间' ? t('timeUnavailable') : event.date); node.querySelector('.place .detail-text').textContent = event.place;
     const address = node.querySelector('.address'); const addressLink = node.querySelector('.address-link'); const addressText = event.address || '';
     address.hidden = !addressText.trim(); addressLink.href = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(addressText)}`; addressLink.querySelector('.detail-text').textContent = addressText; addressLink.querySelector('.directions').textContent = t('directions'); addressLink.setAttribute('aria-label', `${t('directions')}：${addressText}`);
@@ -93,11 +118,22 @@ function render() {
 }
 function setActiveType(type) { document.querySelectorAll('.chip').forEach(chip => { const active = chip.dataset.type === type; chip.classList.toggle('active', active); chip.setAttribute('aria-pressed', String(active)); }); }
 function syncDatePriority() { document.querySelector('.date-priority').classList.toggle('is-active', state.date !== 'all'); }
-function resetFilters({ date = 'all' } = {}) { state.type = 'all'; state.age = 'all'; state.city = 'all'; state.date = date; state.onlySaved = false; document.querySelector('#ageFilter').value = 'all'; document.querySelector('#cityFilter').value = 'all'; document.querySelector('#dateFilter').value = date; setActiveType('all'); syncDatePriority(); document.querySelector('#savedButton').classList.remove('active'); }
+function setLocationStatus(message = '') { const node = document.querySelector('#locationStatus'); node.textContent = message; node.hidden = !message; }
+function resetFilters({ date = 'all' } = {}) { state.type = 'all'; state.age = 'all'; state.city = 'all'; state.date = date; state.sort = 'date'; state.position = null; state.onlySaved = false; document.querySelector('#ageFilter').value = 'all'; document.querySelector('#cityFilter').value = 'all'; document.querySelector('#dateFilter').value = date; document.querySelector('#sortFilter').value = 'date'; setLocationStatus(); setActiveType('all'); syncDatePriority(); document.querySelector('#savedButton').classList.remove('active'); }
 document.querySelector('#typeFilters').addEventListener('click', e => { if (!e.target.matches('.chip')) return; state.type = e.target.dataset.type; setActiveType(state.type); render(); });
 document.querySelector('#ageFilter').addEventListener('change', e => { state.age = e.target.value; render(); });
 document.querySelector('#cityFilter').addEventListener('change', e => { state.city = e.target.value; render(); });
 document.querySelector('#dateFilter').addEventListener('change', e => { state.date = e.target.value; syncDatePriority(); render(); });
+document.querySelector('#sortFilter').addEventListener('change', e => {
+  if (e.target.value === 'date') { state.sort = 'date'; setLocationStatus(); render(); return; }
+  if (!navigator.geolocation) { e.target.value = 'date'; state.sort = 'date'; setLocationStatus(t('locationUnavailable')); render(); return; }
+  setLocationStatus(t('locating'));
+  navigator.geolocation.getCurrentPosition(position => {
+    state.position = { lat: position.coords.latitude, lon: position.coords.longitude }; state.sort = 'distance'; setLocationStatus(t('nearbyReady')); render();
+  }, () => {
+    state.position = null; state.sort = 'date'; e.target.value = 'date'; setLocationStatus(t('locationUnavailable')); render();
+  }, { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 });
+});
 document.querySelector('#clearFilters').addEventListener('click', () => { resetFilters(); render(); });
 document.querySelector('#weekendCta').addEventListener('click', event => { event.preventDefault(); resetFilters({ date: 'weekend' }); render(); document.querySelector('#events').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
 grid.addEventListener('click', e => { const toggle = e.target.closest('.description-toggle'); if (toggle) { const description = document.querySelector(`#description-${toggle.dataset.eventId}`); const isExpanded = description.classList.toggle('is-expanded'); toggle.textContent = isExpanded ? t('collapseDescription') : t('expandDescription'); toggle.setAttribute('aria-expanded', String(isExpanded)); return; } const button = e.target.closest('.heart'); if (!button) return; const id = button.dataset.id; state.saved = state.saved.includes(id) ? state.saved.filter(item => item !== id) : [...state.saved, id]; localStorage.setItem('southBaySaved', JSON.stringify(state.saved)); render(); });
