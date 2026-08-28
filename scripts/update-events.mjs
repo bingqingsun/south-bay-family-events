@@ -216,6 +216,91 @@ async function readTribe(source) {
   });
 }
 
+function isoDateFromOfficialText(dateText, timeText = '') {
+  const match = String(dateText || '').match(/\b(January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\.?\s+(\d{1,2})(?:,?\s*(\d{4}))?/i);
+  if (!match) return '';
+  const month = months[match[1].slice(0, 3).toLowerCase()];
+  if (!month) return '';
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
+  let year = Number(match[3] || today.slice(0, 4));
+  let date = [year, String(month).padStart(2, '0'), String(match[2]).padStart(2, '0')].join('-');
+  // A date without a year must still be upcoming. We deliberately reject
+  // stale month/day labels rather than guessing that they mean next year.
+  if (!match[3] && date < today) return '';
+  const time = String(timeText || '').match(/\b(\d{1,2})(?::(\d{2}))?\s*(AM|PM)\b/i);
+  if (!time) return date;
+  let hour = Number(time[1]) % 12;
+  if (time[3].toUpperCase() === 'PM') hour += 12;
+  return date + 'T' + String(hour).padStart(2, '0') + ':' + (time[2] || '00');
+}
+
+function directEvent({ id, title, dateValue, description, image = '', place, source, url, ageText = '' }) {
+  const type = typeFor(title + ' ' + description + ' ' + ageText);
+  const age = ageInfo(ageText);
+  return {
+    id, title, date: displayEventDate(dateValue), dateValue, ...age,
+    costLabel: '费用未注明', costSource: '', type, icon: icons[type], color: colors[type], tag: labels[type],
+    verification: 'official-page', lastVerifiedAt: generatedAt,
+    description: cardSummary(description) || '请查看主办方页面了解活动详情与报名要求。',
+    image, place, source, url
+  };
+}
+
+function htmlAttribute(block, pattern) {
+  return block.match(pattern)?.[1] ? decodeXml(block.match(pattern)[1]).trim() : '';
+}
+
+async function readFoothill(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const html = await response.text();
+  if (!response.ok || !/Events__item/i.test(html)) throw new Error('Foothill official event list was not valid: ' + response.status);
+  return html.split(/<div class="Events__item">/i).slice(1).flatMap(block => {
+    const title = htmlAttribute(block, /Event__title[^>]*>[\s\S]*?<a[^>]+href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/i);
+    const titleText = block.match(/Event__title[^>]*>[\s\S]*?<a[^>]*>([\s\S]*?)<\/a>/i)?.[1];
+    const dateText = htmlAttribute(block, /Events__date[^>]*>([\s\S]*?)<\/div>/i);
+    const timeText = htmlAttribute(block, /Events__time[^>]*>([\s\S]*?)<\/div>/i);
+    const place = htmlAttribute(block, /Events__location[^>]*>([\s\S]*?)<\/div>/i) || source.name;
+    const cleanTitle = plainText(titleText);
+    const dateValue = isoDateFromOfficialText(plainText(dateText), plainText(timeText));
+    // Foothill's homepage mixes campus closures with public programs. Only
+    // publish entries whose official title signals a K–12/family STEM program.
+    if (!cleanTitle || !title || !isUpcoming(dateValue) || !/physics show|observatory|astronomy|family|children|youth|science/i.test(cleanTitle)) return [];
+    return [directEvent({
+      id: 'foothill-' + createHash('sha256').update(title).digest('hex').slice(0, 16),
+      title: cleanTitle, dateValue, description: cleanTitle === 'The Physics Show'
+        ? 'Foothill College 的官方 Physics Show 场次。请查看主办方页面确认入场与报名安排。'
+        : 'Foothill College 官方活动。请查看主办方页面了解详情。',
+      place, source: source.name, url: title
+    })];
+  });
+}
+
+async function readTheTech(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const html = await response.text();
+  if (!response.ok || !/card-grid-item/i.test(html)) throw new Error('The Tech official event list was not valid: ' + response.status);
+  return html.split(/<li class="card-grid-item">/i).slice(1).flatMap(block => {
+    const url = htmlAttribute(block, /card-item-title[\s\S]*?<a[^>]+href=["']([^"']+)["']/i);
+    const titleHtml = block.match(/card-item-title[\s\S]*?<a[^>]*>([\s\S]*?)<\/a>/i)?.[1];
+    const spans = [...block.matchAll(/<span class="small">([\s\S]*?)<\/span>/gi)].map(match => plainText(match[1]));
+    const dateValue = isoDateFromOfficialText(spans[0], spans.slice(1).join(' '));
+    const place = plainText(block.match(/<p class="italic">([\s\S]*?)<\/p>/i)?.[1]) || source.name;
+    const description = plainText(block.match(/<p class="italic">[\s\S]*?<\/p>\s*<p(?:\s[^>]*)?>([\s\S]*?)<\/p>/i)?.[1]);
+    const image = htmlAttribute(block, /<img[^>]+src=["']([^"']+)["']/i);
+    const title = plainText(titleHtml);
+    // The page includes member-only events and adult concert/film programs.
+    // Keep only cards whose official title or description explicitly signals a
+    // family, youth, school, or hands-on learning audience.
+    const audienceText = title + ' ' + description;
+    if (!title || !url || !isUpcoming(dateValue) || /member.?only/i.test(audienceText) || !/family|kids?|children|youth|girl scout|homeschool|school|hands-on|workshop|science|stem/i.test(audienceText)) return [];
+    return [directEvent({
+      id: 'thetech-' + createHash('sha256').update(url).digest('hex').slice(0, 16),
+      title, dateValue, description, image: image ? new URL(image, source.feedUrl).href : '',
+      place, source: source.name, url, ageText: audienceText
+    })];
+  });
+}
+
 async function officialStartDate(item) {
   // The card date must come from the same publisher page as the activity.
   try {
@@ -250,16 +335,18 @@ async function search(source) {
   if (!response.ok || payload.error) {
     throw new Error(`Search failed: ${response.status}${payload.error ? ` — ${payload.error}` : ''}`);
   }
-  return (payload.organic_results || [])
+  const candidates = (payload.organic_results || [])
     .filter(item => item.title && item.link && isOfficialUrl(item.link, source.domain))
     .map(item => ({ ...item, source: source.name }));
+  console.log(`SerpApi discovery · ${source.name}: ${(payload.organic_results || []).length} results, ${candidates.length} official-domain candidates.`);
+  return candidates;
 }
 
 const target = new URL('../data/events.json', import.meta.url);
 const browserTarget = new URL('../data/events.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directSources = sources.filter(source => ['rss', 'tribe'].includes(source.method) && source.feedUrl);
+const directSources = sources.filter(source => ['rss', 'tribe', 'thetech', 'foothill'].includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
 // Tuesday/Thursday fallback. A manually dispatched `false` explicitly disables
@@ -267,10 +354,15 @@ const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: '
 const serpapiInput = process.env.INCLUDE_SERPAPI;
 const includeSerpapi = serpapiInput === 'true'
   || (serpapiInput !== 'false' && ['Tue', 'Thu'].includes(weekday));
-const searchSources = includeSerpapi ? sources.filter(source => !['rss', 'tribe'].includes(source.method)) : [];
+const searchSources = includeSerpapi ? sources.filter(source => !['rss', 'tribe', 'thetech', 'foothill'].includes(source.method)) : [];
 if (searchSources.length && !key) throw new Error('SERPAPI_KEY is required when the fallback search is scheduled or manually enabled.');
 
-const feedAttempts = await Promise.allSettled(directSources.map(source => source.method === 'tribe' ? readTribe(source) : readRss(source)));
+const feedAttempts = await Promise.allSettled(directSources.map(source => {
+  if (source.method === 'tribe') return readTribe(source);
+  if (source.method === 'thetech') return readTheTech(source);
+  if (source.method === 'foothill') return readFoothill(source);
+  return readRss(source);
+}));
 const searchAttempts = await Promise.allSettled(searchSources.map(search));
 const failures = [...feedAttempts, ...searchAttempts].filter(result => result.status === 'rejected');
 failures.forEach(result => console.warn(`Skipping one search: ${result.reason.message}`));
@@ -280,22 +372,39 @@ if (directSources.length && feedAttempts.every(result => result.status === 'reje
 const feedEvents = feedAttempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
 const raw = searchAttempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
 const unique = [...new Map(raw.filter(item => item.title && item.link).map(item => [item.link.toLowerCase(), item])).values()];
-const candidates = await Promise.all(unique.slice(0, 18).map(async (item, index) => {
+// Search discovery is balanced per source. The old global slice only validated
+// the earliest 18 links across all 18 sources, starving lower-listed sources
+// such as Foothill and De Anza before they could be checked.
+const sourceLimited = searchSources.flatMap(source => unique.filter(item => item.source === source.name).slice(0, 3));
+searchSources.forEach(source => {
+  const discovered = unique.filter(item => item.source === source.name).length;
+  console.log(`SerpApi validation queue · ${source.name}: ${Math.min(discovered, 3)} of ${discovered} official candidates.`);
+});
+const candidateResults = await Promise.all(sourceLimited.map(async item => {
   const source = `${item.title} ${item.snippet || item.description || ''}`;
   const type = typeFor(source);
   const dateValue = await officialStartDate(item);
   return {
-    id: `daily-${Date.now()}-${index}`, title: item.title, date: displayEventDate(dateValue) || fallbackTime, dateValue,
+    sourceName: item.source,
+    event: {
+    id: 'search-' + createHash('sha256').update(item.link.toLowerCase()).digest('hex').slice(0, 16), title: item.title, date: displayEventDate(dateValue) || fallbackTime, dateValue,
     ageBands: [], ageLabel: '年龄未注明', ageSource: '', costLabel: '费用未注明', costSource: '',
     lastVerifiedAt: generatedAt, type, icon: icons[type], color: colors[type], tag: labels[type],
     description: cardSummary(item.snippet || item.description || '') || '请查看主办方页面了解活动详情与报名要求。',
     image: '',
-    place: item.source || '南湾地区', url: item.link
+    place: item.source || '南湾地区', source: item.source || '', verification: 'search-verified', url: item.link
+    }
   };
 }));
+const candidates = candidateResults.filter(result => result.event.date !== fallbackTime).map(result => result.event);
+searchSources.forEach(source => {
+  const attempted = candidateResults.filter(result => result.sourceName === source.name).length;
+  const accepted = candidates.filter(event => event.source === source.name).length;
+  console.log(`SerpApi verification · ${source.name}: ${accepted} published / ${attempted} checked (requires matching official Event data and future date).`);
+});
 // Do not publish unverified directory pages or search snippets. A card must
 // carry a direct search date or publisher-provided Event startDate.
-const events = [...new Map([...feedEvents, ...candidates.filter(event => event.date !== fallbackTime)]
+const events = [...new Map([...feedEvents, ...candidates]
   .map(event => [event.url.toLowerCase(), event])).values()]
   .sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
 
