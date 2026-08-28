@@ -370,6 +370,12 @@ function htmlAttribute(block, pattern) {
   return block.match(pattern)?.[1] ? decodeXml(block.match(pattern)[1]).trim() : '';
 }
 
+function officialPageImage(html, pageUrl, sectionPattern) {
+  const section = html.match(sectionPattern)?.[1] || '';
+  const image = htmlAttribute(section, /<img[^>]+src=["']([^"']+)["']/i);
+  return image ? new URL(image, pageUrl).href : '';
+}
+
 async function readFoothill(source) {
   const [response, physicsResponse] = await Promise.all([
     fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) }),
@@ -379,6 +385,7 @@ async function readFoothill(source) {
   if (!response.ok || !/Events__item/i.test(html)) throw new Error('Foothill official event list was not valid: ' + response.status);
   const physicsHtml = physicsResponse?.ok ? await physicsResponse.text() : '';
   const physicsSummary = cardSummary(physicsHtml.match(/Physics Show at Foothill[\s\S]{0,1200}?<p[^>]*>([\s\S]*?)<\/p>/i)?.[1] || '');
+  const physicsImage = officialPageImage(physicsHtml, 'https://foothill.edu/physics/index.html', /(<img[^>]+alt=["'][^"']*Physics Show[^"']*["'][^>]*>)/i);
   return html.split(/<div class="Events__item">/i).slice(1).flatMap(block => {
     const title = htmlAttribute(block, /Event__title[^>]*>[\s\S]*?<a[^>]+href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/i);
     const titleText = block.match(/Event__title[^>]*>[\s\S]*?<a[^>]*>([\s\S]*?)<\/a>/i)?.[1];
@@ -392,7 +399,7 @@ async function readFoothill(source) {
     if (!cleanTitle || !title || !isUpcoming(dateValue) || !/physics show|observatory|astronomy|family|children|youth|science/i.test(cleanTitle)) return [];
     return [directEvent({
       id: 'foothill-' + createHash('sha256').update(title).digest('hex').slice(0, 16),
-      title: cleanTitle, dateValue, description: cleanTitle === 'The Physics Show' ? physicsSummary : '',
+      title: cleanTitle, dateValue, description: cleanTitle === 'The Physics Show' ? physicsSummary : '', image: cleanTitle === 'The Physics Show' ? physicsImage : '',
       place, address: source.address || '', city: source.city || '', source: source.name, url: title
     })];
   });
@@ -427,12 +434,17 @@ async function midpenPageDetails(url) {
   try {
     const response = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
     const html = await response.text();
-    if (!response.ok) return { description: '', meetingPoint: '', mapUrl: '' };
+    if (!response.ok) return { description: '', image: '', meetingPoint: '', mapUrl: '' };
     const description = html.match(/<div class="event-page__description">([\s\S]*?)<div class="event-page__meetup-location">/i)?.[1]
       || html.match(/<h2[^>]*>Description<\/h2>[\s\S]*?<div class="section-content[^>]*">([\s\S]*?)<\/div>/i)?.[1] || '';
-    return { description: cardSummary(description), ...officialMeetupLocation(html, url) };
+    // Midpen's event image may be absent while its official event-page hero
+    // remains available. This is still organizer-provided artwork, and ranks
+    // above our generated fallback image.
+    const image = officialPageImage(html, url, /<section[^>]+\bid=(?:["']block-guidedactivityfallbackheroimage["']|block-guidedactivityfallbackheroimage)[^>]*>([\s\S]*?)<\/section>/i)
+      || officialPageImage(html, url, /<div class=["']event-page__image["']>([\s\S]*?)<\/div>/i);
+    return { description: cardSummary(description), image, ...officialMeetupLocation(html, url) };
   } catch {
-    return { description: '', meetingPoint: '', mapUrl: '' };
+    return { description: '', image: '', meetingPoint: '', mapUrl: '' };
   }
 }
 
