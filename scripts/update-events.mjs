@@ -285,16 +285,22 @@ async function readRss(source) {
   });
 }
 
-async function tribePageSummary(url) {
+async function tribePageDetails(url) {
   try {
     const response = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
     const html = await response.text();
-    if (!response.ok) return '';
+    if (!response.ok) return { description: '', image: '' };
     const body = html.match(/tribe-events-single-event-description[\s\S]*?<div class="text">([\s\S]*?)<\/div>\s*<\/div>/i)?.[1] || '';
     const meta = html.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)["']/i)?.[1] || '';
-    return cardSummary(body) || cardSummary(meta);
+    // Prefer the event image inside the event content. The wide page-header
+    // image is site decoration and may not depict the activity itself.
+    const image = html.match(/(?:mobile-event-image|my-event-image)[\s\S]*?<img[^>]+src=["']([^"']+)["']/i)?.[1] || '';
+    return {
+      description: cardSummary(body) || cardSummary(meta),
+      image: image ? new URL(decodeXml(image), url).href : ''
+    };
   } catch {
-    return '';
+    return { description: '', image: '' };
   }
 }
 
@@ -318,10 +324,15 @@ async function readTribe(source) {
       address: shortAddress(item.venue?.address, item.venue?.city), city: canonicalCity(item.venue?.city), source: source.name, url: item.url
     }];
   });
-  const enriched = await Promise.all(seeds.map(async event => ({
-    ...event,
-    description: hasActivitySummary(event.description) ? event.description : await tribePageSummary(event.url)
-  })));
+  const enriched = await Promise.all(seeds.map(async event => {
+    if (hasActivitySummary(event.description) && event.image) return event;
+    const details = await tribePageDetails(event.url);
+    return {
+      ...event,
+      description: hasActivitySummary(event.description) ? event.description : details.description,
+      image: event.image || details.image
+    };
+  }));
   return enriched.filter(event => hasActivitySummary(event.description));
 }
 
