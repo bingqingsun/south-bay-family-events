@@ -2,7 +2,7 @@ let events = Array.isArray(window.SOUTH_BAY_EVENTS) ? window.SOUTH_BAY_EVENTS : 
 // Kept as a single switch so bilingual presentation can be restored later
 // without changing the canonical, organizer-supplied event data.
 const translationEnabled = false;
-const state = { type: 'all', age: 'all', city: 'all', date: 'all', sort: 'date', position: null, saved: JSON.parse(localStorage.getItem('southBaySaved') || '[]'), onlySaved: false, language: 'zh' };
+const state = { type: 'all', age: 'all', city: 'all', date: 'all', sort: 'date', position: null, saved: JSON.parse(localStorage.getItem('southBaySaved') || '[]'), onlySaved: false, language: 'en' };
 const grid = document.querySelector('#eventGrid');
 const template = document.querySelector('#cardTemplate');
 
@@ -40,7 +40,7 @@ function renderUpdateTime() {
 function applyStaticCopy() {
   document.documentElement.lang = state.language === 'zh' ? 'zh-CN' : 'en';
   document.title = state.language === 'zh' ? '周末去哪儿 · 南湾亲子活动' : 'Weekend Plans · South Bay Family Activities';
-  document.querySelector('meta[name="description"]').content = state.language === 'zh' ? '南湾 K-12 亲子活动与周末去处，持续更新。' : 'Continuously updated K–12 and family activities in the South Bay.';
+  document.querySelector('meta[name="description"]').content = state.language === 'zh' ? '南湾 K-12 亲子活动与周末去处，持续更新。' : 'South Bay family activities for children from toddlers through teens.';
   document.querySelectorAll('[data-i18n]').forEach(node => { node.textContent = t(node.dataset.i18n); });
   document.querySelectorAll('[data-i18n-html]').forEach(node => { node.innerHTML = t(node.dataset.i18nHtml); });
   document.querySelectorAll('.language-button').forEach(button => { const active = button.dataset.language === state.language; button.classList.toggle('active', active); button.setAttribute('aria-pressed', String(active)); });

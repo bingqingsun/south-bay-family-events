@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="南湾 K-12 亲子活动与周末去处，持续更新。" />
-    <title>周末去哪儿 · 南湾亲子活动</title>
+    <meta name="description" content="South Bay family activities for children from toddlers through teens." />
+    <title>Weekend Plans · South Bay Family Activities</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
@@ -13,46 +13,46 @@
   <body>
     <main>
       <nav class="nav wrap">
-        <a class="brand" href="#top" aria-label="周末去哪儿首页"><span>◌</span> <span data-i18n="brand">周末去哪儿</span></a>
-        <div class="nav-links"><a href="#events" data-i18n="findEvents">找活动</a><a href="#how" data-i18n="howItWorks">出发小提示</a></div>
-        <button class="saved-button" id="savedButton" type="button" aria-pressed="false" aria-label="只查看收藏活动">♡ <span id="savedLabel">已收藏</span> <b id="savedCount">0</b></button>
+        <a class="brand" href="#top" aria-label="Weekend Plans home"><span>◌</span> <span data-i18n="brand">Weekend Plans</span></a>
+        <div class="nav-links"><a href="#events" data-i18n="findEvents">Find events</a><a href="#how" data-i18n="howItWorks">Before you go</a></div>
+        <button class="saved-button" id="savedButton" type="button" aria-pressed="false" aria-label="Show saved activities">♡ <span id="savedLabel">Saved</span> <b id="savedCount">0</b></button>
       </nav>
 
       <section class="hero wrap" id="top">
         <div class="hero-copy">
           <p class="eyebrow" data-i18n="heroEyebrow">SOUTH BAY · FAMILY TIME</p>
-          <h1 data-i18n-html="heroTitle">把这个周末，<br /><em>留给一起探索。</em></h1>
-          <p class="intro" data-i18n="heroIntro">为南湾 K–12 孩子与家庭精选周末活动：从林间徒步、创意工坊到博物馆夜场，帮你更轻松地找到值得一起出发的好去处。</p>
-          <a class="hero-cta" id="weekendCta" href="#events"><span data-i18n="weekendCta">查看本周末活动</span> <span>↓</span></a>
-          <div class="update-note"><span class="pulse"></span><span id="updateText">正在读取最近更新信息…</span></div>
+          <h1 data-i18n-html="heroTitle">Make this weekend<br /><em>an adventure together.</em></h1>
+          <p class="intro" data-i18n="heroIntro">Activities handpicked for South Bay families with children from toddlers through teens—from storytimes and nature walks to creative workshops and science experiences—so it’s easier to find somewhere worth going together.</p>
+          <a class="hero-cta" id="weekendCta" href="#events"><span data-i18n="weekendCta">See this weekend</span> <span>↓</span></a>
+          <div class="update-note"><span class="pulse"></span><span id="updateText">Reading the latest update…</span></div>
         </div>
         <div class="hero-art" aria-hidden="true">
           <div class="sun"></div><div class="cloud c1"></div><div class="cloud c2"></div>
           <div class="hill h1"></div><div class="hill h2"></div>
           <div class="kid kid-one">✦</div><div class="kid kid-two">●</div>
-          <div class="sticker s1">野外<br />发现</div><div class="sticker s2">周末<br />快乐</div>
+          <div class="sticker s1">OUTDOOR<br />FINDS</div><div class="sticker s2">WEEKEND<br />JOY</div>
         </div>
       </section>
 
       <section class="filter-area wrap" id="events">
-        <div class="section-heading"><div><p class="eyebrow">CURATED FOR YOU</p><h2 data-i18n="sectionTitle">今天想做点什么？</h2></div><p id="resultCount" class="result-count"></p></div>
-        <div class="filters" aria-label="筛选活动">
-          <div class="select-wrap date-priority"><label for="dateFilter" data-i18n="date">日期</label><select id="dateFilter"><option value="all" data-i18n="anyTime">任意时间</option><option value="today" data-i18n="today">今天</option><option value="weekend" data-i18n="weekend">本周末</option><option value="month" data-i18n="month">本月</option></select></div>
-          <div class="select-wrap sort-select"><label for="sortFilter" data-i18n="sort">排序</label><select id="sortFilter"><option value="date" data-i18n="sortDate">按时间</option><option value="distance" data-i18n="sortDistance">离我最近</option></select></div>
-          <div class="select-wrap"><label for="cityFilter" data-i18n="city">城市</label><select id="cityFilter"></select></div>
-          <div class="select-wrap"><label for="ageFilter" data-i18n="age">适合年龄</label><select id="ageFilter"><option value="all" data-i18n="allAges">不限年龄</option><option value="0-2" data-i18n="age02">0–2 岁</option><option value="3-5" data-i18n="age35">3–5 岁</option><option value="k5">K–5 年级</option><option value="middle" data-i18n="middle">6–8 年级</option><option value="high" data-i18n="high">9–12 年级</option><option value="family" data-i18n="family">全家适合</option></select></div>
-          <div class="chips" id="typeFilters" aria-label="筛选活动"><button class="chip active" data-type="all" aria-pressed="true" data-i18n="all">全部</button><button class="chip" data-type="outdoor" aria-pressed="false" data-i18n="outdoor">户外自然</button><button class="chip" data-type="arts" aria-pressed="false" data-i18n="arts">艺术创作</button><button class="chip" data-type="learning" aria-pressed="false" data-i18n="learning">科学与学习</button><button class="chip" data-type="community" aria-pressed="false" data-i18n="community">社区活动</button></div>
+        <div class="section-heading"><div><p class="eyebrow">CURATED FOR YOU</p><h2 data-i18n="sectionTitle">What would you like to do?</h2></div><p id="resultCount" class="result-count"></p></div>
+        <div class="filters" aria-label="Filter activities">
+          <div class="select-wrap date-priority"><label for="dateFilter" data-i18n="date">Date</label><select id="dateFilter"><option value="all" data-i18n="anyTime">Any time</option><option value="today" data-i18n="today">Today</option><option value="weekend" data-i18n="weekend">This weekend</option><option value="month" data-i18n="month">This month</option></select></div>
+          <div class="select-wrap sort-select"><label for="sortFilter" data-i18n="sort">Sort</label><select id="sortFilter"><option value="date" data-i18n="sortDate">By date</option><option value="distance" data-i18n="sortDistance">Nearest to me</option></select></div>
+          <div class="select-wrap"><label for="cityFilter" data-i18n="city">City</label><select id="cityFilter"></select></div>
+          <div class="select-wrap"><label for="ageFilter" data-i18n="age">Ages</label><select id="ageFilter"><option value="all" data-i18n="allAges">All ages</option><option value="0-2" data-i18n="age02">Ages 0–2</option><option value="3-5" data-i18n="age35">Ages 3–5</option><option value="k5">Grades K–5</option><option value="middle" data-i18n="middle">Grades 6–8</option><option value="high" data-i18n="high">Grades 9–12</option><option value="family" data-i18n="family">Family-friendly</option></select></div>
+          <div class="chips" id="typeFilters" aria-label="Filter activities"><button class="chip active" data-type="all" aria-pressed="true" data-i18n="all">All</button><button class="chip" data-type="outdoor" aria-pressed="false" data-i18n="outdoor">Outdoors</button><button class="chip" data-type="arts" aria-pressed="false" data-i18n="arts">Arts & making</button><button class="chip" data-type="learning" aria-pressed="false" data-i18n="learning">Learning & STEM</button><button class="chip" data-type="community" aria-pressed="false" data-i18n="community">Community</button></div>
         </div>
         <p class="location-status" id="locationStatus" aria-live="polite" hidden></p>
         <div class="cards" id="eventGrid" aria-live="polite"></div>
-        <div class="empty" id="emptyState" hidden><p id="emptyMessage"></p><button class="clear-filters" id="clearFilters" type="button" data-i18n="clearFilters">清除筛选</button></div>
+        <div class="empty" id="emptyState" hidden><p id="emptyMessage"></p><button class="clear-filters" id="clearFilters" type="button" data-i18n="clearFilters">Clear filters</button></div>
       </section>
 
-      <section class="how wrap" id="how"><p class="eyebrow" data-i18n="tipsEyebrow">BEFORE YOU GO</p><h2 data-i18n="howTitle">周末出发小提示</h2><div class="how-grid"><article><b>01</b><h3 data-i18n="how1Title">出门前确认</h3><p data-i18n="how1Body">活动时间、名额和费用可能变化；出发前请查看主办方页面。</p></article><article><b>02</b><h3 data-i18n="how2Title">提前安排</h3><p data-i18n="how2Body">热门活动建议先预约；户外活动留意天气、停车和步行距离。</p></article><article><b>03</b><h3 data-i18n="how3Title">先收藏，再决定</h3><p data-i18n="how3Body">点击心形收藏感兴趣的活动，周末可在“已收藏”中集中查看。</p></article></div></section>
+      <section class="how wrap" id="how"><p class="eyebrow" data-i18n="tipsEyebrow">BEFORE YOU GO</p><h2 data-i18n="howTitle">A few tips for the weekend</h2><div class="how-grid"><article><b>01</b><h3 data-i18n="how1Title">Confirm before leaving</h3><p data-i18n="how1Body">Times, capacity, and prices can change. Check the organizer’s page before you head out.</p></article><article><b>02</b><h3 data-i18n="how2Title">Plan ahead</h3><p data-i18n="how2Body">Reserve popular activities early, and check weather, parking, and walking distance for outdoor plans.</p></article><article><b>03</b><h3 data-i18n="how3Title">Save now, decide later</h3><p data-i18n="how3Body">Tap the heart to save activities and review them together in Saved when the weekend arrives.</p></article></div></section>
     </main>
-    <footer><div class="wrap"><a class="brand" href="#top"><span>◌</span> <span data-i18n="brand">周末去哪儿</span></a><p data-i18n="footer">为南湾的好奇心而做 · 活动信息请以主办方页面为准</p></div></footer>
-    <template id="cardTemplate"><article class="event-card"><div class="card-image"><span class="event-icon"></span><span class="tag"></span><button class="heart" type="button" aria-label="收藏活动">♡</button></div><div class="card-content"><h3></h3><div class="card-facts" aria-label="适合年龄与费用"><span class="fact fact-age"></span><span class="fact fact-cost"></span></div><p class="distance" hidden></p><p class="description"></p><button class="description-toggle" type="button" hidden></button><div class="details"><div class="detail-row time"><svg class="detail-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7v5l3.5 2"></path></svg><div class="time-content"><div class="time-primary"><span class="detail-text"></span><button class="sessions-inline-toggle" type="button" hidden></button></div><ul class="sessions-list" hidden></ul></div></div><div class="detail-row place"><svg class="detail-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 20V4h12v16M3 20h18M10 8h1M10 12h1M14 8h1M14 12h1"></path></svg><span class="detail-text"></span></div><div class="detail-row address" hidden><svg class="detail-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5.1-8 11-8 11S4 15.1 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg><a class="address-link" target="_blank" rel="noopener"><span class="detail-text"></span><span class="directions"></span><svg class="directions-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 7l5 5-5 5"></path></svg></a></div></div><a class="source-link" target="_blank" rel="noopener">查看活动详情 <span>→</span></a></div></article></template>
+    <footer><div class="wrap"><a class="brand" href="#top"><span>◌</span> <span data-i18n="brand">Weekend Plans</span></a><p data-i18n="footer">Made for curious South Bay families · Please confirm details with the organizer</p></div></footer>
+    <template id="cardTemplate"><article class="event-card"><div class="card-image"><span class="event-icon"></span><span class="tag"></span><button class="heart" type="button" aria-label="Save activity">♡</button></div><div class="card-content"><h3></h3><div class="card-facts" aria-label="Ages and cost"><span class="fact fact-age"></span><span class="fact fact-cost"></span></div><p class="distance" hidden></p><p class="description"></p><button class="description-toggle" type="button" hidden></button><div class="details"><div class="detail-row time"><svg class="detail-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7v5l3.5 2"></path></svg><div class="time-content"><div class="time-primary"><span class="detail-text"></span><button class="sessions-inline-toggle" type="button" hidden></button></div><ul class="sessions-list" hidden></ul></div></div><div class="detail-row place"><svg class="detail-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 20V4h12v16M3 20h18M10 8h1M10 12h1M14 8h1M14 12h1"></path></svg><span class="detail-text"></span></div><div class="detail-row address" hidden><svg class="detail-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5.1-8 11-8 11S4 15.1 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg><a class="address-link" target="_blank" rel="noopener"><span class="detail-text"></span><span class="directions"></span><svg class="directions-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 7l5 5-5 5"></path></svg></a></div></div><a class="source-link" target="_blank" rel="noopener">View activity details <span>→</span></a></div></article></template>
     <script src="data/events.js?v=20260828-3"></script>
-    <script src="app.js?v=20260828-4"></script>
+    <script src="app.js?v=20260828-5"></script>
   </body>
 </html>
