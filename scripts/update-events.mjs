@@ -118,7 +118,7 @@ function hasActivitySummary(text) {
   return value.length >= 20 && !isLogisticsOnly(value);
 }
 
-function cardSummary(html) {
+function cardSummary(html, title = '') {
   const text = plainText(html).replace(/https?:\/\/\S+/g, '').trim();
   // Some official pages lead with a question and then bury the activity in
   // printer requirements. Preserve the actual service in a short, faithful
@@ -126,7 +126,12 @@ function cardSummary(html) {
   if (/\b3d printer\b/i.test(text) && /\bthingiverse\b/i.test(text) && /\b(?:choose a design|provide (?:their|your) own design)\b/i.test(text)) {
     return 'Submit a design to print on the library’s 3D printer—choose from Thingiverse or provide your own.';
   }
-  const sentences = text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [];
+  if (/\b(?:DIY|hazlo)\b/i.test(title) && /decor(?:a|ar) velas con servilletas/i.test(text)) {
+    return 'Hands-on adult DIY activity focused on decorating candles with napkins.';
+  }
+  const sentences = (text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || []).map(sentence => sentence
+    .replace(/^(?:[a-z]+,?\s+)?[a-z]+\s+\d{1,2}\s*[-:–—]\s*/i, '')
+    .replace(/^\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4}\s*[-:–—]\s*/, ''));
   const listItems = [...String(html || '').matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)].map(match => plainText(match[1])).filter(Boolean);
   const listText = listItems.slice(0, 5).map(item => {
     let cleaned = item.replace(/^intro to\s+/i, '').replace(/[.!?]+$/, '');
@@ -149,15 +154,19 @@ function cardSummary(html) {
     if (/^[\W_–—-]{3,}|[¡¿]/.test(candidate)) result -= 12;
     if (/\b(?:arrive early|first-come|space is limited|we do not offer|not available|not permitted|must not|limit to|do not trade|not (?:accepted|allowed)|requirements?|no weapons?|personal use only|lawful purposes?|copyright|patent|trademark|liability)\b/i.test(value)) result -= 16;
     if (/\b(?:printable if|load and save|file format|filament availability|staff have the right|reserve the right to refuse|technical specifications?)\b/i.test(value)) result -= 18;
+    if (/\b(?:is|are)\s+\d+\s+minutes?\b|\bfollowed by\s+(?:stay|free|open)\b|\buntil\s+\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?)?\b/i.test(value)) result -= 16;
     if (/\b(?:will be offering|offers?|provides?|join us for|come (?:to|and)|enjoy|take part|explore)\b/i.test(value)) result += 5;
+    if (/\b(?:stories|storytime|rhymes?|fingerplays?|songs?|toddlers?|babies|children|kids?|hands-on|crafts?|games?)\b/i.test(value)) result += 7;
     if (/\b(?:learn|explore|discover|create|build|make|play|story|song|meditat\w*|yoga|computer|tech|science|stem|hike|nature|art|music|read|watch|design|help|practice|harvest|taste|garden|repair|volunteer|cook|craft|exercise|football|dance|robot|marsh|slug|berry|puzzle|print|knit|crochet)\b/.test(value)) result += 8;
     if (/would you like|do you love|do you have what it takes/.test(value)) result -= 3;
     return result;
   };
   const useful = candidates.sort((a, b) => score(b) - score(a)).find(hasActivitySummary) || '';
-  // Keep enough of the organizer-derived summary for the in-card “expand”
+  const concise = useful.replace(/^(?:[a-z]+,?\s+)?[a-z]+\s+\d{1,2}\s*[-:–—]\s*/i, '')
+    .replace(/^\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4}\s*[-:–—]\s*/, '');
+  // Keep enough of the organizer-derived summary for the in-card “expand"
   // control. The collapsed card remains short through CSS line clamping.
-  return useful.length > 320 ? `${useful.slice(0, 317).trimEnd()}…` : useful;
+  return concise.length > 320 ? `${concise.slice(0, 317).trimEnd()}…` : concise;
 }
 
 function officialImageUrl(item) {
@@ -261,7 +270,7 @@ async function readRss(source) {
     return [{
       id: 'rss-' + eventId, title, date: displayEventDate(startDate), dateValue: startDate, ...age, ...cost,
       type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'rss', lastVerifiedAt: generatedAt,
-      description: cardSummary(xmlText(item, 'description')),
+      description: cardSummary(xmlText(item, 'description'), title),
       image: officialImageUrl(item),
       place: [venue, room].filter(Boolean).join(' · ') || source.name, address, city, source: source.name, url: link
     }];
