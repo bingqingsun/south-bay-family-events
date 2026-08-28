@@ -127,6 +127,14 @@ function shortAddress(street, city) {
   return cleanStreet && cleanCity ? `${cleanStreet}, ${cleanCity}` : '';
 }
 
+function canonicalCity(value) {
+  const city = plainText(value);
+  if (!city) return '';
+  // Keep one stable value per city so one place never becomes two filters
+  // merely because official sources differ on the accent in San Jose.
+  return /^san jos[eé]$/i.test(city) ? 'San Jose' : city;
+}
+
 // Keep audience labels deliberately conservative. A generic "kids" category
 // does not prove a grade range, and "family" does not prove that every age is
 // suitable. The original publisher categories remain the source of truth.
@@ -199,13 +207,14 @@ async function readRss(source) {
     const location = xmlText(item, 'location');
     const venue = xmlText(location, 'name');
     const room = xmlText(location, 'location_details');
-    const address = shortAddress(`${xmlText(location, 'number')} ${xmlText(location, 'street')}`, xmlText(location, 'city'));
+    const city = canonicalCity(xmlText(location, 'city'));
+    const address = shortAddress(`${xmlText(location, 'number')} ${xmlText(location, 'street')}`, city);
     return [{
       id: 'rss-' + eventId, title, date: displayEventDate(startDate), dateValue: startDate, ...age, ...cost,
       type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'rss', lastVerifiedAt: generatedAt,
       description: cardSummary(xmlText(item, 'description')),
       image: officialImageUrl(item),
-      place: [venue, room].filter(Boolean).join(' · ') || source.name, address, source: source.name, url: link
+      place: [venue, room].filter(Boolean).join(' · ') || source.name, address, city, source: source.name, url: link
     }];
   });
 }
@@ -227,7 +236,7 @@ async function readTribe(source) {
       type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'calendar', lastVerifiedAt: generatedAt,
       description: cardSummary(item.description || item.excerpt || ''),
       image: item.image?.url || '', place: item.venue?.venue || source.name,
-      address: shortAddress(item.venue?.address, item.venue?.city), source: source.name, url: item.url
+      address: shortAddress(item.venue?.address, item.venue?.city), city: canonicalCity(item.venue?.city), source: source.name, url: item.url
     }];
   });
 }
@@ -250,7 +259,7 @@ function isoDateFromOfficialText(dateText, timeText = '') {
   return date + 'T' + String(hour).padStart(2, '0') + ':' + (time[2] || '00');
 }
 
-function directEvent({ id, title, dateValue, description, image = '', place, address = '', source, url, ageText = '' }) {
+function directEvent({ id, title, dateValue, description, image = '', place, address = '', city = '', source, url, ageText = '' }) {
   const type = typeFor(title + ' ' + description + ' ' + ageText);
   const age = ageInfo(ageText);
   return {
@@ -258,7 +267,7 @@ function directEvent({ id, title, dateValue, description, image = '', place, add
     costLabel: '费用未注明', costSource: '', type, icon: icons[type], color: colors[type], tag: labels[type],
     verification: 'official-page', lastVerifiedAt: generatedAt,
     description: cardSummary(description),
-    image, place, address, source, url
+    image, place, address, city: canonicalCity(city), source, url
   };
 }
 
@@ -289,7 +298,7 @@ async function readFoothill(source) {
     return [directEvent({
       id: 'foothill-' + createHash('sha256').update(title).digest('hex').slice(0, 16),
       title: cleanTitle, dateValue, description: cleanTitle === 'The Physics Show' ? physicsSummary : '',
-      place, address: source.address || '', source: source.name, url: title
+      place, address: source.address || '', city: source.city || '', source: source.name, url: title
     })];
   });
 }
@@ -327,7 +336,7 @@ async function readTheTech(source) {
     return [directEvent({
       id: 'thetech-' + createHash('sha256').update(url).digest('hex').slice(0, 16),
       title, dateValue, description, image: image ? new URL(image, source.feedUrl).href : '',
-      place, address: source.address || '', source: source.name, url, ageText: audienceText
+      place, address: source.address || '', city: source.city || '', source: source.name, url, ageText: audienceText
     })];
   });
 }

@@ -2,18 +2,18 @@ let events = Array.isArray(window.SOUTH_BAY_EVENTS) ? window.SOUTH_BAY_EVENTS : 
 // Kept as a single switch so bilingual presentation can be restored later
 // without changing the canonical, organizer-supplied event data.
 const translationEnabled = false;
-const state = { type: 'all', age: 'all', date: 'all', saved: JSON.parse(localStorage.getItem('southBaySaved') || '[]'), onlySaved: false, language: 'zh' };
+const state = { type: 'all', age: 'all', city: 'all', date: 'all', saved: JSON.parse(localStorage.getItem('southBaySaved') || '[]'), onlySaved: false, language: 'zh' };
 const grid = document.querySelector('#eventGrid');
 const template = document.querySelector('#cardTemplate');
 
 const copy = {
   zh: {
-    brand: '周末去哪儿', findEvents: '找活动', howItWorks: '如何更新', heroTitle: '把这个周末，<br /><em>留给一起探索。</em>', heroIntro: '为南湾 K–12 孩子和家庭精选的活动灵感。从林间徒步、创意工坊到博物馆夜场，持续更新。', weekendCta: '查看本周末活动', sectionTitle: '今天想做点什么？', date: '日期', anyTime: '任意时间', today: '今天', weekend: '本周末', month: '本月', age: '适合年龄', allAges: '不限年龄', age02: '0–2 岁', age35: '3–5 岁', middle: '6–8 年级', high: '9–12 年级', family: '全家适合', all: '全部', outdoor: '户外自然', arts: '艺术创作', learning: '科学与学习', community: '社区活动', clearFilters: '清除筛选',
+    brand: '周末去哪儿', findEvents: '找活动', howItWorks: '如何更新', heroTitle: '把这个周末，<br /><em>留给一起探索。</em>', heroIntro: '为南湾 K–12 孩子和家庭精选的活动灵感。从林间徒步、创意工坊到博物馆夜场，持续更新。', weekendCta: '查看本周末活动', sectionTitle: '今天想做点什么？', date: '日期', anyTime: '任意时间', today: '今天', weekend: '本周末', month: '本月', city: '城市', allCities: '全部城市', age: '适合年龄', allAges: '不限年龄', age02: '0–2 岁', age35: '3–5 岁', middle: '6–8 年级', high: '9–12 年级', family: '全家适合', all: '全部', outdoor: '户外自然', arts: '艺术创作', learning: '科学与学习', community: '社区活动', clearFilters: '清除筛选',
     howTitle: '不只是活动清单。', how1Title: '工作日更新', how1Body: '自动巡检官方日历；搜索兜底每周二、周四运行，不在周末查询。', how2Title: '去重与整理', how2Body: '合并重复活动，标注适合年龄、地点、花费与是否需要预约。', how3Title: '为家庭而选', how3Body: '优先呈现真正值得全家出门的活动；每条都保留原始来源链接。', footer: '为南湾的好奇心而做 · 活动信息请以主办方页面为准',
     saved: '已收藏', results: count => `发现 ${count} 个活动`, savedResults: count => `已收藏 ${count} 个活动`, emptyFiltered: '当前筛选条件下暂无活动。试试放宽日期、年龄或类别。', emptyAll: '暂时没有已核验的活动，请稍后再试。', updateUnavailable: '最近更新信息暂不可用 · 来自官方活动来源', update: date => `最近更新：${date}（南湾时间）· 官方来源`, ageFact: label => `适合：${label}`, costFact: label => `费用：${label}`, ageUnknown: '年龄未注明', costUnknown: '费用未注明', viewDetails: source => source ? `查看 ${source} 详情` : '查看活动详情', save: title => `收藏：${title}`, unsave: title => `取消收藏：${title}`, showAll: '显示全部活动', showSaved: '只查看收藏活动', timeUnavailable: '请点击活动详情查看活动时间'
   },
   en: {
-    brand: 'Weekend Plans', findEvents: 'Find events', howItWorks: 'How it works', heroTitle: 'Make this weekend<br /><em>an adventure together.</em>', heroIntro: 'Handpicked ideas for South Bay K–12 kids and families—from nature walks and creative workshops to museum evenings, continually updated.', weekendCta: 'See this weekend', sectionTitle: 'What would you like to do?', date: 'Date', anyTime: 'Any time', today: 'Today', weekend: 'This weekend', month: 'This month', age: 'Ages', allAges: 'All ages', age02: 'Ages 0–2', age35: 'Ages 3–5', middle: 'Grades 6–8', high: 'Grades 9–12', family: 'Family-friendly', all: 'All', outdoor: 'Outdoors', arts: 'Arts & making', learning: 'Learning & STEM', community: 'Community', clearFilters: 'Clear filters',
+    brand: 'Weekend Plans', findEvents: 'Find events', howItWorks: 'How it works', heroTitle: 'Make this weekend<br /><em>an adventure together.</em>', heroIntro: 'Handpicked ideas for South Bay K–12 kids and families—from nature walks and creative workshops to museum evenings, continually updated.', weekendCta: 'See this weekend', sectionTitle: 'What would you like to do?', date: 'Date', anyTime: 'Any time', today: 'Today', weekend: 'This weekend', month: 'This month', city: 'City', allCities: 'All cities', age: 'Ages', allAges: 'All ages', age02: 'Ages 0–2', age35: 'Ages 3–5', middle: 'Grades 6–8', high: 'Grades 9–12', family: 'Family-friendly', all: 'All', outdoor: 'Outdoors', arts: 'Arts & making', learning: 'Learning & STEM', community: 'Community', clearFilters: 'Clear filters',
     howTitle: 'More than a list of events.', how1Title: 'Weekday updates', how1Body: 'We check official calendars on weekdays. Search backup runs Tuesdays and Thursdays, never on weekends.', how2Title: 'Deduplicated & organized', how2Body: 'We combine duplicate listings and show age, location, cost, and reservation details when organizers provide them.', how3Title: 'Built for families', how3Body: 'We prioritize outings worth making time for, while keeping every original organizer link.', footer: 'Made for curious South Bay families · Please confirm details with the organizer',
     saved: 'Saved', results: count => `${count} activities found`, savedResults: count => `${count} saved activities`, emptyFiltered: 'No activities match these filters. Try widening the date, age, or category.', emptyAll: 'No verified activities are available right now. Please try again soon.', updateUnavailable: 'Latest refresh information is unavailable · Official sources', update: date => `Last updated: ${date} · Official sources`, ageFact: label => `Ages: ${label}`, costFact: label => `Cost: ${label}`, ageUnknown: 'Age not specified', costUnknown: 'Cost not specified', viewDetails: source => source ? `View ${source} details` : 'View activity details', save: title => `Save: ${title}`, unsave: title => `Remove saved activity: ${title}`, showAll: 'Show all activities', showSaved: 'Show saved activities', timeUnavailable: 'See organizer details for the event time'
   }
@@ -58,8 +58,18 @@ function dateMatches(event, filter) {
   return false;
 }
 function ageMatches(event, age) { if (age === 'all') return true; const bands = event.ageBands || []; return age === 'family' ? bands.includes('family') || bands.includes('all-ages') : bands.includes(age) || bands.includes('all-ages'); }
+function populateCityFilter() {
+  const select = document.querySelector('#cityFilter');
+  const previous = state.city;
+  const counts = new Map();
+  events.forEach(event => { if (event.city) counts.set(event.city, (counts.get(event.city) || 0) + 1); });
+  select.replaceChildren(new Option(t('allCities'), 'all'));
+  [...counts.entries()].sort(([a], [b]) => a.localeCompare(b, 'en')).forEach(([city, count]) => select.add(new Option(`${city} (${count})`, city)));
+  state.city = counts.has(previous) ? previous : 'all';
+  select.value = state.city;
+}
 function render() {
-  const visible = events.filter(event => (state.type === 'all' || event.type === state.type) && ageMatches(event, state.age) && dateMatches(event, state.date) && (!state.onlySaved || state.saved.includes(event.id)));
+  const visible = events.filter(event => (state.type === 'all' || event.type === state.type) && (state.city === 'all' || event.city === state.city) && ageMatches(event, state.age) && dateMatches(event, state.date) && (!state.onlySaved || state.saved.includes(event.id)));
   grid.innerHTML = '';
   visible.forEach(event => {
     const node = template.content.cloneNode(true); const image = event.image || `assets/fallback/${event.type || 'community'}.png`; const imageArea = node.querySelector('.card-image');
@@ -74,19 +84,20 @@ function render() {
     const link = node.querySelector('.source-link'); link.href = event.url; link.firstChild.textContent = `${t('viewDetails')(event.source)} `;
     const heart = node.querySelector('.heart'); const isSaved = state.saved.includes(event.id); heart.dataset.id = event.id; heart.classList.toggle('saved', isSaved); heart.textContent = isSaved ? '♥' : '♡'; heart.setAttribute('aria-pressed', String(isSaved)); heart.setAttribute('aria-label', isSaved ? t('unsave')(eventText(event, 'title')) : t('save')(eventText(event, 'title'))); grid.append(node);
   });
-  document.querySelector('#emptyState').hidden = visible.length !== 0; const active = state.type !== 'all' || state.age !== 'all' || state.date !== 'all' || state.onlySaved;
+  document.querySelector('#emptyState').hidden = visible.length !== 0; const active = state.type !== 'all' || state.age !== 'all' || state.city !== 'all' || state.date !== 'all' || state.onlySaved;
   document.querySelector('#emptyMessage').textContent = active ? t('emptyFiltered') : t('emptyAll'); document.querySelector('#clearFilters').hidden = !active; document.querySelector('#resultCount').textContent = state.onlySaved ? t('savedResults')(visible.length) : t('results')(visible.length); document.querySelector('#savedCount').textContent = state.saved.length;
   const savedButton = document.querySelector('#savedButton'); savedButton.setAttribute('aria-pressed', String(state.onlySaved)); savedButton.setAttribute('aria-label', state.onlySaved ? t('showAll') : t('showSaved'));
 }
 function setActiveType(type) { document.querySelectorAll('.chip').forEach(chip => { const active = chip.dataset.type === type; chip.classList.toggle('active', active); chip.setAttribute('aria-pressed', String(active)); }); }
 function syncDatePriority() { document.querySelector('.date-priority').classList.toggle('is-active', state.date !== 'all'); }
-function resetFilters({ date = 'all' } = {}) { state.type = 'all'; state.age = 'all'; state.date = date; state.onlySaved = false; document.querySelector('#ageFilter').value = 'all'; document.querySelector('#dateFilter').value = date; setActiveType('all'); syncDatePriority(); document.querySelector('#savedButton').classList.remove('active'); }
+function resetFilters({ date = 'all' } = {}) { state.type = 'all'; state.age = 'all'; state.city = 'all'; state.date = date; state.onlySaved = false; document.querySelector('#ageFilter').value = 'all'; document.querySelector('#cityFilter').value = 'all'; document.querySelector('#dateFilter').value = date; setActiveType('all'); syncDatePriority(); document.querySelector('#savedButton').classList.remove('active'); }
 document.querySelector('#typeFilters').addEventListener('click', e => { if (!e.target.matches('.chip')) return; state.type = e.target.dataset.type; setActiveType(state.type); render(); });
 document.querySelector('#ageFilter').addEventListener('change', e => { state.age = e.target.value; render(); });
+document.querySelector('#cityFilter').addEventListener('change', e => { state.city = e.target.value; render(); });
 document.querySelector('#dateFilter').addEventListener('change', e => { state.date = e.target.value; syncDatePriority(); render(); });
 document.querySelector('#clearFilters').addEventListener('click', () => { resetFilters(); render(); });
 document.querySelector('#weekendCta').addEventListener('click', event => { event.preventDefault(); resetFilters({ date: 'weekend' }); render(); document.querySelector('#events').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
 grid.addEventListener('click', e => { const button = e.target.closest('.heart'); if (!button) return; const id = button.dataset.id; state.saved = state.saved.includes(id) ? state.saved.filter(item => item !== id) : [...state.saved, id]; localStorage.setItem('southBaySaved', JSON.stringify(state.saved)); render(); });
 document.querySelector('#savedButton').addEventListener('click', () => { state.onlySaved = !state.onlySaved; document.querySelector('#savedButton').classList.toggle('active', state.onlySaved); render(); });
 applyStaticCopy();
-fetch('./data/events.json', { cache: 'no-store' }).then(response => response.ok ? response.json() : Promise.reject()).then(data => { if (Array.isArray(data)) events = data; }).catch(() => {}).finally(render);
+fetch('./data/events.json', { cache: 'no-store' }).then(response => response.ok ? response.json() : Promise.reject()).then(data => { if (Array.isArray(data)) events = data; }).catch(() => {}).finally(() => { populateCityFilter(); render(); });
