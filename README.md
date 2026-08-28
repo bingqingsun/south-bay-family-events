@@ -22,15 +22,6 @@
 
 在 GitHub 仓库的 **Settings → Secrets and variables → Actions** 中添加 `SERPAPI_KEY`，随后启用 Actions；网站每个工作日会自动刷新并提交活动列表，GitHub Pages / Netlify / Vercel 会随之重新部署。每一条活动仍会保留其原始链接，方便家庭确认最新安排。
 
-## 中英双语与 Google 翻译
+## 语言
 
-页面右上角可切换中文与英文。英文为主办方原文；中文活动标题和简述由更新脚本在发布前翻译并保存在活动数据中，访问者不会触发翻译请求，也看不到密钥。
-
-在 GitHub 的 **Settings → Secrets and variables → Actions → New repository secret** 新增：
-
-- Name：`GOOGLE_TRANSLATE_API_KEY`
-- Secret：Google Cloud Translation API 的密钥
-
-脚本只将**新增或正文有变化**的标题和简述发送翻译，并用内容指纹复用既有译文；未变化的活动不会重复消耗字符额度。若已配置翻译密钥但翻译服务报错，更新会失败且不会覆盖已发布的活动列表。没有配置密钥时，活动仍会正常更新，但新增活动会保留主办方原文，直到密钥配置完成。
-
-首次加入上述密钥后，推送包含刷新脚本或来源配置的改动会自动运行一次更新，无需再点 **Run workflow**；此后由工作日定时更新完成。
+目前网站固定显示中文界面，活动标题和简述保留主办方原文。自动翻译功能已暂停：更新工作流不会调用任何翻译服务，也不需要翻译 API 密钥。

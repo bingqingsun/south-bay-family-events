@@ -1,6 +1,8 @@
 let events = Array.isArray(window.SOUTH_BAY_EVENTS) ? window.SOUTH_BAY_EVENTS : [];
-const storedLanguage = localStorage.getItem('southBayLanguage');
-const state = { type: 'all', age: 'all', date: 'all', saved: JSON.parse(localStorage.getItem('southBaySaved') || '[]'), onlySaved: false, language: storedLanguage === 'en' ? 'en' : 'zh' };
+// Kept as a single switch so bilingual presentation can be restored later
+// without changing the canonical, organizer-supplied event data.
+const translationEnabled = false;
+const state = { type: 'all', age: 'all', date: 'all', saved: JSON.parse(localStorage.getItem('southBaySaved') || '[]'), onlySaved: false, language: 'zh' };
 const grid = document.querySelector('#eventGrid');
 const template = document.querySelector('#cardTemplate');
 
@@ -20,7 +22,7 @@ const categoryLabels = { outdoor: ['户外自然', 'Outdoors'], arts: ['艺术�
 const ageLabels = { '0-2': ['0–2 岁', '0–2'], '3-5': ['3–5 岁', '3–5'], k5: ['K–5', 'K–5'], middle: ['6–8 年级', 'Grades 6–8'], high: ['9–12 年级', 'Grades 9–12'], 'all-ages': ['所有年龄', 'All ages'], family: ['全家适合', 'Family-friendly'] };
 const costLabels = { '免费': ['免费', 'Free'], '建议捐赠': ['建议捐赠', 'Suggested donation'], '会员／非会员价格见详情': ['会员／非会员价格见详情', 'Member / non-member price—see details'], '需购票／价格见详情': ['需购票／价格见详情', 'Tickets / price—see details'] };
 const t = key => copy[state.language][key];
-const eventText = (event, field) => state.language === 'zh' ? event.translations?.zh?.[field] || event[field] : event[field];
+const eventText = (event, field) => translationEnabled && state.language === 'zh' ? event.translations?.zh?.[field] || event[field] : event[field];
 const categoryLabel = event => categoryLabels[event.type || 'community']?.[state.language === 'zh' ? 0 : 1] || event.tag;
 function eventAgeLabel(event) { return event.ageBands?.length ? event.ageBands.map(band => ageLabels[band]?.[state.language === 'zh' ? 0 : 1]).filter(Boolean).join(' · ') : t('ageUnknown'); }
 function eventCostLabel(event) { return !event.costLabel || event.costLabel === '费用未注明' ? t('costUnknown') : costLabels[event.costLabel]?.[state.language === 'zh' ? 0 : 1] || event.costLabel; }
@@ -82,7 +84,6 @@ document.querySelector('#ageFilter').addEventListener('change', e => { state.age
 document.querySelector('#dateFilter').addEventListener('change', e => { state.date = e.target.value; syncDatePriority(); render(); });
 document.querySelector('#clearFilters').addEventListener('click', () => { resetFilters(); render(); });
 document.querySelector('#weekendCta').addEventListener('click', event => { event.preventDefault(); resetFilters({ date: 'weekend' }); render(); document.querySelector('#events').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
-document.querySelectorAll('.language-button').forEach(button => button.addEventListener('click', () => { state.language = button.dataset.language; localStorage.setItem('southBayLanguage', state.language); applyStaticCopy(); render(); }));
 grid.addEventListener('click', e => { const button = e.target.closest('.heart'); if (!button) return; const id = button.dataset.id; state.saved = state.saved.includes(id) ? state.saved.filter(item => item !== id) : [...state.saved, id]; localStorage.setItem('southBaySaved', JSON.stringify(state.saved)); render(); });
 document.querySelector('#savedButton').addEventListener('click', () => { state.onlySaved = !state.onlySaved; document.querySelector('#savedButton').classList.toggle('active', state.onlySaved); render(); });
 applyStaticCopy();

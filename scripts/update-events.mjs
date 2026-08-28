@@ -7,7 +7,10 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 
 const key = process.env.SERPAPI_KEY;
-const translationKey = process.env.GOOGLE_TRANSLATE_API_KEY;
+// Translation is intentionally paused: no third-party translation key is read
+// or called until the product is ready to offer this feature again.
+const translationEnabled = false;
+const translationKey = translationEnabled ? process.env.GOOGLE_TRANSLATE_API_KEY : '';
 
 const typeFor = text => /hike|nature|park|outdoor|garden/i.test(text) ? 'outdoor'
   : /art|craft|paint|music|theater|museum/i.test(text) ? 'arts'
@@ -323,6 +326,7 @@ async function translateToChinese(texts) {
 }
 
 async function addChineseTranslations(items) {
+  if (!translationEnabled) return { cached: 0, translated: 0 };
   const existingByUrl = new Map(existingEvents.filter(event => event.url).map(event => [event.url.toLowerCase(), event]));
   const missing = [];
   for (const event of items) {

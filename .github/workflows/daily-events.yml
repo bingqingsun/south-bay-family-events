@@ -2,7 +2,7 @@ name: Refresh South Bay events
 
 on:
   # A source or refresh-script change should immediately rebuild the published
-  # list (including cached translations), without asking the maintainer to run
+  # list without asking the maintainer to run
   # Actions manually after pushing the configuration.
   push:
     paths:
@@ -35,7 +35,6 @@ jobs:
       - run: node scripts/update-events.mjs
         env:
           SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
-          GOOGLE_TRANSLATE_API_KEY: ${{ secrets.GOOGLE_TRANSLATE_API_KEY }}
           INCLUDE_SERPAPI: ${{ inputs.include_serpapi }}
       - name: Save refreshed event list
         run: |
