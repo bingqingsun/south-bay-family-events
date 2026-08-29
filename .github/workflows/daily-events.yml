@@ -16,7 +16,7 @@ on:
   workflow_dispatch:
     inputs:
       include_serpapi:
-        description: '同时运行 SerpApi 兜底搜索（约消耗 18 次查询）'
+        description: '同时运行 SerpApi 兜底搜索（约消耗 14 次查询）'
         required: false
         default: false
         type: boolean
@@ -35,10 +35,13 @@ jobs:
       - run: node scripts/update-events.mjs
         env:
           SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
-          # A configuration push refreshes the free direct sources only. The
-          # scheduled Tuesday/Thursday run keeps its normal fallback behavior;
-          # a manual run uses the checkbox above.
-          INCLUDE_SERPAPI: ${{ github.event_name == 'push' && 'false' || inputs.include_serpapi }}
+          # A configuration push refreshes the free direct sources only. A
+          # scheduled run passes `auto`, allowing the script to use SerpApi
+          # only on Tuesday and Thursday; a manual run uses the checkbox above.
+          # GitHub exposes the manual input's default (`false`) on scheduled
+          # runs too, so relying on `inputs.include_serpapi` here would
+          # silently disable the scheduled fallback.
+          INCLUDE_SERPAPI: ${{ github.event_name == 'schedule' && 'auto' || github.event_name == 'push' && 'false' || inputs.include_serpapi }}
       - name: Save refreshed event list
         run: |
           git config user.name "south-bay-events-bot"
