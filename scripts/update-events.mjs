@@ -539,6 +539,79 @@ async function readStanford(source) {
   });
 }
 
+// Cupertino publishes a server-rendered public event list rather than an RSS
+// or ICS feed. The list itself includes an official date, description, venue,
+// image, and audience tags, so it is more reliable than a web-search result.
+async function readCupertino(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const html = await response.text();
+  if (!response.ok || !/list-item-container[\s\S]*list-item-title/i.test(html)) {
+    throw new Error('Cupertino official calendar was not valid: ' + response.status);
+  }
+  const monthNumbers = { jan: '01', feb: '02', mar: '03', apr: '04', may: '05', jun: '06', jul: '07', aug: '08', sep: '09', oct: '10', nov: '11', dec: '12' };
+  const seen = new Set();
+  return [...html.matchAll(/<div class=["']list-item-container[\s\S]*?<\/article>/gi)].flatMap(blockMatch => {
+    const block = blockMatch[0];
+    const href = htmlAttribute(block, /<a[^>]+href=["']([^"']+)["']/i);
+    const title = plainText(block.match(/list-item-title[^>]*>([\s\S]*?)<\/h2>/i)?.[1] || '');
+    const day = htmlAttribute(block, /part-date[^>]*>([\s\S]*?)<\/span>/i);
+    const month = htmlAttribute(block, /part-month[^>]*>([\s\S]*?)<\/span>/i).slice(0, 3).toLowerCase();
+    const year = htmlAttribute(block, /part-year[^>]*>([\s\S]*?)<\/span>/i);
+    const description = htmlAttribute(block, /list-item-block-desc[^>]*>([\s\S]*?)<\/span>/i);
+    const placeText = htmlAttribute(block, /list-item-address[^>]*>([\s\S]*?)<\/p>/i).replace(/\s*,\s*/g, ', ');
+    const audience = htmlAttribute(block, /tagged-as-list[\s\S]*?<span class=["']text["'][^>]*>([\s\S]*?)<\/span>\s*<\/p>/i);
+    const image = htmlAttribute(block, /<img[^>]+src=["']([^"']+)["']/i);
+    const dateValue = year && monthNumbers[month] && day ? `${year}-${monthNumbers[month]}-${String(Number(day)).padStart(2, '0')}` : '';
+    const activityText = `${title} ${description} ${audience}`;
+    const youthSignal = /kids?\s*&\s*family|children|famil(?:y|ies)|youth|teen|toddler|school/i.test(activityText);
+    const url = href ? new URL(decodeXml(href), source.feedUrl).href : '';
+    const id = url && dateValue ? `${url}|${dateValue}` : '';
+    if (!id || seen.has(id) || !isUpcoming(dateValue) || !youthSignal) return [];
+    seen.add(id);
+    const locationParts = placeText.split(',').map(value => value.trim()).filter(Boolean);
+    const place = locationParts.shift() || source.name;
+    const street = locationParts.filter(value => !/^\d{5}(?:-\d{4})?$/.test(value)).join(', ');
+    const event = directEvent({
+      id: 'cupertino-' + createHash('sha256').update(id).digest('hex').slice(0, 16),
+      title, dateValue, description, image: image ? new URL(decodeXml(image), source.feedUrl).href : '',
+      place, address: shortAddress(street, source.city || 'Cupertino'), city: source.city || 'Cupertino', source: source.name, url,
+      ageText: audience || activityText
+    });
+    return [{ ...event, ...costInfo('', description) }];
+  });
+}
+
+// SLAC's public-events page links to current event details. Each detail page
+// carries the official description, calendar start time, and hero image.
+async function readSlac(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const html = await response.text();
+  if (!response.ok || !/\/events\//i.test(html)) throw new Error('SLAC official events page was not valid: ' + response.status);
+  const links = [...new Set([...html.matchAll(/href=["'](\/events\/[^"'#?]+)["']/gi)].map(match => new URL(match[1], source.feedUrl).href))];
+  const items = await Promise.all(links.map(async url => {
+    try {
+      const detailResponse = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+      const detail = await detailResponse.text();
+      if (!detailResponse.ok) return null;
+      const title = decodeXml(detail.match(/<meta\s+property=["']og:title["']\s+content=["']([^"']+)/i)?.[1] || '').replace(/\s*\|\s*SLAC National Accelerator Laboratory\s*$/i, '').trim();
+      const description = decodeXml(detail.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)/i)?.[1] || '');
+      const image = decodeXml(detail.match(/<meta\s+property=["']og:image["']\s+content=["']([^"']+)/i)?.[1] || '');
+      const detailText = plainText(detail);
+      const range = description.match(/\bfrom\s+(\d{1,2}(?::\d{2})?)\s*(?:-|–|to)\s*\d{1,2}(?::\d{2})?\s*(AM|PM)\b/i);
+      const dateValue = isoDateFromOfficialText(description, range ? `${range[1]} ${range[2]}` : description);
+      const youthSignal = /famil(?:y|ies)|children|kids?|youth|teen|all ages|community day|school/i.test(`${title} ${description} ${detailText}`);
+      if (!title || !description || !isUpcoming(dateValue) || !youthSignal) return null;
+      const event = directEvent({
+        id: 'slac-' + createHash('sha256').update(url).digest('hex').slice(0, 16), title, dateValue, description,
+        image, place: source.name, address: source.address || '', city: source.city || '', source: source.name, url,
+        ageText: `${title} ${description} ${detailText}`
+      });
+      return { ...event, ...costInfo('', detailText) };
+    } catch { return null; }
+  }));
+  return items.filter(Boolean);
+}
+
 async function officialStartDate(item) {
   // The card date must come from the same publisher page as the activity.
   try {
@@ -584,7 +657,7 @@ const target = new URL('../data/events.json', import.meta.url);
 const browserTarget = new URL('../data/events.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directSources = sources.filter(source => ['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford'].includes(source.method) && source.feedUrl);
+const directSources = sources.filter(source => ['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac'].includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
 // Tuesday/Thursday fallback. A manually dispatched `false` explicitly disables
@@ -592,7 +665,7 @@ const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: '
 const serpapiInput = process.env.INCLUDE_SERPAPI;
 const includeSerpapi = serpapiInput === 'true'
   || (serpapiInput !== 'false' && ['Tue', 'Thu'].includes(weekday));
-const searchSources = includeSerpapi ? sources.filter(source => !['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford'].includes(source.method)) : [];
+const searchSources = includeSerpapi ? sources.filter(source => !['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac'].includes(source.method)) : [];
 if (searchSources.length && !key) throw new Error('SERPAPI_KEY is required when the fallback search is scheduled or manually enabled.');
 
 const feedAttempts = await Promise.allSettled(directSources.map(source => {
@@ -601,6 +674,8 @@ const feedAttempts = await Promise.allSettled(directSources.map(source => {
   if (source.method === 'foothill') return readFoothill(source);
   if (source.method === 'midpen') return readMidpen(source);
   if (source.method === 'stanford') return readStanford(source);
+  if (source.method === 'cupertino') return readCupertino(source);
+  if (source.method === 'slac') return readSlac(source);
   return readRss(source);
 }));
 const searchAttempts = await Promise.allSettled(searchSources.map(search));
