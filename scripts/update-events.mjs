@@ -239,36 +239,62 @@ function canonicalCity(value) {
   return /^san jos[eé]$/i.test(city) ? 'San Jose' : city;
 }
 
-// Keep audience labels deliberately conservative. A generic "kids" category
-// does not prove a grade range, and "family" does not prove that every age is
-// suitable. The original publisher categories remain the source of truth.
-function ageBandsFor(categories) {
-  const text = String(categories || '').toLowerCase();
-  const bands = new Set();
-  if (/bab(?:y|ies)|infant|toddler|18\s*(?:months?|mos?)/.test(text)) bands.add('0-2');
-  if (/pre[ -]?school(?:er|ers)?|ages?\s*3\s*(?:-|–|to)\s*5/.test(text)) bands.add('3-5');
-  if (/elementary|school[ -]?age|kids?\s*\(\s*6\s*(?:-|–|to)\s*11\s*\)|ages?\s*6\s*(?:-|–|to)\s*11/.test(text)) bands.add('k5');
-  if (/pre[ -]?teens?|tweens?|middle[ -]?school|ages?\s*11\s*(?:-|–|to)\s*13/.test(text)) bands.add('middle');
-  if (/teens?|high[ -]?school|ages?\s*14\s*(?:-|–|to)\s*18/.test(text)) bands.add('high');
-  if (/all ages/.test(text)) bands.add('all-ages');
-  if (/family/.test(text)) bands.add('family');
-  return [...bands];
-}
-
-const ageLabels = {
-  '0-2': '0–2 岁', '3-5': '3–5 岁', k5: 'K–5 年级', middle: '6–8 年级',
-  high: '9–12 年级', 'all-ages': '所有年龄', family: '全家适合'
+// A parent chooses a child's actual age, so cards must preserve the
+// organizer's age range instead of reducing it to a broad school-grade band.
+// `ageMin` and `ageMax` drive the filter; `ageLabel` is the same range shown
+// on the card.  We only create a range from explicit organizer wording or a
+// structured organizer age category, never from a generic "kids" mention.
+const writtenAges = { zero: 0, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12, thirteen: 13, fourteen: 14, fifteen: 15, sixteen: 16, seventeen: 17, eighteen: 18 };
+const ageNumber = value => {
+  const normalized = String(value || '').trim().toLowerCase();
+  return /^\d+$/.test(normalized) ? Number(normalized) : writtenAges[normalized];
 };
-const ageOrder = ['0-2', '3-5', 'k5', 'middle', 'high', 'all-ages', 'family'];
 
 function ageInfo(categories) {
-  const ageBands = ageBandsFor(categories);
-  const ordered = ageOrder.filter(band => ageBands.includes(band));
-  return {
-    ageBands: ordered,
-    ageLabel: ordered.length ? ordered.map(band => ageLabels[band]).join(' · ') : '年龄未注明',
-    ageSource: ordered.length ? '官方受众分类' : ''
+  const text = plainText(categories).replace(/\s+/g, ' ').trim();
+  const lower = text.toLowerCase();
+  const familyFriendly = /family(?:-friendly)?/.test(lower);
+  const allAges = /\ball ages?\b|\bfor all ages\b|\bappropriate for all ages\b/.test(lower);
+
+  const ranges = [];
+  const addRange = (min, max) => {
+    if (Number.isInteger(min) && Number.isInteger(max) && min >= 0 && max >= min && max <= 18) ranges.push([min, max]);
   };
+  const token = '(zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|\\d{1,2})';
+  const rangePattern = new RegExp(`(?:suggested\\s+)?ages?\\s*${token}\\s*(?:-|–|—|to)\\s*${token}`, 'gi');
+  for (const match of text.matchAll(rangePattern)) addRange(ageNumber(match[1]), ageNumber(match[2]));
+  for (const match of text.matchAll(/(?:kids?|teens?|pre-?teens?|tweens?)\s*\(\s*(\d{1,2})\s*(?:-|–|—|to)\s*(\d{1,2})\s*\)/gi)) addRange(Number(match[1]), Number(match[2]));
+  for (const match of text.matchAll(/(?:young children|kids?|pre-?teens?|teens?)\s*,?\s*ages?\s*(\d{1,2})\s*(?:-|–|—|to)\s*(\d{1,2})/gi)) addRange(Number(match[1]), Number(match[2]));
+  for (const match of text.matchAll(/(?:ages?\s*)?(\d{1,2})\s*(?:years?\s*(?:old)?\s*)?(?:and|or)\s*under/gi)) addRange(0, Number(match[1]));
+  if (/bab(?:y|ies)\s*\(\s*under\s*2\s*\)|\bkids?:\s*bab(?:y|ies)\b|\bunder\s*2\b|\binfants?\b/.test(lower)) addRange(0, 1);
+  if (/toddlers?|18\s*(?:months?|mos?)/.test(lower)) addRange(1, 3);
+  if (/pre-?school(?:ers?)?/.test(lower)) addRange(3, 5);
+  if (/\bpre-?teens?\b|\btweens?\b/.test(lower)) addRange(10, 13);
+  if (/\bteens?\b/.test(lower)) addRange(13, 18);
+  // A grade category is an official audience field but not an exact age
+  // statement. Its conventional age equivalent is used only for matching;
+  // the card keeps the organizer's grade wording so we do not imply precision.
+  const gradeRange = lower.match(/grades?\s*(k|kindergarten|\d{1,2})\s*(?:-|–|to)\s*(\d{1,2})/);
+  const isKindergarten = gradeRange?.[1] === 'k' || gradeRange?.[1] === 'kindergarten';
+  const gradeStart = isKindergarten ? 0 : Number(gradeRange?.[1]);
+  const gradeEnd = Number(gradeRange?.[2]);
+  if (gradeRange && Number.isFinite(gradeStart) && Number.isFinite(gradeEnd) && gradeEnd >= 0 && gradeEnd <= 12) {
+    const min = isKindergarten ? 5 : gradeStart + 5;
+    addRange(min, gradeEnd + 5);
+    if (ranges.length === 1) return { ageBands: [], ageRanges: [[min, gradeEnd + 5]], ageMin: min, ageMax: gradeEnd + 5, ageLabel: `Grades ${gradeRange[1].toUpperCase()}–${gradeEnd}`, ageSource: 'Official organizer grade range', familyFriendly };
+  }
+  if (!ranges.length && allAges) return { ageBands: ['all-ages'], ageRanges: [[0, 18]], ageMin: 0, ageMax: 18, ageLabel: 'All ages', ageSource: 'Official audience information', familyFriendly };
+  if (!ranges.length) return { ageBands: familyFriendly ? ['family'] : [], ageRanges: [], ageMin: null, ageMax: null, ageLabel: familyFriendly ? 'Family-friendly' : '', ageSource: familyFriendly ? 'Official audience information' : '', familyFriendly };
+  const normalized = ranges.sort((a, b) => a[0] - b[0]).reduce((merged, range) => {
+    const previous = merged.at(-1);
+    if (previous && range[0] <= previous[1] + 1) previous[1] = Math.max(previous[1], range[1]);
+    else merged.push([...range]);
+    return merged;
+  }, []);
+  const min = normalized[0][0];
+  const max = normalized.at(-1)[1];
+  const label = normalized.map(([start, end]) => start === end ? `Age ${start}` : `Ages ${start}–${end}`).join(' · ');
+  return { ageBands: [], ageRanges: normalized, ageMin: min, ageMax: max, ageLabel: label, ageSource: 'Official audience information', familyFriendly };
 }
 
 function costInfo(cost, description = '') {
@@ -306,7 +332,7 @@ async function readRss(source) {
     if (!title || !link || !isUpcoming(startDate) || !familyAudience || xmlText(item, 'is_cancelled') === 'true') return [];
     const description = xmlText(item, 'description');
     const type = typeFor(title + ' ' + categories + ' ' + description);
-    const age = ageInfo(categories);
+    const age = ageInfo(`${categories} ${description}`);
     const cost = costInfo(xmlText(item, 'cost'), description);
     const eventId = (xmlText(item, 'guid') || link).split('/').filter(Boolean).pop() || String(index);
     const location = xmlText(item, 'location');
@@ -1469,7 +1495,7 @@ const candidateResults = await Promise.all(sourceLimited.map(async item => {
     sourceName: item.source,
     event: {
     id: 'search-' + createHash('sha256').update(item.link.toLowerCase()).digest('hex').slice(0, 16), title: item.title, date: displayEventDate(dateValue) || fallbackTime, dateValue,
-    ageBands: [], ageLabel: '年龄未注明', ageSource: '', costLabel: '费用未注明', costSource: '',
+    ageBands: [], ageRanges: [], ageMin: null, ageMax: null, ageLabel: '', ageSource: '', costLabel: '费用未注明', costSource: '',
     lastVerifiedAt: generatedAt, type, icon: icons[type], color: colors[type], tag: labels[type],
     description: cardSummary(item.snippet || item.description || ''),
     image: '',
@@ -1501,7 +1527,7 @@ function seriesKey(event) {
   // Deliberately conservative: different themes, venues, audience rules, or
   // pricing stay as separate cards even when a host reuses the same title.
   return [event.source, event.title, event.description, event.place, event.address, event.meetingPoint, event.city, event.type,
-    (event.ageBands || []).join(','), event.costLabel, event.costSource].join('\u001f');
+    JSON.stringify(event.ageRanges || []), event.ageLabel || '', event.costLabel, event.costSource].join('\u001f');
 }
 
 function groupRepeatedSessions(items) {
@@ -1571,7 +1597,10 @@ function museumAsEvent(museum, source) {
     dateValue: '',
     ongoing: true,
     ageBands: [],
-    ageLabel: '年龄未注明',
+    ageRanges: [],
+    ageMin: null,
+    ageMax: null,
+    ageLabel: '',
     ageSource: '',
     costLabel: '费用未注明',
     costSource: '',
