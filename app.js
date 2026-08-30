@@ -43,7 +43,13 @@ function eventAgeFact(event) {
   // age range. Name it as such rather than implying an age recommendation.
   if (label === 'Family-friendly' && !(event.ageRanges || []).length) return 'Audience: Family-friendly';
   const grade = label.match(/^Grades?\s+(.+)$/i);
-  if (grade) return `Grades: ${grade[1]}`;
+  if (grade) {
+    // The filter already uses the conventional K–12 age equivalent. Show
+    // that same parent-friendly range on the card rather than a grade label.
+    const ranges = event.ageRanges || [];
+    if (ranges.length) return `Ages: ${ranges.map(([start, end]) => start === end ? start : `${start}–${end}`).join(' · ')}`;
+    return `Ages: ${grade[1]}`;
+  }
   // Keep every age-range pill in the same field/value pattern, including
   // organizer wording such as “All ages” and “Ages 6+”.
   return `Ages: ${label.replace(/\bAges?\s*/gi, '')}`;
