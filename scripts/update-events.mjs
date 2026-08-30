@@ -715,6 +715,75 @@ async function readDeAnza(source) {
   return events.filter(Boolean);
 }
 
+// Palo Alto publishes a server-rendered citywide event directory.  The city
+// also lists meetings and administrative notices here, so this reader only
+// keeps entries whose official title, summary, or tags explicitly identify a
+// child, teen, or family audience.
+async function readPaloAlto(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const html = await response.text();
+  if (!response.ok || !/list-container events-list-container/i.test(html)) {
+    throw new Error('Palo Alto official calendar was not valid: ' + response.status);
+  }
+  const monthNumbers = { jan: '01', feb: '02', mar: '03', apr: '04', may: '05', jun: '06', jul: '07', aug: '08', sep: '09', oct: '10', nov: '11', dec: '12' };
+  const youthSignal = /children|kids?|famil(?:y|ies)|youth|teen|toddler|preschool|elementary|middle school|high school|all ages|parent(?:s)?\s*(?:and|&)\s*(?:child|kid)/i;
+  const excluded = /\b(?:committee|commission|council|board|meeting|recruitment|hearing|work session)\b/i;
+  const seen = new Set();
+  return [...html.matchAll(/<div class=["']list-item-container[\s\S]*?<\/article>/gi)].flatMap(blockMatch => {
+    const block = blockMatch[0];
+    const href = htmlAttribute(block, /<a[^>]+href=["']([^"']+)["']/i);
+    const title = plainText(block.match(/list-item-title[^>]*>([\s\S]*?)<\/h2>/i)?.[1] || '');
+    const day = htmlAttribute(block, /part-date[^>]*>([\s\S]*?)<\/span>/i);
+    const month = htmlAttribute(block, /part-month[^>]*>([\s\S]*?)<\/span>/i).slice(0, 3).toLowerCase();
+    const year = htmlAttribute(block, /part-year[^>]*>([\s\S]*?)<\/span>/i);
+    const description = htmlAttribute(block, /list-item-block-desc[^>]*>([\s\S]*?)<\/span>/i);
+    const venue = htmlAttribute(block, /list-item-address[^>]*>([\s\S]*?)<\/p>/i).replace(/\s*,\s*/g, ', ');
+    const tags = htmlAttribute(block, /tagged-as-list[\s\S]*?<span class=["']text["'][^>]*>([\s\S]*?)<\/span>\s*<\/p>/i);
+    const image = htmlAttribute(block, /<img[^>]+src=["']([^"']+)["']/i);
+    const dateValue = year && monthNumbers[month] && day ? `${year}-${monthNumbers[month]}-${String(Number(day)).padStart(2, '0')}` : '';
+    const audienceText = `${title} ${description} ${tags}`;
+    const url = href ? new URL(href, source.feedUrl).href : '';
+    const key = `${url}|${dateValue}`;
+    if (!title || !url || !dateValue || seen.has(key) || !isUpcoming(dateValue) || !youthSignal.test(audienceText) || excluded.test(title)) return [];
+    seen.add(key);
+    const parts = venue.split(',').map(value => value.trim()).filter(Boolean);
+    const place = parts.shift() || source.name;
+    const cityIndex = parts.findIndex(value => /^palo alto(?:\s+ca)?$/i.test(value));
+    const street = cityIndex >= 0 ? parts.slice(0, cityIndex).join(', ') : '';
+    const event = directEvent({
+      id: 'paloalto-' + createHash('sha256').update(key).digest('hex').slice(0, 16), title, dateValue, description,
+      image: image ? new URL(image, source.feedUrl).href : '', place, address: shortAddress(street, 'Palo Alto'), city: 'Palo Alto',
+      source: source.name, url, ageText: audienceText
+    });
+    return [{ ...event, ...costInfo('', description) }];
+  });
+}
+
+// Happy Hollow exposes its special-event calendar as server-rendered Event
+// schema.  It also includes daily operating hours in that same calendar;
+// those are intentionally excluded because they are not activities.
+async function readHappyHollow(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const html = await response.text();
+  if (!response.ok || !/simcal-event/i.test(html)) throw new Error('Happy Hollow official calendar was not valid: ' + response.status);
+  const youthSignal = /children|kids?|famil(?:y|ies)|youth|toddler|preschool|school|animal|zoo|park/i;
+  return [...html.matchAll(/<li class=["'][^"']*simcal-event[^"']*["'][\s\S]*?<\/li>/gi)].flatMap((match, index) => {
+    const block = match[0];
+    const title = plainText(block.match(/class=["'][^"']*simcal-event-title[^"']*["'][^>]*>([\s\S]*?)<\//i)?.[1] || '');
+    const description = plainText(block.match(/class=["'][^"']*simcal-event-description[^"']*["'][^>]*>([\s\S]*?)<\/div>/i)?.[1] || '');
+    const dateValue = htmlAttribute(block, /itemprop=["']startDate["']\s+content=["']([^"']+)["']/i);
+    const image = htmlAttribute(block, /<img[^>]+src=["']([^"']+)["']/i);
+    const text = `${title} ${description}`;
+    if (!title || !isUpcoming(dateValue) || /^today'?s hours/i.test(title) || /\bhours?\b/i.test(title) || !youthSignal.test(text) || /\b(?:gala|fundraiser|senior)\b/i.test(text)) return [];
+    const event = directEvent({
+      id: 'happyhollow-' + createHash('sha256').update(`${title}|${dateValue}|${index}`).digest('hex').slice(0, 16), title, dateValue, description,
+      image: image ? new URL(image, source.feedUrl).href : '', place: source.name, address: source.address || '', city: source.city || '',
+      source: source.name, url: source.feedUrl, ageText: text
+    });
+    return hasActivitySummary(event.description) ? [{ ...event, ...costInfo('', description) }] : [];
+  });
+}
+
 async function officialStartDate(item) {
   // The card date must come from the same publisher page as the activity.
   try {
@@ -760,7 +829,7 @@ const target = new URL('../data/events.json', import.meta.url);
 const browserTarget = new URL('../data/events.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directSources = sources.filter(source => ['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza'].includes(source.method) && source.feedUrl);
+const directSources = sources.filter(source => ['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow'].includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
 // Tuesday/Thursday fallback. A manually dispatched `false` explicitly disables
@@ -768,7 +837,7 @@ const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: '
 const serpapiInput = process.env.INCLUDE_SERPAPI;
 const includeSerpapi = serpapiInput === 'true'
   || (serpapiInput !== 'false' && ['Tue', 'Thu'].includes(weekday));
-const searchSources = includeSerpapi ? sources.filter(source => !['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza'].includes(source.method)) : [];
+const searchSources = includeSerpapi ? sources.filter(source => !['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow'].includes(source.method)) : [];
 if (searchSources.length && !key) throw new Error('SERPAPI_KEY is required when the fallback search is scheduled or manually enabled.');
 
 const feedAttempts = await Promise.allSettled(directSources.map(source => {
@@ -781,6 +850,8 @@ const feedAttempts = await Promise.allSettled(directSources.map(source => {
   if (source.method === 'slac') return readSlac(source);
   if (source.method === 'chm') return readChm(source);
   if (source.method === 'deanza') return readDeAnza(source);
+  if (source.method === 'paloalto') return readPaloAlto(source);
+  if (source.method === 'happyhollow') return readHappyHollow(source);
   return readRss(source);
 }));
 const searchAttempts = await Promise.allSettled(searchSources.map(search));
