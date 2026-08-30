@@ -20,6 +20,15 @@ function typeFor(text) {
   return 'community';
 }
 
+function formatFor(text) {
+  const value = String(text || '').toLowerCase();
+  if (/\b(?:vs\.?|versus|football|soccer|hockey|baseball|basketball|matchday|regular season|playoffs?)\b/.test(value)) return 'sports-game';
+  if (/\b(?:museum|gallery|exhibit(?:ion)?|collection)\b/.test(value) && /\b(?:tour|family day|drawing|drop-in|workshop|program)\b/.test(value)) return 'museum-program';
+  if (/\b(?:exhibit(?:ion)?|on view|gallery)\b/.test(value)) return 'museum-exhibition';
+  if (/\b(?:show|theat(?:er|re)|concert|performance|musical|dance|magic|planetarium|laser|ice (?:show|skating))\b/.test(value)) return 'live-show';
+  return 'program';
+}
+
 function isFamilyRelevant(event) {
   const value = `${event.title || ''} ${event.description || ''}`.toLowerCase();
   return !/\b(?:primary care provider|healthcare professional|medical professional|continuing medical education|cme credits?|clinician training|physician training)\b/.test(value);
@@ -31,7 +40,7 @@ const events = JSON.parse(await readFile(dataUrl, 'utf8'))
   .filter(isFamilyRelevant)
   .map(event => {
     const type = typeFor(`${event.title || ''} ${event.description || ''}`);
-    return { ...event, type, icon: icons[type], color: colors[type], tag: labels[type] };
+    return { ...event, type, icon: icons[type], color: colors[type], tag: labels[type], format: formatFor(`${event.title || ''} ${event.description || ''}`), audienceStatus: event.ageSource ? 'organizer-confirmed' : 'not-confirmed' };
   });
 const generatedAt = new Date().toISOString();
 

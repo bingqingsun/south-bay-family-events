@@ -1,24 +1,26 @@
 let events = Array.isArray(window.SOUTH_BAY_EVENTS) ? window.SOUTH_BAY_EVENTS : [];
+const museums = Array.isArray(window.SOUTH_BAY_MUSEUMS) ? window.SOUTH_BAY_MUSEUMS : [];
 // Kept as a single switch so bilingual presentation can be restored later
 // without changing the canonical, organizer-supplied event data.
 const translationEnabled = false;
-const state = { type: 'all', age: 'all', city: 'all', date: 'all', sort: 'date', position: null, saved: JSON.parse(localStorage.getItem('southBaySaved') || '[]'), onlySaved: false, language: 'en' };
+const state = { type: 'all', age: 'all', city: 'all', format: 'all', date: 'all', sort: 'date', position: null, saved: JSON.parse(localStorage.getItem('southBaySaved') || '[]'), onlySaved: false, language: 'en' };
 const grid = document.querySelector('#eventGrid');
 const template = document.querySelector('#cardTemplate');
 
 const copy = {
   zh: {
-    brand: '周末去哪儿', findEvents: '找活动', howItWorks: '出发小提示', heroTitle: '把这个周末，<br /><em>留给一起探索。</em>', heroIntro: '为南湾从幼儿到青少年的孩子与家庭精选活动：从亲子故事会、自然探索到创意工坊和科学体验，帮你轻松发现适合全家一起出发的好去处。', weekendCta: '查看本周末活动', sectionTitle: '今天想做点什么？', date: '日期', anyTime: '任意时间', today: '今天', weekend: '本周末', month: '本月', sort: '排序', sortDate: '按时间', sortDistance: '离我最近', locating: '正在确认你的位置…', nearbyReady: '已按离你最近排序；距离为直线估算。', locationUnavailable: '未能取得你的位置，已按时间排序。你可以在浏览器中允许定位后再试。', distance: miles => `距你约 ${miles} 英里`, city: '城市', allCities: '全部城市', age: '适合年龄', allAges: '不限年龄', age02: '0–2 岁', age35: '3–5 岁', middle: '6–8 年级', high: '9–12 年级', family: '全家适合', all: '全部', outdoor: '户外自然', arts: '艺术创作', learning: '学习与 STEM', community: '社区与支持', clearFilters: '清除筛选',
+    brand: '周末去哪儿', findEvents: '找活动', howItWorks: '出发小提示', heroTitle: '把这个周末，<br /><em>留给一起探索。</em>', heroIntro: '为南湾从幼儿到青少年的孩子与家庭精选活动：从亲子故事会、自然探索到创意工坊和科学体验，帮你轻松发现适合全家一起出发的好去处。', weekendCta: '查看本周末活动', sectionTitle: '今天想做点什么？', date: '日期', anyTime: '任意时间', today: '今天', weekend: '本周末', month: '本月', sort: '排序', sortDate: '按时间', sortDistance: '离我最近', locating: '正在确认你的位置…', nearbyReady: '已按离你最近排序；距离为直线估算。', locationUnavailable: '未能取得你的位置，已按时间排序。你可以在浏览器中允许定位后再试。', distance: miles => `距你约 ${miles} 英里`, city: '城市', allCities: '全部城市', age: '适合年龄', allAges: '不限年龄', age02: '0–2 岁', age35: '3–5 岁', middle: '6–8 年级', high: '9–12 年级', family: '全家适合', all: '全部', outdoor: '户外自然', arts: '艺术创作', learning: '学习与 STEM', community: '社区与支持', format: '活动形式', allFormats: '全部形式', sportsGame: '体育比赛', liveShow: '现场演出', museumExhibition: '博物馆展览', museumProgram: '博物馆活动', program: '课程与活动', museumEyebrow: '博物馆与展览', museumTitle: '正在展出', museumDetails: '查看展览详情', clearFilters: '清除筛选',
     tipsEyebrow: '出发前看看', howTitle: '周末出发小提示', how1Title: '出门前确认', how1Body: '活动时间、名额和费用可能变化；出发前请查看主办方页面。', how2Title: '提前安排', how2Body: '热门活动建议先预约；户外活动留意天气、停车和步行距离。', how3Title: '先收藏，再决定', how3Body: '点击心形收藏感兴趣的活动，周末可在“已收藏”中集中查看。', footer: '为南湾的好奇心而做 · 活动信息请以主办方页面为准',
     saved: '已收藏', results: count => `发现 ${count} 个活动`, savedResults: count => `已收藏 ${count} 个活动`, emptyFiltered: '当前筛选条件下暂无活动。试试放宽日期、年龄或类别。', emptyAll: '暂时没有已核验的活动，请稍后再试。', updateUnavailable: '最近更新信息暂不可用 · 来自官方活动来源', update: date => `最近更新：${date}（南湾时间）· 官方来源`, ageFact: label => `适合：${label}`, costFact: label => `费用：${label}`, ageUnknown: '年龄未注明', costUnknown: '费用未注明', viewDetails: '查看活动详情', hostedBy: source => `主办方：${source}`, directions: '导航', expandDescription: '展开简介', collapseDescription: '收起简介', showOtherSessions: count => `查看其他 ${count} 个场次`, hideOtherSessions: '收起其他场次', save: title => `收藏：${title}`, unsave: title => `取消收藏：${title}`, showAll: '显示全部活动', showSaved: '只查看收藏活动', timeUnavailable: '请点击活动详情查看活动时间', play: '亲子玩乐', wellness: '运动与身心健康'
   },
   en: {
-    brand: 'Weekend Plans', findEvents: 'Find events', howItWorks: 'Before you go', heroTitle: 'Make this weekend<br /><em>an adventure together.</em>', heroIntro: 'Activities handpicked for South Bay families with children from toddlers through teens—from storytimes and nature walks to creative workshops and science experiences—so it’s easier to find somewhere worth going together.', weekendCta: 'See this weekend', sectionTitle: 'What would you like to do?', date: 'Date', anyTime: 'Any time', today: 'Today', weekend: 'This weekend', month: 'This month', sort: 'Sort', sortDate: 'By date', sortDistance: 'Nearest to me', locating: 'Confirming your location…', nearbyReady: 'Sorted by nearby; distances are straight-line estimates.', locationUnavailable: 'We could not get your location, so activities are sorted by date. Allow location in your browser and try again.', distance: miles => `About ${miles} mi away`, city: 'City', allCities: 'All cities', age: 'Ages', allAges: 'All ages', age02: 'Ages 0–2', age35: 'Ages 3–5', middle: 'Grades 6–8', high: 'Grades 9–12', family: 'Family-friendly', all: 'All', outdoor: 'Outdoors & nature', arts: 'Arts & creativity', learning: 'Learning & STEM', community: 'Community & support', clearFilters: 'Clear filters',
+    brand: 'Weekend Plans', findEvents: 'Find events', howItWorks: 'Before you go', heroTitle: 'Make this weekend<br /><em>an adventure together.</em>', heroIntro: 'Activities handpicked for South Bay families with children from toddlers through teens—from storytimes and nature walks to creative workshops and science experiences—so it’s easier to find somewhere worth going together.', weekendCta: 'See this weekend', sectionTitle: 'What would you like to do?', date: 'Date', anyTime: 'Any time', today: 'Today', weekend: 'This weekend', month: 'This month', sort: 'Sort', sortDate: 'By date', sortDistance: 'Nearest to me', locating: 'Confirming your location…', nearbyReady: 'Sorted by nearby; distances are straight-line estimates.', locationUnavailable: 'We could not get your location, so activities are sorted by date. Allow location in your browser and try again.', distance: miles => `About ${miles} mi away`, city: 'City', allCities: 'All cities', age: 'Ages', allAges: 'All ages', age02: 'Ages 0–2', age35: 'Ages 3–5', middle: 'Grades 6–8', high: 'Grades 9–12', family: 'Family-friendly', all: 'All', outdoor: 'Outdoors & nature', arts: 'Arts & creativity', learning: 'Learning & STEM', community: 'Community & support', format: 'Format', allFormats: 'All formats', sportsGame: 'Sports games', liveShow: 'Live shows', museumExhibition: 'Museum exhibitions', museumProgram: 'Museum programs', program: 'Programs & classes', museumEyebrow: 'MUSEUMS & EXHIBITIONS', museumTitle: 'On view now', museumDetails: 'View exhibition details', clearFilters: 'Clear filters',
     tipsEyebrow: 'BEFORE YOU GO', howTitle: 'A few tips for the weekend', how1Title: 'Confirm before leaving', how1Body: 'Times, capacity, and prices can change. Check the organizer’s page before you head out.', how2Title: 'Plan ahead', how2Body: 'Reserve popular activities early, and check weather, parking, and walking distance for outdoor plans.', how3Title: 'Save now, decide later', how3Body: 'Tap the heart to save activities and review them together in Saved when the weekend arrives.', footer: 'Made for curious South Bay families · Please confirm details with the organizer',
     saved: 'Saved', results: count => `${count} activities found`, savedResults: count => `${count} saved activities`, emptyFiltered: 'No activities match these filters. Try widening the date, age, or category.', emptyAll: 'No verified activities are available right now. Please try again soon.', updateUnavailable: 'Latest refresh information is unavailable · Official sources', update: date => `Last updated: ${date} · Official sources`, ageFact: label => `Ages: ${label}`, costFact: label => `Cost: ${label}`, ageUnknown: 'Age not specified', costUnknown: 'Cost not specified', viewDetails: 'View details', hostedBy: source => `Hosted by ${source}`, directions: 'Directions', expandDescription: 'Show description', collapseDescription: 'Hide description', showOtherSessions: count => `Show ${count} other sessions`, hideOtherSessions: 'Hide other sessions', save: title => `Save: ${title}`, unsave: title => `Remove saved activity: ${title}`, showAll: 'Show all activities', showSaved: 'Show saved activities', timeUnavailable: 'See organizer details for the event time', play: 'Play & fun', wellness: 'Sports & wellness'
   }
 };
 const categoryLabels = { outdoor: ['户外自然', 'Outdoors & nature'], arts: ['艺术创作', 'Arts & creativity'], learning: ['学习与 STEM', 'Learning & STEM'], play: ['亲子玩乐', 'Play & fun'], wellness: ['运动与身心健康', 'Sports & wellness'], community: ['社区与支持', 'Community & support'] };
+const formatLabels = { 'sports-game': ['体育比赛', 'Sports game'], 'live-show': ['现场演出', 'Live show'], 'museum-exhibition': ['博物馆展览', 'Museum exhibition'], 'museum-program': ['博物馆活动', 'Museum program'], program: ['课程与活动', 'Program & class'] };
 const fallbackImageType = { play: 'community', wellness: 'outdoor' };
 const ageLabels = { '0-2': ['0–2 岁', '0–2'], '3-5': ['3–5 岁', '3–5'], k5: ['K–5 年级', 'Grades K–5'], middle: ['6–8 年级', 'Grades 6–8'], high: ['9–12 年级', 'Grades 9–12'], 'all-ages': ['所有年龄', 'All ages'], family: ['全家适合', 'Family-friendly'] };
 const costLabels = { '免费': ['免费', 'Free'], '建议捐赠': ['建议捐赠', 'Suggested donation'], '会员／非会员价格见详情': ['会员／非会员价格见详情', 'Member / non-member price—see details'], '需购票／价格见详情': ['需购票／价格见详情', 'Tickets / price—see details'] };
@@ -30,6 +32,7 @@ const venueCoordinates = {
 const t = key => copy[state.language][key];
 const eventText = (event, field) => translationEnabled && state.language === 'zh' ? event.translations?.zh?.[field] || event[field] : event[field];
 const categoryLabel = event => categoryLabels[event.type || 'community']?.[state.language === 'zh' ? 0 : 1] || event.tag;
+const formatLabel = event => formatLabels[event.format || 'program']?.[state.language === 'zh' ? 0 : 1] || '';
 function eventAgeLabel(event) { return event.ageBands?.length ? event.ageBands.map(band => ageLabels[band]?.[state.language === 'zh' ? 0 : 1]).filter(Boolean).join(' · ') : t('ageUnknown'); }
 function eventCostLabel(event) { return !event.costLabel || event.costLabel === '费用未注明' ? t('costUnknown') : costLabels[event.costLabel]?.[state.language === 'zh' ? 0 : 1] || event.costLabel; }
 function renderUpdateTime() {
@@ -103,8 +106,24 @@ function populateCityFilter() {
   state.city = counts.has(previous) ? previous : 'all';
   select.value = state.city;
 }
+function renderMuseums() {
+  const section = document.querySelector('#museums');
+  const grid = document.querySelector('#museumGrid');
+  grid.innerHTML = '';
+  museums.slice(0, 6).forEach(museum => {
+    const card = document.createElement('article'); card.className = 'museum-card';
+    if (museum.image) { const image = document.createElement('img'); image.src = museum.image; image.alt = ''; card.append(image); }
+    const content = document.createElement('div'); content.className = 'museum-card-content';
+    const meta = document.createElement('p'); meta.className = 'museum-meta'; meta.textContent = [museum.museum, museum.dateLabel].filter(Boolean).join(' · ');
+    const title = document.createElement('h3'); title.textContent = museum.title;
+    const description = document.createElement('p'); description.textContent = museum.description;
+    const link = document.createElement('a'); link.href = museum.url; link.target = '_blank'; link.rel = 'noopener'; link.textContent = `${t('museumDetails')} →`;
+    content.append(meta, title, description, link); card.append(content); grid.append(card);
+  });
+  section.hidden = museums.length === 0;
+}
 function render() {
-  const visible = sortEvents(events.filter(event => (state.type === 'all' || event.type === state.type) && (state.city === 'all' || event.city === state.city) && ageMatches(event, state.age) && matchingSessions(event).length && (!state.onlySaved || isSaved(event))));
+  const visible = sortEvents(events.filter(event => (state.type === 'all' || event.type === state.type) && (state.format === 'all' || event.format === state.format) && (state.city === 'all' || event.city === state.city) && ageMatches(event, state.age) && matchingSessions(event).length && (!state.onlySaved || isSaved(event))));
   grid.innerHTML = '';
   visible.forEach(event => {
     const session = activeSession(event); const sessions = matchingSessions(event); const node = template.content.cloneNode(true); const image = event.image || `assets/fallback/${fallbackImageType[event.type] || event.type || 'community'}.png`; const imageArea = node.querySelector('.card-image');
@@ -112,9 +131,10 @@ function render() {
     node.querySelector('.event-icon').textContent = event.icon; node.querySelector('.tag').textContent = categoryLabel(event); node.querySelector('h3').textContent = eventText(event, 'title');
     const description = node.querySelector('.description'); const descriptionToggle = node.querySelector('.description-toggle'); description.textContent = eventText(event, 'description'); description.hidden = !description.textContent.trim(); description.id = `description-${event.id}`;
     descriptionToggle.dataset.eventId = event.id; descriptionToggle.setAttribute('aria-controls', description.id); descriptionToggle.setAttribute('aria-expanded', 'false'); descriptionToggle.textContent = t('expandDescription');
+    const formatFact = node.querySelector('.fact-format'); formatFact.textContent = formatLabel(event); formatFact.hidden = !formatFact.textContent;
     const ageFact = node.querySelector('.fact-age'); ageFact.textContent = t('ageFact')(eventAgeLabel(event)); ageFact.title = event.ageSource || ''; ageFact.hidden = !event.ageSource;
     const costFact = node.querySelector('.fact-cost'); costFact.textContent = t('costFact')(eventCostLabel(event)); costFact.title = event.costSource || ''; costFact.hidden = !event.costSource;
-    node.querySelector('.card-facts').hidden = !event.ageSource && !event.costSource;
+    node.querySelector('.card-facts').hidden = !formatFact.textContent && !event.ageSource && !event.costSource;
     const distance = eventDistance(event); const distanceNode = node.querySelector('.distance'); distanceNode.hidden = distance === null; distanceNode.textContent = distance === null ? '' : t('distance')(distance < 10 ? distance.toFixed(1) : Math.round(distance));
     node.querySelector('.time .detail-text').textContent = dateLabel(session.dateValue) || (session.date === '请查看主办方时间' ? t('timeUnavailable') : session.date); node.querySelector('.place .detail-text').textContent = event.place;
     const address = node.querySelector('.address'); const addressLink = node.querySelector('.address-link'); const addressText = event.address || ''; const meetingPoint = !addressText ? String(event.meetingPoint || '').trim() : ''; const locationText = addressText || (meetingPoint ? `Meet at: ${meetingPoint}` : '');
@@ -125,14 +145,14 @@ function render() {
     const heart = node.querySelector('.heart'); const saved = isSaved(event); heart.dataset.id = event.id; heart.dataset.legacyIds = JSON.stringify(event.legacyIds || []); heart.classList.toggle('saved', saved); heart.textContent = saved ? '♥' : '♡'; heart.setAttribute('aria-pressed', String(saved)); heart.setAttribute('aria-label', saved ? t('unsave')(eventText(event, 'title')) : t('save')(eventText(event, 'title'))); grid.append(node);
     requestAnimationFrame(() => { descriptionToggle.hidden = description.hidden || description.scrollHeight <= description.clientHeight + 1; });
   });
-  document.querySelector('#emptyState').hidden = visible.length !== 0; const active = state.type !== 'all' || state.age !== 'all' || state.city !== 'all' || state.date !== 'all' || state.onlySaved;
+  document.querySelector('#emptyState').hidden = visible.length !== 0; const active = state.type !== 'all' || state.format !== 'all' || state.age !== 'all' || state.city !== 'all' || state.date !== 'all' || state.onlySaved;
   document.querySelector('#emptyMessage').textContent = active ? t('emptyFiltered') : t('emptyAll'); document.querySelector('#clearFilters').hidden = !active; document.querySelector('#resultCount').textContent = state.onlySaved ? t('savedResults')(visible.length) : t('results')(visible.length); document.querySelector('#savedCount').textContent = state.saved.length;
   const savedButton = document.querySelector('#savedButton'); savedButton.setAttribute('aria-pressed', String(state.onlySaved)); savedButton.setAttribute('aria-label', state.onlySaved ? t('showAll') : t('showSaved'));
 }
 function setActiveType(type) { document.querySelectorAll('.chip').forEach(chip => { const active = chip.dataset.type === type; chip.classList.toggle('active', active); chip.setAttribute('aria-pressed', String(active)); }); }
 function syncDatePriority() { document.querySelector('.date-priority').classList.toggle('is-active', state.date !== 'all'); }
 function setLocationStatus(message = '') { const node = document.querySelector('#locationStatus'); node.textContent = message; node.hidden = !message; }
-function resetFilters({ date = 'all' } = {}) { state.type = 'all'; state.age = 'all'; state.city = 'all'; state.date = date; state.sort = 'date'; state.position = null; state.onlySaved = false; document.querySelector('#ageFilter').value = 'all'; document.querySelector('#cityFilter').value = 'all'; document.querySelector('#dateFilter').value = date; document.querySelector('#sortFilter').value = 'date'; setLocationStatus(); setActiveType('all'); syncDatePriority(); document.querySelector('#savedButton').classList.remove('active'); }
+function resetFilters({ date = 'all' } = {}) { state.type = 'all'; state.format = 'all'; state.age = 'all'; state.city = 'all'; state.date = date; state.sort = 'date'; state.position = null; state.onlySaved = false; document.querySelector('#ageFilter').value = 'all'; document.querySelector('#cityFilter').value = 'all'; document.querySelector('#formatFilter').value = 'all'; document.querySelector('#dateFilter').value = date; document.querySelector('#sortFilter').value = 'date'; setLocationStatus(); setActiveType('all'); syncDatePriority(); document.querySelector('#savedButton').classList.remove('active'); }
 document.querySelector('#typeFilters').addEventListener('click', e => {
   // Browser translation can wrap a chip label in an inner element. Resolve the
   // actual button instead of requiring the exact clicked node to be the button.
@@ -143,6 +163,7 @@ document.querySelector('#typeFilters').addEventListener('click', e => {
   render();
 });
 document.querySelector('#ageFilter').addEventListener('change', e => { state.age = e.target.value; render(); });
+document.querySelector('#formatFilter').addEventListener('change', e => { state.format = e.target.value; render(); });
 document.querySelector('#cityFilter').addEventListener('change', e => { state.city = e.target.value; render(); });
 document.querySelector('#dateFilter').addEventListener('change', e => { state.date = e.target.value; syncDatePriority(); render(); });
 document.querySelector('#sortFilter').addEventListener('change', e => {
@@ -159,5 +180,5 @@ document.querySelector('#clearFilters').addEventListener('click', () => { resetF
 document.querySelector('#weekendCta').addEventListener('click', event => { event.preventDefault(); resetFilters({ date: 'weekend' }); render(); document.querySelector('#events').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
 grid.addEventListener('click', e => { const sessionToggle = e.target.closest('.sessions-inline-toggle'); if (sessionToggle) { const list = document.querySelector(`#sessions-${sessionToggle.dataset.eventId}`); const isExpanded = !list.hidden; list.hidden = isExpanded; sessionToggle.textContent = isExpanded ? t('showOtherSessions')(list.children.length) : t('hideOtherSessions'); sessionToggle.setAttribute('aria-expanded', String(!isExpanded)); return; } const toggle = e.target.closest('.description-toggle'); if (toggle) { const description = document.querySelector(`#description-${toggle.dataset.eventId}`); const isExpanded = description.classList.toggle('is-expanded'); toggle.textContent = isExpanded ? t('collapseDescription') : t('expandDescription'); toggle.setAttribute('aria-expanded', String(isExpanded)); return; } const button = e.target.closest('.heart'); if (!button) return; const id = button.dataset.id; const legacyIds = JSON.parse(button.dataset.legacyIds || '[]'); const saved = state.saved.includes(id) || legacyIds.some(legacyId => state.saved.includes(legacyId)); state.saved = saved ? state.saved.filter(item => item !== id && !legacyIds.includes(item)) : [...state.saved.filter(item => !legacyIds.includes(item)), id]; localStorage.setItem('southBaySaved', JSON.stringify(state.saved)); render(); });
 document.querySelector('#savedButton').addEventListener('click', () => { state.onlySaved = !state.onlySaved; document.querySelector('#savedButton').classList.toggle('active', state.onlySaved); render(); document.querySelector('#events').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
-applyStaticCopy();
+applyStaticCopy(); renderMuseums();
 fetch('./data/events.json', { cache: 'no-store' }).then(response => response.ok ? response.json() : Promise.reject()).then(data => { if (Array.isArray(data)) events = data; }).catch(() => {}).finally(() => { migrateSavedSeries(); populateCityFilter(); render(); });

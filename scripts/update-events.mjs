@@ -25,6 +25,14 @@ function typeFor(text) {
   if (/\b(?:story ?time|play(?:time)?|games?|lego|scavenger hunt|open mic|magic|festival|carnival|football|board games?|puzzle|party|celebration|show)\b/.test(value)) return 'play';
   return 'community';
 }
+function formatFor(text) {
+  const value = String(text || '').toLowerCase();
+  if (/\b(?:vs\.?|versus|football|soccer|hockey|baseball|basketball|matchday|regular season|playoffs?)\b/.test(value)) return 'sports-game';
+  if (/\b(?:museum|gallery|exhibit(?:ion)?|collection)\b/.test(value) && /\b(?:tour|family day|drawing|drop-in|workshop|program)\b/.test(value)) return 'museum-program';
+  if (/\b(?:exhibit(?:ion)?|on view|gallery)\b/.test(value)) return 'museum-exhibition';
+  if (/\b(?:show|theat(?:er|re)|concert|performance|musical|dance|magic|planetarium|laser|ice (?:show|skating))\b/.test(value)) return 'live-show';
+  return 'program';
+}
 const labels = { outdoor: '户外自然', arts: '艺术创作', learning: '学习与 STEM', play: '亲子玩乐', wellness: '运动与身心健康', community: '社区与支持' };
 const icons = { outdoor: '🌿', arts: '🎨', learning: '🔭', play: '🎈', wellness: '☀️', community: '🤝' };
 const colors = { outdoor: '#d8eee0', arts: '#ffd9bd', learning: '#dce7fa', play: '#ffe9a8', wellness: '#e7ddf6', community: '#dceeea' };
@@ -36,6 +44,14 @@ function isFamilyRelevant(event) {
   // Do not surface professional education or clinical-provider training as a
   // family activity merely because it appears on a broad local event calendar.
   return !/\b(?:primary care provider|healthcare professional|medical professional|continuing medical education|cme credits?|clinician training|physician training)\b/.test(value);
+}
+function withPresentationFields(event) {
+  const audienceText = `${event.title || ''} ${event.description || ''} ${event.ageLabel || ''} ${event.ageSource || ''}`;
+  return {
+    ...event,
+    format: event.format || formatFor(audienceText),
+    audienceStatus: event.audienceStatus || (event.ageSource ? 'organizer-confirmed' : 'not-confirmed')
+  };
 }
 
 const months = { jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12 };
@@ -375,13 +391,13 @@ function isoDateFromOfficialText(dateText, timeText = '') {
   return date + 'T' + String(hour).padStart(2, '0') + ':' + (time[2] || '00');
 }
 
-function directEvent({ id, title, dateValue, description, image = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, ageText = '' }) {
+function directEvent({ id, title, dateValue, description, image = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, ageText = '', format = '' }) {
   const type = typeFor(title + ' ' + description + ' ' + ageText);
   const age = ageInfo(ageText);
   return {
     id, title, date: displayEventDate(dateValue), dateValue, ...age,
     costLabel: '费用未注明', costSource: '', type, icon: icons[type], color: colors[type], tag: labels[type],
-    verification: 'official-page', lastVerifiedAt: generatedAt,
+    verification: 'official-page', lastVerifiedAt: generatedAt, format,
     description: cardSummary(description),
     image, place, address, city: canonicalCity(city), meetingPoint, mapUrl, source, url
   };
@@ -546,6 +562,88 @@ async function readStanford(source) {
       source: source.name, url, ageText: audienceText
     });
     return [{ ...event, ...costInfo(item.ticket_cost || '', description) }];
+  });
+}
+
+function pacificDateTime(value) {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
+  }).formatToParts(new Date(value)).reduce((result, part) => ({ ...result, [part.type]: part.value }), {});
+  return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}`;
+}
+
+function currentNhlSeason() {
+  const now = new Date();
+  const year = now.getUTCFullYear();
+  const start = now.getUTCMonth() >= 6 ? year : year - 1;
+  return `${start}${start + 1}`;
+}
+
+async function readNhl(source) {
+  const response = await fetch(`${source.feedUrl}${currentNhlSeason()}`, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const payload = await response.json();
+  if (!response.ok || !Array.isArray(payload.games)) throw new Error('NHL official schedule was not valid: ' + response.status);
+  return payload.games.flatMap(game => {
+    if (game.homeTeam?.abbrev !== 'SJS' || !isUpcoming(game.gameDate) || !game.startTimeUTC) return [];
+    const opponent = [game.awayTeam?.placeName?.default, game.awayTeam?.commonName?.default].filter(Boolean).join(' ');
+    const dateValue = pacificDateTime(game.startTimeUTC);
+    const url = `https://www.nhl.com/sharks/gamecenter/sjs-vs-${String(game.awayTeam?.abbrev || '').toLowerCase()}/${dateValue.slice(0, 4)}/${dateValue.slice(5, 7)}/${dateValue.slice(8, 10)}/${game.id}`;
+    return [directEvent({
+      id: `nhl-${game.id}`, title: `San Jose Sharks vs ${opponent}`, dateValue,
+      description: `Official San Jose Sharks home game against the ${opponent}.`, image: game.homeTeam?.logo || '',
+      place: game.venue?.default || 'SAP Center at San Jose', address: source.address || '', city: source.city || '', source: source.name, url,
+      ageText: 'all ages', format: 'sports-game'
+    })];
+  });
+}
+
+async function readBayfc(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const html = await response.text();
+  if (!response.ok || !/match-type-home/i.test(html)) throw new Error('Bay FC official schedule was not valid: ' + response.status);
+  const year = Number(html.match(/\b(20\d{2})\s+Schedule\b/i)?.[1] || new Date().getFullYear());
+  const monthLookup = { jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12 };
+  return html.split(/<div class=["'][^"']*\bgb-query-loop-item\b/i).slice(1).flatMap(block => {
+    if (!/\bmatch-type-home\b/i.test(block)) return [];
+    const plain = plainText(block);
+    const day = plain.match(/\b(?:Sun|Mon|Tue|Wed|Thu|Fri|Sat)\s+([A-Z][a-z]{2})\s+(\d{1,2})\b/);
+    const time = plain.match(/\b(\d{1,2}):(\d{2})\s*(am|pm)\s*PT\b/i);
+    const opponent = plainText(block.match(/gb-headline-b003332e[^>]*>\s*<a[^>]*>([\s\S]*?)<\/a>/i)?.[1] || '').replace(/^At\s+/i, '');
+    const matchUrl = htmlAttribute(block, /gb-headline-b003332e[^>]*>\s*<a[^>]+href=["']([^"']+)/i);
+    const image = htmlAttribute(block, /gb-image-f65ac648[^>]+src=["']([^"']+)/i);
+    if (!day || !time || !opponent || !matchUrl) return [];
+    let hour = Number(time[1]) % 12; if (time[3].toLowerCase() === 'pm') hour += 12;
+    const dateValue = `${year}-${String(monthLookup[day[1].toLowerCase()]).padStart(2, '0')}-${String(day[2]).padStart(2, '0')}T${String(hour).padStart(2, '0')}:${time[2]}`;
+    if (!isUpcoming(dateValue)) return [];
+    return [directEvent({
+      id: 'bayfc-' + createHash('sha256').update(`${matchUrl}|${dateValue}`).digest('hex').slice(0, 16), title: `Bay FC vs ${opponent}`, dateValue,
+      description: `Official Bay FC home match against ${opponent} at PayPal Park.`, image: image ? new URL(image, source.feedUrl).href : '',
+      place: 'PayPal Park', address: source.address || '', city: source.city || '', source: source.name, url: new URL(matchUrl, source.feedUrl).href,
+      ageText: 'all ages', format: 'sports-game'
+    })];
+  });
+}
+
+async function readMlb(source) {
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
+  // The public MiLB endpoint rejects broad, cross-season ranges. A rolling
+  // 120-day window is sufficient for family planning and refreshes daily.
+  const end = new Date(); end.setUTCDate(end.getUTCDate() + 120);
+  const endDate = end.toISOString().slice(0, 10);
+  const url = new URL(source.feedUrl);
+  url.searchParams.set('sportId', '14'); url.searchParams.set('startDate', today); url.searchParams.set('endDate', endDate); url.searchParams.set('hydrate', 'teams,venue');
+  const response = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const payload = await response.json();
+  if (!response.ok || !Array.isArray(payload.dates)) throw new Error('MLB official schedule was not valid: ' + response.status);
+  return payload.dates.flatMap(day => day.games || []).flatMap(game => {
+    if (game.teams?.home?.team?.id !== 476 || !game.gameDate || !isUpcoming(game.gameDate)) return [];
+    const opponent = game.teams?.away?.team?.name || 'away team';
+    return [directEvent({
+      id: `mlb-${game.gamePk}`, title: `San Jose Giants vs ${opponent}`, dateValue: pacificDateTime(game.gameDate),
+      description: `Official San Jose Giants home game against ${opponent} at Excite Ballpark.`, image: '',
+      place: game.venue?.name || 'Excite Ballpark', address: source.address || '', city: source.city || '', source: source.name,
+      url: 'https://www.milb.com/san-jose/schedule', ageText: 'all ages', format: 'sports-game'
+    })];
   });
 }
 
@@ -889,9 +987,13 @@ async function search(source) {
 
 const target = new URL('../data/events.json', import.meta.url);
 const browserTarget = new URL('../data/events.js', import.meta.url);
+const museumTarget = new URL('../data/museums.json', import.meta.url);
+const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
+const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directSources = sources.filter(source => ['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy'].includes(source.method) && source.feedUrl);
+const directMethods = ['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'bayfc', 'mlb'];
+const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
 // Tuesday/Thursday fallback. A manually dispatched `false` explicitly disables
@@ -899,7 +1001,7 @@ const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: '
 const serpapiInput = process.env.INCLUDE_SERPAPI;
 const includeSerpapi = serpapiInput === 'true'
   || (serpapiInput !== 'false' && ['Tue', 'Thu'].includes(weekday));
-const searchSources = includeSerpapi ? sources.filter(source => !['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy'].includes(source.method)) : [];
+const searchSources = includeSerpapi ? sources.filter(source => !directMethods.includes(source.method)) : [];
 if (searchSources.length && !key) throw new Error('SERPAPI_KEY is required when the fallback search is scheduled or manually enabled.');
 
 const feedAttempts = (await Promise.allSettled(directSources.map(source => {
@@ -908,6 +1010,9 @@ const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'foothill') return readFoothill(source);
   if (source.method === 'midpen') return readMidpen(source);
   if (source.method === 'stanford') return readStanford(source);
+  if (source.method === 'nhl') return readNhl(source);
+  if (source.method === 'bayfc') return readBayfc(source);
+  if (source.method === 'mlb') return readMlb(source);
   if (source.method === 'cupertino') return readCupertino(source);
   if (source.method === 'slac') return readSlac(source);
   if (source.method === 'chm') return readChm(source);
@@ -965,6 +1070,7 @@ const individualEvents = [...new Map([...feedEvents, ...candidates]
   // organizer copy with generic prompts or publish logistics-only text.
   .filter(event => hasActivitySummary(event.description))
   .filter(isFamilyRelevant)
+  .map(withPresentationFields)
   .sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
 
 function seriesKey(event) {
@@ -993,6 +1099,40 @@ function groupRepeatedSessions(items) {
 const events = groupRepeatedSessions(individualEvents);
 
 if (!events.length) throw new Error('No verified upcoming events; leaving the published list unchanged.');
+
+async function readChmMuseumCards(source) {
+  const response = await fetch('https://computerhistory.org/', { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const html = await response.text();
+  if (!response.ok || !/Main Exhibits|What'?s On Now/i.test(html)) throw new Error('CHM museum catalog was not valid: ' + response.status);
+  const cards = html.split(/<div class=["']image-besides-text\b/i).slice(1).flatMap(block => {
+    const title = plainText(block.match(/<h2[^>]*>([\s\S]*?)<\/h2>/i)?.[1] || '');
+    const description = [...block.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)].map(match => plainText(match[1])).find(Boolean) || '';
+    const url = htmlAttribute(block, /<a[^>]+href=["']([^"']+)["'][^>]*class=["']button/i);
+    const image = htmlAttribute(block, /background:\s*url\(['"]?([^'"\)]+)/i);
+    const dateText = plainText(block.match(/<h4[^>]*>([\s\S]*?)<\/h4>/i)?.[1] || '');
+    const dateLabel = /\b(?:through|closes|until)\b/i.test(dateText) ? dateText : 'Ongoing';
+    if (!title || !description || !url || !/^(?:Special Exhibit:|REVOLUTION:|Chatbots Decoded:|Make Software:)/i.test(title)) return [];
+    return [{
+      id: 'chm-museum-' + createHash('sha256').update(url).digest('hex').slice(0, 16), museum: source.name, title,
+      dateLabel, description: cardSummary(description, title), image: image ? new URL(image, 'https://computerhistory.org/').href : '',
+      url: new URL(url, 'https://computerhistory.org/').href, lastVerifiedAt: generatedAt
+    }];
+  });
+  return cards.slice(0, 4);
+}
+
+const museumSource = sources.find(source => source.method === 'chm');
+let museums = existingMuseums;
+if (museumSource) {
+  try {
+    const refreshedMuseums = await readChmMuseumCards(museumSource);
+    // An incomplete parse must not remove previously verified exhibits from
+    // the live page merely because a museum changed a presentational wrapper.
+    if (refreshedMuseums.length >= 2) museums = refreshedMuseums;
+  } catch (error) {
+    console.warn(`Keeping last verified museum catalog: ${error.message}`);
+  }
+}
 
 function translationFingerprint(event) {
   return createHash('sha256').update(String(event.title || '') + '\n' + String(event.description || '')).digest('hex');
@@ -1057,4 +1197,6 @@ await writeFile(target, `${JSON.stringify(events, null, 2)}\n`);
 // A same-origin script works both on GitHub Pages and when the user opens the
 // local HTML file directly, where browsers often block fetch() of JSON files.
 await writeFile(browserTarget, `window.SOUTH_BAY_EVENTS = ${JSON.stringify(events)};\nwindow.SOUTH_BAY_EVENTS_META = ${JSON.stringify({ generatedAt })};\n`);
+await writeFile(museumTarget, `${JSON.stringify(museums, null, 2)}\n`);
+await writeFile(museumBrowserTarget, `window.SOUTH_BAY_MUSEUMS = ${JSON.stringify(museums)};\n`);
 console.log(`Published ${events.length} verified activities from ${directSources.length} official calendars and ${searchSources.length} fallback sources; ${translationStats.translated} translated and ${translationStats.cached} reused from cache.`);
