@@ -135,9 +135,12 @@ function render() {
     node.querySelector('.event-icon').textContent = event.icon; node.querySelector('.tag').textContent = categoryLabel(event); node.querySelector('h3').textContent = eventText(event, 'title');
     const description = node.querySelector('.description'); const descriptionToggle = node.querySelector('.description-toggle'); description.textContent = eventText(event, 'description'); description.hidden = !description.textContent.trim(); description.id = `description-${event.id}`;
     descriptionToggle.dataset.eventId = event.id; descriptionToggle.setAttribute('aria-controls', description.id); descriptionToggle.setAttribute('aria-expanded', 'false'); descriptionToggle.textContent = t('expandDescription');
-    const ageFact = node.querySelector('.fact-age'); ageFact.textContent = t('ageFact')(eventAgeLabel(event)); ageFact.title = event.ageSource || ''; ageFact.hidden = !event.ageSource;
-    const costFact = node.querySelector('.fact-cost'); costFact.textContent = t('costFact')(eventCostLabel(event)); costFact.title = event.costSource || ''; costFact.hidden = !event.costSource;
-    node.querySelector('.card-facts').hidden = !event.ageSource && !event.costSource;
+    // A source field by itself is not a customer-facing label. Only show a
+    // pill when it has actual readable content; otherwise an empty styled
+    // span appears as a confusing little oval under the age badge.
+    const ageFact = node.querySelector('.fact-age'); const ageText = event.ageSource ? t('ageFact')(eventAgeLabel(event)).trim() : ''; ageFact.textContent = ageText; ageFact.title = ageText ? event.ageSource : ''; ageFact.hidden = !ageText;
+    const costFact = node.querySelector('.fact-cost'); const costText = event.costSource ? t('costFact')(eventCostLabel(event)).trim() : ''; costFact.textContent = costText; costFact.title = costText ? event.costSource : ''; costFact.hidden = !costText;
+    node.querySelector('.card-facts').hidden = !ageText && !costText;
     const distance = eventDistance(event); const distanceNode = node.querySelector('.distance'); distanceNode.hidden = distance === null; distanceNode.textContent = distance === null ? '' : t('distance')(distance < 10 ? distance.toFixed(1) : Math.round(distance));
     node.querySelector('.time .detail-text').textContent = event.ongoing ? t('onViewNow') : (dateLabel(session.dateValue) || (session.date === '请查看主办方时间' ? t('timeUnavailable') : session.date)); node.querySelector('.place .detail-text').textContent = event.place;
     const address = node.querySelector('.address'); const addressLink = node.querySelector('.address-link'); const addressText = event.address || ''; const meetingPoint = !addressText ? String(event.meetingPoint || '').trim() : ''; const locationText = addressText || (meetingPoint ? `Meet at: ${meetingPoint}` : '');
