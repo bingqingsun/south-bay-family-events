@@ -109,7 +109,7 @@ function render() {
   const visible = sortEvents(events.filter(event => (state.type === 'all' || event.type === state.type) && (state.city === 'all' || event.city === state.city) && ageMatches(event, state.age) && matchingSessions(event).length && (!state.onlySaved || isSaved(event))));
   grid.innerHTML = '';
   visible.forEach(event => {
-    const session = activeSession(event); const sessions = matchingSessions(event); const node = template.content.cloneNode(true); const fallbackImage = `assets/fallback/${fallbackImageType[event.type] || event.type || 'community'}.png`; const image = event.image || fallbackImage; const imageArea = node.querySelector('.card-image');
+    const session = activeSession(event); const sessions = matchingSessions(event); const node = template.content.cloneNode(true); const fallbackImage = `assets/fallback/${fallbackImageType[event.type] || event.type || 'community'}.png?v=20260830-1`; const image = event.image || fallbackImage; const imageArea = node.querySelector('.card-image');
     const setCardImage = url => { imageArea.style.backgroundImage = `linear-gradient(0deg, rgba(18, 49, 42, .08), rgba(18, 49, 42, .08)), url(${JSON.stringify(url)})`; };
     imageArea.style.backgroundColor = event.color; setCardImage(image); imageArea.classList.add('has-image');
     if (event.image) { const imageProbe = new Image(); imageProbe.onerror = () => setCardImage(fallbackImage); imageProbe.src = event.image; }
