@@ -42,7 +42,7 @@ const browserUrl = new URL('../data/events.js', import.meta.url);
 const events = JSON.parse(await readFile(dataUrl, 'utf8'))
   .filter(isFamilyRelevant)
   .map(event => {
-    const type = typeFor(`${event.title || ''} ${event.description || ''}`);
+    const type = event.ongoing ? 'museums' : typeFor(`${event.title || ''} ${event.description || ''}`);
     return { ...event, type, icon: icons[type], color: colors[type], tag: labels[type], format: formatFor(`${event.title || ''} ${event.description || ''}`), audienceStatus: event.ageSource ? 'organizer-confirmed' : 'not-confirmed' };
   });
 const generatedAt = new Date().toISOString();

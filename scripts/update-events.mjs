@@ -1098,9 +1098,9 @@ function groupRepeatedSessions(items) {
   }).sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
 }
 
-const events = groupRepeatedSessions(individualEvents);
+const scheduledEvents = groupRepeatedSessions(individualEvents);
 
-if (!events.length) throw new Error('No verified upcoming events; leaving the published list unchanged.');
+if (!scheduledEvents.length) throw new Error('No verified upcoming events; leaving the published list unchanged.');
 
 async function readChmMuseumCards(source) {
   const response = await fetch('https://computerhistory.org/', { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
@@ -1135,6 +1135,42 @@ if (museumSource) {
     console.warn(`Keeping last verified museum catalog: ${error.message}`);
   }
 }
+
+// Ongoing exhibits belong in the same browse and save flow as every other
+// activity. They intentionally have no dateValue: they appear under Any time
+// and Museums & exhibits, but not in day/weekend/month results unless a source
+// later gives us a reliable date range.
+function museumAsEvent(museum, source) {
+  const type = 'museums';
+  return {
+    id: museum.id,
+    title: museum.title,
+    date: 'On view now',
+    dateValue: '',
+    ongoing: true,
+    ageBands: [],
+    ageLabel: '年龄未注明',
+    ageSource: '',
+    costLabel: '费用未注明',
+    costSource: '',
+    type,
+    icon: icons[type],
+    color: colors[type],
+    tag: labels[type],
+    format: 'museum-exhibition',
+    verification: 'official-page',
+    lastVerifiedAt: museum.lastVerifiedAt || generatedAt,
+    description: cardSummary(museum.description, museum.title),
+    image: museum.image || '',
+    place: museum.museum || source?.name || 'South Bay museum',
+    address: source?.address || '',
+    city: canonicalCity(source?.city || ''),
+    source: museum.museum || source?.name || '',
+    url: museum.url
+  };
+}
+
+const events = groupRepeatedSessions([...scheduledEvents, ...museums.map(museum => museumAsEvent(museum, museumSource))]);
 
 function translationFingerprint(event) {
   return createHash('sha256').update(String(event.title || '') + '\n' + String(event.description || '')).digest('hex');
