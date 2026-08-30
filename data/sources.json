@@ -29,6 +29,9 @@
   { "name": "Peninsula Youth Theatre", "domain": "pytnet.org", "method": "pyt", "feedUrl": "https://pytnet.org/", "address": "500 Castro St, Mountain View", "city": "Mountain View" },
   { "name": "San Jose Barracuda", "domain": "sjbarracuda.com", "method": "barracuda", "feedUrl": "https://sjbarracuda.com/schedule", "address": "1500 S 10th St, San Jose", "city": "San Jose" },
   { "name": "Filoli Historic House & Garden", "domain": "filoli.org", "method": "filoli", "feedUrl": "https://filoli.org/whats-on/events/", "address": "86 Cañada Rd, Woodside", "city": "Woodside" },
+  { "name": "Los Altos History Museum", "domain": "losaltoshistory.org", "method": "lahm", "feedUrl": "https://www.losaltoshistory.org/events/", "address": "51 S San Antonio Rd, Los Altos", "city": "Los Altos" },
+  { "name": "Museum of American Heritage", "domain": "moah.org", "method": "moah", "feedUrl": "https://www.moah.org/moahevents", "address": "351 Homer Ave, Palo Alto", "city": "Palo Alto" },
+  { "name": "Montalvo Arts Center", "domain": "montalvoarts.org", "method": "montalvo", "feedUrl": "https://montalvoarts.org/experience/events-calendar/", "address": "15400 Montalvo Rd, Saratoga", "city": "Saratoga" },
   { "name": "City of Los Altos Parks & Recreation", "domain": "losaltosca.gov", "method": "ics", "feedUrl": "https://www.losaltosca.gov/common/modules/iCalendar/iCalendar.aspx?catID=37&feed=calendar", "city": "Los Altos" },
   { "name": "Gamble Garden", "domain": "gamblegarden.org", "method": "tribe", "feedUrl": "https://www.gamblegarden.org/wp-json/tribe/events/v1/events?per_page=50&categories=kids" }
 ]

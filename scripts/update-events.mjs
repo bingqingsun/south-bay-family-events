@@ -911,6 +911,127 @@ async function readFiloli(source) {
   });
 }
 
+// Los Altos History Museum uses Events Manager's public list. Exhibits are
+// useful museum outings in their own right; one-off programs are published
+// only when the organizer explicitly signals a youth or family audience.
+async function readLahm(source) {
+  const headers = { 'user-agent': 'SouthBayFamilyEventsBot/1.0' };
+  const response = await fetch(source.feedUrl, { headers, signal: AbortSignal.timeout(15000) });
+  const html = await response.text();
+  if (!response.ok || !/events-table/.test(html)) throw new Error('Los Altos History Museum event list was not valid: ' + response.status);
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
+  const rows = [...html.matchAll(/<tr>([\s\S]*?)<\/tr>/gi)].map(match => match[1]);
+  const events = await Promise.all(rows.map(async row => {
+    const cells = [...row.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)].map(match => match[1]);
+    const dateText = plainText(cells[0] || '');
+    const body = cells[1] || '';
+    const url = htmlAttribute(body, /<h3[^>]*>\s*<a[^>]+href=["']([^"']+)/i);
+    const title = htmlAttribute(body, /<h3[^>]*>\s*<a[^>]*>([\s\S]*?)<\/a>/i);
+    const category = plainText(body.match(/<p[^>]*style=["'][^"']*padding-bottom[^"']*["'][^>]*>([\s\S]*?)<\/p>/i)?.[1] || '');
+    const summary = plainText(body.match(/<p>([\s\S]*?)<a[^>]*>Read more/i)?.[1] || '');
+    const rangeParts = dateText.split(/\s+-\s+/);
+    const dateValue = isoDateFromOfficialText(rangeParts[0], dateText);
+    const endValue = isoDateFromOfficialText(rangeParts.at(-1), dateText) || dateValue;
+    const exhibition = /exhibit/i.test(category);
+    if (!title || !url || !dateValue || endValue < today) return null;
+    try {
+      const detailResponse = await fetch(url, { headers, signal: AbortSignal.timeout(15000) });
+      const detail = await detailResponse.text();
+      const detailText = plainText(detail);
+      const audienceText = `${title} ${summary} ${detailText}`;
+      if (!exhibition && !/famil(?:y|ies)|children|kids?|youth|all ages|hands-on|robotics|stem/i.test(audienceText)) return null;
+      const detailBody = detail.match(/<div class=["']event-details["']>[\s\S]*?<h2>Event Details<\/h2>([\s\S]*?)<\/div>/i)?.[1] || '';
+      const description = cardSummary(detailBody, title) || decodeXml(detail.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)/i)?.[1] || '') || summary;
+      if (!hasActivitySummary(description)) return null;
+      // The calendar sometimes gives an exhibition only a placement/date
+      // sentence. That does not explain the experience, so wait for a richer
+      // first-party description instead of publishing a vague museum card.
+      if (exhibition && /^Appearing in (?:the )?.*(?:Gallery|beginning)/i.test(description)) return null;
+      const image = htmlAttribute(body, /<img[^>]+src=["']([^"']+)/i);
+      const ageText = exhibition ? '' : /\ball ages\b/i.test(detailBody) ? 'all ages' : /\bfamil(?:y|ies)\b/i.test(detailBody) ? 'family' : '';
+      const event = directEvent({
+        id: 'lahm-' + createHash('sha256').update(url).digest('hex').slice(0, 16), title,
+        dateValue, description, image, place: source.name, address: source.address || '', city: source.city || '',
+        source: source.name, url, ageText, format: exhibition ? 'museum-exhibition' : ''
+      });
+      const classified = exhibition ? { ...event, type: 'museums', icon: icons.museums, color: colors.museums, tag: labels.museums } : event;
+      return rangeParts.length > 1 && dateValue < today ? { ...classified, date: 'On view now', dateValue: '', ongoing: true } : classified;
+    } catch { return null; }
+  }));
+  return events.filter(Boolean);
+}
+
+// MOAH's public Squarespace event list exposes individual dates, an official
+// image, a short activity introduction and a per-event ICS link. Restrict the
+// feed to entries whose official copy explicitly identifies a family audience.
+async function readMoah(source) {
+  const headers = { 'user-agent': 'SouthBayFamilyEventsBot/1.0' };
+  const response = await fetch(source.feedUrl, { headers, signal: AbortSignal.timeout(15000) });
+  const html = await response.text();
+  if (!response.ok || !/eventlist-event--upcoming/.test(html)) throw new Error('MOAH official event list was not valid: ' + response.status);
+  const blocks = [...html.matchAll(/<article class=["'][^"']*eventlist-event--upcoming[^"']*["'][\s\S]*?<\/article>/gi)].map(match => match[0]);
+  const events = await Promise.all(blocks.map(async block => {
+    const title = htmlAttribute(block, /eventlist-title[^>]*>\s*<a[^>]*>([\s\S]*?)<\/a>/i);
+    const url = htmlAttribute(block, /eventlist-title[^>]*>\s*<a[^>]+href=["']([^"']+)/i);
+    const dateValue = htmlAttribute(block, /<time class=["']event-date["'] datetime=["']([^"']+)/i);
+    const time = htmlAttribute(block, /event-time-localized-start["'] datetime=["'][^"']+["']>([\s\S]*?)<\/time>/i);
+    const description = htmlAttribute(block, /eventlist-excerpt[^>]*>\s*<p[^>]*>([\s\S]*?)<\/p>/i);
+    const image = htmlAttribute(block, /<img[^>]+data-image=["']([^"']+)/i);
+    if (!title || !url || !isUpcoming(dateValue)) return null;
+    try {
+      const detailResponse = await fetch(new URL(url, source.feedUrl), { headers, signal: AbortSignal.timeout(15000) });
+      const detail = await detailResponse.text();
+      const audienceText = `${title} ${description} ${plainText(detail)}`;
+      if (!/famil(?:y|ies)|children|kids?|all ages|crafts?|costume swap/i.test(audienceText)) return null;
+      const withTime = time ? `${dateValue}T${(() => { const m = time.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i); if (!m) return '00:00'; let h = Number(m[1]) % 12; if (m[3].toUpperCase() === 'PM') h += 12; return `${String(h).padStart(2, '0')}:${m[2]}`; })()}` : dateValue;
+      const ageText = /\ball ages\b/i.test(audienceText) ? 'all ages' : /\bfamil(?:y|ies)\b/i.test(audienceText) ? 'family' : '';
+      const event = directEvent({
+        id: 'moah-' + createHash('sha256').update(`${url}|${dateValue}`).digest('hex').slice(0, 16), title, dateValue: withTime,
+        description, image, place: source.name, address: source.address || '', city: source.city || '', source: source.name,
+        url: new URL(url, source.feedUrl).href, ageText
+      });
+      return { ...event, ...costInfo('', plainText(detail)) };
+    } catch { return null; }
+  }));
+  return events.filter(Boolean);
+}
+
+// Montalvo's calendar is structured data, but its student matinees are not
+// drop-in family outings. The explicit public-audience test prevents those
+// school-only performances from entering the product while retaining future
+// family events as Montalvo publishes them.
+async function readMontalvo(source) {
+  const headers = { 'user-agent': 'SouthBayFamilyEventsBot/1.0' };
+  const response = await fetch(source.feedUrl, { headers, signal: AbortSignal.timeout(15000) });
+  const html = await response.text();
+  if (!response.ok || !/EventSeries/.test(html)) throw new Error('Montalvo official calendar was not valid: ' + response.status);
+  const json = [...html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)]
+    .flatMap(match => { try { return eventNodes(JSON.parse(match[1])); } catch { return []; } })
+    .filter(node => node?.['@type'] === 'EventSeries');
+  const events = await Promise.all(json.map(async item => {
+    const title = decodeXml(item.name || '');
+    const url = item.url || '';
+    const dateValue = item.startDate || '';
+    if (!title || !url || !isUpcoming(dateValue)) return null;
+    try {
+      const detailResponse = await fetch(url, { headers, signal: AbortSignal.timeout(15000) });
+      const detail = await detailResponse.text();
+      const detailText = plainText(detail);
+      if (/school groups?|student matinee|homeschool(?:ed)? students?/i.test(detailText)) return null;
+      if (!/famil(?:y|ies)|children|kids?|all ages|public performance/i.test(`${title} ${detailText}`)) return null;
+      const description = decodeXml(detail.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)/i)?.[1] || '');
+      if (!hasActivitySummary(description)) return null;
+      const image = decodeXml(detail.match(/tn-production-season-detail-page__image[^>]+src=["']([^"']+)/i)?.[1] || item.image || '');
+      return directEvent({
+        id: 'montalvo-' + createHash('sha256').update(`${url}|${dateValue}`).digest('hex').slice(0, 16), title, dateValue,
+        description, image, place: 'Montalvo Arts Center', address: source.address || '', city: source.city || '',
+        source: source.name, url, ageText: `${title} ${detailText}`, format: 'live-show'
+      });
+    } catch { return null; }
+  }));
+  return events.filter(Boolean);
+}
+
 // CivicEngage provides a first-party iCalendar subscription for each city
 // calendar. It is a durable, machine-readable source and avoids using search
 // results for municipal family programming.
@@ -1282,7 +1403,7 @@ const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'ics'];
+const directMethods = ['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
@@ -1309,6 +1430,9 @@ const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'pyt') return readPyt(source);
   if (source.method === 'barracuda') return readBarracuda(source);
   if (source.method === 'filoli') return readFiloli(source);
+  if (source.method === 'lahm') return readLahm(source);
+  if (source.method === 'moah') return readMoah(source);
+  if (source.method === 'montalvo') return readMontalvo(source);
   if (source.method === 'ics') return readIcs(source);
   if (source.method === 'cupertino') return readCupertino(source);
   if (source.method === 'slac') return readSlac(source);
