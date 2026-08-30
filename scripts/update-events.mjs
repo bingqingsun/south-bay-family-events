@@ -612,6 +612,109 @@ async function readSlac(source) {
   return items.filter(Boolean);
 }
 
+// CHM exposes its event posts through an official RSS feed. Event dates live
+// on each official detail page, so RSS is used only for discovery and the
+// published card is verified against that same source page.
+async function readChm(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const xml = await response.text();
+  if (!response.ok || !/<rss[\s>]/i.test(xml)) throw new Error('CHM official RSS was not valid: ' + response.status);
+  const items = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/gi)].map(match => match[1]);
+  const events = await Promise.all(items.map(async item => {
+    const title = xmlText(item, 'title');
+    const url = xmlText(item, 'link');
+    if (!title || !url) return null;
+    try {
+      const detailResponse = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+      const detail = await detailResponse.text();
+      if (!detailResponse.ok) return null;
+      const detailText = plainText(detail);
+      const startText = plainText(detail.match(/class=["']start["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
+      const match = startText.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(\d{1,2})(?::(\d{2}))?\s*(AM|PM)/i);
+      if (!match) return null;
+      let hour = Number(match[4]) % 12;
+      if (match[6].toUpperCase() === 'PM') hour += 12;
+      const dateValue = `${match[3]}-${String(match[1]).padStart(2, '0')}-${String(match[2]).padStart(2, '0')}T${String(hour).padStart(2, '0')}:${match[5] || '00'}`;
+      const youthSignal = /famil(?:y|ies)|children|kids?|youth|teen|all ages|school/i.test(`${title} ${detailText}`);
+      if (!isUpcoming(dateValue) || !youthSignal) return null;
+      const description = detail.match(/three-column-grid__center[\s\S]*?<div class=["']wysiwyg["']>([\s\S]*?)<\/div>/i)?.[1] || xmlText(item, 'content:encoded') || xmlText(item, 'description');
+      const image = decodeXml(detail.match(/<meta\s+property=["']og:image["']\s+content=["']([^"']+)/i)?.[1] || '');
+      const locationText = plainText(detail.match(/<div class=["']location["'][\s\S]*?<p>([\s\S]*?)<\/p>/i)?.[1] || '');
+      const city = locationText.match(/([A-Za-z .'-]+),\s*CA\s*,?\s*\d{5}/i)?.[1]?.trim() || source.city || '';
+      const address = locationText.match(/(?:CHM|Computer History Museum)\s+(.+?)(?:\s+[A-Za-z .'-]+,\s*CA|$)/i)?.[1] || source.address || '';
+      const event = directEvent({
+        id: 'chm-' + createHash('sha256').update(url).digest('hex').slice(0, 16), title, dateValue, description, image,
+        place: locationText.split(/\s{2,}|\n/)[0] || 'Computer History Museum', address: shortAddress(address, city), city,
+        source: source.name, url, ageText: `${title} ${detailText}`
+      });
+      return { ...event, ...costInfo('', detailText) };
+    } catch { return null; }
+  }));
+  return events.filter(Boolean);
+}
+
+// De Anza's Planetarium maintains a public, server-rendered month calendar.
+// Detail pages provide the official audience guidance and artwork, while the
+// month view provides every individual performance time.
+async function readDeAnza(source) {
+  const now = new Date();
+  const monthsToRead = [0, 1, 2].map(offset => {
+    const date = new Date(now.getFullYear(), now.getMonth() + offset, 1);
+    return { month: String(date.getMonth() + 1).padStart(2, '0'), year: date.getFullYear() };
+  });
+  const pages = await Promise.all(monthsToRead.map(async ({ month, year }) => {
+    const url = new URL(source.feedUrl);
+    url.search = new URLSearchParams({ m: month, y: String(year) });
+    const response = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+    const html = await response.text();
+    if (!response.ok || !/class=["']event planet["']/i.test(html)) return [];
+    return [...html.matchAll(/<td class=["']day[^"']*["'][^>]*>([\s\S]*?)<\/td>/gi)].flatMap(cellMatch => {
+      const cell = cellMatch[1];
+      const day = cell.match(/<time\s+datetime=["'](\d{4}-\d{2}-\d{2})["']/i)?.[1] || '';
+      return [...cell.matchAll(/<div class=["']event planet["'][\s\S]*?<div class=["']link["']>([^<]+)<\/div>\s*<\/div>/gi)].map(eventMatch => ({ day, block: eventMatch[0], href: plainText(eventMatch[1]) }));
+    });
+  }));
+  const seen = new Set();
+  const seeds = pages.flat().flatMap(({ day, block, href }) => {
+    const title = plainText(block.match(/<h3>([\s\S]*?)<\/h3>/i)?.[1] || '');
+    const description = plainText(block.match(/class=["']desc[^"']*["'][^>]*>([\s\S]*?)<\/div>/i)?.[1] || '');
+    const timeText = plainText(block.match(/class=["']datetime["'][^>]*>([\s\S]*?)<\/div>/i)?.[1] || '');
+    const place = plainText(block.match(/class=["']location["'][^>]*>([\s\S]*?)<\/div>/i)?.[1] || '');
+    const time = timeText.match(/\b(\d{1,2})(?::(\d{2}))?\s*(AM|PM)\b/i);
+    let hour = time ? Number(time[1]) % 12 : 0;
+    if (time?.[3]?.toUpperCase() === 'PM') hour += 12;
+    const dateValue = day ? `${day}${time ? `T${String(hour).padStart(2, '0')}:${time[2] || '00'}` : ''}` : '';
+    const url = href ? new URL(href, source.feedUrl).href : '';
+    const key = `${url}|${dateValue}`;
+    if (!title || !url || !isUpcoming(dateValue) || seen.has(key)) return [];
+    seen.add(key);
+    return [{ title, description, timeText, place, dateValue, url }];
+  });
+  const events = await Promise.all(seeds.map(async seed => {
+    try {
+      const response = await fetch(seed.url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+      const detail = await response.text();
+      if (!response.ok) return null;
+      // The sidebar lists other upcoming shows. It must not influence the
+      // audience label for the current show.
+      const mainContent = detail.match(/<div class=["']col-xs-12 col-lg-9 l-content["']>([\s\S]*?)<\/div>\s*<div class=["']col-xs-12 col-lg-3 promo-sidebar["']/i)?.[1] || '';
+      const detailText = plainText(mainContent);
+      const youthSignal = /family audience|famil(?:y|ies)|children|kids?|youth|teen|all ages|elementary|school-age/i.test(`${seed.title} ${detailText}`);
+      if (!youthSignal) return null;
+      const description = detail.match(/<div class=["']col-sm-7["']>([\s\S]*?)<\/div>\s*<\/div>/i)?.[1] || seed.description;
+      const image = htmlAttribute(detail, /<img[^>]+src=["']([^"']+)["'][^>]*class=["'][^"']*img-responsive/i);
+      const event = directEvent({
+        id: 'deanza-' + createHash('sha256').update(`${seed.url}|${seed.dateValue}`).digest('hex').slice(0, 16),
+        title: seed.title, dateValue: seed.dateValue, description, image: image ? new URL(image, seed.url).href : '',
+        place: seed.place || source.name, address: source.address || '', city: source.city || '', source: source.name, url: seed.url,
+        ageText: `${seed.title} ${detailText}`
+      });
+      return { ...event, ...costInfo('', detailText) };
+    } catch { return null; }
+  }));
+  return events.filter(Boolean);
+}
+
 async function officialStartDate(item) {
   // The card date must come from the same publisher page as the activity.
   try {
@@ -657,7 +760,7 @@ const target = new URL('../data/events.json', import.meta.url);
 const browserTarget = new URL('../data/events.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directSources = sources.filter(source => ['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac'].includes(source.method) && source.feedUrl);
+const directSources = sources.filter(source => ['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza'].includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
 // Tuesday/Thursday fallback. A manually dispatched `false` explicitly disables
@@ -665,7 +768,7 @@ const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: '
 const serpapiInput = process.env.INCLUDE_SERPAPI;
 const includeSerpapi = serpapiInput === 'true'
   || (serpapiInput !== 'false' && ['Tue', 'Thu'].includes(weekday));
-const searchSources = includeSerpapi ? sources.filter(source => !['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac'].includes(source.method)) : [];
+const searchSources = includeSerpapi ? sources.filter(source => !['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza'].includes(source.method)) : [];
 if (searchSources.length && !key) throw new Error('SERPAPI_KEY is required when the fallback search is scheduled or manually enabled.');
 
 const feedAttempts = await Promise.allSettled(directSources.map(source => {
@@ -676,6 +779,8 @@ const feedAttempts = await Promise.allSettled(directSources.map(source => {
   if (source.method === 'stanford') return readStanford(source);
   if (source.method === 'cupertino') return readCupertino(source);
   if (source.method === 'slac') return readSlac(source);
+  if (source.method === 'chm') return readChm(source);
+  if (source.method === 'deanza') return readDeAnza(source);
   return readRss(source);
 }));
 const searchAttempts = await Promise.allSettled(searchSources.map(search));
