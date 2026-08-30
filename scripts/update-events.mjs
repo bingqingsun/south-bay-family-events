@@ -784,6 +784,58 @@ async function readHappyHollow(source) {
   });
 }
 
+// Gilroy Gardens publishes every dated occurrence as Event schema on its
+// calendar.  Opening hours use that schema too, so each named activity is
+// matched to its official WordPress detail page before it can be published.
+async function readGilroyGardens(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(20000) });
+  const html = await response.text();
+  if (!response.ok || !/calendar-hours|application\/ld\+json/i.test(html)) throw new Error('Gilroy Gardens official calendar was not valid: ' + response.status);
+  const schemaEvents = [...html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)].flatMap(match => {
+    try { return eventNodes(JSON.parse(match[1].trim())); } catch { return []; }
+  }).filter(item => {
+    const type = item?.['@type'];
+    return type === 'Event' || (Array.isArray(type) && type.includes('Event'));
+  });
+  const seeds = [...new Map(schemaEvents.flatMap(item => {
+    const title = decodeXml(item.name || '').trim();
+    const dateValue = String(item.startDate || '');
+    if (!title || !isUpcoming(dateValue) || /^(?:regular )?park hours$/i.test(title)) return [];
+    return [[`${title}|${dateValue}`, { title, dateValue }]];
+  })).values()];
+  const detailsByTitle = new Map();
+  await Promise.all([...new Set(seeds.map(seed => seed.title.toLowerCase()))].map(async normalizedTitle => {
+    try {
+      const searchUrl = new URL('/wp-json/wp/v2/search', source.feedUrl);
+      searchUrl.search = new URLSearchParams({ search: normalizedTitle, per_page: '10' });
+      const searchResponse = await fetch(searchUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+      const results = await searchResponse.json();
+      if (!searchResponse.ok || !Array.isArray(results)) return;
+      const exact = results.filter(item => plainText(item.title || '').toLowerCase() === normalizedTitle);
+      const result = exact.find(item => item.subtype === 'page') || exact.find(item => item.subtype === 'upcoming-events') || exact[0];
+      if (!result?.url) return;
+      const detailResponse = await fetch(result.url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+      const detail = await detailResponse.text();
+      if (!detailResponse.ok) return;
+      const description = decodeXml(detail.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)/i)?.[1] || '');
+      const image = decodeXml(detail.match(/<meta\s+property=["']og:image["']\s+content=["']([^"']+)/i)?.[1] || '');
+      if (!hasActivitySummary(description)) return;
+      detailsByTitle.set(normalizedTitle, { url: result.url, description, image, detailText: plainText(detail) });
+    } catch { /* A missing campaign landing page is not a publishable activity. */ }
+  }));
+  return seeds.flatMap(seed => {
+    const detail = detailsByTitle.get(seed.title.toLowerCase());
+    if (!detail) return [];
+    const event = directEvent({
+      id: 'gilroy-' + createHash('sha256').update(`${seed.title}|${seed.dateValue}`).digest('hex').slice(0, 16),
+      title: seed.title, dateValue: seed.dateValue, description: detail.description, image: detail.image,
+      place: source.name, address: source.address || '', city: source.city || '', source: source.name, url: detail.url,
+      ageText: `${seed.title} ${detail.description} ${detail.detailText}`
+    });
+    return [{ ...event, ...costInfo('', detail.detailText) }];
+  });
+}
+
 async function officialStartDate(item) {
   // The card date must come from the same publisher page as the activity.
   try {
@@ -829,7 +881,7 @@ const target = new URL('../data/events.json', import.meta.url);
 const browserTarget = new URL('../data/events.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directSources = sources.filter(source => ['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow'].includes(source.method) && source.feedUrl);
+const directSources = sources.filter(source => ['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy'].includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
 // Tuesday/Thursday fallback. A manually dispatched `false` explicitly disables
@@ -837,7 +889,7 @@ const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: '
 const serpapiInput = process.env.INCLUDE_SERPAPI;
 const includeSerpapi = serpapiInput === 'true'
   || (serpapiInput !== 'false' && ['Tue', 'Thu'].includes(weekday));
-const searchSources = includeSerpapi ? sources.filter(source => !['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow'].includes(source.method)) : [];
+const searchSources = includeSerpapi ? sources.filter(source => !['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy'].includes(source.method)) : [];
 if (searchSources.length && !key) throw new Error('SERPAPI_KEY is required when the fallback search is scheduled or manually enabled.');
 
 const feedAttempts = await Promise.allSettled(directSources.map(source => {
@@ -852,6 +904,7 @@ const feedAttempts = await Promise.allSettled(directSources.map(source => {
   if (source.method === 'deanza') return readDeAnza(source);
   if (source.method === 'paloalto') return readPaloAlto(source);
   if (source.method === 'happyhollow') return readHappyHollow(source);
+  if (source.method === 'gilroy') return readGilroyGardens(source);
   return readRss(source);
 }));
 const searchAttempts = await Promise.allSettled(searchSources.map(search));

@@ -15,7 +15,7 @@
   { "name": "Computer History Museum", "domain": "computerhistory.org", "method": "chm", "feedUrl": "https://computerhistory.org/events/feed/", "address": "1401 N Shoreline Blvd, Mountain View", "city": "Mountain View" },
   { "name": "Cantor Arts Center", "domain": "museum.stanford.edu", "query": "events family" },
   { "name": "Happy Hollow Park & Zoo", "domain": "happyhollow.org", "method": "happyhollow", "feedUrl": "https://happyhollow.org/events/", "address": "748 Story Road, San Jose", "city": "San Jose" },
-  { "name": "Gilroy Gardens", "domain": "gilroygardens.org", "query": "events family" },
+  { "name": "Gilroy Gardens", "domain": "gilroygardens.org", "method": "gilroy", "feedUrl": "https://www.gilroygardens.org/calendar-hours/", "address": "3050 Hecker Pass Highway, Gilroy", "city": "Gilroy" },
   { "name": "Foothill College", "domain": "foothill.edu", "method": "foothill", "feedUrl": "https://foothill.edu/", "address": "12345 El Monte Rd, Los Altos Hills", "city": "Los Altos Hills" },
   { "name": "De Anza College Planetarium", "domain": "deanza.edu", "method": "deanza", "feedUrl": "https://daweb2.deanza.edu/events/month.html", "address": "21250 Stevens Creek Boulevard, Cupertino", "city": "Cupertino" },
   { "name": "SLAC National Accelerator Laboratory", "domain": "slac.stanford.edu", "method": "slac", "feedUrl": "https://www6.slac.stanford.edu/news-and-events/events", "address": "2575 Sand Hill Road, Menlo Park", "city": "Menlo Park" },
