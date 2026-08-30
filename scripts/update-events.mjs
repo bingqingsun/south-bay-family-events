@@ -14,19 +14,29 @@ const translationKey = translationEnabled ? process.env.GOOGLE_TRANSLATE_API_KEY
 
 function typeFor(text) {
   const value = String(text || '').toLowerCase();
-  // Service, mutual-aid, and community-care activities take precedence over
-  // a host site's broad “maker” or “craft” category.
-  if (/\b(?:bike|bicycle)\b[^.!?]{0,48}\brepair\b|\b(?:community service|volunteer(?:ing)?|cleanup|donation|food drive|swap|mento(?:r|ring)|appointment|customer service|career help)\b/.test(value)) return 'community';
-  if (/\b(?:hike|nature|park|outdoor|garden|trail|wildlife|marsh|forest|creek|pond)\b/.test(value)) return 'outdoor';
-  if (/\b(?:science|stem|robot(?:ics)?|technology|tech|learn(?:ing)?|engineering|coding|computer|3d print(?:ing)?|forensics|dna|astronomy)\b/.test(value)) return 'learning';
-  if (/\b(?:art|crafts?|paint(?:ing)?|music|theat(?:er|re)|museum|knit(?:ting)?|crochet|dance|cooking|baking|design)\b/.test(value)) return 'arts';
+  // Categorize the activity itself—not a venue name. The order resolves
+  // overlapping language (for example, a science show is Learning, while a
+  // garden workshop can still be Arts or Community rather than Outdoors).
+  if (/\b(?:bike|bicycle)\b[^.!?]{0,48}\brepair\b|\b(?:community service|volunteer(?:ing)?|cleanup|donation|food drive|swap|mento(?:r|ring)|appointment|customer service|career help|tech help|free snacks)\b/.test(value)) return 'community';
+  if (/\b(?:yoga|tai chi|meditation|mindfulness|wellness|breathwork|line dancing|movement class|fitness)\b/.test(value)) return 'wellness';
+  if (/\b(?:hike|nature(?:\s+walk)?|trail|wildlife|marsh|forest|creek|pond|ranger|bird(?:s)?\b|habitat restoration|environmental education)\b/.test(value)) return 'outdoor';
+  if (/\b(?:science|stem|robot(?:ics)?|technology|tech|learn(?:ing)?|engineering|coding|computer|3d print(?:ing)?|forensics|dna|astronomy|physics|math(?:ematics)?|tutor(?:ing)?|chess|planetarium|black holes?|solar|sun|moon|space|cosmic|earthquake|homeschool)\b/.test(value)) return 'learning';
+  if (/\b(?:art(?:s)?|crafts?|paint(?:ing)?|music|theat(?:er|re)|museum|exhibit(?:ion)?|photography|knit(?:ting)?|crochet|tie-dye|dance|cooking|baking|design|laser)\b/.test(value)) return 'arts';
+  if (/\b(?:story ?time|play(?:time)?|games?|lego|scavenger hunt|open mic|magic|festival|carnival|football|board games?|puzzle|party|celebration|show)\b/.test(value)) return 'play';
   return 'community';
 }
-const labels = { outdoor: '户外自然', arts: '艺术创作', learning: '科学与学习', community: '社区活动' };
-const icons = { outdoor: '🌿', arts: '🎨', learning: '🔭', community: '✨' };
-const colors = { outdoor: '#d8eee0', arts: '#ffd9bd', learning: '#dce7fa', community: '#ffe9a8' };
+const labels = { outdoor: '户外自然', arts: '艺术创作', learning: '学习与 STEM', play: '亲子玩乐', wellness: '运动与身心健康', community: '社区与支持' };
+const icons = { outdoor: '🌿', arts: '🎨', learning: '🔭', play: '🎈', wellness: '☀️', community: '🤝' };
+const colors = { outdoor: '#d8eee0', arts: '#ffd9bd', learning: '#dce7fa', play: '#ffe9a8', wellness: '#e7ddf6', community: '#dceeea' };
 const fallbackTime = '请点击活动详情查看活动时间';
 const generatedAt = new Date().toISOString();
+
+function isFamilyRelevant(event) {
+  const value = `${event.title || ''} ${event.description || ''}`.toLowerCase();
+  // Do not surface professional education or clinical-provider training as a
+  // family activity merely because it appears on a broad local event calendar.
+  return !/\b(?:primary care provider|healthcare professional|medical professional|continuing medical education|cme credits?|clinician training|physician training)\b/.test(value);
+}
 
 const months = { jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12 };
 
@@ -954,6 +964,7 @@ const individualEvents = [...new Map([...feedEvents, ...candidates]
   // A card must explain what the activity is. We do not replace missing
   // organizer copy with generic prompts or publish logistics-only text.
   .filter(event => hasActivitySummary(event.description))
+  .filter(isFamilyRelevant)
   .sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
 
 function seriesKey(event) {
