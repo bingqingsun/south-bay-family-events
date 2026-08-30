@@ -39,9 +39,10 @@ function eventAgeLabel(event) {
 function eventAgeFact(event) {
   const label = eventAgeLabel(event).trim();
   if (!label) return '';
-  // “Family-friendly” is an organizer audience description, not a precise
-  // age range. Name it as such rather than implying an age recommendation.
-  if (label === 'Family-friendly' && !(event.ageRanges || []).length) return 'Audience: Family-friendly';
+  // When an organizer marks an activity family-friendly but does not publish
+  // a narrower age range, treat it as available to every child-age filter.
+  // The card uses the same concise wording as the explicit All ages category.
+  if (label === 'Family-friendly' && !(event.ageRanges || []).length) return 'Ages: All';
   const grade = label.match(/^Grades?\s+(.+)$/i);
   if (grade) {
     // The filter already uses the conventional K–12 age equivalent. Show
@@ -92,6 +93,10 @@ function ageMatches(event, age) {
   if (!Number.isInteger(childAge)) return true;
   const ranges = event.ageRanges?.length ? event.ageRanges : (Number.isInteger(event.ageMin) && Number.isInteger(event.ageMax) ? [[event.ageMin, event.ageMax]] : []);
   if (ranges.length) return ranges.some(([min, max]) => childAge >= min && childAge <= max);
+  // A broad family-friendly designation has no narrower organizer age band,
+  // so it remains discoverable for every child age rather than disappearing
+  // from filtered family plans.
+  if (event.familyFriendly || (event.ageBands || []).includes('family')) return true;
   // Backward compatibility while a browser may still hold a cached event file.
   return (event.ageBands || []).includes('all-ages');
 }
