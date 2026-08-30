@@ -394,7 +394,7 @@ function isoDateFromOfficialText(dateText, timeText = '') {
 }
 
 function directEvent({ id, title, dateValue, description, image = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, ageText = '', format = '' }) {
-  const type = typeFor(title + ' ' + description + ' ' + ageText);
+  const type = format === 'live-show' ? 'shows' : typeFor(title + ' ' + description + ' ' + ageText);
   const age = ageInfo(ageText);
   return {
     id, title, date: displayEventDate(dateValue), dateValue, ...age,
@@ -765,6 +765,53 @@ async function readCmt(source) {
   return shows.flat();
 }
 
+// PYT exposes its forthcoming productions as ordinary, public show pages.
+// Each page lists its actual ticketed performance times, age suitability,
+// price, venue and a show image—better evidence than a season-announcement.
+async function readPyt(source) {
+  const headers = { 'user-agent': 'SouthBayFamilyEventsBot/1.0' };
+  const response = await fetch(source.feedUrl, { headers, signal: AbortSignal.timeout(15000) });
+  const html = await response.text();
+  if (!response.ok || !/\/boxoffice\//i.test(html)) throw new Error('PYT official show list was not valid: ' + response.status);
+  const links = [...new Set([...html.matchAll(/href=["'](https:\/\/pytnet\.org\/boxoffice\/[^"'#?]+\/?)["']/gi)].map(match => match[1]))].slice(0, 16);
+  const shows = await Promise.all(links.map(async url => {
+    try {
+      const detailResponse = await fetch(url, { headers, signal: AbortSignal.timeout(15000) });
+      const detail = await detailResponse.text();
+      const text = plainText(detail);
+      if (!detailResponse.ok || !/appropriate for all ages/i.test(text)) return [];
+      const title = plainText(detail.match(/<h1[^>]*class=["'][^"']*heading[^"']*["'][^>]*>([\s\S]*?)<\/h1>/i)?.[1] || '');
+      const descriptionCandidates = [...detail.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)]
+        .map(match => plainText(match[1]))
+        .filter(value => hasActivitySummary(value) && !/^(?:performances?|dates?|location|length|appropriate|general admission|student matinee|tickets?|box office|auditions?)\b/i.test(value))
+        .filter(value => !/\b(?:audition|rehears|conflict|casting|participation fee|volunteer hours?|student groups?)\b/i.test(value));
+      const description = descriptionCandidates.find(value => /\b(?:follow|find out|discover|story|tale|adventure|journey|based on|world premiere)\b/i.test(value))
+        || descriptionCandidates.find(value => /\b(?:musical|production)\b/i.test(value) && value.length > 90) || descriptionCandidates[0] || '';
+      const clearDescription = description.match(/\b(?:Follow|Find out|Discover)\b[^.!?]{20,360}[.!?]/i)?.[0] || description;
+      const year = text.match(/\b(20\d{2})\b/)?.[1] || '';
+      const image = decodeXml(detail.match(/<div\s+id=["']sub-banner["'][\s\S]*?<img[^>]+src=["']([^"']+)/i)?.[1] || '');
+      const ticketRows = [...detail.matchAll(/<div\s+class=["']ticket-row["'][\s\S]*?<div\s+class=["']ticket-col ticketname["'][\s\S]*?>([\s\S]*?)<\/div>\s*<\/div>[\s\S]*?<div\s+class=["']ticket-col ticketdate["'][\s\S]*?>([\s\S]*?)<\/div>\s*<\/div>/gi)];
+      if (!title || !hasActivitySummary(description)) return [];
+      return ticketRows.flatMap(row => {
+        const ticketType = plainText(row[1]);
+        // The product is for families planning outings, not closed school
+        // field trips; retain only the public performance inventory.
+        if (!/general admission/i.test(ticketType)) return [];
+        const dateText = plainText(row[2]);
+        const dateValue = isoDateFromOfficialText(dateText.replace(/\b(am|pm)\b/i, `$1, ${year}`), dateText);
+        if (!isUpcoming(dateValue)) return [];
+        const event = directEvent({
+          id: 'pyt-' + createHash('sha256').update(`${url}|${dateValue}`).digest('hex').slice(0, 16), title, dateValue, description: clearDescription,
+          image, place: 'Mountain View Center for the Performing Arts', address: source.address || '', city: source.city || '',
+          source: source.name, url, ageText: 'all ages', format: 'live-show'
+        });
+        return [{ ...event, ...costInfo('$17–$20', text) }];
+      });
+    } catch { return []; }
+  }));
+  return shows.flat();
+}
+
 // Cupertino publishes a server-rendered public event list rather than an RSS
 // or ICS feed. The list itself includes an official date, description, venue,
 // image, and audience tags, so it is more reliable than a web-search result.
@@ -1110,7 +1157,7 @@ const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'bayfc', 'mlb', 'mls', 'showare', 'cmt'];
+const directMethods = ['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
@@ -1134,6 +1181,7 @@ const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'mls') return readMls(source);
   if (source.method === 'showare') return readShoware(source);
   if (source.method === 'cmt') return readCmt(source);
+  if (source.method === 'pyt') return readPyt(source);
   if (source.method === 'cupertino') return readCupertino(source);
   if (source.method === 'slac') return readSlac(source);
   if (source.method === 'chm') return readChm(source);

@@ -26,5 +26,6 @@
   { "name": "San Jose Earthquakes", "domain": "sjearthquakes.com", "method": "mls", "feedUrl": "https://stats-api.mlssoccer.com/competitions/MLS-COM-000001/seasons", "address": "1123 Coleman Ave, San Jose", "city": "San Jose" },
   { "name": "Palo Alto Children's Theatre", "domain": "pact.showare.com", "method": "showare", "feedUrl": "https://pact.showare.com/include/widgets/events/performancelist.asp?action=perf&page=1&listPageSize=100&showPackages=1", "address": "1305 Middlefield Rd, Palo Alto", "city": "Palo Alto" },
   { "name": "CMT San Jose", "domain": "cmtsj.org", "method": "cmt", "feedUrl": "https://www.cmtsj.org/wp-json/wp/v2/pages/12073", "address": "271 S Market St, San Jose", "city": "San Jose" },
+  { "name": "Peninsula Youth Theatre", "domain": "pytnet.org", "method": "pyt", "feedUrl": "https://pytnet.org/", "address": "500 Castro St, Mountain View", "city": "Mountain View" },
   { "name": "Gamble Garden", "domain": "gamblegarden.org", "method": "tribe", "feedUrl": "https://www.gamblegarden.org/wp-json/tribe/events/v1/events?per_page=50&categories=kids" }
 ]
