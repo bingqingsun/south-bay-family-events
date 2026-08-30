@@ -138,9 +138,10 @@ function render() {
     // A source field by itself is not a customer-facing label. Only show a
     // pill when it has actual readable content; otherwise an empty styled
     // span appears as a confusing little oval under the age badge.
-    const ageFact = node.querySelector('.fact-age'); const ageText = event.ageSource ? t('ageFact')(eventAgeLabel(event)).trim() : ''; ageFact.textContent = ageText; ageFact.title = ageText ? event.ageSource : ''; ageFact.hidden = !ageText;
-    const costFact = node.querySelector('.fact-cost'); const costText = event.costSource ? t('costFact')(eventCostLabel(event)).trim() : ''; costFact.textContent = costText; costFact.title = costText ? event.costSource : ''; costFact.hidden = !costText;
-    node.querySelector('.card-facts').hidden = !ageText && !costText;
+    const facts = node.querySelector('.card-facts');
+    const ageFact = node.querySelector('.fact-age'); const ageText = event.ageSource ? t('ageFact')(eventAgeLabel(event)).trim() : ''; ageFact.textContent = ageText; ageFact.title = ageText ? event.ageSource : ''; if (!ageText) ageFact.remove();
+    const costFact = node.querySelector('.fact-cost'); const costText = event.costSource ? t('costFact')(eventCostLabel(event)).trim() : ''; costFact.textContent = costText; costFact.title = costText ? event.costSource : ''; if (!costText) costFact.remove();
+    facts.hidden = facts.querySelectorAll('.fact').length === 0;
     const distance = eventDistance(event); const distanceNode = node.querySelector('.distance'); distanceNode.hidden = distance === null; distanceNode.textContent = distance === null ? '' : t('distance')(distance < 10 ? distance.toFixed(1) : Math.round(distance));
     node.querySelector('.time .detail-text').textContent = event.ongoing ? t('onViewNow') : (dateLabel(session.dateValue) || (session.date === '请查看主办方时间' ? t('timeUnavailable') : session.date)); node.querySelector('.place .detail-text').textContent = event.place;
     const address = node.querySelector('.address'); const addressLink = node.querySelector('.address-link'); const addressText = event.address || ''; const meetingPoint = !addressText ? String(event.meetingPoint || '').trim() : ''; const locationText = addressText || (meetingPoint ? `Meet at: ${meetingPoint}` : '');
