@@ -132,7 +132,15 @@ function setActiveType(type) { document.querySelectorAll('.chip').forEach(chip =
 function syncDatePriority() { document.querySelector('.date-priority').classList.toggle('is-active', state.date !== 'all'); }
 function setLocationStatus(message = '') { const node = document.querySelector('#locationStatus'); node.textContent = message; node.hidden = !message; }
 function resetFilters({ date = 'all' } = {}) { state.type = 'all'; state.age = 'all'; state.city = 'all'; state.date = date; state.sort = 'date'; state.position = null; state.onlySaved = false; document.querySelector('#ageFilter').value = 'all'; document.querySelector('#cityFilter').value = 'all'; document.querySelector('#dateFilter').value = date; document.querySelector('#sortFilter').value = 'date'; setLocationStatus(); setActiveType('all'); syncDatePriority(); document.querySelector('#savedButton').classList.remove('active'); }
-document.querySelector('#typeFilters').addEventListener('click', e => { if (!e.target.matches('.chip')) return; state.type = e.target.dataset.type; setActiveType(state.type); render(); });
+document.querySelector('#typeFilters').addEventListener('click', e => {
+  // Browser translation can wrap a chip label in an inner element. Resolve the
+  // actual button instead of requiring the exact clicked node to be the button.
+  const chip = e.target.closest('.chip');
+  if (!chip || !e.currentTarget.contains(chip)) return;
+  state.type = chip.dataset.type;
+  setActiveType(state.type);
+  render();
+});
 document.querySelector('#ageFilter').addEventListener('change', e => { state.age = e.target.value; render(); });
 document.querySelector('#cityFilter').addEventListener('change', e => { state.city = e.target.value; render(); });
 document.querySelector('#dateFilter').addEventListener('change', e => { state.date = e.target.value; syncDatePriority(); render(); });
