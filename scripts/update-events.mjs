@@ -892,7 +892,7 @@ const includeSerpapi = serpapiInput === 'true'
 const searchSources = includeSerpapi ? sources.filter(source => !['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy'].includes(source.method)) : [];
 if (searchSources.length && !key) throw new Error('SERPAPI_KEY is required when the fallback search is scheduled or manually enabled.');
 
-const feedAttempts = await Promise.allSettled(directSources.map(source => {
+const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'tribe') return readTribe(source);
   if (source.method === 'thetech') return readTheTech(source);
   if (source.method === 'foothill') return readFoothill(source);
@@ -906,10 +906,11 @@ const feedAttempts = await Promise.allSettled(directSources.map(source => {
   if (source.method === 'happyhollow') return readHappyHollow(source);
   if (source.method === 'gilroy') return readGilroyGardens(source);
   return readRss(source);
-}));
-const searchAttempts = await Promise.allSettled(searchSources.map(search));
+}))).map((result, index) => ({ ...result, sourceName: directSources[index].name, kind: 'official calendar' }));
+const searchAttempts = (await Promise.allSettled(searchSources.map(search)))
+  .map((result, index) => ({ ...result, sourceName: searchSources[index].name, kind: 'fallback search' }));
 const failures = [...feedAttempts, ...searchAttempts].filter(result => result.status === 'rejected');
-failures.forEach(result => console.warn(`Skipping one search: ${result.reason.message}`));
+failures.forEach(result => console.warn(`Skipping ${result.kind}: ${result.sourceName} — ${result.reason.message}`));
 if (directSources.length && feedAttempts.every(result => result.status === 'rejected')) {
   throw new Error('All official calendars failed; leaving the published list unchanged.');
 }
