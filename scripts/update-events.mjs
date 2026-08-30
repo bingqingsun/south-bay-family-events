@@ -812,6 +812,105 @@ async function readPyt(source) {
   return shows.flat();
 }
 
+// The Barracuda's official schedule page embeds the same public game data
+// used by its calendar UI. Reading that first-party payload keeps every home
+// date and start time current without relying on a ticket-resale listing.
+async function readBarracuda(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const html = await response.text();
+  const start = html.indexOf('{"events":[');
+  if (!response.ok || start < 0) throw new Error('Barracuda official schedule was not valid: ' + response.status);
+  let depth = 0; let quoted = false; let escaped = false; let end = -1;
+  for (let index = start; index < html.length; index += 1) {
+    const char = html[index];
+    if (quoted) {
+      if (escaped) escaped = false;
+      else if (char === '\\') escaped = true;
+      else if (char === '"') quoted = false;
+      continue;
+    }
+    if (char === '"') quoted = true;
+    else if (char === '{' || char === '[') depth += 1;
+    else if (char === '}' || char === ']') {
+      depth -= 1;
+      if (depth === 0) { end = index + 1; break; }
+    }
+  }
+  let payload;
+  try { payload = JSON.parse(html.slice(start, end)); } catch { throw new Error('Barracuda official schedule JSON could not be read'); }
+  if (!Array.isArray(payload.events)) throw new Error('Barracuda official schedule listed no games');
+  return payload.events.flatMap(game => {
+    const dateValue = game.time?.start || '';
+    if (!game.isHomeGame || !isUpcoming(dateValue)) return [];
+    const opponent = plainText(game.title || '').replace(/^vs\.?(?:\s*)/i, '').trim();
+    if (!opponent) return [];
+    const promotions = Array.isArray(game.promos) ? game.promos.filter(Boolean) : [];
+    const description = `Watch the San Jose Barracuda take on ${opponent} at Tech CU Arena.${promotions.length ? ` Featured promotion: ${promotions.join('; ')}.` : ''}`;
+    const image = game.logo?.source?.url || game.logo?.url || '';
+    const event = directEvent({
+      id: 'barracuda-' + (game.id || createHash('sha256').update(`${opponent}|${dateValue}`).digest('hex').slice(0, 16)),
+      title: `San Jose Barracuda vs ${opponent}`, dateValue, description, image,
+      place: 'Tech CU Arena', address: source.address || '', city: source.city || '',
+      source: source.name, url: source.feedUrl, format: 'sports-game'
+    });
+    return [{ ...event, ...costInfo('', 'Tickets are available through the official team schedule.') }];
+  });
+}
+
+// Filoli's public listing labels family programming directly and renders its
+// date, image and parent-facing introduction in the HTML. We read each
+// listing page and retain only entries carrying that explicit audience signal.
+async function readFiloli(source) {
+  const headers = { 'user-agent': 'SouthBayFamilyEventsBot/1.0' };
+  const pages = await Promise.all([1, 2, 3, 4].map(async page => {
+    const url = page === 1 ? source.feedUrl : `${source.feedUrl}?p=${page}`;
+    const response = await fetch(url, { headers, signal: AbortSignal.timeout(15000) });
+    const html = await response.text();
+    if (!response.ok || !/listing-item/.test(html)) return [];
+    // The card itself contains nested lists for tags and dates, therefore a
+    // non-greedy `</li>` match stops too early. Splitting at the next card
+    // boundary retains each complete listing including its description.
+    return html.split(/<li class=["']listing-item["'][^>]*>/i).slice(1);
+  }));
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
+  const seen = new Set();
+  return pages.flat().flatMap(block => {
+    const title = htmlAttribute(block, /<h4[^>]*>\s*<a[^>]+>([\s\S]*?)<\/a>/i);
+    const href = htmlAttribute(block, /<h4[^>]*>\s*<a[^>]+href=["']([^"']+)/i);
+    const description = htmlAttribute(block, /<h4[\s\S]*?<p>([\s\S]*?)<\/p>/i);
+    const tags = [...block.matchAll(/<ul class=["']taglist["'][\s\S]*?<\/ul>/gi)].map(match => plainText(match[0])).join(' ');
+    const dateBlock = block.match(/fa-calendar-alt[\s\S]*?<\/li>/i)?.[0] || '';
+    const dateText = plainText(dateBlock);
+    const image = htmlAttribute(block, /<img[^>]+data-src=["']([^"']+)/i);
+    const familySignal = /famil(?:y|ies)|children|kids?/i.test(`${tags} ${title} ${description}`);
+    const range = dateText.match(/\b([A-Z][a-z]+)\s+(\d{1,2})(?:st|nd|rd|th)?\s*-\s*([A-Z][a-z]+)\s+(\d{1,2})(?:st|nd|rd|th)?\s+(\d{4})/);
+    const dateValue = range
+      ? `${range[5]}-${String(months[range[1].slice(0, 3).toLowerCase()] || 0).padStart(2, '0')}-${String(Number(range[2])).padStart(2, '0')}`
+      : isoDateFromOfficialText(dateText);
+    const endValue = range
+      ? `${range[5]}-${String(months[range[3].slice(0, 3).toLowerCase()] || 0).padStart(2, '0')}-${String(Number(range[4])).padStart(2, '0')}`
+      : dateValue;
+    const url = href ? new URL(href, source.feedUrl).href : '';
+    if (!title || !url || !familySignal || !hasActivitySummary(description) || endValue < today || seen.has(url)) return [];
+    seen.add(url);
+    const exhibition = /\b(?:exhibit(?:ion)?|flower show|installation)\b/i.test(`${title} ${description}`);
+    const natureExperience = /\b(?:garden|nest|nature|outdoor|redwood)\b/i.test(`${title} ${description}`);
+    const event = directEvent({
+      id: 'filoli-' + createHash('sha256').update(url).digest('hex').slice(0, 16), title, dateValue, description,
+      image: image ? new URL(image, source.feedUrl).href : '', place: 'Filoli Historic House & Garden',
+      address: source.address || '', city: source.city || '', source: source.name, url, ageText: `${tags} ${description}`,
+      format: exhibition ? 'museum-exhibition' : ''
+    });
+    const classified = exhibition ? { ...event, type: 'museums', icon: icons.museums, color: colors.museums, tag: labels.museums }
+      : natureExperience ? { ...event, type: 'outdoor', icon: icons.outdoor, color: colors.outdoor, tag: labels.outdoor }
+      : event;
+    // A multi-day family experience that has already opened should be found as
+    // an ongoing activity rather than disappear merely because its start date
+    // has passed.
+    return [range && dateValue < today ? { ...classified, date: 'On view now', dateValue: '', ongoing: true } : classified];
+  });
+}
+
 // CivicEngage provides a first-party iCalendar subscription for each city
 // calendar. It is a durable, machine-readable source and avoids using search
 // results for municipal family programming.
@@ -1183,7 +1282,7 @@ const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'ics'];
+const directMethods = ['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'ics'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
@@ -1208,6 +1307,8 @@ const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'showare') return readShoware(source);
   if (source.method === 'cmt') return readCmt(source);
   if (source.method === 'pyt') return readPyt(source);
+  if (source.method === 'barracuda') return readBarracuda(source);
+  if (source.method === 'filoli') return readFiloli(source);
   if (source.method === 'ics') return readIcs(source);
   if (source.method === 'cupertino') return readCupertino(source);
   if (source.method === 'slac') return readSlac(source);
