@@ -36,6 +36,18 @@ function eventAgeLabel(event) {
   if (event.ageLabel) return event.ageLabel;
   return event.ageBands?.length ? event.ageBands.map(band => legacyAgeLabels[band]?.[state.language === 'zh' ? 0 : 1]).filter(Boolean).join(' · ') : t('ageUnknown');
 }
+function eventAgeFact(event) {
+  const label = eventAgeLabel(event).trim();
+  if (!label) return '';
+  // “Family-friendly” is an organizer audience description, not a precise
+  // age range. Name it as such rather than implying an age recommendation.
+  if (label === 'Family-friendly' && !(event.ageRanges || []).length) return 'Audience: Family-friendly';
+  const grade = label.match(/^Grades?\s+(.+)$/i);
+  if (grade) return `Grades: ${grade[1]}`;
+  // Keep every age-range pill in the same field/value pattern, including
+  // organizer wording such as “All ages” and “Ages 6+”.
+  return `Ages: ${label.replace(/\bAges?\s*/gi, '')}`;
+}
 function eventCostLabel(event) { return !event.costLabel || event.costLabel === '费用未注明' ? t('costUnknown') : costLabels[event.costLabel]?.[state.language === 'zh' ? 0 : 1] || event.costLabel; }
 function renderUpdateTime() {
   const generatedAt = window.SOUTH_BAY_EVENTS_META?.generatedAt;
@@ -139,7 +151,7 @@ function render() {
     // pill when it has actual readable content; otherwise an empty styled
     // span appears as a confusing little oval under the age badge.
     const facts = node.querySelector('.card-facts');
-    const ageFact = node.querySelector('.fact-age'); const ageText = event.ageSource ? t('ageFact')(eventAgeLabel(event)).trim() : ''; ageFact.textContent = ageText; ageFact.title = ageText ? event.ageSource : ''; if (!ageText) ageFact.remove();
+    const ageFact = node.querySelector('.fact-age'); const ageText = event.ageSource ? eventAgeFact(event) : ''; ageFact.textContent = ageText; ageFact.title = ageText ? event.ageSource : ''; if (!ageText) ageFact.remove();
     const costFact = node.querySelector('.fact-cost'); const costText = event.costSource ? t('costFact')(eventCostLabel(event)).trim() : ''; costFact.textContent = costText; costFact.title = costText ? event.costSource : ''; if (!costText) costFact.remove();
     facts.hidden = facts.querySelectorAll('.fact').length === 0;
     const distance = eventDistance(event); const distanceNode = node.querySelector('.distance'); distanceNode.hidden = distance === null; distanceNode.textContent = distance === null ? '' : t('distance')(distance < 10 ? distance.toFixed(1) : Math.round(distance));
