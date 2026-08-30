@@ -266,6 +266,15 @@ function ageInfo(categories) {
   for (const match of text.matchAll(/(?:kids?|teens?|pre-?teens?|tweens?)\s*\(\s*(\d{1,2})\s*(?:-|–|—|to)\s*(\d{1,2})\s*\)/gi)) addRange(Number(match[1]), Number(match[2]));
   for (const match of text.matchAll(/(?:young children|kids?|pre-?teens?|teens?)\s*,?\s*ages?\s*(\d{1,2})\s*(?:-|–|—|to)\s*(\d{1,2})/gi)) addRange(Number(match[1]), Number(match[2]));
   for (const match of text.matchAll(/(?:ages?\s*)?(\d{1,2})\s*(?:years?\s*(?:old)?\s*)?(?:and|or)\s*under/gi)) addRange(0, Number(match[1]));
+  // "Ages 6 and up" is an explicit organizer age recommendation. Keep the
+  // open-ended wording on the card and use 18 only as the product's K–12
+  // filter ceiling, not as an organizer-implied upper limit.
+  const upMatch = text.match(/(?:recommended\s+for\s+)?ages?\s*(\d{1,2})\s*(?:and|&)\s*up\b/i);
+  if (upMatch) {
+    const min = Number(upMatch[1]);
+    addRange(min, 18);
+    return { ageBands: [], ageRanges: [[min, 18]], ageMin: min, ageMax: 18, ageLabel: `Ages ${min}+`, ageSource: 'Official organizer age recommendation', familyFriendly };
+  }
   if (/bab(?:y|ies)\s*\(\s*under\s*2\s*\)|\bkids?:\s*bab(?:y|ies)\b|\bunder\s*2\b|\binfants?\b/.test(lower)) addRange(0, 1);
   if (/toddlers?|18\s*(?:months?|mos?)/.test(lower)) addRange(1, 3);
   if (/pre-?school(?:ers?)?/.test(lower)) addRange(3, 5);
@@ -412,7 +421,10 @@ function isoDateFromOfficialText(dateText, timeText = '') {
   // A date without a year must still be upcoming. We deliberately reject
   // stale month/day labels rather than guessing that they mean next year.
   if (!match[3] && date < today) return '';
-  const time = String(timeText || '').match(/\b(\d{1,2})(?::(\d{2}))?\s*(AM|PM)\b/i);
+  // Organizer pages commonly use both "11 AM" and "11 a.m.". Normalize
+  // periods before parsing so an official punctuation style never loses the
+  // event time on the published card.
+  const time = String(timeText || '').replace(/\./g, '').match(/\b(\d{1,2})(?::(\d{2}))?\s*(AM|PM)\b/i);
   if (!time) return date;
   let hour = Number(time[1]) % 12;
   if (time[3].toUpperCase() === 'PM') hour += 12;
@@ -1422,6 +1434,134 @@ async function search(source) {
   return candidates;
 }
 
+// Symphony San Jose publishes its season as a regular official HTML page.
+// Each concert has a separate details page that lists the individual
+// performances. We only include programs whose official description directly
+// identifies a child or family audience; the shared season page also contains
+// many adult-oriented concerts.
+async function readSymphony(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const html = await response.text();
+  if (!response.ok || !/show-concert/i.test(html)) throw new Error('Symphony San Jose season page was not valid: ' + response.status);
+  const cards = [...html.matchAll(/<li\b[^>]*\bshow-concert\b[\s\S]*?<\/li>/gi)].map(match => match[0]).map(card => ({
+    title: plainText(card.match(/<h3[^>]*>([\s\S]*?)<\/h3>/i)?.[1] || ''),
+    url: htmlAttribute(card, /href=["']([^"']+)["']/i),
+    image: htmlAttribute(card, /<img[^>]+src=["']([^"']+)["']/i)
+  })).filter(card => card.title && card.url)
+    // This is a candidate shortlist, not the audience decision. The official
+    // detail-page description below remains the authority for publication.
+    .filter(card => /\b(?:my very first|nutcracker|spooktacular|family)\b/i.test(card.title));
+  const pages = await Promise.all(cards.map(async card => {
+    const detailResponse = await fetch(card.url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+    const detailHtml = await detailResponse.text();
+    if (!detailResponse.ok) return null;
+    const description = decodeXml(detailHtml.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)["']/i)?.[1] || '');
+    return { ...card, description, detailHtml };
+  }));
+  return pages.flatMap((page, pageIndex) => {
+    if (!page || !/\b(?:famil(?:y|ies)|children|kids?|toddlers?|preschool(?:ers?)?|young children)\b/i.test(page.description)) return [];
+    const detailText = plainText(page.detailHtml);
+    const sessions = [...detailText.matchAll(/\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),\s+(\d{4})\s+at\s+(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?))/gi)];
+    return sessions.map((session, sessionIndex) => {
+      const dateValue = isoDateFromOfficialText(`${session[1]} ${session[2]}, ${session[3]}`, session[4]);
+      return dateValue ? directEvent({
+        id: `symphony-${pageIndex}-${sessionIndex}`, title: page.title, dateValue,
+        description: page.description,
+        // A season-logo image is not an activity image. Leave it blank so the
+        // card's established themed fallback is used instead of an old or
+        // unrelated season graphic.
+        image: /(?:season|logo)/i.test(page.image) ? '' : page.image, place: 'California Theatre',
+        address: source.address, city: source.city, source: source.name, url: page.url,
+        // The organizer identifies these as toddler/preschool programs but
+        // does not give a precise numeric suitability range. Do not turn
+        // descriptive audience words into a misleading card age label.
+        ageText: '', format: 'live-show'
+      }) : null;
+    }).filter(Boolean);
+  });
+}
+
+function timelyActivityDescription(html, title) {
+  const paragraphs = [...String(html || '').matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)]
+    .map(match => plainText(match[1])).filter(text => text.length >= 25)
+    .filter(text => !/^(?:\|?\s*)?performances?:|^(?:advisory|running time|note|tickets?|this production is presented|patrons? not seated)/i.test(text));
+  const titleWords = new Set(plainText(title).toLowerCase().replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(word => word.length > 4));
+  const score = text => {
+    const lower = text.toLowerCase();
+    let value = Math.min(text.length, 220) / 35;
+    value += [...titleWords].filter(word => lower.includes(word)).length * 2;
+    if (/\b(?:is|are|features?|brings?|adaptation|production|musical|ballet|concert|sing along|celebrat(?:e|ing)|story)\b/i.test(text)) value += 5;
+    if (/\b(?:reuniting|directed and choreographed|composer|lyricist|scenic design|lighting design|make this the christmas)\b/i.test(text)) value -= 12;
+    if (isLogisticsOnly(text)) value -= 12;
+    return value;
+  };
+  const selected = paragraphs.sort((a, b) => score(b) - score(a)).find(hasActivitySummary);
+  return selected || plainText(html);
+}
+
+// San Jose Theaters exposes its official public calendar through Timely's
+// documented browser API. The listing contains all venue programming, so we
+// fetch detailed pages only for likely family shows and still require explicit
+// audience language on the official detail before publishing a card.
+async function readTimely(source) {
+  const headers = { 'x-api-key': 'c6e5e0363b5925b28552de8805464c66f25ba0ce', 'user-agent': 'SouthBayFamilyEventsBot/1.0' };
+  const baseUrl = `https://events.timely.fun/api/calendars/${source.calendarId}/events`;
+  const startDate = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
+  const endDate = new Date(Date.now() + 366 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+  const loadPage = async page => {
+    const response = await fetch(`${baseUrl}?start_date=${startDate}&end_date=${endDate}&page=${page}`, { headers, signal: AbortSignal.timeout(15000) });
+    const payload = await response.json();
+    if (!response.ok || !payload?.data?.items) throw new Error('San Jose Theaters calendar was not valid: ' + response.status);
+    return payload.data;
+  };
+  const first = await loadPage(1);
+  const pages = Math.ceil((first.total || first.items.length) / (first.size || first.items.length || 20));
+  const remainingPages = await Promise.all(Array.from(
+    { length: Math.max(0, pages - 1) },
+    (_, index) => loadPage(index + 2).then(data => data.items)
+  ));
+  const allItems = [first.items, ...remainingPages].flat();
+  const familyCandidate = /\b(?:disney|bluey|frozen|family|children|kids?|magic|puppet|circus|ice(?:\s+show)?|nutcracker|ballet)\b/i;
+  const candidates = [...new Map(allItems.filter(item => item.event_status === 'confirmed' && !/\b(?:cancel(?:ed|led)?|postponed)\b/i.test(item.title || '') && familyCandidate.test(item.title || ''))
+    .map(item => [String(item.title || '').toLowerCase(), item])).values()];
+  const pagesWithDetails = await Promise.all(candidates.map(async item => {
+    const response = await fetch(`${baseUrl}/${item.id}`, { headers, signal: AbortSignal.timeout(15000) });
+    const payload = await response.json();
+    return response.ok && payload?.data ? payload.data : null;
+  }));
+  return pagesWithDetails.flatMap((detail, detailIndex) => {
+    const description = detail?.description || detail?.description_short || '';
+    // A recognizable title alone is not enough. The official description must
+    // expressly address families, children, a general audience, or an age.
+    if (!detail || /\b(?:cancel(?:ed|led)?|postponed)\b/i.test(detail.title || '') || !/\b(?:famil(?:y|ies)|children|kids?|young people|general audience|recommended for ages?|ages?\s+\d)/i.test(plainText(description))) return [];
+    // These shows are also sourced directly from Symphony San Jose, which is
+    // the primary organizer and supplies the richer canonical event page.
+    if (/\bmy very first (?:nutcracker|ballet)\b/i.test(detail.title || '')) return [];
+    const venue = detail.taxonomies?.taxonomy_venue?.[0] || {};
+    const venueParts = String(venue.address || '').match(/^(.+?),\s*([^,]+),\s*CA\b/i);
+    const city = canonicalCity(venueParts?.[2] || 'San Jose');
+    const address = venueParts ? shortAddress(venueParts[1], city) : '';
+    const detailText = plainText(description);
+    const sessionMatches = [...detailText.matchAll(/\b(?:Mon(?:day)?|Tues(?:day)?|Weds?(?:nesday)?|Thurs?(?:day)?|Fri(?:day)?|Sat(?:urday)?|Sun(?:day)?)\.?[,]?\s+(January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\.?\s+(\d{1,2}),\s*(\d{4})\s*@\s*(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?))/gi)];
+    const sessions = sessionMatches.length ? sessionMatches : [[null, '', '', '', '']];
+    return sessions.map((match, sessionIndex) => {
+      const dateValue = sessionMatches.length
+        ? isoDateFromOfficialText(`${match[1]} ${match[2]}, ${match[3]}`, match[4])
+        : String(detail.start_datetime || '').replace(' ', 'T').slice(0, 16);
+      if (!dateValue || !isUpcoming(dateValue)) return null;
+      const event = directEvent({
+        id: `timely-${detailIndex}-${sessionIndex}`, title: detail.title, dateValue,
+        description: timelyActivityDescription(description, detail.title), image: detail.images?.[0]?.full?.url || detail.images?.[0]?.medium?.url || '',
+        place: plainText(venue.title || 'San Jose Theaters'), address, city,
+        source: source.name, url: detail.url || source.feedUrl, ageText: description, format: 'live-show'
+      });
+      // Timely returns a platform default of "0" even for external ticketed
+      // events. Use a price only when the organizer actually supplies it.
+      return { ...event, ...costInfo(detail.cost || '', description) };
+    }).filter(Boolean);
+  });
+}
+
 const target = new URL('../data/events.json', import.meta.url);
 const browserTarget = new URL('../data/events.js', import.meta.url);
 const museumTarget = new URL('../data/museums.json', import.meta.url);
@@ -1429,7 +1569,7 @@ const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics'];
+const directMethods = ['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
@@ -1467,6 +1607,8 @@ const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'paloalto') return readPaloAlto(source);
   if (source.method === 'happyhollow') return readHappyHollow(source);
   if (source.method === 'gilroy') return readGilroyGardens(source);
+  if (source.method === 'symphony') return readSymphony(source);
+  if (source.method === 'timely') return readTimely(source);
   return readRss(source);
 }))).map((result, index) => ({ ...result, sourceName: directSources[index].name, kind: 'official calendar' }));
 const searchAttempts = (await Promise.allSettled(searchSources.map(search)))

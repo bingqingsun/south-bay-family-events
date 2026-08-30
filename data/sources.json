@@ -33,5 +33,7 @@
   { "name": "Museum of American Heritage", "domain": "moah.org", "method": "moah", "feedUrl": "https://www.moah.org/moahevents", "address": "351 Homer Ave, Palo Alto", "city": "Palo Alto" },
   { "name": "Montalvo Arts Center", "domain": "montalvoarts.org", "method": "montalvo", "feedUrl": "https://montalvoarts.org/experience/events-calendar/", "address": "15400 Montalvo Rd, Saratoga", "city": "Saratoga" },
   { "name": "City of Los Altos Parks & Recreation", "domain": "losaltosca.gov", "method": "ics", "feedUrl": "https://www.losaltosca.gov/common/modules/iCalendar/iCalendar.aspx?catID=37&feed=calendar", "city": "Los Altos" },
-  { "name": "Gamble Garden", "domain": "gamblegarden.org", "method": "tribe", "feedUrl": "https://www.gamblegarden.org/wp-json/tribe/events/v1/events?per_page=50&categories=kids" }
+  { "name": "Gamble Garden", "domain": "gamblegarden.org", "method": "tribe", "feedUrl": "https://www.gamblegarden.org/wp-json/tribe/events/v1/events?per_page=50&categories=kids" },
+  { "name": "Symphony San Jose", "domain": "symphonysanjose.org", "method": "symphony", "feedUrl": "https://www.symphonysanjose.org/attend/2026-2027-season/concerts-2026-2027/", "address": "345 S 1st St, San Jose", "city": "San Jose" },
+  { "name": "San Jose Theaters", "domain": "sanjosetheaters.org", "method": "timely", "feedUrl": "https://events.timely.fun/jc0x91t0/stream?tags=677512582", "calendarId": 54710614 }
 ]
