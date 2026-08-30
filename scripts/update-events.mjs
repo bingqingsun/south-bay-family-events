@@ -45,7 +45,21 @@ function isFamilyRelevant(event) {
   const value = `${event.title || ''} ${event.description || ''}`.toLowerCase();
   // Do not surface professional education or clinical-provider training as a
   // family activity merely because it appears on a broad local event calendar.
-  return !/\b(?:primary care provider|healthcare professional|medical professional|continuing medical education|cme credits?|clinician training|physician training)\b/.test(value);
+  if (/\b(?:primary care provider|healthcare professional|medical professional|continuing medical education|cme credits?|clinician training|physician training)\b/.test(value)) return false;
+  // An organizer's explicit 18+ audience is an adult-only activity. Never
+  // let a broad venue/category such as "Family Learning Center" override it.
+  return !isExplicitlyAdultOnly(`${event.title || ''} ${event.description || ''} ${event.ageLabel || ''}`)
+    && !(Number(event.ageMin) >= 18 && Number(event.ageMax) >= 18);
+}
+
+function hasExplicitChildAudience(text) {
+  return /\b(?:bab(?:y|ies)|infants?|toddlers?|pre-?school(?:ers?)?|young children|children|kids?|school age|pre-?teens?|tweens?|teens?|all ages|grades?)\b/i.test(plainText(text));
+}
+
+function isExplicitlyAdultOnly(text) {
+  const value = plainText(text);
+  const adult18Plus = /\badults?\s*,?\s*(?:ages?\s*)?18\s*\+|\badults?\s+only\b|\bages?\s*18\s*\+\s*(?:only)?\b/i.test(value);
+  return adult18Plus && !hasExplicitChildAudience(value);
 }
 function withPresentationFields(event) {
   const audienceText = `${event.title || ''} ${event.description || ''} ${event.ageLabel || ''} ${event.ageSource || ''}`;
@@ -269,11 +283,12 @@ function ageInfo(categories) {
   // "Ages 6 and up" is an explicit organizer age recommendation. Keep the
   // open-ended wording on the card and use 18 only as the product's K–12
   // filter ceiling, not as an organizer-implied upper limit.
-  const upMatch = text.match(/(?:recommended\s+for\s+)?ages?\s*(\d{1,2})\s*(?:and|&)\s*up\b/i);
+  const upMatch = text.match(/(?:recommended\s+for\s+)?ages?\s*(\d{1,2})\s*(?:(?:and|&)\s*up\b|\+)/i);
+  let openEndedMin = null;
   if (upMatch) {
     const min = Number(upMatch[1]);
     addRange(min, 18);
-    return { ageBands: [], ageRanges: [[min, 18]], ageMin: min, ageMax: 18, ageLabel: `Ages ${min}+`, ageSource: 'Official organizer age recommendation', familyFriendly };
+    openEndedMin = min;
   }
   if (/bab(?:y|ies)\s*\(\s*under\s*2\s*\)|\bkids?:\s*bab(?:y|ies)\b|\bunder\s*2\b|\binfants?\b/.test(lower)) addRange(0, 1);
   if (/toddlers?|18\s*(?:months?|mos?)/.test(lower)) addRange(1, 3);
@@ -302,7 +317,9 @@ function ageInfo(categories) {
   }, []);
   const min = normalized[0][0];
   const max = normalized.at(-1)[1];
-  const label = normalized.map(([start, end]) => start === end ? `Age ${start}` : `Ages ${start}–${end}`).join(' · ');
+  const label = openEndedMin !== null && normalized.length === 1 && normalized[0][0] === openEndedMin && normalized[0][1] === 18
+    ? `Ages ${openEndedMin}+`
+    : normalized.map(([start, end]) => start === end ? `Age ${start}` : `Ages ${start}–${end}`).join(' · ');
   return { ageBands: [], ageRanges: normalized, ageMin: min, ageMax: max, ageLabel: label, ageSource: 'Official audience information', familyFriendly };
 }
 
@@ -336,11 +353,15 @@ async function readRss(source) {
     const title = xmlText(item, 'title');
     const link = xmlText(item, 'link');
     const startDate = xmlText(item, 'start_date_local');
-    const categories = xmlTexts(item, 'category').join(' ').toLowerCase();
-    const familyAudience = /young children|kids|children|teens|family|all ages|school age/.test(categories);
+    const categories = xmlTexts(item, 'category').join(' ');
+    const categoriesLower = categories.toLowerCase();
+    const familyAudience = /young children|kids|children|teens|family|all ages|school age/.test(categoriesLower);
+    // Source category taxonomy may include a family-oriented department even
+    // when the event itself is expressly for adults. Audience eligibility wins.
+    if (isExplicitlyAdultOnly(categories)) return [];
     if (!title || !link || !isUpcoming(startDate) || !familyAudience || xmlText(item, 'is_cancelled') === 'true') return [];
     const description = xmlText(item, 'description');
-    const type = typeFor(title + ' ' + categories + ' ' + description);
+    const type = typeFor(title + ' ' + categoriesLower + ' ' + description);
     const age = ageInfo(`${categories} ${description}`);
     const cost = costInfo(xmlText(item, 'cost'), description);
     const eventId = (xmlText(item, 'guid') || link).split('/').filter(Boolean).pop() || String(index);
