@@ -698,6 +698,73 @@ async function readShoware(source) {
   });
 }
 
+// CMT publishes its season and each production as public WordPress pages.
+// We read the production page rather than treating the season announcement as
+// a calendar: only pages that explicitly say the show is family-friendly (or
+// all ages) and list individual public performance times are published.
+async function readCmt(source) {
+  const headers = { accept: 'application/json', 'user-agent': 'SouthBayFamilyEventsBot/1.0' };
+  const parsePayload = text => {
+    // The WordPress endpoint occasionally prepends a harmless stylesheet tag.
+    // Locate the actual JSON object instead of making the refresh fragile.
+    const start = text.indexOf('{"id"');
+    if (start < 0) throw new Error('CMT official API returned no page JSON');
+    return JSON.parse(text.slice(start));
+  };
+  const seasonResponse = await fetch(source.feedUrl, { headers, signal: AbortSignal.timeout(15000) });
+  const season = parsePayload(await seasonResponse.text());
+  if (!seasonResponse.ok || !season?.content?.rendered) throw new Error('CMT official season page was not valid: ' + seasonResponse.status);
+  const seasonText = plainText(season.content.rendered);
+  const year = Number(seasonText.match(/\b(20\d{2})\b/)?.[1] || new Intl.DateTimeFormat('en-US', { timeZone: 'America/Los_Angeles', year: 'numeric' }).format(new Date()));
+  const seasonTitles = [...seasonText.matchAll(/CMT\s+(?:Junior Talents|Rising Stars)[\s\S]{0,140}?([A-Z][\w'’:&,!?. -]+?)\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2}/gi)]
+    .map(match => plainText(match[1]).replace(/^(?:Disney\s+)?/i, '').trim())
+    .filter(title => title.length > 2);
+  const seen = new Set();
+  const titles = seasonTitles.filter(title => !seen.has(title.toLowerCase()) && seen.add(title.toLowerCase()));
+  const shows = await Promise.all(titles.map(async seasonTitle => {
+    try {
+      const lookup = new URL('https://www.cmtsj.org/wp-json/wp/v2/search');
+      lookup.searchParams.set('search', seasonTitle);
+      lookup.searchParams.set('per_page', '10');
+      const searchResponse = await fetch(lookup, { headers, signal: AbortSignal.timeout(15000) });
+      const matches = JSON.parse(await searchResponse.text().then(text => text.slice(text.indexOf('['))));
+      const match = matches.find(item => item.subtype === 'page' && new RegExp(seasonTitle.split(/\s+/).slice(0, 2).map(word => word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('.*'), 'i').test(item.title || ''));
+      if (!searchResponse.ok || !match?.id) return [];
+      const detailResponse = await fetch(`https://www.cmtsj.org/wp-json/wp/v2/pages/${match.id}`, { headers, signal: AbortSignal.timeout(15000) });
+      const detail = parsePayload(await detailResponse.text());
+      const html = detail.content?.rendered || '';
+      const text = plainText(html);
+      // CMT has adult/older-teen productions too. The site must not infer
+      // suitability merely because young performers are on stage.
+      if (!detailResponse.ok || !/family-friendly|for all ages|all ages/i.test(text)) return [];
+      const title = plainText(detail.title?.rendered || seasonTitle).replace(/\s+The Musical Jr\.?$/i, ' The Musical Jr.').trim();
+      const summary = text.match(/\b(?:Follow|Join|Discover)\b[^.]{20,360}[.]/i)?.[0]
+        || text.match(/(?:family-friendly|for all ages)[^.]{0,360}[.]/i)?.[0] || '';
+      const slots = [...text.matchAll(/\b(\d{1,2})\/(\d{1,2})\s+(?:at\s+)?(\d{1,2})(?::(\d{2}))?\s*(am|pm)\b/gi)];
+      if (!title || !summary || !slots.length) return [];
+      const imageId = html.match(/\[vc_single_image\s+image=&#8221;(\d+)/i)?.[1] || '';
+      let image = '';
+      if (imageId) {
+        try {
+          const mediaResponse = await fetch(`https://www.cmtsj.org/wp-json/wp/v2/media/${imageId}`, { headers, signal: AbortSignal.timeout(15000) });
+          if (mediaResponse.ok) image = JSON.parse(await mediaResponse.text()).source_url || '';
+        } catch { /* Card fallback art is used when the official asset is unavailable. */ }
+      }
+      return slots.flatMap(slot => {
+        let hour = Number(slot[3]) % 12; if (slot[5].toLowerCase() === 'pm') hour += 12;
+        const dateValue = `${year}-${String(slot[1]).padStart(2, '0')}-${String(slot[2]).padStart(2, '0')}T${String(hour).padStart(2, '0')}:${slot[4] || '00'}`;
+        if (!isUpcoming(dateValue)) return [];
+        return [directEvent({
+          id: 'cmt-' + createHash('sha256').update(`${detail.link}|${dateValue}`).digest('hex').slice(0, 16), title, dateValue,
+          description: summary, image, place: 'Montgomery Theater', address: source.address || '', city: source.city || '',
+          source: source.name, url: detail.link, ageText: 'all ages family-friendly', format: 'live-show'
+        })];
+      });
+    } catch { return []; }
+  }));
+  return shows.flat();
+}
+
 // Cupertino publishes a server-rendered public event list rather than an RSS
 // or ICS feed. The list itself includes an official date, description, venue,
 // image, and audience tags, so it is more reliable than a web-search result.
@@ -1043,7 +1110,7 @@ const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'bayfc', 'mlb', 'mls', 'showare'];
+const directMethods = ['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'bayfc', 'mlb', 'mls', 'showare', 'cmt'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
@@ -1066,6 +1133,7 @@ const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'mlb') return readMlb(source);
   if (source.method === 'mls') return readMls(source);
   if (source.method === 'showare') return readShoware(source);
+  if (source.method === 'cmt') return readCmt(source);
   if (source.method === 'cupertino') return readCupertino(source);
   if (source.method === 'slac') return readSlac(source);
   if (source.method === 'chm') return readChm(source);
@@ -1117,8 +1185,11 @@ searchSources.forEach(source => {
 });
 // Do not publish unverified directory pages or search snippets. A card must
 // carry a direct search date or publisher-provided Event startDate.
+// Keep separate official sessions that share one details page. The earlier
+// URL-only dedupe silently discarded all but the final time for a show such
+// as a CMT production, defeating the card's “other sessions” experience.
 const individualEvents = [...new Map([...feedEvents, ...candidates]
-  .map(event => [event.url.toLowerCase(), event])).values()]
+  .map(event => [`${event.url.toLowerCase()}|${event.dateValue || ''}`, event])).values()]
   // A card must explain what the activity is. We do not replace missing
   // organizer copy with generic prompts or publish logistics-only text.
   .filter(event => hasActivitySummary(event.description))
