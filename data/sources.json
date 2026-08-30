@@ -23,5 +23,6 @@
   { "name": "San Jose Sharks", "domain": "nhl.com", "method": "nhl", "feedUrl": "https://api-web.nhle.com/v1/club-schedule-season/SJS/", "address": "525 W Santa Clara St, San Jose", "city": "San Jose" },
   { "name": "Bay FC", "domain": "bayfc.com", "method": "bayfc", "feedUrl": "https://bayfc.com/schedule/", "address": "1123 Coleman Ave, San Jose", "city": "San Jose" },
   { "name": "San Jose Giants", "domain": "milb.com", "method": "mlb", "feedUrl": "https://statsapi.mlb.com/api/v1/schedule?teamId=476", "address": "588 E Alma Ave, San Jose", "city": "San Jose" },
+  { "name": "San Jose Earthquakes", "domain": "sjearthquakes.com", "method": "mls", "feedUrl": "https://stats-api.mlssoccer.com/competitions/MLS-COM-000001/seasons", "address": "1123 Coleman Ave, San Jose", "city": "San Jose" },
   { "name": "Gamble Garden", "domain": "gamblegarden.org", "method": "tribe", "feedUrl": "https://www.gamblegarden.org/wp-json/tribe/events/v1/events?per_page=50&categories=kids" }
 ]

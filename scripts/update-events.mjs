@@ -649,6 +649,34 @@ async function readMlb(source) {
   });
 }
 
+async function readMls(source) {
+  const seasonResponse = await fetch(source.feedUrl, { headers: { accept: 'application/json', 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const seasonPayload = await seasonResponse.json();
+  const currentYear = Number(new Intl.DateTimeFormat('en-US', { timeZone: 'America/Los_Angeles', year: 'numeric' }).format(new Date()));
+  const season = (seasonPayload.seasons || []).find(item => Number(item.season) === currentYear) || (seasonPayload.seasons || []).find(item => Number(item.season) === currentYear + 1);
+  if (!seasonResponse.ok || !season?.season_id) throw new Error('MLS official seasons endpoint was not valid: ' + seasonResponse.status);
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
+  const end = new Date(); end.setUTCDate(end.getUTCDate() + 150);
+  const scheduleUrl = new URL(`https://stats-api.mlssoccer.com/matches/seasons/${season.season_id}`);
+  scheduleUrl.searchParams.set('match_date[gte]', today); scheduleUrl.searchParams.set('match_date[lte]', end.toISOString().slice(0, 10));
+  scheduleUrl.searchParams.set('competition_id', 'MLS-COM-000001'); scheduleUrl.searchParams.set('per_page', '100'); scheduleUrl.searchParams.set('sort', 'planned_kickoff_time:asc');
+  const response = await fetch(scheduleUrl, { headers: { accept: 'application/json', 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const payload = await response.json();
+  if (!response.ok || !Array.isArray(payload.schedule)) throw new Error('MLS official schedule was not valid: ' + response.status);
+  return payload.schedule.flatMap(match => {
+    if (match.home_team_id !== 'MLS-CLU-00000Q' || !match.planned_kickoff_time || !isUpcoming(match.planned_kickoff_time)) return [];
+    const opponent = match.away_team_name || 'away team';
+    const venueName = match.stadium_name || 'PayPal Park';
+    const city = /levi/i.test(venueName) ? 'Santa Clara' : (source.city || 'San Jose');
+    const address = /levi/i.test(venueName) ? '4900 Marie P DeBartolo Way, Santa Clara' : (source.address || '');
+    return [directEvent({
+      id: `mls-${match.match_id}`, title: `San Jose Earthquakes vs ${opponent}`, dateValue: pacificDateTime(match.planned_kickoff_time),
+      description: `Official San Jose Earthquakes home match against ${opponent} at ${venueName}.`, image: '', place: venueName, address, city,
+      source: source.name, url: `https://www.sjearthquakes.com/schedule/matches#${encodeURIComponent(match.match_id)}`, ageText: 'all ages', format: 'sports-game'
+    })];
+  });
+}
+
 // Cupertino publishes a server-rendered public event list rather than an RSS
 // or ICS feed. The list itself includes an official date, description, venue,
 // image, and audience tags, so it is more reliable than a web-search result.
@@ -994,7 +1022,7 @@ const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'bayfc', 'mlb'];
+const directMethods = ['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'bayfc', 'mlb', 'mls'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
@@ -1015,6 +1043,7 @@ const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'nhl') return readNhl(source);
   if (source.method === 'bayfc') return readBayfc(source);
   if (source.method === 'mlb') return readMlb(source);
+  if (source.method === 'mls') return readMls(source);
   if (source.method === 'cupertino') return readCupertino(source);
   if (source.method === 'slac') return readSlac(source);
   if (source.method === 'chm') return readChm(source);
