@@ -19,7 +19,9 @@ const copy = {
   }
 };
 const categoryLabels = { sports: ['体育与比赛', 'Sports & games'], shows: ['演出与表演', 'Shows & performances'], museums: ['博物馆与展览', 'Museums & exhibits'], outdoor: ['户外自然', 'Outdoors & nature'], arts: ['艺术与创作', 'Arts & making'], learning: ['学习与 STEM', 'Learning & STEM'], play: ['故事与玩乐', 'Stories & play'], community: ['社区与家庭', 'Community & family'], workshops: ['课程与工作坊', 'Classes & workshops'] };
-const fallbackImageType = { sports: 'outdoor', shows: 'arts', museums: 'arts', play: 'community', workshops: 'learning' };
+// Each parent-facing activity label has its own fallback image. Official event
+// artwork always wins; these are used only when a verified source has none.
+const fallbackImageType = { sports: 'sports', shows: 'shows', museums: 'museums', play: 'play', workshops: 'workshops' };
 const ageLabels = { '0-2': ['0–2 岁', '0–2'], '3-5': ['3–5 岁', '3–5'], k5: ['K–5 年级', 'Grades K–5'], middle: ['6–8 年级', 'Grades 6–8'], high: ['9–12 年级', 'Grades 9–12'], 'all-ages': ['所有年龄', 'All ages'], family: ['全家适合', 'Family-friendly'] };
 const costLabels = { '免费': ['免费', 'Free'], '建议捐赠': ['建议捐赠', 'Suggested donation'], '会员／非会员价格见详情': ['会员／非会员价格见详情', 'Member / non-member price—see details'], '需购票／价格见详情': ['需购票／价格见详情', 'Tickets / price—see details'] };
 // Coordinates are only supplied for a specific organizer-provided street address.
@@ -107,8 +109,10 @@ function render() {
   const visible = sortEvents(events.filter(event => (state.type === 'all' || event.type === state.type) && (state.city === 'all' || event.city === state.city) && ageMatches(event, state.age) && matchingSessions(event).length && (!state.onlySaved || isSaved(event))));
   grid.innerHTML = '';
   visible.forEach(event => {
-    const session = activeSession(event); const sessions = matchingSessions(event); const node = template.content.cloneNode(true); const image = event.image || `assets/fallback/${fallbackImageType[event.type] || event.type || 'community'}.png`; const imageArea = node.querySelector('.card-image');
-    imageArea.style.backgroundColor = event.color; imageArea.style.backgroundImage = `linear-gradient(0deg, rgba(18, 49, 42, .08), rgba(18, 49, 42, .08)), url(${JSON.stringify(image)})`; imageArea.classList.add('has-image');
+    const session = activeSession(event); const sessions = matchingSessions(event); const node = template.content.cloneNode(true); const fallbackImage = `assets/fallback/${fallbackImageType[event.type] || event.type || 'community'}.png`; const image = event.image || fallbackImage; const imageArea = node.querySelector('.card-image');
+    const setCardImage = url => { imageArea.style.backgroundImage = `linear-gradient(0deg, rgba(18, 49, 42, .08), rgba(18, 49, 42, .08)), url(${JSON.stringify(url)})`; };
+    imageArea.style.backgroundColor = event.color; setCardImage(image); imageArea.classList.add('has-image');
+    if (event.image) { const imageProbe = new Image(); imageProbe.onerror = () => setCardImage(fallbackImage); imageProbe.src = event.image; }
     node.querySelector('.event-icon').textContent = event.icon; node.querySelector('.tag').textContent = categoryLabel(event); node.querySelector('h3').textContent = eventText(event, 'title');
     const description = node.querySelector('.description'); const descriptionToggle = node.querySelector('.description-toggle'); description.textContent = eventText(event, 'description'); description.hidden = !description.textContent.trim(); description.id = `description-${event.id}`;
     descriptionToggle.dataset.eventId = event.id; descriptionToggle.setAttribute('aria-controls', description.id); descriptionToggle.setAttribute('aria-expanded', 'false'); descriptionToggle.textContent = t('expandDescription');
