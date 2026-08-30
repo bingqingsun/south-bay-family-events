@@ -5,18 +5,21 @@
  */
 import { readFile, writeFile } from 'node:fs/promises';
 
-const labels = { outdoor: '户外自然', arts: '艺术创作', learning: '学习与 STEM', play: '亲子玩乐', wellness: '运动与身心健康', community: '社区与支持' };
-const icons = { outdoor: '🌿', arts: '🎨', learning: '🔭', play: '🎈', wellness: '☀️', community: '🤝' };
-const colors = { outdoor: '#d8eee0', arts: '#ffd9bd', learning: '#dce7fa', play: '#ffe9a8', wellness: '#e7ddf6', community: '#dceeea' };
+const labels = { sports: '体育与比赛', shows: '演出与表演', museums: '博物馆与展览', outdoor: '户外自然', arts: '艺术与创作', learning: '学习与 STEM', play: '故事与玩乐', community: '社区与家庭', workshops: '课程与工作坊' };
+const icons = { sports: '⚽', shows: '🎭', museums: '🏛️', outdoor: '🌿', arts: '🎨', learning: '🔭', play: '🎈', community: '🤝', workshops: '🛠️' };
+const colors = { sports: '#dce7fa', shows: '#f0def2', museums: '#ece5d8', outdoor: '#d8eee0', arts: '#ffd9bd', learning: '#dce7fa', play: '#ffe9a8', community: '#dceeea', workshops: '#e7ddf6' };
 
 function typeFor(text) {
   const value = String(text || '').toLowerCase();
-  if (/\b(?:bike|bicycle)\b[^.!?]{0,48}\brepair\b|\b(?:community service|volunteer(?:ing)?|cleanup|donation|food drive|swap|mento(?:r|ring)|appointment|customer service|career help|tech help|free snacks)\b/.test(value)) return 'community';
-  if (/\b(?:yoga|tai chi|meditation|mindfulness|wellness|breathwork|line dancing|movement class|fitness)\b/.test(value)) return 'wellness';
+  if (/\b(?:vs\.?|versus|football|soccer|hockey|baseball|basketball|matchday|regular season|playoffs?)\b/.test(value)) return 'sports';
+  if (/\b(?:show|theat(?:er|re)|concert|performance|musical|dance recital|magic|planetarium|laser show|ice show)\b/.test(value)) return 'shows';
+  if (/\b(?:museum|gallery|exhibit(?:ion)?|on view|collection)\b/.test(value)) return 'museums';
+  if (/\b(?:bike|bicycle)\b[^.!?]{0,48}\brepair\b|\b(?:community service|volunteer(?:ing)?|cleanup|donation|food drive|swap|mento(?:r|ring)|appointment|customer service|career help|tech help|free snacks|festival|celebration)\b/.test(value)) return 'community';
   if (/\b(?:hike|nature(?:\s+walk)?|trail|wildlife|marsh|forest|creek|pond|ranger|bird(?:s)?\b|habitat restoration|environmental education)\b/.test(value)) return 'outdoor';
-  if (/\b(?:science|stem|robot(?:ics)?|technology|tech|learn(?:ing)?|engineering|coding|computer|3d print(?:ing)?|forensics|dna|astronomy|physics|math(?:ematics)?|tutor(?:ing)?|chess|planetarium|black holes?|solar|sun|moon|space|cosmic|earthquake|homeschool)\b/.test(value)) return 'learning';
-  if (/\b(?:art(?:s)?|crafts?|paint(?:ing)?|music|theat(?:er|re)|museum|exhibit(?:ion)?|photography|knit(?:ting)?|crochet|tie-dye|dance|cooking|baking|design|laser)\b/.test(value)) return 'arts';
-  if (/\b(?:story ?time|play(?:time)?|games?|lego|scavenger hunt|open mic|magic|festival|carnival|football|board games?|puzzle|party|celebration|show)\b/.test(value)) return 'play';
+  if (/\b(?:story ?time|stay (?:&|and) play|play(?:time)?|games?|lego|scavenger hunt|board games?|puzzle|toddler|tiny tot|baby bounce)\b/.test(value)) return 'play';
+  if (/\b(?:art(?:s)?|crafts?|paint(?:ing)?|photography|knit(?:ting)?|crochet|tie-dye|ceramics?|pottery|drawing|design)\b/.test(value)) return 'arts';
+  if (/\b(?:science|stem|robot(?:ics)?|technology|tech|learn(?:ing)?|engineering|coding|computer|3d print(?:ing)?|forensics|dna|astronomy|physics|math(?:ematics)?|tutor(?:ing)?|chess|black holes?|solar|sun|moon|space|cosmic|earthquake|homeschool)\b/.test(value)) return 'learning';
+  if (/\b(?:workshop|class|course|yoga|tai chi|meditation|mindfulness|wellness|breathwork|line dancing|movement class|fitness|cooking|baking)\b/.test(value)) return 'workshops';
   return 'community';
 }
 
