@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Privacy information for Weekend Plans." />
+    <title>Privacy · Weekend Plans</title>
+    <link rel="stylesheet" href="styles.css?v=20260831-1" />
+    <link rel="stylesheet" href="overrides.css?v=20260829-3" />
+  </head>
+  <body>
+    <main class="privacy-page wrap">
+      <a class="brand" href="index.html"><span>◌</span> Weekend Plans</a>
+      <p class="eyebrow">PRIVACY</p>
+      <h1>Privacy & analytics</h1>
+      <p>Weekend Plans helps families find South Bay activities. We do not ask for names, email addresses, home addresses, or children’s personal information.</p>
+      <h2>Optional site analytics</h2>
+      <p>If you choose “Allow analytics,” we use Google Analytics to understand aggregated visits, pages viewed, general traffic sources, and how site features are used. Google may process browser, device, and approximate location information as part of this measurement. We do not send a child’s exact age, saved activities, precise location, name, email address, or home address to Analytics.</p>
+      <p>You can change your choice at any time.</p>
+      <div class="privacy-actions"><button type="button" class="privacy-allow" id="allowAnalytics">Allow analytics</button><button type="button" class="privacy-decline" id="declineAnalytics">Use only essential features</button></div>
+      <p class="privacy-status" id="privacyStatus" aria-live="polite"></p>
+      <p><a href="index.html">← Back to activities</a></p>
+    </main>
+    <script src="analytics.js?v=20260831-1"></script>
+    <script>
+      const status = document.querySelector('#privacyStatus');
+      document.querySelector('#allowAnalytics').addEventListener('click', () => { window.setWeekendPlansAnalyticsConsent('granted'); status.textContent = 'Analytics are enabled.'; });
+      document.querySelector('#declineAnalytics').addEventListener('click', () => { window.setWeekendPlansAnalyticsConsent('denied'); status.textContent = 'Only essential website features are enabled.'; });
+    </script>
+  </body>
+</html>

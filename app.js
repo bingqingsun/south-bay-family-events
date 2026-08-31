@@ -5,6 +5,16 @@ const translationEnabled = false;
 const state = { type: 'all', age: 'all', city: 'all', date: 'all', sort: 'date', position: null, saved: JSON.parse(localStorage.getItem('southBaySaved') || '[]'), onlySaved: false, language: 'en' };
 const grid = document.querySelector('#eventGrid');
 const template = document.querySelector('#cardTemplate');
+const track = (name, parameters = {}) => window.trackAnalyticsEvent?.(name, parameters);
+const analyticsAgeBand = age => {
+  const value = Number(age);
+  if (!Number.isInteger(value)) return 'any';
+  if (value <= 2) return '0-2';
+  if (value <= 5) return '3-5';
+  if (value <= 11) return '6-11';
+  if (value <= 14) return '12-14';
+  return '15-18';
+};
 
 const copy = {
   zh: {
@@ -171,7 +181,7 @@ function render() {
     address.hidden = !locationText; addressLink.href = event.mapUrl || `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(addressText)}`; addressLink.querySelector('.detail-text').textContent = locationText; addressLink.querySelector('.directions').textContent = t('directions'); addressLink.setAttribute('aria-label', `${t('directions')}: ${locationText}`);
     const organizerName = event.verification === 'search-verified' ? '' : String(event.source || '').trim(); if (organizerName) { const organizer = document.createElement('p'); organizer.className = 'organizer'; organizer.textContent = t('hostedBy')(organizerName); node.querySelector('.details').append(organizer); }
     const sessionToggle = node.querySelector('.sessions-inline-toggle'); const sessionList = node.querySelector('.sessions-list'); const allSessions = eventSessions(event); const otherSessions = allSessions.filter(item => item.id !== session.id); sessionToggle.hidden = otherSessions.length === 0; sessionToggle.dataset.eventId = event.id; sessionToggle.setAttribute('aria-expanded', 'false'); sessionToggle.textContent = t('showOtherSessions')(otherSessions.length); sessionList.id = `sessions-${event.id}`; sessionToggle.setAttribute('aria-controls', sessionList.id); otherSessions.forEach(item => { const row = document.createElement('li'); const sessionLink = document.createElement('a'); sessionLink.href = item.url || event.url; sessionLink.target = '_blank'; sessionLink.rel = 'noopener'; sessionLink.textContent = dateLabel(item.dateValue) || item.date; row.append(sessionLink); sessionList.append(row); });
-    const link = node.querySelector('.source-link'); link.href = session.url || event.url; link.firstChild.textContent = `${t('viewDetails')} `;
+    const link = node.querySelector('.source-link'); link.href = session.url || event.url; link.firstChild.textContent = `${t('viewDetails')} `; link.addEventListener('click', () => track('activity_details_opened', { activity_category: event.type || 'other', organizer: event.source || 'unknown' }));
     const heart = node.querySelector('.heart'); const saved = isSaved(event); heart.dataset.id = event.id; heart.dataset.legacyIds = JSON.stringify(event.legacyIds || []); heart.classList.toggle('saved', saved); heart.textContent = saved ? '♥' : '♡'; heart.setAttribute('aria-pressed', String(saved)); heart.setAttribute('aria-label', saved ? t('unsave')(eventText(event, 'title')) : t('save')(eventText(event, 'title'))); grid.append(node);
     requestAnimationFrame(() => { descriptionToggle.hidden = description.hidden || description.scrollHeight <= description.clientHeight + 1; });
   });
@@ -189,25 +199,26 @@ document.querySelector('#typeFilters').addEventListener('click', e => {
   const chip = e.target.closest('.chip');
   if (!chip || !e.currentTarget.contains(chip)) return;
   state.type = chip.dataset.type;
+  track('filter_applied', { filter_name: 'category', filter_value: state.type });
   setActiveType(state.type);
   render();
 });
-document.querySelector('#ageFilter').addEventListener('change', e => { state.age = e.target.value; render(); });
-document.querySelector('#cityFilter').addEventListener('change', e => { state.city = e.target.value; render(); });
-document.querySelector('#dateFilter').addEventListener('change', e => { state.date = e.target.value; syncDatePriority(); render(); });
+document.querySelector('#ageFilter').addEventListener('change', e => { state.age = e.target.value; track('filter_applied', { filter_name: 'age_band', filter_value: analyticsAgeBand(state.age) }); render(); });
+document.querySelector('#cityFilter').addEventListener('change', e => { state.city = e.target.value; track('filter_applied', { filter_name: 'city', filter_value: state.city }); render(); });
+document.querySelector('#dateFilter').addEventListener('change', e => { state.date = e.target.value; track('filter_applied', { filter_name: 'date', filter_value: state.date }); syncDatePriority(); render(); });
 document.querySelector('#sortFilter').addEventListener('change', e => {
-  if (e.target.value === 'date') { state.sort = 'date'; setLocationStatus(); render(); return; }
+  if (e.target.value === 'date') { state.sort = 'date'; track('sort_changed', { sort_method: 'date' }); setLocationStatus(); render(); return; }
   if (!navigator.geolocation) { e.target.value = 'date'; state.sort = 'date'; setLocationStatus(t('locationUnavailable')); render(); return; }
   setLocationStatus(t('locating'));
   navigator.geolocation.getCurrentPosition(position => {
-    state.position = { lat: position.coords.latitude, lon: position.coords.longitude }; state.sort = 'distance'; setLocationStatus(t('nearbyReady')); render();
+    state.position = { lat: position.coords.latitude, lon: position.coords.longitude }; state.sort = 'distance'; track('sort_changed', { sort_method: 'distance' }); setLocationStatus(t('nearbyReady')); render();
   }, () => {
     state.position = null; state.sort = 'date'; e.target.value = 'date'; setLocationStatus(t('locationUnavailable')); render();
   }, { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 });
 });
 document.querySelector('#clearFilters').addEventListener('click', () => { resetFilters(); render(); });
-document.querySelector('#weekendCta').addEventListener('click', event => { event.preventDefault(); resetFilters({ date: 'weekend' }); render(); document.querySelector('#events').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
-grid.addEventListener('click', e => { const sessionToggle = e.target.closest('.sessions-inline-toggle'); if (sessionToggle) { const list = document.querySelector(`#sessions-${sessionToggle.dataset.eventId}`); const isExpanded = !list.hidden; list.hidden = isExpanded; sessionToggle.textContent = isExpanded ? t('showOtherSessions')(list.children.length) : t('hideOtherSessions'); sessionToggle.setAttribute('aria-expanded', String(!isExpanded)); return; } const toggle = e.target.closest('.description-toggle'); if (toggle) { const description = document.querySelector(`#description-${toggle.dataset.eventId}`); const isExpanded = description.classList.toggle('is-expanded'); toggle.textContent = isExpanded ? t('collapseDescription') : t('expandDescription'); toggle.setAttribute('aria-expanded', String(isExpanded)); return; } const button = e.target.closest('.heart'); if (!button) return; const id = button.dataset.id; const legacyIds = JSON.parse(button.dataset.legacyIds || '[]'); const saved = state.saved.includes(id) || legacyIds.some(legacyId => state.saved.includes(legacyId)); state.saved = saved ? state.saved.filter(item => item !== id && !legacyIds.includes(item)) : [...state.saved.filter(item => !legacyIds.includes(item)), id]; localStorage.setItem('southBaySaved', JSON.stringify(state.saved)); render(); });
+document.querySelector('#weekendCta').addEventListener('click', event => { event.preventDefault(); track('quick_filter_used', { filter_name: 'date', filter_value: 'weekend' }); resetFilters({ date: 'weekend' }); render(); document.querySelector('#events').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+grid.addEventListener('click', e => { const sessionToggle = e.target.closest('.sessions-inline-toggle'); if (sessionToggle) { const list = document.querySelector(`#sessions-${sessionToggle.dataset.eventId}`); const isExpanded = !list.hidden; list.hidden = isExpanded; sessionToggle.textContent = isExpanded ? t('showOtherSessions')(list.children.length) : t('hideOtherSessions'); sessionToggle.setAttribute('aria-expanded', String(!isExpanded)); return; } const toggle = e.target.closest('.description-toggle'); if (toggle) { const description = document.querySelector(`#description-${toggle.dataset.eventId}`); const isExpanded = description.classList.toggle('is-expanded'); toggle.textContent = isExpanded ? t('collapseDescription') : t('expandDescription'); toggle.setAttribute('aria-expanded', String(isExpanded)); return; } const button = e.target.closest('.heart'); if (!button) return; const id = button.dataset.id; const legacyIds = JSON.parse(button.dataset.legacyIds || '[]'); const saved = state.saved.includes(id) || legacyIds.some(legacyId => state.saved.includes(legacyId)); track(saved ? 'activity_unsaved' : 'activity_saved'); state.saved = saved ? state.saved.filter(item => item !== id && !legacyIds.includes(item)) : [...state.saved.filter(item => !legacyIds.includes(item)), id]; localStorage.setItem('southBaySaved', JSON.stringify(state.saved)); render(); });
 document.querySelector('#savedButton').addEventListener('click', () => { state.onlySaved = !state.onlySaved; document.querySelector('#savedButton').classList.toggle('active', state.onlySaved); render(); document.querySelector('#events').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
 applyStaticCopy();
 fetch('./data/events.json', { cache: 'no-store' }).then(response => response.ok ? response.json() : Promise.reject()).then(data => { if (Array.isArray(data)) events = data; }).catch(() => {}).finally(() => { migrateSavedSeries(); populateAgeFilter(); populateCityFilter(); render(); });
