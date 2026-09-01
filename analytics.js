@@ -1,7 +1,13 @@
 (() => {
   const measurementId = 'G-VV1LPH4DE9';
   const consentKey = 'southBayFamilyPlansAnalyticsConsent';
-  const publishedHosts = new Set(['bingqingsun.github.io', 'southbayfamilyplans.com', 'www.southbayfamilyplans.com']);
+  const publishedHosts = new Set([
+    'bingqingsun.github.io',
+    'southbayfamilyplans.com',
+    'www.southbayfamilyplans.com',
+    'southbayfamilyfinds.com',
+    'www.southbayfamilyfinds.com'
+  ]);
   const isPublishedSite = publishedHosts.has(window.location.hostname);
   let enabled = false;
 
