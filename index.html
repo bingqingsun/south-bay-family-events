@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css?v=20260830-1" />
-    <link rel="stylesheet" href="overrides.css?v=20260831-11" />
+    <link rel="stylesheet" href="overrides.css?v=20260901-1" />
   </head>
   <body class="home-page">
     <main>
@@ -37,7 +37,10 @@
 
       <section class="filter-area wrap" id="events">
         <div class="section-heading"><div><p class="eyebrow">CURATED FOR YOU</p><h2 data-i18n="sectionTitle">What would you like to do?</h2></div><p id="resultCount" class="result-count"></p></div>
-        <div class="filters" aria-label="Filter activities">
+        <div class="mobile-quick-filters" aria-label="Quick activity filters">
+          <button id="mobileWeekend" type="button">This weekend</button><button id="mobileNearby" type="button">Near me</button><button id="mobileFilterToggle" type="button" aria-expanded="false" aria-controls="filtersPanel">Filter <span>☷</span></button>
+        </div>
+        <div class="filters" id="filtersPanel" aria-label="Filter activities">
           <div class="select-wrap date-priority"><label for="dateFilter" data-i18n="date">Date</label><select id="dateFilter"><option value="all" data-i18n="anyTime">Any time</option><option value="today" data-i18n="today">Today</option><option value="weekend" data-i18n="weekend">This weekend</option><option value="month" data-i18n="month">This month</option></select></div>
           <div class="select-wrap sort-select"><label for="sortFilter" data-i18n="sort">Sort</label><select id="sortFilter"><option value="date" data-i18n="sortDate">By date</option><option value="distance" data-i18n="sortDistance">Nearest to me</option></select></div>
           <div class="select-wrap"><label for="cityFilter" data-i18n="city">City</label><select id="cityFilter"></select></div>
