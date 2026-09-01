@@ -219,6 +219,20 @@
 .site-page footer .brand span:first-child { color: #ff7462; }
 .site-page footer p { color: #b7c4dd; }
 
+/* A single visual skeleton for About, Privacy, and Terms. */
+.site-page .site-nav { border-bottom: 1px solid #e2e7f0; }
+.site-page .site-nav a[aria-current="page"] { color: #235ce8; }
+.support-hero { margin-top: 29px; }
+.about-content { background: #fff; border: 1px solid #e1e6ee; border-radius: 28px; box-shadow: 0 18px 45px #203e7410; margin-top: 34px; padding: 56px 48px 58px; }
+.about-contact { margin-bottom: 74px; }
+.legal-page { padding: 0 68px 61px; }
+.legal-heading { background: linear-gradient(135deg, #e7f3ff 0%, #f6faff 66%, #f7ebff 100%); border-bottom: 1px solid #dce7f7; border-radius: 27px 27px 0 0; margin: 0 -68px 37px; padding: 54px 68px 43px; position: relative; overflow: hidden; }
+.legal-heading::after { color: #ff7a69; content: "✦"; font-size: 85px; line-height: 1; opacity: .72; position: absolute; right: 50px; top: 27px; transform: rotate(13deg); }
+.legal-heading .eyebrow { color: #3d6dd7; position: relative; z-index: 1; }
+.legal-heading h1 { margin: 0 0 15px; max-width: 600px; position: relative; z-index: 1; }
+.legal-heading p { color: #53617a; margin: 0; max-width: 640px; position: relative; z-index: 1; }
+.legal-page > h2:first-of-type { margin-top: 0; }
+
 @media (max-width: 760px) {
   .legal-links {
     margin-top: 12px;
@@ -231,4 +245,5 @@
   .home-page .nav { height: 78px; }.home-page .hero { gap: 28px; padding: 25px 0 62px; }.home-page .hero-copy::before { display: none; }.home-page .hero h1 { font-size: 43px; }.home-page .intro { font-size: 16px; }.home-page .hero-art { border-width: 6px; border-radius: 34px; height: 264px; transform: none; }.home-page .filter-area { border-radius: 22px; margin-bottom: 58px; padding: 30px 18px; }.home-page .section-heading h2 { font-size: 30px; }.home-page .result-count { display: inline-flex; margin-top: 12px; }.home-page .filters { margin-top: 24px; }.home-page .cards { gap: 15px; }.home-page .card-image { height: 178px; }.home-page .how { padding-bottom: 60px; }.home-page .how-grid { gap: 12px; margin-top: 24px; }.home-page .how-grid article { min-height: 0; padding: 20px; }
   .home-page .hero { background-position: 66% center; border-radius: 25px; min-height: 610px; padding: 43px 25px; }.home-page .hero::after { background: linear-gradient(180deg, #f7fbfffa 0%, #f7fbffed 48%, #f7fbff55 74%, #f7fbff00 100%); }.home-page .hero-copy { max-width: 100%; }
   .site-nav, .about-nav, .about-body .about-nav { height: 78px; }.site-nav .brand { font-size: 16px; }.site-nav > div { gap: 15px; }.site-nav a:not(.brand) { font-size: 12px; }.about-hero { background-position: 66% center; border-radius: 25px; min-height: 580px; padding: 43px 25px; }.about-hero::after { background: linear-gradient(180deg, #f7fbfffa 0%, #f7fbffed 48%, #f7fbff55 74%, #f7fbff00 100%); }.about-hero-copy { max-width: 100%; }.about-hero-copy h1 { font-size: 45px; }.legal-page { border-radius: 22px; margin-bottom: 56px; margin-top: 0; padding: 37px 24px 42px; }.legal-page h1 { font-size: 39px; }.legal-page h2 { margin-top: 31px; padding-top: 26px; }.legal-page p { font-size: 15px; }.site-page footer .wrap { display: block; }
+  .support-hero { margin-top: 19px; }.about-content { border-radius: 22px; margin-top: 22px; padding: 37px 24px 42px; }.about-contact { margin-bottom: 56px; }.legal-heading { border-radius: 21px 21px 0 0; margin: 0 -24px 30px; padding: 39px 24px 34px; }.legal-heading::after { font-size: 58px; right: 22px; top: 21px; }.legal-heading h1 { max-width: 280px; }
 }
