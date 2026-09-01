@@ -2,7 +2,7 @@ let events = Array.isArray(window.SOUTH_BAY_EVENTS) ? window.SOUTH_BAY_EVENTS : 
 // Kept as a single switch so bilingual presentation can be restored later
 // without changing the canonical, organizer-supplied event data.
 const translationEnabled = false;
-const state = { type: 'all', age: 'all', city: 'all', date: 'all', sort: 'date', position: null, saved: JSON.parse(localStorage.getItem('southBaySaved') || '[]'), onlySaved: false, language: 'en' };
+const state = { type: 'all', age: 'all', city: 'all', date: 'all', sort: 'date', position: null, locationRequested: false, saved: JSON.parse(localStorage.getItem('southBaySaved') || '[]'), onlySaved: false, language: 'en' };
 const grid = document.querySelector('#eventGrid');
 const template = document.querySelector('#cardTemplate');
 const track = (name, parameters = {}) => window.trackAnalyticsEvent?.(name, parameters);
@@ -187,12 +187,12 @@ function render() {
   });
   document.querySelector('#emptyState').hidden = visible.length !== 0; const active = state.type !== 'all' || state.age !== 'all' || state.city !== 'all' || state.date !== 'all' || state.onlySaved;
   document.querySelector('#emptyMessage').textContent = active ? t('emptyFiltered') : t('emptyAll'); document.querySelector('#clearFilters').hidden = !active; document.querySelector('#resultCount').textContent = state.onlySaved ? t('savedResults')(visible.length) : t('results')(visible.length); document.querySelector('#savedCount').textContent = state.saved.length;
-  const savedButton = document.querySelector('#savedButton'); savedButton.setAttribute('aria-pressed', String(state.onlySaved)); savedButton.setAttribute('aria-label', state.onlySaved ? t('showAll') : t('showSaved'));
+  const savedButton = document.querySelector('#savedButton'); savedButton.setAttribute('aria-pressed', String(state.onlySaved)); savedButton.setAttribute('aria-label', state.onlySaved ? t('showAll') : t('showSaved')); syncMobileQuickFilters();
 }
 function setActiveType(type) { document.querySelectorAll('.chip').forEach(chip => { const active = chip.dataset.type === type; chip.classList.toggle('active', active); chip.setAttribute('aria-pressed', String(active)); }); }
 function syncDatePriority() { document.querySelector('.date-priority').classList.toggle('is-active', state.date !== 'all'); }
 function setLocationStatus(message = '') { const node = document.querySelector('#locationStatus'); node.textContent = message; node.hidden = !message; }
-function resetFilters({ date = 'all' } = {}) { state.type = 'all'; state.age = 'all'; state.city = 'all'; state.date = date; state.sort = 'date'; state.position = null; state.onlySaved = false; document.querySelector('#ageFilter').value = 'all'; document.querySelector('#cityFilter').value = 'all'; document.querySelector('#dateFilter').value = date; document.querySelector('#sortFilter').value = 'date'; setLocationStatus(); setActiveType('all'); syncDatePriority(); document.querySelector('#savedButton').classList.remove('active'); }
+function resetFilters({ date = 'all' } = {}) { state.type = 'all'; state.age = 'all'; state.city = 'all'; state.date = date; state.sort = 'date'; state.onlySaved = false; document.querySelector('#ageFilter').value = 'all'; document.querySelector('#cityFilter').value = 'all'; document.querySelector('#dateFilter').value = date; document.querySelector('#sortFilter').value = 'date'; setLocationStatus(); setActiveType('all'); syncDatePriority(); document.querySelector('#savedButton').classList.remove('active'); }
 document.querySelector('#typeFilters').addEventListener('click', e => {
   // Browser translation can wrap a chip label in an inner element. Resolve the
   // actual button instead of requiring the exact clicked node to be the button.
@@ -208,7 +208,9 @@ document.querySelector('#cityFilter').addEventListener('change', e => { state.ci
 document.querySelector('#dateFilter').addEventListener('change', e => { state.date = e.target.value; track('filter_applied', { filter_name: 'date', filter_value: state.date }); syncDatePriority(); render(); });
 document.querySelector('#sortFilter').addEventListener('change', e => {
   if (e.target.value === 'date') { state.sort = 'date'; track('sort_changed', { sort_method: 'date' }); setLocationStatus(); render(); return; }
-  if (!navigator.geolocation) { e.target.value = 'date'; state.sort = 'date'; setLocationStatus(t('locationUnavailable')); render(); return; }
+  if (state.position) { state.sort = 'distance'; track('sort_changed', { sort_method: 'distance' }); setLocationStatus(t('nearbyReady')); render(); return; }
+  if (!navigator.geolocation || state.locationRequested) { e.target.value = 'date'; state.sort = 'date'; setLocationStatus(t('locationUnavailable')); render(); return; }
+  state.locationRequested = true;
   setLocationStatus(t('locating'));
   navigator.geolocation.getCurrentPosition(position => {
     state.position = { lat: position.coords.latitude, lon: position.coords.longitude }; state.sort = 'distance'; track('sort_changed', { sort_method: 'distance' }); setLocationStatus(t('nearbyReady')); render();
@@ -222,9 +224,10 @@ const mobileFilters = document.querySelector('#filtersPanel');
 const mobileFilterToggle = document.querySelector('#mobileFilterToggle');
 const mobileWeekend = document.querySelector('#mobileWeekend');
 const mobileNearby = document.querySelector('#mobileNearby');
+function syncMobileQuickFilters() { mobileWeekend.classList.toggle('active', state.date === 'weekend'); mobileWeekend.setAttribute('aria-pressed', String(state.date === 'weekend')); mobileNearby.classList.toggle('active', state.sort === 'distance'); mobileNearby.setAttribute('aria-pressed', String(state.sort === 'distance')); }
 mobileFilterToggle.addEventListener('click', () => { const isOpen = mobileFilters.classList.toggle('is-open'); mobileFilterToggle.setAttribute('aria-expanded', String(isOpen)); });
-mobileWeekend.addEventListener('click', () => { resetFilters({ date: 'weekend' }); mobileWeekend.classList.add('active'); mobileNearby.classList.remove('active'); render(); });
-mobileNearby.addEventListener('click', () => { document.querySelector('#sortFilter').value = 'distance'; document.querySelector('#sortFilter').dispatchEvent(new Event('change', { bubbles: true })); mobileNearby.classList.add('active'); });
+mobileWeekend.addEventListener('click', () => { state.date = state.date === 'weekend' ? 'all' : 'weekend'; document.querySelector('#dateFilter').value = state.date; track('quick_filter_used', { filter_name: 'date', filter_value: state.date }); syncDatePriority(); render(); });
+mobileNearby.addEventListener('click', () => { const sortFilter = document.querySelector('#sortFilter'); if (state.sort === 'distance') { state.sort = 'date'; sortFilter.value = 'date'; setLocationStatus(); render(); return; } sortFilter.value = 'distance'; sortFilter.dispatchEvent(new Event('change', { bubbles: true })); });
 grid.addEventListener('click', e => { const sessionToggle = e.target.closest('.sessions-inline-toggle'); if (sessionToggle) { const list = document.querySelector(`#sessions-${sessionToggle.dataset.eventId}`); const isExpanded = !list.hidden; list.hidden = isExpanded; sessionToggle.textContent = isExpanded ? t('showOtherSessions')(list.children.length) : t('hideOtherSessions'); sessionToggle.setAttribute('aria-expanded', String(!isExpanded)); return; } const toggle = e.target.closest('.description-toggle'); if (toggle) { const description = document.querySelector(`#description-${toggle.dataset.eventId}`); const isExpanded = description.classList.toggle('is-expanded'); toggle.textContent = isExpanded ? t('collapseDescription') : t('expandDescription'); toggle.setAttribute('aria-expanded', String(isExpanded)); return; } const button = e.target.closest('.heart'); if (!button) return; const id = button.dataset.id; const legacyIds = JSON.parse(button.dataset.legacyIds || '[]'); const saved = state.saved.includes(id) || legacyIds.some(legacyId => state.saved.includes(legacyId)); track(saved ? 'activity_unsaved' : 'activity_saved'); state.saved = saved ? state.saved.filter(item => item !== id && !legacyIds.includes(item)) : [...state.saved.filter(item => !legacyIds.includes(item)), id]; localStorage.setItem('southBaySaved', JSON.stringify(state.saved)); render(); });
 document.querySelector('#savedButton').addEventListener('click', () => { state.onlySaved = !state.onlySaved; document.querySelector('#savedButton').classList.toggle('active', state.onlySaved); render(); document.querySelector('#events').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
 applyStaticCopy();
