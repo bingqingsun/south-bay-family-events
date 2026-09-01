@@ -233,6 +233,14 @@
 .legal-heading p { color: #53617a; margin: 0; max-width: 640px; position: relative; z-index: 1; }
 .legal-page > h2:first-of-type { margin-top: 0; }
 
+/* Keep the card reading rhythm aligned, even when copy differs. */
+.home-page .description { min-height: 42px; max-height: 42px; }
+.home-page .description[hidden] { display: -webkit-box; visibility: hidden; }
+.home-page .description-toggle { min-height: 19px; }
+.home-page .description-toggle[hidden] { display: block; pointer-events: none; visibility: hidden; }
+.home-page .details { margin-top: 13px; }
+.home-page .source-link { margin-top: auto; padding-top: 18px; }
+
 @media (max-width: 760px) {
   .legal-links {
     margin-top: 12px;
@@ -246,4 +254,5 @@
   .home-page .hero { background-position: 66% center; border-radius: 25px; min-height: 610px; padding: 43px 25px; }.home-page .hero::after { background: linear-gradient(180deg, #f7fbfffa 0%, #f7fbffed 48%, #f7fbff55 74%, #f7fbff00 100%); }.home-page .hero-copy { max-width: 100%; }
   .site-nav, .about-nav, .about-body .about-nav { height: 78px; }.site-nav .brand { font-size: 16px; }.site-nav > div { gap: 15px; }.site-nav a:not(.brand) { font-size: 12px; }.about-hero { background-position: 66% center; border-radius: 25px; min-height: 580px; padding: 43px 25px; }.about-hero::after { background: linear-gradient(180deg, #f7fbfffa 0%, #f7fbffed 48%, #f7fbff55 74%, #f7fbff00 100%); }.about-hero-copy { max-width: 100%; }.about-hero-copy h1 { font-size: 45px; }.legal-page { border-radius: 22px; margin-bottom: 56px; margin-top: 0; padding: 37px 24px 42px; }.legal-page h1 { font-size: 39px; }.legal-page h2 { margin-top: 31px; padding-top: 26px; }.legal-page p { font-size: 15px; }.site-page footer .wrap { display: block; }
   .support-hero { margin-top: 19px; }.about-content { border-radius: 22px; margin-top: 22px; padding: 37px 24px 42px; }.about-contact { margin-bottom: 56px; }.legal-heading { border-radius: 21px 21px 0 0; margin: 0 -24px 30px; padding: 39px 24px 34px; }.legal-heading::after { font-size: 58px; right: 22px; top: 21px; }.legal-heading h1 { max-width: 280px; }
+  .home-page .description { min-height: 0; max-height: 59px; }.home-page .description[hidden] { min-height: 59px; }.home-page .source-link { padding-top: 18px; }
 }
