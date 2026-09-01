@@ -2,7 +2,7 @@ let events = Array.isArray(window.SOUTH_BAY_EVENTS) ? window.SOUTH_BAY_EVENTS : 
 // Kept as a single switch so bilingual presentation can be restored later
 // without changing the canonical, organizer-supplied event data.
 const translationEnabled = false;
-const state = { type: 'all', age: 'all', city: 'all', date: 'all', sort: 'date', position: null, locationRequested: false, saved: JSON.parse(localStorage.getItem('southBaySaved') || '[]'), onlySaved: false, language: 'en' };
+const state = { type: 'all', age: 'all', city: 'all', date: 'all', sort: 'date', position: null, locationRequested: false, locationPending: false, saved: JSON.parse(localStorage.getItem('southBaySaved') || '[]'), onlySaved: false, language: 'en' };
 const grid = document.querySelector('#eventGrid');
 const template = document.querySelector('#cardTemplate');
 const track = (name, parameters = {}) => window.trackAnalyticsEvent?.(name, parameters);
@@ -210,12 +210,14 @@ document.querySelector('#sortFilter').addEventListener('change', e => {
   if (e.target.value === 'date') { state.sort = 'date'; track('sort_changed', { sort_method: 'date' }); setLocationStatus(); render(); return; }
   if (state.position) { state.sort = 'distance'; track('sort_changed', { sort_method: 'distance' }); setLocationStatus(t('nearbyReady')); render(); return; }
   if (!navigator.geolocation || state.locationRequested) { e.target.value = 'date'; state.sort = 'date'; setLocationStatus(t('locationUnavailable')); render(); return; }
-  state.locationRequested = true;
+  state.locationRequested = true; state.locationPending = true; state.sort = 'distance'; render();
   setLocationStatus(t('locating'));
   navigator.geolocation.getCurrentPosition(position => {
-    state.position = { lat: position.coords.latitude, lon: position.coords.longitude }; state.sort = 'distance'; track('sort_changed', { sort_method: 'distance' }); setLocationStatus(t('nearbyReady')); render();
+    state.position = { lat: position.coords.latitude, lon: position.coords.longitude }; state.locationPending = false;
+    if (state.sort === 'distance') { track('sort_changed', { sort_method: 'distance' }); setLocationStatus(t('nearbyReady')); }
+    render();
   }, () => {
-    state.position = null; state.sort = 'date'; e.target.value = 'date'; setLocationStatus(t('locationUnavailable')); render();
+    state.locationPending = false; if (state.sort === 'distance') { state.sort = 'date'; e.target.value = 'date'; setLocationStatus(t('locationUnavailable')); } render();
   }, { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 });
 });
 document.querySelector('#clearFilters').addEventListener('click', () => { resetFilters(); render(); });
