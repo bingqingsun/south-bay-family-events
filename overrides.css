@@ -152,6 +152,14 @@
 .home-page .how-grid article:nth-child(3) b { color: #3277b5; }
 .home-page footer { background: #17243f; }
 
+/* Homepage v3: keep the story, copy, and illustration in one shared stage. */
+.home-page .hero { background: #acd9ff url("assets/home-hero-family-v1.jpg") center/cover no-repeat; border-radius: 32px; display: block; isolation: isolate; margin-top: 11px; min-height: 475px; padding: 63px 68px; position: relative; }
+.home-page .hero::after { background: linear-gradient(90deg, #f7fbff 0%, #f7fbfff5 34%, #f7fbffaf 49%, #f7fbff00 70%); border-radius: inherit; content: ""; inset: 0; pointer-events: none; position: absolute; z-index: 0; }
+.home-page .hero-copy { max-width: 548px; padding: 4px 0; }
+.home-page .hero-art { display: none; }
+.home-page .hero h1 { max-width: 548px; }
+.home-page .intro { max-width: 490px; }
+
 @media (max-width: 760px) {
   .legal-links {
     margin-top: 12px;
@@ -162,4 +170,5 @@
   .about-content { padding: 60px 0; }.about-section-heading { margin-bottom: 28px; }.about-section-heading h2 { font-size: 32px; }.about-principles { grid-template-columns: 1fr; }.about-principle { min-height: 0; padding: 22px; }
   .about-contact { align-items: flex-start; display: flex; flex-direction: column; gap: 23px; margin-bottom: 60px; padding: 31px 25px; }.about-contact h2 { font-size: 28px; }.about-email { max-width: 100%; overflow-wrap: anywhere; }
   .home-page .nav { height: 78px; }.home-page .hero { gap: 28px; padding: 25px 0 62px; }.home-page .hero-copy::before { display: none; }.home-page .hero h1 { font-size: 43px; }.home-page .intro { font-size: 16px; }.home-page .hero-art { border-width: 6px; border-radius: 34px; height: 264px; transform: none; }.home-page .filter-area { border-radius: 22px; margin-bottom: 58px; padding: 30px 18px; }.home-page .section-heading h2 { font-size: 30px; }.home-page .result-count { display: inline-flex; margin-top: 12px; }.home-page .filters { margin-top: 24px; }.home-page .cards { gap: 15px; }.home-page .card-image { height: 178px; }.home-page .how { padding-bottom: 60px; }.home-page .how-grid { gap: 12px; margin-top: 24px; }.home-page .how-grid article { min-height: 0; padding: 20px; }
+  .home-page .hero { background-position: 66% center; border-radius: 25px; min-height: 610px; padding: 43px 25px; }.home-page .hero::after { background: linear-gradient(180deg, #f7fbfffa 0%, #f7fbffed 48%, #f7fbff55 74%, #f7fbff00 100%); }.home-page .hero-copy { max-width: 100%; }
 }
