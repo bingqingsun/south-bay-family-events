@@ -4,3 +4,19 @@
   line-height: 1.45;
   margin: 1px 0 0 21px;
 }
+
+.legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.privacy-page p strong {
+  color: var(--ink);
+}
+
+@media (max-width: 760px) {
+  .legal-links {
+    margin-top: 12px;
+  }
+}

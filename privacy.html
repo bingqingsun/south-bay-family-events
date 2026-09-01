@@ -3,25 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Privacy information for Weekend Plans." />
-    <title>Privacy · Weekend Plans</title>
+    <meta name="description" content="Privacy information for South Bay Family Plans." />
+    <title>Privacy | South Bay Family Plans</title>
     <link rel="stylesheet" href="styles.css?v=20260831-1" />
     <link rel="stylesheet" href="overrides.css?v=20260829-3" />
   </head>
   <body>
     <main class="privacy-page wrap">
-      <a class="brand" href="index.html"><span>◌</span> Weekend Plans</a>
+      <a class="brand" href="index.html"><span>◌</span> South Bay Family Plans</a>
       <p class="eyebrow">PRIVACY</p>
       <h1>Privacy & analytics</h1>
-      <p>Weekend Plans helps families find South Bay activities. We do not ask for names, email addresses, home addresses, or children’s personal information.</p>
+      <p><strong>Last updated: August 31, 2026.</strong> South Bay Family Plans helps parents and caregivers find activities across the South Bay. The site is intended for parents and caregivers; it is not a service for children to create accounts or submit information.</p>
+      <h2>Information we do not collect</h2>
+      <p>We do not ask for names, email addresses, home addresses, payment information, or children’s personal information. Please do not send us personal information about a child.</p>
       <h2>Optional site analytics</h2>
-      <p>If you choose “Allow analytics,” we use Google Analytics to understand aggregated visits, pages viewed, general traffic sources, and how site features are used. Google may process browser, device, and approximate location information as part of this measurement. We do not send a child’s exact age, saved activities, precise location, name, email address, or home address to Analytics.</p>
-      <p>You can change your choice at any time.</p>
+      <p>If you choose “Allow analytics,” we use Google Analytics to understand aggregated visits, pages viewed, general traffic sources, and feature use. Google Analytics uses cookies and may process browser, device, and approximate location information. We do not send a child’s exact age, saved activities, precise location, name, email address, or home address to Analytics. Google’s privacy practices apply to its processing.</p>
+      <p>You can change your choice at any time. If you choose “Use only essential features,” analytics does not load.</p>
       <div class="privacy-actions"><button type="button" class="privacy-allow" id="allowAnalytics">Allow analytics</button><button type="button" class="privacy-decline" id="declineAnalytics">Use only essential features</button></div>
       <p class="privacy-status" id="privacyStatus" aria-live="polite"></p>
+      <h2>Saved activities and essential storage</h2>
+      <p>Saved activities and your analytics choice are stored in your browser on that device. They are not sent to South Bay Family Plans and may be cleared in your browser settings.</p>
+      <h2>Links to organizers</h2>
+      <p>Activity detail links lead to independent organizer websites. Their privacy practices and terms apply once you leave this site.</p>
+      <h2>Questions or updates</h2>
+      <p>For a privacy question or to report an issue, please use the <a href="https://github.com/bingqingsun/south-bay-family-events/issues" target="_blank" rel="noopener">project’s GitHub issue tracker</a>. We will update this page before making a material change to these practices.</p>
       <p><a href="index.html">← Back to activities</a></p>
     </main>
-    <script src="analytics.js?v=20260831-1"></script>
+    <script src="analytics.js?v=20260831-2"></script>
     <script>
       const status = document.querySelector('#privacyStatus');
       document.querySelector('#allowAnalytics').addEventListener('click', () => { window.setWeekendPlansAnalyticsConsent('granted'); status.textContent = 'Analytics are enabled.'; });

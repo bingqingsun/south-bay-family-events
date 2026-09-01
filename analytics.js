@@ -1,7 +1,8 @@
 (() => {
   const measurementId = 'G-VV1LPH4DE9';
-  const consentKey = 'weekendPlansAnalyticsConsent';
-  const isPublishedSite = window.location.hostname === 'bingqingsun.github.io';
+  const consentKey = 'southBayFamilyPlansAnalyticsConsent';
+  const publishedHosts = new Set(['bingqingsun.github.io', 'southbayfamilyplans.com', 'www.southbayfamilyplans.com']);
+  const isPublishedSite = publishedHosts.has(window.location.hostname);
   let enabled = false;
 
   window.trackAnalyticsEvent = () => {};
