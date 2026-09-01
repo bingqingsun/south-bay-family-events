@@ -160,6 +160,65 @@
 .home-page .hero h1 { max-width: 548px; }
 .home-page .intro { max-width: 490px; }
 
+/* Supporting pages share the homepage's blue editorial system. */
+.site-page { background: #f5f7fb; color: #17243f; }
+.site-page .brand { color: #17243f; }
+.site-page .brand span:first-child { color: #ff6f61; }
+.site-nav, .about-nav { align-items: center; display: flex; height: 94px; justify-content: space-between; }
+.site-nav > div { display: flex; gap: 24px; }
+.site-nav a:not(.brand), .about-back { color: #5d6780; font-size: 13px; font-weight: 700; text-decoration: none; }
+.site-nav a:not(.brand):hover, .about-back:hover { color: #235ce8; }
+.about-body { background: #f5f7fb; }
+.about-body .about-nav { height: 94px; }
+.about-back { color: #5d6780; }
+.about-back span, .about-email span { color: #ff7462; }
+.about-hero { background: #acd9ff url("assets/home-hero-family-v1.jpg") center/cover no-repeat; border-radius: 32px; display: block; isolation: isolate; min-height: 470px; padding: 66px 68px; position: relative; }
+.about-hero::after { background: linear-gradient(90deg, #f7fbff 0%, #f7fbfff5 34%, #f7fbffae 50%, #f7fbff00 71%); border-radius: inherit; content: ""; inset: 0; pointer-events: none; position: absolute; z-index: 0; }
+.about-hero-copy { max-width: 548px; position: relative; z-index: 1; }
+.about-hero-copy h1, .about-section-heading h2, .about-contact h2 { color: #17243f; font-family: "DM Sans", "Noto Sans SC", sans-serif; font-weight: 700; letter-spacing: -2.2px; }
+.about-hero-copy h1 em { color: #235ce8; }
+.about-hero-copy h1 em::after { background: #ffc955; bottom: 1px; height: 9px; opacity: .62; }
+.about-hero-copy > p:not(.eyebrow) { color: #53617a; max-width: 492px; }
+.about-hero-copy .eyebrow, .about-section-heading .eyebrow, .about-contact .eyebrow { color: #3d6dd7; }
+.about-promises span { background: #edf3ff; color: #3d64be; }
+.about-hero-art { display: none; }
+.about-content { border-top: 0; padding: 82px 0; }
+.about-section-heading h2 { font-size: clamp(31px, 3.7vw, 46px); }
+.about-principle { background: #fff; border-color: #e1e6ee; box-shadow: 0 7px 19px #203e7408; }
+.about-principle:hover { box-shadow: 0 15px 29px #203e7418; }
+.about-number { background: #edf3ff; color: #3d64be; }
+.about-principle h3 { color: #24334e; font-family: "DM Sans", "Noto Sans SC", sans-serif; }
+.about-principle p { color: #5b6880; }
+.about-principle.curate .about-number { background: #fff7dc; color: #c58010; }
+.about-principle.refresh .about-number { background: #ffece8; color: #d66552; }
+.about-principle.images .about-number { background: #ecebff; color: #6257b3; }
+.about-contact { background: #235ce8; box-shadow: 0 18px 38px #235ce82c; }
+.about-contact h2 { color: #fff; }
+.about-contact p:not(.eyebrow) { color: #dfe8ff; }
+.about-contact .eyebrow { color: #ffd760; }
+.about-email { background: #fff; color: #235ce8; }
+.about-email:hover { background: #edf3ff; }
+.about-footer, .site-page footer { background: #17243f; }
+
+.legal-body main { min-height: calc(100vh - 94px); }
+.legal-page { background: #fff; border: 1px solid #e1e6ee; border-radius: 28px; box-shadow: 0 18px 45px #203e7410; margin-bottom: 74px; margin-top: 9px; max-width: 860px; padding: 58px 68px 61px; }
+.legal-page .eyebrow { color: #3d6dd7; }
+.legal-page h1, .legal-page h2 { color: #17243f; font-family: "DM Sans", "Noto Sans SC", sans-serif; font-weight: 700; }
+.legal-page h1 { font-size: clamp(40px, 5vw, 56px); letter-spacing: -2.3px; line-height: 1.05; margin-bottom: 19px; }
+.legal-page h2 { border-top: 1px solid #e8ecf3; font-size: 21px; letter-spacing: -.5px; margin-top: 37px; padding-top: 31px; }
+.legal-page p { color: #53617a; font-size: 15px; line-height: 1.78; max-width: 700px; }
+.legal-page p strong { color: #263550; }
+.legal-page a { color: #235ce8; font-weight: 700; }
+.legal-page .privacy-actions { margin: 25px 0 9px; }
+.legal-page .privacy-allow { background: #235ce8; border-radius: 11px; }
+.legal-page .privacy-decline { background: #edf3ff; border-radius: 11px; color: #36589c; }
+.legal-page .privacy-status { color: #3865be; }
+.legal-page .legal-links { border-top: 1px solid #e8ecf3; margin-top: 39px; padding-top: 25px; }
+.site-page footer { padding: 31px 0; }
+.site-page footer .brand { color: #fff; }
+.site-page footer .brand span:first-child { color: #ff7462; }
+.site-page footer p { color: #b7c4dd; }
+
 @media (max-width: 760px) {
   .legal-links {
     margin-top: 12px;
@@ -171,4 +230,5 @@
   .about-contact { align-items: flex-start; display: flex; flex-direction: column; gap: 23px; margin-bottom: 60px; padding: 31px 25px; }.about-contact h2 { font-size: 28px; }.about-email { max-width: 100%; overflow-wrap: anywhere; }
   .home-page .nav { height: 78px; }.home-page .hero { gap: 28px; padding: 25px 0 62px; }.home-page .hero-copy::before { display: none; }.home-page .hero h1 { font-size: 43px; }.home-page .intro { font-size: 16px; }.home-page .hero-art { border-width: 6px; border-radius: 34px; height: 264px; transform: none; }.home-page .filter-area { border-radius: 22px; margin-bottom: 58px; padding: 30px 18px; }.home-page .section-heading h2 { font-size: 30px; }.home-page .result-count { display: inline-flex; margin-top: 12px; }.home-page .filters { margin-top: 24px; }.home-page .cards { gap: 15px; }.home-page .card-image { height: 178px; }.home-page .how { padding-bottom: 60px; }.home-page .how-grid { gap: 12px; margin-top: 24px; }.home-page .how-grid article { min-height: 0; padding: 20px; }
   .home-page .hero { background-position: 66% center; border-radius: 25px; min-height: 610px; padding: 43px 25px; }.home-page .hero::after { background: linear-gradient(180deg, #f7fbfffa 0%, #f7fbffed 48%, #f7fbff55 74%, #f7fbff00 100%); }.home-page .hero-copy { max-width: 100%; }
+  .site-nav, .about-nav, .about-body .about-nav { height: 78px; }.site-nav .brand { font-size: 16px; }.site-nav > div { gap: 15px; }.site-nav a:not(.brand) { font-size: 12px; }.about-hero { background-position: 66% center; border-radius: 25px; min-height: 580px; padding: 43px 25px; }.about-hero::after { background: linear-gradient(180deg, #f7fbfffa 0%, #f7fbffed 48%, #f7fbff55 74%, #f7fbff00 100%); }.about-hero-copy { max-width: 100%; }.about-hero-copy h1 { font-size: 45px; }.legal-page { border-radius: 22px; margin-bottom: 56px; margin-top: 0; padding: 37px 24px 42px; }.legal-page h1 { font-size: 39px; }.legal-page h2 { margin-top: 31px; padding-top: 26px; }.legal-page p { font-size: 15px; }.site-page footer .wrap { display: block; }
 }
