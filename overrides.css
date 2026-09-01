@@ -15,8 +15,58 @@
   color: var(--ink);
 }
 
+.about-body { background: #fffdf7; }
+
+.about-nav { height: 86px; display: flex; align-items: center; justify-content: space-between; }
+
+.about-back { color: var(--ink); font-size: 13px; font-weight: 700; text-decoration: none; }
+.about-back span, .about-email span { color: var(--coral); font-size: 18px; margin-left: 4px; }
+
+.about-hero { display: grid; grid-template-columns: 1.08fr .92fr; gap: 64px; align-items: center; padding: 36px 0 92px; }
+.about-hero-copy h1, .about-section-heading h2, .about-contact h2 { font-family: "Noto Sans SC", sans-serif; letter-spacing: -2.3px; }
+.about-hero-copy h1 { font-size: clamp(46px, 5.2vw, 68px); line-height: 1.06; margin: 0; }
+.about-hero-copy h1 em { color: #366b59; font-style: normal; position: relative; z-index: 0; }
+.about-hero-copy h1 em::after { background: var(--lemon); bottom: 5px; content: ""; height: 13px; left: -4px; position: absolute; right: -6px; transform: rotate(-1.8deg); z-index: -1; }
+.about-hero-copy > p:not(.eyebrow) { color: var(--muted); font-size: 17px; line-height: 1.75; margin: 22px 0 27px; max-width: 560px; }
+.about-promises { display: flex; flex-wrap: wrap; gap: 8px; }
+.about-promises span { background: #eff5ef; border-radius: 999px; color: #376152; font-size: 12px; font-weight: 700; padding: 8px 11px; }
+
+.about-hero-art { background: #dceee3; border-radius: 46% 40% 46% 38%; height: 365px; overflow: hidden; position: relative; }
+.about-sun { background: var(--lemon); border-radius: 50%; height: 92px; position: absolute; right: 60px; top: 48px; width: 92px; }
+.about-cloud { background: #fffdf7; border-radius: 999px; height: 20px; position: absolute; width: 74px; }
+.about-cloud::before, .about-cloud::after { background: #fffdf7; border-radius: 50%; content: ""; position: absolute; }
+.about-cloud::before { height: 31px; left: 12px; top: -14px; width: 31px; }
+.about-cloud::after { height: 24px; left: 37px; top: -9px; width: 24px; }
+.about-cloud-one { left: 55px; top: 84px; transform: scale(.72); }
+.about-cloud-two { right: 46px; top: 158px; transform: scale(.54); }
+.about-hill { border-radius: 50% 50% 0 0; bottom: -58px; position: absolute; }
+.about-hill-one { background: #91cf9c; height: 205px; left: -23%; transform: rotate(6deg); width: 126%; }
+.about-hill-two { background: #4c8d69; bottom: -83px; height: 168px; right: -31%; transform: rotate(-7deg); width: 108%; }
+.about-kite { background: var(--coral); border-radius: 22px 22px 5px 22px; bottom: 83px; color: #fffdf7; font-size: 32px; font-weight: 900; height: 67px; left: 38%; line-height: 63px; position: absolute; text-align: center; transform: rotate(-19deg); width: 67px; z-index: 2; }
+.about-spark { color: #fffdf7; font-size: 28px; font-weight: 900; position: absolute; z-index: 2; }
+.about-spark-one { bottom: 76px; left: 58%; }.about-spark-two { bottom: 106px; left: 25%; }
+.about-sticker { background: #fffdf7; border-radius: 17px; box-shadow: 0 9px 18px #27533d1e; font-family: "Noto Sans SC", sans-serif; font-size: 12px; font-weight: 900; line-height: 1.3; padding: 10px 13px; position: absolute; text-align: center; z-index: 3; }
+.about-sticker-one { bottom: 32px; left: 7%; transform: rotate(-9deg); }.about-sticker-two { background: var(--lemon); right: 7%; top: 29px; transform: rotate(9deg); }
+
+.about-content { border-top: 1px solid var(--line); padding: 82px 0 86px; }
+.about-section-heading { margin-bottom: 38px; }.about-section-heading h2 { font-size: clamp(31px, 3.7vw, 46px); line-height: 1.14; margin: 0; }
+.about-principles { display: grid; gap: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.about-principle { align-items: flex-start; background: #fff; border: 1px solid #e8e6dc; border-radius: 20px; display: flex; gap: 17px; min-height: 216px; padding: 25px; }
+.about-principle:hover { box-shadow: 0 12px 28px #274f3a12; transform: translateY(-2px); transition: .2s ease; }
+.about-number { align-items: center; background: #eff5ef; border-radius: 50%; color: #376152; display: inline-flex; flex: 0 0 36px; font-size: 11px; font-weight: 800; height: 36px; justify-content: center; }
+.about-principle h3 { font-family: "Noto Sans SC", sans-serif; font-size: 20px; letter-spacing: -.4px; margin: 5px 0 8px; }.about-principle p { color: var(--muted); font-size: 14px; line-height: 1.65; margin: 0; }
+.about-principle.curate .about-number { background: #fff3d8; color: #8a6625; }.about-principle.refresh .about-number { background: #fdeae5; color: #ad5b4b; }.about-principle.images .about-number { background: #eee8fa; color: #6c5792; }
+
+.about-contact { align-items: center; background: var(--lemon); border-radius: 26px; display: flex; gap: 38px; justify-content: space-between; margin-bottom: 92px; padding: 42px 48px; }.about-contact > div { max-width: 650px; }.about-contact h2 { font-size: 31px; margin: 0 0 9px; }.about-contact p:not(.eyebrow) { color: #615b2f; font-size: 14px; line-height: 1.65; margin: 0; }.about-email { align-items: center; background: var(--ink); border-radius: 999px; color: #fff; display: inline-flex; flex: 0 0 auto; font-size: 14px; font-weight: 700; gap: 4px; padding: 13px 17px; text-decoration: none; }.about-email:hover { background: #28594f; }.about-email span { color: var(--lemon); }
+.about-footer { margin-top: 0; }
+
 @media (max-width: 760px) {
   .legal-links {
     margin-top: 12px;
   }
+
+  .about-nav { height: 72px; }.about-nav .brand { font-size: 16px; }.about-back { font-size: 12px; }
+  .about-hero { display: flex; flex-direction: column; gap: 30px; padding: 27px 0 60px; }.about-hero-copy h1 { font-size: 47px; }.about-hero-copy > p:not(.eyebrow) { font-size: 16px; }.about-hero-art { border-radius: 35px; height: 270px; width: 100%; }.about-sun { right: 40px; top: 32px; }.about-kite { bottom: 60px; left: 39%; }.about-spark-one { bottom: 53px; }.about-spark-two { bottom: 86px; }
+  .about-content { padding: 60px 0; }.about-section-heading { margin-bottom: 28px; }.about-section-heading h2 { font-size: 32px; }.about-principles { grid-template-columns: 1fr; }.about-principle { min-height: 0; padding: 22px; }
+  .about-contact { align-items: flex-start; display: flex; flex-direction: column; gap: 23px; margin-bottom: 60px; padding: 31px 25px; }.about-contact h2 { font-size: 28px; }.about-email { max-width: 100%; overflow-wrap: anywhere; }
 }
