@@ -194,13 +194,13 @@ function syncDatePriority() { document.querySelector('.date-priority').classList
 function setLocationStatus(message = '') { const node = document.querySelector('#locationStatus'); node.textContent = message; node.hidden = !message; }
 function enableNearbySort() {
   const sortFilter = document.querySelector('#sortFilter');
-  if (state.position) { state.sort = 'distance'; sortFilter.value = 'distance'; track('sort_changed', { sort_method: 'distance' }); setLocationStatus(t('nearbyReady')); render(); return; }
+  if (state.position) { state.sort = 'distance'; sortFilter.value = 'distance'; track('sort_changed', { sort_method: 'distance' }); setLocationStatus(); render(); return; }
   if (state.locationPending) { state.sort = 'distance'; sortFilter.value = 'distance'; setLocationStatus(t('locating')); render(); return; }
   if (!navigator.geolocation || state.locationFailed || state.locationRequested) { state.sort = 'date'; sortFilter.value = 'date'; setLocationStatus(t('locationUnavailable')); render(); return; }
   state.locationRequested = true; state.locationPending = true; state.sort = 'distance'; sortFilter.value = 'distance'; setLocationStatus(t('locating')); render();
   navigator.geolocation.getCurrentPosition(position => {
     state.position = { lat: position.coords.latitude, lon: position.coords.longitude }; state.locationPending = false;
-    if (state.sort === 'distance') { track('sort_changed', { sort_method: 'distance' }); setLocationStatus(t('nearbyReady')); }
+    if (state.sort === 'distance') { track('sort_changed', { sort_method: 'distance' }); setLocationStatus(); }
     render();
   }, () => {
     state.locationPending = false; state.locationFailed = true;
