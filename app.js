@@ -75,7 +75,7 @@ function renderUpdateTime() {
 function applyStaticCopy() {
   document.documentElement.lang = state.language === 'zh' ? 'zh-CN' : 'en';
   document.title = state.language === 'zh' ? '南湾家庭发现｜亲子活动' : 'South Bay Family Finds | Kids & Family Activities';
-  document.querySelector('meta[name="description"]').content = state.language === 'zh' ? '发现值得全家一起参与的南湾活动。' : 'Find family activities worth doing across the South Bay.';
+  document.querySelector('meta[name="description"]').content = state.language === 'zh' ? '发现值得全家一起参与的南湾活动。' : 'Find family activities worth doing across San José, Silicon Valley, and the Peninsula.';
   document.querySelectorAll('[data-i18n]').forEach(node => { node.textContent = t(node.dataset.i18n); });
   document.querySelectorAll('[data-i18n-html]').forEach(node => { node.innerHTML = t(node.dataset.i18nHtml); });
   document.querySelectorAll('.language-button').forEach(button => { const active = button.dataset.language === state.language; button.classList.toggle('active', active); button.setAttribute('aria-pressed', String(active)); });
