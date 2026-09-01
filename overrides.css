@@ -243,6 +243,11 @@
 .home-page .source-link { margin-top: auto; padding-top: 18px; }
 .mobile-quick-filters { display: none; }
 
+/* Align the brand mark and name by their visual centers, not text baselines. */
+.brand { align-items: center; display: inline-flex; gap: 6px; line-height: 1.1; }
+.brand span { margin-right: 0; vertical-align: baseline; }
+.brand span:first-child { display: inline-flex; line-height: 1; }
+
 @media (max-width: 760px) {
   .legal-links {
     margin-top: 12px;
