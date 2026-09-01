@@ -247,7 +247,7 @@
 .brand { align-items: center; display: inline-flex; gap: 6px; line-height: 1.1; }
 .brand span { margin-right: 0; vertical-align: baseline; }
 .brand span:first-child { display: inline-flex; line-height: 1; }
-.home-page .hero-cta .cta-click-icon { align-items: center; color: #ffd760; display: inline-flex; height: 14px; justify-content: center; margin-left: 0; width: 14px; }.home-page .hero-cta .cta-click-icon svg { fill: none; height: 14px; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; width: 14px; }.home-page .hero-cta .cta-click-icon svg path:first-child { fill: currentColor; stroke-width: 1.4; }
+.home-page .hero-cta .cta-click-icon { align-items: center; color: #ffd760; display: inline-flex; height: 16px; justify-content: center; margin-left: 0; width: 16px; }.home-page .hero-cta .cta-click-icon svg { fill: none; height: 16px; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; transform: scaleX(.875); width: 16px; }.home-page .hero-cta .cta-click-icon svg path:first-child { fill: currentColor; stroke-width: 1.4; }
 
 @media (max-width: 760px) {
   .legal-links {
