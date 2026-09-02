@@ -894,7 +894,10 @@ async function readSapCenter(source) {
     const image = htmlAttribute(block, /<div class=["']thumb["'][^>]*>[\s\S]*?<img[^>]+src=["']([^"']+)/i);
     const listingDates = sapCenterListingDates(dateText);
     const year = Number(dateText.match(/\b(20\d{2})\b/)?.[1] || '');
-    if (!title || !url || !listingDates.length || !isSapCenterFamilyShow(title) || !hasActivitySummary(sapCenterSummary(title))) return [];
+    // Sharks promotional game names can contain “Youth” or “Family”, but the
+    // NHL source remains the canonical sports schedule and prevents duplicate
+    // cards with a less useful promotional title.
+    if (!title || !url || /\b(?:sharks|hockey)\b/i.test(`${title} ${url}`) || !listingDates.length || !isSapCenterFamilyShow(title) || !hasActivitySummary(sapCenterSummary(title))) return [];
     return [{ title, url: new URL(url, source.feedUrl).href, image: image ? new URL(image, source.feedUrl).href : '', listingDates, year }];
   });
   const expanded = await Promise.all(listings.map(async listing => {
