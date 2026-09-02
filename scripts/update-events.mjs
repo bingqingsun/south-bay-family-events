@@ -40,6 +40,11 @@ const icons = { sports: '⚽', shows: '🎭', museums: '🏛️', outdoor: '🌿
 const colors = { sports: '#dce7fa', shows: '#f0def2', museums: '#ece5d8', outdoor: '#d8eee0', arts: '#ffd9bd', learning: '#dce7fa', play: '#ffe9a8', community: '#dceeea', workshops: '#e7ddf6' };
 const fallbackTime = '请点击活动详情查看活动时间';
 const generatedAt = new Date().toISOString();
+// Official team marks used for local home-game cards when the schedule APIs
+// do not provide match photography. These are hosted on each club/league's
+// own public asset domain, not generated fallback illustrations.
+const BAY_FC_TEAM_MARK = 'https://bayfc.com/wp-content/uploads/logo_bayfc_primary-steel-bay.svg';
+const EARTHQUAKES_TEAM_MARK = 'https://images.mlssoccer.com/image/upload/assets/logos/SJ.svg';
 
 function isFamilyRelevant(event) {
   const value = `${event.title || ''} ${event.description || ''}`.toLowerCase();
@@ -544,7 +549,7 @@ function isoDateFromOfficialText(dateText, timeText = '') {
   return date + 'T' + String(hour).padStart(2, '0') + ':' + (time[2] || '00');
 }
 
-function directEvent({ id, title, dateValue, description, image = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, ageText = '', format = '' }) {
+function directEvent({ id, title, dateValue, description, image = '', imagePresentation = '', imageBackground = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, ageText = '', format = '' }) {
   const type = format === 'live-show' ? 'shows' : typeFor(title + ' ' + description + ' ' + ageText);
   const age = ageInfo(ageText);
   return {
@@ -552,7 +557,7 @@ function directEvent({ id, title, dateValue, description, image = '', place, add
     costLabel: '费用未注明', costSource: '', type, icon: icons[type], color: colors[type], tag: labels[type],
     verification: 'official-page', lastVerifiedAt: generatedAt, format,
     description: cardSummary(description),
-    image, place, address, city: canonicalCity(city), meetingPoint, mapUrl, source, url
+    image, imagePresentation, imageBackground, place, address, city: canonicalCity(city), meetingPoint, mapUrl, source, url
   };
 }
 
@@ -808,7 +813,8 @@ async function readBayfc(source) {
     if (!isUpcoming(dateValue)) return [];
     return [directEvent({
       id: 'bayfc-' + createHash('sha256').update(`${matchUrl}|${dateValue}`).digest('hex').slice(0, 16), title: `Bay FC vs ${opponent}`, dateValue,
-      description: `Official Bay FC home match against ${opponent} at PayPal Park.`, image: image ? new URL(image, source.feedUrl).href : '',
+      description: `Official Bay FC home match against ${opponent} at PayPal Park.`, image: BAY_FC_TEAM_MARK,
+      imagePresentation: 'team-mark', imageBackground: '#e5eef1',
       place: 'PayPal Park', address: source.address || '', city: source.city || '', source: source.name, url: new URL(matchUrl, source.feedUrl).href,
       ageText: 'all ages', format: 'sports-game'
     })];
@@ -860,7 +866,8 @@ async function readMls(source) {
     const address = /levi/i.test(venueName) ? '4900 Marie P DeBartolo Way, Santa Clara' : (source.address || '');
     return [directEvent({
       id: `mls-${match.match_id}`, title: `San Jose Earthquakes vs ${opponent}`, dateValue: pacificDateTime(match.planned_kickoff_time),
-      description: `Official San Jose Earthquakes home match against ${opponent} at ${venueName}.`, image: '', place: venueName, address, city,
+      description: `Official San Jose Earthquakes home match against ${opponent} at ${venueName}.`, image: EARTHQUAKES_TEAM_MARK,
+      imagePresentation: 'team-mark', imageBackground: '#0d2c4b', place: venueName, address, city,
       source: source.name, url: `https://www.sjearthquakes.com/schedule/matches#${encodeURIComponent(match.match_id)}`, ageText: 'all ages', format: 'sports-game'
     })];
   });
