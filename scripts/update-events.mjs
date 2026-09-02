@@ -362,6 +362,16 @@ function costInfo(cost, description = '') {
   return { costLabel: label, costSource: label === '费用未注明' ? '' : officialCost ? '官方费用字段' : '官方活动说明' };
 }
 
+function isClosureNotice(title, description = '') {
+  const heading = plainText(title);
+  const detail = plainText(description);
+  // Library RSS feeds use the same event schema for programs and operational
+  // notices. A closure cannot be an outing, even if the feed's broad audience
+  // category happens to include families or children.
+  return /^(?:closed|closure|closing|holiday\s+(?:hours|closure)|special\s+hours)\b/i.test(heading)
+    || /\b(?:all\s+)?(?:city\s+)?(?:libraries|library branches?|branches?)\s+(?:will be|are)\s+closed\b/i.test(detail);
+}
+
 async function readRss(source) {
   const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
   const xml = await response.text();
@@ -377,8 +387,8 @@ async function readRss(source) {
     // Source category taxonomy may include a family-oriented department even
     // when the event itself is expressly for adults. Audience eligibility wins.
     if (isExplicitlyAdultOnly(categories)) return [];
-    if (!title || !link || !isUpcoming(startDate) || !familyAudience || xmlText(item, 'is_cancelled') === 'true') return [];
     const description = xmlText(item, 'description');
+    if (!title || !link || !isUpcoming(startDate) || !familyAudience || xmlText(item, 'is_cancelled') === 'true' || isClosureNotice(title, description)) return [];
     const type = typeFor(title + ' ' + categoriesLower + ' ' + description);
     const age = ageInfo(`${categories} ${description}`);
     const cost = costInfo(xmlText(item, 'cost'), description);
