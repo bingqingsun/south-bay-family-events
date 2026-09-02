@@ -1,7 +1,7 @@
 [
   { "name": "Palo Alto City Library", "domain": "library.cityofpaloalto.org", "method": "rss", "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/paloalto/rss/events" },
   { "name": "San José Public Library", "domain": "sjpl.org", "method": "rss", "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/sjpl/rss/events" },
-  { "name": "Santa Clara County Parks", "domain": "parks.santaclaracounty.gov", "query": "events family" },
+  { "name": "Santa Clara County Parks", "domain": "parks.santaclaracounty.gov", "query": "family events Chitactac Family Day Fall Festival" },
   { "name": "Midpeninsula Regional Open Space District", "domain": "openspace.org", "method": "midpen", "feedUrl": "https://www.openspace.org/get-involved/events-activities?f%5B0%5D=rating%3A146" },
   { "name": "The Tech Interactive", "domain": "thetech.org", "method": "thetech", "feedUrl": "https://www.thetech.org/explore/upcoming-events", "address": "201 S Market St, San Jose", "city": "San Jose" },
   { "name": "City of Palo Alto", "domain": "paloalto.gov", "method": "paloalto", "feedUrl": "https://www.paloalto.gov/Events-Directory" },
@@ -39,5 +39,20 @@
   { "name": "History San José", "domain": "historysanjose.org", "method": "history", "feedUrl": "https://historysanjose.org/programs-events/", "address": "635 Phelan Ave, San Jose", "city": "San Jose" },
   { "name": "San José Buddhist Church Betsuin", "domain": "sjbetsuin.org", "method": "tribe", "feedUrl": "https://www.sjbetsuin.org/wp-json/tribe/events/v1/events?per_page=100", "familyPattern": "obon|nikkei|matsuri|festival|family|children|kids|youth|cultural" },
   { "name": "Chinese Historical & Cultural Project", "domain": "chcp.org", "method": "chcp", "feedUrl": "https://www.chcp.org/Events", "city": "San Jose" },
-  { "name": "City of Milpitas", "domain": "milpitas.gov", "method": "civic", "feedUrl": "https://www.milpitas.gov/calendar.aspx?CID=0&view=list", "city": "Milpitas" }
+  { "name": "City of Milpitas", "domain": "milpitas.gov", "method": "civic", "feedUrl": "https://www.milpitas.gov/calendar.aspx?CID=0&view=list", "city": "Milpitas" },
+  { "name": "Holy Family Parish", "domain": "holyfamilysanjose.org", "method": "curated", "feedUrl": "https://holyfamilysanjose.org/holy-family-parish-festival", "city": "San Jose", "events": [
+    { "title": "Holy Family Parish Festival", "dateValue": "2026-09-18T17:00", "description": "A three-day community festival with carnival rides, food booths, live music, and family entertainment.", "place": "Holy Family Parish", "address": "4848 Pearl Ave, San Jose", "ageText": "All ages Family-friendly", "format": "festival" },
+    { "title": "Holy Family Parish Festival", "dateValue": "2026-09-19T12:00", "description": "A three-day community festival with carnival rides, food booths, live music, and family entertainment.", "place": "Holy Family Parish", "address": "4848 Pearl Ave, San Jose", "ageText": "All ages Family-friendly", "format": "festival" },
+    { "title": "Holy Family Parish Festival", "dateValue": "2026-09-20T12:00", "description": "A three-day community festival with carnival rides, food booths, live music, and family entertainment.", "place": "Holy Family Parish", "address": "4848 Pearl Ave, San Jose", "ageText": "All ages Family-friendly", "format": "festival" }
+  ] },
+  { "name": "City of Santa Clara", "domain": "calendar.santaclaraca.gov", "method": "curated", "feedUrl": "https://calendar.santaclaraca.gov/santaclaraca/260168831", "city": "Santa Clara", "events": [
+    { "title": "Santa Clara Art & Wine Festival", "dateValue": "2026-09-19T10:00", "description": "A free family-friendly festival with artists and craft vendors, live entertainment, food, and activities for children.", "place": "Central Park", "address": "909 Kiely Blvd, Santa Clara", "ageText": "Children Families All ages", "cost": "Free", "format": "festival" },
+    { "title": "Santa Clara Art & Wine Festival", "dateValue": "2026-09-20T10:00", "description": "A free family-friendly festival with artists and craft vendors, live entertainment, food, and activities for children.", "place": "Central Park", "address": "909 Kiely Blvd, Santa Clara", "ageText": "Children Families All ages", "cost": "Free", "format": "festival" }
+  ] },
+  { "name": "City of Cupertino", "domain": "cupertino.gov", "method": "curated", "feedUrl": "https://www.cupertino.gov/Your-City/Departments/Public-Works/Transportation-Mobility/Safe-Routes-to-School-SR2S/Bike-Fest", "city": "Cupertino", "events": [
+    { "title": "Fall Bike Fest", "dateValue": "2026-09-26T09:00", "description": "A free bike-themed family event with on-bike games, crafts, food, and activities at Cupertino Civic Center Plaza. A signed waiver is required for on-bike activities.", "image": "https://www.cupertino.gov/files/assets/city/v/1/departments/images/public-works/safe-routes/bike-fest/short-header-bike-fest.png?w=988&h=133", "place": "Cupertino Civic Center Plaza", "address": "10300 Torre Ave, Cupertino", "ageText": "All ages Family-friendly", "cost": "Free", "format": "sports" }
+  ] },
+  { "name": "Visit San Jose", "domain": "sanjose.org", "method": "curated", "feedUrl": "https://www.sanjose.org/events/mid-autumn-festival-bay-area", "city": "San Jose", "events": [
+    { "title": "Mid-Autumn Festival Bay Area", "dateValue": "2026-09-26T16:00", "description": "A Vietnamese cultural celebration for families with lanterns, music, performances, games, food, and storytelling.", "image": "https://www.sanjose.org/sites/default/files/styles/listing_detail_image/public/Untitled-2_EEA4FF3C-F9F0-D35D-4645E9B612BAF8B1_eea63394-b26e-73d2-af1f45977de5e31f.jpg.webp?itok=T10SqW6Q", "place": "Grand Century Mall", "address": "1001 Story Rd, San Jose", "ageText": "All ages Families Children", "format": "festival" }
+  ] }
 ]

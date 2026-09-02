@@ -574,6 +574,33 @@ function directEvent({ id, title, dateValue, description, image = '', imagePrese
   };
 }
 
+// A few major local festivals publish a single authoritative event page rather
+// than a calendar feed.  Keep their verified current-season occurrences in
+// the source registry so they enter the same validation, grouping, expiry and
+// card pipeline as calendar-fed events.  Once their date passes, isUpcoming
+// removes them automatically; a new season is added only after its organizer
+// publishes an official date.
+function readCurated(source) {
+  return (source.events || []).flatMap((item, index) => {
+    if (!item.title || !isUpcoming(item.dateValue)) return [];
+    const event = directEvent({
+      id: 'curated-' + createHash('sha256').update(`${source.feedUrl}|${item.title}|${item.dateValue}|${index}`).digest('hex').slice(0, 16),
+      title: item.title,
+      dateValue: item.dateValue,
+      description: item.description || '',
+      image: item.image || '',
+      place: item.place || source.name,
+      address: item.address || '',
+      city: item.city || source.city || '',
+      source: source.name,
+      url: item.url || source.feedUrl,
+      ageText: item.ageText || '',
+      format: item.format || ''
+    });
+    return [{ ...event, ...costInfo(item.cost || '', item.description || '') }];
+  });
+}
+
 function htmlAttribute(block, pattern) {
   return block.match(pattern)?.[1] ? decodeXml(block.match(pattern)[1]).trim() : '';
 }
@@ -1811,7 +1838,7 @@ const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely'];
+const directMethods = ['rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'curated'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
@@ -1824,6 +1851,7 @@ const searchSources = includeSerpapi ? sources.filter(source => !directMethods.i
 if (searchSources.length && !key) throw new Error('SERPAPI_KEY is required when the fallback search is scheduled or manually enabled.');
 
 const feedAttempts = (await Promise.allSettled(directSources.map(source => {
+  if (source.method === 'curated') return readCurated(source);
   if (source.method === 'tribe') return readTribe(source);
   if (source.method === 'history') return readHistorySanJose(source);
   if (source.method === 'chcp') return readChcp(source);
