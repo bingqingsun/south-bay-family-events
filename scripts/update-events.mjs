@@ -950,6 +950,56 @@ function kidMovieSummary(title) {
   return '';
 }
 
+function cinemarkSynopsis(html, title) {
+  const meta = String(html || '').match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)/i)?.[1]
+    || String(html || '').match(/<meta[^>]+content=["']([^"']+)["'][^>]+name=["']description["']/i)?.[1]
+    || String(html || '').match(/class=["'][^"']*movie-(?:synopsis|description)[^"']*["'][^>]*>([\s\S]*?)<\//i)?.[1]
+    || '';
+  return cardSummary(meta, title);
+}
+
+function cinemarkModels(html) {
+  return [...String(html || '').matchAll(/\bdata-json-model=(['"])([\s\S]*?)\1/gi)].flatMap(match => {
+    try { return [JSON.parse(decodeXml(match[2]))]; } catch { return []; }
+  });
+}
+
+async function readCinemark(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const html = await response.text();
+  if (!response.ok || !/data-json-model=/i.test(html)) throw new Error('Cinemark official showtimes were not valid: ' + response.status);
+  const candidates = cinemarkModels(html).flatMap(movie => {
+    const title = plainText(movie.movieTitle || '');
+    const rating = plainText(movie.movieRating || '').replace('PG-13', 'PG13');
+    if (!title || !isKidAppropriateMovie(title, rating) || !Array.isArray(movie.showTimes)) return [];
+    return movie.showTimes.flatMap(showtime => {
+      const dateValue = String(showtime.showTime || '').slice(0, 16);
+      if (!dateValue || !isUpcoming(dateValue)) return [];
+      return [{
+        title, rating, dateValue, movieUrl: movie.movieUrl ? new URL(movie.movieUrl, source.feedUrl).href : source.feedUrl,
+        image: movie.posterLargeImageUrl || movie.posterMediumImageUrl || '',
+        ticketUrl: showtime.showTimeUrl ? new URL(showtime.showTimeUrl, source.feedUrl).href : source.feedUrl
+      }];
+    });
+  });
+  const descriptions = new Map(await Promise.all([...new Set(candidates.map(item => item.movieUrl))].map(async url => {
+    try {
+      const detailResponse = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+      return [url, detailResponse.ok ? cinemarkSynopsis(await detailResponse.text(), '') : ''];
+    } catch { return [url, '']; }
+  })));
+  return candidates.map(item => {
+    const event = directEvent({
+      id: 'cinemark-' + createHash('sha256').update(`${source.feedUrl}|${item.title}|${item.dateValue}|${item.ticketUrl}`).digest('hex').slice(0, 16),
+      title: item.title, dateValue: item.dateValue,
+      description: kidMovieSummary(item.title) || descriptions.get(item.movieUrl) || `${item.rating}-rated family movie screening.`,
+      image: item.image, place: source.name, address: source.address || '', city: source.city || '', source: 'Cinemark Theatres', url: item.ticketUrl,
+      ageText: item.rating === 'G' ? 'all ages' : '', format: 'movie-screening', movieRating: item.rating
+    });
+    return { ...event, costLabel: '需购票／价格见详情', costSource: 'Official cinema ticketing' };
+  });
+}
+
 async function readCinelux(source) {
   const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
   const dates = Array.from({ length: 7 }, (_, index) => { const day = new Date(`${today}T12:00:00Z`); day.setUTCDate(day.getUTCDate() + index); return day.toISOString().slice(0, 10); });
@@ -1988,7 +2038,7 @@ const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'curated'];
+const directMethods = ['rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'curated'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
@@ -2012,6 +2062,7 @@ const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'nhl') return readNhl(source);
   if (source.method === 'sapcenter') return readSapCenter(source);
   if (source.method === 'cinelux') return readCinelux(source);
+  if (source.method === 'cinemark') return readCinemark(source);
   if (source.method === 'bayfc') return readBayfc(source);
   if (source.method === 'mlb') return readMlb(source);
   if (source.method === 'mls') return readMls(source);
@@ -2126,7 +2177,13 @@ const individualEvents = coalesceCrossSourceDuplicates(preliminaryEvents)
   .sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
 
 function seriesKey(event) {
-  if (event.format === 'movie-screening') return [event.format, event.title, event.movieRating || '', event.type].join('\u001f');
+  if (event.format === 'movie-screening') {
+    // Theater chains vary punctuation and capitalization for the same film.
+    // Normalize those cosmetic differences so one movie card holds all nearby
+    // official cinema sessions rather than duplicating the activity.
+    const movieTitle = String(event.title || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+    return [event.format, movieTitle, event.movieRating || '', event.type].join('\u001f');
+  }
   // Deliberately conservative: different themes, venues, audience rules, or
   // pricing stay as separate cards even when a host reuses the same title.
   return [event.source, event.title, event.description, event.place, event.address, event.meetingPoint, event.city, event.type,
@@ -2150,7 +2207,7 @@ function groupRepeatedSessions(items) {
       ...first,
       id: 'series-' + createHash('sha256').update(key).digest('hex').slice(0, 16),
       legacyIds: ordered.map(event => event.id),
-      source: first.format === 'movie-screening' ? 'CineLux Theatres' : first.source,
+      source: first.format === 'movie-screening' ? 'Official cinema listings' : first.source,
       sessions: cardSessions.map(event => ({ id: event.id, date: event.date, dateValue: event.dateValue, url: event.url, place: event.place, address: event.address, city: event.city }))
     }];
   }).sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));

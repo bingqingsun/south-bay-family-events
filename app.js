@@ -46,7 +46,10 @@ Object.assign(venueCoordinates, {
   '2501 S Winchester Blvd, Campbell': [37.278595, -121.950992],
   '43 N Santa Cruz Ave, Los Gatos': [37.2238956, -121.9836492],
   '750 Tennant Station Way, Morgan Hill': [37.1135533, -121.6376078],
-  '6851 Monterey Rd, Gilroy': [36.9977027, -121.5660048]
+  '6851 Monterey Rd, Gilroy': [36.9977027, -121.5660048],
+  '925 Blossom Hill Rd, San Jose': [37.2511457, -121.8562296],
+  '1010 Great Mall Dr, Milpitas': [37.4166849, -121.8969698],
+  '3088 Olsen Dr, San Jose': [37.3220465, -121.948778]
 });
 const t = key => copy[state.language][key];
 const eventText = (event, field) => translationEnabled && state.language === 'zh' ? event.translations?.zh?.[field] || event[field] : event[field];
