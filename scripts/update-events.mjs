@@ -1209,6 +1209,77 @@ async function readIcs(source) {
   });
 }
 
+// CivicPlus city calendars expose server-rendered event lists.  We read a
+// small rolling window, then follow only clearly family-relevant listings to
+// their official detail/landing pages.  This retains the organizer's own
+// explanation and avoids publishing generic municipality meetings.
+async function readCivic(source) {
+  const now = new Date();
+  const base = new URL(source.feedUrl);
+  const monthsToRead = Array.from({ length: 4 }, (_, offset) => {
+    const date = new Date(now.getFullYear(), now.getMonth() + offset, 1);
+    return { year: date.getFullYear(), month: date.getMonth() + 1 };
+  });
+  const pages = await Promise.all(monthsToRead.map(async ({ year, month }) => {
+    const url = new URL(base);
+    url.searchParams.set('view', 'list');
+    url.searchParams.set('year', String(year));
+    url.searchParams.set('month', String(month));
+    const response = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+    const html = await response.text();
+    if (!response.ok) throw new Error('CivicPlus official calendar was not valid: ' + response.status);
+    // A month with no published events is valid.  It should not make the
+    // whole source fail or hide cards from adjacent months.
+    return /itemtype=["']http:\/\/schema\.org\/Event/i.test(html) ? html : '';
+  }));
+  const candidates = pages.flatMap((html, monthIndex) => [...html.matchAll(/<li>\s*<h3>([\s\S]*?)<\/li>/gi)].flatMap(match => {
+    const block = match[0];
+    const title = plainText(block.match(/id=["']eventTitle_\d+["'][^>]*>[\s\S]*?<span>([\s\S]*?)<\/span>/i)?.[1] || '');
+    const href = htmlAttribute(block, /id=["']eventTitle_\d+["'][^>]*href=["']([^"']+)["']/i);
+    const dateValue = plainText(block.match(/itemprop=["']startDate["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
+    const place = plainText(block.match(/itemprop=["']location["'][\s\S]*?itemprop=["']name["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
+    const street = plainText(block.match(/itemprop=["']streetAddress["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
+    const city = canonicalCity(plainText(block.match(/itemprop=["']addressLocality["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || source.city || ''));
+    const familySignal = /\b(?:family|families|kids?|children|youth|teen|toddler|movie|concert|music|festival|celebration|holiday|halloween|lantern|campout|egg hunt|art|craft|science|stem|nature|outdoor)\b/i.test(title);
+    if (!title || !href || !isUpcoming(dateValue) || !familySignal) return [];
+    return [{ title, url: new URL(decodeXml(href), source.feedUrl).href, dateValue, place, street, city, monthIndex }];
+  }));
+  const seen = new Set();
+  const items = candidates.filter(item => {
+    const key = `${item.url}|${item.dateValue}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+  const events = await Promise.all(items.map(async (item, index) => {
+    try {
+      const detailResponse = await fetch(item.url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+      const detailHtml = await detailResponse.text();
+      if (!detailResponse.ok) return null;
+      const landingHref = htmlAttribute(detailHtml, /itemprop=["']url["'][^>]*href=["']([^"']+)["']/i);
+      const landingUrl = landingHref ? new URL(landingHref, item.url).href : item.url;
+      const landingResponse = landingUrl === item.url ? detailResponse : await fetch(landingUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+      const landingHtml = landingUrl === item.url ? detailHtml : await landingResponse.text();
+      if (!landingResponse.ok) return null;
+      const editorialBlocks = [...landingHtml.matchAll(/<div class=["'][^"']*\bfr-view\b[^"']*["'][^>]*>([\s\S]*?)<\/div>/gi)].map(match => match[1]);
+      const officialText = editorialBlocks.join(' ');
+      const description = editorialBlocks.map(block => cardSummary(block, item.title)).find(hasActivitySummary) || cardSummary(detailHtml, item.title);
+      const audienceText = `${item.title} ${officialText} ${plainText(landingHtml.match(/<meta\s+name=["']description["']\s+content=["']([^"']*)/i)?.[1] || '')}`;
+      if (!hasActivitySummary(description) || isExplicitlyAdultOnly(audienceText)) return null;
+      const image = htmlAttribute(landingHtml, /widget image[\s\S]{0,1600}?<img[^>]+src=["']([^"']+)["']/i);
+      const event = directEvent({
+        id: 'civic-' + createHash('sha256').update(`${landingUrl}|${item.dateValue}|${index}`).digest('hex').slice(0, 16),
+        title: item.title, dateValue: item.dateValue, description,
+        image: image ? new URL(image, landingUrl).href : '', place: item.place || source.name,
+        address: shortAddress(item.street, item.city), city: item.city || source.city || '', source: source.name, url: landingUrl,
+        ageText: audienceText
+      });
+      return { ...event, ...costInfo('', officialText) };
+    } catch { return null; }
+  }));
+  return events.filter(Boolean);
+}
+
 // Cupertino publishes a server-rendered public event list rather than an RSS
 // or ICS feed. The list itself includes an official date, description, venue,
 // image, and audience tags, so it is more reliable than a web-search result.
@@ -1682,7 +1753,7 @@ const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely'];
+const directMethods = ['rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
@@ -1715,6 +1786,7 @@ const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'moah') return readMoah(source);
   if (source.method === 'montalvo') return readMontalvo(source);
   if (source.method === 'ics') return readIcs(source);
+  if (source.method === 'civic') return readCivic(source);
   if (source.method === 'cupertino') return readCupertino(source);
   if (source.method === 'slac') return readSlac(source);
   if (source.method === 'chm') return readChm(source);

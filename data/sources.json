@@ -38,5 +38,6 @@
   { "name": "San Jose Theaters", "domain": "sanjosetheaters.org", "method": "timely", "feedUrl": "https://events.timely.fun/jc0x91t0/stream?tags=677512582", "calendarId": 54710614 },
   { "name": "History San José", "domain": "historysanjose.org", "method": "history", "feedUrl": "https://historysanjose.org/programs-events/", "address": "635 Phelan Ave, San Jose", "city": "San Jose" },
   { "name": "San José Buddhist Church Betsuin", "domain": "sjbetsuin.org", "method": "tribe", "feedUrl": "https://www.sjbetsuin.org/wp-json/tribe/events/v1/events?per_page=100", "familyPattern": "obon|nikkei|matsuri|festival|family|children|kids|youth|cultural" },
-  { "name": "Chinese Historical & Cultural Project", "domain": "chcp.org", "method": "chcp", "feedUrl": "https://www.chcp.org/Events", "city": "San Jose" }
+  { "name": "Chinese Historical & Cultural Project", "domain": "chcp.org", "method": "chcp", "feedUrl": "https://www.chcp.org/Events", "city": "San Jose" },
+  { "name": "City of Milpitas", "domain": "milpitas.gov", "method": "civic", "feedUrl": "https://www.milpitas.gov/calendar.aspx?CID=0&view=list", "city": "Milpitas" }
 ]
