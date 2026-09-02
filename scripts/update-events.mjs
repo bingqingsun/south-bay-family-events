@@ -45,6 +45,7 @@ const generatedAt = new Date().toISOString();
 // own public asset domain, not generated fallback illustrations.
 const BAY_FC_TEAM_MARK = 'https://bayfc.com/wp-content/uploads/logo_bayfc_primary-steel-bay.svg';
 const EARTHQUAKES_TEAM_MARK = 'https://images.mlssoccer.com/image/upload/assets/logos/SJ.svg';
+const SAN_JOSE_GIANTS_TEAM_MARK = 'https://www.mlbstatic.com/team-logos/team-cap-on-light/476.svg';
 
 function isFamilyRelevant(event) {
   const value = `${event.title || ''} ${event.description || ''}`.toLowerCase();
@@ -877,7 +878,8 @@ async function readMlb(source) {
     const opponent = game.teams?.away?.team?.name || 'away team';
     return [directEvent({
       id: `mlb-${game.gamePk}`, title: `San Jose Giants vs ${opponent}`, dateValue: pacificDateTime(game.gameDate),
-      description: `Official San Jose Giants home game against ${opponent} at Excite Ballpark.`, image: '',
+      description: `Official San Jose Giants home game against ${opponent} at Excite Ballpark.`, image: SAN_JOSE_GIANTS_TEAM_MARK,
+      imagePresentation: 'team-mark', imageBackground: '#f4f1ed',
       place: game.venue?.name || 'Excite Ballpark', address: source.address || '', city: source.city || '', source: source.name,
       url: 'https://www.milb.com/san-jose/schedule', ageText: 'all ages', format: 'sports-game'
     })];
