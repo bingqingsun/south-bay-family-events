@@ -567,16 +567,47 @@ function officialPageImage(html, pageUrl, sectionPattern) {
 }
 
 async function readFoothill(source) {
-  const [response, physicsResponse] = await Promise.all([
+  const [response, physicsResponse, physicsScheduleResponse] = await Promise.all([
     fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) }),
-    fetch('https://foothill.edu/physics/index.html', { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) }).catch(() => null)
+    fetch('https://foothill.edu/physics/index.html', { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) }).catch(() => null),
+    // The college homepage announces the show but currently lists only two
+    // performances. The show's own official page has every ticketed session.
+    fetch('https://www.thephysicsshow.com/home', { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) }).catch(() => null)
   ]);
   const html = await response.text();
   if (!response.ok || !/Events__item/i.test(html)) throw new Error('Foothill official event list was not valid: ' + response.status);
   const physicsHtml = physicsResponse?.ok ? await physicsResponse.text() : '';
+  const physicsScheduleHtml = physicsScheduleResponse?.ok ? await physicsScheduleResponse.text() : '';
   const physicsSummary = cardSummary(physicsHtml.match(/Physics Show at Foothill[\s\S]{0,1200}?<p[^>]*>([\s\S]*?)<\/p>/i)?.[1] || '');
   const physicsImage = officialPageImage(physicsHtml, 'https://foothill.edu/physics/index.html', /(<img[^>]+alt=["'][^"']*Physics Show[^"']*["'][^>]*>)/i);
-  return html.split(/<div class="Events__item">/i).slice(1).flatMap(block => {
+  const physicsScheduleYear = Number(physicsScheduleHtml.match(/\b(?:January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\.?\s+\d{1,2},\s+(20\d{2})\b/i)?.[1]
+    || new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date()).slice(0, 4));
+  const scheduledPhysicsSessions = [...physicsScheduleHtml.matchAll(/<a[^>]+href=["']([^"']*eventcreate[^"']*)["'][^>]*>([\s\S]*?)<\/a>/gi)].flatMap((match, index) => {
+    const url = decodeXml(match[1]).trim();
+    const text = plainText(match[2]);
+    const dateText = text.match(/\b([A-Za-z]{3,9}\.?\s+\d{1,2},?\s+\d{4})\b/)?.[1] || '';
+    const timeText = text.match(/\b(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?))\b/i)?.[1] || '';
+    // A few Google Sites anchors contain a nested span that ends the HTML
+    // match before their visible label. The EventCreate URL still has the
+    // exact official month, day, and start time, so use it as a lossless
+    // fallback rather than dropping those performances.
+    const urlSchedule = url.match(/the-physics-show-([a-z]{3,9})-(\d{1,2})-(\d{1,4})(am|pm)\b/i);
+    const urlMonth = urlSchedule ? months[urlSchedule[1].slice(0, 3).toLowerCase()] : null;
+    const timeNumber = urlSchedule ? Number(urlSchedule[3]) : null;
+    const minutes = timeNumber && timeNumber >= 100 ? timeNumber % 100 : 0;
+    let hour = timeNumber && timeNumber >= 100 ? Math.floor(timeNumber / 100) : timeNumber;
+    if (urlSchedule && urlSchedule[4].toLowerCase() === 'pm' && hour !== 12) hour += 12;
+    if (urlSchedule && urlSchedule[4].toLowerCase() === 'am' && hour === 12) hour = 0;
+    const dateValue = isoDateFromOfficialText(dateText, timeText)
+      || (urlMonth && Number.isInteger(hour) ? `${physicsScheduleYear}-${String(urlMonth).padStart(2, '0')}-${String(Number(urlSchedule[2])).padStart(2, '0')}T${String(hour).padStart(2, '0')}:${String(minutes).padStart(2, '0')}` : '');
+    if (!url || !dateValue || !isUpcoming(dateValue)) return [];
+    return [directEvent({
+      id: 'physics-show-' + createHash('sha256').update(`${url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
+      title: 'The Physics Show', dateValue, description: physicsSummary, image: physicsImage,
+      place: 'Smithwick Theatre', address: source.address || '', city: source.city || '', source: source.name, url
+    })];
+  });
+  const homepageEvents = html.split(/<div class="Events__item">/i).slice(1).flatMap(block => {
     const title = htmlAttribute(block, /Event__title[^>]*>[\s\S]*?<a[^>]+href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/i);
     const titleText = block.match(/Event__title[^>]*>[\s\S]*?<a[^>]*>([\s\S]*?)<\/a>/i)?.[1];
     const dateText = htmlAttribute(block, /Events__date[^>]*>([\s\S]*?)<\/div>/i);
@@ -587,12 +618,16 @@ async function readFoothill(source) {
     // Foothill's homepage mixes campus closures with public programs. Only
     // publish entries whose official title signals a K–12/family STEM program.
     if (!cleanTitle || !title || !isUpcoming(dateValue) || !/physics show|observatory|astronomy|family|children|youth|science/i.test(cleanTitle)) return [];
+    // When the dedicated official schedule is available, it supersedes the
+    // partial performance list on the college homepage.
+    if (cleanTitle === 'The Physics Show' && scheduledPhysicsSessions.length) return [];
     return [directEvent({
       id: 'foothill-' + createHash('sha256').update(title).digest('hex').slice(0, 16),
       title: cleanTitle, dateValue, description: cleanTitle === 'The Physics Show' ? physicsSummary : '', image: cleanTitle === 'The Physics Show' ? physicsImage : '',
       place, address: source.address || '', city: source.city || '', source: source.name, url: title
     })];
   });
+  return [...homepageEvents, ...scheduledPhysicsSessions];
 }
 
 function conciseOfficialMeetingPoint(value) {
