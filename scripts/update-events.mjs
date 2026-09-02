@@ -35,9 +35,9 @@ function formatFor(text) {
   if (/\b(?:show|theat(?:er|re)|concert|performance|musical|dance|magic|planetarium|laser|ice (?:show|skating))\b/.test(value)) return 'live-show';
   return 'program';
 }
-const labels = { sports: '体育与比赛', shows: '演出与表演', museums: '博物馆与展览', outdoor: '户外自然', arts: '艺术与创作', learning: '学习与 STEM', play: '故事与玩乐', community: '社区与家庭', workshops: '课程与工作坊' };
-const icons = { sports: '⚽', shows: '🎭', museums: '🏛️', outdoor: '🌿', arts: '🎨', learning: '🔭', play: '🎈', community: '🤝', workshops: '🛠️' };
-const colors = { sports: '#dce7fa', shows: '#f0def2', museums: '#ece5d8', outdoor: '#d8eee0', arts: '#ffd9bd', learning: '#dce7fa', play: '#ffe9a8', community: '#dceeea', workshops: '#e7ddf6' };
+const labels = { sports: '体育与比赛', shows: '演出与表演', movies: '电影与放映', museums: '博物馆与展览', outdoor: '户外自然', arts: '艺术与创作', learning: '学习与 STEM', play: '故事与玩乐', community: '社区与家庭', workshops: '课程与工作坊' };
+const icons = { sports: '⚽', shows: '🎭', movies: '🎬', museums: '🏛️', outdoor: '🌿', arts: '🎨', learning: '🔭', play: '🎈', community: '🤝', workshops: '🛠️' };
+const colors = { sports: '#dce7fa', shows: '#f0def2', movies: '#e5e0f8', museums: '#ece5d8', outdoor: '#d8eee0', arts: '#ffd9bd', learning: '#dce7fa', play: '#ffe9a8', community: '#dceeea', workshops: '#e7ddf6' };
 const fallbackTime = '请点击活动详情查看活动时间';
 const generatedAt = new Date().toISOString();
 // Official team marks used for local home-game cards when the schedule APIs
@@ -563,15 +563,15 @@ function isoDateFromOfficialText(dateText, timeText = '') {
   return date + 'T' + String(hour).padStart(2, '0') + ':' + (time[2] || '00');
 }
 
-function directEvent({ id, title, dateValue, description, image = '', imagePresentation = '', imageBackground = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, ageText = '', format = '' }) {
-  const type = format === 'live-show' ? 'shows' : typeFor(title + ' ' + description + ' ' + ageText);
+function directEvent({ id, title, dateValue, description, image = '', imagePresentation = '', imageBackground = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, ageText = '', format = '', movieRating = '' }) {
+  const type = format === 'live-show' ? 'shows' : format === 'movie-screening' ? 'movies' : typeFor(title + ' ' + description + ' ' + ageText);
   const age = ageInfo(ageText);
   return {
     id, title, date: displayEventDate(dateValue), dateValue, ...age,
     costLabel: '费用未注明', costSource: '', type, icon: icons[type], color: colors[type], tag: labels[type],
     verification: 'official-page', lastVerifiedAt: generatedAt, format,
     description: cardSummary(description),
-    image, imagePresentation, imageBackground, place, address, city: canonicalCity(city), meetingPoint, mapUrl, source, url
+    image, imagePresentation, imageBackground, place, address, city: canonicalCity(city), meetingPoint, mapUrl, source, url, movieRating
   };
 }
 
@@ -921,6 +921,65 @@ async function readSapCenter(source) {
     }));
   }));
   return expanded.flat();
+}
+
+function cinemaDateValue(date, time) {
+  const match = String(time || '').trim().match(/^(\d{1,2})(?::(\d{2}))?\s*([ap])(?:m)?$/i);
+  if (!match) return '';
+  let hour = Number(match[1]) % 12;
+  if (match[3].toLowerCase() === 'p') hour += 12;
+  return `${date}T${String(hour).padStart(2, '0')}:${match[2] || '00'}`;
+}
+
+function cineluxSynopsis(html, title) {
+  const section = String(html || '').match(/(?:<h2[^>]*>\s*Synopsis\s*<\/h2>|\bSynopsis\b)[\s\S]{0,1800}?<p[^>]*>([\s\S]*?)<\/p>/i)?.[1] || '';
+  return cardSummary(section, title);
+}
+
+function isKidAppropriateMovie(title, rating) {
+  if (rating === 'G') return true;
+  return rating === 'PG' && /\b(?:paw patrol|coyote vs acme|harry potter|cars|tom and jerry|toy story|moana|frozen|disney|pixar|minions|despicable me|sonic|paddington|smurfs|how to train your dragon|spongebob|mario|lego|dog man|kung fu panda)\b/i.test(title);
+}
+
+function kidMovieSummary(title) {
+  if (/paw patrol.*dino/i.test(title)) return 'PAW Patrol pups explore a dinosaur-filled island and race to stop a volcanic disaster.';
+  if (/coyote vs acme/i.test(title)) return 'Wile E. Coyote takes Acme to court after its products repeatedly derail his Roadrunner pursuits.';
+  if (/harry potter.*sorcerer/i.test(title)) return 'Harry Potter begins his first year at Hogwarts and discovers a hidden magical world.';
+  if (/cars.*20th/i.test(title)) return 'A big-screen anniversary screening of Pixar’s Cars, following Lightning McQueen’s unexpected detour to Radiator Springs.';
+  if (/tom and jerry/i.test(title)) return 'Tom and Jerry embark on a family-friendly animated adventure.';
+  return '';
+}
+
+async function readCinelux(source) {
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
+  const dates = Array.from({ length: 7 }, (_, index) => { const day = new Date(`${today}T12:00:00Z`); day.setUTCDate(day.getUTCDate() + index); return day.toISOString().slice(0, 10); });
+  const pages = await Promise.all(dates.map(async date => {
+    const url = date === today ? source.feedUrl : `${source.feedUrl}?date=${date}`;
+    const response = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+    return response.ok ? { date, html: await response.text() } : { date, html: '' };
+  }));
+  const candidates = pages.flatMap(({ date, html }) => html.split(/<div class=["']cin-movie-card\b[^>]*>/i).slice(1).flatMap(block => {
+    const title = plainText(block.match(/<h3[^>]*>[\s\S]*?<a[^>]*>([\s\S]*?)<\/a>/i)?.[1] || '');
+    const movieUrl = htmlAttribute(block, /<h3[^>]*>[\s\S]*?<a[^>]+href=["']([^"']+)/i);
+    const image = htmlAttribute(block, /cin-showtimes-poster-desktop[\s\S]*?<img[^>]+src=["']([^"']+)/i);
+    const rating = plainText(block.match(/rounded-sm[^>]*>\s*(G|PG|PG-13|PG13|R|NR)\s*<\/div>/i)?.[1] || '').replace('PG-13', 'PG13');
+    const showings = [...block.matchAll(/cin-showtimes-button[\s\S]*?href=["']([^"']+)[^>]*>[\s\S]*?([0-9]{1,2}:[0-9]{2}\s*[ap])\s*<\/a>/gi)];
+    if (!title || !movieUrl || !isKidAppropriateMovie(title, rating) || !showings.length) return [];
+    const displayTitle = title.replace(/^DBOX\s+/i, '').trim();
+    return showings.map(match => ({ title: displayTitle, movieUrl: new URL(movieUrl, source.feedUrl).href, image: image ? new URL(image, source.feedUrl).href : '', rating, dateValue: cinemaDateValue(date, plainText(match[2])), ticketUrl: new URL(decodeXml(match[1]), source.feedUrl).href }));
+  }));
+  const descriptions = new Map(await Promise.all([...new Set(candidates.map(item => item.movieUrl))].map(async url => {
+    try { const response = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) }); return [url, response.ok ? cineluxSynopsis(await response.text(), '') : '']; } catch { return [url, '']; }
+  })));
+  return candidates.filter(item => item.dateValue && isUpcoming(item.dateValue)).map(item => {
+    const event = directEvent({
+      id: 'cinelux-' + createHash('sha256').update(`${source.feedUrl}|${item.title}|${item.dateValue}|${item.ticketUrl}`).digest('hex').slice(0, 16),
+      title: item.title, dateValue: item.dateValue, description: kidMovieSummary(item.title) || descriptions.get(item.movieUrl) || `${item.rating}-rated family movie screening.`, image: item.image,
+      place: source.name, address: source.address || '', city: source.city || '', source: 'CineLux Theatres', url: item.ticketUrl,
+      ageText: item.rating === 'G' ? 'all ages' : '', format: 'movie-screening', movieRating: item.rating
+    });
+    return { ...event, costLabel: '需购票／价格见详情', costSource: 'Official cinema ticketing' };
+  });
 }
 
 async function readBayfc(source) {
@@ -1929,7 +1988,7 @@ const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'curated'];
+const directMethods = ['rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'curated'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
@@ -1952,6 +2011,7 @@ const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'stanford') return readStanford(source);
   if (source.method === 'nhl') return readNhl(source);
   if (source.method === 'sapcenter') return readSapCenter(source);
+  if (source.method === 'cinelux') return readCinelux(source);
   if (source.method === 'bayfc') return readBayfc(source);
   if (source.method === 'mlb') return readMlb(source);
   if (source.method === 'mls') return readMls(source);
@@ -2066,6 +2126,7 @@ const individualEvents = coalesceCrossSourceDuplicates(preliminaryEvents)
   .sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
 
 function seriesKey(event) {
+  if (event.format === 'movie-screening') return [event.format, event.title, event.movieRating || '', event.type].join('\u001f');
   // Deliberately conservative: different themes, venues, audience rules, or
   // pricing stay as separate cards even when a host reuses the same title.
   return [event.source, event.title, event.description, event.place, event.address, event.meetingPoint, event.city, event.type,
@@ -2079,11 +2140,18 @@ function groupRepeatedSessions(items) {
     const ordered = group.sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
     if (ordered.length === 1) return ordered;
     const first = ordered[0];
+    // A cinema can expose several formats and dozens of showtimes per day.
+    // Keep the earliest official purchase link for each theater/day on the
+    // card; the ticket page remains the complete source of showtimes.
+    const cardSessions = first.format === 'movie-screening'
+      ? [...new Map(ordered.map(event => [`${String(event.dateValue).slice(0, 10)}\u001f${event.place}`, event])).values()]
+      : ordered;
     return [{
       ...first,
       id: 'series-' + createHash('sha256').update(key).digest('hex').slice(0, 16),
       legacyIds: ordered.map(event => event.id),
-      sessions: ordered.map(event => ({ id: event.id, date: event.date, dateValue: event.dateValue, url: event.url }))
+      source: first.format === 'movie-screening' ? 'CineLux Theatres' : first.source,
+      sessions: cardSessions.map(event => ({ id: event.id, date: event.date, dateValue: event.dateValue, url: event.url, place: event.place, address: event.address, city: event.city }))
     }];
   }).sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
 }
