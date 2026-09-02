@@ -54,5 +54,15 @@
   ] },
   { "name": "Visit San Jose", "domain": "sanjose.org", "method": "curated", "feedUrl": "https://www.sanjose.org/events/mid-autumn-festival-bay-area", "city": "San Jose", "events": [
     { "title": "Mid-Autumn Festival Bay Area", "dateValue": "2026-09-26T16:00", "description": "A Vietnamese cultural celebration for families with lanterns, music, performances, games, food, and storytelling.", "image": "https://www.sanjose.org/sites/default/files/styles/listing_detail_image/public/Untitled-2_EEA4FF3C-F9F0-D35D-4645E9B612BAF8B1_eea63394-b26e-73d2-af1f45977de5e31f.jpg.webp?itok=T10SqW6Q", "place": "Grand Century Mall", "address": "1001 Story Rd, San Jose", "ageText": "All ages Families Children", "format": "festival" }
+  ] },
+  { "name": "City of Sunnyvale", "domain": "sunnyvale.ca.gov", "method": "curated", "feedUrl": "https://www.sunnyvale.ca.gov/recreation-and-community/special-events", "city": "Sunnyvale", "events": [
+    { "title": "Hands on the Arts Festival", "dateValue": "2026-10-17T10:00", "description": "A free children's arts festival with hands-on visual and performing arts workshops, family-friendly entertainment, and food vendors.", "place": "Sunnyvale Community Center", "address": "550 E Remington Dr, Sunnyvale", "ageText": "All ages Children Family-friendly", "cost": "Free", "format": "arts" }
+  ] },
+  { "name": "Santa Clara Parade of Champions", "domain": "sc-parade-of-champions.squarespace.com", "method": "curated", "feedUrl": "https://sc-parade-of-champions.squarespace.com/faq", "city": "Santa Clara", "events": [
+    { "title": "Santa Clara Parade of Champions & Festival", "dateValue": "2026-10-03T08:00", "description": "A free downtown community parade and festival with a sports fan zone, live music, games, food vendors, community booths, and a kids zone.", "place": "Historic Downtown Santa Clara", "ageText": "All ages Families Children", "cost": "Free", "format": "festival" }
+  ] },
+  { "name": "Downtown Campbell", "domain": "downtowncampbell.com", "method": "curated", "feedUrl": "https://www.downtowncampbell.com/event/31st-annual-campbell-oktoberfest", "city": "Campbell", "events": [
+    { "title": "Campbell Oktoberfest", "dateValue": "2026-10-17T10:00", "description": "A free downtown festival with a Kids Zone, arts and crafts booths, German food, music, dancing, and family entertainment.", "place": "Downtown Campbell", "address": "E Campbell Ave and N 1st St, Campbell", "ageText": "All ages Families Children", "cost": "Free", "format": "festival" },
+    { "title": "Campbell Oktoberfest", "dateValue": "2026-10-18T10:00", "description": "A free downtown festival with a Kids Zone, arts and crafts booths, German food, music, dancing, and family entertainment.", "place": "Downtown Campbell", "address": "E Campbell Ave and N 1st St, Campbell", "ageText": "All ages Families Children", "cost": "Free", "format": "festival" }
   ] }
 ]
