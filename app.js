@@ -41,6 +41,13 @@ const costLabels = { '免费': ['免费', 'Free'], '建议捐赠': ['建议捐�
 const venueCoordinates = {
   '6445 Camden Ave, San Jose': [37.2214644, -121.8691377], '4270 Pearl Ave, San Jose': [37.2677995, -121.8664471], '3090 Alum Rock Ave, San Jose': [37.3652963, -121.8280550], '150 E San Fernando St, San Jose': [37.3355074, -121.8850772], '290 International Circle, San Jose': [37.2374873, -121.79983], '1450 Blossom Hill Rd, San Jose': [37.24027, -121.8921881], '350 W. Sixth Street, Gilroy': [37.0050762, -121.5726956], '660 West Main Ave, Morgan Hill': [37.1244091, -121.6628141], '160 North Main Street, Milpitas': [37.4324266, -121.9070434], '921 South First St, San Jose': [37.3222883, -121.8804012], '1213 Newell Rd, Palo Alto': [37.4449758, -122.1390735], '10800 Torre Avenue, Cupertino': [37.3178237, -122.0289235], '3700 Middlefield Rd, Palo Alto': [37.4221606, -122.1128177], '1451 Middlefield Road, Palo Alto': [37.4434284, -122.1444282], '3411 Rocky Mountain Dr, San Jose': [37.352429, -121.8018853], '4001 Evergreen Village Square, San Jose': [37.3134183, -121.7744198], '3590 Cas Dr, San Jose': [37.2850574, -121.8328893], '2300 Wellesley St, Palo Alto': [37.4231855, -122.1488209], '1102 E Santa Clara St, San Jose': [37.3464402, -121.8682181], '1000 S. Bascom Ave, San Jose': [37.3075348, -121.9311591], '13650 Saratoga Avenue, Saratoga': [37.2700537, -122.0152172], '1276 Harriet Street, Palo Alto': [37.4448143, -122.14519], '270 Forest Ave, Palo Alto': [37.4438796, -122.1592083], '600 East Meadow Drive, Palo Alto': [37.4232558, -122.1163817], '201 S Market St, San Jose': [37.331404, -121.8901566], '12345 El Monte Rd, Los Altos Hills': [37.3617195, -122.1283018], '1431 Waverley Street, Palo Alto': [37.4397144, -122.1480637]
 };
+Object.assign(venueCoordinates, {
+  '2306 Almaden Rd, San Jose': [37.2903688, -121.8802916],
+  '2501 S Winchester Blvd, Campbell': [37.278595, -121.950992],
+  '43 N Santa Cruz Ave, Los Gatos': [37.2238956, -121.9836492],
+  '750 Tennant Station Way, Morgan Hill': [37.1135533, -121.6376078],
+  '6851 Monterey Rd, Gilroy': [36.9977027, -121.5660048]
+});
 const t = key => copy[state.language][key];
 const eventText = (event, field) => translationEnabled && state.language === 'zh' ? event.translations?.zh?.[field] || event[field] : event[field];
 const categoryLabel = event => categoryLabels[event.type || 'community']?.[state.language === 'zh' ? 0 : 1] || event.tag;
@@ -114,7 +121,11 @@ function ageMatches(event, age) {
 }
 function eventSessions(event) { return event.sessions?.length ? event.sessions : [event]; }
 function matchingSessions(event) { return eventSessions(event).filter(session => dateMatches({ ...event, ...session }, state.date)); }
-function activeSession(event) { return matchingSessions(event)[0] || eventSessions(event)[0]; }
+function activeSession(event) {
+  const sessions = matchingSessions(event);
+  if (event.format !== 'movie-screening' || !state.position) return sessions[0] || eventSessions(event)[0];
+  return [...sessions].sort((a, b) => (eventDistance({ ...event, address: a.address || event.address }) ?? Infinity) - (eventDistance({ ...event, address: b.address || event.address }) ?? Infinity))[0] || eventSessions(event)[0];
+}
 function isSaved(event) { return state.saved.includes(event.id) || event.legacyIds?.some(id => state.saved.includes(id)); }
 function migrateSavedSeries() {
   const legacyToSeries = new Map();
@@ -190,8 +201,8 @@ function render() {
     const costFact = node.querySelector('.fact-cost'); const costText = event.costSource ? t('costFact')(eventCostLabel(event)).trim() : ''; costFact.textContent = costText; costFact.title = costText ? event.costSource : ''; if (!costText) costFact.remove();
     facts.hidden = facts.querySelectorAll('.fact').length === 0;
     const distance = eventDistance(event); const distanceNode = node.querySelector('.distance'); distanceNode.hidden = distance === null; distanceNode.textContent = distance === null ? '' : t('distance')(distance < 10 ? distance.toFixed(1) : Math.round(distance));
-    node.querySelector('.time .detail-text').textContent = event.ongoing ? t('onViewNow') : (dateLabel(session.dateValue) || (session.date === '请查看主办方时间' ? t('timeUnavailable') : session.date)); node.querySelector('.place .detail-text').textContent = event.place;
-    const address = node.querySelector('.address'); const addressLink = node.querySelector('.address-link'); const addressText = event.address || ''; const meetingPoint = !addressText ? String(event.meetingPoint || '').trim() : ''; const locationText = addressText || (meetingPoint ? `Meet at: ${meetingPoint}` : '');
+    node.querySelector('.time .detail-text').textContent = event.ongoing ? t('onViewNow') : (dateLabel(session.dateValue) || (session.date === '请查看主办方时间' ? t('timeUnavailable') : session.date)); node.querySelector('.place .detail-text').textContent = session.place || event.place;
+    const address = node.querySelector('.address'); const addressLink = node.querySelector('.address-link'); const addressText = session.address || event.address || ''; const meetingPoint = !addressText ? String(event.meetingPoint || '').trim() : ''; const locationText = addressText || (meetingPoint ? `Meet at: ${meetingPoint}` : '');
     address.hidden = !locationText; addressLink.href = event.mapUrl || `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(addressText)}`; addressLink.querySelector('.detail-text').textContent = locationText; addressLink.querySelector('.directions').textContent = t('directions'); addressLink.setAttribute('aria-label', `${t('directions')}: ${locationText}`);
     const organizerName = event.verification === 'search-verified' ? '' : String(event.source || '').trim(); if (organizerName) { const organizer = document.createElement('p'); organizer.className = 'organizer'; organizer.textContent = t('hostedBy')(organizerName); node.querySelector('.details').append(organizer); }
     const sessionToggle = node.querySelector('.sessions-inline-toggle'); const sessionList = node.querySelector('.sessions-list'); const allSessions = eventSessions(event); const otherSessions = allSessions.filter(item => item.id !== session.id); sessionToggle.hidden = otherSessions.length === 0; sessionToggle.dataset.eventId = event.id; sessionToggle.setAttribute('aria-expanded', 'false'); sessionToggle.textContent = t('showOtherSessions')(otherSessions.length); sessionList.id = `sessions-${event.id}`; sessionToggle.setAttribute('aria-controls', sessionList.id); otherSessions.forEach(item => { const row = document.createElement('li'); const sessionLink = document.createElement('a'); sessionLink.href = item.url || event.url; sessionLink.target = '_blank'; sessionLink.rel = 'noopener'; sessionLink.textContent = `${dateLabel(item.dateValue) || item.date}${event.format === 'movie-screening' && item.place ? ` · ${item.place}` : ''}`; row.append(sessionLink); sessionList.append(row); });
