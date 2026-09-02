@@ -775,7 +775,10 @@ async function readNhl(source) {
     if (game.homeTeam?.abbrev !== 'SJS' || !isUpcoming(game.gameDate) || !game.startTimeUTC) return [];
     const opponent = [game.awayTeam?.placeName?.default, game.awayTeam?.commonName?.default].filter(Boolean).join(' ');
     const dateValue = pacificDateTime(game.startTimeUTC);
-    const url = `https://www.nhl.com/sharks/gamecenter/sjs-vs-${String(game.awayTeam?.abbrev || '').toLowerCase()}/${dateValue.slice(0, 4)}/${dateValue.slice(5, 7)}/${dateValue.slice(8, 10)}/${game.id}`;
+    // NHL game pages live on the league-wide Gamecenter route, with the
+    // away team listed first. The old team-prefixed, home-first URL resolves
+    // to an NHL 404 page even though the schedule API data is valid.
+    const url = `https://www.nhl.com/gamecenter/${String(game.awayTeam?.abbrev || '').toLowerCase()}-vs-sjs/${dateValue.slice(0, 4)}/${dateValue.slice(5, 7)}/${dateValue.slice(8, 10)}/${game.id}`;
     return [directEvent({
       id: `nhl-${game.id}`, title: `San Jose Sharks vs ${opponent}`, dateValue,
       description: `Official San Jose Sharks home game against the ${opponent}.`, image: game.homeTeam?.logo || '',
