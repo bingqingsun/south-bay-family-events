@@ -35,5 +35,8 @@
   { "name": "City of Los Altos Parks & Recreation", "domain": "losaltosca.gov", "method": "ics", "feedUrl": "https://www.losaltosca.gov/common/modules/iCalendar/iCalendar.aspx?catID=37&feed=calendar", "city": "Los Altos" },
   { "name": "Gamble Garden", "domain": "gamblegarden.org", "method": "tribe", "feedUrl": "https://www.gamblegarden.org/wp-json/tribe/events/v1/events?per_page=50&categories=kids" },
   { "name": "Symphony San Jose", "domain": "symphonysanjose.org", "method": "symphony", "feedUrl": "https://www.symphonysanjose.org/attend/2026-2027-season/concerts-2026-2027/", "address": "345 S 1st St, San Jose", "city": "San Jose" },
-  { "name": "San Jose Theaters", "domain": "sanjosetheaters.org", "method": "timely", "feedUrl": "https://events.timely.fun/jc0x91t0/stream?tags=677512582", "calendarId": 54710614 }
+  { "name": "San Jose Theaters", "domain": "sanjosetheaters.org", "method": "timely", "feedUrl": "https://events.timely.fun/jc0x91t0/stream?tags=677512582", "calendarId": 54710614 },
+  { "name": "History San José", "domain": "historysanjose.org", "method": "history", "feedUrl": "https://historysanjose.org/programs-events/", "address": "635 Phelan Ave, San Jose", "city": "San Jose" },
+  { "name": "San José Buddhist Church Betsuin", "domain": "sjbetsuin.org", "method": "tribe", "feedUrl": "https://www.sjbetsuin.org/wp-json/tribe/events/v1/events?per_page=100", "familyPattern": "obon|nikkei|matsuri|festival|family|children|kids|youth|cultural" },
+  { "name": "Chinese Historical & Cultural Project", "domain": "chcp.org", "method": "chcp", "feedUrl": "https://www.chcp.org/Events", "city": "San Jose" }
 ]

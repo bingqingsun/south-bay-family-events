@@ -407,9 +407,13 @@ async function readTribe(source) {
     const startDate = String(item.start_date || '').replace(' ', 'T');
     const title = decodeXml(item.title || '').trim();
     const categories = (item.categories || []).map(category => decodeXml(category.name || '')).join(' ').toLowerCase();
-    if (!title || !item.url || !isUpcoming(startDate)) return [];
+    const audienceText = `${title} ${item.description || ''} ${item.excerpt || ''} ${categories}`;
+    const sourceFamilyPattern = source.familyPattern ? new RegExp(source.familyPattern, 'i') : null;
+    if (!title || !item.url || !isUpcoming(startDate) || (sourceFamilyPattern && !sourceFamilyPattern.test(audienceText))) return [];
     const type = typeFor(title + ' ' + categories);
-    const age = ageInfo(`family ${categories}`);
+    // Do not infer a family age label from the calendar platform itself. The
+    // card only shows an age range when the organizer actually supplied one.
+    const age = ageInfo(audienceText);
     const cost = costInfo(item.cost, item.description || item.excerpt || '');
     return [{
       id: 'calendar-' + (item.id || index), title, date: displayEventDate(startDate), dateValue: startDate, ...age, ...cost,
@@ -431,7 +435,95 @@ async function readTribe(source) {
   return enriched.filter(event => hasActivitySummary(event.description));
 }
 
+async function readChcp(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const html = await response.text();
+  if (!response.ok || !/idUpcomingEventsContainer|boxesListItem/i.test(html)) throw new Error('CHCP official event list was not valid: ' + response.status);
+  return html.split(/<li class=["']boxesListItem["'][^>]*>/i).slice(1).flatMap((block, index) => {
+    const title = plainText(block.match(/class=["']eventDetailsLink["'][^>]*>([\s\S]*?)<\/a>/i)?.[1] || '');
+    const href = htmlAttribute(block, /class=["']eventDetailsLink["'][^>]*href=["']([^"']+)["']/i);
+    const dateText = plainText(block.match(/eventInfoStartDate[\s\S]*?<strong>([\s\S]*?)<\/strong>/i)?.[1] || '');
+    const timeText = plainText(block.match(/eventInfoStartTime[\s\S]*?<div[^>]*eventInfoBoxValue[^>]*>([\s\S]*?)<\/div>/i)?.[1] || '');
+    const location = plainText(block.match(/eventInfoLocation[\s\S]*?<div[^>]*eventInfoBoxValue[^>]*>([\s\S]*?)<\/div>/i)?.[1] || '');
+    let description = cardSummary(block, title);
+    if (/^CAH Museum Open/i.test(title)) {
+      description = 'Explore the Chinese American Historical Museum at History Park and its stories of early Chinese American communities in Santa Clara Valley.';
+    } else if (/Doors Open Tour: Gilded Altars and Lost Chinatowns/i.test(title)) {
+      description = 'A guided History Park tour exploring San José’s lost Chinatowns, Chinese American history, and the Chinese American Historical Museum.';
+    }
+    const dateValue = isoDateFromOfficialText(dateText, timeText);
+    const eventText = `${title} ${description}`;
+    const city = ['San Jose', 'Santa Clara', 'Mountain View', 'Palo Alto', 'Milpitas', 'Cupertino', 'Los Altos', 'Sunnyvale']
+      .find(candidate => new RegExp(`\\b${candidate}\\b`, 'i').test(location)) || source.city || '';
+    const familySignal = /\b(?:family|children|kids?|youth|teen|all ages|festival|celebration|cultural|museum open|hands-on|lion dance|scavenger hunt)\b/i.test(eventText);
+    // CHCP's calendar also syndicates adult lectures and non-local events.
+    // Keep only locally held cultural activities with an explicit family or
+    // youth signal in CHCP's own title or description.
+    if (!title || !href || !isUpcoming(dateValue) || /\bonline\b/i.test(location) || !/San Jose|Santa Clara|Mountain View|Palo Alto|Milpitas|Cupertino|Los Altos|Sunnyvale/i.test(location) || !familySignal || !hasActivitySummary(description)) return [];
+    const url = new URL(href, source.feedUrl).href;
+    const event = directEvent({
+      id: 'chcp-' + createHash('sha256').update(`${url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
+      title, dateValue, description,
+      image: officialPageImage(block, source.feedUrl, /([\s\S]*)/),
+      place: location || source.name, city, source: source.name, url,
+      // “Festival” alone does not prove an age range. Only expose an age tag
+      // when CHCP explicitly names an audience; otherwise leave it unlabelled.
+      ageText: /family|children|kids?|youth|all ages/i.test(eventText) ? eventText : ''
+    });
+    return [event];
+  });
+}
+
+function historySanJoseSummary(title) {
+  const cleanTitle = plainText(title).replace(/^\*+|\*+$/g, '').trim();
+  if (/children[’']?s halloween haunt/i.test(cleanTitle)) return 'A Halloween celebration created for children and families at History Park.';
+  if (/italian family festa/i.test(cleanTitle)) return 'A free Italian cultural festival for families at History Park.';
+  if (/lunar new year/i.test(cleanTitle)) return 'A family celebration of Lunar New Year with cultural performances and hands-on activities.';
+  if (/family sunday/i.test(cleanTitle)) return 'A family program at History Park with activities that explore local history and culture.';
+  return '';
+}
+
+async function readHistorySanJose(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const html = await response.text();
+  if (!response.ok || !/event-box\s+event_all_box/i.test(html)) throw new Error('History San José official event list was not valid: ' + response.status);
+  return html.split(/<div class=["']event-box\s+event_all_box["'][^>]*>/i).slice(1).flatMap((block, index) => {
+    const dateText = plainText(block.match(/<div class=["']event-content["'][\s\S]*?<p[^>]*>([\s\S]*?)<\/p>/i)?.[1] || '');
+    const title = plainText(block.match(/<h2[^>]*>([\s\S]*?)<\/h2>/i)?.[1] || '').replace(/^\*+|\*+$/g, '').trim();
+    const locationHtml = block.match(/<span class=["']eventlocation["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '';
+    const locationText = plainText(locationHtml);
+    const times = [...block.matchAll(/<span class=["']eventtime["'][^>]*>([\s\S]*?)<\/span>/gi)].map(match => plainText(match[1]));
+    const url = htmlAttribute(block, /<a[^>]+class=["'][^"']*backend-button[^"']*["'][^>]+href=["']([^"']+)["']/i) || source.feedUrl;
+    const image = htmlAttribute(block, /background-image:\s*url\(['"]?([^'")]+)/i);
+    const dateValue = isoDateFromOfficialText(dateText, times[0] || '');
+    const familySignal = /\b(?:children|child|family|families|kid|youth|teen|lunar new year|cultural)\b/i.test(`${title} ${locationText}`);
+    const description = historySanJoseSummary(title);
+    // The listing also contains fundraisers, private rentals, and adult-only
+    // programs. Publish only when the official title has an explicit family
+    // signal and it yields a parent-facing explanation of the activity.
+    if (!title || !isUpcoming(dateValue) || !familySignal || !hasActivitySummary(description) || isExplicitlyAdultOnly(`${title} ${locationText}`)) return [];
+    const event = directEvent({
+      id: 'history-' + createHash('sha256').update(`${url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
+      title, dateValue, description,
+      image: image ? new URL(image, source.feedUrl).href : '',
+      place: plainText(locationText.split(/\b(?:Cost:|Stay tuned|Tickets?)/i)[0]) || source.name,
+      address: source.address || '', city: source.city || '', source: source.name, url,
+      ageText: 'family'
+    });
+    return [event];
+  });
+}
+
 function isoDateFromOfficialText(dateText, timeText = '') {
+  const numeric = String(dateText || '').match(/\b(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})\b/);
+  if (numeric) {
+    const date = [numeric[3], String(Number(numeric[1])).padStart(2, '0'), String(Number(numeric[2])).padStart(2, '0')].join('-');
+    const time = String(timeText || '').replace(/\./g, '').match(/\b(\d{1,2})(?::(\d{2}))?\s*(AM|PM)\b/i);
+    if (!time) return date;
+    let hour = Number(time[1]) % 12;
+    if (time[3].toUpperCase() === 'PM') hour += 12;
+    return date + 'T' + String(hour).padStart(2, '0') + ':' + (time[2] || '00');
+  }
   const match = String(dateText || '').match(/\b(January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\.?\s+(\d{1,2})(?:,?\s*(\d{4}))?/i);
   if (!match) return '';
   const month = months[match[1].slice(0, 3).toLowerCase()];
@@ -1590,7 +1682,7 @@ const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['rss', 'tribe', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely'];
+const directMethods = ['rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
@@ -1604,6 +1696,8 @@ if (searchSources.length && !key) throw new Error('SERPAPI_KEY is required when 
 
 const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'tribe') return readTribe(source);
+  if (source.method === 'history') return readHistorySanJose(source);
+  if (source.method === 'chcp') return readChcp(source);
   if (source.method === 'thetech') return readTheTech(source);
   if (source.method === 'foothill') return readFoothill(source);
   if (source.method === 'midpen') return readMidpen(source);
