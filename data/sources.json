@@ -21,6 +21,7 @@
   { "name": "SLAC National Accelerator Laboratory", "domain": "slac.stanford.edu", "method": "slac", "feedUrl": "https://www6.slac.stanford.edu/news-and-events/events", "address": "2575 Sand Hill Road, Menlo Park", "city": "Menlo Park" },
   { "name": "Stanford Events", "domain": "events.stanford.edu", "method": "stanford", "feedUrl": "https://events.stanford.edu/api/2/events?pp=100&days=120" },
   { "name": "San Jose Sharks", "domain": "nhl.com", "method": "nhl", "feedUrl": "https://api-web.nhle.com/v1/club-schedule-season/SJS/", "address": "525 W Santa Clara St, San Jose", "city": "San Jose" },
+  { "name": "SAP Center", "domain": "sapcenter.com", "method": "sapcenter", "feedUrl": "https://www.sapcenter.com/events", "address": "525 W Santa Clara St, San Jose", "city": "San Jose" },
   { "name": "Bay FC", "domain": "bayfc.com", "method": "bayfc", "feedUrl": "https://bayfc.com/schedule/", "address": "1123 Coleman Ave, San Jose", "city": "San Jose" },
   { "name": "San Jose Giants", "domain": "milb.com", "method": "mlb", "feedUrl": "https://statsapi.mlb.com/api/v1/schedule?teamId=476", "address": "588 E Alma Ave, San Jose", "city": "San Jose" },
   { "name": "San Jose Earthquakes", "domain": "sjearthquakes.com", "method": "mls", "feedUrl": "https://stats-api.mlssoccer.com/competitions/MLS-COM-000001/seasons", "address": "1123 Coleman Ave, San Jose", "city": "San Jose" },

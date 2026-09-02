@@ -834,6 +834,92 @@ async function readNhl(source) {
   });
 }
 
+// SAP Center's public list mixes family shows with adult-oriented concerts.
+// A venue alone is not an audience signal, so publish only clearly named
+// children's/family productions. Sharks home games already come from the NHL
+// schedule API, which is the canonical source for game dates and details.
+function isSapCenterFamilyShow(title) {
+  return /\b(?:monster jam|disney on ice|paw patrol|bluey|blippi|sesame street|harlem globetrotters|hot wheels monster trucks|jurassic world|marvel universe live|family|children(?:'s)?|kids?|youth)\b/i.test(title);
+}
+
+function sapCenterSummary(title) {
+  if (/monster jam/i.test(title)) return 'Live monster truck competition and freestyle show at SAP Center.';
+  if (/disney on ice/i.test(title)) return 'A live ice-skating show featuring Disney stories and characters.';
+  if (/paw patrol/i.test(title)) return 'A live family stage show featuring PAW Patrol characters and adventures.';
+  if (/bluey/i.test(title)) return 'A live family stage show featuring Bluey and her friends.';
+  if (/blippi/i.test(title)) return 'An interactive live show with Blippi for young children and families.';
+  if (/sesame street/i.test(title)) return 'A live family show with Sesame Street characters, music, and playful learning.';
+  if (/harlem globetrotters/i.test(title)) return 'Family-friendly basketball entertainment with tricks, games, and audience fun.';
+  if (/hot wheels monster trucks/i.test(title)) return 'A live monster truck show with oversized Hot Wheels vehicles and stunts.';
+  if (/jurassic world/i.test(title)) return 'A live family arena show featuring dinosaur adventures inspired by Jurassic World.';
+  if (/marvel universe live/i.test(title)) return 'A live family arena show featuring Marvel heroes, action, and stunts.';
+  if (/family|children(?:'s)?|kids?|youth/i.test(title)) return 'A live family-focused show at SAP Center.';
+  return '';
+}
+
+function sapCenterListingDates(dateText) {
+  const text = String(dateText || '').replace(/\./g, '').replace(/\s+/g, ' ').trim();
+  const match = text.match(/\b(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+(\d{1,2})(?:\s*-\s*(\d{1,2}))?,?\s+(20\d{2})\b/i);
+  if (!match) return [];
+  const month = months[match[1].slice(0, 3).toLowerCase()];
+  if (!month) return [];
+  const firstDay = Number(match[2]);
+  const lastDay = Number(match[3] || match[2]);
+  const year = Number(match[4]);
+  if (lastDay < firstDay || lastDay - firstDay > 14) return [];
+  return Array.from({ length: lastDay - firstDay + 1 }, (_, index) => `${year}-${String(month).padStart(2, '0')}-${String(firstDay + index).padStart(2, '0')}`);
+}
+
+function sapCenterDetailSessions(html, year) {
+  // SAP Center's session table has nested spans. Parse the published cells
+  // before using a text fallback: unrelated inline scripts can otherwise
+  // make a generic HTML-to-text conversion swallow later sessions.
+  const tableSessions = [...String(html || '').matchAll(/showings_date[\s\S]*?m-date__month[^>]*>\s*([^<]+)[\s\S]*?m-date__day[^>]*>\s*(\d{1,2})[\s\S]*?<span class=["']time\s+cell["'][^>]*>\s*(\d{1,2}(?::\d{2})?\s*(?:AM|PM))/gi)];
+  const parsedTableSessions = tableSessions.map(match => isoDateFromOfficialText(`${plainText(match[1])} ${match[2]}, ${year}`, match[3])).filter(Boolean);
+  if (parsedTableSessions.length) return [...new Set(parsedTableSessions)];
+  const text = plainText(html).replace(/\s+/g, ' ').trim();
+  const sessions = [...text.matchAll(/\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+((?:January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\.?\s+\d{1,2})\s+(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?))\b/gi)];
+  return [...new Set(sessions.map(match => isoDateFromOfficialText(`${match[1]}, ${year}`, match[2])).filter(Boolean))];
+}
+
+async function readSapCenter(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const html = await response.text();
+  if (!response.ok || !/eventItem\s+entry/i.test(html)) throw new Error('SAP Center official event list was not valid: ' + response.status);
+  const listings = html.split(/<div class=["'][^"']*\beventItem\b[^"']*["'][^>]*>/i).slice(1).flatMap(block => {
+    const url = htmlAttribute(block, /<h3[^>]*class=["'][^"']*\btitle\b[^"']*["'][^>]*>\s*<a[^>]+href=["']([^"']+)/i)
+      || htmlAttribute(block, /<a[^>]+href=["']([^"']*\/events\/detail\/[^"']+)/i);
+    const title = plainText(block.match(/<h3[^>]*class=["'][^"']*\btitle\b[^"']*["'][^>]*>\s*<a[^>]*>([\s\S]*?)<\/a>/i)?.[1] || '');
+    const dateText = plainText(block.match(/<div class=["']date["'][^>]*>([\s\S]*?)<\/div>/i)?.[1] || '');
+    const image = htmlAttribute(block, /<div class=["']thumb["'][^>]*>[\s\S]*?<img[^>]+src=["']([^"']+)/i);
+    const listingDates = sapCenterListingDates(dateText);
+    const year = Number(dateText.match(/\b(20\d{2})\b/)?.[1] || '');
+    if (!title || !url || !listingDates.length || !isSapCenterFamilyShow(title) || !hasActivitySummary(sapCenterSummary(title))) return [];
+    return [{ title, url: new URL(url, source.feedUrl).href, image: image ? new URL(image, source.feedUrl).href : '', listingDates, year }];
+  });
+  const expanded = await Promise.all(listings.map(async listing => {
+    let dates = listing.listingDates;
+    try {
+      const detailResponse = await fetch(listing.url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+      if (detailResponse.ok) {
+        const detailHtml = await detailResponse.text();
+        const detailSessions = sapCenterDetailSessions(detailHtml, listing.year || Number(listing.listingDates[0].slice(0, 4)));
+        if (detailSessions.length) dates = detailSessions;
+      }
+    } catch {
+      // The official list still gives a reliable date range if an individual
+      // detail page is temporarily unavailable.
+    }
+    return dates.filter(isUpcoming).map((dateValue, index) => directEvent({
+      id: 'sapcenter-' + createHash('sha256').update(`${listing.url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
+      title: listing.title, dateValue, description: sapCenterSummary(listing.title), image: listing.image,
+      place: 'SAP Center at San Jose', address: source.address || '', city: source.city || '', source: source.name, url: listing.url,
+      ageText: 'family', format: 'live-show'
+    }));
+  }));
+  return expanded.flat();
+}
+
 async function readBayfc(source) {
   const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
   const html = await response.text();
@@ -1840,7 +1926,7 @@ const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'curated'];
+const directMethods = ['rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'curated'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
@@ -1862,6 +1948,7 @@ const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'midpen') return readMidpen(source);
   if (source.method === 'stanford') return readStanford(source);
   if (source.method === 'nhl') return readNhl(source);
+  if (source.method === 'sapcenter') return readSapCenter(source);
   if (source.method === 'bayfc') return readBayfc(source);
   if (source.method === 'mlb') return readMlb(source);
   if (source.method === 'mls') return readMls(source);
