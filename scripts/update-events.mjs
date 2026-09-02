@@ -258,6 +258,18 @@ function canonicalCity(value) {
   return /^san jos[eé]$/i.test(city) ? 'San Jose' : city;
 }
 
+// Some official partner calendars place a venue and its complete mailing
+// address in one field (for example, “Civic Center Plaza, 457 E. Calaveras
+// Blvd, Milpitas, CA 95035”). Split it before publishing: parents can read
+// the venue name and immediately tap the street address for directions.
+function venueAndAddress(value, fallbackCity = '') {
+  const location = plainText(value);
+  const match = location.match(/^(.*?)\s*,\s*(\d+\s+[^,]+?)\s*,\s*([A-Za-z .'-]+?)\s*,\s*(?:CA|California)\s*\d{5}(?:-\d{4})?\s*$/i);
+  if (!match) return { place: location, address: '', city: canonicalCity(fallbackCity) };
+  const city = canonicalCity(match[3] || fallbackCity);
+  return { place: match[1].trim(), address: shortAddress(match[2], city), city };
+}
+
 // A parent chooses a child's actual age, so cards must preserve the
 // organizer's age range instead of reducing it to a broad school-grade band.
 // `ageMin` and `ageMax` drive the filter; `ageLabel` is the same range shown
@@ -458,7 +470,8 @@ async function readChcp(source) {
     }
     const dateValue = isoDateFromOfficialText(dateText, timeText);
     const eventText = `${title} ${description}`;
-    const city = ['San Jose', 'Santa Clara', 'Mountain View', 'Palo Alto', 'Milpitas', 'Cupertino', 'Los Altos', 'Sunnyvale']
+    const parsedLocation = venueAndAddress(location, source.city || '');
+    const city = parsedLocation.city || ['San Jose', 'Santa Clara', 'Mountain View', 'Palo Alto', 'Milpitas', 'Cupertino', 'Los Altos', 'Sunnyvale']
       .find(candidate => new RegExp(`\\b${candidate}\\b`, 'i').test(location)) || source.city || '';
     const familySignal = /\b(?:family|children|kids?|youth|teen|all ages|festival|celebration|cultural|museum open|hands-on|lion dance|scavenger hunt)\b/i.test(eventText);
     // CHCP's calendar also syndicates adult lectures and non-local events.
@@ -470,7 +483,7 @@ async function readChcp(source) {
       id: 'chcp-' + createHash('sha256').update(`${url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
       title, dateValue, description,
       image: officialPageImage(block, source.feedUrl, /([\s\S]*)/),
-      place: location || source.name, city, source: source.name, url,
+      place: parsedLocation.place || source.name, address: parsedLocation.address, city, source: source.name, url,
       // “Festival” alone does not prove an age range. Only expose an age tag
       // when CHCP explicitly names an audience; otherwise leave it unlabelled.
       ageText: /family|children|kids?|youth|all ages/i.test(eventText) ? eventText : ''
@@ -1888,13 +1901,48 @@ searchSources.forEach(source => {
 // Keep separate official sessions that share one details page. The earlier
 // URL-only dedupe silently discarded all but the final time for a show such
 // as a CMT production, defeating the card's “other sessions” experience.
-const individualEvents = [...new Map([...feedEvents, ...candidates]
+const preliminaryEvents = [...new Map([...feedEvents, ...candidates]
   .map(event => [`${event.url.toLowerCase()}|${event.dateValue || ''}`, event])).values()]
   // A card must explain what the activity is. We do not replace missing
   // organizer copy with generic prompts or publish logistics-only text.
   .filter(event => hasActivitySummary(event.description))
   .filter(isFamilyRelevant)
   .map(withPresentationFields)
+  .sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
+
+function eventTitleTokens(title) {
+  return new Set(plainText(title).toLowerCase().replace(/\b(?:san|jose|milpitas|palo|alto|santa|clara|cupertino|sunnyvale|mountain|view|los)\b/g, '')
+    .replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(word => word.length > 2));
+}
+
+function organizerPriority(event) {
+  // When two official calendars announce the same local event, prefer the
+  // municipality that operates the venue over a partner's syndicated listing.
+  if (/^City of\s+/i.test(event.source || '')) return 3;
+  return event.verification === 'official-page' ? 2 : 1;
+}
+
+function coalesceCrossSourceDuplicates(events) {
+  const result = [];
+  events.forEach(event => {
+    const tokens = eventTitleTokens(event.title);
+    const matchIndex = result.findIndex(existing => {
+      const eventTime = String(event.dateValue || '').replace(/(T\d{2}:\d{2}):00$/, '$1');
+      const existingTime = String(existing.dateValue || '').replace(/(T\d{2}:\d{2}):00$/, '$1');
+      if (existing.source === event.source || !eventTime || existingTime !== eventTime || !event.city || existing.city !== event.city) return false;
+      const sameAddress = event.address && existing.address && event.address.toLowerCase() === existing.address.toLowerCase();
+      const samePlace = event.place && existing.place && event.place.toLowerCase() === existing.place.toLowerCase();
+      const otherTokens = eventTitleTokens(existing.title);
+      const shared = [...tokens].filter(token => otherTokens.has(token)).length;
+      return (sameAddress || samePlace) && shared >= 2 && shared === Math.min(tokens.size, otherTokens.size);
+    });
+    if (matchIndex < 0) result.push(event);
+    else if (organizerPriority(event) > organizerPriority(result[matchIndex])) result[matchIndex] = event;
+  });
+  return result;
+}
+
+const individualEvents = coalesceCrossSourceDuplicates(preliminaryEvents)
   .sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
 
 function seriesKey(event) {
