@@ -1030,7 +1030,10 @@ async function readSouthFirstFridays(source) {
       : 'A self-guided SoFA evening art walk with gallery exhibitions, live music, and special performances.';
     return [directEvent({
       id: 'south-first-fridays-' + createHash('sha256').update(`${post.link}|${dateValue}`).digest('hex').slice(0, 16),
-      title, dateValue, description, image, place: 'SoFA District', address: '', city: 'San Jose',
+      // The ArtWalk is intentionally spread across the SoFA district. Publish
+      // its official street corridor for navigation, never a made-up host
+      // venue or a single participant's address.
+      title, dateValue, description, image, place: 'SoFA District', address: 'South 1st St, San Jose', city: 'San Jose',
       source: source.name, url: post.link, forcedType: 'arts'
     })];
   });
