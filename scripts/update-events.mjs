@@ -563,8 +563,8 @@ function isoDateFromOfficialText(dateText, timeText = '') {
   return date + 'T' + String(hour).padStart(2, '0') + ':' + (time[2] || '00');
 }
 
-function directEvent({ id, title, dateValue, description, image = '', imagePresentation = '', imageBackground = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, ageText = '', format = '', movieRating = '' }) {
-  const type = format === 'live-show' ? 'shows' : format === 'movie-screening' ? 'movies' : typeFor(title + ' ' + description + ' ' + ageText);
+function directEvent({ id, title, dateValue, description, image = '', imagePresentation = '', imageBackground = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, ageText = '', format = '', movieRating = '', forcedType = '' }) {
+  const type = forcedType || (format === 'live-show' ? 'shows' : format === 'movie-screening' ? 'movies' : typeFor(title + ' ' + description + ' ' + ageText));
   const age = ageInfo(ageText);
   return {
     id, title, date: displayEventDate(dateValue), dateValue, ...age,
@@ -997,6 +997,32 @@ async function readCinemark(source) {
       ageText: item.rating === 'G' ? 'all ages' : '', format: 'movie-screening', movieRating: item.rating
     });
     return { ...event, costLabel: '需购票／价格见详情', costSource: 'Official cinema ticketing' };
+  });
+}
+
+async function readSouthFirstFridays(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const posts = await response.json();
+  if (!response.ok || !Array.isArray(posts)) throw new Error('South FIRST FRIDAYS official feed was not valid: ' + response.status);
+  return posts.flatMap(post => {
+    const postTitle = plainText(post?.title?.rendered || '');
+    const content = String(post?.content?.rendered || '');
+    if (!/south\s+first\s+fridays|artwalksj|art\s*walk/i.test(`${postTitle} ${content}`)) return [];
+    // The post headline carries the one authoritative occurrence date; do not
+    // derive an event merely from the recurring "first Friday" convention.
+    const dateValue = isoDateFromOfficialText(postTitle, plainText(content));
+    if (!dateValue || !isUpcoming(dateValue)) return [];
+    const hasStreetMarket = /street\s*mrkt|street\s*market/i.test(`${postTitle} ${content}`);
+    const image = htmlAttribute(content, /<img[^>]+src=["']([^"']+)/i);
+    const title = hasStreetMarket ? 'South FIRST FRIDAYS ArtWalk SJ + Street Mrkt' : 'South FIRST FRIDAYS ArtWalk SJ';
+    const description = hasStreetMarket
+      ? 'A self-guided SoFA evening art walk with gallery exhibitions, live performances, and an indie art market.'
+      : 'A self-guided SoFA evening art walk with gallery exhibitions, live music, and special performances.';
+    return [directEvent({
+      id: 'south-first-fridays-' + createHash('sha256').update(`${post.link}|${dateValue}`).digest('hex').slice(0, 16),
+      title, dateValue, description, image, place: 'SoFA District', address: '', city: 'San Jose',
+      source: source.name, url: post.link, forcedType: 'arts'
+    })];
   });
 }
 
@@ -2038,7 +2064,7 @@ const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'curated'];
+const directMethods = ['rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'curated'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
@@ -2063,6 +2089,7 @@ const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'sapcenter') return readSapCenter(source);
   if (source.method === 'cinelux') return readCinelux(source);
   if (source.method === 'cinemark') return readCinemark(source);
+  if (source.method === 'southfirstfridays') return readSouthFirstFridays(source);
   if (source.method === 'bayfc') return readBayfc(source);
   if (source.method === 'mlb') return readMlb(source);
   if (source.method === 'mls') return readMls(source);

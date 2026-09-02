@@ -29,6 +29,7 @@
   { "name": "Cinemark Century Oakridge 20", "domain": "cinemark.com", "method": "cinemark", "feedUrl": "https://www.cinemark.com/theatres/ca-san-jose/cinemark-century-oakridge-20-xd-and-screenx", "address": "925 Blossom Hill Rd, San Jose", "city": "San Jose" },
   { "name": "Cinemark Century Great Mall 20", "domain": "cinemark.com", "method": "cinemark", "feedUrl": "https://www.cinemark.com/theatres/ca-milpitas/cinemark-century-great-mall-20-xd-and-screenx", "address": "1010 Great Mall Dr, Milpitas", "city": "Milpitas" },
   { "name": "Cinemark CineArts Santana Row", "domain": "cinemark.com", "method": "cinemark", "feedUrl": "https://www.cinemark.com/theatres/ca-san-jose/cinemark-cinearts-santana-row", "address": "3088 Olsen Dr, San Jose", "city": "San Jose" },
+  { "name": "South FIRST FRIDAYS / ArtWalkSJ", "domain": "southfirstfridays.com", "method": "southfirstfridays", "feedUrl": "https://www.southfirstfridays.com/wp-json/wp/v2/posts?categories=4&per_page=15", "city": "San Jose" },
   { "name": "SAP Center", "domain": "sapcenter.com", "method": "sapcenter", "feedUrl": "https://www.sapcenter.com/events/all", "address": "525 W Santa Clara St, San Jose", "city": "San Jose" },
   { "name": "Bay FC", "domain": "bayfc.com", "method": "bayfc", "feedUrl": "https://bayfc.com/schedule/", "address": "1123 Coleman Ave, San Jose", "city": "San Jose" },
   { "name": "San Jose Giants", "domain": "milb.com", "method": "mlb", "feedUrl": "https://statsapi.mlb.com/api/v1/schedule?teamId=476", "address": "588 E Alma Ave, San Jose", "city": "San Jose" },
