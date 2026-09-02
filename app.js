@@ -163,8 +163,19 @@ function render() {
   visible.forEach(event => {
     const session = activeSession(event); const sessions = matchingSessions(event); const node = template.content.cloneNode(true); const fallbackImage = `assets/fallback/${fallbackImageType[event.type] || event.type || 'community'}.png?v=20260830-1`; const image = event.image || fallbackImage; const imageArea = node.querySelector('.card-image');
     const setCardImage = url => { imageArea.style.backgroundImage = `linear-gradient(0deg, rgba(18, 49, 42, .08), rgba(18, 49, 42, .08)), url(${JSON.stringify(url)})`; };
-    imageArea.style.backgroundColor = event.imageBackground || event.color; setCardImage(image); imageArea.classList.add('has-image'); imageArea.classList.toggle('team-mark', event.imagePresentation === 'team-mark');
-    if (event.image) { const imageProbe = new Image(); imageProbe.onerror = () => { imageArea.classList.remove('team-mark'); imageArea.style.backgroundColor = event.color; setCardImage(fallbackImage); }; imageProbe.src = event.image; }
+    imageArea.style.backgroundColor = event.imageBackground || event.color; imageArea.classList.add('has-image'); imageArea.classList.toggle('team-mark', event.imagePresentation === 'team-mark');
+    if (event.imagePresentation === 'team-mark' && event.image) {
+      // A transparent club SVG must be an element, not a CSS background. A
+      // background renderer can expose the asset's square canvas against the
+      // card color; an image layer keeps the team mark clean and centered.
+      imageArea.style.backgroundImage = 'none';
+      const teamMark = new Image(); teamMark.className = 'team-mark-image'; teamMark.alt = ''; teamMark.src = event.image;
+      teamMark.onerror = () => { teamMark.remove(); imageArea.classList.remove('team-mark'); imageArea.style.backgroundColor = event.color; setCardImage(fallbackImage); };
+      imageArea.append(teamMark);
+    } else {
+      setCardImage(image);
+      if (event.image) { const imageProbe = new Image(); imageProbe.onerror = () => setCardImage(fallbackImage); imageProbe.src = event.image; }
+    }
     node.querySelector('.event-icon').textContent = event.icon; node.querySelector('.tag').textContent = categoryLabel(event); node.querySelector('h3').textContent = eventText(event, 'title');
     const description = node.querySelector('.description'); const descriptionToggle = node.querySelector('.description-toggle'); description.textContent = eventText(event, 'description'); description.hidden = !description.textContent.trim(); description.id = `description-${event.id}`;
     descriptionToggle.dataset.eventId = event.id; descriptionToggle.setAttribute('aria-controls', description.id); descriptionToggle.setAttribute('aria-expanded', 'false'); descriptionToggle.textContent = t('expandDescription');
