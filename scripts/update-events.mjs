@@ -581,8 +581,20 @@ function directEvent({ id, title, dateValue, description, image = '', imagePrese
     costLabel: '费用未注明', costSource: '', type, icon: icons[type], color: colors[type], tag: labels[type],
     verification: 'official-page', lastVerifiedAt: generatedAt, format,
     description: cardSummary(description),
-    image, imagePresentation, imageBackground, place, address, city: canonicalCity(city), meetingPoint, mapUrl, source, url, movieRating
+    image: optimizedOfficialImageUrl(image, source), imagePresentation, imageBackground, place, address, city: canonicalCity(city), meetingPoint, mapUrl, source, url, movieRating
   };
+}
+
+function optimizedOfficialImageUrl(value, source = '') {
+  if (!value || !/^https?:\/\//i.test(value)) return value || '';
+  try {
+    const url = new URL(value);
+    if (url.hostname.endsWith('cupertino.gov') && (url.searchParams.get('dimension') === 'smallthumbnail' || (url.searchParams.has('w') && Number(url.searchParams.get('w')) <= 100))) url.search = '';
+    if (url.hostname === 'filoli.org' && /\/media\//.test(url.pathname) && url.searchParams.has('width') && Number(url.searchParams.get('width')) <= 320) url.search = '';
+    if (source === 'San Jose Theaters' && /(?:^|[-_])200(?:x200)?(?:[-_.]|$)/i.test(url.pathname)) return '';
+    if (url.hostname.endsWith('cupertino.gov') && /short-header-bike-fest/i.test(url.pathname)) return '';
+    return url.href;
+  } catch { return value; }
 }
 
 // A few major local festivals publish a single authoritative event page rather
@@ -2328,7 +2340,8 @@ function museumAsEvent(museum, source) {
   };
 }
 
-const events = groupRepeatedSessions([...scheduledEvents, ...museums.map(museum => museumAsEvent(museum, museumSource))]);
+const events = groupRepeatedSessions([...scheduledEvents, ...museums.map(museum => museumAsEvent(museum, museumSource))])
+  .map(event => ({ ...event, image: optimizedOfficialImageUrl(event.image, event.source) }));
 
 function translationFingerprint(event) {
   return createHash('sha256').update(String(event.title || '') + '\n' + String(event.description || '')).digest('hex');

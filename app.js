@@ -34,6 +34,28 @@ const categoryLabels = { sports: ['体育与比赛', 'Sports & games'], shows: [
 // Each parent-facing activity label has its own fallback image. Official event
 // artwork always wins; these are used only when a verified source has none.
 const fallbackImageType = { sports: 'sports', shows: 'shows', movies: 'shows', museums: 'museums', play: 'play', workshops: 'workshops' };
+function optimizedOfficialImageUrl(value, source = '') {
+  if (!value || !/^https?:\/\//i.test(value)) return value || '';
+  try {
+    const url = new URL(value);
+    // Cupertino's calendar card exposes a 100px thumbnail even though the
+    // same official asset is available at its original multi-megapixel URL.
+    if (url.hostname.endsWith('cupertino.gov') && (url.searchParams.get('dimension') === 'smallthumbnail' || (url.searchParams.has('w') && Number(url.searchParams.get('w')) <= 100))) {
+      url.search = '';
+    }
+    // Filoli's listing feed requests a 320x180 crop. Removing the image
+    // transform retrieves the original 2000–3000px official photograph.
+    if (url.hostname === 'filoli.org' && /\/media\//.test(url.pathname) && url.searchParams.has('width') && Number(url.searchParams.get('width')) <= 320) {
+      url.search = '';
+    }
+    // Some San Jose Theaters records contain only a 200px square supplied by
+    // the organizer. A crisp category illustration is preferable to visibly
+    // pixelating that asset across a wide card.
+    if (source === 'San Jose Theaters' && /(?:^|[-_])200(?:x200)?(?:[-_.]|$)/i.test(url.pathname)) return '';
+    if (url.hostname.endsWith('cupertino.gov') && /short-header-bike-fest/i.test(url.pathname)) return '';
+    return url.href;
+  } catch { return value; }
+}
 const legacyAgeLabels = { '0-2': ['0–2 岁', 'Ages 0–2'], '3-5': ['3–5 岁', 'Ages 3–5'], k5: ['K–5 年级', 'Grades K–5'], middle: ['6–8 年级', 'Grades 6–8'], high: ['9–12 年级', 'Grades 9–12'], 'all-ages': ['所有年龄', 'All ages'], family: ['全家适合', 'Family-friendly'] };
 const costLabels = { '免费': ['免费', 'Free'], '建议捐赠': ['建议捐赠', 'Suggested donation'], '会员／非会员价格见详情': ['会员／非会员价格见详情', 'Member / non-member price—see details'], '需购票／价格见详情': ['需购票／价格见详情', 'Tickets / price—see details'] };
 // Coordinates are only supplied for a specific organizer-provided street address.
@@ -178,10 +200,10 @@ function render() {
   const visible = sortEvents(events.filter(event => (state.type === 'all' || event.type === state.type) && (state.city === 'all' || event.city === state.city) && ageMatches(event, state.age) && matchingSessions(event).length && (!state.onlySaved || isSaved(event))));
   grid.innerHTML = '';
   visible.forEach((event, eventIndex) => {
-    const session = activeSession(event); const sessions = matchingSessions(event); const node = template.content.cloneNode(true); const fallbackImage = `assets/fallback/${fallbackImageType[event.type] || event.type || 'community'}.png?v=20260830-1`; const image = event.image || fallbackImage; const imageArea = node.querySelector('.card-image');
+    const session = activeSession(event); const sessions = matchingSessions(event); const node = template.content.cloneNode(true); const fallbackImage = `assets/fallback/${fallbackImageType[event.type] || event.type || 'community'}.png?v=20260830-1`; const officialImage = optimizedOfficialImageUrl(event.image, event.source); const image = officialImage || fallbackImage; const imageArea = node.querySelector('.card-image');
     const setCardImage = url => { imageArea.style.backgroundImage = `linear-gradient(0deg, rgba(18, 49, 42, .08), rgba(18, 49, 42, .08)), url(${JSON.stringify(url)})`; };
     imageArea.style.backgroundColor = event.imageBackground || event.color; imageArea.classList.add('has-image'); imageArea.classList.toggle('team-mark', event.imagePresentation === 'team-mark');
-    if (event.imagePresentation === 'team-mark' && event.image) {
+    if (event.imagePresentation === 'team-mark' && officialImage) {
       // A transparent club SVG must be an element, not a CSS background. A
       // background renderer can expose the asset's square canvas against the
       // card color; an image layer keeps the team mark clean and centered.
@@ -191,7 +213,7 @@ function render() {
       imageArea.append(teamMark);
     } else {
       setCardImage(image);
-      if (event.image) { const imageProbe = new Image(); imageProbe.onerror = () => setCardImage(fallbackImage); imageProbe.src = event.image; }
+      if (officialImage) { const imageProbe = new Image(); imageProbe.onerror = () => setCardImage(fallbackImage); imageProbe.src = officialImage; }
     }
     node.querySelector('.event-icon').textContent = event.icon; const tag = node.querySelector('.tag'); tag.textContent = event.recommendationBadge === 'top-pick' ? t('topPick') : event.recommendationBadge === 'special-event' ? t('specialEvent') : categoryLabel(event); tag.classList.toggle('recommendation-tag', Boolean(event.recommendationBadge)); tag.classList.toggle('top-pick', event.recommendationBadge === 'top-pick'); node.querySelector('h3').textContent = eventText(event, 'title');
     const description = node.querySelector('.description'); const descriptionToggle = node.querySelector('.description-toggle'); description.textContent = eventText(event, 'description'); description.hidden = !description.textContent.trim(); description.id = `description-${event.id}`;
