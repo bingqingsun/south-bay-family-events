@@ -138,8 +138,8 @@
 .home-page .event-card { border-color: #e1e6ee; box-shadow: 0 5px 0 #203e7404; }
 .home-page .event-card:hover { box-shadow: 0 18px 33px #203e741b; }
 .home-page .tag, .home-page .heart { box-shadow: 0 3px 12px #203e7415; }
-.home-page .tag.recommendation-tag { background: #fff4cb; color: #75520a; }
-.home-page .tag.recommendation-tag.top-pick { background: #235ce8; color: #fff; }
+.home-page .recommendation-badge { background: #fff4cb; border-radius: 14px; bottom: 11px; box-shadow: 0 3px 12px #203e7415; color: #75520a; font-size: 10px; font-weight: 800; left: 13px; padding: 5px 8px; position: absolute; }
+.home-page .recommendation-badge.top-pick { background: #235ce8; color: #fff; }
 .home-page .card-content h3 { color: #1e2c46; font-family: "DM Sans", "Noto Sans SC", sans-serif; letter-spacing: -.35px; }
 .home-page .source-link { color: #235ce8; }
 .home-page .source-link span { color: #ff7462; }
