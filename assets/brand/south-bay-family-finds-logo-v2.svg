@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 120" role="img" aria-labelledby="title desc">
+  <title id="title">South Bay Family Finds</title>
+  <desc id="desc">South Bay Family Finds wordmark with a sunrise and abstract bay symbol.</desc>
+  <g>
+    <circle cx="60" cy="60" r="56" fill="#EAF2FF"/>
+    <path fill="#FF7462" d="M22 64a19 19 0 0 1 38 0H22Z"/>
+    <path fill="#FFC955" d="m87 22 3.4 8.6L99 34l-8.6 3.4L87 46l-3.4-8.6L75 34l8.6-3.4L87 22Z"/>
+    <path fill="#235CE8" d="M6.6 71.5C30 60.1 62.1 59.2 113.2 72.8c-31.8-1.4-54.7 4.6-63 14.2-6.2 7.2 7.3 13.1 38.4 17.2A56 56 0 0 1 6.6 71.5Z"/>
+  </g>
+  <text x="138" y="75" fill="#17243F" font-family="DM Sans, Inter, Avenir Next, Arial, sans-serif" font-size="43" font-weight="600" letter-spacing="-1.1">
+    <tspan>South Bay Family</tspan><tspan dx="10" fill="#235CE8">Finds</tspan>
+  </text>
+</svg>

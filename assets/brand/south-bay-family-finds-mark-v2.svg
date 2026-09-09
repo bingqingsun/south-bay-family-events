@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="title desc">
+  <title id="title">South Bay Family Finds brand mark</title>
+  <desc id="desc">A sunrise, a discovery sparkle, and an abstract South Bay shoreline.</desc>
+  <circle cx="60" cy="60" r="56" fill="#EAF2FF"/>
+  <path fill="#FF7462" d="M22 64a19 19 0 0 1 38 0H22Z"/>
+  <path fill="#FFC955" d="m87 22 3.4 8.6L99 34l-8.6 3.4L87 46l-3.4-8.6L75 34l8.6-3.4L87 22Z"/>
+  <path fill="#235CE8" d="M6.6 71.5C30 60.1 62.1 59.2 113.2 72.8c-31.8-1.4-54.7 4.6-63 14.2-6.2 7.2 7.3 13.1 38.4 17.2A56 56 0 0 1 6.6 71.5Z"/>
+</svg>
