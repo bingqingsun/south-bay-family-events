@@ -5,6 +5,12 @@
  */
 import { readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import {
+  isKidAppropriateMovie,
+  isPotentialFamilyMovieRating,
+  kidMovieSummary,
+  normalizedMovieRating
+} from './movie-policy.mjs';
 
 const key = process.env.SERPAPI_KEY;
 // Translation is intentionally paused: no third-party translation key is read
@@ -64,8 +70,8 @@ function hasExplicitChildAudience(text) {
 
 function isExplicitlyAdultOnly(text) {
   const value = plainText(text);
-  const adult18Plus = /\badults?\s*,?\s*(?:ages?\s*)?18\s*\+|\badults?\s+only\b|\bages?\s*18\s*\+\s*(?:only)?\b/i.test(value);
-  return adult18Plus && !hasExplicitChildAudience(value);
+  const adultOnly = /\badults?\s*,?\s*(?:ages?\s*)?(?:18|21)\s*\+|\badults?\s+only\b|\bages?\s*(?:18|21)\s*\+(?:\s*only)?|\b21\s*\+|\b21\s+and (?:over|up)\b/i.test(value);
+  return adultOnly && !hasExplicitChildAudience(value);
 }
 function withPresentationFields(event) {
   const audienceText = `${event.title || ''} ${event.description || ''} ${event.ageLabel || ''} ${event.ageSource || ''}`;
@@ -953,31 +959,34 @@ function cinemaDateValue(date, time) {
   return `${date}T${String(hour).padStart(2, '0')}:${match[2] || '00'}`;
 }
 
-function cineluxSynopsis(html, title) {
-  const section = String(html || '').match(/(?:<h2[^>]*>\s*Synopsis\s*<\/h2>|\bSynopsis\b)[\s\S]{0,1800}?<p[^>]*>([\s\S]*?)<\/p>/i)?.[1] || '';
-  return cardSummary(section, title);
-}
-
-function isKidAppropriateMovie(title, rating) {
-  if (rating === 'G') return true;
-  return rating === 'PG' && /\b(?:paw patrol|coyote vs acme|harry potter|cars|tom and jerry|toy story|moana|frozen|disney|pixar|minions|despicable me|sonic|paddington|smurfs|how to train your dragon|spongebob|mario|lego|dog man|kung fu panda)\b/i.test(title);
-}
-
-function kidMovieSummary(title) {
-  if (/paw patrol.*dino/i.test(title)) return 'PAW Patrol pups explore a dinosaur-filled island and race to stop a volcanic disaster.';
-  if (/coyote vs acme/i.test(title)) return 'Wile E. Coyote takes Acme to court after its products repeatedly derail his Roadrunner pursuits.';
-  if (/harry potter.*sorcerer/i.test(title)) return 'Harry Potter begins his first year at Hogwarts and discovers a hidden magical world.';
-  if (/cars.*20th/i.test(title)) return 'A big-screen anniversary screening of Pixar’s Cars, following Lightning McQueen’s unexpected detour to Radiator Springs.';
-  if (/tom and jerry/i.test(title)) return 'Tom and Jerry embark on a family-friendly animated adventure.';
-  return '';
-}
-
-function cinemarkSynopsis(html, title) {
-  const meta = String(html || '').match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)/i)?.[1]
-    || String(html || '').match(/<meta[^>]+content=["']([^"']+)["'][^>]+name=["']description["']/i)?.[1]
-    || String(html || '').match(/class=["'][^"']*movie-(?:synopsis|description)[^"']*["'][^>]*>([\s\S]*?)<\//i)?.[1]
+function cineluxMovieMetadata(html, title) {
+  const value = String(html || '');
+  const synopsis = value.match(/Synopsis\s*<\/h4>[\s\S]{0,500}?<div[^>]+:class=["'][^"']+["'][^>]*>([\s\S]*?)<\/div>/i)?.[1]
+    || value.match(/(?:<h2[^>]*>\s*Synopsis\s*<\/h2>|\bSynopsis\b)[\s\S]{0,1800}?<p[^>]*>([\s\S]*?)<\/p>/i)?.[1]
     || '';
-  return cardSummary(meta, title);
+  const genre = value.match(/Genre\s*<\/h4>\s*<div[^>]*>([\s\S]*?)<\/div>/i)?.[1] || '';
+  return { summary: cardSummary(synopsis, title), genre: plainText(genre) };
+}
+
+function cinemarkMovieMetadata(html, title) {
+  const value = String(html || '');
+  let movie = null;
+  for (const match of value.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+    try {
+      movie = eventNodes(JSON.parse(decodeXml(match[1]))).find(item => String(item?.['@type'] || '').toLowerCase() === 'movie') || movie;
+    } catch {
+      // Fall through to the page metadata below when malformed JSON-LD is
+      // injected by an analytics or consent wrapper.
+    }
+  }
+  const meta = value.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)/i)?.[1]
+    || value.match(/<meta[^>]+content=["']([^"']+)["'][^>]+name=["']description["']/i)?.[1]
+    || value.match(/class=["'][^"']*movie-(?:synopsis|description)[^"']*["'][^>]*>([\s\S]*?)<\//i)?.[1]
+    || '';
+  return {
+    summary: cardSummary(movie?.description || meta, title),
+    genre: plainText(Array.isArray(movie?.genre) ? movie.genre.join(', ') : movie?.genre || '')
+  };
 }
 
 function cinemarkModels(html) {
@@ -992,8 +1001,8 @@ async function readCinemark(source) {
   if (!response.ok || !/data-json-model=/i.test(html)) throw new Error('Cinemark official showtimes were not valid: ' + response.status);
   const candidates = cinemarkModels(html).flatMap(movie => {
     const title = plainText(movie.movieTitle || '');
-    const rating = plainText(movie.movieRating || '').replace('PG-13', 'PG13');
-    if (!title || !isKidAppropriateMovie(title, rating) || !Array.isArray(movie.showTimes)) return [];
+    const rating = normalizedMovieRating(movie.movieRating || '');
+    if (!title || !isPotentialFamilyMovieRating(rating) || !Array.isArray(movie.showTimes)) return [];
     return movie.showTimes.flatMap(showtime => {
       const dateValue = String(showtime.showTime || '').slice(0, 16);
       if (!dateValue || !isUpcoming(dateValue)) return [];
@@ -1004,17 +1013,21 @@ async function readCinemark(source) {
       }];
     });
   });
-  const descriptions = new Map(await Promise.all([...new Set(candidates.map(item => item.movieUrl))].map(async url => {
+  const metadata = new Map(await Promise.all([...new Set(candidates.map(item => item.movieUrl))].map(async url => {
     try {
       const detailResponse = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
-      return [url, detailResponse.ok ? cinemarkSynopsis(await detailResponse.text(), '') : ''];
-    } catch { return [url, '']; }
+      return [url, detailResponse.ok ? cinemarkMovieMetadata(await detailResponse.text(), '') : { summary: '', genre: '' }];
+    } catch { return [url, { summary: '', genre: '' }]; }
   })));
-  return candidates.map(item => {
+  return candidates.filter(item => {
+    const details = metadata.get(item.movieUrl) || {};
+    return isKidAppropriateMovie(item.title, item.rating, `${details.genre || ''} ${details.summary || ''}`);
+  }).map(item => {
+    const details = metadata.get(item.movieUrl) || {};
     const event = directEvent({
       id: 'cinemark-' + createHash('sha256').update(`${source.feedUrl}|${item.title}|${item.dateValue}|${item.ticketUrl}`).digest('hex').slice(0, 16),
       title: item.title, dateValue: item.dateValue,
-      description: kidMovieSummary(item.title) || descriptions.get(item.movieUrl) || `${item.rating}-rated family movie screening.`,
+      description: kidMovieSummary(item.title) || details.summary || `${item.rating}-rated family movie screening.`,
       image: item.image, place: source.name, address: source.address || '', city: source.city || '', source: 'Cinemark Theatres', url: item.ticketUrl,
       ageText: item.rating === 'G' ? 'all ages' : '', format: 'movie-screening', movieRating: item.rating
     });
@@ -1063,19 +1076,23 @@ async function readCinelux(source) {
     const title = plainText(block.match(/<h3[^>]*>[\s\S]*?<a[^>]*>([\s\S]*?)<\/a>/i)?.[1] || '');
     const movieUrl = htmlAttribute(block, /<h3[^>]*>[\s\S]*?<a[^>]+href=["']([^"']+)/i);
     const image = htmlAttribute(block, /cin-showtimes-poster-desktop[\s\S]*?<img[^>]+src=["']([^"']+)/i);
-    const rating = plainText(block.match(/rounded-sm[^>]*>\s*(G|PG|PG-13|PG13|R|NR)\s*<\/div>/i)?.[1] || '').replace('PG-13', 'PG13');
+    const rating = normalizedMovieRating(block.match(/rounded-sm[^>]*>\s*(G|PG|PG-13|PG13|R|NR)\s*<\/div>/i)?.[1] || '');
     const showings = [...block.matchAll(/cin-showtimes-button[\s\S]*?href=["']([^"']+)[^>]*>[\s\S]*?([0-9]{1,2}:[0-9]{2}\s*[ap])\s*<\/a>/gi)];
-    if (!title || !movieUrl || !isKidAppropriateMovie(title, rating) || !showings.length) return [];
+    if (!title || !movieUrl || !isPotentialFamilyMovieRating(rating) || !showings.length) return [];
     const displayTitle = title.replace(/^DBOX\s+/i, '').trim();
     return showings.map(match => ({ title: displayTitle, movieUrl: new URL(movieUrl, source.feedUrl).href, image: image ? new URL(image, source.feedUrl).href : '', rating, dateValue: cinemaDateValue(date, plainText(match[2])), ticketUrl: new URL(decodeXml(match[1]), source.feedUrl).href }));
   }));
-  const descriptions = new Map(await Promise.all([...new Set(candidates.map(item => item.movieUrl))].map(async url => {
-    try { const response = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) }); return [url, response.ok ? cineluxSynopsis(await response.text(), '') : '']; } catch { return [url, '']; }
+  const metadata = new Map(await Promise.all([...new Set(candidates.map(item => item.movieUrl))].map(async url => {
+    try { const response = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) }); return [url, response.ok ? cineluxMovieMetadata(await response.text(), '') : { summary: '', genre: '' }]; } catch { return [url, { summary: '', genre: '' }]; }
   })));
-  return candidates.filter(item => item.dateValue && isUpcoming(item.dateValue)).map(item => {
+  return candidates.filter(item => {
+    const details = metadata.get(item.movieUrl) || {};
+    return item.dateValue && isUpcoming(item.dateValue) && isKidAppropriateMovie(item.title, item.rating, `${details.genre || ''} ${details.summary || ''}`);
+  }).map(item => {
+    const details = metadata.get(item.movieUrl) || {};
     const event = directEvent({
       id: 'cinelux-' + createHash('sha256').update(`${source.feedUrl}|${item.title}|${item.dateValue}|${item.ticketUrl}`).digest('hex').slice(0, 16),
-      title: item.title, dateValue: item.dateValue, description: kidMovieSummary(item.title) || descriptions.get(item.movieUrl) || `${item.rating}-rated family movie screening.`, image: item.image,
+      title: item.title, dateValue: item.dateValue, description: kidMovieSummary(item.title) || details.summary || `${item.rating}-rated family movie screening.`, image: item.image,
       place: source.name, address: source.address || '', city: source.city || '', source: 'CineLux Theatres', url: item.ticketUrl,
       ageText: item.rating === 'G' ? 'all ages' : '', format: 'movie-screening', movieRating: item.rating
     });
