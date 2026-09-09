@@ -6,6 +6,18 @@ export function normalizedMovieRating(rating) {
   return cleanText(rating).toUpperCase().replace(/PG\s*-?\s*13/, 'PG13');
 }
 
+export function normalizedMovieTitle(title) {
+  return cleanText(title).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
+export function cautiousMovieRating(ratings) {
+  const values = [...new Set((ratings || []).map(normalizedMovieRating).filter(Boolean))];
+  // Prefer the most cautious recognized rating when official cinema feeds
+  // disagree. NR is used only when no rated listing is available.
+  for (const rating of ['PG13', 'PG', 'G']) if (values.includes(rating)) return rating;
+  return values.includes('NR') ? 'NR' : '';
+}
+
 // Cinema feeds are inconsistent: some provide only a rating and title, while
 // others also expose an official genre or synopsis. Reject adult ratings
 // immediately, then apply the content policy after detail metadata is loaded.

@@ -6,9 +6,11 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import {
+  cautiousMovieRating,
   isKidAppropriateMovie,
   isPotentialFamilyMovieRating,
   kidMovieSummary,
+  normalizedMovieTitle,
   normalizedMovieRating
 } from './movie-policy.mjs';
 
@@ -2247,11 +2249,10 @@ const individualEvents = coalesceCrossSourceDuplicates(preliminaryEvents)
 
 function seriesKey(event) {
   if (event.format === 'movie-screening') {
-    // Theater chains vary punctuation and capitalization for the same film.
-    // Normalize those cosmetic differences so one movie card holds all nearby
-    // official cinema sessions rather than duplicating the activity.
-    const movieTitle = String(event.title || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
-    return [event.format, movieTitle, event.movieRating || '', event.type].join('\u001f');
+    // A title is one parent-facing activity even when cinema chains disagree
+    // about its rating or capitalization. Keep the rating off the identity key
+    // and resolve any disagreement conservatively while building the card.
+    return [event.format, normalizedMovieTitle(event.title), event.type].join('\u001f');
   }
   // Deliberately conservative: different themes, venues, audience rules, or
   // pricing stay as separate cards even when a host reuses the same title.
@@ -2272,9 +2273,21 @@ function groupRepeatedSessions(items) {
     const cardSessions = first.format === 'movie-screening'
       ? [...new Map(ordered.map(event => [`${String(event.dateValue).slice(0, 10)}\u001f${event.place}`, event])).values()]
       : ordered;
+    const movieRating = first.format === 'movie-screening'
+      ? cautiousMovieRating(ordered.map(event => event.movieRating))
+      : first.movieRating;
+    const displayTitle = first.format === 'movie-screening'
+      ? ordered.find(event => /[a-z]/.test(event.title || ''))?.title || first.title
+      : first.title;
+    const audience = first.format === 'movie-screening' && movieRating !== 'G'
+      ? { ageBands: [], ageRanges: [], ageMin: null, ageMax: null, ageLabel: '', ageSource: '', familyFriendly: false, audienceStatus: 'not-confirmed' }
+      : {};
     return [{
       ...first,
+      ...audience,
       id: 'series-' + createHash('sha256').update(key).digest('hex').slice(0, 16),
+      title: displayTitle,
+      movieRating,
       legacyIds: ordered.map(event => event.id),
       source: first.format === 'movie-screening' ? 'Official cinema listings' : first.source,
       sessions: cardSessions.map(event => ({ id: event.id, date: event.date, dateValue: event.dateValue, url: event.url, place: event.place, address: event.address, city: event.city }))

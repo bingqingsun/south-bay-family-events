@@ -1,12 +1,17 @@
 import assert from 'node:assert/strict';
 import {
+  cautiousMovieRating,
   isKidAppropriateMovie,
   isPotentialFamilyMovieRating,
   kidMovieSummary,
+  normalizedMovieTitle,
   normalizedMovieRating
 } from './movie-policy.mjs';
 
 assert.equal(normalizedMovieRating('PG-13'), 'PG13');
+assert.equal(normalizedMovieTitle('CARS 20TH ANNIVERSARY'), normalizedMovieTitle('Cars 20th Anniversary'));
+assert.equal(cautiousMovieRating(['G', 'PG']), 'PG');
+assert.equal(cautiousMovieRating(['NR', 'PG13']), 'PG13');
 assert.equal(isPotentialFamilyMovieRating('R'), false);
 assert.equal(isKidAppropriateMovie('General Audiences Film', 'G'), true);
 assert.equal(isKidAppropriateMovie('Unrelated Adult Drama', 'PG'), false);
