@@ -78,6 +78,24 @@ Object.assign(venueCoordinates, {
 const t = key => copy[state.language][key];
 const eventText = (event, field) => translationEnabled && state.language === 'zh' ? event.translations?.zh?.[field] || event[field] : event[field];
 const categoryLabel = event => categoryLabels[event.type || 'community']?.[state.language === 'zh' ? 0 : 1] || event.tag;
+function summaryIsNonActivity(text) {
+  const value = String(text || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
+  return /\b(?:recent publications?|publications? include|translations? of|editorial prefaces?|biography|biographical|curriculum vitae|cv\b|career highlights?|follow us|follow along|subscribe|newsletter|youtube|instagram|facebook|donate|support us)\b/.test(value)
+    || /\b(?:musical director|guest speaker|presenter|lecturer|conductor|pianist|soprano|tenor)\b[^.!?]{0,180}\b(?:studied|trained|graduated|received|earned|published|translated)\b/.test(value)
+    || /\b(?:will be|is) held (?:inside|indoors?|outdoors?)\b|\b(?:in case of|depending on) (?:rain|weather)\b|\b(?:parking|entrance|room|location) (?:is|will be|has changed)\b/.test(value);
+}
+function summaryFallback(event) {
+  const title = String(eventText(event, 'title') || '').replace(/^.+?:\s*/, '').trim();
+  if (/\bstory ?time\b/i.test(title)) return 'A library storytime with books, songs, and simple activities for children and caregivers.';
+  if (/\bpreview\b/i.test(title)) return `An introduction to ${title.replace(/\s+preview$/i, '')}, highlighting the story, music, and production before the performance.`;
+  if (/\b(?:open (?:hours?|house)|drop-?in)\b/i.test(title)) return `A drop-in activity centered on ${title}.`;
+  return '';
+}
+function eventSummary(event) {
+  const text = eventText(event, 'description') || '';
+  const previewWithoutContext = /\bpreview\b/i.test(eventText(event, 'title') || '') && !/\b(?:preview|introduction|intro(?:duction)?|talk|discussion|guide)\b/i.test(text);
+  return summaryIsNonActivity(text) || previewWithoutContext ? summaryFallback(event) : text;
+}
 function eventAgeLabel(event) {
   if (event.ageLabel) return event.ageLabel;
   return event.ageBands?.length ? event.ageBands.map(band => legacyAgeLabels[band]?.[state.language === 'zh' ? 0 : 1]).filter(Boolean).join(' · ') : t('ageUnknown');
@@ -286,7 +304,7 @@ function render() {
       if (officialImage) { const imageProbe = new Image(); imageProbe.onerror = () => setCardImage(fallbackImage); imageProbe.src = officialImage; }
     }
     node.querySelector('.event-icon').textContent = event.icon; const tag = node.querySelector('.tag'); tag.textContent = categoryLabel(event); const recommendationBadge = node.querySelector('.recommendation-badge'); recommendationBadge.hidden = !event.recommendationBadge; recommendationBadge.textContent = event.recommendationBadge === 'top-pick' ? t('topPick') : t('specialEvent'); recommendationBadge.classList.toggle('top-pick', event.recommendationBadge === 'top-pick'); node.querySelector('h3').textContent = eventText(event, 'title');
-    const description = node.querySelector('.description'); const descriptionToggle = node.querySelector('.description-toggle'); description.textContent = eventText(event, 'description'); description.hidden = !description.textContent.trim(); description.id = `description-${event.id}`;
+    const description = node.querySelector('.description'); const descriptionToggle = node.querySelector('.description-toggle'); description.textContent = eventSummary(event); description.hidden = !description.textContent.trim(); description.id = `description-${event.id}`;
     descriptionToggle.dataset.eventId = event.id; descriptionToggle.setAttribute('aria-controls', description.id); descriptionToggle.setAttribute('aria-expanded', 'false'); descriptionToggle.textContent = t('expandDescription');
     // A source field by itself is not a customer-facing label. Only show a
     // pill when it has actual readable content; otherwise an empty styled

@@ -225,9 +225,53 @@ function isLogisticsOnly(text) {
     || /ada accommodation|for more information|please (?:call|email|visit)|click here|all minors under|parent\/guardian approval|release of liability|difficulty rating|terms & conditions|reserves the right to (?:cancel|refuse)|printable if|load and save|file format/i.test(text);
 }
 
+function isBiographyOrPromotion(text) {
+  const value = plainText(text).toLowerCase();
+  return /\b(?:recent publications?|publications? include|translations? of|editorial prefaces?|biography|biographical|curriculum vitae|cv\b|degrees?|earned (?:a|an|their)|has performed|has appeared|awards?|accolades?|career highlights?|follow us|follow along|subscribe|newsletter|youtube|instagram|facebook|donate|support us|www\.?\s*$)\b/.test(value)
+    || /\b(?:musical director|guest speaker|presenter|lecturer|conductor|pianist|soprano|tenor)\b[^.!?]{0,180}\b(?:studied|trained|graduated|received|earned|published|translated)\b/.test(value);
+}
+
+function isOperationalNote(text) {
+  const value = plainText(text).toLowerCase();
+  return /\b(?:will be|is) held (?:inside|indoors?|outdoors?)\b|\b(?:in case of|depending on) (?:rain|weather)\b|\b(?:parking|entrance|room|location) (?:is|will be|has changed)\b|\b(?:cancell?ed|postponed|rescheduled)\b/.test(value);
+}
+
+function hasActivitySignal(text) {
+  return /\b(?:watch|listen|enjoy|join|explore|discover|create|build|make|play|sing|dance|read|learn|practice|taste|walk|hike|tour|meet|see|experience|story(?:time)?|songs?|rhymes?|crafts?|games?|workshop|class|concert|performance|show|movie|film|exhibit(?:ion)?|festival|parade|museum|nature|garden|science|art|music|opera|ballet|theat(?:er|re)|sports?|match|game)\b/i.test(plainText(text));
+}
+
+function fallbackActivitySummary(title) {
+  const cleanTitle = plainText(title).replace(/^.+?:\s*/, '').trim();
+  if (/\bstory ?time\b/i.test(title)) return 'A library storytime with books, songs, and simple activities for children and caregivers.';
+  if (/\bpreview\b/i.test(title)) return `An introduction to ${cleanTitle.replace(/\s+preview$/i, '')}, highlighting the story, music, and production before the performance.`;
+  if (/\b(?:open (?:hours?|house)|drop-?in)\b/i.test(title)) return `A drop-in activity centered on ${cleanTitle || plainText(title)}.`;
+  return '';
+}
+
+function isCardSummaryAcceptable(text, title = '', format = '') {
+  const value = plainText(text);
+  if (value.length < 20 || isLogisticsOnly(value) || isBiographyOrPromotion(value) || isOperationalNote(value)) return false;
+  if (/\bpreview\b/i.test(title) && !/\b(?:preview|introduction|intro(?:duction)?|talk|discussion|guide)\b/i.test(value)) return false;
+  // A verified film, exhibit, or performance can use a concise official
+  // synopsis even when its wording does not use an explicit action verb.
+  return hasActivitySignal(value) || ['movie-screening', 'live-show', 'museum-exhibition'].includes(format)
+    || /\b(?:movie|film|concert|performance|show|exhibit(?:ion)?|opera|ballet|musical)\b/i.test(title);
+}
+
 function hasActivitySummary(text) {
   const value = plainText(text);
+  // This broad source-level check deliberately does not reject a whole raw
+  // page just because it contains a speaker bio later on. The final card
+  // summary is screened by isCardSummaryAcceptable in qualityGateSummary.
   return value.length >= 20 && !isLogisticsOnly(value);
+}
+
+function qualityGateSummary(event) {
+  const original = plainText(event.description);
+  const description = isCardSummaryAcceptable(original, event.title, event.format)
+    ? original
+    : fallbackActivitySummary(event.title);
+  return isCardSummaryAcceptable(description, event.title, event.format) ? { ...event, description } : null;
 }
 
 function cardSummary(html, title = '') {
@@ -283,6 +327,7 @@ function cardSummary(html, title = '') {
     const value = candidate.toLowerCase();
     let result = Math.min(candidate.length, 150) / 30;
     if (candidate.length < 20) result -= 5;
+    if (isBiographyOrPromotion(candidate)) result -= 60;
     if (isLogisticsOnly(candidate)) result -= 12;
     if (/^one-on-one help with/i.test(candidate)) result += 3;
     if (/^(?:includes|one-on-one help with)/i.test(candidate)) result -= 2;
@@ -307,9 +352,10 @@ function cardSummary(html, title = '') {
   const useful = candidates.sort((a, b) => score(b) - score(a)).find(hasActivitySummary) || '';
   const concise = useful.replace(/^(?:[a-z]+,?\s+)?[a-z]+\s+\d{1,2}\s*[-:–—]\s*/i, '')
     .replace(/^\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4}\s*[-:–—]\s*/, '');
+  const verified = isCardSummaryAcceptable(concise, title) ? concise : fallbackActivitySummary(title);
   // Keep enough of the organizer-derived summary for the in-card “expand"
   // control. The collapsed card remains short through CSS line clamping.
-  return concise.length > 320 ? `${concise.slice(0, 317).trimEnd()}…` : concise;
+  return verified.length > 320 ? `${verified.slice(0, 317).trimEnd()}…` : verified;
 }
 
 function officialImageUrl(item) {
@@ -2276,11 +2322,14 @@ searchSources.forEach(source => {
 // as a CMT production, defeating the card's “other sessions” experience.
 const preliminaryEvents = [...new Map([...feedEvents, ...candidates]
   .map(event => [`${event.url.toLowerCase()}|${event.dateValue || ''}`, event])).values()]
-  // A card must explain what the activity is. We do not replace missing
-  // organizer copy with generic prompts or publish logistics-only text.
-  .filter(event => hasActivitySummary(event.description))
+  // A card must explain what the activity is. A source's speaker bio, social
+  // promotion, or logistics copy is not an activity summary and cannot pass
+  // this final publication gate.
+  .filter(event => hasActivitySummary(event.description) || Boolean(fallbackActivitySummary(event.title)))
   .filter(isFamilyRelevant)
   .map(withPresentationFields)
+  .map(qualityGateSummary)
+  .filter(Boolean)
   .sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
 
 function eventTitleTokens(title) {
@@ -2341,7 +2390,7 @@ function groupRepeatedSessions(items) {
     // removing sessions that have already ended in Pacific time. A morning
     // storytime and next week's storytime must remain one activity, but only
     // the future session should be shown or offered in “other sessions”.
-    const active = ordered.filter(isStillActive);
+    const active = ordered.filter(event => isStillActive(event));
     if (!active.length) return [];
     if (ordered.length === 1) return active;
     const first = active[0];
@@ -2448,7 +2497,7 @@ function museumAsEvent(museum, source) {
   };
 }
 
-const events = groupRepeatedSessions([...scheduledEvents, ...museums.map(museum => museumAsEvent(museum, museumSource))])
+const events = groupRepeatedSessions([...scheduledEvents, ...museums.map(museum => museumAsEvent(museum, museumSource)).map(qualityGateSummary).filter(Boolean)])
   .map(event => ({ ...event, image: optimizedOfficialImageUrl(event.image, event.source) }));
 
 function translationFingerprint(event) {
