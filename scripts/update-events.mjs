@@ -651,6 +651,7 @@ async function readChcp(source) {
 
 function historySanJoseSummary(title) {
   const cleanTitle = plainText(title).replace(/^\*+|\*+$/g, '').trim();
+  if (/cars in the park/i.test(cleanTitle)) return 'See pre-1955 antique and classic vehicles, touch selected cars, watch a Model T assembly demonstration, ride a historic trolley, and enjoy children’s activities at History Park.';
   if (/children[’']?s halloween haunt/i.test(cleanTitle)) return 'A Halloween celebration created for children and families at History Park.';
   if (/italian family festa/i.test(cleanTitle)) return 'A free Italian cultural festival for families at History Park.';
   if (/lunar new year/i.test(cleanTitle)) return 'A family celebration of Lunar New Year with cultural performances and hands-on activities.';
@@ -671,7 +672,8 @@ async function readHistorySanJose(source) {
     const url = htmlAttribute(block, /<a[^>]+class=["'][^"']*backend-button[^"']*["'][^>]+href=["']([^"']+)["']/i) || source.feedUrl;
     const image = htmlAttribute(block, /background-image:\s*url\(['"]?([^'")]+)/i);
     const dateValue = isoDateFromOfficialText(dateText, times[0] || '');
-    const familySignal = /\b(?:children|child|family|families|kid|youth|teen|lunar new year|cultural)\b/i.test(`${title} ${locationText}`);
+    const endDateValue = isoDateFromOfficialText(dateText, times.at(-1) || times[0] || '');
+    const familySignal = /\b(?:children|child|family|families|kid|youth|teen|lunar new year|cultural|cars in the park)\b/i.test(`${title} ${locationText}`);
     const description = historySanJoseSummary(title);
     // The listing also contains fundraisers, private rentals, and adult-only
     // programs. Publish only when the official title has an explicit family
@@ -679,13 +681,14 @@ async function readHistorySanJose(source) {
     if (!title || !isUpcoming(dateValue) || !familySignal || !hasActivitySummary(description) || isExplicitlyAdultOnly(`${title} ${locationText}`)) return [];
     const event = directEvent({
       id: 'history-' + createHash('sha256').update(`${url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
-      title, dateValue, description,
+      title, dateValue, endDateValue, description,
       image: image ? new URL(image, source.feedUrl).href : '',
       place: plainText(locationText.split(/\b(?:Cost:|Stay tuned|Tickets?)/i)[0]) || source.name,
       address: source.address || '', city: source.city || '', source: source.name, url,
       ageText: 'family'
     });
-    return [event];
+    const costText = locationText.match(/\bCost:\s*([^|]+?)(?=\s+(?:Register|Stay tuned|Tickets?)|$)/i)?.[1] || '';
+    return [{ ...event, ...costInfo(costText, locationText) }];
   });
 }
 
@@ -756,6 +759,7 @@ function readCurated(source) {
       id: 'curated-' + createHash('sha256').update(`${source.feedUrl}|${item.title}|${item.dateValue}|${index}`).digest('hex').slice(0, 16),
       title: item.title,
       dateValue: item.dateValue,
+      endDateValue: item.endDateValue || '',
       description: item.description || '',
       image: item.image || '',
       place: item.place || source.name,
@@ -768,6 +772,54 @@ function readCurated(source) {
     });
     return [{ ...event, ...costInfo(item.cost || '', item.description || '') }];
   });
+}
+
+// Eventbrite organizer pages expose an official upcoming-events payload that
+// includes ticket availability. This lets us retain The Village as a durable
+// source while suppressing sold-out, cancelled, protected and expired events.
+async function readEventbriteOrganizer(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(20000) });
+  const html = await response.text();
+  if (!response.ok) throw new Error('Eventbrite organizer page was not valid: ' + response.status);
+  const payloadText = html.match(/"upcomingEvents":(\[[\s\S]*?\]),"hasMoreUpcoming"/)?.[1];
+  if (!payloadText) throw new Error('Eventbrite organizer payload was not found');
+  let items;
+  try { items = JSON.parse(payloadText); } catch { throw new Error('Eventbrite organizer payload could not be read'); }
+  const familyPattern = new RegExp(source.familyPattern || 'family|children|kids?|all ages|youth', 'i');
+  const available = items.filter(item => item?.url && isUpcoming(item.start_date)
+    && !item.is_cancelled && !item.is_protected_event
+    && item.event_sales_status?.sales_status !== 'sold_out'
+    && item.ticket_availability?.is_sold_out !== true
+    && item.ticket_availability?.has_available_tickets !== false);
+  const events = await Promise.all(available.map(async (item, index) => {
+    const detailResponse = await fetch(item.url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(20000) });
+    const detailHtml = await detailResponse.text();
+    if (!detailResponse.ok || /"salesStatus"\s*:\s*"sold_out"/i.test(detailHtml)) return null;
+    const schemas = [...detailHtml.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)].flatMap(match => {
+      try { return eventNodes(JSON.parse(decodeXml(match[1]))); } catch { return []; }
+    });
+    const schema = schemas.find(node => String(node?.['@type'] || '').toLowerCase() === 'event') || {};
+    const title = plainText(schema.name || item.name);
+    const longDescription = plainText(detailHtml.match(/Overview[^>]*__summary[^>]*>\s*<p[^>]*>([\s\S]*?)<\/p>/i)?.[1] || '');
+    const description = longDescription || plainText(schema.description || item.summary);
+    const audienceText = `${title} ${description}`;
+    if (!title || !hasActivitySummary(description) || !familyPattern.test(audienceText) || isExplicitlyAdultOnly(audienceText)) return null;
+    const venue = schema.location || {};
+    const venueAddress = item.primary_venue?.address || {};
+    const city = canonicalCity(venueAddress.city || venue.address?.addressLocality || source.city || '');
+    const dateValue = String(schema.startDate || `${item.start_date}T${item.start_time || '00:00'}`).slice(0, 19);
+    const endDateValue = String(schema.endDate || `${item.end_date || item.start_date}T${item.end_time || item.start_time || '23:59'}`).slice(0, 19);
+    const event = directEvent({
+      id: 'eventbrite-' + createHash('sha256').update(`${item.url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
+      title, dateValue, endDateValue, description,
+      image: schema.image || item.image?.image_sizes?.medium || item.image?.url || '',
+      place: plainText(venue.name || item.primary_venue?.name || source.name),
+      address: shortAddress(venueAddress.address_1 || venue.address?.streetAddress || source.address || '', city), city,
+      source: source.name, url: item.url, ageText: audienceText
+    });
+    return { ...event, ...costInfo(item.ticket_availability?.is_free ? 'Free' : '', description) };
+  }));
+  return events.filter(Boolean);
 }
 
 // Google Visitor Experience renders its calendar client-side, but publishes
@@ -2416,7 +2468,7 @@ const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'annual-festival', 'curated', 'google-visitor-events'];
+const directMethods = ['rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'annual-festival', 'curated', 'google-visitor-events', 'eventbrite-organizer'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
@@ -2431,6 +2483,7 @@ if (searchSources.length && !key) throw new Error('SERPAPI_KEY is required when 
 const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'curated') return readCurated(source);
   if (source.method === 'google-visitor-events') return readGoogleVisitorEvents(source);
+  if (source.method === 'eventbrite-organizer') return readEventbriteOrganizer(source);
   if (source.method === 'wix-events') return readWixEvents(source);
   if (source.method === 'squarespace-events') return readSquarespaceEvents(source);
   if (source.method === 'annual-festival') return readAnnualFestival(source);
