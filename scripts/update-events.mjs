@@ -770,6 +770,100 @@ function readCurated(source) {
   });
 }
 
+function officialPageOgImage(html) {
+  return decodeXml(html.match(/<meta\s+(?:property|name)=["'](?:og:image|twitter:image)["']\s+content=["']([^"']+)/i)?.[1]
+    || html.match(/<meta\s+content=["']([^"']+)["']\s+(?:property|name)=["'](?:og:image|twitter:image)["']/i)?.[1]
+    || '');
+}
+
+function isWithinPublishingHorizon(dateValue, days = 180) {
+  const date = String(dateValue || '').match(/^\d{4}-\d{2}-\d{2}/)?.[0];
+  if (!date) return false;
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
+  return (Date.parse(`${date}T12:00:00Z`) - Date.parse(`${today}T12:00:00Z`)) / 86400000 <= days;
+}
+
+// Wix Events exposes its public event records in appsWarmupData. The markup is
+// dynamic, but these official fields contain the exact date, venue, address,
+// description, image and event slug without relying on a search fallback.
+async function readWixEvents(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(20000) });
+  const html = await response.text();
+  if (!response.ok || !/"startDate":"20\d{2}-\d{2}-\d{2}/.test(html)) throw new Error('Wix official event list was not valid: ' + response.status);
+  const seen = new Set();
+  return [...html.matchAll(/"startDate":"(20\d{2}-\d{2}-\d{2}T[^"]+)"/g)].flatMap((match, index) => {
+    const start = decodeXml(match[1]).replace(/\\\//g, '/');
+    const block = html.slice(Math.max(0, match.index - 1800), match.index + 5000);
+    const title = decodeXml(block.match(/"title":"([^"]+)"/)?.[1] || '').replace(/\\\//g, '/');
+    const description = decodeXml(block.match(/"description":"([^"]*)"/)?.[1] || '').replace(/\\\//g, '/');
+    const startDateText = decodeXml(block.match(/"startDateFormatted":"([^"]+)"/)?.[1] || '');
+    const startTimeText = decodeXml(block.match(/"startTimeFormatted":"([^"]+)"/)?.[1] || '');
+    const endDateText = decodeXml(block.match(/"endDateFormatted":"([^"]+)"/)?.[1] || '');
+    const endTimeText = decodeXml(block.match(/"endTimeFormatted":"([^"]+)"/)?.[1] || '');
+    const address = decodeXml(block.match(/"address":"([^"]+)"/)?.[1] || '').replace(/\\\//g, '/').replace(/, USA$/i, '');
+    const place = decodeXml(block.match(/"location":\{"name":"([^"]+)"/)?.[1] || source.name).replace(/\\\//g, '/');
+    const image = decodeXml(block.match(/"mainImage":\{[^}]*"url":"([^"]+)"/)?.[1] || '').replace(/\\\//g, '/');
+    const slug = decodeXml(block.match(/"slug":"([^"]+)"/)?.[1] || '');
+    const key = `${title}|${start}`;
+    const dateValue = isoDateFromOfficialText(startDateText, startTimeText) || start;
+    const endDateValue = isoDateFromOfficialText(endDateText, endTimeText);
+    if (!title || !description || !isUpcoming(dateValue) || seen.has(key)) return [];
+    seen.add(key);
+    return [directEvent({
+      id: 'wix-' + createHash('sha256').update(`${source.feedUrl}|${key}|${index}`).digest('hex').slice(0, 16),
+      title, dateValue, endDateValue, description, image, place, address, city: source.city || '', source: source.name,
+      url: slug ? new URL(`/event-details/${slug}`, source.feedUrl).href : source.feedUrl, format: source.format || 'festival'
+    })];
+  }).filter(event => hasActivitySummary(event.description));
+}
+
+// Squarespace event collections are server rendered, which makes them a
+// durable official feed for organizations that do not offer RSS or ICS.
+async function readSquarespaceEvents(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(20000) });
+  const html = await response.text();
+  if (!response.ok || !/eventlist-event/i.test(html)) throw new Error('Squarespace official event list was not valid: ' + response.status);
+  const familyPattern = new RegExp(source.familyPattern || 'family|children|kids?|all ages|youth', 'i');
+  return [...html.matchAll(/<article class=["'][^"']*eventlist-event[^"']*["'][\s\S]*?<\/article>/gi)].flatMap((match, index) => {
+    const block = match[0];
+    const title = htmlAttribute(block, /eventlist-title[^>]*>\s*<a[^>]*>([\s\S]*?)<\/a>/i);
+    const href = htmlAttribute(block, /eventlist-title[^>]*>\s*<a[^>]+href=["']([^"']+)/i);
+    const dates = [...block.matchAll(/<time class=["']event-date["']\s+datetime=["']([^"']+)/gi)].map(item => item[1]);
+    const dateValue = dates[0] || '';
+    const endDateValue = dates.at(-1) || '';
+    const description = htmlAttribute(block, /eventlist-excerpt[^>]*>([\s\S]*?)<\/div>/i);
+    const image = htmlAttribute(block, /<img[^>]+(?:data-image|src)=["']([^"']+)/i);
+    const place = htmlAttribute(block, /eventlist-meta-address-line["'][^>]*>([\s\S]*?)<\/span>/i) || source.name;
+    const text = `${title} ${description}`;
+    if (!title || !href || !isUpcoming(dateValue) || !familyPattern.test(text) || !hasActivitySummary(description)) return [];
+    return [directEvent({
+      id: 'squarespace-' + createHash('sha256').update(`${href}|${dateValue}|${index}`).digest('hex').slice(0, 16),
+      title, dateValue, endDateValue, description, image, place, address: source.address || '', city: source.city || '',
+      source: source.name, url: new URL(href, source.feedUrl).href, ageText: text, format: source.format || 'festival'
+    })];
+  });
+}
+
+// Some annual organizers publish a single landing page rather than a real
+// calendar. A source-owned date pattern lets us pick up their next season once
+// announced, while keeping far-future cards out of the live discovery feed.
+async function readAnnualFestival(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(20000) });
+  const html = await response.text();
+  if (!response.ok) throw new Error('Annual festival official page was not valid: ' + response.status);
+  const pattern = new RegExp(source.datePattern || '', 'i');
+  const dateText = pattern.exec(plainText(html))?.[0] || '';
+  const dateValue = isoDateFromOfficialText(dateText);
+  if (!dateValue || !isUpcoming(dateValue) || !isWithinPublishingHorizon(dateValue)) return [];
+  const event = directEvent({
+    id: 'annual-' + createHash('sha256').update(`${source.feedUrl}|${dateValue}`).digest('hex').slice(0, 16),
+    title: source.title || source.name, dateValue, description: source.description || '', image: officialPageOgImage(html),
+    place: source.place || source.name, address: source.address || '', city: source.city || '', source: source.name,
+    url: source.feedUrl, ageText: source.ageText || '', format: source.format || 'festival'
+  });
+  return hasActivitySummary(event.description) ? [event] : [];
+}
+
 function htmlAttribute(block, pattern) {
   return block.match(pattern)?.[1] ? decodeXml(block.match(pattern)[1]).trim() : '';
 }
@@ -2246,7 +2340,7 @@ const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'curated'];
+const directMethods = ['rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'annual-festival', 'curated'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
@@ -2260,6 +2354,9 @@ if (searchSources.length && !key) throw new Error('SERPAPI_KEY is required when 
 
 const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'curated') return readCurated(source);
+  if (source.method === 'wix-events') return readWixEvents(source);
+  if (source.method === 'squarespace-events') return readSquarespaceEvents(source);
+  if (source.method === 'annual-festival') return readAnnualFestival(source);
   if (source.method === 'tribe') return readTribe(source);
   if (source.method === 'history') return readHistorySanJose(source);
   if (source.method === 'chcp') return readChcp(source);
