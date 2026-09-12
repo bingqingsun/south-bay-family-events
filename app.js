@@ -237,7 +237,11 @@ function sortEvents(items) {
         getDistance: event => {
           const session = activeSession(event);
           return eventDistance({ ...event, address: session.address || event.address });
-        }
+        },
+        // The balanced discovery mix belongs on the broad homepage feed. Once
+        // a parent deliberately chooses a category, show that category without
+        // cross-category quotas.
+        enforceDiscoveryMix: state.type === 'all'
       });
     }
     state.sort = 'date';

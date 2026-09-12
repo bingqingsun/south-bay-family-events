@@ -29,10 +29,10 @@ function event(overrides = {}) {
   };
 }
 
-const ordinaryToday = event({ id: 'today', dateValue: todayKey });
+const ordinaryToday = event({ id: 'today', title: 'Weekly Math Club', type: 'learning', description: 'A recurring math practice session for elementary students with a structured lesson plan.', dateValue: todayKey });
 const festivalLater = event({ id: 'festival', title: 'Family Festival', format: 'festival', dateValue: '2026-09-12' });
 const timing = recommendation.rankRecommendedEvents([festivalLater, ordinaryToday], { todayKey });
-assert.equal(timing[0].id, 'today', 'a useful activity today should outrank a later festival');
+assert.equal(timing[0].id, 'festival', 'an imminent family festival should outrank a routine learning class today');
 
 const farFuture = event({ id: 'future', title: 'Annual Family Festival', format: 'festival', dateValue: '2027-03-01' });
 assert.ok(
@@ -69,7 +69,7 @@ const completeEvents = Array.from({ length: 10 }, (_, index) => event({
 }));
 const incomplete = event({ id: 'incomplete', title: 'Festival', format: 'festival', address: '', ageRanges: [], ageLabel: '', ageSource: '' });
 const readyFirst = recommendation.rankRecommendedEvents([incomplete, ...completeEvents], { todayKey });
-assert.ok(readyFirst.slice(0, 10).every(item => item.recommendationReady), 'the first discovery viewport should prefer decision-ready activities');
+assert.notEqual(readyFirst[0].id, 'incomplete', 'a missing address and audience evidence must keep an otherwise attractive event from taking the first slot');
 
 const weekendSpotlight = event({
   id: 'weekend-spotlight',
@@ -100,5 +100,48 @@ assert.ok(
   recommendation.calculateRecommendationScore(cancelled, todayKey).totalScore < -900,
   'cancelled activities must fall to the bottom of recommendations'
 );
+
+const learningHeavy = Array.from({ length: 5 }, (_, index) => event({
+  id: `learning-${index}`,
+  title: `Math Program ${index + 1}`,
+  type: 'learning',
+  description: 'A structured math lesson for elementary students with guided practice and a short assessment.',
+  dateValue: '2026-09-09',
+  place: `Learning venue ${index}`,
+  source: `Learning organizer ${index}`
+}));
+const outingHeavy = Array.from({ length: 8 }, (_, index) => event({
+  id: `outing-${index}`,
+  title: `Family Festival ${index + 1}`,
+  format: 'festival',
+  description: 'A family festival with music, outdoor games, food, crafts, and hands-on activities for children.',
+  dateValue: '2026-09-10',
+  place: `Festival venue ${index}`,
+  source: `Festival organizer ${index}`
+}));
+const everydayFamily = Array.from({ length: 2 }, (_, index) => event({
+  id: `everyday-${index}`,
+  title: `Family Story Circle ${index + 1}`,
+  type: 'play',
+  description: 'Families can join a welcoming story circle with songs, books, and a simple activity for young children.',
+  dateValue: '2026-09-09',
+  place: `Family venue ${index}`,
+  source: `Family organizer ${index}`
+}));
+const background = event({
+  id: 'background',
+  title: 'Job Interview Coaching for Adults & Teens',
+  type: 'learning',
+  description: 'One-on-one preparation for job interviews, resumes, and career planning for participants.',
+  dateValue: todayKey
+});
+const discoveryRanked = recommendation.rankRecommendedEvents([...learningHeavy, ...outingHeavy, ...everydayFamily, background], { todayKey });
+const discoveryViewport = discoveryRanked.slice(0, recommendation.CONFIG.topResults);
+assert.ok(discoveryViewport.filter(item => item.recommendationBreakdown.discoveryTier === 'outing').length >= 7, 'homepage discovery should reserve most of its first viewport for family outings');
+assert.ok(discoveryViewport.filter(item => item.type === 'learning').length <= 2, 'homepage discovery should not be dominated by learning activities');
+assert.equal(discoveryViewport.some(item => item.id === 'background'), false, 'background activities must not enter the homepage discovery viewport');
+
+const learningCategoryRanked = recommendation.rankRecommendedEvents(learningHeavy, { todayKey, enforceDiscoveryMix: false });
+assert.equal(learningCategoryRanked.length, learningHeavy.length, 'a chosen category should retain all of its matching activities without homepage quotas');
 
 console.log('Recommendation tests passed.');

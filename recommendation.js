@@ -1,12 +1,13 @@
 (function () {
   'use strict';
 
-  // Recommendations optimize for a plan a family can realistically make:
-  // soon, nearby when location is available, suitable, and well documented.
-  // Special-event appeal helps discovery, but never overwhelms those basics.
+  // Recommendations optimize for a plan a family would choose to leave home for.
+  // Timeliness and complete details help break ties, but cannot make a routine
+  // class outrank a strong family outing just because its calendar record is fuller.
   const CONFIG = {
     editorialBoost: 12,
     weekendSpotlightBoost: 32,
+    discoveryTierBoost: { outing: 20, everyday: 0, background: -45 },
     experience: {
       festival: 16, seasonal: 16, animal: 17, performance: 17, ride: 16,
       concert: 16, nature: 15, museum: 15, cultural: 15, movie: 14,
@@ -18,7 +19,9 @@
       'limited-run': 5, monthly: 4, unknown: 3, biweekly: 2,
       weekly: 1, 'multiple-weekly': 0, daily: 0
     },
-    topResults: 10,
+    topResults: 12,
+    minimumOutingsInTopResults: 7,
+    maximumLearningInTopResults: 2,
     maximumDiversityPenalty: 12,
     incompleteTopResultPenalty: 18
   };
@@ -35,6 +38,31 @@
   const daysFrom = (from, to) => Math.round((Date.parse(`${to}T12:00:00Z`) - Date.parse(`${from}T12:00:00Z`)) / 86400000);
   const hasAudienceEvidence = event => Boolean((event.ageRanges || []).length || event.familyFriendly || event.ageLabel || (event.ageBands || []).length);
   const hasActionableLocation = event => Boolean(String(event.address || event.meetingPoint || event.mapUrl || '').trim());
+
+  function isLearningActivity(event) {
+    const text = eventText(event);
+    return event.type === 'learning' || includesAny(text, ['stem', 'steam', 'science', 'engineering', 'robot', 'coding', 'math program', 'language class']);
+  }
+
+  function getDiscoveryTier(event) {
+    const text = eventText(event);
+    const experience = getExperienceKind(event);
+    // These can remain searchable, but they are not a default "what should we
+    // do this weekend?" recommendation for most families.
+    if (includesAny(text, [
+      'adult', 'job interview', 'resume', 'career tour', 'careers tour', 'college readiness',
+      'homework help', 'tutoring', 'exam prep', 'board meeting', 'fundraiser',
+      'book sale', 'closure notice', 'closed'
+    ])) return 'background';
+
+    if (isSpecialEvent(event)
+      || ['animal', 'ride', 'performance', 'concert', 'nature', 'movie', 'sports', 'cultural'].includes(experience)
+      || (experience === 'workshop' && getFamilyAppealScore(event) >= 2
+        && (event.familyFriendly || Number(event.ageMin) <= 12 || includesAny(text, ['family', 'children', 'child ', 'kids'])))
+      || (event.type === 'play' && getFamilyAppealScore(event) >= 2)) return 'outing';
+
+    return 'everyday';
+  }
 
   function inferFrequency(event) {
     if (event.eventFrequency && CONFIG.recurrence[event.eventFrequency] !== undefined) return event.eventFrequency;
@@ -97,18 +125,20 @@
     if (!eventDate) return 0;
     const days = daysFrom(todayKey, eventDate);
     if (days < 0) return -1000;
-    if (days === 0) return 42;
-    if (days === 1) return 38;
-    if (days <= 3) return 32;
+    if (days === 0) return 22;
+    if (days === 1) return 19;
+    if (days <= 3) return 16;
     if (days <= 7) {
       const weekday = new Date(`${eventDate}T12:00:00Z`).getUTCDay();
-      return weekday === 0 || weekday === 6 ? 29 : 27;
+      return weekday === 0 || weekday === 6 ? 14 : 12;
     }
-    if (days <= 14) return 19;
-    if (days <= 30) return 12;
+    if (days <= 14) return 9;
+    if (days <= 30) return 5;
     if (days <= 60) return 4;
     if (days <= 90) return -2;
-    return -12;
+    // A special event months away remains searchable, but should never crowd
+    // out a practical plan for this week.
+    return -45;
   }
 
   function getDistanceScore(event, getDistance) {
@@ -126,8 +156,8 @@
   function getQualityScore(event, todayKey) {
     let score = 0;
     if (event.image) score += 1;
-    if (String(event.description || '').trim().length >= 40) score += 4;
-    if (hasAudienceEvidence(event)) score += 4;
+    if (String(event.description || '').trim().length >= 40) score += 2;
+    if (hasAudienceEvidence(event)) score += 2;
     if (event.costSource || (event.costLabel && event.costLabel !== '费用未注明')) score += 1;
     if (/^https?:\/\//.test(event.url || '')) score += 3;
     if (hasActionableLocation(event)) score += 3;
@@ -187,7 +217,9 @@
 
   function calculateRecommendationScore(event, todayKey, getDateValue = item => item.dateValue, getDistance) {
     const weekendSpotlight = isWeekendSpotlight(event, todayKey, getDateValue);
+    const discoveryTier = getDiscoveryTier(event);
     const breakdown = {
+      discoveryTierBoost: CONFIG.discoveryTierBoost[discoveryTier],
       experienceScore: CONFIG.experience[getExperienceKind(event)],
       specialnessScore: CONFIG.recurrence[inferFrequency(event)] ?? CONFIG.recurrence.unknown,
       familyAppealScore: getFamilyAppealScore(event),
@@ -198,7 +230,7 @@
       editorialBoost: isActiveEditorPick(event, todayKey) ? CONFIG.editorialBoost : 0,
       weekendSpotlightBoost: weekendSpotlight ? CONFIG.weekendSpotlightBoost : 0
     };
-    return { totalScore: Object.values(breakdown).reduce((sum, value) => sum + value, 0), ...breakdown };
+    return { totalScore: Object.values(breakdown).reduce((sum, value) => sum + value, 0), discoveryTier, ...breakdown };
   }
 
   function isSpecialEvent(event) {
@@ -223,10 +255,10 @@
       && String(event.description || '').trim().length >= 40;
   }
 
-  function diversifyEvents(scored) {
+  function diversifyEvents(scored, { enforceDiscoveryMix = true } = {}) {
     const remaining = [...scored];
     const leading = [];
-    const counts = { venue: new Map(), organizer: new Map(), category: new Map(), experience: new Map(), series: new Map() };
+    const counts = { venue: new Map(), organizer: new Map(), category: new Map(), experience: new Map(), series: new Map(), tier: new Map(), learning: new Map() };
     const count = (map, key) => key ? (map.get(key) || 0) : 0;
     const increment = (map, key) => { if (key) map.set(key, count(map, key) + 1); };
     const keysFor = item => ({
@@ -234,17 +266,35 @@
       organizer: normalize(item.event.organizer || item.event.source),
       category: normalize(item.event.primaryCategory || item.event.type),
       experience: getExperienceKind(item.event),
-      series: getSeriesKey(item.event)
+      series: getSeriesKey(item.event),
+      tier: item.discoveryTier,
+      learning: isLearningActivity(item.event) ? 'learning' : ''
     });
 
     while (leading.length < CONFIG.topResults && remaining.length) {
+      const remainingNonBackground = remaining.filter(item => item.discoveryTier !== 'background');
+      const remainingOutings = remaining.filter(item => item.discoveryTier === 'outing');
+      const slotsLeft = CONFIG.topResults - leading.length;
+      const outingsNeeded = Math.max(0, CONFIG.minimumOutingsInTopResults - count(counts.tier, 'outing'));
+      let candidates = remaining;
+      if (enforceDiscoveryMix && remainingNonBackground.length) candidates = remainingNonBackground;
+      // Reserve enough slots for distinct family outings without making them
+      // mechanically occupy the first seven positions.
+      if (enforceDiscoveryMix && outingsNeeded && remainingOutings.length && remainingOutings.length <= slotsLeft) {
+        candidates = candidates.filter(item => item.discoveryTier === 'outing');
+      }
+      const nonLearningCandidates = candidates.filter(item => !isLearningActivity(item.event));
+      if (enforceDiscoveryMix && count(counts.learning, 'learning') >= CONFIG.maximumLearningInTopResults && nonLearningCandidates.length) {
+        candidates = nonLearningCandidates;
+      }
       let selectedIndex = 0;
       let selectedAdjusted = -Infinity;
-      remaining.forEach((item, index) => {
+      candidates.forEach(item => {
+        const index = remaining.indexOf(item);
         const keys = keysFor(item);
         const rawPenalty = count(counts.venue, keys.venue) * 5
           + count(counts.organizer, keys.organizer) * 4
-          + count(counts.category, keys.category) * 1.5
+          + count(counts.category, keys.category) * 3
           + count(counts.experience, keys.experience) * 2
           + count(counts.series, keys.series) * 10;
         const diversityPenalty = Math.min(CONFIG.maximumDiversityPenalty, rawPenalty);
@@ -266,7 +316,7 @@
     return [...leading, ...remaining];
   }
 
-  function rankRecommendedEvents(events, { todayKey, getDateValue = item => item.dateValue, getDistance } = {}) {
+  function rankRecommendedEvents(events, { todayKey, getDateValue = item => item.dateValue, getDistance, enforceDiscoveryMix = true } = {}) {
     const scored = events.map((event, originalIndex) => {
       const breakdown = calculateRecommendationScore(event, todayKey, getDateValue, getDistance);
       return { event, originalIndex, recommendationReady: isRecommendationReady(event, getDateValue), ...breakdown };
@@ -274,7 +324,7 @@
       || String(getDateValue(a.event) || '9999').localeCompare(String(getDateValue(b.event) || '9999'))
       || String(a.event.title || '').localeCompare(String(b.event.title || ''))
       || a.originalIndex - b.originalIndex);
-    return diversifyEvents(scored).map(item => {
+    return diversifyEvents(scored, { enforceDiscoveryMix }).map(item => {
       const editorPick = isActiveEditorPick(item.event, todayKey);
       const weekendSpotlight = isWeekendSpotlight(item.event, todayKey, getDateValue);
       return {
@@ -283,6 +333,8 @@
         recommendationReady: item.recommendationReady,
         recommendationBreakdown: {
           experienceScore: item.experienceScore,
+          discoveryTier: item.discoveryTier,
+          discoveryTierBoost: item.discoveryTierBoost,
           specialnessScore: item.specialnessScore,
           familyAppealScore: item.familyAppealScore,
           timeScore: item.timeScore,
