@@ -197,6 +197,27 @@ function cardSummary(html, title = '') {
   if (/^giving thanks$/i.test(title) && /Native Californians/i.test(text)) {
     return 'A moderately paced docent-led hike exploring how Native Californians have cared for local land and plants.';
   }
+  // Gamble Garden publishes Second Saturday details as long bullet lists.
+  // Flattening those lists produces an unreadable run-on sentence and can
+  // leave a clipped final word on the card. Lead with the program concept,
+  // then retain the most useful month-specific activities.
+  if (/^second saturday\b/i.test(title)) {
+    const highlights = [];
+    if (/harvest tastings?/i.test(text)) highlights.push('harvest tastings');
+    if (/corn education station/i.test(text)) highlights.push('a corn learning station');
+    if (/soil by feel|composting demonstration/i.test(text)) highlights.push('soil and compost activities');
+    if (/scavenger hunts?/i.test(text)) highlights.push('scavenger hunts');
+    if (/tissue paper corn craft/i.test(text)) highlights.push('a tissue-paper corn craft');
+    else if (/craft stations?/i.test(text)) highlights.push('seasonal crafts');
+    if (/storytime led by a Palo Alto Librarian/i.test(text)) highlights.push('library storytime');
+    if (/visit to Elizabeth[’']s house|visit Elizabeth[’']s house/i.test(text)) highlights.push('a visit to Elizabeth’s house');
+    if (/guided tours?/i.test(text)) highlights.push('guided garden tours');
+    const selected = highlights.slice(0, 6);
+    const activityText = selected.length > 1
+      ? `${selected.slice(0, -1).join(', ')}, and ${selected.at(-1)}`
+      : selected[0] || 'seasonal hands-on activities and garden exploration';
+    return `A free monthly family morning at Gamble Garden with ${activityText}.`;
+  }
   const sentences = (text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || []).map(sentence => sentence
     .replace(/^(?:[a-z]+,?\s+)?[a-z]+\s+\d{1,2}\s*[-:–—]\s*/i, '')
     .replace(/^\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4}\s*[-:–—]\s*/, ''));
@@ -218,6 +239,7 @@ function cardSummary(html, title = '') {
     if (isLogisticsOnly(candidate)) result -= 12;
     if (/^one-on-one help with/i.test(candidate)) result += 3;
     if (/^(?:includes|one-on-one help with)/i.test(candidate)) result -= 2;
+    if (/\bincludes activities such as:/i.test(candidate) && candidate.length > 180) result -= 20;
     if (/^what we do:/i.test(candidate)) result -= 4;
     // Supplementary schedules and bilingual duplicates are useful on the
     // organizer page, but do not explain what the activity itself is.
@@ -454,7 +476,7 @@ async function readTribe(source) {
     return [{
       id: 'calendar-' + (item.id || index), title, date: displayEventDate(startDate), dateValue: startDate, ...age, ...cost,
       type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'calendar', lastVerifiedAt: generatedAt,
-      description: cardSummary(item.description || item.excerpt || ''),
+      description: cardSummary(item.description || item.excerpt || '', title),
       image: item.image?.url || '', place: item.venue?.venue || source.name,
       address: shortAddress(item.venue?.address, item.venue?.city), city: canonicalCity(item.venue?.city), source: source.name, url: item.url
     }];
