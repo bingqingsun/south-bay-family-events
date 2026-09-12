@@ -20,19 +20,40 @@ const key = process.env.SERPAPI_KEY;
 const translationEnabled = false;
 const translationKey = translationEnabled ? process.env.GOOGLE_TRANSLATE_API_KEY : '';
 
-function typeFor(text) {
+function typeFor(text, title = '') {
   const value = String(text || '').toLowerCase();
+  const titleValue = String(title || '').toLowerCase();
   // One parent-facing taxonomy: categorize by the main experience, not by
-  // the organizer or every subject mentioned in the description.
+  // the organizer or a secondary activity mechanic. Subject learning and
+  // making must outrank words such as “games” when both appear.
   if (/\b(?:vs\.?|versus|football|soccer|hockey|baseball|basketball|matchday|regular season|playoffs?)\b/.test(value)) return 'sports';
   if (/\b(?:show|theat(?:er|re)|concert|performance|musical|dance recital|magic|planetarium|laser show|ice show)\b/.test(value)) return 'shows';
   if (/\b(?:museum|gallery|exhibit(?:ion)?|on view|collection)\b/.test(value)) return 'museums';
-  if (/\b(?:bike|bicycle)\b[^.!?]{0,48}\brepair\b|\b(?:community service|volunteer(?:ing)?|cleanup|donation|food drive|swap|mento(?:r|ring)|appointment|customer service|career help|tech help|free snacks|festival|celebration)\b/.test(value)) return 'community';
   if (/\b(?:hike|nature(?:\s+walk)?|trail|wildlife|marsh|forest|creek|pond|ranger|bird(?:s)?\b|habitat restoration|environmental education)\b/.test(value)) return 'outdoor';
-  if (/\b(?:story ?time|stay (?:&|and) play|play(?:time)?|games?|lego|scavenger hunt|board games?|puzzle|toddler|tiny tot|baby bounce)\b/.test(value)) return 'play';
-  if (/\b(?:art(?:s)?|crafts?|paint(?:ing)?|photography|knit(?:ting)?|crochet|tie-dye|ceramics?|pottery|drawing|design)\b/.test(value)) return 'arts';
-  if (/\b(?:science|stem|robot(?:ics)?|technology|tech|learn(?:ing)?|engineering|coding|computer|3d print(?:ing)?|forensics|dna|astronomy|physics|math(?:ematics)?|tutor(?:ing)?|chess|black holes?|solar|sun|moon|space|cosmic|earthquake|homeschool)\b/.test(value)) return 'learning';
+  // Citywide festivals and service/help events are community experiences even
+  // when their schedules include music, crafts, or games.
+  if (/\b(?:bike|bicycle)\b[^.!?]{0,48}\brepair\b|\b(?:community service|volunteer(?:ing)?|cleanup|donation|food drive|swap|mento(?:r|ring)|appointment|customer service|career help|tech help|free snacks|festival|celebration|fest)\b/.test(value)) return 'community';
+  // A title naming a concrete art medium is more trustworthy than a broad
+  // source taxonomy such as “STEM” or “Engineering” attached to the listing.
+  if (/\b(?:illustration|paint(?:ing)?|photography|knit(?:ting)?|crochet|tie-dye|ceramics?|pottery|drawing|sew(?:ing)?|mend(?:ing)?)\b/.test(titleValue)
+    && !/\b(?:science|robot(?:ics)?|coding|3d print(?:ing)?|forensics|dna|astronomy|physics|math(?:ematics)?|video game design)\b/.test(titleValue)) return 'arts';
+  const learningCore = /\b(?:science|stem|robot(?:ics)?|engineering|coding|3d print(?:ing)?|forensics|dna|astronomy|physics|math(?:ematics)?|tutor(?:ing)?|chess|black holes?|solar|moon|space|cosmic|earthquake|homeschool|video game design)\b/.test(value);
+  const creativeMaking = /\b(?:art(?:s)?|crafts?|paint(?:ing)?|photography|knit(?:ting)?|crochet|tie-dye|ceramics?|pottery|drawing|design|illustration|sew(?:ing)?|mend(?:ing)?)\b/.test(value);
+  const fineArtMaking = /\b(?:illustration|paint(?:ing)?|photography|knit(?:ting)?|crochet|tie-dye|ceramics?|pottery|drawing|sew(?:ing)?|mend(?:ing)?)\b/.test(value);
+  // Storytimes, LEGO free play, and movement/song programs remain play even
+  // when organizers describe developmental or early-literacy benefits.
+  if (/\b(?:story ?time|stay (?:&|and) play|play(?:time)?|toddler|tiny tot|baby bounce|music and movement|finger ?plays?|songs? and rhymes?|reading to furry|assistance dogs?|swimming|pool|pumpkin patch)\b/.test(value)) return 'play';
+  if (/\blego\b/.test(value) && !/\b(?:robot(?:ics)?|coding|programming|class|workshop|competition|challenge)\b/.test(value)) return 'play';
+  // A creative activity stays Arts & making unless it is explicitly a STEM
+  // design/robotics/coding activity. “Digital illustration” is arts; “robot
+  // design challenge” is Learning & STEM.
+  if (fineArtMaking && !/\b(?:science|robot(?:ics)?|coding|3d print(?:ing)?|forensics|dna|astronomy|physics|math(?:ematics)?|video game design)\b/.test(value)) return 'arts';
+  if (creativeMaking && !learningCore) return 'arts';
+  // Curriculum and skill-building take precedence over playful delivery.
+  // “Math activities and games” is Learning & STEM, not Stories & play.
+  if (learningCore) return 'learning';
   if (/\b(?:workshop|class|course|yoga|tai chi|meditation|mindfulness|wellness|breathwork|line dancing|movement class|fitness|cooking|baking)\b/.test(value)) return 'workshops';
+  if (/\b(?:games?|scavenger hunt|board games?|puzzle)\b/.test(value)) return 'play';
   return 'community';
 }
 function formatFor(text) {
@@ -513,7 +534,7 @@ async function readRss(source) {
     if (isExplicitlyAdultOnly(categories)) return [];
     const description = xmlText(item, 'description');
     if (!title || !link || !isUpcoming(startDate) || !familyAudience || xmlText(item, 'is_cancelled') === 'true' || isClosureNotice(title, description)) return [];
-    const type = typeFor(title + ' ' + categoriesLower + ' ' + description);
+    const type = typeFor(title + ' ' + categoriesLower + ' ' + description, title);
     const age = ageInfo(`${categories} ${description}`);
     const cost = costInfo(xmlText(item, 'cost'), description);
     const eventId = (xmlText(item, 'guid') || link).split('/').filter(Boolean).pop() || String(index);
@@ -563,7 +584,7 @@ async function readTribe(source) {
     const audienceText = `${title} ${item.description || ''} ${item.excerpt || ''} ${categories}`;
     const sourceFamilyPattern = source.familyPattern ? new RegExp(source.familyPattern, 'i') : null;
     if (!title || !item.url || !isUpcoming(startDate) || (sourceFamilyPattern && !sourceFamilyPattern.test(audienceText))) return [];
-    const type = typeFor(title + ' ' + categories);
+    const type = typeFor(title + ' ' + categories, title);
     // Do not infer a family age label from the calendar platform itself. The
     // card only shows an age range when the organizer actually supplied one.
     const age = ageInfo(audienceText);
@@ -699,7 +720,7 @@ function isoDateFromOfficialText(dateText, timeText = '') {
 }
 
 function directEvent({ id, title, dateValue, endDateValue = '', description, image = '', imagePresentation = '', imageBackground = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, ageText = '', format = '', movieRating = '', forcedType = '' }) {
-  const type = forcedType || (format === 'live-show' ? 'shows' : format === 'movie-screening' ? 'movies' : typeFor(title + ' ' + description + ' ' + ageText));
+  const type = forcedType || (format === 'live-show' ? 'shows' : format === 'movie-screening' ? 'movies' : typeFor(title + ' ' + description + ' ' + ageText, title));
   const age = ageInfo(ageText);
   return {
     id, title, date: displayEventDate(dateValue), dateValue, endDateValue, ...age,
@@ -2295,7 +2316,7 @@ searchSources.forEach(source => {
 });
 const candidateResults = await Promise.all(sourceLimited.map(async item => {
   const source = `${item.title} ${item.snippet || item.description || ''}`;
-  const type = typeFor(source);
+  const type = typeFor(source, item.title);
   const dateValue = await officialStartDate(item);
   return {
     sourceName: item.source,
