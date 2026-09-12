@@ -131,6 +131,53 @@ function isUpcoming(value) {
   return match[0] >= today;
 }
 
+function pacificNowValue() {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23'
+  }).formatToParts(new Date()).reduce((result, part) => ({ ...result, [part.type]: part.value }), {});
+  return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}:${parts.second}`;
+}
+
+function normalizedDateTime(value, { endOfDay = false } = {}) {
+  const match = String(value || '').match(/^(\d{4}-\d{2}-\d{2})(?:[T ](\d{2}):(\d{2})(?::(\d{2}))?)?/);
+  if (!match) return '';
+  return `${match[1]}T${match[2] || (endOfDay ? '23' : '00')}:${match[3] || (endOfDay ? '59' : '00')}:${match[4] || (endOfDay ? '59' : '00')}`;
+}
+
+function addMinutesToLocalDateTime(value, minutes) {
+  const match = normalizedDateTime(value).match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):/);
+  if (!match) return '';
+  const instant = new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3]), Number(match[4]), Number(match[5]) + minutes));
+  return `${instant.getUTCFullYear()}-${String(instant.getUTCMonth() + 1).padStart(2, '0')}-${String(instant.getUTCDate()).padStart(2, '0')}T${String(instant.getUTCHours()).padStart(2, '0')}:${String(instant.getUTCMinutes()).padStart(2, '0')}:00`;
+}
+
+function fallbackDurationMinutes(event) {
+  const text = `${event.title || ''} ${event.description || ''}`.toLowerCase();
+  if (event.format === 'movie-screening') return 200;
+  if (event.format === 'sports-game') return 240;
+  if (event.format === 'live-show') return 210;
+  if (/\b(?:story ?time|tiny tot|baby bounce|stay (?:&|and) play)\b/.test(text)) return 90;
+  if (/\b(?:festival|celebration|carnival|parade|fair|art walk)\b/.test(text)) return 480;
+  return 240;
+}
+
+function effectiveEndDateValue(event) {
+  if (event.ongoing) return '';
+  const explicit = event.endDateValue;
+  if (explicit) return normalizedDateTime(explicit, { endOfDay: !String(explicit).includes('T') && !String(explicit).includes(' ') });
+  if (!String(event.dateValue || '').includes('T') && !String(event.dateValue || '').includes(' ')) return normalizedDateTime(event.dateValue, { endOfDay: true });
+  return addMinutesToLocalDateTime(event.dateValue, fallbackDurationMinutes(event));
+}
+
+function withEffectiveEndTime(event) {
+  return { ...event, endDateValue: effectiveEndDateValue(event) };
+}
+
+function isStillActive(event, now = pacificNowValue()) {
+  return Boolean(event.ongoing || (event.endDateValue && event.endDateValue > now));
+}
+
 function decodeXml(value) {
   return String(value || '').replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
     .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
@@ -411,6 +458,7 @@ async function readRss(source) {
     const title = xmlText(item, 'title');
     const link = xmlText(item, 'link');
     const startDate = xmlText(item, 'start_date_local');
+    const endDate = xmlText(item, 'end_date_local');
     const categories = xmlTexts(item, 'category').join(' ');
     const categoriesLower = categories.toLowerCase();
     const familyAudience = /young children|kids|children|teens|family|all ages|school age/.test(categoriesLower);
@@ -429,7 +477,7 @@ async function readRss(source) {
     const city = canonicalCity(xmlText(location, 'city'));
     const address = shortAddress(`${xmlText(location, 'number')} ${xmlText(location, 'street')}`, city);
     return [{
-      id: 'rss-' + eventId, title, date: displayEventDate(startDate), dateValue: startDate, ...age, ...cost,
+      id: 'rss-' + eventId, title, date: displayEventDate(startDate), dateValue: startDate, endDateValue: endDate, ...age, ...cost,
       type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'rss', lastVerifiedAt: generatedAt,
       description: cardSummary(description, title),
       image: officialImageUrl(item),
@@ -463,6 +511,7 @@ async function readTribe(source) {
   if (!response.ok || !Array.isArray(payload.events)) throw new Error('Official calendar API was not valid: ' + response.status);
   const seeds = payload.events.flatMap((item, index) => {
     const startDate = String(item.start_date || '').replace(' ', 'T');
+    const endDate = String(item.end_date || '').replace(' ', 'T');
     const title = decodeXml(item.title || '').trim();
     const categories = (item.categories || []).map(category => decodeXml(category.name || '')).join(' ').toLowerCase();
     const audienceText = `${title} ${item.description || ''} ${item.excerpt || ''} ${categories}`;
@@ -474,7 +523,7 @@ async function readTribe(source) {
     const age = ageInfo(audienceText);
     const cost = costInfo(item.cost, item.description || item.excerpt || '');
     return [{
-      id: 'calendar-' + (item.id || index), title, date: displayEventDate(startDate), dateValue: startDate, ...age, ...cost,
+      id: 'calendar-' + (item.id || index), title, date: displayEventDate(startDate), dateValue: startDate, endDateValue: endDate, ...age, ...cost,
       type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'calendar', lastVerifiedAt: generatedAt,
       description: cardSummary(item.description || item.excerpt || '', title),
       image: item.image?.url || '', place: item.venue?.venue || source.name,
@@ -603,11 +652,11 @@ function isoDateFromOfficialText(dateText, timeText = '') {
   return date + 'T' + String(hour).padStart(2, '0') + ':' + (time[2] || '00');
 }
 
-function directEvent({ id, title, dateValue, description, image = '', imagePresentation = '', imageBackground = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, ageText = '', format = '', movieRating = '', forcedType = '' }) {
+function directEvent({ id, title, dateValue, endDateValue = '', description, image = '', imagePresentation = '', imageBackground = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, ageText = '', format = '', movieRating = '', forcedType = '' }) {
   const type = forcedType || (format === 'live-show' ? 'shows' : format === 'movie-screening' ? 'movies' : typeFor(title + ' ' + description + ' ' + ageText));
   const age = ageInfo(ageText);
   return {
-    id, title, date: displayEventDate(dateValue), dateValue, ...age,
+    id, title, date: displayEventDate(dateValue), dateValue, endDateValue, ...age,
     costLabel: '费用未注明', costSource: '', type, icon: icons[type], color: colors[type], tag: labels[type],
     verification: 'official-page', lastVerifiedAt: generatedAt, format,
     description: cardSummary(description),
@@ -2267,6 +2316,7 @@ function coalesceCrossSourceDuplicates(events) {
 }
 
 const individualEvents = coalesceCrossSourceDuplicates(preliminaryEvents)
+  .map(withEffectiveEndTime)
   .sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
 
 function seriesKey(event) {
@@ -2287,14 +2337,20 @@ function groupRepeatedSessions(items) {
   items.forEach(event => { const key = seriesKey(event); (groups.get(key) || groups.set(key, []).get(key)).push(event); });
   return [...groups.entries()].flatMap(([key, group]) => {
     const ordered = group.sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
-    if (ordered.length === 1) return ordered;
-    const first = ordered[0];
+    // Preserve the series identity (and saved-card migration IDs) while
+    // removing sessions that have already ended in Pacific time. A morning
+    // storytime and next week's storytime must remain one activity, but only
+    // the future session should be shown or offered in “other sessions”.
+    const active = ordered.filter(isStillActive);
+    if (!active.length) return [];
+    if (ordered.length === 1) return active;
+    const first = active[0];
     // A cinema can expose several formats and dozens of showtimes per day.
     // Keep the earliest official purchase link for each theater/day on the
     // card; the ticket page remains the complete source of showtimes.
     const cardSessions = first.format === 'movie-screening'
-      ? [...new Map(ordered.map(event => [`${String(event.dateValue).slice(0, 10)}\u001f${event.place}`, event])).values()]
-      : ordered;
+      ? [...new Map(active.map(event => [`${String(event.dateValue).slice(0, 10)}\u001f${event.place}`, event])).values()]
+      : active;
     const movieRating = first.format === 'movie-screening'
       ? cautiousMovieRating(ordered.map(event => event.movieRating))
       : first.movieRating;
@@ -2312,7 +2368,7 @@ function groupRepeatedSessions(items) {
       movieRating,
       legacyIds: ordered.map(event => event.id),
       source: first.format === 'movie-screening' ? 'Official cinema listings' : first.source,
-      sessions: cardSessions.map(event => ({ id: event.id, date: event.date, dateValue: event.dateValue, url: event.url, place: event.place, address: event.address, city: event.city }))
+      sessions: cardSessions.map(event => ({ id: event.id, date: event.date, dateValue: event.dateValue, endDateValue: event.endDateValue, url: event.url, place: event.place, address: event.address, city: event.city }))
     }];
   }).sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
 }

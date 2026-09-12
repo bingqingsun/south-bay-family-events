@@ -120,6 +120,47 @@ function applyStaticCopy() {
 }
 function dateKey(value) { return String(value || '').match(/^\d{4}-\d{2}-\d{2}/)?.[0] || ''; }
 function localToday() { return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date()); }
+function pacificNowValue() {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23'
+  }).formatToParts(new Date()).reduce((result, part) => ({ ...result, [part.type]: part.value }), {});
+  return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}:${parts.second}`;
+}
+function normalizedDateTime(value, { endOfDay = false } = {}) {
+  const match = String(value || '').match(/^(\d{4}-\d{2}-\d{2})(?:[T ](\d{2}):(\d{2})(?::(\d{2}))?)?/);
+  if (!match) return '';
+  return `${match[1]}T${match[2] || (endOfDay ? '23' : '00')}:${match[3] || (endOfDay ? '59' : '00')}:${match[4] || (endOfDay ? '59' : '00')}`;
+}
+function addMinutesToLocalDateTime(value, minutes) {
+  const match = normalizedDateTime(value).match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):/);
+  if (!match) return '';
+  const instant = new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3]), Number(match[4]), Number(match[5]) + minutes));
+  return `${instant.getUTCFullYear()}-${String(instant.getUTCMonth() + 1).padStart(2, '0')}-${String(instant.getUTCDate()).padStart(2, '0')}T${String(instant.getUTCHours()).padStart(2, '0')}:${String(instant.getUTCMinutes()).padStart(2, '0')}:00`;
+}
+function fallbackDurationMinutes(event) {
+  const text = `${event.title || ''} ${event.description || ''}`.toLowerCase();
+  if (event.format === 'movie-screening') return 200;
+  if (event.format === 'sports-game') return 240;
+  if (event.format === 'live-show') return 210;
+  if (/\b(?:story ?time|tiny tot|baby bounce|stay (?:&|and) play)\b/.test(text)) return 90;
+  if (/\b(?:festival|celebration|carnival|parade|fair|art walk)\b/.test(text)) return 480;
+  return 240;
+}
+function sessionEndDateValue(event, session) {
+  // A series parent can carry the end time of its first session. Do not let
+  // that value accidentally expire a later session that lacks its own field.
+  const explicit = session.endDateValue || (!event.sessions ? event.endDateValue : '');
+  if (explicit) return normalizedDateTime(explicit, { endOfDay: !String(explicit).includes('T') && !String(explicit).includes(' ') });
+  const start = session.dateValue || event.dateValue;
+  if (!String(start).includes('T') && !String(start).includes(' ')) return normalizedDateTime(start, { endOfDay: true });
+  return addMinutesToLocalDateTime(start, fallbackDurationMinutes({ ...event, ...session }));
+}
+function sessionIsActive(event, session, now = pacificNowValue()) {
+  if (event.ongoing) return true;
+  const end = sessionEndDateValue(event, session);
+  return Boolean(end && end > now);
+}
 function dateLabel(value) {
   const match = String(value || '').match(/^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}))?/); if (!match) return null;
   const date = new Date(`${match[1]}-${match[2]}-${match[3]}T12:00:00Z`); const currentYear = localToday().slice(0, 4);
@@ -147,11 +188,11 @@ function ageMatches(event, age) {
   return (event.ageBands || []).includes('all-ages');
 }
 function eventSessions(event) { return event.sessions?.length ? event.sessions : [event]; }
-function matchingSessions(event) { return eventSessions(event).filter(session => (event.ongoing || !dateKey(session.dateValue || event.dateValue) || dateKey(session.dateValue || event.dateValue) >= localToday()) && dateMatches({ ...event, ...session }, state.date)); }
+function matchingSessions(event) { return eventSessions(event).filter(session => sessionIsActive(event, session) && dateMatches({ ...event, ...session }, state.date)); }
 function activeSession(event) {
   const sessions = matchingSessions(event);
-  if (event.format !== 'movie-screening' || !state.position) return sessions[0] || eventSessions(event)[0];
-  return [...sessions].sort((a, b) => (eventDistance({ ...event, address: a.address || event.address }) ?? Infinity) - (eventDistance({ ...event, address: b.address || event.address }) ?? Infinity))[0] || eventSessions(event)[0];
+  if (event.format !== 'movie-screening' || !state.position) return sessions[0] || null;
+  return [...sessions].sort((a, b) => (eventDistance({ ...event, address: a.address || event.address }) ?? Infinity) - (eventDistance({ ...event, address: b.address || event.address }) ?? Infinity))[0] || null;
 }
 function isSaved(event) { return state.saved.includes(event.id) || event.legacyIds?.some(id => state.saved.includes(id)); }
 function migrateSavedSeries() {
@@ -199,7 +240,7 @@ function populateCityFilter() {
   const select = document.querySelector('#cityFilter');
   const previous = state.city;
   const counts = new Map();
-  events.forEach(event => { if (event.city) counts.set(event.city, (counts.get(event.city) || 0) + 1); });
+  events.forEach(event => { if (event.city && eventSessions(event).some(session => sessionIsActive(event, session))) counts.set(event.city, (counts.get(event.city) || 0) + 1); });
   select.replaceChildren(new Option(t('allCities'), 'all'));
   [...counts.entries()].sort(([a], [b]) => a.localeCompare(b, 'en')).forEach(([city, count]) => select.add(new Option(`${city} (${count})`, city)));
   state.city = counts.has(previous) ? previous : 'all';
@@ -260,7 +301,7 @@ function render() {
     const address = node.querySelector('.address'); const addressLink = node.querySelector('.address-link'); const addressText = session.address || event.address || ''; const meetingPoint = !addressText ? String(event.meetingPoint || '').trim() : ''; const locationText = addressText || (meetingPoint ? `Meet at: ${meetingPoint}` : '');
     address.hidden = !locationText; addressLink.href = event.mapUrl || `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(addressText)}`; addressLink.querySelector('.detail-text').textContent = locationText; addressLink.querySelector('.directions').textContent = t('directions'); addressLink.setAttribute('aria-label', `${t('directions')}: ${locationText}`);
     const organizerName = event.verification === 'search-verified' ? '' : String(event.source || '').trim(); if (organizerName) { const organizer = document.createElement('p'); organizer.className = 'organizer'; organizer.textContent = t('hostedBy')(organizerName); node.querySelector('.details').append(organizer); }
-    const sessionToggle = node.querySelector('.sessions-inline-toggle'); const sessionList = node.querySelector('.sessions-list'); const allSessions = eventSessions(event); const otherSessions = allSessions.filter(item => item.id !== session.id); sessionToggle.hidden = otherSessions.length === 0; sessionToggle.dataset.eventId = event.id; sessionToggle.setAttribute('aria-expanded', 'false'); sessionToggle.textContent = t('showOtherSessions')(otherSessions.length); sessionList.id = `sessions-${event.id}`; sessionToggle.setAttribute('aria-controls', sessionList.id); otherSessions.forEach(item => { const row = document.createElement('li'); const sessionLink = document.createElement('a'); sessionLink.href = item.url || event.url; sessionLink.target = '_blank'; sessionLink.rel = 'noopener'; sessionLink.textContent = `${dateLabel(item.dateValue) || item.date}${event.format === 'movie-screening' && item.place ? ` · ${item.place}` : ''}`; row.append(sessionLink); sessionList.append(row); });
+    const sessionToggle = node.querySelector('.sessions-inline-toggle'); const sessionList = node.querySelector('.sessions-list'); const otherSessions = sessions.filter(item => item.id !== session.id); sessionToggle.hidden = otherSessions.length === 0; sessionToggle.dataset.eventId = event.id; sessionToggle.setAttribute('aria-expanded', 'false'); sessionToggle.textContent = t('showOtherSessions')(otherSessions.length); sessionList.id = `sessions-${event.id}`; sessionToggle.setAttribute('aria-controls', sessionList.id); otherSessions.forEach(item => { const row = document.createElement('li'); const sessionLink = document.createElement('a'); sessionLink.href = item.url || event.url; sessionLink.target = '_blank'; sessionLink.rel = 'noopener'; sessionLink.textContent = `${dateLabel(item.dateValue) || item.date}${event.format === 'movie-screening' && item.place ? ` · ${item.place}` : ''}`; row.append(sessionLink); sessionList.append(row); });
     const rank = eventIndex + 1; const analyticsParameters = { event_id: event.id, rank, sort_type: state.sort, recommendation_score: event.recommendationScore || 0, editor_pick: event.recommendationBadge === 'top-pick', activity_category: event.type || 'other', organizer: event.source || 'unknown' };
     const link = node.querySelector('.source-link'); link.href = session.url || event.url; link.firstChild.textContent = `${t('viewDetails')} `; link.addEventListener('click', () => { track('event_card_clicked', analyticsParameters); track('activity_details_opened', analyticsParameters); });
     const heart = node.querySelector('.heart'); const saved = isSaved(event); heart.dataset.id = event.id; heart.dataset.legacyIds = JSON.stringify(event.legacyIds || []); heart.dataset.analytics = JSON.stringify({ rank, sort_type: state.sort, recommendation_score: event.recommendationScore || 0, activity_category: event.type || 'other' }); heart.classList.toggle('saved', saved); heart.textContent = saved ? '♥' : '♡'; heart.setAttribute('aria-pressed', String(saved)); heart.setAttribute('aria-label', saved ? t('unsave')(eventText(event, 'title')) : t('save')(eventText(event, 'title')));
@@ -322,4 +363,11 @@ mobileNearby.addEventListener('click', () => { const sortFilter = document.query
 grid.addEventListener('click', e => { const sessionToggle = e.target.closest('.sessions-inline-toggle'); if (sessionToggle) { const list = document.querySelector(`#sessions-${sessionToggle.dataset.eventId}`); const isExpanded = !list.hidden; list.hidden = isExpanded; sessionToggle.textContent = isExpanded ? t('showOtherSessions')(list.children.length) : t('hideOtherSessions'); sessionToggle.setAttribute('aria-expanded', String(!isExpanded)); return; } const toggle = e.target.closest('.description-toggle'); if (toggle) { const description = document.querySelector(`#description-${toggle.dataset.eventId}`); const isExpanded = description.classList.toggle('is-expanded'); toggle.textContent = isExpanded ? t('collapseDescription') : t('expandDescription'); toggle.setAttribute('aria-expanded', String(isExpanded)); return; } const button = e.target.closest('.heart'); if (!button) return; const id = button.dataset.id; const legacyIds = JSON.parse(button.dataset.legacyIds || '[]'); const saved = state.saved.includes(id) || legacyIds.some(legacyId => state.saved.includes(legacyId)); const saveAnalytics = JSON.parse(button.dataset.analytics || '{}'); track(saved ? 'activity_unsaved' : 'activity_saved', saveAnalytics); state.saved = saved ? state.saved.filter(item => item !== id && !legacyIds.includes(item)) : [...state.saved.filter(item => !legacyIds.includes(item)), id]; localStorage.setItem('southBaySaved', JSON.stringify(state.saved)); render(); });
 document.querySelector('#savedButton').addEventListener('click', () => { state.onlySaved = !state.onlySaved; document.querySelector('#savedButton').classList.toggle('active', state.onlySaved); render(); document.querySelector('#events').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
 applyStaticCopy();
-fetch('./data/events.json', { cache: 'no-store' }).then(response => response.ok ? response.json() : Promise.reject()).then(data => { if (Array.isArray(data)) events = data; }).catch(() => {}).finally(() => { migrateSavedSeries(); populateAgeFilter(); populateCityFilter(); render(); });
+function refreshExpiredEvents() { populateCityFilter(); render(); }
+fetch('./data/events.json', { cache: 'no-store' }).then(response => response.ok ? response.json() : Promise.reject()).then(data => { if (Array.isArray(data)) events = data; }).catch(() => {}).finally(() => {
+  migrateSavedSeries(); populateAgeFilter(); refreshExpiredEvents();
+  // A page can remain open while a session ends. Re-evaluate in Pacific time
+  // so cards, saved results, and counts do not wait for a full browser reload.
+  window.setInterval(refreshExpiredEvents, 60 * 1000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) refreshExpiredEvents(); });
+});
