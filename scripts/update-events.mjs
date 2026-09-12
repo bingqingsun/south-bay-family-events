@@ -430,7 +430,7 @@ function ageInfo(categories) {
   const text = plainText(categories).replace(/\s+/g, ' ').trim();
   const lower = text.toLowerCase();
   const familyFriendly = /family(?:-friendly)?/.test(lower);
-  const allAges = /\ball ages?\b|\bfor all ages\b|\bappropriate for all ages\b/.test(lower);
+  const allAges = /\ball[-\s]ages?\b|\bfor all[-\s]ages\b|\bappropriate for all[-\s]ages\b/.test(lower);
 
   const ranges = [];
   const addRange = (min, max) => {
@@ -498,7 +498,7 @@ function costInfo(cost, description = '') {
   };
   const classifyDescription = text => {
     if (/suggested donation/i.test(text)) return '建议捐赠';
-    if (/\b(?:free admission|free event|free program|free activity|free entry|free to attend|admission is free|registration is free|free (?:class|workshop|tour|screening|concert|performance|bicycle repair|repair service|drop-?in))\b/i.test(text)) return '免费';
+    if (/\b(?:free admission|free event|free program|free activity|free entry|free to attend|admission is free|registration is free|free(?:[\s,-]+(?:hands-?on|drop-?in|outdoor|community|family|all-ages?|all ages))*\s+(?:event|class|workshop|tour|screening|concert|performance|bicycle repair|repair service))\b/i.test(text)) return '免费';
     if (/\b(?:tickets?|admission|registration|entry|fee|cost|price)\b[^.!?]{0,45}(?:\$\s*\d|purchase|required|available)/i.test(text)) return '需购票／价格见详情';
     return null;
   };
@@ -768,6 +768,82 @@ function readCurated(source) {
     });
     return [{ ...event, ...costInfo(item.cost || '', item.description || '') }];
   });
+}
+
+// Google Visitor Experience renders its calendar client-side, but publishes
+// an official, public JSON file for every calendar month. Read that feed
+// directly so family events get their exact session, official image and RSVP
+// page without relying on search results or a manually curated occurrence.
+function googleVisitorActivitySummary(title, description) {
+  const genericWords = new Set(['google', 'visitor', 'experience', 'event', 'events', 'family', 'class', 'workshop', 'with', 'the', 'and', 'for']);
+  const specificTitleWords = plainText(title).toLowerCase().match(/[a-z]{4,}/g)?.filter(word => !genericWords.has(word)) || [];
+  const descriptionText = plainText(description).toLowerCase();
+  // Calendar systems occasionally carry a stale description from another
+  // event. A card must never claim that a yoga class is a craft workshop. In
+  // that case the official title is the only trustworthy activity detail.
+  if (specificTitleWords.length && !specificTitleWords.some(word => descriptionText.includes(word))) {
+    return `Official Google Visitor Experience event: ${plainText(title)}.`;
+  }
+  return description;
+}
+
+async function readGoogleVisitorEvents(source) {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Los_Angeles', year: 'numeric', month: 'numeric'
+  }).formatToParts(new Date()).reduce((result, part) => ({ ...result, [part.type]: part.value }), {});
+  const firstYear = Number(parts.year);
+  const firstMonth = Number(parts.month);
+  const monthsAhead = Math.max(1, Math.min(Number(source.monthsAhead) || 4, 12));
+  const headers = { 'user-agent': 'SouthBayFamilyEventsBot/1.0' };
+  const familyPattern = new RegExp(source.familyPattern || 'family|children|kids?|all ages|youth', 'i');
+  const payloads = await Promise.all(Array.from({ length: monthsAhead }, async (_, index) => {
+    const monthOffset = (firstMonth - 1) + index;
+    const year = firstYear + Math.floor(monthOffset / 12);
+    const month = (monthOffset % 12) + 1;
+    const url = new URL(`/static/data/${year}/${month}.json`, source.feedUrl);
+    const response = await fetch(url, { headers, signal: AbortSignal.timeout(15000) });
+    if (!response.ok) throw new Error(`Google Visitor Experience calendar was not valid: ${response.status}`);
+    const data = await response.json();
+    if (!Array.isArray(data?.eventsForMonth)) throw new Error('Google Visitor Experience calendar payload was not valid');
+    return data.eventsForMonth;
+  }));
+  const candidates = payloads.flat().flatMap(item => {
+    const event = item?.document_content || {};
+    const title = plainText(event.title);
+    const description = googleVisitorActivitySummary(event.title, plainText(event.description));
+    const dateValue = String(event.start_time || '').replace(' ', 'T').slice(0, 16);
+    const endDateValue = String(event.end_time || '').replace(' ', 'T').slice(0, 19);
+    const url = event.rsvp_link?.button_link_url || source.feedUrl;
+    const activityText = `${title} ${description}`;
+    if (!title || !dateValue || !isUpcoming(dateValue) || !familyPattern.test(activityText) || isExplicitlyAdultOnly(activityText)) return [];
+    return [{ title, description, dateValue, endDateValue, url, event }];
+  });
+  // The Google feed can contain duplicate sessions when an event RSVP page is
+  // updated. Keep one card for the session and prefer the year-specific RSVP
+  // page plus the richer official description.
+  const unique = [...candidates.reduce((events, item) => {
+    const key = `${item.title.toLowerCase()}|${item.dateValue}`;
+    const previous = events.get(key);
+    const score = value => (value.url.includes(String(value.dateValue).slice(0, 4)) ? 1000 : 0) + value.description.length;
+    if (!previous) events.set(key, item);
+    else {
+      const preferred = score(item) > score(previous) ? item : previous;
+      const richerDescription = item.description.length > previous.description.length ? item.description : previous.description;
+      events.set(key, { ...preferred, description: richerDescription });
+    }
+    return events;
+  }, new Map()).values()];
+  return unique.map((item, index) => {
+    const image = item.event.image?.image?.url || '';
+    const place = plainText(item.event.location || source.name);
+    const event = directEvent({
+      id: 'google-visitor-' + createHash('sha256').update(`${item.url}|${item.dateValue}|${index}`).digest('hex').slice(0, 16),
+      title: item.title, dateValue: item.dateValue, endDateValue: item.endDateValue,
+      description: item.description, image, place, address: source.address || '', city: source.city || '',
+      source: source.name, url: item.url, ageText: `${item.title} ${item.description}`
+    });
+    return { ...event, ...costInfo('', item.description) };
+  }).filter(event => hasActivitySummary(event.description));
 }
 
 function officialPageOgImage(html) {
@@ -2340,7 +2416,7 @@ const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'annual-festival', 'curated'];
+const directMethods = ['rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'annual-festival', 'curated', 'google-visitor-events'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
@@ -2354,6 +2430,7 @@ if (searchSources.length && !key) throw new Error('SERPAPI_KEY is required when 
 
 const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'curated') return readCurated(source);
+  if (source.method === 'google-visitor-events') return readGoogleVisitorEvents(source);
   if (source.method === 'wix-events') return readWixEvents(source);
   if (source.method === 'squarespace-events') return readSquarespaceEvents(source);
   if (source.method === 'annual-festival') return readAnnualFestival(source);
