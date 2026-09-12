@@ -6,6 +6,7 @@
   // Special-event appeal helps discovery, but never overwhelms those basics.
   const CONFIG = {
     editorialBoost: 12,
+    weekendSpotlightBoost: 32,
     experience: {
       festival: 16, seasonal: 16, animal: 17, performance: 17, ride: 16,
       concert: 16, nature: 15, museum: 15, cultural: 15, movie: 14,
@@ -185,6 +186,7 @@
   }
 
   function calculateRecommendationScore(event, todayKey, getDateValue = item => item.dateValue, getDistance) {
+    const weekendSpotlight = isWeekendSpotlight(event, todayKey, getDateValue);
     const breakdown = {
       experienceScore: CONFIG.experience[getExperienceKind(event)],
       specialnessScore: CONFIG.recurrence[inferFrequency(event)] ?? CONFIG.recurrence.unknown,
@@ -193,7 +195,8 @@
       distanceScore: getDistanceScore(event, getDistance),
       qualityScore: getQualityScore(event, todayKey),
       reliabilityPenalty: getReliabilityPenalty(event, todayKey, getDateValue),
-      editorialBoost: isActiveEditorPick(event, todayKey) ? CONFIG.editorialBoost : 0
+      editorialBoost: isActiveEditorPick(event, todayKey) ? CONFIG.editorialBoost : 0,
+      weekendSpotlightBoost: weekendSpotlight ? CONFIG.weekendSpotlightBoost : 0
     };
     return { totalScore: Object.values(breakdown).reduce((sum, value) => sum + value, 0), ...breakdown };
   }
@@ -202,6 +205,22 @@
     const frequency = inferFrequency(event);
     const text = eventText(event);
     return ['annual', 'seasonal', 'holiday'].includes(frequency) || event.format === 'festival' || includesAny(text, ['festival', 'fair', 'carnival', 'parade']);
+  }
+
+  function isWeekendSpotlight(event, todayKey, getDateValue = item => item.dateValue) {
+    const eventDate = dateKey(getDateValue(event));
+    if (!eventDate) return false;
+    const days = daysFrom(todayKey, eventDate);
+    const weekday = new Date(`${eventDate}T12:00:00Z`).getUTCDay();
+    // A Spotlight is an imminent, distinctive plan—not merely any event with
+    // “festival” in its title. It may lack an organizer-supplied age range,
+    // but must still have strong family experiences and decision-ready basics.
+    return days >= 0 && days <= 3 && [5, 6, 0].includes(weekday)
+      && isSpecialEvent(event)
+      && getFamilyAppealScore(event) >= 4
+      && /^https?:\/\//.test(event.url || '')
+      && hasActionableLocation(event)
+      && String(event.description || '').trim().length >= 40;
   }
 
   function diversifyEvents(scored) {
@@ -257,6 +276,7 @@
       || a.originalIndex - b.originalIndex);
     return diversifyEvents(scored).map(item => {
       const editorPick = isActiveEditorPick(item.event, todayKey);
+      const weekendSpotlight = isWeekendSpotlight(item.event, todayKey, getDateValue);
       return {
         ...item.event,
         recommendationScore: item.totalScore,
@@ -269,9 +289,10 @@
           distanceScore: item.distanceScore,
           qualityScore: item.qualityScore,
           reliabilityPenalty: item.reliabilityPenalty,
-          editorialBoost: item.editorialBoost
+          editorialBoost: item.editorialBoost,
+          weekendSpotlightBoost: item.weekendSpotlightBoost
         },
-        recommendationBadge: editorPick ? 'top-pick' : (isSpecialEvent(item.event) ? 'special-event' : '')
+        recommendationBadge: editorPick ? 'top-pick' : (weekendSpotlight ? 'weekend-spotlight' : (isSpecialEvent(item.event) ? 'special-event' : ''))
       };
     });
   }
@@ -282,6 +303,7 @@
     diversifyEvents,
     getSeriesKey,
     isActiveEditorPick,
+    isWeekendSpotlight,
     isRecommendationReady,
     rankRecommendedEvents
   };

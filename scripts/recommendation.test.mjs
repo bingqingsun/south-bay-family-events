@@ -71,6 +71,23 @@ const incomplete = event({ id: 'incomplete', title: 'Festival', format: 'festiva
 const readyFirst = recommendation.rankRecommendedEvents([incomplete, ...completeEvents], { todayKey });
 assert.ok(readyFirst.slice(0, 10).every(item => item.recommendationReady), 'the first discovery viewport should prefer decision-ready activities');
 
+const weekendSpotlight = event({
+  id: 'weekend-spotlight',
+  title: 'Rotary Fall Festival',
+  description: 'A vibrant festival with artisan crafts, live entertainment, food trucks, and hands-on family activities.',
+  dateValue: '2026-09-12',
+  format: 'live-show',
+  type: 'shows',
+  ageRanges: [],
+  ageLabel: '',
+  ageSource: ''
+});
+const weekdayPlan = event({ id: 'weekday-plan', dateValue: '2026-09-11' });
+const spotlightRanked = recommendation.rankRecommendedEvents([weekdayPlan, weekendSpotlight], { todayKey: '2026-09-11' });
+assert.equal(spotlightRanked[0].id, 'weekend-spotlight', 'an imminent family-focused festival should lead the recommended list');
+assert.equal(spotlightRanked[0].recommendationBadge, 'weekend-spotlight');
+assert.equal(recommendation.isWeekendSpotlight(weekendSpotlight, '2026-09-11'), true);
+
 const stalePick = event({ id: 'stale-pick', editorPick: true, editorPickUntil: '2026-09-07', editorPickReason: 'Timely family event' });
 const activePick = event({ id: 'active-pick', editorPick: true, editorPickUntil: '2026-09-12', editorPickReason: 'Timely family event' });
 const unexplainedPick = event({ id: 'unexplained-pick', editorPick: true, editorPickUntil: '2026-09-12' });
