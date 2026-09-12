@@ -41,6 +41,19 @@ assert.ok(
   'far-future special events must be meaningfully down-ranked'
 );
 
+const seasonalMetadata = event({
+  id: 'seasonal-metadata',
+  title: 'Community Day',
+  description: 'Families can explore art, music, and cultural traditions together.',
+  seasonalTheme: 'dia-de-muertos',
+  dateValue: '2026-10-24'
+});
+assert.equal(
+  recommendation.calculateRecommendationScore(seasonalMetadata, '2026-10-20').specialnessScore,
+  recommendation.CONFIG.recurrence.seasonal,
+  'quiet seasonal metadata should give culturally specific events the seasonal recommendation treatment'
+);
+
 const nearby = event({ id: 'nearby' });
 const farAway = event({ id: 'far-away' });
 const distanceRanked = recommendation.rankRecommendedEvents([farAway, nearby], {

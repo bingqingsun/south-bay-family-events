@@ -32,7 +32,7 @@
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/[^\p{L}\p{N}]+/gu, ' ')
     .trim();
-  const eventText = event => normalize([event.title, event.description, event.tag, event.format, ...(event.eventTags || [])].join(' '));
+  const eventText = event => normalize([event.title, event.description, event.tag, event.format, event.seasonalTheme, ...(event.eventTags || [])].join(' '));
   const includesAny = (text, terms) => terms.some(term => text.includes(term));
   const dateKey = value => String(value || '').match(/^\d{4}-\d{2}-\d{2}/)?.[0] || '';
   const daysFrom = (from, to) => Math.round((Date.parse(`${to}T12:00:00Z`) - Date.parse(`${from}T12:00:00Z`)) / 86400000);
@@ -69,7 +69,7 @@
     const text = eventText(event);
     const source = normalize(event.source);
     if (includesAny(text, ['annual', 'anniversary', 'oktoberfest'])) return 'annual';
-    if (includesAny(text, ['holiday', 'halloween', 'christmas', 'lunar new year', 'pumpkin', 'harvest'])) return 'seasonal';
+    if (event.seasonalTheme || includesAny(text, ['holiday', 'halloween', 'christmas', 'lunar new year', 'mid autumn', 'moon festival', 'dia de muertos', 'pumpkin', 'harvest'])) return 'seasonal';
     if (event.format === 'movie-screening') return 'daily';
     if (includesAny(text, ['storytime', 'story time', 'homework help', 'lego tuesday', 'lego friday'])) return 'weekly';
     if (source.includes('library') && includesAny(text, ['music movement', 'chess club', 'board game', 'crochet club', 'tai chi', 'meditation', 'reading to furry friends'])) return 'weekly';
@@ -85,7 +85,7 @@
     if (includesAny(text, ['storytime', 'story time', 'baby lapsit', 'bedtime story'])) return 'storytime';
     if (includesAny(text, ['homework help', 'reading buddy', 'college readiness'])) return 'homework';
     if (event.format === 'festival' || includesAny(text, ['festival', 'fair', 'carnival', 'fiesta', 'parade', 'oktoberfest'])) return 'festival';
-    if (includesAny(text, ['seasonal', 'holiday', 'halloween', 'christmas', 'pumpkin', 'harvest'])) return 'seasonal';
+    if (event.seasonalTheme || includesAny(text, ['seasonal', 'holiday', 'halloween', 'christmas', 'mid autumn', 'moon festival', 'dia de muertos', 'pumpkin', 'harvest'])) return 'seasonal';
     if (includesAny(text, ['animal encounter', 'animal ambassador', 'wildlife show', 'petting zoo'])) return 'animal';
     if (includesAny(text, ['special ride', 'train ride', 'monster jam', 'disney on ice'])) return 'ride';
     if (event.type === 'outdoor' || includesAny(text, ['bird walk', 'nature walk', 'nature program', 'ranger', 'wildlife', 'hike'])) return 'nature';

@@ -64,6 +64,18 @@ function formatFor(text) {
   if (/\b(?:show|theat(?:er|re)|concert|performance|musical|dance|magic|planetarium|laser|ice (?:show|skating))\b/.test(value)) return 'live-show';
   return 'program';
 }
+
+// Seasonal intent is useful for recommendations and future collections, but it
+// is not another user-facing category. Keep it as quiet metadata so a Moon
+// Festival can remain a community event while still receiving timely seasonal
+// treatment in ranking and editorial collections.
+function seasonalThemeFor(text) {
+  const value = plainText(text).toLowerCase();
+  if (/\b(?:mid[-\s]?autumn|moon(?:cake)? festival|moon festival)\b/.test(value)) return 'mid-autumn';
+  if (/\b(?:d[ií]a de (?:los )?muertos|day of the dead|alebrijes)\b/.test(value)) return 'dia-de-muertos';
+  if (/\b(?:halloween|hallowe'en|trick[-\s]?or[-\s]?treat|monster mash|spooktacular|spooky|pumpkins? in the park|pumpkin (?:pool|patch|carving|party|palooza)|haunted)\b/.test(value)) return 'halloween';
+  return '';
+}
 const labels = { sports: '体育与比赛', shows: '演出与表演', movies: '电影与放映', museums: '博物馆与展览', outdoor: '户外自然', arts: '艺术与创作', learning: '学习与 STEM', play: '故事与玩乐', community: '社区与家庭', workshops: '课程与工作坊' };
 const icons = { sports: '⚽', shows: '🎭', movies: '🎬', museums: '🏛️', outdoor: '🌿', arts: '🎨', learning: '🔭', play: '🎈', community: '🤝', workshops: '🛠️' };
 const colors = { sports: '#dce7fa', shows: '#f0def2', movies: '#e5e0f8', museums: '#ece5d8', outdoor: '#d8eee0', arts: '#ffd9bd', learning: '#dce7fa', play: '#ffe9a8', community: '#dceeea', workshops: '#e7ddf6' };
@@ -87,6 +99,18 @@ function isFamilyRelevant(event) {
     && !(Number(event.ageMin) >= 18 && Number(event.ageMax) >= 18);
 }
 
+function isUnavailableEvent(event) {
+  const value = plainText([
+    event.title, event.description, event.availabilityStatus,
+    event.registrationStatus, event.ticketStatus
+  ].filter(Boolean).join(' '));
+  // Waitlisted programs remain useful because a family can still take action.
+  // Otherwise an explicit organizer status wins over the event's attractive
+  // description: sold-out/full/cancelled entries should not occupy discovery.
+  if (/\b(?:waitlist|waiting list)\b/i.test(value)) return false;
+  return /\b(?:sold out|fully booked|registration (?:is )?(?:full|closed)|event (?:is )?full|no (?:tickets|spaces?|spots?|seats?) (?:remain|remaining|available)|cancel(?:ed|led)|event cancelled)\b/i.test(value);
+}
+
 function hasExplicitChildAudience(text) {
   return /\b(?:bab(?:y|ies)|infants?|toddlers?|pre-?school(?:ers?)?|young children|children|kids?|school age|pre-?teens?|tweens?|teens?|all ages|grades?)\b/i.test(plainText(text));
 }
@@ -101,6 +125,7 @@ function withPresentationFields(event) {
   return {
     ...event,
     format: event.format || formatFor(audienceText),
+    seasonalTheme: event.seasonalTheme || seasonalThemeFor(audienceText),
     audienceStatus: event.audienceStatus || (event.ageSource ? 'organizer-confirmed' : 'not-confirmed')
   };
 }
@@ -295,7 +320,7 @@ function qualityGateSummary(event) {
   return isCardSummaryAcceptable(description, event.title, event.format) ? { ...event, description } : null;
 }
 
-function cardSummary(html, title = '') {
+function cardSummary(html, title = '', format = '') {
   const text = plainText(html).replace(/https?:\/\/\S+/g, '').trim();
   // Some official pages lead with a question and then bury the activity in
   // printer requirements. Preserve the actual service in a short, faithful
@@ -373,7 +398,7 @@ function cardSummary(html, title = '') {
   const useful = candidates.sort((a, b) => score(b) - score(a)).find(hasActivitySummary) || '';
   const concise = useful.replace(/^(?:[a-z]+,?\s+)?[a-z]+\s+\d{1,2}\s*[-:–—]\s*/i, '')
     .replace(/^\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4}\s*[-:–—]\s*/, '');
-  const verified = isCardSummaryAcceptable(concise, title) ? concise : fallbackActivitySummary(title);
+  const verified = isCardSummaryAcceptable(concise, title, format) ? concise : fallbackActivitySummary(title);
   // Keep enough of the organizer-derived summary for the in-card “expand"
   // control. The collapsed card remains short through CSS line clamping.
   return verified.length > 320 ? `${verified.slice(0, 317).trimEnd()}…` : verified;
@@ -493,7 +518,7 @@ function costInfo(cost, description = '') {
     if (/^(?:free|no cost|no charge|\$?0(?:\.00)?)$/i.test(text)) return '免费';
     if (/^suggested donation/i.test(text)) return '建议捐赠';
     if (/member/i.test(text) && /\$|\d|price|fee|admission/i.test(text)) return '会员／非会员价格见详情';
-    if (/\$\s*\d|\b(?:usd|fee|admission|ticket|price)\b/i.test(text)) return text;
+    if (/\$\s*\d|\b(?:usd|fee|admission|tickets?|price)\b/i.test(text)) return text;
     return null;
   };
   const classifyDescription = text => {
@@ -722,15 +747,16 @@ function isoDateFromOfficialText(dateText, timeText = '') {
   return date + 'T' + String(hour).padStart(2, '0') + ':' + (time[2] || '00');
 }
 
-function directEvent({ id, title, dateValue, endDateValue = '', description, image = '', imagePresentation = '', imageBackground = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, ageText = '', format = '', movieRating = '', forcedType = '' }) {
+function directEvent({ id, title, dateValue, endDateValue = '', description, image = '', imagePresentation = '', imageBackground = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, ageText = '', format = '', movieRating = '', forcedType = '', seasonalTheme = '', availabilityStatus = '' }) {
   const type = forcedType || (format === 'live-show' ? 'shows' : format === 'movie-screening' ? 'movies' : typeFor(title + ' ' + description + ' ' + ageText, title));
   const age = ageInfo(ageText);
   return {
     id, title, date: displayEventDate(dateValue), dateValue, endDateValue, ...age,
     costLabel: '费用未注明', costSource: '', type, icon: icons[type], color: colors[type], tag: labels[type],
     verification: 'official-page', lastVerifiedAt: generatedAt, format,
-    description: cardSummary(description),
-    image: optimizedOfficialImageUrl(image, source), imagePresentation, imageBackground, place, address, city: canonicalCity(city), meetingPoint, mapUrl, source, url, movieRating
+    description: cardSummary(description, title, format),
+    image: optimizedOfficialImageUrl(image, source), imagePresentation, imageBackground, place, address, city: canonicalCity(city), meetingPoint, mapUrl, source, url, movieRating,
+    seasonalTheme: seasonalTheme || seasonalThemeFor(`${title} ${description}`), availabilityStatus
   };
 }
 
@@ -768,7 +794,9 @@ function readCurated(source) {
       source: source.name,
       url: item.url || source.feedUrl,
       ageText: item.ageText || '',
-      format: item.format || ''
+      format: item.format || '',
+      seasonalTheme: item.seasonalTheme || '',
+      availabilityStatus: item.availabilityStatus || ''
     });
     return [{ ...event, ...costInfo(item.cost || '', item.description || '') }];
   });
@@ -969,6 +997,58 @@ async function readSquarespaceEvents(source) {
       title, dateValue, endDateValue, description, image, place, address: source.address || '', city: source.city || '',
       source: source.name, url: new URL(href, source.feedUrl).href, ageText: text, format: source.format || 'festival'
     })];
+  });
+}
+
+// Santana Row's public events index is server-rendered and provides one card
+// per official event. Read that index instead of hard-coding one Halloween
+// date, so future family festivals are picked up when the organizer publishes
+// them. Detail pages are used only to improve the official image/summary.
+async function readSantanaRow(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(20000) });
+  const html = await response.text();
+  if (!response.ok || !/class=["'][^"']*events/i.test(html)) throw new Error('Santana Row events page was not valid: ' + response.status);
+  const familyPattern = new RegExp(source.familyPattern || 'family|families|children|kids?|all ages|pumpkin|halloween|trick-or-treat|d[ií]a de|craft', 'i');
+  const blocks = [...html.matchAll(/<div\b[^>]*class=["'][^"']*\bevent\b[^"']*["'][^>]*>[\s\S]*?(?=<div\b[^>]*class=["'][^"']*\bevent\b|<\/section>|$)/gi)].map(match => match[0]);
+  const cards = blocks.map((block, index) => {
+    const title = plainText(block.match(/<h2\b[^>]*class=["'][^"']*title[^"']*["'][^>]*>([\s\S]*?)<\/h2>/i)?.[1] || '');
+    const href = htmlAttribute(block, /<a\b[^>]*href=["']([^"']+)["']/i);
+    const dateText = plainText(block.match(/<div\b[^>]*class=["'][^"']*date[^"']*["'][^>]*>([\s\S]*?)<\/div>/i)?.[1] || '');
+    const description = plainText(block.match(/<div\b[^>]*class=["'][^"']*excerpt[^"']*["'][^>]*>([\s\S]*?)<\/div>/i)?.[1] || '');
+    const image = htmlAttribute(block, /<img\b[^>]*(?:data-src|src)=["']([^"']+)["']/i);
+    const dateValue = isoDateFromOfficialText(dateText, dateText);
+    return { index, title, href: href ? new URL(href, source.feedUrl).href : '', dateText, dateValue, description, image };
+  }).filter(card => card.title && card.href && card.dateValue && isUpcoming(card.dateValue)
+    && familyPattern.test(`${card.title} ${card.description}`));
+
+  const details = await Promise.all(cards.map(async card => {
+    try {
+      const detailResponse = await fetch(card.href, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+      const detailHtml = await detailResponse.text();
+      if (!detailResponse.ok) return card;
+      const detailText = plainText(detailHtml);
+      const description = cardSummary(card.description || detailHtml, card.title);
+      return {
+        ...card,
+        description,
+        image: officialPageOgImage(detailHtml) || card.image,
+        audienceText: detailText,
+        availabilityStatus: /\b(?:sold out|registration (?:is )?full|fully booked)\b/i.test(detailText) ? 'sold out' : ''
+      };
+    } catch { return card; }
+  }));
+
+  return details.flatMap(card => {
+    if (!hasActivitySummary(card.description)) return [];
+    const event = directEvent({
+      id: 'santana-' + createHash('sha256').update(`${card.href}|${card.dateValue}`).digest('hex').slice(0, 16),
+      title: card.title, dateValue: card.dateValue, description: card.description, image: card.image,
+      place: source.place || source.name, address: source.address || '', city: source.city || '',
+      source: source.name, url: card.href, ageText: `${card.title} ${card.description} ${card.audienceText || ''}`,
+      format: /festival|celebration|trick-or-treat/i.test(card.title) ? 'festival' : '',
+      availabilityStatus: card.availabilityStatus || ''
+    });
+    return [{ ...event, ...costInfo('', card.description) }];
   });
 }
 
@@ -2354,21 +2434,23 @@ async function readSymphony(source) {
     const detailResponse = await fetch(card.url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
     const detailHtml = await detailResponse.text();
     if (!detailResponse.ok) return null;
-    const description = decodeXml(detailHtml.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)["']/i)?.[1] || '');
-    return { ...card, description, detailHtml };
+    const metaDescription = decodeXml(detailHtml.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)["']/i)?.[1] || '');
+    const description = timelyActivityDescription(detailHtml, card.title) || metaDescription;
+    const cssImage = decodeXml(detailHtml.match(/background-image\s*:\s*url\((?:["']?)([^)'"\s]+)(?:["']?)\)/i)?.[1] || '');
+    return { ...card, description, image: officialPageOgImage(detailHtml) || cssImage || card.image, detailHtml };
   }));
   return pages.flatMap((page, pageIndex) => {
-    if (!page || !/\b(?:famil(?:y|ies)|children|kids?|toddlers?|preschool(?:ers?)?|young children)\b/i.test(page.description)) return [];
+    if (!page) return [];
     const detailText = plainText(page.detailHtml);
+    const explicitFamilyAudience = /\b(?:famil(?:y|ies)|children|kids?|toddlers?|preschool(?:ers?)?|young children|youth(?:\s+under\s+18)?)\b/i.test(detailText);
+    const officialFamilyProgram = /\bspooktacular\b/i.test(page.title) && /\b(?:costume contest|costume parade|best youth|everyone)\b/i.test(detailText);
+    if (!explicitFamilyAudience && !officialFamilyProgram) return [];
     const sessions = [...detailText.matchAll(/\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),\s+(\d{4})\s+at\s+(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?))/gi)];
     return sessions.map((session, sessionIndex) => {
       const dateValue = isoDateFromOfficialText(`${session[1]} ${session[2]}, ${session[3]}`, session[4]);
       return dateValue ? directEvent({
         id: `symphony-${pageIndex}-${sessionIndex}`, title: page.title, dateValue,
         description: page.description,
-        // A season-logo image is not an activity image. Leave it blank so the
-        // card's established themed fallback is used instead of an old or
-        // unrelated season graphic.
         image: /(?:season|logo)/i.test(page.image) ? '' : page.image, place: 'California Theatre',
         address: source.address, city: source.city, source: source.name, url: page.url,
         // The organizer identifies these as toddler/preschool programs but
@@ -2468,7 +2550,7 @@ const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'annual-festival', 'curated', 'google-visitor-events', 'eventbrite-organizer'];
+const directMethods = ['rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'santana-row', 'annual-festival', 'curated', 'google-visitor-events', 'eventbrite-organizer'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
@@ -2486,6 +2568,7 @@ const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'eventbrite-organizer') return readEventbriteOrganizer(source);
   if (source.method === 'wix-events') return readWixEvents(source);
   if (source.method === 'squarespace-events') return readSquarespaceEvents(source);
+  if (source.method === 'santana-row') return readSantanaRow(source);
   if (source.method === 'annual-festival') return readAnnualFestival(source);
   if (source.method === 'tribe') return readTribe(source);
   if (source.method === 'history') return readHistorySanJose(source);
@@ -2574,6 +2657,7 @@ const preliminaryEvents = [...new Map([...feedEvents, ...candidates]
   // promotion, or logistics copy is not an activity summary and cannot pass
   // this final publication gate.
   .filter(event => hasActivitySummary(event.description) || Boolean(fallbackActivitySummary(event.title)))
+  .filter(event => !isUnavailableEvent(event))
   .filter(isFamilyRelevant)
   .map(withPresentationFields)
   .map(qualityGateSummary)
