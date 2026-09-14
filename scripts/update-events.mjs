@@ -520,22 +520,101 @@ function ageInfo(categories) {
 function costInfo(cost, description = '') {
   const officialCost = plainText(cost).replace(/\s+/g, ' ').trim();
   const officialText = plainText(description).replace(/\s+/g, ' ').trim();
-  const classifyField = text => {
-    if (!text) return null;
-    if (/^(?:free|no cost|no charge|\$?0(?:\.00)?)$/i.test(text)) return '免费';
-    if (/^suggested donation/i.test(text)) return '建议捐赠';
-    if (/member/i.test(text) && /\$|\d|price|fee|admission/i.test(text)) return '会员／非会员价格见详情';
-    if (/\$\s*\d|\b(?:usd|fee|admission|tickets?|price)\b/i.test(text)) return text;
-    return null;
+  const combined = [officialCost, officialText].filter(Boolean).join('. ');
+  const sentences = combined.split(/(?<=[.!?;])\s+|\n+/).map(value => value.trim()).filter(Boolean);
+  const evidenceFor = pattern => sentences.find(sentence => pattern.test(sentence)) || '';
+  const compactEvidence = value => value.replace(/\s+/g, ' ').trim().slice(0, 180);
+
+  // Registration is deliberately independent from cost. Negative wording is
+  // resolved first so "no registration required" can never become a paid or
+  // registration-required signal.
+  let registrationStatus = 'unknown';
+  let registrationEvidence = '';
+  const noRegistrationPattern = /\b(?:no registration (?:is )?required|registration (?:is )?not required|without registration)\b/i;
+  const walkInPattern = /\b(?:walk-?ins? (?:are )?(?:welcome|accepted|available)|walk-?in (?:event|program|activity|while)|drop-?ins? (?:are )?(?:welcome|accepted))\b/i;
+  const registrationRequiredPattern = /\b(?:registration (?:is )?required|advance registration (?:is )?required|register (?:online |in advance |beforehand )?(?:to attend|required)|reservation (?:is )?required|free tickets? (?:are )?required|tickets? (?:are )?required for (?:admission|entry))\b/i;
+  const registrationRecommendedPattern = /\b(?:registration|reservations?) (?:is |are )?(?:recommended|encouraged)\b/i;
+  if (walkInPattern.test(combined)) {
+    registrationStatus = 'walk-in';
+    registrationEvidence = evidenceFor(walkInPattern);
+  } else if (noRegistrationPattern.test(combined)) {
+    registrationStatus = 'not-required';
+    registrationEvidence = evidenceFor(noRegistrationPattern);
+  } else if (registrationRequiredPattern.test(combined)) {
+    registrationStatus = 'required';
+    registrationEvidence = evidenceFor(registrationRequiredPattern);
+  } else if (registrationRecommendedPattern.test(combined)) {
+    registrationStatus = 'recommended';
+    registrationEvidence = evidenceFor(registrationRecommendedPattern);
+  }
+
+  const donationPattern = /\b(?:suggested|requested|optional) donation\b/i;
+  const freePattern = /\b(?:free admission|admission is free|free event|free program|free activity|free entry|free to attend|free and open to (?:the )?public|complimentary admission|registration is free|no (?:admission )?cost|no (?:admission |entry )?charge|no (?:registration |entry |admission )?fee)\b/i;
+  const memberPricingPattern = /(?<!non-)\bmembers?\b[\s\S]{0,180}\b(?:non-?members?|general (?:public|admission))\b|\b(?:non-?members?|general (?:public|admission))\b[\s\S]{0,180}(?<!non-)\bmembers?\b/i;
+  const paidPattern = /\b(?:paid admission|admission fee|entry fee|registration fee|fee applies|ticket purchase (?:is )?required|tickets? must be purchased|purchase (?:a |your )?tickets?|buy (?:a |your )?tickets?)\b/i;
+  const costContextPattern = /\b(?:admission|entry|registration|ticket|tickets|fee|fees|cost|price|pricing)\b/i;
+
+  const priceLabel = text => {
+    const normalized = text.replace(/[—-]/g, '–');
+    const from = normalized.match(/\b(?:from|starting at|starts at)\s*(?:USD\s*)?(\$\s*\d+(?:\.\d{1,2})?)/i);
+    if (from) return `From ${from[1].replace(/\s+/g, '')}`;
+    const range = normalized.match(/\$\s*(\d+(?:\.\d{1,2})?)\s*(?:–|to)\s*\$?\s*(\d+(?:\.\d{1,2})?)/i);
+    if (range) return `$${range[1]}–$${range[2]}`;
+    const values = [...normalized.matchAll(/(?:\$\s*|\bUSD\s+)(\d+(?:\.\d{1,2})?)/gi)].map(match => Number(match[1])).filter(Number.isFinite);
+    const unique = [...new Set(values)].sort((a, b) => a - b);
+    if (unique.length === 1) return `$${unique[0]}`;
+    if (unique.length > 1) return `$${unique[0]}–$${unique.at(-1)}`;
+    return '';
   };
-  const classifyDescription = text => {
-    if (/suggested donation/i.test(text)) return '建议捐赠';
-    if (/\b(?:free admission|free event|free program|free activity|free entry|free to attend|admission is free|registration is free|free(?:[\s,-]+(?:hands-?on|drop-?in|outdoor|community|family|all-ages?|all ages))*\s+(?:event|class|workshop|tour|screening|concert|performance|bicycle repair|repair service))\b/i.test(text)) return '免费';
-    if (/\b(?:tickets?|admission|registration|entry|fee|cost|price)\b[^.!?]{0,45}(?:\$\s*\d|purchase|required|available)/i.test(text)) return '需购票／价格见详情';
-    return null;
+
+  let costStatus = 'unknown';
+  let costLabel = '费用未注明';
+  let costEvidence = '';
+  const structuredFree = /^(?:free|no cost|no charge|no fee|\$?0(?:\.00)?)$/i.test(officialCost);
+  const donationInField = donationPattern.test(officialCost);
+  const memberInField = memberPricingPattern.test(officialCost) && /\$\s*\d/.test(officialCost);
+  const memberInDescription = memberPricingPattern.test(officialText) && /\$\s*\d/.test(officialText)
+    && /\b(?:admission|entry|tickets?)\b/i.test(officialText);
+  const freeInField = structuredFree || freePattern.test(officialCost);
+  const priceInField = priceLabel(officialCost);
+  const paidInField = paidPattern.test(officialCost);
+  const donationEvidence = donationInField ? officialCost : evidenceFor(donationPattern);
+  const memberEvidence = memberInField ? officialCost : memberInDescription ? officialText : '';
+  const freeEvidence = freeInField ? officialCost : evidenceFor(freePattern);
+  const priceEvidence = priceInField ? officialCost : sentences.find(sentence => costContextPattern.test(sentence) && !/\b(?:parking|shipping|service) fee\b/i.test(sentence) && priceLabel(sentence)) || '';
+  const paidEvidence = paidInField ? officialCost : evidenceFor(paidPattern);
+  let costFromField = false;
+
+  if (donationEvidence) {
+    costStatus = 'donation'; costLabel = '建议捐赠'; costEvidence = donationEvidence;
+    costFromField = donationInField;
+  } else if (memberEvidence) {
+    costStatus = 'variable'; costLabel = '会员／非会员价格见详情'; costEvidence = memberEvidence;
+    costFromField = memberInField;
+  } else if (freeEvidence) {
+    costStatus = 'free'; costLabel = '免费'; costEvidence = freeEvidence;
+    costFromField = freeInField;
+  } else if (priceEvidence) {
+    costStatus = 'paid'; costLabel = priceLabel(priceEvidence) || '需付费／价格见详情'; costEvidence = priceEvidence;
+    costFromField = Boolean(priceInField);
+  } else if (paidEvidence) {
+    costStatus = 'paid'; costLabel = '需付费／价格见详情'; costEvidence = paidEvidence;
+    costFromField = paidInField;
+  }
+
+  const registrationFromField = registrationStatus !== 'unknown' && (
+    walkInPattern.test(officialCost) || noRegistrationPattern.test(officialCost)
+    || registrationRequiredPattern.test(officialCost) || registrationRecommendedPattern.test(officialCost)
+  );
+  return {
+    costStatus,
+    costLabel,
+    costSource: costStatus === 'unknown' ? '' : costFromField ? '官方费用字段' : '官方活动说明',
+    costEvidence: costStatus === 'unknown' ? '' : compactEvidence(costEvidence),
+    registrationStatus,
+    registrationSource: registrationStatus === 'unknown' ? '' : registrationFromField ? '官方费用字段' : '官方活动说明',
+    registrationEvidence: registrationStatus === 'unknown' ? '' : compactEvidence(registrationEvidence)
   };
-  const label = classifyField(officialCost) || classifyDescription(officialText) || '费用未注明';
-  return { costLabel: label, costSource: label === '费用未注明' ? '' : officialCost ? '官方费用字段' : '官方活动说明' };
 }
 
 function isClosureNotice(title, description = '') {
@@ -775,7 +854,9 @@ function directEvent({ id, title, dateValue, endDateValue = '', description, ima
   const age = ageInfo(ageText);
   return {
     id, title, date: displayEventDate(dateValue), dateValue, endDateValue, ...age,
-    costLabel: '费用未注明', costSource: '', type, icon: icons[type], color: colors[type], tag: labels[type],
+    costStatus: 'unknown', costLabel: '费用未注明', costSource: '', costEvidence: '',
+    registrationStatus: 'unknown', registrationSource: '', registrationEvidence: '',
+    type, icon: icons[type], color: colors[type], tag: labels[type],
     verification: 'official-page', lastVerifiedAt: generatedAt, format,
     description: cardSummary(description, title, format),
     image: optimizedOfficialImageUrl(image, source), imagePresentation, imageBackground, place, address, city: canonicalCity(city), meetingPoint, mapUrl, source, url, movieRating,
@@ -1497,7 +1578,7 @@ async function readCinemark(source) {
       image: item.image, place: source.name, address: source.address || '', city: source.city || '', source: 'Cinemark Theatres', url: item.ticketUrl,
       ageText: item.rating === 'G' ? 'all ages' : '', format: 'movie-screening', movieRating: item.rating
     });
-    return { ...event, costLabel: '需购票／价格见详情', costSource: 'Official cinema ticketing' };
+    return { ...event, costStatus: 'paid', costLabel: '需付费／价格见详情', costSource: 'Official cinema ticketing', costEvidence: 'A ticketed cinema screening' };
   });
 }
 
@@ -1562,7 +1643,7 @@ async function readCinelux(source) {
       place: source.name, address: source.address || '', city: source.city || '', source: 'CineLux Theatres', url: item.ticketUrl,
       ageText: item.rating === 'G' ? 'all ages' : '', format: 'movie-screening', movieRating: item.rating
     });
-    return { ...event, costLabel: '需购票／价格见详情', costSource: 'Official cinema ticketing' };
+    return { ...event, costStatus: 'paid', costLabel: '需付费／价格见详情', costSource: 'Official cinema ticketing', costEvidence: 'A ticketed cinema screening' };
   });
 }
 
@@ -2656,7 +2737,9 @@ const candidateResults = await Promise.all(sourceLimited.map(async item => {
     sourceName: item.source,
     event: {
     id: 'search-' + createHash('sha256').update(item.link.toLowerCase()).digest('hex').slice(0, 16), title: item.title, date: displayEventDate(dateValue) || fallbackTime, dateValue,
-    ageBands: [], ageRanges: [], ageMin: null, ageMax: null, ageLabel: '', ageSource: '', costLabel: '费用未注明', costSource: '',
+    ageBands: [], ageRanges: [], ageMin: null, ageMax: null, ageLabel: '', ageSource: '',
+    costStatus: 'unknown', costLabel: '费用未注明', costSource: '', costEvidence: '',
+    registrationStatus: 'unknown', registrationSource: '', registrationEvidence: '',
     lastVerifiedAt: generatedAt, type, icon: icons[type], color: colors[type], tag: labels[type],
     description: cardSummary(item.snippet || item.description || ''),
     image: '',
@@ -2734,7 +2817,7 @@ function seriesKey(event) {
   // Deliberately conservative: different themes, venues, audience rules, or
   // pricing stay as separate cards even when a host reuses the same title.
   return [event.source, event.title, event.description, event.place, event.address, event.meetingPoint, event.city, event.type,
-    JSON.stringify(event.ageRanges || []), event.ageLabel || '', event.costLabel, event.costSource].join('\u001f');
+    JSON.stringify(event.ageRanges || []), event.ageLabel || '', event.costLabel, event.costSource, event.registrationStatus].join('\u001f');
 }
 
 function groupRepeatedSessions(items) {
@@ -2834,8 +2917,13 @@ function museumAsEvent(museum, source) {
     ageMax: null,
     ageLabel: '',
     ageSource: '',
+    costStatus: 'unknown',
     costLabel: '费用未注明',
     costSource: '',
+    costEvidence: '',
+    registrationStatus: 'unknown',
+    registrationSource: '',
+    registrationEvidence: '',
     type,
     icon: icons[type],
     color: colors[type],
