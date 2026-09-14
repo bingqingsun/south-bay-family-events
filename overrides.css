@@ -138,24 +138,16 @@
 .home-page .event-card { border-color: #e1e6ee; box-shadow: 0 5px 0 #203e7404; }
 .home-page .event-card:hover { box-shadow: 0 18px 33px #203e741b; }
 .home-page .tag, .home-page .heart { box-shadow: 0 3px 12px #203e7415; }
-.home-page .card-title-row { align-items: flex-start; display: flex; flex-wrap: wrap; gap: 5px 7px; }
-.home-page .card-title-row h3 { flex: 0 0 auto; max-width: 100%; }
-.home-page .recommendation-badge { align-items: center; align-self: flex-start; background: #fff4cb; border-radius: 999px; color: #75520a; display: inline-flex; flex: 0 0 auto; font-size: 10px; font-weight: 800; line-height: 1.2; margin-top: 2px; min-height: 22px; padding: 5px 8px; white-space: nowrap; }
-.home-page .recommendation-badge[hidden] { display: none; }
-.home-page .recommendation-badge.top-pick { background: #235ce8; color: #fff; }
-.home-page .recommendation-badge.weekend-spotlight { background: #ff6b55; color: #fff; }
 .home-page .card-content h3 { color: #1e2c46; font-family: "DM Sans", "Noto Sans SC", sans-serif; letter-spacing: -.35px; }
-.home-page .card-facts { gap: 6px; margin-top: 10px; }
+.home-page .card-facts { align-items: center; gap: 0; margin-top: 9px; }
 .home-page .fact,
 .home-page .fact-cost,
-.home-page .fact-rating { background: #f1f5fb; border: 1px solid #e3e9f2; box-shadow: none; color: #4e5d75; font-weight: 600; padding: 4px 8px; }
+.home-page .fact-rating { background: transparent; border: 0; border-radius: 0; box-shadow: none; color: #65738b; font-size: 12px; font-weight: 600; line-height: 1.45; padding: 0; white-space: nowrap; }
+.home-page .fact-age { color: #465773; font-weight: 700; }
+.home-page .fact-cost.is-free { color: #37765c; font-weight: 700; }
+.home-page .fact + .fact::before { color: #b5bfce; content: "·"; margin: 0 7px; }
 .home-page .source-link { color: #235ce8; }
 .home-page .source-link span { color: #ff7462; }
-
-@media (max-width: 760px) {
-  .home-page .card-title-row { gap: 4px 6px; }
-  .home-page .recommendation-badge { font-size: 9.5px; min-height: 21px; padding: 4px 7px; }
-}
 
 .home-page .how { padding: 0 0 92px; }
 .home-page .how h2 { color: #17243f; font-family: "DM Sans", "Noto Sans SC", sans-serif; font-size: clamp(30px, 3.5vw, 39px); font-weight: 700; letter-spacing: -1.4px; }
