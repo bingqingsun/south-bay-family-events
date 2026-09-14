@@ -122,10 +122,11 @@ function isExplicitlyAdultOnly(text) {
 }
 function withPresentationFields(event) {
   const audienceText = `${event.title || ''} ${event.description || ''} ${event.ageLabel || ''} ${event.ageSource || ''}`;
+  const knownMidAutumnEvent = /^Lantern Festival$/i.test(event.title || '') && /^City of Milpitas$/i.test(event.source || '');
   return {
     ...event,
     format: event.format || formatFor(audienceText),
-    seasonalTheme: event.seasonalTheme || seasonalThemeFor(audienceText),
+    seasonalTheme: event.seasonalTheme || (knownMidAutumnEvent ? 'mid-autumn' : seasonalThemeFor(audienceText)),
     audienceStatus: event.audienceStatus || (event.ageSource ? 'organizer-confirmed' : 'not-confirmed')
   };
 }
@@ -477,11 +478,17 @@ function ageInfo(categories) {
     addRange(min, 18);
     openEndedMin = min;
   }
-  if (/bab(?:y|ies)\s*\(\s*under\s*2\s*\)|\bkids?:\s*bab(?:y|ies)\b|\bunder\s*2\b|\binfants?\b/.test(lower)) addRange(0, 1);
-  if (/toddlers?|18\s*(?:months?|mos?)/.test(lower)) addRange(1, 3);
-  if (/pre-?school(?:ers?)?/.test(lower)) addRange(3, 5);
-  if (/\bpre-?teens?\b|\btweens?\b/.test(lower)) addRange(10, 13);
-  if (/\bteens?\b/.test(lower)) addRange(13, 18);
+  // Broad audience taxonomy such as “Kids” or “Pre-teens” must not widen a
+  // precise organizer range. For example, “Ages 5–12” can also carry the
+  // platform's Pre-teens category, but the card and filter should remain 5–12.
+  const hasExplicitAgeRange = ranges.length > 0;
+  if (!hasExplicitAgeRange) {
+    if (/bab(?:y|ies)\s*\(\s*under\s*2\s*\)|\bkids?:\s*bab(?:y|ies)\b|\bunder\s*2\b|\binfants?\b/.test(lower)) addRange(0, 1);
+    if (/toddlers?|18\s*(?:months?|mos?)/.test(lower)) addRange(1, 3);
+    if (/pre-?school(?:ers?)?/.test(lower)) addRange(3, 5);
+    if (/\bpre-?teens?\b|\btweens?\b/.test(lower)) addRange(10, 13);
+    if (/\bteens?\b/.test(lower)) addRange(13, 18);
+  }
   // A grade category is an official audience field but not an exact age
   // statement. Its conventional age equivalent is used only for matching;
   // the card keeps the organizer's grade wording so we do not imply precision.
@@ -489,7 +496,7 @@ function ageInfo(categories) {
   const isKindergarten = gradeRange?.[1] === 'k' || gradeRange?.[1] === 'kindergarten';
   const gradeStart = isKindergarten ? 0 : Number(gradeRange?.[1]);
   const gradeEnd = Number(gradeRange?.[2]);
-  if (gradeRange && Number.isFinite(gradeStart) && Number.isFinite(gradeEnd) && gradeEnd >= 0 && gradeEnd <= 12) {
+  if (!hasExplicitAgeRange && gradeRange && Number.isFinite(gradeStart) && Number.isFinite(gradeEnd) && gradeEnd >= 0 && gradeEnd <= 12) {
     const min = isKindergarten ? 5 : gradeStart + 5;
     addRange(min, gradeEnd + 5);
     if (ranges.length === 1) return { ageBands: [], ageRanges: [[min, gradeEnd + 5]], ageMin: min, ageMax: gradeEnd + 5, ageLabel: `Grades ${gradeRange[1].toUpperCase()}–${gradeEnd}`, ageSource: 'Official organizer grade range', familyFriendly };
@@ -542,10 +549,22 @@ function isClosureNotice(title, description = '') {
 }
 
 async function readRss(source) {
-  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
-  const xml = await response.text();
-  if (!response.ok || !/<rss[\s>]/i.test(xml)) throw new Error('RSS feed was not valid: ' + response.status);
-  const itemBlocks = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/gi)].map(match => match[1]);
+  // BiblioCommons RSS defaults to only 25 entries. Sources with maxPages opt
+  // into official feed pagination so older-published future programs are not
+  // hidden behind newer calendar entries.
+  const maxPages = Math.max(1, Math.min(Number(source.maxPages) || 1, 40));
+  const attempts = await Promise.allSettled(Array.from({ length: maxPages }, async (_, index) => {
+    const url = new URL(source.feedUrl);
+    url.searchParams.set('page', String(index + 1));
+    const response = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+    const xml = await response.text();
+    if (!response.ok || !/<rss[\s>]/i.test(xml)) throw new Error(`RSS page ${index + 1} was not valid: ${response.status}`);
+    return xml;
+  }));
+  const pages = attempts.flatMap(result => result.status === 'fulfilled' ? [result.value] : []);
+  if (!pages.length) throw new Error('RSS feed was not valid on any requested page');
+  const itemBlocks = pages.flatMap(xml => [...xml.matchAll(/<item>([\s\S]*?)<\/item>/gi)].map(match => match[1]));
+  const seen = new Set();
   return itemBlocks.flatMap((item, index) => {
     const title = xmlText(item, 'title');
     const link = xmlText(item, 'link');
@@ -558,7 +577,11 @@ async function readRss(source) {
     // when the event itself is expressly for adults. Audience eligibility wins.
     if (isExplicitlyAdultOnly(categories)) return [];
     const description = xmlText(item, 'description');
-    if (!title || !link || !isUpcoming(startDate) || !familyAudience || xmlText(item, 'is_cancelled') === 'true' || isClosureNotice(title, description)) return [];
+    const eventKey = `${xmlText(item, 'guid') || link}|${startDate}`;
+    if (!title || !link || seen.has(eventKey) || !isUpcoming(startDate) || !familyAudience
+      || xmlText(item, 'is_cancelled') === 'true' || xmlText(item, 'is_full') === 'true'
+      || isClosureNotice(title, description)) return [];
+    seen.add(eventKey);
     const type = typeFor(title + ' ' + categoriesLower + ' ' + description, title);
     const age = ageInfo(`${categories} ${description}`);
     const cost = costInfo(xmlText(item, 'cost'), description);
@@ -992,11 +1015,12 @@ async function readSquarespaceEvents(source) {
     const place = htmlAttribute(block, /eventlist-meta-address-line["'][^>]*>([\s\S]*?)<\/span>/i) || source.name;
     const text = `${title} ${description}`;
     if (!title || !href || !isUpcoming(dateValue) || !familyPattern.test(text) || !hasActivitySummary(description)) return [];
-    return [directEvent({
+    const event = directEvent({
       id: 'squarespace-' + createHash('sha256').update(`${href}|${dateValue}|${index}`).digest('hex').slice(0, 16),
       title, dateValue, endDateValue, description, image, place, address: source.address || '', city: source.city || '',
       source: source.name, url: new URL(href, source.feedUrl).href, ageText: text, format: source.format || 'festival'
-    })];
+    });
+    return [{ ...event, ...costInfo('', description) }];
   });
 }
 
