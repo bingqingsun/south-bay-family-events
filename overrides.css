@@ -145,6 +145,10 @@
 .home-page .recommendation-badge.top-pick { background: #235ce8; color: #fff; }
 .home-page .recommendation-badge.weekend-spotlight { background: #ff6b55; color: #fff; }
 .home-page .card-content h3 { color: #1e2c46; font-family: "DM Sans", "Noto Sans SC", sans-serif; letter-spacing: -.35px; }
+.home-page .card-facts { gap: 6px; margin-top: 10px; }
+.home-page .fact,
+.home-page .fact-cost,
+.home-page .fact-rating { background: #f1f5fb; border: 1px solid #e3e9f2; box-shadow: none; color: #4e5d75; font-weight: 600; padding: 4px 8px; }
 .home-page .source-link { color: #235ce8; }
 .home-page .source-link span { color: #ff7462; }
 
