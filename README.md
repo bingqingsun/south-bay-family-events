@@ -25,3 +25,19 @@
 ## 语言
 
 目前网站固定显示中文界面，活动标题和简述保留主办方原文。自动翻译功能已暂停：更新工作流不会调用任何翻译服务，也不需要翻译 API 密钥。
+
+## 云端维护
+
+项目使用 Node.js 22，且没有需要安装的运行时依赖。提交改动前运行：
+
+```bash
+npm test
+```
+
+拉取官方来源并重建活动数据时运行：
+
+```bash
+npm run refresh
+```
+
+GitHub pull request 会自动执行测试；合并后 GitHub Pages 继续发布正式网站。手机端发起云端维护任务的分支、测试、密钥和素材规则见 [`docs/cloud-operations.md`](docs/cloud-operations.md)。

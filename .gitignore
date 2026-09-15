@@ -2,3 +2,29 @@
 AGENTS.md
 sources/
 .codex/
+
+# Local dependencies and operating-system files
+node_modules
+.pnpm-store/
+.DS_Store
+**/.DS_Store
+__pycache__/
+**/__pycache__/
+*.py[cod]
+
+# Generated social-media assets and local artifact previews
+output/
+outputs/
+assets/social/
+
+# One-off local artifact builders and legacy brand exports
+build_utm_google_sheet.mjs
+assets/brand/south-bay-family-finds-logo-v2-reversed.svg
+assets/brand/south-bay-family-finds-logo.png
+assets/brand/south-bay-family-finds-logo.svg
+assets/brand/south-bay-family-finds-mark.png
+assets/brand/south-bay-family-finds-mark.svg
+
+# Local-only social rendering experiments
+scripts/render_*.swift
+scripts/render_*.py

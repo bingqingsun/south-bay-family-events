@@ -1,0 +1,27 @@
+name: Validate South Bay Family Finds
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.js'
+      - '**.mjs'
+      - 'data/**'
+      - 'package.json'
+      - '.github/workflows/ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Run automated checks
+        run: npm test

@@ -1,0 +1,14 @@
+{
+  "name": "south-bay-family-finds",
+  "version": "1.0.0",
+  "private": true,
+  "description": "South Bay family activity guide and official-source event refresh pipeline.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test scripts/*.test.mjs",
+    "refresh": "node scripts/update-events.mjs"
+  }
+}
