@@ -9,6 +9,7 @@
   },
   "scripts": {
     "test": "node --test scripts/*.test.mjs",
-    "refresh": "node scripts/update-events.mjs"
+    "refresh": "INCLUDE_SERPAPI=false node scripts/update-events.mjs",
+    "refresh:serpapi": "INCLUDE_SERPAPI=true node scripts/update-events.mjs"
   }
 }

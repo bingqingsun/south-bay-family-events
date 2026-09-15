@@ -18,9 +18,10 @@ Cloud tasks should not require access to the local `output/`, `outputs/`, `asset
 ```bash
 npm test
 npm run refresh
+npm run refresh:serpapi
 ```
 
-`npm run refresh` uses free direct sources by default when `INCLUDE_SERPAPI=false`. Scheduled GitHub Actions may also use the optional `SERPAPI_KEY` secret according to `.github/workflows/daily-events.yml`.
+`npm run refresh` always uses free direct sources and does not consume SerpApi quota. `npm run refresh:serpapi` explicitly enables fallback search and requires the `SERPAPI_KEY` secret. Scheduled GitHub Actions continue to follow `.github/workflows/daily-events.yml`.
 
 ## Secrets
 

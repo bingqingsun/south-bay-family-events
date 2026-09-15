@@ -40,4 +40,6 @@ npm test
 npm run refresh
 ```
 
+该命令只运行免费官方来源，不会消耗 SerpApi 查询额度。需要明确启用 SerpApi 兜底搜索时，使用 `npm run refresh:serpapi`，并确保云端环境已安全配置 `SERPAPI_KEY`。
+
 GitHub pull request 会自动执行测试；合并后 GitHub Pages 继续发布正式网站。手机端发起云端维护任务的分支、测试、密钥和素材规则见 [`docs/cloud-operations.md`](docs/cloud-operations.md)。
