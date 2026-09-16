@@ -422,8 +422,18 @@ const heroSearchForm = document.querySelector('#heroSearchForm');
 const heroSearchInput = document.querySelector('#heroSearchInput');
 const heroDateInput = document.querySelector('#heroDateInput');
 const heroDateDisplay = document.querySelector('#heroDateDisplay');
+const heroDateControl = heroDateInput.closest('.hero-date-control');
 heroDateInput.min = localToday();
-heroDateInput.addEventListener('change', () => { const hasValue = Boolean(heroDateInput.value); heroDateDisplay.textContent = hasValue ? formattedDateLabel(heroDateInput.value) : 'Any date'; heroDateInput.closest('.hero-date-control')?.classList.toggle('has-value', hasValue); });
+function openHeroDatePicker(event) {
+  if (event.target === heroDateInput) return;
+  event.preventDefault();
+  heroDateInput.focus({ preventScroll: true });
+  if (typeof heroDateInput.showPicker === 'function') heroDateInput.showPicker();
+  else heroDateInput.click();
+}
+heroDateControl.addEventListener('click', openHeroDatePicker);
+heroDateControl.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') openHeroDatePicker(event); });
+heroDateInput.addEventListener('change', () => { const hasValue = Boolean(heroDateInput.value); heroDateDisplay.textContent = hasValue ? formattedDateLabel(heroDateInput.value) : 'Any date'; heroDateControl.classList.toggle('has-value', hasValue); });
 const heroWeekendQuick = document.querySelector('#heroWeekendQuick');
 const heroNearbyQuick = document.querySelector('#heroNearbyQuick');
 heroSearchForm.addEventListener('submit', event => {
