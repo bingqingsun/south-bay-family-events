@@ -457,28 +457,34 @@ footer .brand .brand-name .brand-accent { color: #8bb0ff; }
 }
 .home-page .hero-date-control {
   align-items: flex-start;
+  cursor: pointer;
   display: flex;
   flex: 0 0 144px;
   flex-direction: column;
-  gap: 1px;
+  gap: 2px;
   justify-content: center;
+  overflow: hidden;
   padding: 0 13px;
+  position: relative;
 }
-.home-page .hero-date-control > span {
+.home-page .hero-date-label {
   color: #6c7b92;
   font: 700 9px/1 "DM Sans", "Noto Sans SC", sans-serif;
   letter-spacing: .06em;
   text-transform: uppercase;
 }
-.home-page .hero-date-control input {
-  background: transparent;
-  border: 0;
+.home-page .hero-date-display {
   color: #263550;
-  font: 700 11px/1.2 "DM Sans", "Noto Sans SC", sans-serif;
-  min-height: 20px;
-  outline: 0;
-  padding: 0;
-  width: 118px;
+  font: 700 12px/1.2 "DM Sans", "Noto Sans SC", sans-serif;
+  white-space: nowrap;
+}
+.home-page .hero-date-control input {
+  cursor: pointer;
+  height: 100%;
+  inset: 0;
+  opacity: 0;
+  position: absolute;
+  width: 100%;
 }
 @media (min-width: 761px) {
   .home-page .hero-copy { max-width: 760px; }
@@ -488,11 +494,8 @@ footer .brand .brand-name .brand-accent { color: #8bb0ff; }
     flex-basis: 112px;
     padding: 0 8px;
   }
-  .home-page .hero-date-control > span { display: none; }
-  .home-page .hero-date-control input {
-    font-size: 10px;
-    width: 100px;
-  }
+  .home-page .hero-date-label { display: none; }
+  .home-page .hero-date-display { font-size: 11px; }
   .home-page .hero-search button {
     min-width: 68px;
     padding: 0 10px;
