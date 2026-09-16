@@ -504,3 +504,94 @@ footer .brand .brand-name .brand-accent { color: #8bb0ff; }
     padding: 0 10px;
   }
 }
+
+
+/* Mobile first-screen density: complete hero plus compact Collection entry. */
+@media (max-width: 760px) {
+  .home-page .nav { height: 60px; }
+  .home-page .nav .brand-mark { height: 28px; width: 28px; }
+  .home-page .saved-button { height: 39px; width: 53px; }
+
+  .home-page .hero {
+    min-height: 322px;
+    padding: 22px 17px;
+  }
+  .home-page .hero .eyebrow {
+    font-size: 9px;
+    margin-bottom: 4px;
+  }
+  .home-page .hero h1 {
+    font-size: 25px;
+    letter-spacing: -1.05px;
+    line-height: 1.08;
+    max-width: 300px;
+  }
+  .home-page .hero-search {
+    height: 48px;
+    margin-top: 14px;
+  }
+  .home-page .hero-search-icon {
+    height: 18px;
+    margin-left: 12px;
+    width: 18px;
+  }
+  .home-page .hero-date-control {
+    flex-basis: 94px;
+    padding: 0 7px;
+  }
+  .home-page .hero-date-display { font-size: 10px; }
+  .home-page .hero-search button {
+    min-width: 64px;
+    padding: 0 9px;
+  }
+  .home-page .hero-quick-actions { margin-top: 8px; }
+  .home-page .hero-quick-actions button {
+    height: 40px;
+    min-width: 0;
+  }
+
+  .home-page .collection-home {
+    margin-bottom: 20px;
+    margin-top: 12px;
+  }
+  .home-page .collection-home-heading {
+    margin-bottom: 8px;
+  }
+  .home-page .collection-home-heading h2 {
+    font-size: 22px;
+    letter-spacing: -.8px;
+  }
+  .home-page .collection-home-heading p:last-child { display: none; }
+  .home-page .collection-home-card {
+    background-position: 68% center;
+    border-radius: 17px;
+    min-height: 176px;
+  }
+  .home-page .collection-home-content {
+    justify-content: center;
+    max-width: 82%;
+    padding: 15px 18px;
+  }
+  .home-page .collection-home-label {
+    font-size: 9px;
+    padding: 4px 8px;
+  }
+  .home-page .collection-home-content > strong {
+    font-size: 25px;
+    letter-spacing: -1px;
+    margin-top: 7px;
+  }
+  .home-page .collection-home-description {
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  .home-page .collection-home-tags { display: none; }
+  .home-page .collection-home-cta {
+    font-size: 12px;
+    margin-top: 7px;
+  }
+  .home-page .collection-strip:has(> .collection-home-card:nth-child(2)) .collection-home-card {
+    flex-basis: 78%;
+    min-height: 176px;
+  }
+}
