@@ -333,6 +333,16 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+/* Collection grids use the homepage card component without visual overrides. */
+.collection-page .collection-event-grid .event-card {
+  color: var(--ink);
+}
+
+.collection-page .collection-event-grid .event-card h3 {
+  color: var(--ink);
+  font-family: "Noto Sans SC", sans-serif;
+}
+
 .collection-event-card {
   background: #fff;
   border: 1px solid #e1e6ee;
