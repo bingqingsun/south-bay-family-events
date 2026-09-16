@@ -282,3 +282,167 @@ footer .brand .brand-name .brand-accent { color: #8bb0ff; }
   .home-page .filter-area { background: transparent; border: 0; border-radius: 0; box-shadow: none; margin-bottom: 46px; padding: 24px 0 0; }.home-page .section-heading { display: none; }.mobile-quick-filters { display: grid; gap: 8px; grid-template-columns: 1.25fr 1fr 1fr; margin: 0 0 18px; }.mobile-quick-filters button { background: #fff; border: 1px solid #dce4f0; border-radius: 13px; color: #33445f; cursor: pointer; font: 700 13px/1 "DM Sans", sans-serif; min-height: 45px; padding: 0 10px; white-space: nowrap; }.mobile-quick-filters button.active { background: #235ce8; border-color: #235ce8; color: #fff; }.mobile-quick-filters button:last-child { color: #235ce8; }.mobile-quick-filters button:last-child span { font-size: 16px; margin-left: 4px; vertical-align: -1px; }
   .home-page .filters { background: #fff; border: 1px solid #e1e6ee; border-radius: 18px; display: none; margin: 0 0 18px; padding: 17px; }.home-page .filters.is-open { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }.home-page .filters .select-wrap { min-width: 0; }.home-page .filters .select-wrap select { min-width: 0; width: 100%; }.home-page .filters .chips { display: flex; flex-wrap: nowrap; grid-column: 1 / -1; margin: 3px -17px -17px; overflow-x: auto; padding: 12px 17px 17px; scrollbar-width: none; }.home-page .filters .chips::-webkit-scrollbar { display: none; }.home-page .filters .chip { flex: 0 0 auto; }
 }
+
+
+/* Homepage density + hero search */
+.home-page .hero-search {
+  align-items: center;
+  background: #fff;
+  border: 1px solid #dbe3ef;
+  border-radius: 15px;
+  box-shadow: 0 12px 28px #1a3e7c1f;
+  display: flex;
+  height: 54px;
+  margin-top: 14px;
+  max-width: 650px;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+.home-page .hero-search:focus-within {
+  border-color: #7f9fe8;
+  box-shadow: 0 0 0 4px #235ce819, 0 12px 28px #1a3e7c1f;
+}
+.home-page .hero-search-icon {
+  color: #687994;
+  flex: 0 0 auto;
+  height: 20px;
+  margin-left: 18px;
+  width: 20px;
+}
+.home-page .hero-search input {
+  background: transparent;
+  border: 0;
+  color: #17243f;
+  flex: 1;
+  font: 600 14px/1.2 "DM Sans", "Noto Sans SC", sans-serif;
+  height: 100%;
+  min-width: 0;
+  outline: 0;
+  padding: 0 13px;
+}
+.home-page .hero-search input::placeholder { color: #8490a5; font-weight: 500; }
+.home-page .hero-search button {
+  align-items: center;
+  align-self: stretch;
+  background: #235ce8;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font: 700 13px/1 "DM Sans", "Noto Sans SC", sans-serif;
+  justify-content: center;
+  min-width: 96px;
+  padding: 0 20px;
+}
+.home-page .hero-search button:hover { background: #174ed9; }
+.home-page .hero-quick-actions {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  margin-top: 9px;
+  max-width: 650px;
+  position: relative;
+  z-index: 1;
+}
+.home-page .hero-quick-actions button {
+  align-items: center;
+  background: #ffffffeb;
+  border: 1px solid #d7e0ed;
+  border-radius: 12px;
+  color: #33445f;
+  cursor: pointer;
+  display: inline-flex;
+  font: 700 12px/1 "DM Sans", "Noto Sans SC", sans-serif;
+  gap: 7px;
+  height: 42px;
+  padding: 0 13px;
+  white-space: nowrap;
+}
+.home-page .hero-quick-actions button:hover {
+  border-color: #8ba7e9;
+  color: #235ce8;
+}
+.home-page .hero-quick-actions button.active {
+  background: #235ce8;
+  border-color: #235ce8;
+  color: #fff;
+}
+.home-page .hero-quick-actions button b { color: #235ce8; font-size: 15px; }
+.home-page .hero-quick-actions button.active b { color: #ffd760; }
+.home-page .hero-quick-actions .update-note {
+  background: #ffffffc7;
+  border: 1px solid #ffffff80;
+  border-radius: 999px;
+  color: #60708b;
+  font-size: 10px;
+  margin: 0 0 0 auto;
+  min-height: 30px;
+  padding: 0 11px;
+}
+
+@media (min-width: 761px) {
+  .home-page .nav { height: 72px; }
+  .home-page .hero {
+    background-position: center 44%;
+    border-radius: 26px;
+    margin-top: 4px;
+    min-height: 338px;
+    padding: 24px 42px;
+  }
+  .home-page .hero::after {
+    background: linear-gradient(90deg, #f7fbfffa 0%, #f7fbfff2 38%, #f7fbffb8 55%, #f7fbff00 74%);
+  }
+  .home-page .hero-copy { max-width: 680px; padding: 0; }
+  .home-page .hero .eyebrow { margin-bottom: 6px; }
+  .home-page .hero h1 {
+    font-size: clamp(37px, 3.45vw, 48px);
+    letter-spacing: -2px;
+    line-height: 1.02;
+    margin-bottom: 8px;
+    max-width: 625px;
+  }
+  .home-page .intro {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+    max-width: 590px;
+  }
+  .home-page .collection-home { margin-bottom: 26px; margin-top: 18px; }
+  .home-page .collection-home-heading { margin-bottom: 10px; }
+  .home-page .collection-home-heading .eyebrow { display: none; }
+  .home-page .collection-home-heading h2 { font-size: 30px; line-height: 1.05; }
+  .home-page .collection-home-heading p:last-child { margin-top: 3px; }
+  .home-page .collection-home-card { min-height: 210px; }
+  .home-page .collection-home-content { padding: 20px 26px; }
+  .home-page .collection-home-content > strong {
+    font-size: clamp(30px, 3.2vw, 40px);
+    margin-top: 8px;
+  }
+  .home-page .collection-home-description { margin-top: 5px; }
+  .home-page .collection-home-tags { margin-top: 9px; }
+  .home-page .collection-home-cta { margin-top: 9px; }
+}
+
+@media (max-width: 760px) {
+  .home-page .hero {
+    background-position: 72% center;
+    min-height: 404px;
+    padding: 27px 20px;
+  }
+  .home-page .hero-search {
+    height: 50px;
+    margin-top: 18px;
+  }
+  .home-page .hero-search-icon { margin-left: 14px; }
+  .home-page .hero-search input { font-size: 13px; padding: 0 9px; }
+  .home-page .hero-search button { min-width: 76px; padding: 0 13px; }
+  .home-page .hero-quick-actions {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .home-page .hero-quick-actions button { justify-content: center; padding: 0 10px; }
+  .home-page .hero-quick-actions .update-note { display: none; }
+  .home-page .collection-home { margin-top: 16px; }
+}
