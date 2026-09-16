@@ -474,10 +474,11 @@ footer .brand .brand-name .brand-accent { color: #8bb0ff; }
   text-transform: uppercase;
 }
 .home-page .hero-date-display {
-  color: #263550;
+  color: #8490a5;
   font: 700 12px/1.2 "DM Sans", "Noto Sans SC", sans-serif;
   white-space: nowrap;
 }
+.home-page .hero-date-control.has-value .hero-date-display { color: #263550; }
 .home-page .hero-date-control input {
   cursor: pointer;
   height: 100%;
