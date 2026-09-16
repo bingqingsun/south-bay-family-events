@@ -162,7 +162,7 @@
 .home-page footer { background: #17243f; }
 
 /* Homepage v3: keep the story, copy, and illustration in one shared stage. */
-.home-page .hero { background: #acd9ff url("assets/home-hero-family-v1.jpg") center/cover no-repeat; border-radius: 32px; display: block; isolation: isolate; margin-top: 11px; min-height: 475px; padding: 63px 68px; position: relative; }
+.home-page .hero { background: #acd9ff url("assets/home-hero-family-v2.jpg") center/cover no-repeat; border-radius: 32px; display: block; isolation: isolate; margin-top: 11px; min-height: 475px; padding: 63px 68px; position: relative; }
 .home-page .hero::after { background: linear-gradient(90deg, #f7fbff 0%, #f7fbfff5 34%, #f7fbffaf 49%, #f7fbff00 70%); border-radius: inherit; content: ""; inset: 0; pointer-events: none; position: absolute; z-index: 0; }
 .home-page .hero-copy { max-width: 548px; padding: 4px 0; }
 .home-page .hero-art { display: none; }
@@ -384,7 +384,7 @@ footer .brand .brand-name .brand-accent { color: #8bb0ff; }
 @media (min-width: 761px) {
   .home-page .nav { height: 72px; }
   .home-page .hero {
-    background-position: center 44%;
+    background-position: center center;
     border-radius: 26px;
     margin-top: 4px;
     min-height: 338px;
@@ -426,6 +426,7 @@ footer .brand .brand-name .brand-accent { color: #8bb0ff; }
 
 @media (max-width: 760px) {
   .home-page .hero {
+    background-image: url("assets/home-hero-family-v1.jpg");
     background-position: 72% center;
     min-height: 404px;
     padding: 27px 20px;
