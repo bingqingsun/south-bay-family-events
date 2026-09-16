@@ -2,7 +2,7 @@ let events = Array.isArray(window.SOUTH_BAY_EVENTS) ? window.SOUTH_BAY_EVENTS : 
 // Kept as a single switch so bilingual presentation can be restored later
 // without changing the canonical, organizer-supplied event data.
 const translationEnabled = false;
-const state = { type: 'all', age: 'all', city: 'all', date: 'all', sort: 'recommended', position: null, locationRequested: false, locationPending: false, locationFailed: false, saved: JSON.parse(localStorage.getItem('southBaySaved') || '[]'), onlySaved: false, language: 'en' };
+const state = { type: 'all', age: 'all', city: 'all', date: 'all', sort: 'recommended', query: '', position: null, locationRequested: false, locationPending: false, locationFailed: false, saved: JSON.parse(localStorage.getItem('southBaySaved') || '[]'), onlySaved: false, language: 'en' };
 const grid = document.querySelector('#eventGrid');
 const template = document.querySelector('#cardTemplate');
 const track = (name, parameters = {}) => window.trackAnalyticsEvent?.(name, parameters);
@@ -22,6 +22,7 @@ const selectedFilterParameters = () => ({
   selected_date_filter: state.date,
   selected_city: state.city,
   selected_age_band: analyticsAgeBand(state.age),
+  search_query: state.query,
   saved_only: state.onlySaved
 });
 
@@ -92,6 +93,12 @@ Object.assign(venueCoordinates, {
 const t = key => copy[state.language][key];
 const eventText = (event, field) => translationEnabled && state.language === 'zh' ? event.translations?.zh?.[field] || event[field] : event[field];
 const categoryLabel = event => categoryLabels[event.type || 'community']?.[state.language === 'zh' ? 0 : 1] || event.tag;
+function searchMatches(event, query) {
+  const terms = String(query || '').trim().toLowerCase().split(/\s+/).filter(Boolean);
+  if (!terms.length) return true;
+  const searchableText = [eventText(event, 'title'), eventText(event, 'description'), event.place, event.address, event.city, event.source, categoryLabel(event), event.tag].filter(Boolean).join(' ').toLowerCase();
+  return terms.every(term => searchableText.includes(term));
+}
 function summaryIsNonActivity(text) {
   const value = String(text || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
   return /\b(?:recent publications?|publications? include|translations? of|editorial prefaces?|biography|biographical|curriculum vitae|cv\b|career highlights?|follow us|follow along|subscribe|newsletter|youtube|instagram|facebook|donate|support us)\b/.test(value)
@@ -205,6 +212,7 @@ function dateMatches(event, filter) {
   if (filter === 'all') return true; const date = dateKey(event.dateValue); if (!date) return false; const todayKey = localToday();
   if (filter === 'today') return date === todayKey; if (filter === 'month') return date.slice(0, 7) === todayKey.slice(0, 7);
   if (filter === 'weekend') { const todayDate = new Date(`${todayKey}T12:00:00`); const untilSaturday = todayDate.getDay() === 0 ? -1 : 6 - todayDate.getDay(); const start = new Date(todayDate); start.setDate(todayDate.getDate() + untilSaturday); const end = new Date(start); end.setDate(start.getDate() + 1); const eventDate = new Date(`${date}T12:00:00`); return eventDate >= start && eventDate <= end; }
+  if (/^\d{4}-\d{2}-\d{2}$/.test(filter)) return date === filter;
   return false;
 }
 function ageMatches(event, age) {
@@ -292,7 +300,7 @@ function populateAgeFilter() {
   select.value = state.age;
 }
 function render() {
-  const visible = sortEvents(events.filter(event => (state.type === 'all' || event.type === state.type) && (state.city === 'all' || event.city === state.city) && ageMatches(event, state.age) && matchingSessions(event).length && (!state.onlySaved || isSaved(event))));
+  const visible = sortEvents(events.filter(event => searchMatches(event, state.query) && (state.type === 'all' || event.type === state.type) && (state.city === 'all' || event.city === state.city) && ageMatches(event, state.age) && matchingSessions(event).length && (!state.onlySaved || isSaved(event))));
   cardImpressionObserver?.disconnect();
   cardImpressionObserver = typeof IntersectionObserver === 'function' ? new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -345,9 +353,9 @@ function render() {
     const card = node.querySelector('.event-card'); card.dataset.analytics = JSON.stringify(analyticsParameters); card.dataset.impressionKey = [state.sort, state.date, state.city, state.age, state.type, state.onlySaved ? 'saved' : 'all', event.id].join(':'); grid.append(node); cardImpressionObserver?.observe(card);
     requestAnimationFrame(() => { descriptionToggle.hidden = description.hidden || description.scrollHeight <= description.clientHeight + 1; });
   });
-  document.querySelector('#emptyState').hidden = visible.length !== 0; const active = state.type !== 'all' || state.age !== 'all' || state.city !== 'all' || state.date !== 'all' || state.onlySaved;
+  document.querySelector('#emptyState').hidden = visible.length !== 0; const active = state.query !== '' || state.type !== 'all' || state.age !== 'all' || state.city !== 'all' || state.date !== 'all' || state.onlySaved;
   document.querySelector('#emptyMessage').textContent = active ? t('emptyFiltered') : t('emptyAll'); document.querySelector('#clearFilters').hidden = !active; document.querySelector('#resultCount').textContent = state.onlySaved ? t('savedResults')(visible.length) : t('results')(visible.length); document.querySelector('#savedCount').textContent = state.saved.length;
-  const savedButton = document.querySelector('#savedButton'); savedButton.setAttribute('aria-pressed', String(state.onlySaved)); savedButton.setAttribute('aria-label', state.onlySaved ? t('showAll') : t('showSaved')); syncMobileQuickFilters();
+  const savedButton = document.querySelector('#savedButton'); savedButton.setAttribute('aria-pressed', String(state.onlySaved)); savedButton.setAttribute('aria-label', state.onlySaved ? t('showAll') : t('showSaved')); syncDateControls(); syncMobileQuickFilters();
 }
 function setActiveType(type) { document.querySelectorAll('.chip').forEach(chip => { const active = chip.dataset.type === type; chip.classList.toggle('active', active); chip.setAttribute('aria-pressed', String(active)); }); }
 function syncDatePriority() { document.querySelector('.date-priority').classList.toggle('is-active', state.date !== 'all'); }
@@ -368,7 +376,29 @@ function enableNearbySort() {
     render();
   }, { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 });
 }
-function resetFilters({ date = 'all' } = {}) { state.type = 'all'; state.age = 'all'; state.city = 'all'; state.date = date; state.sort = 'recommended'; state.onlySaved = false; document.querySelector('#ageFilter').value = 'all'; document.querySelector('#cityFilter').value = 'all'; document.querySelector('#dateFilter').value = date; document.querySelector('#sortFilter').value = 'recommended'; setLocationStatus(); setActiveType('all'); syncDatePriority(); document.querySelector('#savedButton').classList.remove('active'); }
+function formattedDateLabel(value) {
+  return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${value}T12:00:00Z`));
+}
+function syncDateControls() {
+  const dateSelect = document.querySelector('#dateFilter');
+  const heroDate = document.querySelector('#heroDateInput');
+  const heroDateDisplay = document.querySelector('#heroDateDisplay');
+  const heroDateControl = heroDate?.closest('.hero-date-control');
+  let customOption = dateSelect.querySelector('option[data-custom-date]');
+  const isExactDate = /^\d{4}-\d{2}-\d{2}$/.test(state.date);
+  if (isExactDate) {
+    if (!customOption) { customOption = document.createElement('option'); customOption.dataset.customDate = 'true'; dateSelect.append(customOption); }
+    customOption.value = state.date;
+    customOption.textContent = formattedDateLabel(state.date);
+  } else if (customOption) {
+    customOption.remove();
+  }
+  dateSelect.value = state.date;
+  if (heroDate) heroDate.value = isExactDate ? state.date : '';
+  if (heroDateDisplay) heroDateDisplay.textContent = isExactDate ? formattedDateLabel(state.date) : 'Any date';
+  heroDateControl?.classList.toggle('has-value', isExactDate);
+}
+function resetFilters({ date = 'all' } = {}) { state.type = 'all'; state.age = 'all'; state.city = 'all'; state.date = date; state.sort = 'recommended'; state.query = ''; state.onlySaved = false; document.querySelector('#ageFilter').value = 'all'; document.querySelector('#cityFilter').value = 'all'; syncDateControls(); document.querySelector('#sortFilter').value = 'recommended'; const searchInput = document.querySelector('#heroSearchInput'); if (searchInput) searchInput.value = ''; setLocationStatus(); setActiveType('all'); syncDatePriority(); document.querySelector('#savedButton').classList.remove('active'); }
 document.querySelector('#typeFilters').addEventListener('click', e => {
   // Browser translation can wrap a chip label in an inner element. Resolve the
   // actual button instead of requiring the exact clicked node to be the button.
@@ -388,14 +418,68 @@ document.querySelector('#sortFilter').addEventListener('change', e => {
   enableNearbySort();
 });
 document.querySelector('#clearFilters').addEventListener('click', () => { resetFilters(); render(); });
-document.querySelector('#weekendCta').addEventListener('click', event => { event.preventDefault(); track('quick_filter_used', { filter_name: 'date', filter_value: 'weekend' }); resetFilters({ date: 'weekend' }); render(); document.querySelector('#events').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+const heroSearchForm = document.querySelector('#heroSearchForm');
+const heroSearchInput = document.querySelector('#heroSearchInput');
+const heroDateInput = document.querySelector('#heroDateInput');
+const heroDateDisplay = document.querySelector('#heroDateDisplay');
+const heroDateControl = heroDateInput.closest('.hero-date-control');
+heroDateInput.min = localToday();
+function openHeroDatePicker(event) {
+  if (event.target === heroDateInput) return;
+  event.preventDefault();
+  heroDateInput.focus({ preventScroll: true });
+  if (typeof heroDateInput.showPicker === 'function') heroDateInput.showPicker();
+  else heroDateInput.click();
+}
+heroDateControl.addEventListener('click', openHeroDatePicker);
+heroDateControl.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') openHeroDatePicker(event); });
+heroDateInput.addEventListener('change', () => { const hasValue = Boolean(heroDateInput.value); heroDateDisplay.textContent = hasValue ? formattedDateLabel(heroDateInput.value) : 'Any date'; heroDateControl.classList.toggle('has-value', hasValue); });
+const heroWeekendQuick = document.querySelector('#heroWeekendQuick');
+const heroNearbyQuick = document.querySelector('#heroNearbyQuick');
+heroSearchForm.addEventListener('submit', event => {
+  event.preventDefault();
+  state.query = heroSearchInput.value.trim();
+  if (heroDateInput.value) state.date = heroDateInput.value;
+  else if (/^\d{4}-\d{2}-\d{2}$/.test(state.date)) state.date = 'all';
+  track('search', { search_term: state.query, selected_date_filter: state.date });
+  syncDatePriority();
+  render();
+  document.querySelector('#events').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+heroWeekendQuick.addEventListener('click', () => {
+  const nextDate = state.date === 'weekend' ? 'all' : 'weekend';
+  track('quick_filter_used', { filter_name: 'date', filter_value: nextDate });
+  resetFilters({ date: nextDate });
+  render();
+  document.querySelector('#events').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+heroNearbyQuick.addEventListener('click', () => {
+  if (state.sort === 'distance') {
+    state.sort = 'recommended';
+    document.querySelector('#sortFilter').value = 'recommended';
+    setLocationStatus();
+    render();
+  } else {
+    enableNearbySort();
+  }
+  document.querySelector('#events').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
 const mobileFilters = document.querySelector('#filtersPanel');
 const mobileFilterToggle = document.querySelector('#mobileFilterToggle');
 const mobileWeekend = document.querySelector('#mobileWeekend');
 const mobileNearby = document.querySelector('#mobileNearby');
-function syncMobileQuickFilters() { mobileWeekend.classList.toggle('active', state.date === 'weekend'); mobileWeekend.setAttribute('aria-pressed', String(state.date === 'weekend')); mobileNearby.classList.toggle('active', state.sort === 'distance'); mobileNearby.setAttribute('aria-pressed', String(state.sort === 'distance')); }
+function syncMobileQuickFilters() {
+  mobileWeekend.classList.toggle('active', state.date === 'weekend');
+  mobileWeekend.setAttribute('aria-pressed', String(state.date === 'weekend'));
+  mobileNearby.classList.toggle('active', state.sort === 'distance');
+  mobileNearby.setAttribute('aria-pressed', String(state.sort === 'distance'));
+  heroWeekendQuick.classList.toggle('active', state.date === 'weekend');
+  heroWeekendQuick.setAttribute('aria-pressed', String(state.date === 'weekend'));
+  heroNearbyQuick.classList.toggle('active', state.sort === 'distance');
+  heroNearbyQuick.setAttribute('aria-pressed', String(state.sort === 'distance'));
+}
 mobileFilterToggle.addEventListener('click', () => { const isOpen = mobileFilters.classList.toggle('is-open'); mobileFilterToggle.setAttribute('aria-expanded', String(isOpen)); });
-mobileWeekend.addEventListener('click', () => { state.date = state.date === 'weekend' ? 'all' : 'weekend'; document.querySelector('#dateFilter').value = state.date; track('quick_filter_used', { filter_name: 'date', filter_value: state.date }); syncDatePriority(); render(); });
+mobileWeekend.addEventListener('click', () => { state.date = state.date === 'weekend' ? 'all' : 'weekend'; syncDateControls(); track('quick_filter_used', { filter_name: 'date', filter_value: state.date }); syncDatePriority(); render(); });
 mobileNearby.addEventListener('click', () => { const sortFilter = document.querySelector('#sortFilter'); if (state.sort === 'distance') { state.sort = 'recommended'; sortFilter.value = 'recommended'; setLocationStatus(); render(); return; } enableNearbySort(); });
 grid.addEventListener('click', e => { const sessionToggle = e.target.closest('.sessions-inline-toggle'); if (sessionToggle) { const list = document.querySelector(`#sessions-${sessionToggle.dataset.eventId}`); const isExpanded = !list.hidden; list.hidden = isExpanded; sessionToggle.textContent = isExpanded ? t('showOtherSessions')(list.children.length) : t('hideOtherSessions'); sessionToggle.setAttribute('aria-expanded', String(!isExpanded)); return; } const toggle = e.target.closest('.description-toggle'); if (toggle) { const description = document.querySelector(`#description-${toggle.dataset.eventId}`); const isExpanded = description.classList.toggle('is-expanded'); toggle.textContent = isExpanded ? t('collapseDescription') : t('expandDescription'); toggle.setAttribute('aria-expanded', String(isExpanded)); return; } const button = e.target.closest('.heart'); if (!button) return; const id = button.dataset.id; const legacyIds = JSON.parse(button.dataset.legacyIds || '[]'); const saved = state.saved.includes(id) || legacyIds.some(legacyId => state.saved.includes(legacyId)); const saveAnalytics = JSON.parse(button.dataset.analytics || '{}'); track(saved ? 'unsave_event' : 'save_event', saved ? saveAnalytics : { ...saveAnalytics, ...selectedFilterParameters() }); state.saved = saved ? state.saved.filter(item => item !== id && !legacyIds.includes(item)) : [...state.saved.filter(item => !legacyIds.includes(item)), id]; localStorage.setItem('southBaySaved', JSON.stringify(state.saved)); render(); });
 document.querySelector('#savedButton').addEventListener('click', () => { state.onlySaved = !state.onlySaved; document.querySelector('#savedButton').classList.toggle('active', state.onlySaved); render(); document.querySelector('#events').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
