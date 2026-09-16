@@ -447,8 +447,9 @@ heroSearchForm.addEventListener('submit', event => {
   document.querySelector('#events').scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 heroWeekendQuick.addEventListener('click', () => {
-  track('quick_filter_used', { filter_name: 'date', filter_value: 'weekend' });
-  resetFilters({ date: 'weekend' });
+  const nextDate = state.date === 'weekend' ? 'all' : 'weekend';
+  track('quick_filter_used', { filter_name: 'date', filter_value: nextDate });
+  resetFilters({ date: nextDate });
   render();
   document.querySelector('#events').scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
