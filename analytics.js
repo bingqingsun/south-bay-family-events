@@ -14,7 +14,7 @@
   window.trackAnalyticsEvent = () => {};
 
   function enableAnalytics() {
-    if (!isPublishedSite || enabled) return;
+    if (!isPublishedSite || enabled || localStorage.getItem(consentKey) === 'denied') return;
     enabled = true;
     window.dataLayer = window.dataLayer || [];
     window.gtag = function gtag() { window.dataLayer.push(arguments); };
@@ -31,24 +31,19 @@
     document.head.append(script);
   }
 
-  function saveChoice(choice) {
-    localStorage.setItem(consentKey, choice);
-    if (choice === 'granted') enableAnalytics();
-    const banner = document.querySelector('#analyticsConsent');
-    if (banner) banner.hidden = true;
+  function setAnalyticsChoice(choice) {
+    if (choice === 'denied') {
+      localStorage.setItem(consentKey, 'denied');
+      window[`ga-disable-${measurementId}`] = true;
+      window.trackAnalyticsEvent = () => {};
+      return;
+    }
+    localStorage.removeItem(consentKey);
+    window[`ga-disable-${measurementId}`] = false;
+    enableAnalytics();
   }
 
-  window.setWeekendPlansAnalyticsConsent = saveChoice;
+  window.setWeekendPlansAnalyticsConsent = setAnalyticsChoice;
 
-  document.addEventListener('DOMContentLoaded', () => {
-    if (!isPublishedSite) return;
-    const choice = localStorage.getItem(consentKey);
-    if (choice === 'granted') { enableAnalytics(); return; }
-    if (choice === 'denied') return;
-    const banner = document.querySelector('#analyticsConsent');
-    if (!banner) return;
-    banner.hidden = false;
-    banner.querySelector('[data-analytics-choice="granted"]')?.addEventListener('click', () => saveChoice('granted'));
-    banner.querySelector('[data-analytics-choice="denied"]')?.addEventListener('click', () => saveChoice('denied'));
-  });
+  document.addEventListener('DOMContentLoaded', enableAnalytics);
 })();
