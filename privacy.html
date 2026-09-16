@@ -23,15 +23,15 @@
     <main>
       <nav class="site-nav wrap"><a class="brand" href="index.html"><img class="brand-mark" src="assets/brand/south-bay-family-finds-mark-v2.svg" width="36" height="36" alt="" /><span class="brand-name"><span>South Bay Family</span> <span class="brand-accent">Finds</span></span></a><div><a href="index.html">Browse activities</a><a href="about.html">About</a></div></nav>
       <section class="privacy-page legal-page wrap">
-      <header class="legal-heading"><p class="eyebrow">PRIVACY</p><h1>Privacy &amp; analytics</h1><p><strong>Last updated: August 31, 2026.</strong> South Bay Family Finds helps parents and caregivers find activities across the South Bay. The site is intended for parents and caregivers; it is not a service for children to create accounts or submit information.</p></header>
+      <header class="legal-heading"><p class="eyebrow">PRIVACY</p><h1>Privacy &amp; analytics</h1><p><strong>Last updated: September 16, 2026.</strong> South Bay Family Finds helps parents and caregivers find activities across the South Bay. The site is intended for parents and caregivers; it is not a service for children to create accounts or submit information.</p></header>
       <h2>Information we do not collect</h2>
       <p>We do not require names, email addresses, home addresses, payment information, or children’s personal information to use the site. Please do not send us personal information about a child.</p>
       <h2>When you contact us</h2>
       <p>If you email us, we receive the email address and message you choose to send. We use them only to reply, investigate a correction, or address your privacy question. We aim to delete completed email requests within 12 months, unless we need to keep them longer to resolve an issue or meet a legal obligation. You may ask us to delete a message sooner.</p>
-      <h2>Optional site analytics</h2>
-      <p>If you choose “Allow analytics,” we use Google Analytics to understand aggregated visits, pages viewed, general traffic sources, and feature use. Google Analytics uses cookies and may process browser, device, and approximate location information. We do not send a child’s exact age, saved activities, precise location, name, email address, or home address to Analytics. Google’s privacy practices apply to its processing.</p>
-      <p>You can change your choice at any time. If you choose “Use only essential features,” analytics does not load.</p>
-      <div class="privacy-actions"><button type="button" class="privacy-allow" id="allowAnalytics">Allow analytics</button><button type="button" class="privacy-decline" id="declineAnalytics">Use only essential features</button></div>
+      <h2>Site analytics</h2>
+      <p>We use Google Analytics to understand aggregated visits, pages viewed, general traffic sources, and feature use. Google Analytics uses cookies and may process browser, device, and approximate location information. We do not send a child’s exact age, saved activities, precise location, name, email address, or home address to Analytics. Google’s privacy practices apply to its processing.</p>
+      <p>Analytics are enabled by default for visitors to this site. You can disable Analytics on this browser and device at any time below. Disabling it stops future Analytics events from this browser; it does not affect essential website features.</p>
+      <div class="privacy-actions"><button type="button" class="privacy-allow" id="allowAnalytics">Enable analytics</button><button type="button" class="privacy-decline" id="declineAnalytics">Disable analytics on this device</button></div>
       <p class="privacy-status" id="privacyStatus" aria-live="polite"></p>
       <h2>Saved activities and essential storage</h2>
       <p>Saved activities and your analytics choice are stored in your browser on that device. They are not sent to South Bay Family Finds and may be cleared in your browser settings.</p>
@@ -43,11 +43,11 @@
       </section>
     </main>
     <footer><div class="wrap"><a class="brand" href="index.html"><img class="brand-mark" src="assets/brand/south-bay-family-finds-mark-v2.svg" width="36" height="36" alt="" /><span class="brand-name"><span>South Bay Family</span> <span class="brand-accent">Finds</span></span></a><p>Made for curious South Bay families</p></div></footer>
-    <script src="analytics.js?v=20260831-2"></script>
+    <script src="analytics.js?v=20260916-1"></script>
     <script>
       const status = document.querySelector('#privacyStatus');
-      document.querySelector('#allowAnalytics').addEventListener('click', () => { window.setWeekendPlansAnalyticsConsent('granted'); status.textContent = 'Analytics are enabled.'; });
-      document.querySelector('#declineAnalytics').addEventListener('click', () => { window.setWeekendPlansAnalyticsConsent('denied'); status.textContent = 'Only essential website features are enabled.'; });
+      document.querySelector('#allowAnalytics').addEventListener('click', () => { window.setWeekendPlansAnalyticsConsent('granted'); status.textContent = 'Analytics are enabled on this device.'; });
+      document.querySelector('#declineAnalytics').addEventListener('click', () => { window.setWeekendPlansAnalyticsConsent('denied'); status.textContent = 'Analytics are disabled on this device. Essential website features remain available.'; });
     </script>
   </body>
 </html>
