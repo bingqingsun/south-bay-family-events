@@ -60,7 +60,7 @@
   border-radius: 22px;
   box-shadow: 0 14px 34px #1b427f22;
   color: #fff;
-  min-height: 232px;
+  min-height: 280px;
   overflow: hidden;
   position: relative;
   text-decoration: none;
@@ -78,9 +78,7 @@
 }
 
 .collection-home-overlay {
-  background:
-    radial-gradient(circle at 82% 22%, #ffd9789c 0 8%, transparent 8.5%),
-    linear-gradient(108deg, transparent 55%, #102a6240 100%);
+  background: linear-gradient(108deg, transparent 55%, #102a621f 100%);
   inset: 0;
   position: absolute;
 }
@@ -212,14 +210,7 @@
 }
 
 .collection-hero::after {
-  background: radial-gradient(circle, #ffe08c 0 45%, #ffe08c00 46%);
-  content: "";
-  height: 140px;
-  opacity: .75;
-  position: absolute;
-  right: 50px;
-  top: 34px;
-  width: 140px;
+  display: none;
 }
 
 .collection-hero-content {
@@ -446,6 +437,7 @@
   }
 
   .collection-home-card {
+    background-position: 68% center;
     border-radius: 20px;
     min-height: 330px;
   }
