@@ -19,7 +19,7 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../../styles.css?v=20260830-1" />
     <link rel="stylesheet" href="../../overrides.css?v=20260913-3" />
-    <link rel="stylesheet" href="../../collections.css?v=20260916-3" />
+    <link rel="stylesheet" href="../../collections.css?v=20260916-4" />
   </head>
   <body class="site-page collection-page" data-collection-slug="mid-autumn-festival">
     <main>
@@ -42,16 +42,12 @@
 
         <section class="collection-section" aria-labelledby="quickPicksHeading">
           <div class="collection-section-heading"><div><p class="eyebrow">START HERE</p><h2 id="quickPicksHeading">Quick picks</h2><p>Three strong choices when you want to decide fast.</p></div></div>
-          <div class="quick-pick-grid">
-            <a class="quick-pick" href="#event-curated-2ef8db4c6c34be78" data-quick-pick="top-pick"><span class="quick-pick-label">Top pick</span><h3>Moon Festival Children’s Festival</h3><p>A large, free community celebration with performances, food, and children’s activities.</p></a>
-            <a class="quick-pick" href="#event-curated-f1d6a411a90a62b1" data-quick-pick="best-for-kids"><span class="quick-pick-label">Best for kids</span><h3>Children’s Discovery Museum</h3><p>Lion dance, lantern activities, and playdough mooncake making in one family-focused stop.</p></a>
-            <a class="quick-pick" href="#event-curated-3dc3446a01d92775" data-quick-pick="cultural-experience"><span class="quick-pick-label">Cultural experience</span><h3>Mid-Autumn Festival Bay Area</h3><p>A Vietnamese cultural celebration with lanterns, music, games, food, and storytelling.</p></a>
-          </div>
+          <div class="cards collection-event-grid" id="quickPickGrid" aria-live="polite"></div>
         </section>
 
         <section class="collection-section" aria-labelledby="allEventsHeading">
           <div class="collection-section-heading"><div><p class="eyebrow">ALL CELEBRATIONS</p><h2 id="allEventsHeading">Explore all 9 events</h2><p>Event details come from the main activity database and stay in sync automatically.</p></div></div>
-          <div class="collection-event-grid" id="collectionEventGrid" aria-live="polite"></div>
+          <div class="cards collection-event-grid" id="collectionEventGrid" aria-live="polite"></div>
           <div class="collection-empty" id="collectionEmpty" hidden>No current events are available in this guide. Browse the latest family activities on the homepage.</div>
         </section>
 
@@ -70,8 +66,9 @@
 
     <footer><div class="wrap"><a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand/south-bay-family-finds-mark-v2.svg" width="36" height="36" alt="" /><span class="brand-name"><span>South Bay Family</span> <span class="brand-accent">Finds</span></span></a><p>Made for curious South Bay families · Please confirm details with the organizer</p><div class="legal-links"><a class="privacy-link" href="../../about.html">About &amp; contact</a><a class="privacy-link" href="../../privacy.html">Privacy &amp; analytics</a><a class="privacy-link" href="../../terms.html">Terms &amp; data notice</a></div></div></footer>
 
+    <template id="cardTemplate"><article class="event-card"><div class="card-image"><span class="event-icon"></span><span class="tag"></span><button class="heart" type="button" aria-label="Save activity">♡</button></div><div class="card-content"><h3></h3><div class="card-facts" aria-label="Ages, rating, cost, and registration"><span class="fact fact-age"></span><span class="fact fact-rating"></span><span class="fact fact-cost"></span><span class="fact fact-registration"></span></div><p class="distance" hidden></p><p class="description"></p><button class="description-toggle" type="button" hidden></button><div class="details"><div class="detail-row time"><svg class="detail-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7v5l3.5 2"></path></svg><div class="time-content"><div class="time-primary"><span class="detail-text"></span><button class="sessions-inline-toggle" type="button" hidden></button></div><ul class="sessions-list" hidden></ul></div></div><div class="detail-row place"><svg class="detail-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 20V4h12v16M3 20h18M10 8h1M10 12h1M14 8h1M14 12h1"></path></svg><span class="detail-text"></span></div><div class="detail-row address" hidden><svg class="detail-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5.1-8 11-8 11S4 15.1 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg><a class="address-link" target="_blank" rel="noopener"><span class="detail-text"></span><span class="directions"></span><svg class="directions-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 7l5 5-5 5"></path></svg></a></div></div><a class="source-link" target="_blank" rel="noopener">View activity details <span>→</span></a></div></article></template>
     <script src="../../data/events.js?v=20260908-2"></script>
     <script src="../../analytics.js?v=20260916-1"></script>
-    <script src="../../collections.js?v=20260916-1"></script>
+    <script src="../../collections.js?v=20260916-2"></script>
   </body>
 </html>
