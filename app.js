@@ -376,20 +376,25 @@ function enableNearbySort() {
     render();
   }, { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 });
 }
+function formattedDateLabel(value) {
+  return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${value}T12:00:00Z`));
+}
 function syncDateControls() {
   const dateSelect = document.querySelector('#dateFilter');
   const heroDate = document.querySelector('#heroDateInput');
+  const heroDateDisplay = document.querySelector('#heroDateDisplay');
   let customOption = dateSelect.querySelector('option[data-custom-date]');
   const isExactDate = /^\d{4}-\d{2}-\d{2}$/.test(state.date);
   if (isExactDate) {
     if (!customOption) { customOption = document.createElement('option'); customOption.dataset.customDate = 'true'; dateSelect.append(customOption); }
     customOption.value = state.date;
-    customOption.textContent = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${state.date}T12:00:00Z`));
+    customOption.textContent = formattedDateLabel(state.date);
   } else if (customOption) {
     customOption.remove();
   }
   dateSelect.value = state.date;
   if (heroDate) heroDate.value = isExactDate ? state.date : '';
+  if (heroDateDisplay) heroDateDisplay.textContent = isExactDate ? formattedDateLabel(state.date) : 'Any date';
 }
 function resetFilters({ date = 'all' } = {}) { state.type = 'all'; state.age = 'all'; state.city = 'all'; state.date = date; state.sort = 'recommended'; state.query = ''; state.onlySaved = false; document.querySelector('#ageFilter').value = 'all'; document.querySelector('#cityFilter').value = 'all'; syncDateControls(); document.querySelector('#sortFilter').value = 'recommended'; const searchInput = document.querySelector('#heroSearchInput'); if (searchInput) searchInput.value = ''; setLocationStatus(); setActiveType('all'); syncDatePriority(); document.querySelector('#savedButton').classList.remove('active'); }
 document.querySelector('#typeFilters').addEventListener('click', e => {
@@ -414,7 +419,9 @@ document.querySelector('#clearFilters').addEventListener('click', () => { resetF
 const heroSearchForm = document.querySelector('#heroSearchForm');
 const heroSearchInput = document.querySelector('#heroSearchInput');
 const heroDateInput = document.querySelector('#heroDateInput');
+const heroDateDisplay = document.querySelector('#heroDateDisplay');
 heroDateInput.min = localToday();
+heroDateInput.addEventListener('change', () => { heroDateDisplay.textContent = heroDateInput.value ? formattedDateLabel(heroDateInput.value) : 'Any date'; });
 const heroWeekendQuick = document.querySelector('#heroWeekendQuick');
 const heroNearbyQuick = document.querySelector('#heroNearbyQuick');
 heroSearchForm.addEventListener('submit', event => {
