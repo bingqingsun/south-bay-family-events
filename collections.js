@@ -339,10 +339,15 @@
     const databaseEvents = Array.isArray(window.SOUTH_BAY_EVENTS)
       ? window.SOUTH_BAY_EVENTS.filter((event) => isCurrent(event))
       : [];
-    const byId = new Map(databaseEvents.map((event) => [event.id, event]));
+    const byId = new Map();
+    databaseEvents.forEach((event) => {
+      byId.set(event.id, event);
+      (event.legacyIds || []).forEach((legacyId) => byId.set(legacyId, event));
+    });
     const events = selectedEventIds
       .map((id) => byId.get(id))
       .filter(Boolean)
+      .filter((event, index, all) => all.findIndex((candidate) => candidate.id === event.id) === index)
       .sort((a, b) => String(a.dateValue).localeCompare(String(b.dateValue)));
 
     const empty = document.getElementById('collectionEmpty');
@@ -351,7 +356,10 @@
       return;
     }
 
-    const quickEvents = quickPickIds.map((id) => byId.get(id)).filter((event) => event && isCurrent(event));
+    const quickEvents = quickPickIds
+      .map((id) => byId.get(id))
+      .filter((event) => event && isCurrent(event))
+      .filter((event, index, all) => all.findIndex((candidate) => candidate.id === event.id) === index);
     const quickIdSet = new Set(quickEvents.map((event) => event.id));
     const otherEvents = events.filter((event) => !quickIdSet.has(event.id));
 
