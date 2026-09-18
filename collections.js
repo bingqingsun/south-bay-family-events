@@ -43,7 +43,7 @@
   ];
   const quickPickIds = [
     'curated-2ef8db4c6c34be78',
-    'curated-f1d6a411a90a62b1',
+    'lahm-50332644c3a62b5d',
     'curated-3dc3446a01d92775'
   ];
   let savedIds = JSON.parse(localStorage.getItem('southBaySaved') || '[]');
@@ -367,11 +367,9 @@
     otherEvents.forEach((event, index) => grid.append(buildCard(event, index + 1, 'collection-all-events')));
 
     const countNode = document.getElementById('collectionEventCount');
-    const headingCountNode = document.getElementById('collectionMoreCount');
     const datesNode = document.getElementById('collectionDateRange');
     const citiesNode = document.getElementById('collectionCities');
     if (countNode) countNode.textContent = `${events.length} selected event${events.length === 1 ? '' : 's'}`;
-    if (headingCountNode) headingCountNode.textContent = `More celebrations (${otherEvents.length})`;
     if (datesNode) {
       const dates = events.map((event) => String(event.dateValue || '').slice(0, 10)).filter(Boolean);
       if (dates.length) {
