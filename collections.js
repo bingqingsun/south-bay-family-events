@@ -43,7 +43,7 @@
   ];
   const quickPickIds = [
     'curated-2ef8db4c6c34be78',
-    'curated-f1d6a411a90a62b1',
+    'lahm-50332644c3a62b5d',
     'curated-3dc3446a01d92775'
   ];
   let savedIds = JSON.parse(localStorage.getItem('southBaySaved') || '[]');
