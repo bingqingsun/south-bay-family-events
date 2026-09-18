@@ -2830,8 +2830,14 @@ function coalesceCrossSourceDuplicates(events) {
       // exact start time. Two explicit, different times remain separate.
       if (eventTime && existingTime && eventTime !== existingTime) return false;
 
-      const eventLocation = normalizedEventLocation(event);
-      const existingLocation = normalizedEventLocation(existing);
+      const sameSourceExactTitle = event.source === existing.source
+        && plainText(event.title).toLowerCase() === plainText(existing.title).toLowerCase();
+      if (sameSourceExactTitle) return true;
+
+      const eventLocation = normalizedEventLocation(event)
+        .replace(/\bstreet\b/g, 'st').replace(/\broad\b/g, 'rd').replace(/\bavenue\b/g, 'ave').replace(/\bboulevard\b/g, 'blvd');
+      const existingLocation = normalizedEventLocation(existing)
+        .replace(/\bstreet\b/g, 'st').replace(/\broad\b/g, 'rd').replace(/\bavenue\b/g, 'ave').replace(/\bboulevard\b/g, 'blvd');
       const sameLocation = eventLocation && existingLocation
         && (eventLocation === existingLocation || eventLocation.includes(existingLocation) || existingLocation.includes(eventLocation));
       if (!sameLocation) return false;
