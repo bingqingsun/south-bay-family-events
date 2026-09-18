@@ -2803,16 +2803,53 @@ function normalizedEventLocation(event) {
     .trim();
 }
 
+function isDirectEventUrl(value) {
+  try {
+    const url = new URL(value);
+    return /\/events\/[a-z0-9-]{8,}\/?$/i.test(url.pathname);
+  } catch {
+    return false;
+  }
+}
+
 function organizerPriority(event) {
-  // Prefer the source closest to the actual organizer/venue, then official
-  // first-party pages, while still allowing RSS to replace generic duplicates.
+  // Canonical duplicates should favor the most actionable first-party record:
+  // a direct event-detail URL and official event image are more useful than a
+  // generic category/listing page, even when that listing is manually curated.
   let score = 0;
+  if (isDirectEventUrl(event.url)) score += 8;
+  if (event.image) score += 4;
   if (/^City of\s+/i.test(event.source || '')) score += 6;
   if (event.source && event.place && plainText(event.place).toLowerCase().includes(plainText(event.source).toLowerCase())) score += 4;
   if (event.verification === 'official-page') score += 3;
   if (event.verification === 'rss') score += 2;
   if (event.address) score += 1;
   return score;
+}
+
+function mergeDuplicateEvent(primary, secondary) {
+  const merged = {
+    ...primary,
+    legacyIds: [...new Set([
+      ...(primary.legacyIds || []), primary.id,
+      ...(secondary.legacyIds || []), secondary.id
+    ].filter(Boolean))]
+  };
+  if (!merged.image && secondary.image) merged.image = secondary.image;
+  if (!merged.endDateValue && secondary.endDateValue) merged.endDateValue = secondary.endDateValue;
+  if ((!merged.costStatus || merged.costStatus === 'unknown') && secondary.costStatus && secondary.costStatus !== 'unknown') {
+    merged.costStatus = secondary.costStatus;
+    merged.costLabel = secondary.costLabel;
+    merged.costSource = secondary.costSource;
+    merged.costEvidence = secondary.costEvidence;
+  }
+  if ((!merged.registrationStatus || merged.registrationStatus === 'unknown')
+      && secondary.registrationStatus && secondary.registrationStatus !== 'unknown') {
+    merged.registrationStatus = secondary.registrationStatus;
+    merged.registrationSource = secondary.registrationSource;
+    merged.registrationEvidence = secondary.registrationEvidence;
+  }
+  return merged;
 }
 
 function coalesceCrossSourceDuplicates(events) {
@@ -2853,8 +2890,15 @@ function coalesceCrossSourceDuplicates(events) {
       const minSize = Math.min(tokens.size, otherTokens.size);
       return shared >= 2 && minSize > 0 && shared / minSize >= 0.6;
     });
-    if (matchIndex < 0) result.push(event);
-    else if (organizerPriority(event) > organizerPriority(result[matchIndex])) result[matchIndex] = event;
+    if (matchIndex < 0) {
+      result.push(event);
+    } else {
+      const existing = result[matchIndex];
+      const eventWins = organizerPriority(event) > organizerPriority(existing);
+      result[matchIndex] = eventWins
+        ? mergeDuplicateEvent(event, existing)
+        : mergeDuplicateEvent(existing, event);
+    }
   });
   return result;
 }
@@ -2910,7 +2954,7 @@ function groupRepeatedSessions(items) {
       id: 'series-' + createHash('sha256').update(key).digest('hex').slice(0, 16),
       title: displayTitle,
       movieRating,
-      legacyIds: ordered.map(event => event.id),
+      legacyIds: [...new Set(ordered.flatMap(event => [event.id, ...(event.legacyIds || [])]))],
       source: first.format === 'movie-screening' ? 'Official cinema listings' : first.source,
       sessions: cardSessions.map(event => ({ id: event.id, date: event.date, dateValue: event.dateValue, endDateValue: event.endDateValue, url: event.url, place: event.place, address: event.address, city: event.city }))
     }];
