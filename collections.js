@@ -27,6 +27,20 @@
     '需付费／价格见详情': 'Paid admission',
     '需购票／价格见详情': 'Paid admission'
   };
+  // Editorial membership is explicit. The event database supplies fresh
+  // details, but a newly scraped seasonal event must not silently change the
+  // guide's curated lineup.
+  const selectedEventIds = [
+    'curated-2ef8db4c6c34be78',
+    'lahm-50332644c3a62b5d',
+    'rss-6a8f6bb3aafa6100295f6779',
+    'curated-261f4bd1519605e7',
+    'rss-6a7fa742d4b10d0030069349',
+    'civic-70e54d8492ed1a97',
+    'curated-f1d6a411a90a62b1',
+    'curated-3dc3446a01d92775',
+    'squarespace-86e397631a011714'
+  ];
   const quickPickIds = [
     'curated-2ef8db4c6c34be78',
     'curated-f1d6a411a90a62b1',
@@ -182,7 +196,9 @@
     if (!costText) costFact.remove();
 
     const registrationFact = node.querySelector('.fact-registration');
-    const registrationText = event.registrationStatus === 'required' ? 'Registration required' : '';
+    const registrationText = event.registrationStatus === 'full'
+      ? 'Registration full · Check waitlist'
+      : event.registrationStatus === 'required' ? 'Registration required' : '';
     registrationFact.textContent = registrationText;
     registrationFact.title = registrationText ? [event.registrationSource, event.registrationEvidence].filter(Boolean).join(': ') : '';
     if (!registrationText) registrationFact.remove();
@@ -320,11 +336,14 @@
     const quickGrid = document.getElementById('quickPickGrid');
     if (!grid || !quickGrid || !document.getElementById('cardTemplate')) return;
 
-    const events = Array.isArray(window.SOUTH_BAY_EVENTS)
-      ? window.SOUTH_BAY_EVENTS
-          .filter((event) => event.seasonalTheme === 'mid-autumn' && isCurrent(event))
-          .sort((a, b) => String(a.dateValue).localeCompare(String(b.dateValue)))
+    const databaseEvents = Array.isArray(window.SOUTH_BAY_EVENTS)
+      ? window.SOUTH_BAY_EVENTS.filter((event) => isCurrent(event))
       : [];
+    const byId = new Map(databaseEvents.map((event) => [event.id, event]));
+    const events = selectedEventIds
+      .map((id) => byId.get(id))
+      .filter(Boolean)
+      .sort((a, b) => String(a.dateValue).localeCompare(String(b.dateValue)));
 
     const empty = document.getElementById('collectionEmpty');
     if (!events.length) {
@@ -332,16 +351,28 @@
       return;
     }
 
-    const byId = new Map(events.map((event) => [event.id, event]));
-    const quickEvents = quickPickIds.map((id) => byId.get(id)).filter(Boolean);
-    if (quickEvents.length < 3) {
-      events.forEach((event) => {
-        if (quickEvents.length < 3 && !quickEvents.includes(event)) quickEvents.push(event);
-      });
-    }
+    const quickEvents = quickPickIds.map((id) => byId.get(id)).filter((event) => event && isCurrent(event));
+    const quickIdSet = new Set(quickEvents.map((event) => event.id));
+    const otherEvents = events.filter((event) => !quickIdSet.has(event.id));
 
     quickEvents.forEach((event, index) => quickGrid.append(buildCard(event, index + 1, 'collection-quick-pick')));
-    events.forEach((event, index) => grid.append(buildCard(event, index + 1, 'collection-all-events')));
+    otherEvents.forEach((event, index) => grid.append(buildCard(event, index + 1, 'collection-all-events')));
+
+    const countNode = document.getElementById('collectionEventCount');
+    const headingCountNode = document.getElementById('collectionMoreCount');
+    const datesNode = document.getElementById('collectionDateRange');
+    const citiesNode = document.getElementById('collectionCities');
+    if (countNode) countNode.textContent = `${events.length} selected event${events.length === 1 ? '' : 's'}`;
+    if (headingCountNode) headingCountNode.textContent = `More celebrations (${otherEvents.length})`;
+    if (datesNode) {
+      const dates = events.map((event) => String(event.dateValue || '').slice(0, 10)).filter(Boolean);
+      if (dates.length) {
+        const first = dateLabel(dates[0])?.replace(/,?\s*(Mon|Tue|Wed|Thu|Fri|Sat|Sun)$/i, '') || dates[0];
+        const last = dateLabel(dates.at(-1))?.replace(/,?\s*(Mon|Tue|Wed|Thu|Fri|Sat|Sun)$/i, '') || dates.at(-1);
+        datesNode.textContent = first === last ? first : `${first}–${last}`;
+      }
+    }
+    if (citiesNode) citiesNode.textContent = [...new Set(events.map((event) => event.city).filter(Boolean))].join(' · ');
 
     track('collection_view', {
       collection_slug: collectionSlug,
