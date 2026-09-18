@@ -104,11 +104,12 @@ function isUnavailableEvent(event) {
     event.title, event.description, event.availabilityStatus,
     event.registrationStatus, event.ticketStatus
   ].filter(Boolean).join(' '));
-  // Waitlisted programs remain useful because a family can still take action.
-  // Otherwise an explicit organizer status wins over the event's attractive
-  // description: sold-out/full/cancelled entries should not occupy discovery.
-  if (/\b(?:waitlist|waiting list)\b/i.test(value)) return false;
-  return /\b(?:sold out|fully booked|registration (?:is )?(?:full|closed)|event (?:is )?full|no (?:tickets|spaces?|spots?|seats?) (?:remain|remaining|available)|cancel(?:ed|led)|event cancelled)\b/i.test(value);
+  // Full registration is a status, not evidence that the event disappeared.
+  // Keep full/waitlisted programs visible so families can still inspect the
+  // organizer page. Suppress only explicit cancellation or hard sold-out
+  // signals with no remaining availability.
+  if (/\b(?:waitlist|waiting list|registration (?:is )?full|event (?:is )?full)\b/i.test(value)) return false;
+  return /\b(?:sold out|fully booked|no (?:tickets|spaces?|spots?|seats?) (?:remain|remaining|available)|cancel(?:ed|led)|event cancelled)\b/i.test(value);
 }
 
 function hasExplicitChildAudience(text) {
@@ -658,12 +659,18 @@ async function readRss(source) {
     const description = xmlText(item, 'description');
     const eventKey = `${xmlText(item, 'guid') || link}|${startDate}`;
     if (!title || !link || seen.has(eventKey) || !isUpcoming(startDate) || !familyAudience
-      || xmlText(item, 'is_cancelled') === 'true' || xmlText(item, 'is_full') === 'true'
+      || xmlText(item, 'is_cancelled') === 'true'
       || isClosureNotice(title, description)) return [];
     seen.add(eventKey);
     const type = typeFor(title + ' ' + categoriesLower + ' ' + description, title);
     const age = ageInfo(`${categories} ${description}`);
+    const isFull = xmlText(item, 'is_full') === 'true';
     const cost = costInfo(xmlText(item, 'cost'), description);
+    if (isFull) {
+      cost.registrationStatus = 'full';
+      cost.registrationSource = 'Official registration status';
+      cost.registrationEvidence = 'Registration is full; check the organizer page for current waitlist options.';
+    }
     const eventId = (xmlText(item, 'guid') || link).split('/').filter(Boolean).pop() || String(index);
     const location = xmlText(item, 'location');
     const venue = xmlText(location, 'name');
@@ -675,7 +682,8 @@ async function readRss(source) {
       type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'rss', lastVerifiedAt: generatedAt,
       description: cardSummary(description, title),
       image: officialImageUrl(item),
-      place: [venue, room].filter(Boolean).join(' · ') || source.name, address, city, source: source.name, url: link
+      place: [venue, room].filter(Boolean).join(' · ') || source.name, address, city, source: source.name, url: link,
+      availabilityStatus: isFull ? 'full' : ''
     }];
   });
 }
@@ -2718,7 +2726,17 @@ failures.forEach(result => console.warn(`Skipping ${result.kind}: ${result.sourc
 if (directSources.length && feedAttempts.every(result => result.status === 'rejected')) {
   throw new Error('All official calendars failed; leaving the published list unchanged.');
 }
-const feedEvents = feedAttempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
+// A transient source failure must not erase future events that were verified
+// successfully on the previous refresh. Reuse only still-active cards from
+// failed official sources, preserving their original lastVerifiedAt timestamp.
+const failedDirectSourceNames = new Set(feedAttempts
+  .filter(result => result.status === 'rejected')
+  .map(result => result.sourceName));
+const retainedSourceEvents = existingEvents
+  .filter(event => failedDirectSourceNames.has(event.source) && isStillActive(event))
+  .map(event => ({ ...event, refreshStatus: 'stale-source', refreshErrorAt: generatedAt }));
+const freshFeedEvents = feedAttempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
+const feedEvents = [...freshFeedEvents, ...retainedSourceEvents];
 const raw = searchAttempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
 const unique = [...new Map(raw.filter(item => item.title && item.link).map(item => [item.link.toLowerCase(), item])).values()];
 // Search discovery is balanced per source. The old global slice only validated
@@ -2776,11 +2794,25 @@ function eventTitleTokens(title) {
     .replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(word => word.length > 2));
 }
 
+function normalizedEventLocation(event) {
+  return plainText([event.address, event.place].filter(Boolean).join(' '))
+    .toLowerCase()
+    .replace(/\b(?:california|ca)\b/g, '')
+    .replace(/[^a-z0-9 ]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function organizerPriority(event) {
-  // When two official calendars announce the same local event, prefer the
-  // municipality that operates the venue over a partner's syndicated listing.
-  if (/^City of\s+/i.test(event.source || '')) return 3;
-  return event.verification === 'official-page' ? 2 : 1;
+  // Prefer the source closest to the actual organizer/venue, then official
+  // first-party pages, while still allowing RSS to replace generic duplicates.
+  let score = 0;
+  if (/^City of\s+/i.test(event.source || '')) score += 6;
+  if (event.source && event.place && plainText(event.place).toLowerCase().includes(plainText(event.source).toLowerCase())) score += 4;
+  if (event.verification === 'official-page') score += 3;
+  if (event.verification === 'rss') score += 2;
+  if (event.address) score += 1;
+  return score;
 }
 
 function coalesceCrossSourceDuplicates(events) {
@@ -2788,14 +2820,26 @@ function coalesceCrossSourceDuplicates(events) {
   events.forEach(event => {
     const tokens = eventTitleTokens(event.title);
     const matchIndex = result.findIndex(existing => {
-      const eventTime = String(event.dateValue || '').replace(/(T\d{2}:\d{2}):00$/, '$1');
-      const existingTime = String(existing.dateValue || '').replace(/(T\d{2}:\d{2}):00$/, '$1');
-      if (existing.source === event.source || !eventTime || existingTime !== eventTime || !event.city || existing.city !== event.city) return false;
-      const sameAddress = event.address && existing.address && event.address.toLowerCase() === existing.address.toLowerCase();
-      const samePlace = event.place && existing.place && event.place.toLowerCase() === existing.place.toLowerCase();
+      const eventDay = String(event.dateValue || '').slice(0, 10);
+      const existingDay = String(existing.dateValue || '').slice(0, 10);
+      if (!eventDay || eventDay !== existingDay || !event.city || existing.city !== event.city) return false;
+
+      const eventTime = String(event.dateValue || '').match(/T(\d{2}:\d{2})/)?.[1] || '';
+      const existingTime = String(existing.dateValue || '').match(/T(\d{2}:\d{2})/)?.[1] || '';
+      // A date-only organizer listing may duplicate a partner listing with an
+      // exact start time. Two explicit, different times remain separate.
+      if (eventTime && existingTime && eventTime !== existingTime) return false;
+
+      const eventLocation = normalizedEventLocation(event);
+      const existingLocation = normalizedEventLocation(existing);
+      const sameLocation = eventLocation && existingLocation
+        && (eventLocation === existingLocation || eventLocation.includes(existingLocation) || existingLocation.includes(eventLocation));
+      if (!sameLocation) return false;
+
       const otherTokens = eventTitleTokens(existing.title);
       const shared = [...tokens].filter(token => otherTokens.has(token)).length;
-      return (sameAddress || samePlace) && shared >= 2 && shared === Math.min(tokens.size, otherTokens.size);
+      const minSize = Math.min(tokens.size, otherTokens.size);
+      return shared >= 2 && minSize > 0 && shared / minSize >= 0.6;
     });
     if (matchIndex < 0) result.push(event);
     else if (organizerPriority(event) > organizerPriority(result[matchIndex])) result[matchIndex] = event;
@@ -3009,4 +3053,4 @@ await writeFile(target, `${JSON.stringify(events, null, 2)}\n`);
 await writeFile(browserTarget, `window.SOUTH_BAY_EVENTS = ${JSON.stringify(events)};\nwindow.SOUTH_BAY_EVENTS_META = ${JSON.stringify({ generatedAt })};\n`);
 await writeFile(museumTarget, `${JSON.stringify(museums, null, 2)}\n`);
 await writeFile(museumBrowserTarget, `window.SOUTH_BAY_MUSEUMS = ${JSON.stringify(museums)};\n`);
-console.log(`Published ${events.length} verified activities from ${directSources.length} official calendars and ${searchSources.length} fallback sources; ${translationStats.translated} translated and ${translationStats.cached} reused from cache.`);
+console.log(`Published ${events.length} verified activities from ${directSources.length} official calendars and ${searchSources.length} fallback sources; ${retainedSourceEvents.length} retained from last-known-good source data; ${translationStats.translated} translated and ${translationStats.cached} translation entries reused from cache.`);
