@@ -367,11 +367,9 @@
     otherEvents.forEach((event, index) => grid.append(buildCard(event, index + 1, 'collection-all-events')));
 
     const countNode = document.getElementById('collectionEventCount');
-    const headingCountNode = document.getElementById('collectionMoreCount');
     const datesNode = document.getElementById('collectionDateRange');
     const citiesNode = document.getElementById('collectionCities');
     if (countNode) countNode.textContent = `${events.length} selected event${events.length === 1 ? '' : 's'}`;
-    if (headingCountNode) headingCountNode.textContent = `More celebrations (${otherEvents.length})`;
     if (datesNode) {
       const dates = events.map((event) => String(event.dateValue || '').slice(0, 10)).filter(Boolean);
       if (dates.length) {
