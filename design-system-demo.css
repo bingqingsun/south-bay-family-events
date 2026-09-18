@@ -373,34 +373,24 @@
     box-shadow: 0 12px 32px #2054b420;
   }
 
-  /* The hero already owns This weekend / Near me. Results need one compact
-     filter entry rather than repeating the same shortcuts. */
+  /* Mobile contextual quick actions:
+     This weekend / Near me intentionally reappear after users scroll beyond
+     the hero so they can change high-frequency context without scrolling back. */
   .home-page .mobile-quick-filters {
-    display: block;
+    gap: 8px;
     margin: 0 0 14px;
     position: sticky;
     top: 8px;
     z-index: 5;
   }
 
-  .home-page #mobileWeekend,
-  .home-page #mobileNearby {
-    display: none;
+  .home-page .mobile-quick-filters button {
+    box-shadow: 0 8px 20px #203e740d;
+    min-height: 44px;
   }
 
   .home-page #mobileFilterToggle {
-    align-items: center;
-    background: #ffffffee;
-    border: 1px solid #dce4f0;
-    border-radius: var(--sbff-radius-control);
-    box-shadow: 0 8px 20px #203e7412;
     color: var(--sbff-blue-600);
-    display: flex;
-    font-weight: 800;
-    justify-content: space-between;
-    min-height: 44px;
-    padding: 0 15px;
-    width: 100%;
   }
 
   .home-page .event-card,
