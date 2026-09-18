@@ -2838,8 +2838,14 @@ function coalesceCrossSourceDuplicates(events) {
         .replace(/\bstreet\b/g, 'st').replace(/\broad\b/g, 'rd').replace(/\bavenue\b/g, 'ave').replace(/\bboulevard\b/g, 'blvd');
       const existingLocation = normalizedEventLocation(existing)
         .replace(/\bstreet\b/g, 'st').replace(/\broad\b/g, 'rd').replace(/\bavenue\b/g, 'ave').replace(/\bboulevard\b/g, 'blvd');
+      const eventLocationTokens = new Set(eventLocation.split(' ').filter(Boolean));
+      const existingLocationTokens = new Set(existingLocation.split(' ').filter(Boolean));
+      const sharedLocationTokens = [...eventLocationTokens].filter(token => existingLocationTokens.has(token));
+      const eventStreetNumber = eventLocation.match(/\b\d{2,6}\b/)?.[0] || '';
+      const existingStreetNumber = existingLocation.match(/\b\d{2,6}\b/)?.[0] || '';
+      const sameStreet = eventStreetNumber && eventStreetNumber === existingStreetNumber && sharedLocationTokens.length >= 3;
       const sameLocation = eventLocation && existingLocation
-        && (eventLocation === existingLocation || eventLocation.includes(existingLocation) || existingLocation.includes(eventLocation));
+        && (eventLocation === existingLocation || eventLocation.includes(existingLocation) || existingLocation.includes(eventLocation) || sameStreet);
       if (!sameLocation) return false;
 
       const otherTokens = eventTitleTokens(existing.title);
