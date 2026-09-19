@@ -17,8 +17,7 @@ import {
   buildOfficialSportsSummary,
   buildSummaryRecord,
   hasPublishableSummary,
-  hasUsableSourceContent,
-  isLogisticsOnly
+  hasUsableSourceContent
 } from './event-summary-engine.mjs';
 
 const key = process.env.SERPAPI_KEY;
@@ -275,6 +274,15 @@ function plainText(html) {
 function sourceDescriptionText(html, maxLength = 4000) {
   const value = plainText(html).replace(/https?:\/\/\S+/g, '').trim();
   return value.length > maxLength ? `${value.slice(0, maxLength - 1).trimEnd()}…` : value;
+}
+
+function officialParagraphText(html, { minLength = 20, excludePattern = null } = {}) {
+  const paragraphs = [...String(html || '').matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)]
+    .map(match => plainText(match[1]))
+    .filter(text => text.length >= minLength)
+    .filter(text => !/^(?:performances?|dates?|location|length|running time|advisory|note|tickets?|box office|general admission|student matinee|auditions?|registration|parking)\b/i.test(text))
+    .filter(text => !(excludePattern && excludePattern.test(text)));
+  return sourceDescriptionText(paragraphs.join(' '));
 }
 
 function qualityGateSummary(event) {
@@ -1738,10 +1746,11 @@ async function readCmt(source) {
       // suitability merely because young performers are on stage.
       if (!detailResponse.ok || !/family-friendly|for all ages|all ages/i.test(text)) return [];
       const title = plainText(detail.title?.rendered || seasonTitle).replace(/\s+The Musical Jr\.?$/i, ' The Musical Jr.').trim();
-      const summary = text.match(/\b(?:Follow|Join|Discover)\b[^.]{20,360}[.]/i)?.[0]
-        || text.match(/(?:family-friendly|for all ages)[^.]{0,360}[.]/i)?.[0] || '';
+      const sourceDescription = officialParagraphText(html, {
+        excludePattern: /\b(?:audition|rehears|casting|participation fee|volunteer hours?|student groups?)\b/i
+      });
       const slots = [...text.matchAll(/\b(\d{1,2})\/(\d{1,2})\s+(?:at\s+)?(\d{1,2})(?::(\d{2}))?\s*(am|pm)\b/gi)];
-      if (!title || !summary || !slots.length) return [];
+      if (!title || !hasPublishableSummary(sourceDescription, { title, format: 'live-show' }) || !slots.length) return [];
       const imageId = html.match(/\[vc_single_image\s+image=&#8221;(\d+)/i)?.[1] || '';
       let image = '';
       if (imageId) {
@@ -1756,7 +1765,7 @@ async function readCmt(source) {
         if (!isUpcoming(dateValue)) return [];
         return [directEvent({
           id: 'cmt-' + createHash('sha256').update(`${detail.link}|${dateValue}`).digest('hex').slice(0, 16), title, dateValue,
-          description: summary, image, place: 'Montgomery Theater', address: source.address || '', city: source.city || '',
+          description: sourceDescription, image, place: 'Montgomery Theater', address: source.address || '', city: source.city || '',
           source: source.name, url: detail.link, ageText: 'all ages family-friendly', format: 'live-show'
         })];
       });
@@ -1781,17 +1790,13 @@ async function readPyt(source) {
       const text = plainText(detail);
       if (!detailResponse.ok || !/appropriate for all ages/i.test(text)) return [];
       const title = plainText(detail.match(/<h1[^>]*class=["'][^"']*heading[^"']*["'][^>]*>([\s\S]*?)<\/h1>/i)?.[1] || '');
-      const descriptionCandidates = [...detail.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)]
-        .map(match => plainText(match[1]))
-        .filter(value => hasUsableSourceContent(value) && !/^(?:performances?|dates?|location|length|appropriate|general admission|student matinee|tickets?|box office|auditions?)\b/i.test(value))
-        .filter(value => !/\b(?:audition|rehears|conflict|casting|participation fee|volunteer hours?|student groups?)\b/i.test(value));
-      const description = descriptionCandidates.find(value => /\b(?:follow|find out|discover|story|tale|adventure|journey|based on|world premiere)\b/i.test(value))
-        || descriptionCandidates.find(value => /\b(?:musical|production)\b/i.test(value) && value.length > 90) || descriptionCandidates[0] || '';
-      const clearDescription = description.match(/\b(?:Follow|Find out|Discover)\b[^.!?]{20,360}[.!?]/i)?.[0] || description;
+      const sourceDescription = officialParagraphText(detail, {
+        excludePattern: /\b(?:audition|rehears|conflict|casting|participation fee|volunteer hours?|student groups?)\b/i
+      });
       const year = text.match(/\b(20\d{2})\b/)?.[1] || '';
       const image = decodeXml(detail.match(/<div\s+id=["']sub-banner["'][\s\S]*?<img[^>]+src=["']([^"']+)/i)?.[1] || '');
       const ticketRows = [...detail.matchAll(/<div\s+class=["']ticket-row["'][\s\S]*?<div\s+class=["']ticket-col ticketname["'][\s\S]*?>([\s\S]*?)<\/div>\s*<\/div>[\s\S]*?<div\s+class=["']ticket-col ticketdate["'][\s\S]*?>([\s\S]*?)<\/div>\s*<\/div>/gi)];
-      if (!title || !hasUsableSourceContent(description)) return [];
+      if (!title || !hasPublishableSummary(sourceDescription, { title, format: 'live-show' })) return [];
       return ticketRows.flatMap(row => {
         const ticketType = plainText(row[1]);
         // The product is for families planning outings, not closed school
@@ -1801,7 +1806,7 @@ async function readPyt(source) {
         const dateValue = isoDateFromOfficialText(dateText.replace(/\b(am|pm)\b/i, `$1, ${year}`), dateText);
         if (!isUpcoming(dateValue)) return [];
         const event = directEvent({
-          id: 'pyt-' + createHash('sha256').update(`${url}|${dateValue}`).digest('hex').slice(0, 16), title, dateValue, description: clearDescription,
+          id: 'pyt-' + createHash('sha256').update(`${url}|${dateValue}`).digest('hex').slice(0, 16), title, dateValue, description: sourceDescription,
           image, place: 'Mountain View Center for the Performing Arts', address: source.address || '', city: source.city || '',
           source: source.name, url, ageText: 'all ages', format: 'live-show'
         });
@@ -2493,7 +2498,9 @@ async function readSymphony(source) {
     const detailHtml = await detailResponse.text();
     if (!detailResponse.ok) return null;
     const metaDescription = decodeXml(detailHtml.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)["']/i)?.[1] || '');
-    const description = timelyActivityDescription(detailHtml, card.title) || metaDescription;
+    const description = officialParagraphText(detailHtml, {
+      excludePattern: /\b(?:directed and choreographed|composer|lyricist|scenic design|lighting design|patrons? not seated)\b/i
+    }) || sourceDescriptionText(metaDescription);
     const cssImage = decodeXml(detailHtml.match(/background-image\s*:\s*url\((?:["']?)([^)'"\s]+)(?:["']?)\)/i)?.[1] || '');
     return { ...card, description, image: officialPageOgImage(detailHtml) || cssImage || card.image, detailHtml };
   }));
@@ -2518,24 +2525,6 @@ async function readSymphony(source) {
       }) : null;
     }).filter(Boolean);
   });
-}
-
-function timelyActivityDescription(html, title) {
-  const paragraphs = [...String(html || '').matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)]
-    .map(match => plainText(match[1])).filter(text => text.length >= 25)
-    .filter(text => !/^(?:\|?\s*)?performances?:|^(?:advisory|running time|note|tickets?|this production is presented|patrons? not seated)/i.test(text));
-  const titleWords = new Set(plainText(title).toLowerCase().replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(word => word.length > 4));
-  const score = text => {
-    const lower = text.toLowerCase();
-    let value = Math.min(text.length, 220) / 35;
-    value += [...titleWords].filter(word => lower.includes(word)).length * 2;
-    if (/\b(?:is|are|features?|brings?|adaptation|production|musical|ballet|concert|sing along|celebrat(?:e|ing)|story)\b/i.test(text)) value += 5;
-    if (/\b(?:reuniting|directed and choreographed|composer|lyricist|scenic design|lighting design|make this the christmas)\b/i.test(text)) value -= 12;
-    if (isLogisticsOnly(text)) value -= 12;
-    return value;
-  };
-  const selected = paragraphs.sort((a, b) => score(b) - score(a)).find(hasUsableSourceContent);
-  return selected || plainText(html);
 }
 
 // San Jose Theaters exposes its official public calendar through Timely's
@@ -2590,7 +2579,7 @@ async function readTimely(source) {
       if (!dateValue || !isUpcoming(dateValue)) return null;
       const event = directEvent({
         id: `timely-${detailIndex}-${sessionIndex}`, title: detail.title, dateValue,
-        description: timelyActivityDescription(description, detail.title), image: detail.images?.[0]?.full?.url || detail.images?.[0]?.medium?.url || '',
+        description: sourceDescriptionText(description), image: detail.images?.[0]?.full?.url || detail.images?.[0]?.medium?.url || '',
         place: plainText(venue.title || 'San Jose Theaters'), address, city,
         source: source.name, url: detail.url || source.feedUrl, ageText: description, format: 'live-show'
       });
