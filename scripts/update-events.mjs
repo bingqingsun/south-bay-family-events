@@ -873,29 +873,76 @@ function optimizedOfficialImageUrl(value, source = '') {
 // card pipeline as calendar-fed events.  Once their date passes, isUpcoming
 // removes them automatically; a new season is added only after its organizer
 // publishes an official date.
-function readCurated(source) {
-  return (source.events || []).flatMap((item, index) => {
-    if (!item.title || !isUpcoming(item.dateValue)) return [];
+async function curatedOfficialDescription(url, title) {
+  try {
+    const response = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+    const html = await response.text();
+    if (!response.ok) return '';
+
+    // Prefer schema.org Event data because it binds the description to a
+    // specific event entity instead of to the surrounding website.
+    for (const match of html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+      try {
+        const nodes = eventNodes(JSON.parse(decodeXml(match[1])));
+        const event = nodes.find(node => {
+          const type = String(node?.['@type'] || '').toLowerCase();
+          const name = node?.name || node?.headline || '';
+          return type.includes('event') && isSameEvent(name, title);
+        });
+        const description = sourceDescriptionText(event?.description || '');
+        if (description && hasActivitySummary(cardSummary(description, title))) return description;
+      } catch {
+        // Malformed analytics JSON-LD must not block the verified manual copy.
+      }
+    }
+
+    // Some official pages expose only OpenGraph/HTML metadata. Use it only
+    // when the same page title clearly matches the curated event title.
+    const pageTitle = decodeXml(
+      html.match(/<meta\s+property=["']og:title["']\s+content=["']([^"']+)/i)?.[1]
+      || html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]
+      || ''
+    );
+    if (!isSameEvent(pageTitle, title)) return '';
+    const meta = decodeXml(
+      html.match(/<meta\s+(?:name|property)=["'](?:description|og:description)["']\s+content=["']([^"']+)/i)?.[1]
+      || html.match(/<meta\s+content=["']([^"']+)["']\s+(?:name|property)=["'](?:description|og:description)["']/i)?.[1]
+      || ''
+    );
+    const description = sourceDescriptionText(meta);
+    return description && hasActivitySummary(cardSummary(description, title)) ? description : '';
+  } catch {
+    return '';
+  }
+}
+
+async function readCurated(source) {
+  const items = (source.events || []).filter(item => item.title && isUpcoming(item.dateValue));
+  return (await Promise.all(items.map(async (item, index) => {
+    const url = item.url || source.feedUrl;
+    const officialDescription = await curatedOfficialDescription(url, item.title);
+    const description = officialDescription || item.description || '';
     const event = directEvent({
       id: 'curated-' + createHash('sha256').update(`${source.feedUrl}|${item.title}|${item.dateValue}|${index}`).digest('hex').slice(0, 16),
       title: item.title,
       dateValue: item.dateValue,
       endDateValue: item.endDateValue || '',
-      description: item.description || '',
+      description,
       image: item.image || '',
       place: item.place || source.name,
       address: item.address || '',
       city: item.city || source.city || '',
       source: source.name,
-      url: item.url || source.feedUrl,
+      url,
       ageText: item.ageText || '',
       format: item.format || '',
       seasonalTheme: item.seasonalTheme || '',
       availabilityStatus: item.availabilityStatus || '',
-      summaryStatus: 'manual_verified'
+      summaryStatus: officialDescription ? 'extractive' : 'manual_verified'
     });
-    return [{ ...event, ...costInfo(item.cost || '', item.description || '') }];
-  });
+    if (!hasActivitySummary(event.description)) return null;
+    return { ...event, ...costInfo(item.cost || '', officialDescription || item.description || '') };
+  }))).filter(Boolean);
 }
 
 // Eventbrite organizer pages expose an official upcoming-events payload that
