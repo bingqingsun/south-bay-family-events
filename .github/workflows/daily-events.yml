@@ -59,7 +59,7 @@ jobs:
         run: |
           git config user.name "south-bay-events-bot"
           git config user.email "actions@github.com"
-          git add data/events.json data/events.js data/museums.json data/museums.js
+          git add data/events.json data/events.js data/museums.json data/museums.js data/source-health.json
           if git diff --staged --quiet; then
             exit 0
           fi
