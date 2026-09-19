@@ -19,6 +19,7 @@ import {
   hasPublishableSummary,
   hasUsableSourceContent
 } from './event-summary-engine.mjs';
+import { auditLinks } from './link-health.mjs';
 
 const key = process.env.SERPAPI_KEY;
 // Translation is intentionally paused: no third-party translation key is read
@@ -3281,8 +3282,27 @@ function museumAsEvent(museum, source) {
   };
 }
 
-const events = groupRepeatedSessions([...scheduledEvents, ...museums.map(museum => museumAsEvent(museum, museumSource)).map(qualityGateSummary).filter(Boolean)])
+let events = groupRepeatedSessions([...scheduledEvents, ...museums.map(museum => museumAsEvent(museum, museumSource)).map(qualityGateSummary).filter(Boolean)])
   .map(event => ({ ...event, image: optimizedOfficialImageUrl(event.image, event.source) }));
+
+// Link health is a release-quality stage. A known-bad detail URL is replaced
+// only with an explicitly configured, user-facing official landing page.
+const linkHealth = await auditLinks(events, sources, { concurrency: 6 });
+events = linkHealth.events.map(event => ({
+  ...event,
+  // Alternate sessions inherit the card's resolved official destination.
+  sessions: (event.sessions || []).map(session => ({ ...session, url: event.url, linkResolution: event.linkResolution }))
+}));
+const linkHealthSummary = {
+  checkedAt: generatedAt, publishedEvents: events.length, checkedLinks: events.length,
+  ...linkHealth.counts,
+  fallbackUsed: events.filter(event => event.linkResolution === 'fallback').length,
+  unavailable: events.filter(event => event.linkResolution === 'unavailable').length
+};
+console.log(`Link health summary: ${JSON.stringify(linkHealthSummary)}`);
+if ((linkHealthSummary['not-found'] || 0) + (linkHealthSummary['content-mismatch'] || 0) > 0) {
+  console.warn(`::warning::Link health downgraded ${(linkHealthSummary['not-found'] || 0) + (linkHealthSummary['content-mismatch'] || 0)} detail links to an official fallback where configured.`);
+}
 
 function translationFingerprint(event) {
   return createHash('sha256').update(String(event.title || '') + '\n' + String(event.description || '')).digest('hex');

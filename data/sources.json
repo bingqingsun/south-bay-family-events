@@ -1,11 +1,21 @@
 [
   {
+    "id": "palo-alto-library",
+    "linkHosts": [
+      "paloalto.bibliocommons.com"
+    ],
+    "landingUrl": "https://paloalto.bibliocommons.com/events",
     "name": "Palo Alto City Library",
     "domain": "library.cityofpaloalto.org",
     "method": "rss",
     "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/paloalto/rss/events"
   },
   {
+    "id": "san-jose-public-library",
+    "linkHosts": [
+      "sjpl.bibliocommons.com"
+    ],
+    "landingUrl": "https://sjpl.bibliocommons.com/events",
     "name": "San José Public Library",
     "domain": "sjpl.org",
     "method": "rss",
@@ -51,6 +61,11 @@
     "query": "events kids family"
   },
   {
+    "id": "santa-clara-county-library",
+    "linkHosts": [
+      "sccl.bibliocommons.com"
+    ],
+    "landingUrl": "https://sccl.bibliocommons.com/events",
     "name": "Santa Clara County Library District",
     "domain": "sccld.org",
     "method": "rss",

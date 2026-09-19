@@ -16,6 +16,8 @@ on:
       - 'scripts/event-summary-engine.mjs'
       - 'scripts/test-event-summary-engine.mjs'
       - 'scripts/test-summary-output.mjs'
+      - 'scripts/link-health.mjs'
+      - 'scripts/link-health.test.mjs'
       - 'data/sources.json'
       - '.github/workflows/daily-events.yml'
   schedule:
@@ -42,7 +44,9 @@ jobs:
         with:
           node-version: 22
       - name: Test event-summary engine contracts
-        run: node scripts/test-event-summary-engine.mjs
+        run: |
+          node scripts/test-event-summary-engine.mjs
+          node scripts/link-health.test.mjs
       - run: node scripts/update-events.mjs
         env:
           SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
