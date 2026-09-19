@@ -47,8 +47,8 @@
     <script src="analytics.js?v=20260916-1"></script>
     <script>
       const status = document.querySelector('#privacyStatus');
-      document.querySelector('#allowAnalytics').addEventListener('click', () => { window.setWeekendPlansAnalyticsConsent('granted'); status.textContent = 'Analytics are enabled on this device.'; });
-      document.querySelector('#declineAnalytics').addEventListener('click', () => { window.setWeekendPlansAnalyticsConsent('denied'); status.textContent = 'Analytics are disabled on this device. Essential website features remain available.'; });
+      document.querySelector('#allowAnalytics').addEventListener('click', () => { window.setSouthBayFamilyFindsAnalyticsConsent('granted'); status.textContent = 'Analytics are enabled on this device.'; });
+      document.querySelector('#declineAnalytics').addEventListener('click', () => { window.setSouthBayFamilyFindsAnalyticsConsent('denied'); status.textContent = 'Analytics are disabled on this device. Essential website features remain available.'; });
     </script>
   </body>
 </html>
