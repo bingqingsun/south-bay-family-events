@@ -65,4 +65,10 @@ const littleExplorersSource = "Little Explorers is celebrating fall! Make mess-f
 assert.equal(selectLabeledActivityBundle(littleExplorersSource), '', 'sensory/accessibility labels must not become an activity bundle');
 assert.match(selectConcreteSourceSentence(littleExplorersSource), /Make mess-free leaf art/i, 'concrete fall activities should outrank sensory notes');
 
+const midAutumnCardSource = "Children of all ages: please join us on Wednesday, September 23 at 3:30 p.m. to make beautiful 3D layered greeting cards in celebration of the Mid-Autumn Moon Festival. Online registration required.";
+const midAutumnCardSummary = selectConcreteSourceSentence(midAutumnCardSource);
+assert.match(midAutumnCardSummary, /^Children of all ages:/i, 'p.m. must not split the official sentence into a fragment');
+assert.match(midAutumnCardSummary, /make beautiful 3D layered greeting cards/i, 'Mid-Autumn craft action must remain in the complete sentence');
+assert.doesNotMatch(midAutumnCardSummary, /^to\s+/i, 'summary must not begin with a dangling infinitive fragment');
+
 console.log('summary-policy: safety-gate assertions passed');
