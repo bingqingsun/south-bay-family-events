@@ -43,3 +43,10 @@ export function selectConcreteSourceSentence(sourceText) {
 
   return best && best.score >= 22 ? best.sentence : '';
 }
+
+
+export function shouldReplaceWeakSummary(existingSummary) {
+  const value = String(existingSummary || '').replace(/\s+/g, ' ').trim();
+  if (!value) return false;
+  return /\b(?:our mission is|fall migration season|a great way to introduce|supports? early childhood development|inspires? curiosity|spark a love for science|benefits? include)\b/i.test(value);
+}
