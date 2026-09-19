@@ -44,6 +44,17 @@ for (const event of events) {
   if (event.summaryStatus !== 'extractive' && evidence !== raw) {
     violations.push(`${id}: non-extractive summaryEvidence must equal its stored verified source text`);
   }
+
+  if (event.summaryStatus === 'official_structured') {
+    const data = event.summaryEvidenceData;
+    if (!data || typeof data !== 'object' || !data.kind) {
+      violations.push(`${id}: official_structured summary requires summaryEvidenceData`);
+    } else if (data.kind === 'sports-game' && (!data.homeTeam || !data.opponent)) {
+      violations.push(`${id}: sports-game evidence requires homeTeam and opponent`);
+    } else if (data.kind === 'movie-screening' && !data.rating) {
+      violations.push(`${id}: movie-screening evidence requires rating`);
+    }
+  }
 }
 
 if (violations.length) {
