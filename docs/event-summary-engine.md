@@ -18,7 +18,7 @@ Do not add event-title-specific summary exceptions to fix one activity.
 
 - fetch an official event page, feed, API, or registration record;
 - parse official title, time, venue, audience, cost, availability, image, and
-  full activity description;
+  the richest reliable first-party activity description (prefer visible event-body copy over vague SEO metadata when both are available);
 - reject stale or mismatched source content;
 - pass official structured fields to a structured summary builder.
 
@@ -34,9 +34,9 @@ Source adapters must not:
 
 `scripts/event-summary-engine.mjs` owns:
 
-- sentence segmentation and abbreviation handling;
+- sentence segmentation, abbreviation handling, and punctuation-bearing event-title protection;
 - fragment detection;
-- logistics / accessibility / biography filtering;
+- fragment, logistics / accessibility / legal-policy / biography / promotional-copy filtering;
 - concrete-activity ranking;
 - multi-activity bundle extraction;
 - readability validation;
@@ -113,4 +113,4 @@ A new adapter is acceptable only when:
 
 ## Current engine version
 
-`event-summary-v2-p3`
+`event-summary-v2-p4`
