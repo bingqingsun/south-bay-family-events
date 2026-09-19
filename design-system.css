@@ -621,3 +621,53 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+/* Mobile Activities toolbar: reuse the live result count beside Filter. */
+@media (max-width: 760px) {
+  .home-page .filter-area {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 12px;
+    align-items: center;
+  }
+
+  .home-page .section-heading {
+    display: contents;
+  }
+
+  .home-page .section-heading > div {
+    display: none;
+  }
+
+  .home-page .result-count {
+    align-items: center;
+    align-self: center;
+    background: transparent;
+    color: var(--sbff-muted);
+    display: inline-flex;
+    font-size: 13px;
+    font-weight: 700;
+    justify-self: start;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+  }
+
+  .home-page .mobile-quick-filters {
+    grid-column: 2;
+    justify-self: end;
+    margin: 0 0 16px;
+  }
+
+  .home-page .filter-area > .filters,
+  .home-page .filter-area > .location-status,
+  .home-page .filter-area > .cards,
+  .home-page .filter-area > .empty {
+    grid-column: 1 / -1;
+  }
+
+  .home-page .mobile-quick-filters.is-deep-browsing {
+    grid-column: auto;
+  }
+}
