@@ -271,6 +271,22 @@ function sourceDescriptionText(html, maxLength = 4000) {
   return value.length > maxLength ? `${value.slice(0, maxLength - 1).trimEnd()}…` : value;
 }
 
+function eventSummaryFields(sourceText, title = '', format = '', status = 'extractive') {
+  const sourceDescriptionRaw = sourceDescriptionText(sourceText);
+  const parentSummary = cardSummary(sourceDescriptionRaw, title, format);
+  return {
+    description: parentSummary,
+    parentSummary,
+    sourceDescriptionRaw,
+    sourceDescriptionHash: sourceDescriptionRaw
+      ? createHash('sha256').update(sourceDescriptionRaw).digest('hex')
+      : '',
+    summaryStatus: parentSummary ? status : 'needs_review',
+    summaryVersion: 'event-summary-v2-p1',
+    summaryVerifiedAt: generatedAt
+  };
+}
+
 function isLogisticsOnly(text) {
   return /^(?:free|by appointment|call(?:\s|\.|$)|contact\b|same day|offered in|registration|reserve\b|tickets?\b|admission\b|please\b|drop-?ins?\b|no registration|must\b|participants?\b)/i.test(text)
     || /^(?:children|kids?|adults?|teens?|famil(?:y|ies)|participants?)\b[\s\S]{0,120}\b(?:welcome|must|should|need|able to|can comfortably|may participate)\b/i.test(text)
@@ -294,11 +310,8 @@ function hasActivitySignal(text) {
   return /\b(?:watch|watching|listen|enjoy|join|explore|discover|create|build|make|making|play|sing|dance|read|learn|practice|taste|walk|hike|tour|meet|test|testing|paint|painting|decorate|decorating|design|designing|draw|drawing|sew|sewing|knit|knitting|crochet|crocheting|see|experience|story(?:time)?|songs?|rhymes?|crafts?|games?|workshop|class|concert|performance|show|movie|film|exhibit(?:ion)?|festival|parade|museum|nature|garden|science|art|music|opera|ballet|theat(?:er|re)|sports?|match|game)\b/i.test(plainText(text));
 }
 
-function fallbackActivitySummary(title) {
-  const cleanTitle = plainText(title).replace(/^.+?:\s*/, '').trim();
-  if (/\bstory ?time\b/i.test(title)) return 'A library storytime with books, songs, and simple activities for children and caregivers.';
-  if (/\bpreview\b/i.test(title)) return `An introduction to ${cleanTitle.replace(/\s+preview$/i, '')}, highlighting the story, music, and production before the performance.`;
-  if (/\b(?:open (?:hours?|house)|drop-?in)\b/i.test(title)) return `A drop-in activity centered on ${cleanTitle || plainText(title)}.`;
+function fallbackActivitySummary() {
+  // Trust-first policy: never invent activity details from a title or category.
   return '';
 }
 
@@ -321,107 +334,63 @@ function hasActivitySummary(text) {
 }
 
 function qualityGateSummary(event) {
-  const original = plainText(event.description);
-  const description = isCardSummaryAcceptable(original, event.title, event.format)
-    ? original
-    : fallbackActivitySummary(event.title);
-  return isCardSummaryAcceptable(description, event.title, event.format) ? { ...event, description } : null;
+  const description = plainText(event.parentSummary || event.description);
+  if (!isCardSummaryAcceptable(description, event.title, event.format)) return null;
+  return {
+    ...event,
+    description,
+    parentSummary: description,
+    summaryStatus: event.summaryStatus || 'extractive',
+    summaryVersion: event.summaryVersion || 'event-summary-v2-p1',
+    summaryVerifiedAt: event.summaryVerifiedAt || generatedAt
+  };
 }
 
 function cardSummary(html, title = '', format = '') {
-  const text = plainText(html).replace(/https?:\/\/\S+/g, '').trim();
-  // Some official pages lead with a question and then bury the activity in
-  // printer requirements. Preserve the actual service in a short, faithful
-  // summary rather than exposing a technical or safety-rule fragment.
-  if (/\b3d printer\b/i.test(text) && /\bthingiverse\b/i.test(text) && /\b(?:choose a design|provide (?:their|your) own design)\b/i.test(text)) {
-    return 'Submit a design to print on the library’s 3D printer—choose from Thingiverse or provide your own.';
+  const text = sourceDescriptionText(html);
+  if (!text) return '';
+
+  // Multi-activity programs sometimes publish labeled items such as
+  // "DIY Lanterns: Make your own..." Preserve those official activity clauses
+  // instead of collapsing them into a generic sentence.
+  const labeledBundle = selectLabeledActivityBundle(text);
+  if (labeledBundle && isCardSummaryAcceptable(labeledBundle, title, format)) {
+    return labeledBundle.length > 320 ? `${labeledBundle.slice(0, 317).trimEnd()}…` : labeledBundle;
   }
-  if (/\b(?:DIY|hazlo)\b/i.test(title) && /decor(?:a|ar) velas con servilletas/i.test(text)) {
-    return 'Hands-on adult DIY activity focused on decorating candles with napkins.';
+
+  // Prefer a concrete participation sentence from the same official source.
+  const concrete = selectConcreteSourceSentence(text);
+  if (concrete && isCardSummaryAcceptable(concrete, title, format)) {
+    return concrete.length > 320 ? `${concrete.slice(0, 317).trimEnd()}…` : concrete;
   }
-  if (/^giving thanks$/i.test(title) && /Native Californians/i.test(text)) {
-    return 'A moderately paced docent-led hike exploring how Native Californians have cared for local land and plants.';
-  }
-  // Gamble Garden publishes Second Saturday details as long bullet lists.
-  // Flattening those lists produces an unreadable run-on sentence and can
-  // leave a clipped final word on the card. Lead with the program concept,
-  // then retain the most useful month-specific activities.
-  if (/^second saturday\b/i.test(title)) {
-    const highlights = [];
-    if (/harvest tastings?/i.test(text)) highlights.push('harvest tastings');
-    if (/corn education station/i.test(text)) highlights.push('a corn learning station');
-    if (/soil by feel|composting demonstration/i.test(text)) highlights.push('soil and compost activities');
-    if (/scavenger hunts?/i.test(text)) highlights.push('scavenger hunts');
-    if (/tissue paper corn craft/i.test(text)) highlights.push('a tissue-paper corn craft');
-    else if (/craft stations?/i.test(text)) highlights.push('seasonal crafts');
-    if (/storytime led by a Palo Alto Librarian/i.test(text)) highlights.push('library storytime');
-    if (/visit to Elizabeth[’']s house|visit Elizabeth[’']s house/i.test(text)) highlights.push('a visit to Elizabeth’s house');
-    if (/guided tours?/i.test(text)) highlights.push('guided garden tours');
-    const selected = highlights.slice(0, 6);
-    const activityText = selected.length > 1
-      ? `${selected.slice(0, -1).join(', ')}, and ${selected.at(-1)}`
-      : selected[0] || 'seasonal hands-on activities and garden exploration';
-    return `A free monthly family morning at Gamble Garden with ${activityText}.`;
-  }
+
+  // If the source has no strong action sentence (for example a film synopsis
+  // or exhibition description), choose the best acceptable source sentence.
+  // This stage may delete date prefixes, but never adds an activity fact.
   const sentences = (text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || []).map(sentence => sentence
     .replace(/^(?:[a-z]+,?\s+)?[a-z]+\s+\d{1,2}\s*[-:–—]\s*/i, '')
-    .replace(/^\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4}\s*[-:–—]\s*/, ''));
-  const listItems = [...String(html || '').matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)].map(match => plainText(match[1])).filter(Boolean);
-  const bulletItems = [...decodeXml(String(html || '')).replace(/<br\s*\/?\s*>/gi, '\n').replace(/<\/(?:p|li|h[1-6])>/gi, '\n').replace(/<[^>]*>/g, ' ').matchAll(/(?:^|\n)\s*(?:[•●▪◦]|\*)\s*([^\n]+)/g)].map(match => plainText(match[1])).filter(Boolean);
-  const activityItems = [...new Set([...listItems, ...bulletItems])];
-  const listText = activityItems.slice(0, 5).map(item => {
-    let cleaned = item.replace(/^intro to\s+/i, '').replace(/[.!?]+$/, '');
-    if (/what we do/i.test(html)) cleaned = cleaned.replace(/^(Account|Job|Navigating)\b/, match => match.toLowerCase());
-    else cleaned = cleaned.replace(/^[A-Z]/, match => match.toLowerCase());
-    return cleaned;
-  }).join(', ');
-  const listSummary = activityItems.length >= 2 ? /what we do/i.test(html) ? `One-on-one help with ${listText}.` : `Includes ${listText}.` : '';
-  const candidates = [...sentences.map(sentence => sentence.trim()), listSummary].filter(Boolean);
+    .replace(/^\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4}\s*[-:–—]\s*/, '')
+    .trim())
+    .filter(Boolean);
+
   const score = candidate => {
     const value = candidate.toLowerCase();
-    let result = Math.min(candidate.length, 150) / 30;
-    if (candidate.length < 20) result -= 5;
+    let result = Math.min(candidate.length, 180) / 30;
+    if (candidate.length < 20) result -= 6;
     if (isBiographyOrPromotion(candidate)) result -= 60;
-    if (isLogisticsOnly(candidate)) result -= 12;
-    if (/^one-on-one help with/i.test(candidate)) result += 3;
-    if (/^(?:includes|one-on-one help with)/i.test(candidate)) result -= 2;
-    if (/\bincludes activities such as:/i.test(candidate) && candidate.length > 180) result -= 20;
-    if (/^what we do:/i.test(candidate)) result -= 4;
-    // Supplementary schedules and bilingual duplicates are useful on the
-    // organizer page, but do not explain what the activity itself is.
-    if (/\b(?:we will also|also host|these dates|every (?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)|on (?:mondays|tuesdays|wednesdays|thursdays|fridays|saturdays|sundays))\b|\b(?:january|february|march|april|may|june|july|august|september|october|november|december)\b[^.!?]{0,100}\b(?:january|february|march|april|may|june|july|august|september|october|november|december)\b/i.test(value)) result -= 18;
-    if (/^[\W_–—-]{3,}|[¡¿]/.test(candidate)) result -= 12;
-    if (/\b(?:arrive early|first-come|space is limited|we do not offer|not available|not permitted|must not|limit to|do not trade|not (?:accepted|allowed)|requirements?|no weapons?|personal use only|lawful purposes?|copyright|patent|trademark|liability)\b/i.test(value)) result -= 16;
-    if (/\b(?:printable if|load and save|file format|filament availability|staff have the right|reserve the right to refuse|technical specifications?)\b/i.test(value)) result -= 18;
-    if (/\b(?:is|are)\s+\d+\s+minutes?\b|\bfollowed by\s+(?:stay|free|open)\b|\buntil\s+\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?)?\b/i.test(value)) result -= 16;
-    if (/\b(?:will be offering|offers?|provides?|join us for|come (?:to|and)|enjoy|take part|explore)\b/i.test(value)) result += 5;
-    if (/\b(?:stories|storytime|rhymes?|fingerplays?|songs?|toddlers?|babies|children|kids?|hands-on|crafts?|games?)\b/i.test(value)) result += 7;
-    // Eligibility or fitness requirements can mention children and hiking,
-    // but they do not tell a parent what the activity actually is.
-    if (isLogisticsOnly(candidate)) result -= 18;
-    if (/\b(?:learn|explore|discover|create|build|make|play|story|song|meditat\w*|yoga|computer|tech|science|stem|hike|nature|art|music|read|watch|design|help|practice|harvest|taste|garden|repair|volunteer|cook|craft|exercise|football|dance|robot|marsh|slug|berry|puzzle|print|knit|crochet)\b/.test(value)) result += 8;
-    if (/would you like|do you love|do you have what it takes/.test(value)) result -= 3;
+    if (isLogisticsOnly(candidate)) result -= 24;
+    if (isOperationalNote(candidate)) result -= 24;
+    if (/\b(?:will be offering|offers?|provides?|join us for|come (?:to|and)|enjoy|take part|explore|make|build|create|paint|read|watch|learn|play)\b/i.test(value)) result += 8;
+    if (/\b(?:stories|storytime|rhymes?|songs?|children|kids?|hands-on|crafts?|games?|festival|performance|movie|film|exhibit)\b/i.test(value)) result += 6;
+    if (/\b(?:our mission|follow us|subscribe|parking|registration|accessibility accommodations?)\b/i.test(value)) result -= 20;
     return result;
   };
-  const useful = candidates.sort((a, b) => score(b) - score(a)).find(hasActivitySummary) || '';
-  const concise = useful.replace(/^(?:[a-z]+,?\s+)?[a-z]+\s+\d{1,2}\s*[-:–—]\s*/i, '')
-    .replace(/^\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4}\s*[-:–—]\s*/, '');
-  const verified = isCardSummaryAcceptable(concise, title, format) ? concise : fallbackActivitySummary(title);
-  // P0 trust rule: preserve an already-clear official-source summary. Only
-  // replace it when it is clearly background/mission/benefit copy and the
-  // same official source contains a more concrete participation sentence.
-  const labeledBundle = selectLabeledActivityBundle(text);
-  const bundleUpgrade = labeledBundle && verified && labeledBundle.includes(verified)
-    ? labeledBundle
-    : '';
-  const concreteSourceSentence = !bundleUpgrade && shouldReplaceWeakSummary(verified)
-    ? selectConcreteSourceSentence(text)
-    : '';
-  const grounded = bundleUpgrade
-    || (concreteSourceSentence && isCardSummaryAcceptable(concreteSourceSentence, title, format) ? concreteSourceSentence : verified);
-  // Keep enough of the organizer-derived summary for the in-card “expand"
-  // control. The collapsed card remains short through CSS line clamping.
-  return grounded.length > 320 ? `${grounded.slice(0, 317).trimEnd()}…` : grounded;
+
+  const selected = sentences
+    .filter(sentence => isCardSummaryAcceptable(sentence, title, format))
+    .sort((a, b) => score(b) - score(a))[0] || '';
+
+  return selected.length > 320 ? `${selected.slice(0, 317).trimEnd()}…` : selected;
 }
 
 function officialImageUrl(item) {
@@ -675,8 +644,7 @@ async function readRss(source) {
     // when the event itself is expressly for adults. Audience eligibility wins.
     if (isExplicitlyAdultOnly(categories)) return [];
     const description = xmlText(item, 'description');
-    const sourceDescriptionRaw = sourceDescriptionText(description);
-    const parentSummary = cardSummary(sourceDescriptionRaw, title);
+    const summary = eventSummaryFields(description, title);
     const eventKey = `${xmlText(item, 'guid') || link}|${startDate}`;
     if (!title || !link || seen.has(eventKey) || !isUpcoming(startDate) || !familyAudience
       || xmlText(item, 'is_cancelled') === 'true'
@@ -700,11 +668,7 @@ async function readRss(source) {
     return [{
       id: 'rss-' + eventId, title, date: displayEventDate(startDate), dateValue: startDate, endDateValue: endDate, ...age, ...cost,
       type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'rss', lastVerifiedAt: generatedAt,
-      description: parentSummary,
-      parentSummary,
-      sourceDescriptionRaw,
-      summaryStatus: 'extractive',
-      summaryVersion: 'event-summary-v2-p0',
+      ...summary,
       image: officialImageUrl(item),
       place: [venue, room].filter(Boolean).join(' · ') || source.name, address, city, source: source.name, url: link,
       availabilityStatus: isFull ? 'full' : ''
@@ -716,24 +680,16 @@ async function tribePageDetails(url) {
   try {
     const response = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
     const html = await response.text();
-    if (!response.ok) return { description: '', image: '' };
+    if (!response.ok) return { sourceDescriptionRaw: '', image: '' };
     const body = html.match(/tribe-events-single-event-description[\s\S]*?<div class="text">([\s\S]*?)<\/div>\s*<\/div>/i)?.[1] || '';
     const meta = html.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)["']/i)?.[1] || '';
-    // Prefer the event image inside the event content. The wide page-header
-    // image is site decoration and may not depict the activity itself.
     const image = html.match(/(?:mobile-event-image|my-event-image)[\s\S]*?<img[^>]+src=["']([^"']+)["']/i)?.[1] || '';
-    const sourceDescriptionRaw = sourceDescriptionText(body || meta);
-    const parentSummary = cardSummary(sourceDescriptionRaw);
     return {
-      description: parentSummary,
-      parentSummary,
-      sourceDescriptionRaw,
-      summaryStatus: parentSummary ? 'extractive' : 'needs_review',
-      summaryVersion: 'event-summary-v2-p0',
+      sourceDescriptionRaw: sourceDescriptionText(body || meta),
       image: image ? new URL(decodeXml(image), url).href : ''
     };
   } catch {
-    return { description: '', parentSummary: '', sourceDescriptionRaw: '', summaryStatus: 'needs_review', summaryVersion: 'event-summary-v2-p0', image: '' };
+    return { sourceDescriptionRaw: '', image: '' };
   }
 }
 
@@ -754,16 +710,11 @@ async function readTribe(source) {
     // card only shows an age range when the organizer actually supplied one.
     const age = ageInfo(audienceText);
     const cost = costInfo(item.cost, item.description || item.excerpt || '');
-    const sourceDescriptionRaw = sourceDescriptionText(item.description || item.excerpt || '');
-    const parentSummary = cardSummary(sourceDescriptionRaw, title);
+    const summary = eventSummaryFields(item.description || item.excerpt || '', title);
     return [{
       id: 'calendar-' + (item.id || index), title, date: displayEventDate(startDate), dateValue: startDate, endDateValue: endDate, ...age, ...cost,
       type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'calendar', lastVerifiedAt: generatedAt,
-      description: parentSummary,
-      parentSummary,
-      sourceDescriptionRaw,
-      summaryStatus: parentSummary ? 'extractive' : 'needs_review',
-      summaryVersion: 'event-summary-v2-p0',
+      ...summary,
       image: item.image?.url || '', place: item.venue?.venue || source.name,
       address: shortAddress(item.venue?.address, item.venue?.city), city: canonicalCity(item.venue?.city), source: source.name, url: item.url
     }];
@@ -771,15 +722,13 @@ async function readTribe(source) {
   const enriched = await Promise.all(seeds.map(async event => {
     if (hasActivitySummary(event.description) && event.image) return event;
     const details = await tribePageDetails(event.url);
-    const useExisting = hasActivitySummary(event.description);
-    const description = useExisting ? event.description : details.description;
+    const detailSummary = details.sourceDescriptionRaw
+      ? eventSummaryFields(details.sourceDescriptionRaw, event.title, event.format)
+      : null;
+    const useDetail = detailSummary && hasActivitySummary(detailSummary.description);
     return {
       ...event,
-      description,
-      parentSummary: description,
-      sourceDescriptionRaw: useExisting ? event.sourceDescriptionRaw : (details.sourceDescriptionRaw || event.sourceDescriptionRaw),
-      summaryStatus: description ? 'extractive' : 'needs_review',
-      summaryVersion: 'event-summary-v2-p0',
+      ...(useDetail ? detailSummary : {}),
       image: event.image || details.image
     };
   }));
@@ -899,16 +848,17 @@ function isoDateFromOfficialText(dateText, timeText = '') {
   return date + 'T' + String(hour).padStart(2, '0') + ':' + (time[2] || '00');
 }
 
-function directEvent({ id, title, dateValue, endDateValue = '', description, image = '', imagePresentation = '', imageBackground = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, ageText = '', format = '', movieRating = '', forcedType = '', seasonalTheme = '', availabilityStatus = '' }) {
+function directEvent({ id, title, dateValue, endDateValue = '', description, image = '', imagePresentation = '', imageBackground = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, ageText = '', format = '', movieRating = '', forcedType = '', seasonalTheme = '', availabilityStatus = '', summaryStatus = 'extractive' }) {
   const type = forcedType || (format === 'live-show' ? 'shows' : format === 'movie-screening' ? 'movies' : typeFor(title + ' ' + description + ' ' + ageText, title));
   const age = ageInfo(ageText);
+  const summary = eventSummaryFields(description, title, format, summaryStatus);
   return {
     id, title, date: displayEventDate(dateValue), dateValue, endDateValue, ...age,
     costStatus: 'unknown', costLabel: '费用未注明', costSource: '', costEvidence: '',
     registrationStatus: 'unknown', registrationSource: '', registrationEvidence: '',
     type, icon: icons[type], color: colors[type], tag: labels[type],
     verification: 'official-page', lastVerifiedAt: generatedAt, format,
-    description: cardSummary(description, title, format),
+    ...summary,
     image: optimizedOfficialImageUrl(image, source), imagePresentation, imageBackground, place, address, city: canonicalCity(city), meetingPoint, mapUrl, source, url, movieRating,
     seasonalTheme: seasonalTheme || seasonalThemeFor(`${title} ${description}`), availabilityStatus
   };
@@ -1338,7 +1288,7 @@ async function midpenPageDetails(url, title = '') {
     // above our generated fallback image.
     const image = officialPageImage(html, url, /<section[^>]+\bid=(?:["']block-guidedactivityfallbackheroimage["']|block-guidedactivityfallbackheroimage)[^>]*>([\s\S]*?)<\/section>/i)
       || officialPageImage(html, url, /<div class=["']event-page__image["']>([\s\S]*?)<\/div>/i);
-    return { description: cardSummary(description, title), image, ...officialMeetupLocation(html, url) };
+    return { description: sourceDescriptionText(description), image, ...officialMeetupLocation(html, url) };
   } catch {
     return { description: '', image: '', meetingPoint: '', mapUrl: '' };
   }
@@ -1562,7 +1512,7 @@ function cineluxMovieMetadata(html, title) {
     || value.match(/(?:<h2[^>]*>\s*Synopsis\s*<\/h2>|\bSynopsis\b)[\s\S]{0,1800}?<p[^>]*>([\s\S]*?)<\/p>/i)?.[1]
     || '';
   const genre = value.match(/Genre\s*<\/h4>\s*<div[^>]*>([\s\S]*?)<\/div>/i)?.[1] || '';
-  return { summary: cardSummary(synopsis, title), genre: plainText(genre) };
+  return { summary: sourceDescriptionText(synopsis), genre: plainText(genre) };
 }
 
 function cinemarkMovieMetadata(html, title) {
@@ -1581,7 +1531,7 @@ function cinemarkMovieMetadata(html, title) {
     || value.match(/class=["'][^"']*movie-(?:synopsis|description)[^"']*["'][^>]*>([\s\S]*?)<\//i)?.[1]
     || '';
   return {
-    summary: cardSummary(movie?.description || meta, title),
+    summary: sourceDescriptionText(movie?.description || meta),
     genre: plainText(Array.isArray(movie?.genre) ? movie.genre.join(', ') : movie?.genre || '')
   };
 }
@@ -1624,7 +1574,7 @@ async function readCinemark(source) {
     const event = directEvent({
       id: 'cinemark-' + createHash('sha256').update(`${source.feedUrl}|${item.title}|${item.dateValue}|${item.ticketUrl}`).digest('hex').slice(0, 16),
       title: item.title, dateValue: item.dateValue,
-      description: kidMovieSummary(item.title) || details.summary || `${item.rating}-rated family movie screening.`,
+      description: details.summary || `${item.rating}-rated family movie screening.`, summaryStatus: details.summary ? 'extractive' : 'official_structured',
       image: item.image, place: source.name, address: source.address || '', city: source.city || '', source: 'Cinemark Theatres', url: item.ticketUrl,
       ageText: item.rating === 'G' ? 'all ages' : '', format: 'movie-screening', movieRating: item.rating
     });
@@ -1689,7 +1639,7 @@ async function readCinelux(source) {
     const details = metadata.get(item.movieUrl) || {};
     const event = directEvent({
       id: 'cinelux-' + createHash('sha256').update(`${source.feedUrl}|${item.title}|${item.dateValue}|${item.ticketUrl}`).digest('hex').slice(0, 16),
-      title: item.title, dateValue: item.dateValue, description: kidMovieSummary(item.title) || details.summary || `${item.rating}-rated family movie screening.`, image: item.image,
+      title: item.title, dateValue: item.dateValue, description: details.summary || `${item.rating}-rated family movie screening.`, summaryStatus: details.summary ? 'extractive' : 'official_structured', image: item.image,
       place: source.name, address: source.address || '', city: source.city || '', source: 'CineLux Theatres', url: item.ticketUrl,
       ageText: item.rating === 'G' ? 'all ages' : '', format: 'movie-screening', movieRating: item.rating
     });
@@ -2042,8 +1992,9 @@ async function readLahm(source) {
       const audienceText = `${title} ${summary} ${detailText}`;
       if (!exhibition && !/famil(?:y|ies)|children|kids?|youth|all ages|hands-on|robotics|stem/i.test(audienceText)) return null;
       const detailBody = detail.match(/<div class=["']event-details["']>[\s\S]*?<h2>Event Details<\/h2>([\s\S]*?)<\/div>/i)?.[1] || '';
-      const description = cardSummary(detailBody, title) || decodeXml(detail.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)/i)?.[1] || '') || summary;
-      if (!hasActivitySummary(description)) return null;
+      const metaDescription = decodeXml(detail.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)/i)?.[1] || '');
+      const description = sourceDescriptionText(detailBody || metaDescription || summary);
+      if (!hasActivitySummary(cardSummary(description, title, exhibition ? 'museum-exhibition' : ''))) return null;
       // The calendar sometimes gives an exhibition only a placement/date
       // sentence. That does not explain the experience, so wait for a richer
       // first-party description instead of publishing a vague museum card.
@@ -2212,10 +2163,10 @@ async function readCivic(source) {
       const landingHtml = landingUrl === item.url ? detailHtml : await landingResponse.text();
       if (!landingResponse.ok) return null;
       const editorialBlocks = [...landingHtml.matchAll(/<div class=["'][^"']*\bfr-view\b[^"']*["'][^>]*>([\s\S]*?)<\/div>/gi)].map(match => match[1]);
-      const officialText = editorialBlocks.join(' ');
-      const description = editorialBlocks.map(block => cardSummary(block, item.title)).find(hasActivitySummary) || cardSummary(detailHtml, item.title);
+      const officialText = sourceDescriptionText(editorialBlocks.join(' ') || detailHtml);
+      const description = officialText;
       const audienceText = `${item.title} ${officialText} ${plainText(landingHtml.match(/<meta\s+name=["']description["']\s+content=["']([^"']*)/i)?.[1] || '')}`;
-      if (!hasActivitySummary(description) || isExplicitlyAdultOnly(audienceText)) return null;
+      if (!hasActivitySummary(cardSummary(description, item.title)) || isExplicitlyAdultOnly(audienceText)) return null;
       const image = htmlAttribute(landingHtml, /widget image[\s\S]{0,1600}?<img[^>]+src=["']([^"']+)["']/i);
       const event = directEvent({
         id: 'civic-' + createHash('sha256').update(`${landingUrl}|${item.dateValue}|${index}`).digest('hex').slice(0, 16),
@@ -2801,7 +2752,7 @@ const candidateResults = await Promise.all(sourceLimited.map(async item => {
     costStatus: 'unknown', costLabel: '费用未注明', costSource: '', costEvidence: '',
     registrationStatus: 'unknown', registrationSource: '', registrationEvidence: '',
     lastVerifiedAt: generatedAt, type, icon: icons[type], color: colors[type], tag: labels[type],
-    description: cardSummary(item.snippet || item.description || ''),
+    ...eventSummaryFields('', item.title, ''),
     image: '',
     place: item.source || '南湾地区', source: item.source || '', verification: 'search-verified', url: item.link
     }
@@ -2823,7 +2774,7 @@ const preliminaryEvents = [...new Map([...feedEvents, ...candidates]
   // A card must explain what the activity is. A source's speaker bio, social
   // promotion, or logistics copy is not an activity summary and cannot pass
   // this final publication gate.
-  .filter(event => hasActivitySummary(event.description) || Boolean(fallbackActivitySummary(event.title)))
+  .filter(event => hasActivitySummary(event.description))
   .filter(event => !isUnavailableEvent(event))
   .filter(isFamilyRelevant)
   .map(withPresentationFields)
@@ -3073,7 +3024,7 @@ function museumAsEvent(museum, source) {
     format: 'museum-exhibition',
     verification: 'official-page',
     lastVerifiedAt: museum.lastVerifiedAt || generatedAt,
-    description: cardSummary(museum.description, museum.title),
+    ...eventSummaryFields(museum.description, museum.title, 'museum-exhibition'),
     image: museum.image || '',
     place: museum.museum || source?.name || 'South Bay museum',
     address: source?.address || '',
