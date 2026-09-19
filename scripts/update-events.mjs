@@ -1912,9 +1912,11 @@ async function readFiloli(source) {
       const detail = await detailResponse.text();
       if (detailResponse.ok) {
         // Listing cards are often intentionally short marketing teasers.
-        // Preserve the visible first-party event body whenever available, then
-        // let the shared engine choose the parent-facing evidence.
-        const detailDescription = officialParagraphText(detail, {
+        // Scope extraction to the page's main content first so global
+        // membership, donation, newsletter, and footer modules cannot compete
+        // with the event itself. The shared engine still owns sentence ranking.
+        const mainContent = detail.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] || detail;
+        const detailDescription = officialParagraphText(mainContent, {
           excludePattern: /\b(?:members? receive|buy tickets?|reserve seats?|parking|hours?:|dates?:|typical visit length|what to wear|terms (?:&|and) conditions|privacy policy|refund policy)\b/i
         });
         if (hasUsableSourceContent(detailDescription)) description = detailDescription;
