@@ -1,0 +1,729 @@
+{
+  "generatedAt": "2026-09-19T18:19:53.071Z",
+  "configuredSources": 81,
+  "directSources": 76,
+  "fallbackSourcesRun": 0,
+  "sources": [
+    {
+      "name": "Palo Alto City Library",
+      "method": "rss",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 14,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "San José Public Library",
+      "method": "rss",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 12,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Santa Clara County Parks",
+      "method": "search-fallback",
+      "mode": "not-run",
+      "failureStreak": 0
+    },
+    {
+      "name": "Midpeninsula Regional Open Space District",
+      "method": "midpen",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 9,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "The Tech Interactive",
+      "method": "thetech",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 8,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "City of Palo Alto",
+      "method": "paloalto",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 2,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Palo Alto Junior Museum & Zoo",
+      "method": "jmz-family",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 2,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "City of San José",
+      "method": "search-fallback",
+      "mode": "not-run",
+      "failureStreak": 0
+    },
+    {
+      "name": "Santa Clara County Library District",
+      "method": "rss",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 489,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "City of Sunnyvale",
+      "method": "search-fallback",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "City of Mountain View",
+      "method": "search-fallback",
+      "mode": "not-run",
+      "failureStreak": 0
+    },
+    {
+      "name": "City of Cupertino",
+      "method": "cupertino",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 6,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "City of Santa Clara",
+      "method": "search-fallback",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 2,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Computer History Museum",
+      "method": "chm",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Cantor Arts Center",
+      "method": "stanford-venue-family",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Happy Hollow Park & Zoo",
+      "method": "happyhollow",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Gilroy Gardens",
+      "method": "gilroy",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 5,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Foothill College",
+      "method": "foothill",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 4,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "De Anza College Planetarium",
+      "method": "deanza",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 23,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "SLAC National Accelerator Laboratory",
+      "method": "slac",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Stanford Events",
+      "method": "stanford",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 4,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "San Jose Sharks",
+      "method": "nhl",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 44,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "CineLux Almaden",
+      "method": "cinelux",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 71,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "CineLux Plaza",
+      "method": "cinelux",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 54,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "CineLux Los Gatos",
+      "method": "cinelux",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 9,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "CineLux Morgan Hill",
+      "method": "cinelux",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 86,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "CineLux Gilroy",
+      "method": "cinelux",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 67,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Cinemark Century Oakridge 20",
+      "method": "cinemark",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 10,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Cinemark Century Great Mall 20",
+      "method": "cinemark",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 9,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Cinemark CineArts Santana Row",
+      "method": "cinemark",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 7,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "South FIRST FRIDAYS / ArtWalkSJ",
+      "method": "southfirstfridays",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "SAP Center",
+      "method": "sapcenter",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 7,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Bay FC",
+      "method": "bayfc",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 4,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "San Jose Giants",
+      "method": "mlb",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "San Jose Earthquakes",
+      "method": "mls",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 3,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Palo Alto Children's Theatre",
+      "method": "showare",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 99,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "CMT San Jose",
+      "method": "cmt",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 16,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Peninsula Youth Theatre",
+      "method": "pyt",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 10,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "San Jose Barracuda",
+      "method": "barracuda",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 36,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Filoli Historic House & Garden",
+      "method": "filoli",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 3,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Los Altos History Museum",
+      "method": "lahm",
+      "mode": "direct",
+      "status": "failed",
+      "eventCount": 0,
+      "failureStreak": 1,
+      "error": "Los Altos History Museum event list was not valid: 202"
+    },
+    {
+      "name": "Museum of American Heritage",
+      "method": "moah",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Montalvo Arts Center",
+      "method": "montalvo",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 2,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "City of Los Altos Parks & Recreation",
+      "method": "ics",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Gamble Garden",
+      "method": "tribe",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 5,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Symphony San Jose",
+      "method": "symphony",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 15,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "San Jose Theaters",
+      "method": "timely",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 17,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "History San José",
+      "method": "history",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "San José Buddhist Church Betsuin",
+      "method": "tribe",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Chinese Historical & Cultural Project",
+      "method": "chcp",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 6,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "City of Milpitas",
+      "method": "civic",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Google Visitor Experience",
+      "method": "google-visitor-events",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 4,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "The Village at San Antonio Center",
+      "method": "eventbrite-organizer",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "CalColor Academy",
+      "method": "eventbrite-organizer",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "365 Night Market",
+      "method": "wix-events",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Silicon Valley Pride",
+      "method": "squarespace-events",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Chinese Performing Arts of America",
+      "method": "squarespace-events",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Niles Antique Faire",
+      "method": "annual-festival",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Bay Area Lebanese Festival",
+      "method": "annual-festival",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Holy Family Parish",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 2,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "City of Santa Clara",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 2,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Visit San Jose",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "City of Sunnyvale",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Santa Clara Parade of Champions",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Downtown Campbell",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 2,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "San Jose Book Festival",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Mountain View Art & Wine Festival",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "San José Made",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Viva CalleSJ / City of San José",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Sunnyvale Public Library",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "San José Museum of Art",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 2,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Children’s Discovery Museum of San Jose",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 2,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "City of Mountain View · Seasonal Events",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 2,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "City of San José · Almaden Community Center",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "City of Milpitas · Seasonal Events",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "City of Fremont · Seasonal Events",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "City of Santa Clara · Seasonal Events",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Teatro Visión",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 7,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "City of Menlo Park",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "History San José · Seasonal Events",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "name": "Santana Row",
+      "method": "santana-row",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 4,
+      "failureStreak": 0,
+      "error": ""
+    }
+  ],
+  "alerts": []
+}
