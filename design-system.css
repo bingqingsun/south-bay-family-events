@@ -1,6 +1,5 @@
 /* South Bay Family Finds — Design System v1
-   Shared production design-system layer. This file implements the agreed visual system across the
-   tokens/components are folded back into the production stylesheets. */
+   Shared production design-system layer for homepage and Collection surfaces. */
 
 :root {
   --sbff-blue-600: #235ce8;
