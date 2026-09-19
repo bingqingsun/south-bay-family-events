@@ -138,9 +138,24 @@ export function isSummaryAcceptable(text, { title = '', format = '' } = {}) {
     || /\b(?:movie|film|concert|performance|show|exhibit(?:ion)?|opera|ballet|musical|game|match)\b/i.test(title);
 }
 
-export function hasActivitySummary(text) {
+export function hasUsableSourceContent(text) {
   const value = normalizeText(text);
-  return value.length >= 20 && !isLogisticsOnly(value) && !isLikelyFragment(value);
+  if (value.length < 20) return false;
+
+  // Source capture is intentionally permissive. A full official description
+  // can contain logistics, background, and several sentences; it should not be
+  // judged by the same grammar rules as a one-sentence published summary.
+  return splitSourceSentences(value).some(sentence => {
+    const candidate = normalizeText(sentence);
+    return candidate.length >= 20
+      && !isLogisticsOnly(candidate)
+      && !isBiographyOrPromotion(candidate)
+      && !isOperationalNote(candidate);
+  });
+}
+
+export function hasActivitySummary(text, options = {}) {
+  return isSummaryAcceptable(text, options);
 }
 
 function scoreSentence(sentence, index) {
