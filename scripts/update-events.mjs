@@ -2407,7 +2407,7 @@ async function readCupertino(source) {
     const image = htmlAttribute(block, /<img[^>]+src=["']([^"']+)["']/i);
     const dateValue = year && monthNumbers[month] && day ? `${year}-${monthNumbers[month]}-${String(Number(day)).padStart(2, '0')}` : '';
     const activityText = `${title} ${description} ${audience}`;
-    const youthSignal = sourceFamilyPattern(source).test(activityText);
+    const youthSignal = officialListingPattern(source, 'familyPattern', 'kids?\\s*&\\s*family|children|famil(?:y|ies)|youth|teen|toddler|school').test(activityText);
     const url = href ? new URL(decodeXml(href), source.feedUrl).href : '';
     const id = url && dateValue ? `${url}|${dateValue}` : '';
     if (!id || seen.has(id) || !isUpcoming(dateValue) || !youthSignal) return [];
