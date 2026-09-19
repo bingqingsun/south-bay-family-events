@@ -1,0 +1,81 @@
+name: Create Vercel Preview
+
+# This workflow is intentionally opt-in. It never runs for ordinary PR updates
+# and it never uses Vercel's production flag.
+on:
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Branch or commit SHA to preview'
+        required: true
+        default: 'main'
+        type: string
+      pr_number:
+        description: 'Optional PR number for posting the Preview link'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: vercel-preview-${{ github.event.issue.number || inputs.ref }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    # A repository owner can request a PR Preview by writing /preview. The
+    # manual form remains available for a branch or a one-off commit preview.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.issue.pull_request &&
+       github.event.comment.body == '/preview' &&
+       github.event.comment.author_association == 'OWNER')
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      PREVIEW_REF: ${{ github.event_name == 'issue_comment' && format('refs/pull/{0}/head', github.event.issue.number) || inputs.ref }}
+      PR_NUMBER: ${{ github.event_name == 'issue_comment' && github.event.issue.number || inputs.pr_number }}
+    steps:
+      - name: Check out requested source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.PREVIEW_REF }}
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@48.7.0
+
+      - name: Build a Preview artifact
+        run: |
+          vercel pull --yes --environment=preview --token="$VERCEL_TOKEN"
+          vercel build --token="$VERCEL_TOKEN"
+
+      - name: Deploy Preview only
+        id: deploy
+        run: |
+          preview_url="$(vercel deploy --prebuilt --yes --token="$VERCEL_TOKEN" | tail -n 1)"
+          echo "url=$preview_url" >> "$GITHUB_OUTPUT"
+
+      - name: Post Preview link to PR
+        if: env.PR_NUMBER != ''
+        uses: actions/github-script@v7
+        env:
+          PREVIEW_URL: ${{ steps.deploy.outputs.url }}
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: Number(process.env.PR_NUMBER),
+              body: `Preview ready for this requested revision: ${process.env.PREVIEW_URL}\n\nThis is a Vercel Preview only; the GitHub Pages production site was not changed.`
+            });
