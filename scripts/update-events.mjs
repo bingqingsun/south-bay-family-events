@@ -2547,7 +2547,7 @@ async function readPaloAlto(source) {
       place: candidate.place, address: shortAddress(candidate.street, 'Palo Alto'), city: 'Palo Alto',
       source: source.name, url: candidate.url, ageText: `${candidate.audienceText} ${detailText.slice(0, 3500)}`
     });
-    return hasUsableSourceContent(event.description) ? { ...event, ...costInfo('', detailText || description) } : null;
+    return hasUsableSourceContent(event.description) ? { ...event, ...costInfo('', detailDescription || detailText || description) } : null;
   }));
   return events.filter(Boolean);
 }
