@@ -13,12 +13,12 @@ import {
   normalizedMovieRating
 } from './movie-policy.mjs';
 import {
-  buildExtractiveSummary,
   buildOfficialMovieScreeningSummary,
   buildOfficialSportsSummary,
+  buildSummaryRecord,
+  hasPublishableSummary,
   hasUsableSourceContent,
-  isLogisticsOnly,
-  isSummaryAcceptable
+  isLogisticsOnly
 } from './event-summary-engine.mjs';
 
 const key = process.env.SERPAPI_KEY;
@@ -277,57 +277,21 @@ function sourceDescriptionText(html, maxLength = 4000) {
   return value.length > maxLength ? `${value.slice(0, maxLength - 1).trimEnd()}…` : value;
 }
 
-function eventSummaryFields(sourceText, title = '', format = '', status = 'extractive') {
-  const sourceDescriptionRaw = sourceDescriptionText(sourceText);
-  const extracted = status === 'extractive'
-    ? buildExtractiveSummary(sourceDescriptionRaw, { title, format })
-    : {
-        summary: isSummaryAcceptable(sourceDescriptionRaw, { title, format }) ? sourceDescriptionRaw : '',
-        method: status,
-        quality: status === 'manual_verified' ? 'manual_verified' : 'structured',
-        evidence: sourceDescriptionRaw
-      };
-  const parentSummary = extracted.summary || '';
-  return {
-    description: parentSummary,
-    parentSummary,
-    sourceDescriptionRaw,
-    sourceDescriptionHash: sourceDescriptionRaw
-      ? createHash('sha256').update(sourceDescriptionRaw).digest('hex')
-      : '',
-    summaryStatus: parentSummary ? status : 'needs_review',
-    summaryMethod: extracted.method,
-    summaryQuality: extracted.quality,
-    summaryEvidence: extracted.evidence || '',
-    summaryVersion: 'event-summary-v2-p2',
-    summaryVerifiedAt: generatedAt
-  };
-}
-
-function extractParentSummary(sourceText, title = '', format = '') {
-  const sourceDescriptionRaw = sourceDescriptionText(sourceText);
-  return buildExtractiveSummary(sourceDescriptionRaw, { title, format }).summary;
-}
-
 function qualityGateSummary(event) {
-  const normalized = eventSummaryFields(
-    event.sourceDescriptionRaw || event.description || '',
-    event.title,
-    event.format,
-    event.summaryStatus || 'extractive'
-  );
-  if (normalized.summaryStatus === 'needs_review'
-      || !isSummaryAcceptable(normalized.parentSummary, { title: event.title, format: event.format })) {
-    return null;
-  }
+  const normalized = buildSummaryRecord({
+    sourceText: event.sourceDescriptionRaw || sourceDescriptionText(event.description || ''),
+    title: event.title,
+    format: event.format,
+    status: event.summaryStatus || 'extractive',
+    verifiedAt: event.summaryVerifiedAt || generatedAt,
+    evidenceData: event.summaryEvidenceData || null
+  });
+  if (normalized.summaryStatus === 'needs_review') return null;
   return {
     ...event,
     ...normalized,
     description: normalized.parentSummary,
-    parentSummary: normalized.parentSummary,
-    summaryStatus: event.summaryStatus || normalized.summaryStatus,
-    summaryVersion: 'event-summary-v2-p2',
-    summaryVerifiedAt: event.summaryVerifiedAt || generatedAt
+    parentSummary: normalized.parentSummary
   };
 }
 
@@ -582,7 +546,7 @@ async function readRss(source) {
     // when the event itself is expressly for adults. Audience eligibility wins.
     if (isExplicitlyAdultOnly(categories)) return [];
     const description = xmlText(item, 'description');
-    const summary = eventSummaryFields(description, title);
+    const summary = buildSummaryRecord({ sourceText: sourceDescriptionText(description), title, verifiedAt: generatedAt });
     const eventKey = `${xmlText(item, 'guid') || link}|${startDate}`;
     if (!title || !link || seen.has(eventKey) || !isUpcoming(startDate) || !familyAudience
       || xmlText(item, 'is_cancelled') === 'true'
@@ -648,7 +612,7 @@ async function readTribe(source) {
     // card only shows an age range when the organizer actually supplied one.
     const age = ageInfo(audienceText);
     const cost = costInfo(item.cost, item.description || item.excerpt || '');
-    const summary = eventSummaryFields(item.description || item.excerpt || '', title);
+    const summary = buildSummaryRecord({ sourceText: sourceDescriptionText(item.description || item.excerpt || ''), title, verifiedAt: generatedAt });
     return [{
       id: 'calendar-' + (item.id || index), title, date: displayEventDate(startDate), dateValue: startDate, endDateValue: endDate, ...age, ...cost,
       type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'calendar', lastVerifiedAt: generatedAt,
@@ -661,7 +625,7 @@ async function readTribe(source) {
     if (hasUsableSourceContent(event.description) && event.image) return event;
     const details = await tribePageDetails(event.url);
     const detailSummary = details.sourceDescriptionRaw
-      ? eventSummaryFields(details.sourceDescriptionRaw, event.title, event.format)
+      ? buildSummaryRecord({ sourceText: details.sourceDescriptionRaw, title: event.title, format: event.format, verifiedAt: generatedAt })
       : null;
     const useDetail = detailSummary && hasUsableSourceContent(detailSummary.description);
     return {
@@ -727,7 +691,7 @@ async function readHistorySanJose(source) {
     // The listing also contains fundraisers, private rentals, and adult-only
     // programs. Publish only when the official title has an explicit family
     // signal and it yields a parent-facing explanation of the activity.
-    if (!title || !isUpcoming(dateValue) || !familySignal || !hasUsableSourceContent(extractParentSummary(description, title)) || isExplicitlyAdultOnly(`${title} ${locationText}`)) return [];
+    if (!title || !isUpcoming(dateValue) || !familySignal || !hasPublishableSummary(description, { title }) || isExplicitlyAdultOnly(`${title} ${locationText}`)) return [];
     const event = directEvent({
       id: 'history-' + createHash('sha256').update(`${url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
       title, dateValue, endDateValue, description,
@@ -774,7 +738,14 @@ function isoDateFromOfficialText(dateText, timeText = '') {
 function directEvent({ id, title, dateValue, endDateValue = '', description, image = '', imagePresentation = '', imageBackground = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, ageText = '', format = '', movieRating = '', forcedType = '', seasonalTheme = '', availabilityStatus = '', summaryStatus = 'extractive', summaryEvidenceData = null }) {
   const type = forcedType || (format === 'live-show' ? 'shows' : format === 'movie-screening' ? 'movies' : typeFor(title + ' ' + description + ' ' + ageText, title));
   const age = ageInfo(ageText);
-  const summary = eventSummaryFields(description, title, format, summaryStatus);
+  const summary = buildSummaryRecord({
+    sourceText: sourceDescriptionText(description),
+    title,
+    format,
+    status: summaryStatus,
+    verifiedAt: generatedAt,
+    evidenceData: summaryEvidenceData
+  });
   return {
     id, title, date: displayEventDate(dateValue), dateValue, endDateValue, ...age,
     costStatus: 'unknown', costLabel: '费用未注明', costSource: '', costEvidence: '',
@@ -782,7 +753,6 @@ function directEvent({ id, title, dateValue, endDateValue = '', description, ima
     type, icon: icons[type], color: colors[type], tag: labels[type],
     verification: 'official-page', lastVerifiedAt: generatedAt, format,
     ...summary,
-    summaryEvidenceData,
     image: optimizedOfficialImageUrl(image, source), imagePresentation, imageBackground, place, address, city: canonicalCity(city), meetingPoint, mapUrl, source, url, movieRating,
     seasonalTheme: seasonalTheme || seasonalThemeFor(`${title} ${description}`), availabilityStatus
   };
@@ -823,7 +793,7 @@ async function curatedOfficialDescription(url, title) {
           return type.includes('event') && isSameEvent(name, title);
         });
         const description = sourceDescriptionText(event?.description || '');
-        if (description && hasUsableSourceContent(extractParentSummary(description, title))) return description;
+        if (description && hasPublishableSummary(description, { title })) return description;
       } catch {
         // Malformed analytics JSON-LD must not block the verified manual copy.
       }
@@ -843,7 +813,7 @@ async function curatedOfficialDescription(url, title) {
       || ''
     );
     const description = sourceDescriptionText(meta);
-    return description && hasUsableSourceContent(extractParentSummary(description, title)) ? description : '';
+    return description && hasPublishableSummary(description, { title }) ? description : '';
   } catch {
     return '';
   }
@@ -930,7 +900,7 @@ async function readEventbriteOrganizer(source) {
 // an official, public JSON file for every calendar month. Read that feed
 // directly so family events get their exact session, official image and RSVP
 // page without relying on search results or a manually curated occurrence.
-function googleVisitorActivitySummary(title, description) {
+function validatedGoogleVisitorSourceDescription(title, description) {
   const genericWords = new Set(['google', 'visitor', 'experience', 'event', 'events', 'family', 'class', 'workshop', 'with', 'the', 'and', 'for']);
   const specificTitleWords = plainText(title).toLowerCase().match(/[a-z]{4,}/g)?.filter(word => !genericWords.has(word)) || [];
   const descriptionText = plainText(description).toLowerCase();
@@ -966,7 +936,7 @@ async function readGoogleVisitorEvents(source) {
   const candidates = payloads.flat().flatMap(item => {
     const event = item?.document_content || {};
     const title = plainText(event.title);
-    const description = googleVisitorActivitySummary(event.title, plainText(event.description));
+    const description = validatedGoogleVisitorSourceDescription(event.title, plainText(event.description));
     const dateValue = String(event.start_time || '').replace(' ', 'T').slice(0, 16);
     const endDateValue = String(event.end_time || '').replace(' ', 'T').slice(0, 19);
     const url = event.rsvp_link?.button_link_url || source.feedUrl;
@@ -1458,7 +1428,7 @@ async function readSapCenter(source) {
       // Without first-party description evidence, do not infer show content
       // from the event title.
     }
-    if (!hasUsableSourceContent(extractParentSummary(description, listing.title, 'live-show'))) return [];
+    if (!hasPublishableSummary(description, { title: listing.title, format: 'live-show' })) return [];
     return dates.filter(isUpcoming).map((dateValue, index) => directEvent({
       id: 'sapcenter-' + createHash('sha256').update(`${listing.url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
       title: listing.title, dateValue, description, image: listing.image,
@@ -1976,7 +1946,7 @@ async function readLahm(source) {
       const detailBody = detail.match(/<div class=["']event-details["']>[\s\S]*?<h2>Event Details<\/h2>([\s\S]*?)<\/div>/i)?.[1] || '';
       const metaDescription = decodeXml(detail.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)/i)?.[1] || '');
       const description = sourceDescriptionText(detailBody || metaDescription || summary);
-      if (!hasUsableSourceContent(extractParentSummary(description, title, exhibition ? 'museum-exhibition' : ''))) return null;
+      if (!hasPublishableSummary(description, { title, format: exhibition ? 'museum-exhibition' : '' })) return null;
       // The calendar sometimes gives an exhibition only a placement/date
       // sentence. That does not explain the experience, so wait for a richer
       // first-party description instead of publishing a vague museum card.
@@ -2148,7 +2118,7 @@ async function readCivic(source) {
       const officialText = sourceDescriptionText(editorialBlocks.join(' ') || detailHtml);
       const description = officialText;
       const audienceText = `${item.title} ${officialText} ${plainText(landingHtml.match(/<meta\s+name=["']description["']\s+content=["']([^"']*)/i)?.[1] || '')}`;
-      if (!hasUsableSourceContent(extractParentSummary(description, item.title)) || isExplicitlyAdultOnly(audienceText)) return null;
+      if (!hasPublishableSummary(description, { title: item.title }) || isExplicitlyAdultOnly(audienceText)) return null;
       const image = htmlAttribute(landingHtml, /widget image[\s\S]{0,1600}?<img[^>]+src=["']([^"']+)["']/i);
       const event = directEvent({
         id: 'civic-' + createHash('sha256').update(`${landingUrl}|${item.dateValue}|${index}`).digest('hex').slice(0, 16),
@@ -2734,7 +2704,7 @@ const candidateResults = await Promise.all(sourceLimited.map(async item => {
     costStatus: 'unknown', costLabel: '费用未注明', costSource: '', costEvidence: '',
     registrationStatus: 'unknown', registrationSource: '', registrationEvidence: '',
     lastVerifiedAt: generatedAt, type, icon: icons[type], color: colors[type], tag: labels[type],
-    ...eventSummaryFields('', item.title, ''),
+    ...buildSummaryRecord({ sourceText: '', title: item.title, verifiedAt: generatedAt }),
     image: '',
     place: item.source || '南湾地区', source: item.source || '', verification: 'search-verified', url: item.link
     }
@@ -3006,7 +2976,7 @@ function museumAsEvent(museum, source) {
     format: 'museum-exhibition',
     verification: 'official-page',
     lastVerifiedAt: museum.lastVerifiedAt || generatedAt,
-    ...eventSummaryFields(museum.description, museum.title, 'museum-exhibition'),
+    ...buildSummaryRecord({ sourceText: sourceDescriptionText(museum.description), title: museum.title, format: 'museum-exhibition', verifiedAt: generatedAt }),
     image: museum.image || '',
     place: museum.museum || source?.name || 'South Bay museum',
     address: source?.address || '',
