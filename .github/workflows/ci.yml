@@ -2,6 +2,12 @@ name: Verify South Bay Family Finds
 
 on:
   pull_request:
+    paths:
+      - 'scripts/**'
+      - 'data/sources.json'
+      - 'analytics.js'
+      - 'privacy.html'
+      - '.github/workflows/ci.yml'
   push:
     branches: [main]
     paths:
