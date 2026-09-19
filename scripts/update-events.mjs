@@ -2020,8 +2020,17 @@ async function readFiloli(source) {
 // only when the organizer explicitly signals a youth or family audience.
 async function readLahm(source) {
   const headers = { 'user-agent': 'SouthBayFamilyEventsBot/1.0' };
-  const response = await fetch(source.feedUrl, { headers, signal: AbortSignal.timeout(15000) });
-  const html = await response.text();
+  // The museum's CDN occasionally answers the first calendar request with
+  // 202 Accepted while warming the page. Retry once before treating a real
+  // source outage as a failed refresh.
+  let response;
+  let html = '';
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    response = await fetch(source.feedUrl, { headers, signal: AbortSignal.timeout(15000) });
+    html = await response.text();
+    if (response.status !== 202) break;
+    await new Promise(resolve => setTimeout(resolve, 1200));
+  }
   if (!response.ok || !/events-table/.test(html)) throw new Error('Los Altos History Museum event list was not valid: ' + response.status);
   const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
   const rows = [...html.matchAll(/<tr>([\s\S]*?)<\/tr>/gi)].map(match => match[1]);
