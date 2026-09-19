@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-19T18:19:53.071Z",
+  "generatedAt": "2026-09-19T18:21:35.350Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -361,7 +361,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 1,
+      "failureStreak": 2,
       "error": "Los Altos History Museum event list was not valid: 202"
     },
     {
