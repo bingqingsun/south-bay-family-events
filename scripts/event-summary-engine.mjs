@@ -29,6 +29,8 @@ const CONTINUATION_START = /^(?:and|or|but|because|which|that|who|whose|where|wh
 const DANGLING_INFINITIVE = /^to\s+[a-z]+\b/i;
 const NON_ACTIVITY_LABEL = /^(?:sensory notes?|sound|visuals?|accessibility|accommodations?|registration|parking|location|tickets?|admission|check[- ]in)$/i;
 const ABBREVIATION_END = /(?:\b(?:mr|mrs|ms|dr|prof|sr|jr|st|vs|etc|e\.g|i\.e|a\.m|p\.m)\.|(?:\b[A-Za-z]\.){2,})$/i;
+const HONORIFIC_END = /\b(?:mr|mrs|ms|dr|prof|sr|jr|st)\.$/i;
+const INITIAL_END = /\b[A-Z]\.$/;
 
 function normalizeText(value) {
   return String(value || '')
@@ -67,11 +69,14 @@ export function splitSourceSentences(sourceText) {
       || CONTINUATION_START.test(segment)
       || DANGLING_INFINITIVE.test(segment);
     const previousLooksAbbreviated = ABBREVIATION_END.test(previous);
+    const honorificNeedsName = HONORIFIC_END.test(previous) && /^[A-Z][A-Za-z'’-]+\b/.test(segment);
+    const initialNeedsName = INITIAL_END.test(previous) && /^[A-Z][A-Za-z'’-]+\b/.test(segment);
 
-    // Sentence segmenters occasionally split after abbreviations such as
-    // "p.m." or "Dr." Merge only when the next piece looks grammatically
-    // dependent, rather than maintaining event-specific exceptions.
-    if (previousLooksAbbreviated && startsLikeContinuation) {
+    // Sentence segmenters occasionally split after abbreviations. Merge a
+    // dependent lower-case continuation after any abbreviation, and merge a
+    // capitalized proper name after honorifics/initials. Time abbreviations
+    // followed by a new capitalized sentence remain separate.
+    if ((previousLooksAbbreviated && startsLikeContinuation) || honorificNeedsName || initialNeedsName) {
       merged[merged.length - 1] = `${previous} ${segment}`;
     } else {
       merged.push(segment);
