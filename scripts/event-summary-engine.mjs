@@ -123,6 +123,16 @@ export function isOperationalNote(text) {
   return OPERATIONAL_NOTE.test(normalizeText(text));
 }
 
+function isFeatureListOnly(text) {
+  const value = normalizeText(text);
+  const commaCount = (value.match(/,/g) || []).length;
+  if (commaCount < 2 || DIRECT_PARTICIPATION_ACTION.test(value) || SUPPORT_ACTIVITY.test(value)) return false;
+  // A short comma-separated inventory can still be useful fallback evidence,
+  // but it should not outrank a sentence that tells families what they can do.
+  // Avoid treating full clauses with an explicit subject/finite verb as lists.
+  return !/\b(?:you|your|families|kids?|children|visitors?|participants?|attendees?|guests?|we|they|this|that|it|is|are|was|were|has|have|will|can|may|should|offers?|includes?|features?)\b/i.test(value);
+}
+
 export function hasActivitySignal(text) {
   const value = normalizeText(text);
   return ACTIVITY_VERB.test(value)
@@ -211,6 +221,7 @@ function scoreSentence(sentence, index) {
   if (sentence.length < 22) score -= 8;
   if (BACKGROUND_ONLY.test(sentence)) score -= 22;
   if (PROMOTIONAL_FLUFF.test(sentence)) score -= 18;
+  if (isFeatureListOnly(sentence)) score -= 14;
   if (LOGISTICS.test(sentence)) score -= 20;
   if (isBiographyOrPromotion(sentence)) score -= 60;
   if (isOperationalNote(sentence)) score -= 24;
