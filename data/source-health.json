@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-19T18:25:46.782Z",
+  "generatedAt": "2026-09-19T18:38:39.861Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -20,7 +20,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 12,
+      "eventCount": 9,
       "failureStreak": 0,
       "error": ""
     },
@@ -255,7 +255,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 67,
+      "eventCount": 66,
       "failureStreak": 0,
       "error": ""
     },
@@ -394,10 +394,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "ok",
-      "eventCount": 1,
-      "failureStreak": 0,
-      "error": ""
+      "status": "failed",
+      "eventCount": 0,
+      "failureStreak": 1,
+      "error": "Los Altos History Museum event list was not valid: 202"
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
