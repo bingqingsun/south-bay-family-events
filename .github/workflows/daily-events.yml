@@ -1,5 +1,9 @@
 name: Refresh South Bay events
 
+concurrency:
+  group: refresh-south-bay-events-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   # A source or refresh-script change should immediately rebuild the published
   # list without asking the maintainer to run
@@ -9,6 +13,9 @@ on:
       - 'preview-acceptance'
     paths:
       - 'scripts/update-events.mjs'
+      - 'scripts/event-summary-engine.mjs'
+      - 'scripts/test-event-summary-engine.mjs'
+      - 'scripts/test-summary-output.mjs'
       - 'data/sources.json'
       - '.github/workflows/daily-events.yml'
   schedule:
@@ -34,6 +41,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Test event-summary engine contracts
+        run: node scripts/test-event-summary-engine.mjs
       - run: node scripts/update-events.mjs
         env:
           SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
@@ -44,10 +53,20 @@ jobs:
           # runs too, so relying on `inputs.include_serpapi` here would
           # silently disable the scheduled fallback.
           INCLUDE_SERPAPI: ${{ github.event_name == 'schedule' && 'auto' || github.event_name == 'push' && 'false' || inputs.include_serpapi }}
+      - name: Audit published summary provenance
+        run: node scripts/test-summary-output.mjs
       - name: Save refreshed event list
         run: |
           git config user.name "south-bay-events-bot"
           git config user.email "actions@github.com"
           git add data/events.json data/events.js data/museums.json data/museums.js
-          git diff --staged --quiet || git commit -m "chore: refresh South Bay events"
-          git push
+          if git diff --staged --quiet; then
+            exit 0
+          fi
+          git commit -m "chore: refresh South Bay events"
+          # A maintainer may update docs/code while this refresh is running.
+          # Rebase the generated-data commit onto the latest branch head instead
+          # of failing a non-fast-forward push and losing an otherwise valid refresh.
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
