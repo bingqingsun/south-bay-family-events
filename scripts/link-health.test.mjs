@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import { auditLinks, normalizeOfficialUrl, resolvePublishedLink, staticLinkResult } from './link-health.mjs';
+const source = { id: 'library', name: 'Library', domain: 'library.org', linkHosts: ['events.platform.org'], landingUrl: 'https://events.platform.org/events' };
+assert.equal(normalizeOfficialUrl('http://events.platform.org/a?utm_source=x#top'), 'https://events.platform.org/a');
+assert.equal(staticLinkResult({ url: 'https://gateway.platform.org/rss/events' }, source).linkStatus, 'invalid');
+const fallback = resolvePublishedLink({ title: 'Book club', source: 'Library' }, { canonicalUrl: 'https://events.platform.org/events/1', fallbackUrl: source.landingUrl, linkStatus: 'not-found', linkCheckedAt: 'now', linkCheckMethod: 'machine', linkEvidence: '404' });
+assert.equal(fallback.url, source.landingUrl);
+const result = await auditLinks([{ title: 'Book Club', source: 'Library', url: 'https://events.platform.org/events/1' }], [source], { fetchImpl: async () => new Response('<title>Book Club</title>', { status: 200 }), concurrency: 1 });
+assert.equal(result.events[0].linkStatus, 'ok');
+console.log('link health tests passed');
