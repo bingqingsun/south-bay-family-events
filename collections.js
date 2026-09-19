@@ -294,10 +294,13 @@
     });
 
     const link = node.querySelector('.source-link');
-    link.href = session.url || event.url;
+    const resolvedLink = event.url || '';
+    link.hidden = !resolvedLink;
+    link.href = resolvedLink;
     link.firstChild.textContent = 'View details ';
     link.addEventListener('click', () => {
-      track('collection_event_click', analytics);
+      if (!resolvedLink) return;
+      track('collection_event_click', { ...analytics, link_resolution: event.linkResolution || 'canonical' });
       if (entryPoint === 'collection-quick-pick') {
         track('collection_quick_pick_click', {
           collection_slug: collectionSlug,
@@ -306,7 +309,7 @@
         });
       }
       track('view_event_details', {
-        ...analytics,
+        ...analytics, link_resolution: event.linkResolution || 'canonical',
         date_filter: 'collection',
         city_filter: event.city || 'all',
         age_filter: 'all',
