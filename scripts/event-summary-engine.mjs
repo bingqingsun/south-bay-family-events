@@ -26,7 +26,7 @@ const BIOGRAPHY_OR_PROMOTION = /\b(?:recent publications?|publications? include|
 const OPERATIONAL_NOTE = /\b(?:will be|is) held (?:inside|indoors?|outdoors?)\b|\b(?:will not|won't|does not|doesn't) (?:be )?held\b|\bnot (?:be )?held\b|\b(?:in case of|depending on) (?:rain|weather)\b|\b(?:parking|entrance|room|location) (?:is|will be|has changed)\b|\b(?:cancell?ed|postponed|rescheduled)\b/i;
 
 const ACTIVITY_VERB = /\b(?:watch|watching|listen|listening|enjoy|join|explore|discover|create|build|make|making|play|sing|dance|read|learn|practice|taste|eat|drink|walk|hike|tour|meet|test|testing|paint|painting|decorate|decorating|design|designing|draw|drawing|sew|sewing|knit|knitting|crochet|crocheting|see|experience|ride|visit|try|participate)\b/i;
-const EVENT_NOUN = /\b(?:story(?:time)?|songs?|rhymes?|crafts?|games?|workshop|class|concert|performance|show|movie|film|exhibit(?:ion)?|festival|parade|museum|science|art|music|opera|ballet|theat(?:er|re)|sports?|match|game)\b/i;
+const EVENT_NOUN = /\b(?:story(?:time)?|songs?|rhymes?|crafts?|games?|workshop|class|concerts?|performances?|shows?|movies?|films?|screenings?|exhibit(?:ion)?s?|festival|parade|museum|science|art|music|opera|ballet|theat(?:er|re)|sports?|matches?)\b/i;
 const EXPERIENCE_STRUCTURE = /\b(?:with|featur(?:e|es|ing)|includes?|offers?|offering|where|activities?|demonstrations?|performances?|stations?|zone|zones)\b/i;
 const STRONG_ACTIVITY_DETAIL = /\b(?:make|making|build|building|create|creating|paint|painting|decorate|decorating|assemble|assembling|plant|planting|cook|cooking|bake|baking|craft|crafting|play|playing|watch|watching|read|reading|dance|dancing|sing|singing|taste|tasting|eat|eating|drink|drinking|tour|touring|hike|hiking|try|trying|practice|practicing|explore|exploring|learn|learning|design|designing|draw|drawing|sew|sewing|knit|knitting|crochet|crocheting|meet|meeting|listen|listening|perform|performing|compete|competing|solve|solving|experiment|experimenting|test|testing|launch|launching|fly|flying|throw|throwing|kick|kicking|jump|jumping|stamp|stamping|fold|folding|color|coloring|write|writing|ride|riding|walk|walking|follow|following|find|finding|collect|collecting|participate|participating|discuss|discussing|trick[- ]or[- ]treat(?:ing)?)\b/i;
 const GENERIC_EXPERIENCE = /\b(?:family[- ]friendly|fun|exciting|interactive|immersive|magical|spectacular|unforgettable|special)\b[^.!?]{0,100}\bexperience\b/i;
@@ -34,6 +34,8 @@ const PROMOTIONAL_FLUFF = /\b(?:cherished|treasured|beloved|community favorite|u
 const SENSORY_OR_ACCESSIBILITY_DETAIL = /\b(?:visually busy|visual stimulation|sensory (?:need|needs|difference|differences|processing)|different textures?|unusual textures?|noise level|may become noisy|bright lights?|flashing lights?|loud sounds?|accessibility accommodations?)\b/i;
 const ADMINISTRATIVE_COPY = /\b(?:confirm your membership|membership in a follow-up email|stops? to be announced|details? to be announced|schedule subject to change|regular library hours|library hours|organization is one of|one of the region'?s premier|now in its \d+(?:st|nd|rd|th) season|offering training and performance opportunities|experience this exhibit online or in person)\b/i;
 const GENERIC_JOIN_INTRO = /^join\s+[^.!?]{1,80}\s+for\s+[^.!?]{3,140}[.!?]?$/i;
+const ACTIVITY_CONTENT_NOUN = /\b(?:yoga|music|movement|food|shopping|storytelling|rhythms?|dance|dancing|stories|songs|rhymes|fingerplays?|crafts?|games?|movies?|films?|screenings?|trick[- ]or[- ]treat(?:ing)?|pumpkin decorating|face painting|magic show)\b/i;
+const ABSTRACT_ACTIVITY_COPY = /\b(?:explore new ways to play and learn|engaging and fun activities|variety of activities|nurture curiosity and discover new things|designed to engage children through)\b/i;
 const DIRECT_PARTICIPATION_ACTION = /(?:^(?:come\b[^.!?]{0,80}\band\s+)?(?:follow|find|collect|trick[- ]or[- ]treat(?:ing)?)\b|\b(?:you|families|kids|children|visitors|participants|attendees|guests?)\b[^.!?]{0,100}\b(?:can|will|are invited to|are welcome to)?\s*(?:follow|find|collect|trick[- ]or[- ]treat(?:ing)?)\b)/i;
 const SUPPORT_ACTIVITY = /\b(?:homework help|tutoring|tutors?|study help|academic support)\b/i;
 
@@ -152,7 +154,16 @@ function isGenericJoinOnly(text) {
   return GENERIC_JOIN_INTRO.test(value)
     && !CONCRETE_ACTION.test(value)
     && !DIRECT_PARTICIPATION_ACTION.test(value)
-    && !SPECIFIC_OBJECT.test(value);
+    && !SPECIFIC_OBJECT.test(value)
+    && !ACTIVITY_CONTENT_NOUN.test(value);
+}
+
+function isAbstractActivityOnly(text) {
+  const value = normalizeText(text);
+  return ABSTRACT_ACTIVITY_COPY.test(value)
+    && !SPECIFIC_OBJECT.test(value)
+    && !DIRECT_PARTICIPATION_ACTION.test(value)
+    && !ACTIVITY_CONTENT_NOUN.test(value);
 }
 
 export function isGenericExperienceOnly(text) {
@@ -196,11 +207,11 @@ export function isLikelyFragment(text) {
 export function isSummaryAcceptable(text, { title = '', format = '' } = {}) {
   const value = normalizeText(text);
   if (value.length < 20) return false;
-  if (isLikelyFragment(value) || isLogisticsOnly(value) || isBiographyOrPromotion(value) || isOperationalNote(value) || isGenericExperienceOnly(value) || isPromotionalFluffOnly(value) || isGenericJoinOnly(value)) return false;
+  if (isLikelyFragment(value) || isLogisticsOnly(value) || isBiographyOrPromotion(value) || isOperationalNote(value) || isGenericExperienceOnly(value) || isPromotionalFluffOnly(value) || isGenericJoinOnly(value) || isAbstractActivityOnly(value)) return false;
   if (/\bpreview\b/i.test(title) && !/\b(?:preview|introduction|intro(?:duction)?|talk|discussion|guide)\b/i.test(value)) return false;
   return hasActivitySignal(value)
     || ['movie-screening', 'live-show', 'museum-exhibition', 'sports-game'].includes(format)
-    || /\b(?:movie|film|concert|performance|show|exhibit(?:ion)?|opera|ballet|musical|game|match)\b/i.test(title);
+    || /\b(?:movies?|films?|concerts?|performances?|shows?|exhibit(?:ion)?s?|opera|ballet|musical|games?|matches?)\b/i.test(title);
 }
 
 export function hasUsableSourceContent(text) {
@@ -237,6 +248,7 @@ function scoreSentence(sentence, index) {
   if (BACKGROUND_ONLY.test(sentence)) score -= 22;
   if (PROMOTIONAL_FLUFF.test(sentence)) score -= 30;
   if (isGenericJoinOnly(sentence)) score -= 22;
+  if (isAbstractActivityOnly(sentence)) score -= 28;
   if (isFeatureListOnly(sentence)) score -= 14;
   if (LOGISTICS.test(sentence)) score -= 20;
   if (isBiographyOrPromotion(sentence)) score -= 60;
@@ -394,6 +406,7 @@ export function assessSummaryReadability(text) {
   if (value && isGenericExperienceOnly(value)) issues.push('generic_experience');
   if (value && isPromotionalFluffOnly(value)) issues.push('promotional_fluff');
   if (value && isGenericJoinOnly(value)) issues.push('generic_join_intro');
+  if (value && isAbstractActivityOnly(value)) issues.push('abstract_activity');
   return { ok: issues.length === 0, issues };
 }
 
