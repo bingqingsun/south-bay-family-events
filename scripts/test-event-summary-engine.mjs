@@ -123,7 +123,7 @@ assert.match(featureListVsAction.summary, /Follow the trail of clues/i,
   'a visitor action should outrank a static feature list');
 
 const liveShowStory = buildExtractiveSummary(
-  "Jasper Rabbit loves carrots, especially the ones from Crackenhopper Field. Based on the beloved book by Aaron Reynolds, this funny tale is the perfect fall treat for families.",
+  "Jasper Rabbit loves carrots, especially the ones from Crackenhopper Field. Based on the beloved book by Aaron Reynolds and illustrated by Peter Brown, this funny and slightly spooky tale is the perfect fall treat for our youngest community members and their families.",
   { title: 'Creepy Carrots!', format: 'live-show' }
 );
 assert.match(liveShowStory.summary, /Jasper Rabbit loves carrots/i,
