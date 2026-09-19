@@ -76,14 +76,8 @@
   },
   {
     "name": "City of Santa Clara",
-    "domain": "calendar.santaclaraca.gov",
-    "method": "official-listing",
-    "feedUrl": "https://calendar.santaclaraca.gov/santaclaraca",
-    "maxLinks": 160,
-    "city": "Santa Clara",
-    "candidatePattern": "family|children|kids?|spook|halloween|art|wine|festival|cinema|movie|concert|night market|holiday|celebration|garden|youth|parade|diwali|lunar|mid-autumn",
-    "familyPattern": "family|families|children|kids?|youth|teens?|all ages|family & kids activities|caregiver|parent|festival|movie|cinema|community",
-    "linkPattern": "/santaclaraca/\\\\d+"
+    "domain": "santaclaraca.gov",
+    "query": "events kids family"
   },
   {
     "name": "Computer History Museum",
@@ -96,9 +90,12 @@
   {
     "name": "Cantor Arts Center",
     "domain": "events.stanford.edu",
-    "method": "stanford",
-    "feedUrl": "https://events.stanford.edu/api/2/events/search?search=Art%20for%20All%20Family%20Day&days=365&pp=50",
-    "city": "Stanford"
+    "method": "stanford-venue-family",
+    "feedUrl": "https://events.stanford.edu",
+    "city": "Stanford",
+    "venueSearch": "Cantor Arts Center",
+    "venuePattern": "^Cantor Arts Center$",
+    "days": 365
   },
   {
     "name": "Happy Hollow Park & Zoo",
