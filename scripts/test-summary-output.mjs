@@ -16,7 +16,7 @@ for (const event of events) {
   const evidence = String(event.summaryEvidence || '').replace(/\s+/g, ' ').trim();
 
   if (!allowedStatuses.has(event.summaryStatus)) violations.push(`${id}: invalid summaryStatus=${event.summaryStatus || 'missing'}`);
-  if (event.summaryVersion !== 'event-summary-v2-p3') violations.push(`${id}: summaryVersion must be event-summary-v2-p3`);
+  if (event.summaryVersion !== 'event-summary-v2-p4') violations.push(`${id}: summaryVersion must be event-summary-v2-p4`);
   if (!event.summaryVerifiedAt) violations.push(`${id}: missing summaryVerifiedAt`);
   if (!summary) violations.push(`${id}: missing parentSummary`);
   if (event.description !== event.parentSummary) violations.push(`${id}: description must mirror parentSummary during v2 migration`);
