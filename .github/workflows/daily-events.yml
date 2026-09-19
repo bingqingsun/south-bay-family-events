@@ -58,5 +58,13 @@ jobs:
           git config user.name "south-bay-events-bot"
           git config user.email "actions@github.com"
           git add data/events.json data/events.js data/museums.json data/museums.js
-          git diff --staged --quiet || git commit -m "chore: refresh South Bay events"
-          git push
+          if git diff --staged --quiet; then
+            exit 0
+          fi
+          git commit -m "chore: refresh South Bay events"
+          # A maintainer may update docs/code while this refresh is running.
+          # Rebase the generated-data commit onto the latest branch head instead
+          # of failing a non-fast-forward push and losing an otherwise valid refresh.
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
