@@ -134,8 +134,10 @@ assert.doesNotMatch(updateScript, /\bcardSummary\s*\(/, 'source adapters must no
 assert.match(updateScript, /event-summary-engine\.mjs/, 'all summary generation must route through the shared engine');
 assert.doesNotMatch(updateScript, /\beventSummaryFields\b|\bextractParentSummary\b|\bbuildExtractiveSummary\b|\bisSummaryAcceptable\b/,
   'update-events must not contain a second summary implementation');
-assert.doesNotMatch(updateScript, /function\s+[A-Za-z0-9_]*ActivitySummary\s*\(/,
-  'source-specific adapters must not define activity-summary functions');
+assert.doesNotMatch(updateScript, /function\s+[A-Za-z0-9_]*(?:ActivitySummary|ActivityDescription)\s*\(/,
+  'source-specific adapters must not define activity-summary or activity-description selectors');
+assert.doesNotMatch(updateScript, /\.find\(hasUsableSourceContent\)|descriptionCandidates\.find|const\s+summary\s*=\s*text\.match/,
+  'source adapters may extract official text but must not rank or hand-pick the parent-facing sentence');
 assert.match(updateScript, /buildSummaryRecord\s*\(/, 'summary metadata must come from the shared engine');
 assert.match(updateScript, /hasPublishableSummary\s*\(/, 'adapter publishability checks must use the shared engine');
 
