@@ -116,6 +116,40 @@ assert.equal(
   'legal and policy copy must never become an activity description'
 );
 
+assert.equal(
+  buildExtractiveSummary('Bright colors and lots of little friends may make the area visually busy. Texture: Different stations may include sticky tape and other unusual textures.').summary,
+  '',
+  'sensory and accessibility notes must not become the parent-facing activity summary'
+);
+assert.equal(
+  buildExtractiveSummary('You may be asked to confirm your membership in a follow-up email.').summary,
+  '',
+  'membership administration must not become the activity summary'
+);
+assert.equal(
+  buildExtractiveSummary('Trick-or-Treat stops to be announced soon.').summary,
+  '',
+  'future operational placeholders must not become the activity summary'
+);
+assert.equal(
+  buildExtractiveSummary("Now in its 59th season, Example Arts is one of the region's premier youth performing arts organizations, offering training and performance opportunities to thousands of young artists each year.").summary,
+  '',
+  'organization biography must not become the activity summary'
+);
+assert.equal(
+  buildExtractiveSummary('Experience this exhibit online or in person.', { format: 'museum-exhibition' }).summary,
+  '',
+  'display modality alone is not enough to explain an exhibit'
+);
+assert.equal(isLikelyFragment('A. We cannot guarantee that we will have your size.'), true,
+  'Q&A answer fragments must not be published by themselves');
+
+const storytimeSpecific = buildExtractiveSummary(
+  'Join Señorita Juliana for Bilingual Family Storytime at the College Terrace Library! Enjoy stories, songs, rhymes, and movement activities in Spanish and English.'
+);
+assert.match(storytimeSpecific.summary, /Enjoy stories, songs, rhymes/i,
+  'specific participation details must outrank a generic join-the-program introduction');
+
 const featureListVsAction = buildExtractiveSummary(
   "Games, live music, food and drink, and thousands of pumpkins. Follow the trail of clues through a glowing woodland and into a hidden village."
 );
