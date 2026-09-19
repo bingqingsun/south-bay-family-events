@@ -2506,7 +2506,7 @@ async function readPaloAlto(source) {
     || 'children|kids?|famil(?:y|ies)|youth|teen|toddler|preschool|elementary|middle school|high school|all ages|parent(?:s)?\\s*(?:and|&)\\s*(?:child|kid)', 'i');
   const excluded = /\b(?:committee|commission|council|board|meeting|recruitment|hearing|work session)\b/i;
   const seen = new Set();
-  return [...html.matchAll(/<div class=["']list-item-container[\s\S]*?<\/article>/gi)].flatMap(blockMatch => {
+  const candidates = [...html.matchAll(/<div class=["']list-item-container[\s\S]*?<\/article>/gi)].flatMap(blockMatch => {
     const block = blockMatch[0];
     const href = htmlAttribute(block, /<a[^>]+href=["']([^"']+)["']/i);
     const title = plainText(block.match(/list-item-title[^>]*>([\s\S]*?)<\/h2>/i)?.[1] || '');
@@ -2527,14 +2527,29 @@ async function readPaloAlto(source) {
     const place = parts.shift() || source.name;
     const cityIndex = parts.findIndex(value => /^palo alto(?:\s+ca)?$/i.test(value));
     const street = cityIndex >= 0 ? parts.slice(0, cityIndex).join(', ') : '';
-    const event = directEvent({
-      id: 'paloalto-' + createHash('sha256').update(key).digest('hex').slice(0, 16), title, dateValue, description,
-      image: image ? new URL(image, source.feedUrl).href : '', place, address: shortAddress(street, 'Palo Alto'), city: 'Palo Alto',
-      source: source.name, url, ageText: audienceText
-    });
-    return [{ ...event, ...costInfo('', description) }];
+    return [{ title, url, dateValue, description, image, place, street, audienceText, key }];
   });
-}
+  const events = await Promise.all(candidates.map(async candidate => {
+    let detailHtml = '';
+    try {
+      const detailResponse = await fetch(candidate.url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+      if (detailResponse.ok) detailHtml = await detailResponse.text();
+    } catch {}
+    const detailText = plainText(detailHtml);
+    const detailDescription = officialParagraphText(detailHtml, { minLength: 20 });
+    const dateMatch = detailText.match(/Next date:\s*((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\s*\|\s*(\d{1,2}:\d{2}\s*(?:AM|PM))/i);
+    const dateValue = dateMatch ? isoDateFromOfficialText(dateMatch[1], dateMatch[2]) : candidate.dateValue;
+    const description = detailDescription || candidate.description;
+    const event = directEvent({
+      id: 'paloalto-' + createHash('sha256').update(`${candidate.url}|${dateValue}`).digest('hex').slice(0, 16),
+      title: candidate.title, dateValue, description,
+      image: officialPageOgImage(detailHtml) || (candidate.image ? new URL(candidate.image, source.feedUrl).href : ''),
+      place: candidate.place, address: shortAddress(candidate.street, 'Palo Alto'), city: 'Palo Alto',
+      source: source.name, url: candidate.url, ageText: `${candidate.audienceText} ${detailText.slice(0, 3500)}`
+    });
+    return hasUsableSourceContent(event.description) ? { ...event, ...costInfo('', detailText || description) } : null;
+  }));
+  return events.filter(Boolean);
 
 // Happy Hollow exposes its special-event calendar as server-rendered Event
 // schema.  It also includes daily operating hours in that same calendar;
