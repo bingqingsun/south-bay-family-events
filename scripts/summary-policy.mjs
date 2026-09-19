@@ -12,8 +12,18 @@ const BACKGROUND_ONLY = /\b(?:our mission is|is designed to|aims? to|a great way
 const LOGISTICS_ONLY = /\b(?:parking|entrance|room|location|arrive early|first[- ]come|space is limited|registration required|register online|weather permitting|held indoors|held outdoors|cancell?ed|rescheduled|sensory notes?|accessibility|accommodations?|visuals?|noise level|sound)\b/i;
 
 export function splitSourceSentences(sourceText) {
-  return (String(sourceText || '').match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [])
-    .map(sentence => sentence.replace(/\s+/g, ' ').trim())
+  const text = String(sourceText || '').replace(/\s+/g, ' ').trim();
+  if (!text) return [];
+
+  // Protect common time abbreviations before sentence segmentation. Without
+  // this, "3:30 p.m. to make..." becomes a fake sentence fragment beginning
+  // with "to make", which is faithful text but unusable parent-facing copy.
+  const protectedText = text
+    .replace(/\ba\.m\./gi, match => match.replace(/\./g, '∯'))
+    .replace(/\bp\.m\./gi, match => match.replace(/\./g, '∯'));
+
+  return (protectedText.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [])
+    .map(sentence => sentence.replace(/∯/g, '.').replace(/\s+/g, ' ').trim())
     .filter(Boolean);
 }
 
