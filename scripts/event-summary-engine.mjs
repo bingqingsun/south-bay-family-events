@@ -30,7 +30,10 @@ const EVENT_NOUN = /\b(?:story(?:time)?|songs?|rhymes?|crafts?|games?|workshop|c
 const EXPERIENCE_STRUCTURE = /\b(?:with|featur(?:e|es|ing)|includes?|offers?|offering|where|activities?|demonstrations?|performances?|stations?|zone|zones)\b/i;
 const STRONG_ACTIVITY_DETAIL = /\b(?:make|making|build|building|create|creating|paint|painting|decorate|decorating|assemble|assembling|plant|planting|cook|cooking|bake|baking|craft|crafting|play|playing|watch|watching|read|reading|dance|dancing|sing|singing|taste|tasting|eat|eating|drink|drinking|tour|touring|hike|hiking|try|trying|practice|practicing|explore|exploring|learn|learning|design|designing|draw|drawing|sew|sewing|knit|knitting|crochet|crocheting|meet|meeting|listen|listening|perform|performing|compete|competing|solve|solving|experiment|experimenting|test|testing|launch|launching|fly|flying|throw|throwing|kick|kicking|jump|jumping|stamp|stamping|fold|folding|color|coloring|write|writing|ride|riding|walk|walking|follow|following|find|finding|collect|collecting|participate|participating|discuss|discussing|trick[- ]or[- ]treat(?:ing)?)\b/i;
 const GENERIC_EXPERIENCE = /\b(?:family[- ]friendly|fun|exciting|interactive|immersive|magical|spectacular|unforgettable|special)\b[^.!?]{0,100}\bexperience\b/i;
-const PROMOTIONAL_FLUFF = /\b(?:cherished|treasured|beloved|community favorite|unforgettable experience|something for everyone|perfect way to|experience the magic|make memories|memories that last|must[- ]see|can't miss|cannot miss|not to be missed)\b/i;
+const PROMOTIONAL_FLUFF = /\b(?:cherished|treasured|beloved|community favorite|unforgettable experience|something for everyone|perfect way to|experience the magic|make memories|memories that last|never forget|must[- ]see|can't miss|cannot miss|not to be missed)\b/i;
+const SENSORY_OR_ACCESSIBILITY_DETAIL = /\b(?:visually busy|visual stimulation|sensory (?:need|needs|difference|differences|processing)|different textures?|unusual textures?|noise level|may become noisy|bright lights?|flashing lights?|loud sounds?|accessibility accommodations?)\b/i;
+const ADMINISTRATIVE_COPY = /\b(?:confirm your membership|membership in a follow-up email|stops? to be announced|details? to be announced|schedule subject to change|regular library hours|library hours|organization is one of|one of the region'?s premier|now in its \d+(?:st|nd|rd|th) season|offering training and performance opportunities|experience this exhibit online or in person)\b/i;
+const GENERIC_JOIN_INTRO = /^join\s+(?:us|[A-Z][A-Za-z'’.-]+(?:\s+[A-Z][A-Za-z'’.-]+){0,3})\s+for\s+[^.!?]{3,100}[.!?]?$/i;
 const DIRECT_PARTICIPATION_ACTION = /(?:^(?:come\b[^.!?]{0,80}\band\s+)?(?:follow|find|collect|trick[- ]or[- ]treat(?:ing)?)\b|\b(?:you|families|kids|children|visitors|participants|attendees|guests?)\b[^.!?]{0,100}\b(?:can|will|are invited to|are welcome to)?\s*(?:follow|find|collect|trick[- ]or[- ]treat(?:ing)?)\b)/i;
 const SUPPORT_ACTIVITY = /\b(?:homework help|tutoring|tutors?|study help|academic support)\b/i;
 
@@ -107,9 +110,11 @@ export function isLogisticsOnly(text) {
   const value = normalizeText(text);
   if (!value) return true;
   return /^(?:free|by appointment|call(?:\s|\.|$)|contact\b|same day|offered in|registration|reserve\b|tickets?\b|admission\b|please\b|drop-?ins?\b|walk[- ]ins?\b|no registration|must\b|participants?\b)/i.test(value)
-    || /^(?:children|kids?|adults?|teens?|famil(?:y|ies)|participants?)\b[\s\S]{0,120}\b(?:welcome|must|should|need|able to|can comfortably|may participate)\b/i.test(value)
+    || /^(?:children|kids?|adults?|teens?|famil(?:y|ies)|participants?|parents?|caregivers?|parents?\/caregivers?)\b[\s\S]{0,140}\b(?:welcome|must|should|need|able to|can comfortably|may participate|stay|remain)\b/i.test(value)
     || /^(?:designs?|prints?|library staff|color|file format|materials?)\b.*\b(?:must|are|will|may|if|criteria|available)\b/i.test(value)
     || /ada accommodation|for more information|please (?:call|email|visit)|click here|all minors under|parent\/guardian approval|release of liability|difficulty rating|terms (?:&|and) conditions|terms of use|privacy policy|refund policy|all rights reserved|rules (?:&|and) regulations|reserves the right to (?:cancel|refuse)|printable if|load and save|file format/i.test(value)
+    || SENSORY_OR_ACCESSIBILITY_DETAIL.test(value)
+    || ADMINISTRATIVE_COPY.test(value)
     || (LOGISTICS.test(value) && !CONCRETE_ACTION.test(value));
 }
 
@@ -174,6 +179,8 @@ export function isLikelyFragment(text) {
   // allowed because the comma introduces a complete main clause.
   if (DANGLING_INFINITIVE.test(value) && !/^[^,]{1,120},\s*[A-Z]?[a-z]+\b/.test(value)) return true;
   if (/[:;,–—-]\s*$/.test(value)) return true;
+  if (/^(?:Q|A)\.\s*/.test(value)) return true;
+  if (/\((?:e\.g|ex)\.\s*$/i.test(value)) return true;
   if (/^(?:also|then|however|therefore|instead|additionally)\b/i.test(value)) return true;
   return false;
 }
@@ -221,6 +228,7 @@ function scoreSentence(sentence, index) {
   if (sentence.length < 22) score -= 8;
   if (BACKGROUND_ONLY.test(sentence)) score -= 22;
   if (PROMOTIONAL_FLUFF.test(sentence)) score -= 30;
+  if (GENERIC_JOIN_INTRO.test(sentence)) score -= 22;
   if (isFeatureListOnly(sentence)) score -= 14;
   if (LOGISTICS.test(sentence)) score -= 20;
   if (isBiographyOrPromotion(sentence)) score -= 60;
