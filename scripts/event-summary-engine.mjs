@@ -281,3 +281,32 @@ export function assessSummaryReadability(text) {
   if (value && isOperationalNote(value)) issues.push('operational_note');
   return { ok: issues.length === 0, issues };
 }
+
+export function buildOfficialSportsSummary({ homeTeam, opponent, venue = '', gameWord = 'game', promotions = [] } = {}) {
+  const cleanHome = normalizeText(homeTeam);
+  const cleanOpponent = normalizeText(opponent);
+  const cleanVenue = normalizeText(venue);
+  const cleanGameWord = /^(?:game|match)$/i.test(String(gameWord || '')) ? String(gameWord).toLowerCase() : 'game';
+  const cleanPromotions = (Array.isArray(promotions) ? promotions : [])
+    .map(normalizeText)
+    .filter(Boolean);
+
+  if (!cleanHome || !cleanOpponent) {
+    return { summary: '', evidenceData: null };
+  }
+
+  let summary = `Official ${cleanHome} home ${cleanGameWord} against ${cleanOpponent}${cleanVenue ? ` at ${cleanVenue}` : ''}.`;
+  if (cleanPromotions.length) summary += ` Featured promotion: ${cleanPromotions.join('; ')}.`;
+
+  return {
+    summary,
+    evidenceData: {
+      kind: 'sports-game',
+      homeTeam: cleanHome,
+      opponent: cleanOpponent,
+      venue: cleanVenue,
+      gameWord: cleanGameWord,
+      promotions: cleanPromotions
+    }
+  };
+}
