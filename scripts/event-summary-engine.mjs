@@ -220,7 +220,7 @@ function scoreSentence(sentence, index) {
   if (sentence.length > 420) score -= 8;
   if (sentence.length < 22) score -= 8;
   if (BACKGROUND_ONLY.test(sentence)) score -= 22;
-  if (PROMOTIONAL_FLUFF.test(sentence)) score -= 18;
+  if (PROMOTIONAL_FLUFF.test(sentence)) score -= 30;
   if (isFeatureListOnly(sentence)) score -= 14;
   if (LOGISTICS.test(sentence)) score -= 20;
   if (isBiographyOrPromotion(sentence)) score -= 60;
