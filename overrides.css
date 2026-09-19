@@ -595,3 +595,56 @@ footer .brand .brand-name .brand-accent { color: #8bb0ff; }
     min-height: 176px;
   }
 }
+
+
+/* Mobile quick actions: Hero shortcuts -> Filter-only entry -> deep-browse floating controls. */
+@media (max-width: 760px) {
+  .home-page .mobile-quick-filters {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 0 16px;
+  }
+  .home-page .mobile-quick-filters #mobileWeekend,
+  .home-page .mobile-quick-filters #mobileNearby {
+    display: none;
+  }
+  .home-page .mobile-quick-filters #mobileFilterToggle {
+    flex: 0 0 auto;
+    min-height: 44px;
+    padding: 0 16px;
+  }
+  .home-page .mobile-quick-filters.is-deep-browsing {
+    align-items: center;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    background: rgba(255,255,255,.94);
+    border: 1px solid rgba(225,230,238,.94);
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(23,36,63,.14);
+    display: grid;
+    gap: 6px;
+    grid-template-columns: 1.2fr 1fr .82fr;
+    left: 16px;
+    margin: 0;
+    max-width: 560px;
+    padding: 6px;
+    position: fixed;
+    right: 16px;
+    top: max(8px, env(safe-area-inset-top));
+    width: auto;
+    z-index: 30;
+  }
+  .home-page .mobile-quick-filters.is-deep-browsing #mobileWeekend,
+  .home-page .mobile-quick-filters.is-deep-browsing #mobileNearby {
+    display: block;
+  }
+  .home-page .mobile-quick-filters.is-deep-browsing button {
+    border: 0;
+    border-radius: 10px;
+    min-height: 40px;
+    padding: 0 8px;
+  }
+  .home-page .mobile-quick-filters.is-deep-browsing button:not(.active) {
+    background: transparent;
+  }
+}
