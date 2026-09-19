@@ -188,7 +188,7 @@ export function isLikelyFragment(text) {
 export function isSummaryAcceptable(text, { title = '', format = '' } = {}) {
   const value = normalizeText(text);
   if (value.length < 20) return false;
-  if (isLikelyFragment(value) || isLogisticsOnly(value) || isBiographyOrPromotion(value) || isOperationalNote(value) || isGenericExperienceOnly(value) || isPromotionalFluffOnly(value)) return false;
+  if (isLikelyFragment(value) || isLogisticsOnly(value) || isBiographyOrPromotion(value) || isOperationalNote(value) || isGenericExperienceOnly(value) || isPromotionalFluffOnly(value) || GENERIC_JOIN_INTRO.test(value)) return false;
   if (/\bpreview\b/i.test(title) && !/\b(?:preview|introduction|intro(?:duction)?|talk|discussion|guide)\b/i.test(value)) return false;
   return hasActivitySignal(value)
     || ['movie-screening', 'live-show', 'museum-exhibition', 'sports-game'].includes(format)
@@ -385,6 +385,7 @@ export function assessSummaryReadability(text) {
   if (value && isOperationalNote(value)) issues.push('operational_note');
   if (value && isGenericExperienceOnly(value)) issues.push('generic_experience');
   if (value && isPromotionalFluffOnly(value)) issues.push('promotional_fluff');
+  if (value && GENERIC_JOIN_INTRO.test(value)) issues.push('generic_join_intro');
   return { ok: issues.length === 0, issues };
 }
 
