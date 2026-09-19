@@ -1303,7 +1303,7 @@ async function readMidpen(source) {
 function stanfordEventsFromPayloads(payloads, source) {
   // “Everyone” in Stanford's calendar includes adult lectures. We only accept
   // entries with an explicit youth/family signal in the organizer's own copy.
-  const youthSignal = /family day|family-friendly|families welcome|for families|family program|family event|family workshop|family activit(?:y|ies)|\\b(?:kids?|children|teens?|tweens?)\\b|youth (?:program|workshop|activit(?:y|ies)|camp)|for youth|K[-– ]?12|elementary|middle school|high school|school[- ]age|girl scout|summer camp|homeschool|storytime/i;
+  const youthSignal = /family day|family-friendly|families welcome|for families|family program|family event|family workshop|family activit(?:y|ies)|\b(?:kids?|children|teens?|tweens?)\b|youth (?:program|workshop|activit(?:y|ies)|camp)|for youth|K[-– ]?12|elementary|middle school|high school|school[- ]age|girl scout|summer camp|homeschool|storytime/i;
   const titlePattern = source.titlePattern ? new RegExp(source.titlePattern, 'i') : null;
   const seen = new Set();
   return payloads.flatMap(payload => payload.events || []).flatMap(wrapper => {
@@ -1319,7 +1319,7 @@ function stanfordEventsFromPayloads(payloads, source) {
     const audienceText = [title, description, audiences, departments, tags].join(' ');
     const url = item.localist_url || item.url;
     const key = String(item.id || url || '');
-    if (!title || !url || !key || seen.has(key) || item.private || item.status !== 'live' || /\\bcancel+ed\\b/i.test(title) || !youthSignal.test(audienceText) || (titlePattern && !titlePattern.test(title))) return [];
+    if (!title || !url || !key || seen.has(key) || item.private || item.status !== 'live' || /\bcancel+ed\b/i.test(title) || !youthSignal.test(audienceText) || (titlePattern && !titlePattern.test(title))) return [];
     seen.add(key);
     return liveInstances.map((instance, instanceIndex) => {
       const dateValue = String(instance.start || '');
@@ -2420,25 +2420,25 @@ async function readCivic(source) {
 async function readCupertino(source) {
   const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
   const html = await response.text();
-  if (!response.ok || !/list-item-container[\\s\\S]*list-item-title/i.test(html)) {
+  if (!response.ok || !/list-item-container[\s\S]*list-item-title/i.test(html)) {
     throw new Error('Cupertino official calendar was not valid: ' + response.status);
   }
   const monthNumbers = { jan: '01', feb: '02', mar: '03', apr: '04', may: '05', jun: '06', jul: '07', aug: '08', sep: '09', oct: '10', nov: '11', dec: '12' };
   const seen = new Set();
-  const items = [...html.matchAll(/<div class=["']list-item-container[\\s\\S]*?<\\/article>/gi)].flatMap(blockMatch => {
+  const items = [...html.matchAll(/<div class=["']list-item-container[\s\S]*?<\/article>/gi)].flatMap(blockMatch => {
     const block = blockMatch[0];
     const href = htmlAttribute(block, /<a[^>]+href=["']([^"']+)["']/i);
-    const title = plainText(block.match(/list-item-title[^>]*>([\\s\\S]*?)<\\/h2>/i)?.[1] || '');
-    const day = htmlAttribute(block, /part-date[^>]*>([\\s\\S]*?)<\\/span>/i);
-    const month = htmlAttribute(block, /part-month[^>]*>([\\s\\S]*?)<\\/span>/i).slice(0, 3).toLowerCase();
-    const year = htmlAttribute(block, /part-year[^>]*>([\\s\\S]*?)<\\/span>/i);
-    const description = htmlAttribute(block, /list-item-block-desc[^>]*>([\\s\\S]*?)<\\/span>/i);
-    const placeText = htmlAttribute(block, /list-item-address[^>]*>([\\s\\S]*?)<\\/p>/i).replace(/\\s*,\\s*/g, ', ');
-    const audience = htmlAttribute(block, /tagged-as-list[\\s\\S]*?<span class=["']text["'][^>]*>([\\s\\S]*?)<\\/span>\\s*<\\/p>/i);
+    const title = plainText(block.match(/list-item-title[^>]*>([\s\S]*?)<\/h2>/i)?.[1] || '');
+    const day = htmlAttribute(block, /part-date[^>]*>([\s\S]*?)<\/span>/i);
+    const month = htmlAttribute(block, /part-month[^>]*>([\s\S]*?)<\/span>/i).slice(0, 3).toLowerCase();
+    const year = htmlAttribute(block, /part-year[^>]*>([\s\S]*?)<\/span>/i);
+    const description = htmlAttribute(block, /list-item-block-desc[^>]*>([\s\S]*?)<\/span>/i);
+    const placeText = htmlAttribute(block, /list-item-address[^>]*>([\s\S]*?)<\/p>/i).replace(/\s*,\s*/g, ', ');
+    const audience = htmlAttribute(block, /tagged-as-list[\s\S]*?<span class=["']text["'][^>]*>([\s\S]*?)<\/span>\s*<\/p>/i);
     const image = htmlAttribute(block, /<img[^>]+src=["']([^"']+)["']/i);
     const dateValue = year && monthNumbers[month] && day ? `${year}-${monthNumbers[month]}-${String(Number(day)).padStart(2, '0')}` : '';
     const activityText = `${title} ${description} ${audience}`;
-    const youthSignal = officialListingPattern(source, 'familyPattern', 'kids?\\s*&\\s*family|children|famil(?:y|ies)|youth|teen|toddler|school').test(activityText);
+    const youthSignal = officialListingPattern(source, 'familyPattern', 'kids?\s*&\s*family|children|famil(?:y|ies)|youth|teen|toddler|school').test(activityText);
     const url = href ? new URL(decodeXml(href), source.feedUrl).href : '';
     const id = url && dateValue ? `${url}|${dateValue}` : '';
     if (!id || seen.has(id) || !isUpcoming(dateValue) || !youthSignal) return [];
@@ -2453,24 +2453,24 @@ async function readCupertino(source) {
       if (detailResponse.ok) detailHtml = await detailResponse.text();
     } catch {}
     const detailText = plainText(detailHtml);
-    const detailTitle = plainText(detailHtml.match(/<h1[^>]*>([\\s\\S]*?)<\\/h1>/i)?.[1] || item.title);
+    const detailTitle = plainText(detailHtml.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)?.[1] || item.title);
     let dateValue = item.dateValue;
-    const nextDate = detailText.match(/Next date:\\s*((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{1,2},\\s+20\\d{2})\\s*\\|\\s*(\\d{1,2}:\\d{2}\\s*(?:AM|PM))/i);
-    const plainDate = detailText.match(/\\b((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{1,2},\\s+20\\d{2})\\b/i);
+    const nextDate = detailText.match(/Next date:\s*((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\s*\|\s*(\d{1,2}:\d{2}\s*(?:AM|PM))/i);
+    const plainDate = detailText.match(/\b((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\b/i);
     const timeAfterDate = plainDate ? detailText.slice(detailText.indexOf(plainDate[0]) + plainDate[0].length, detailText.indexOf(plainDate[0]) + plainDate[0].length + 180)
-      .match(/(\\d{1,2}(?::\\d{2})?\\s*(?:a\\.?m\\.?|p\\.?m\\.?))\\s+(?:to|-)/i) : null;
-    const normalizeClock = value => String(value || '').replace(/a\\.?m\\.?/i, 'AM').replace(/p\\.?m\\.?/i, 'PM');
+      .match(/(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?))\s+(?:to|-)/i) : null;
+    const normalizeClock = value => String(value || '').replace(/a\.?m\.?/i, 'AM').replace(/p\.?m\.?/i, 'PM');
     if (nextDate) dateValue = isoDateFromOfficialText(nextDate[1], normalizeClock(nextDate[2]));
     else if (plainDate && timeAfterDate) dateValue = isoDateFromOfficialText(plainDate[1], normalizeClock(timeAfterDate[1]));
     const description = detailHtml ? officialDetailDescription(detailHtml, firstOfficialEventSchema(detailHtml), detailTitle) || item.description : item.description;
     const locationParts = item.placeText.split(',').map(value => value.trim()).filter(Boolean);
     const place = locationParts.shift() || source.name;
-    const street = locationParts.filter(value => !/^\\d{5}(?:-\\d{4})?$/.test(value)).join(', ');
+    const street = locationParts.filter(value => !/^\d{5}(?:-\d{4})?$/.test(value)).join(', ');
     const evidence = `${detailTitle} ${description} ${item.audience} ${detailText.slice(0, 3500)}`;
     const event = directEvent({
       id: 'cupertino-' + createHash('sha256').update(`${item.url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
       title: detailTitle, dateValue, description,
-      image: item.image ? new URL(decodeXml(item.image), source.feedUrl).href : htmlAttribute(detailHtml, /<meta\\s+property=["']og:image["']\\s+content=["']([^"']+)/i),
+      image: item.image ? new URL(decodeXml(item.image), source.feedUrl).href : htmlAttribute(detailHtml, /<meta\s+property=["']og:image["']\s+content=["']([^"']+)/i),
       place, address: shortAddress(street, source.city || 'Cupertino'), city: source.city || 'Cupertino',
       source: source.name, url: item.url, ageText: evidence
     });
