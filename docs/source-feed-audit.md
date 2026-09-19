@@ -1,7 +1,9 @@
 # 官方活动来源逐个审计
 
-审计日期：2026-08-27  
-审计范围：网站当前配置的 22 个来源。
+历史审计日期：2026-08-27
+历史审计范围：当时配置的 22 个来源。
+
+> 本文档以下内容是当时的接入决策记录，不再作为当前来源总数、接入状态或 SerpApi 用量的依据。当前权威清单为 `data/sources.json`；每次实际运行结果为 `data/source-health.json`。该健康报告会记录每个来源的刷新状态、活动数与连续失败次数，并在同一来源连续失败 3 次时在 GitHub Actions 中标记警告。
 实现状态更新：The Tech Interactive、Foothill College、Midpen 与 Stanford Events 已改为直接读取官方活动页面/API，不再消耗 SerpApi 额度。
 
 ## 判定标准
@@ -14,7 +16,7 @@
 
 “有活动页面”不等于“已经自动接入”；“可加入日历”也不等于“有全量可订阅日历”。
 
-## 已接入：8 个（不消耗搜索额度）
+## 历史快照：当时已接入 8 个（不消耗搜索额度）
 
 | 来源 | 类型 | 已验证的入口 | 当前处理 |
 | --- | --- | --- | --- |
@@ -50,7 +52,7 @@
 | 17 | SLAC National Accelerator Laboratory | 官方网页日历 | [官方活动页](https://www6.slac.stanford.edu/news-and-events/events)及[公开参观](https://www6.slac.stanford.edu/news-and-events/events/public-tours)。 | 有 STEM Community Day、公开参观等；参观通常 12+，所以不能一概标 K–12。未发现批量 feed。 |
 | 18 | Stanford Events | **已直接接入：官方 Localist API** | [官方 RSS/ICS 说明](https://events-help.stanford.edu/connect-events-calendar/rss-and-calendar-feeds)；公开 [Localist API](https://events.stanford.edu/api/2/events?pp=5&days=365)返回活动 JSON。 | 已实施保守筛选：仅明确儿童/青少年/家庭活动信号、公开、未来且未取消的活动可发布。 |
 
-## 最终数量与搜索影响
+## 历史数量与搜索影响
 
 - 当前直接来源：**8** 个。
 - 尚在搜索兜底的来源：**14** 个；按每周二、周四运行，约为 **112 次／4 周**（或 5 周月份约 140 次）SerpApi 查询。
