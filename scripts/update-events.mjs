@@ -12,7 +12,7 @@ import {
   normalizedMovieTitle,
   normalizedMovieRating
 } from './movie-policy.mjs';
-import { selectConcreteSourceSentence, selectLabeledActivityBundle, shouldReplaceWeakSummary } from './summary-policy.mjs';
+import { selectConcreteSourceSentence, selectLabeledActivityBundle, shouldReplaceWeakSummary, splitSourceSentences } from './summary-policy.mjs';
 
 const key = process.env.SERPAPI_KEY;
 // Translation is intentionally paused: no third-party translation key is read
@@ -373,7 +373,7 @@ function cardSummary(html, title = '', format = '') {
   // If the source has no strong action sentence (for example a film synopsis
   // or exhibition description), choose the best acceptable source sentence.
   // This stage may delete date prefixes, but never adds an activity fact.
-  const sentences = (text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || []).map(sentence => sentence
+  const sentences = splitSourceSentences(text).map(sentence => sentence
     .replace(/^(?:[a-z]+,?\s+)?[a-z]+\s+\d{1,2}\s*[-:–—]\s*/i, '')
     .replace(/^\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4}\s*[-:–—]\s*/, '')
     .trim())
