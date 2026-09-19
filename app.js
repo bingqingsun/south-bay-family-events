@@ -478,7 +478,14 @@ function syncMobileQuickFilters() {
   heroNearbyQuick.classList.toggle('active', state.sort === 'distance');
   heroNearbyQuick.setAttribute('aria-pressed', String(state.sort === 'distance'));
 }
-mobileFilterToggle.addEventListener('click', () => { const isOpen = mobileFilters.classList.toggle('is-open'); mobileFilterToggle.setAttribute('aria-expanded', String(isOpen)); });
+mobileFilterToggle.addEventListener('click', () => {
+  const wasDeepBrowsing = mobileQuickFilters?.classList.contains('is-deep-browsing');
+  const isOpen = mobileFilters.classList.toggle('is-open');
+  mobileFilterToggle.setAttribute('aria-expanded', String(isOpen));
+  if (isOpen && wasDeepBrowsing) {
+    mobileFilters.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+});
 mobileWeekend.addEventListener('click', () => { state.date = state.date === 'weekend' ? 'all' : 'weekend'; syncDateControls(); track('quick_filter_used', { filter_name: 'date', filter_value: state.date }); syncDatePriority(); render(); });
 mobileNearby.addEventListener('click', () => { const sortFilter = document.querySelector('#sortFilter'); if (state.sort === 'distance') { state.sort = 'recommended'; sortFilter.value = 'recommended'; setLocationStatus(); render(); return; } enableNearbySort(); });
 const mobileQuickFilters = document.querySelector('.mobile-quick-filters');
