@@ -310,3 +310,18 @@ export function buildOfficialSportsSummary({ homeTeam, opponent, venue = '', gam
     }
   };
 }
+
+export function buildOfficialMovieScreeningSummary({ rating, theater = '' } = {}) {
+  const cleanRating = normalizeText(rating);
+  const cleanTheater = normalizeText(theater);
+  if (!cleanRating) return { summary: '', evidenceData: null };
+
+  return {
+    summary: `${cleanRating}-rated movie screening${cleanTheater ? ` at ${cleanTheater}` : ''}.`,
+    evidenceData: {
+      kind: 'movie-screening',
+      rating: cleanRating,
+      theater: cleanTheater
+    }
+  };
+}
