@@ -94,7 +94,7 @@
     "feedUrl": "https://events.stanford.edu",
     "city": "Stanford",
     "venueSearch": "Cantor Arts Center",
-    "venuePattern": "^Cantor Arts Center$",
+    "venuePattern": "Cantor Arts Center",
     "days": 365
   },
   {
@@ -528,26 +528,6 @@
     ]
   },
   {
-    "name": "City of Cupertino",
-    "domain": "cupertino.gov",
-    "method": "curated",
-    "feedUrl": "https://www.cupertino.gov/Your-City/Departments/Public-Works/Transportation-Mobility/Safe-Routes-to-School-SR2S/Bike-Fest",
-    "city": "Cupertino",
-    "events": [
-      {
-        "title": "Fall Bike Fest",
-        "dateValue": "2026-09-26T09:00",
-        "description": "A free bike-themed family event with on-bike games, crafts, food, and activities at Cupertino Civic Center Plaza. A signed waiver is required for on-bike activities.",
-        "image": "https://www.cupertino.gov/files/assets/city/v/1/departments/images/public-works/safe-routes/bike-fest/short-header-bike-fest.png?w=988&h=133",
-        "place": "Cupertino Civic Center Plaza",
-        "address": "10300 Torre Ave, Cupertino",
-        "ageText": "All ages Family-friendly",
-        "cost": "Free",
-        "format": "sports"
-      }
-    ]
-  },
-  {
     "name": "Visit San Jose",
     "domain": "sanjose.org",
     "method": "curated",
@@ -954,28 +934,6 @@
         "address": "909 Kiely Blvd, Santa Clara",
         "ageText": "Ages 0–10",
         "cost": "Free",
-        "format": "festival",
-        "seasonalTheme": "halloween"
-      }
-    ]
-  },
-  {
-    "name": "City of Cupertino · Seasonal Events",
-    "domain": "cupertino.gov",
-    "method": "curated",
-    "feedUrl": "https://www.cupertino.gov/Parks-Recreation/Events/Monster-Mash",
-    "city": "Cupertino",
-    "events": [
-      {
-        "title": "Monster Mash",
-        "dateValue": "2026-10-24T17:00",
-        "endDateValue": "2026-10-24T20:00:00",
-        "description": "A registered Halloween event for children and families with costumes, games, activities, and seasonal fun at the Quinlan Community Center.",
-        "image": "https://www.cupertino.gov/files/assets/city/v/1/parks-and-recreation/images/events/monster-mash/rotating-banner-images/rotating_banner_monster_mash_2.png",
-        "place": "Quinlan Community Center",
-        "address": "10185 N Stelling Rd, Cupertino",
-        "ageText": "Ages 2–12 Families",
-        "cost": "$17–$26",
         "format": "festival",
         "seasonalTheme": "halloween"
       }
