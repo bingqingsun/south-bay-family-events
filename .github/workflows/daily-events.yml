@@ -1,5 +1,9 @@
 name: Refresh South Bay events
 
+concurrency:
+  group: refresh-south-bay-events-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   # A source or refresh-script change should immediately rebuild the published
   # list without asking the maintainer to run
