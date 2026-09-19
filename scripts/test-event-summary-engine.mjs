@@ -92,6 +92,8 @@ assert.equal(isLikelyFragment('at Gilroy Gardens for a family-friendly Halloween
   'lowercase dependent prepositional fragments must be rejected');
 assert.equal(isLikelyFragment('In this weekly class, participants will learn basic Tai Chi principles.'), false,
   'capitalized complete prepositional sentences must remain valid');
+assert.equal(isLikelyFragment('Until the day they start following him… or do they?'), true,
+  'narrative continuation fragments must not become activity summaries');
 
 assert.equal(
   buildExtractiveSummary("Join The Great Big BOO! at Gilroy Gardens for a family-friendly Halloween experience with light displays and interactive adventures.", { title: 'The Great Big BOO!' }).summary,
@@ -113,6 +115,13 @@ assert.equal(hasUsableSourceContent('Fall is here and the garden is full of colo
   'source gate should keep multi-sentence official content for the engine to evaluate');
 assert.equal(hasUsableSourceContent('Registration required. Parking is available in the rear lot.'), false,
   'source gate should reject logistics-only content');
+
+const homeworkSummary = buildExtractiveSummary(
+  "Are you a student in grades K-6th and need help with homework? We have tutors for you to receive homework help Monday through Thursday. Walk-ins welcome as spaces allow. Homework Help will not be held on October 12."
+);
+assert.match(homeworkSummary.summary, /tutors.*homework help/i,
+  'educational support copy must outrank walk-in and no-session logistics');
+assert.doesNotMatch(homeworkSummary.summary, /Walk-ins|will not be held/i);
 
 // Multi-activity bundles must remain exact contiguous source excerpts and skip
 // operational/accessibility labels.
