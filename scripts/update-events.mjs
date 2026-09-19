@@ -2215,7 +2215,11 @@ async function readJmzFamily(source) {
       city: source.city || 'Palo Alto',
       source: source.name, url: source.feedUrl,
       ageText: 'Families Children Parents Siblings Grandparents',
-      cost: 'Free', format: 'museum-program'
+      costStatus: 'free',
+      costLabel: '免费',
+      costSource: 'Official event page',
+      costEvidence: 'A free event',
+      format: 'museum-program'
     });
     return [event];
   });
