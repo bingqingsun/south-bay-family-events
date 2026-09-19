@@ -8,16 +8,20 @@ on:
       - 'scripts/**'
       - 'data/sources.json'
       - 'analytics.js'
+      - 'map-navigation.js'
+      - 'scripts/map-navigation.test.mjs'
       - 'privacy.html'
-      - '.github/workflows/ci.yml'
+      - '.github/workflows/**'
   push:
     branches: [main]
     paths:
       - 'scripts/**'
       - 'data/sources.json'
       - 'analytics.js'
+      - 'map-navigation.js'
+      - 'scripts/map-navigation.test.mjs'
       - 'privacy.html'
-      - '.github/workflows/ci.yml'
+      - '.github/workflows/**'
 
 permissions:
   contents: read
@@ -31,7 +35,9 @@ jobs:
         with:
           node-version: 22
       - name: Check refresh-script syntax
-        run: node --check scripts/update-events.mjs
+        run: |
+          node --check scripts/update-events.mjs
+          node --check map-navigation.js
       - name: Run policy and data-contract tests
         run: |
           node scripts/test-event-summary-engine.mjs
@@ -40,3 +46,4 @@ jobs:
           node scripts/cost-policy.test.mjs
           node scripts/movie-policy.test.mjs
           node scripts/recommendation.test.mjs
+          node scripts/map-navigation.test.mjs

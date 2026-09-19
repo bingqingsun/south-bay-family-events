@@ -35,7 +35,8 @@
           </div>
           <div class="detail-row address" hidden>
             <svg class="detail-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5.1-8 11-8 11S4 15.1 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
-            <a class="address-link" target="_blank" rel="noopener"><span class="detail-text"></span><span class="directions"></span><svg class="directions-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 7l5 5-5 5"></path></svg></a>
+            <span class="detail-text"></span>
+            <button class="address-link" type="button" hidden><span class="directions"></span><svg class="directions-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 7l5 5-5 5"></path></svg></button>
           </div>
         </div>
         <a class="source-link" target="_blank" rel="noopener">View activity details <span>→</span></a>
