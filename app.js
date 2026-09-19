@@ -105,17 +105,15 @@ function summaryIsNonActivity(text) {
     || /\b(?:musical director|guest speaker|presenter|lecturer|conductor|pianist|soprano|tenor)\b[^.!?]{0,180}\b(?:studied|trained|graduated|received|earned|published|translated)\b/.test(value)
     || /\b(?:will be|is) held (?:inside|indoors?|outdoors?)\b|\b(?:in case of|depending on) (?:rain|weather)\b|\b(?:parking|entrance|room|location) (?:is|will be|has changed)\b/.test(value);
 }
-function summaryFallback(event) {
-  const title = String(eventText(event, 'title') || '').replace(/^.+?:\s*/, '').trim();
-  if (/\bstory ?time\b/i.test(title)) return 'A library storytime with books, songs, and simple activities for children and caregivers.';
-  if (/\bpreview\b/i.test(title)) return `An introduction to ${title.replace(/\s+preview$/i, '')}, highlighting the story, music, and production before the performance.`;
-  if (/\b(?:open (?:hours?|house)|drop-?in)\b/i.test(title)) return `A drop-in activity centered on ${title}.`;
+function summaryFallback() {
+  // Trust-first policy: the browser never invents activity details from a
+  // title, category, or format. If the verified source summary is unusable,
+  // leave the description empty rather than guessing.
   return '';
 }
 function eventSummary(event) {
-  const text = eventText(event, 'description') || '';
-  const previewWithoutContext = /\bpreview\b/i.test(eventText(event, 'title') || '') && !/\b(?:preview|introduction|intro(?:duction)?|talk|discussion|guide)\b/i.test(text);
-  return summaryIsNonActivity(text) || previewWithoutContext ? summaryFallback(event) : text;
+  const text = eventText(event, 'description') || event.parentSummary || '';
+  return summaryIsNonActivity(text) ? '' : text;
 }
 function eventAgeLabel(event) {
   if (event.ageLabel) return event.ageLabel;
