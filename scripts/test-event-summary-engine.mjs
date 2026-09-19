@@ -256,6 +256,10 @@ assert.doesNotMatch(updateScript, /\.find\(hasUsableSourceContent\)|descriptionC
   'source adapters may extract official text but must not rank or hand-pick the parent-facing sentence');
 assert.match(updateScript, /buildSummaryRecord\s*\(/, 'summary metadata must come from the shared engine');
 assert.match(updateScript, /hasPublishableSummary\s*\(/, 'adapter publishability checks must use the shared engine');
+assert.match(updateScript, /revalidateMissingOfficialEvent\s*\(/,
+  'refresh must revalidate a missing future event on its official detail page before deleting it');
+assert.match(updateScript, /isOfficialUrl\(event\.url, source\.domain\)/,
+  'missing-event revalidation must stay on the approved first-party domain');
 
 assert.doesNotMatch(updateScript, /description:\s*`Official San Jose/i, 'sports adapters must use the structured summary builder');
 assert.doesNotMatch(updateScript, /family movie screening/i, 'cinema adapters must not maintain their own structured fallback copy');
