@@ -5,6 +5,8 @@ on:
   # list without asking the maintainer to run
   # Actions manually after pushing the configuration.
   push:
+    branches-ignore:
+      - 'preview-acceptance'
     paths:
       - 'scripts/update-events.mjs'
       - 'data/sources.json'
