@@ -11,7 +11,7 @@ export const EVENT_SUMMARY_VERSION = 'event-summary-v2-p4';
 // - extractive summaries must remain verbatim substrings of the normalized
 //   official source text so every published claim is directly auditable.
 
-const CONCRETE_ACTION = /\b(?:make|making|build|building|create|creating|paint|painting|decorate|decorating|assemble|assembling|plant|planting|cook|cooking|bake|baking|craft|crafting|play|playing|watch|watching|read|reading|dance|dancing|sing|singing|taste|tasting|eat|eating|drink|drinking|tour|touring|hike|hiking|try|trying|practice|practicing|explore|exploring|learn|learning|design|designing|draw|drawing|sew|sewing|knit|knitting|crochet|crocheting|meet|meeting|listen|listening|perform|performing|compete|competing|solve|solving|experiment|experimenting|test|testing|launch|launching|fly|flying|throw|throwing|kick|kicking|jump|jumping|stamp|stamping|fold|folding|coloring|write|writing|ride|riding|visit|visiting|see|seeing|experience|experiencing|follow|following|find|finding|collect|collecting|trick[- ]or[- ]treat(?:ing)?)\b/i;
+const CONCRETE_ACTION = /\b(?:make|making|build|building|create|creating|paint|painting|decorate|decorating|assemble|assembling|plant|planting|cook|cooking|bake|baking|craft|crafting|play|playing|watch|watching|read|reading|dance|dancing|sing|singing|taste|tasting|eat|eating|drink|drinking|tour|touring|hike|hiking|try|trying|practice|practicing|explore|exploring|learn|learning|design|designing|draw|drawing|sew|sewing|knit|knitting|crochet|crocheting|meet|meeting|listen|listening|perform|performing|compete|competing|solve|solving|experiment|experimenting|test|testing|launch|launching|fly|flying|throw|throwing|kick|kicking|jump|jumping|stamp|stamping|fold|folding|coloring|write|writing|ride|riding|visit|visiting|see|seeing|experience|experiencing)\b/i;
 
 const PARTICIPATION_SIGNAL = /\b(?:with us|hands-on|take (?:it|them) home|bring .* home|hang your|your own|kids?|children|families|participants|attendees|together|you(?:'ll| will| can)|visitors? can)\b/i;
 
@@ -23,7 +23,7 @@ const LOGISTICS = /\b(?:parking|entrance|room|location|arrive early|first[- ]com
 
 const BIOGRAPHY_OR_PROMOTION = /\b(?:recent publications?|publications? include|translations? of|editorial prefaces?|biography|biographical|curriculum vitae|cv\b|degrees?|earned (?:a|an|their)|has performed|has appeared|awards?|accolades?|career highlights?|follow us|follow along|subscribe|newsletter|youtube|instagram|facebook|donate|support us)\b/i;
 
-const OPERATIONAL_NOTE = /\b(?:will be|is) held (?:inside|indoors?|outdoors?)\b|\b(?:in case of|depending on) (?:rain|weather)\b|\b(?:parking|entrance|room|location) (?:is|will be|has changed)\b|\b(?:cancell?ed|postponed|rescheduled)\b/i;
+const OPERATIONAL_NOTE = /\b(?:will be|is) held (?:inside|indoors?|outdoors?)\b|\b(?:will not|won't|does not|doesn't) (?:be )?held\b|\bnot (?:be )?held\b|\b(?:in case of|depending on) (?:rain|weather)\b|\b(?:parking|entrance|room|location) (?:is|will be|has changed)\b|\b(?:cancell?ed|postponed|rescheduled)\b/i;
 
 const ACTIVITY_VERB = /\b(?:watch|watching|listen|listening|enjoy|join|explore|discover|create|build|make|making|play|sing|dance|read|learn|practice|taste|eat|drink|walk|hike|tour|meet|test|testing|paint|painting|decorate|decorating|design|designing|draw|drawing|sew|sewing|knit|knitting|crochet|crocheting|see|experience|ride|visit|try|participate)\b/i;
 const EVENT_NOUN = /\b(?:story(?:time)?|songs?|rhymes?|crafts?|games?|workshop|class|concert|performance|show|movie|film|exhibit(?:ion)?|festival|parade|museum|science|art|music|opera|ballet|theat(?:er|re)|sports?|match|game)\b/i;
@@ -31,8 +31,10 @@ const EXPERIENCE_STRUCTURE = /\b(?:with|featur(?:e|es|ing)|includes?|offers?|off
 const STRONG_ACTIVITY_DETAIL = /\b(?:make|making|build|building|create|creating|paint|painting|decorate|decorating|assemble|assembling|plant|planting|cook|cooking|bake|baking|craft|crafting|play|playing|watch|watching|read|reading|dance|dancing|sing|singing|taste|tasting|eat|eating|drink|drinking|tour|touring|hike|hiking|try|trying|practice|practicing|explore|exploring|learn|learning|design|designing|draw|drawing|sew|sewing|knit|knitting|crochet|crocheting|meet|meeting|listen|listening|perform|performing|compete|competing|solve|solving|experiment|experimenting|test|testing|launch|launching|fly|flying|throw|throwing|kick|kicking|jump|jumping|stamp|stamping|fold|folding|color|coloring|write|writing|ride|riding|walk|walking|follow|following|find|finding|collect|collecting|participate|participating|discuss|discussing|trick[- ]or[- ]treat(?:ing)?)\b/i;
 const GENERIC_EXPERIENCE = /\b(?:family[- ]friendly|fun|exciting|interactive|immersive|magical|spectacular|unforgettable|special)\b[^.!?]{0,100}\bexperience\b/i;
 const PROMOTIONAL_FLUFF = /\b(?:cherished|treasured|beloved|community favorite|unforgettable experience|something for everyone|perfect way to|experience the magic|make memories|memories that last|must[- ]see|can't miss|cannot miss|not to be missed)\b/i;
+const DIRECT_PARTICIPATION_ACTION = /(?:^(?:come\b[^.!?]{0,80}\band\s+)?(?:follow|find|collect|trick[- ]or[- ]treat(?:ing)?)\b|\b(?:you|families|kids|children|visitors|participants|attendees|guests?)\b[^.!?]{0,100}\b(?:can|will|are invited to|are welcome to)?\s*(?:follow|find|collect|trick[- ]or[- ]treat(?:ing)?)\b)/i;
+const SUPPORT_ACTIVITY = /\b(?:homework help|tutoring|tutors?|study help|academic support)\b/i;
 
-const CONTINUATION_START = /^(?:and|or|but|because|which|that|who|whose|where|when|while|with|without|from|by|including|such as)\b/i;
+const CONTINUATION_START = /^(?:and|or|but|because|which|that|who|whose|where|when|while|until|with|without|from|by|including|such as)\b/i;
 const DANGLING_INFINITIVE = /^to\s+[a-z]+\b/i;
 const LOWERCASE_DEPENDENT_START = /^(?:at|in|on|for|of|into|onto|through|during|after|before|under|over|near|around|across|inside|outside|within|between|among)\b/;
 const NON_ACTIVITY_LABEL = /^(?:sensory notes?|sound|visuals?|accessibility|accommodations?|registration|parking|location|tickets?|admission|check[- ]in)$/i;
@@ -104,7 +106,7 @@ export function splitSourceSentences(sourceText, { title = '' } = {}) {
 export function isLogisticsOnly(text) {
   const value = normalizeText(text);
   if (!value) return true;
-  return /^(?:free|by appointment|call(?:\s|\.|$)|contact\b|same day|offered in|registration|reserve\b|tickets?\b|admission\b|please\b|drop-?ins?\b|no registration|must\b|participants?\b)/i.test(value)
+  return /^(?:free|by appointment|call(?:\s|\.|$)|contact\b|same day|offered in|registration|reserve\b|tickets?\b|admission\b|please\b|drop-?ins?\b|walk[- ]ins?\b|no registration|must\b|participants?\b)/i.test(value)
     || /^(?:children|kids?|adults?|teens?|famil(?:y|ies)|participants?)\b[\s\S]{0,120}\b(?:welcome|must|should|need|able to|can comfortably|may participate)\b/i.test(value)
     || /^(?:designs?|prints?|library staff|color|file format|materials?)\b.*\b(?:must|are|will|may|if|criteria|available)\b/i.test(value)
     || /ada accommodation|for more information|please (?:call|email|visit)|click here|all minors under|parent\/guardian approval|release of liability|difficulty rating|terms (?:&|and) conditions|terms of use|privacy policy|refund policy|all rights reserved|rules (?:&|and) regulations|reserves the right to (?:cancel|refuse)|printable if|load and save|file format/i.test(value)
@@ -125,6 +127,8 @@ export function hasActivitySignal(text) {
   const value = normalizeText(text);
   return ACTIVITY_VERB.test(value)
     || CONCRETE_ACTION.test(value)
+    || DIRECT_PARTICIPATION_ACTION.test(value)
+    || SUPPORT_ACTIVITY.test(value)
     || (EVENT_NOUN.test(value) && EXPERIENCE_STRUCTURE.test(value));
 }
 
@@ -132,6 +136,8 @@ export function isGenericExperienceOnly(text) {
   const value = normalizeText(text);
   return GENERIC_EXPERIENCE.test(value)
     && !STRONG_ACTIVITY_DETAIL.test(value)
+    && !DIRECT_PARTICIPATION_ACTION.test(value)
+    && !SUPPORT_ACTIVITY.test(value)
     && !SPECIFIC_OBJECT.test(value)
     && !EVENT_NOUN.test(value);
 }
@@ -140,6 +146,8 @@ export function isPromotionalFluffOnly(text) {
   const value = normalizeText(text);
   return PROMOTIONAL_FLUFF.test(value)
     && !STRONG_ACTIVITY_DETAIL.test(value)
+    && !DIRECT_PARTICIPATION_ACTION.test(value)
+    && !SUPPORT_ACTIVITY.test(value)
     && !SPECIFIC_OBJECT.test(value)
     && !EVENT_NOUN.test(value);
 }
@@ -193,6 +201,8 @@ export function hasActivitySummary(text, options = {}) {
 function scoreSentence(sentence, index) {
   let score = Math.min(sentence.length, 220) / 35;
   if (CONCRETE_ACTION.test(sentence)) score += 22;
+  if (DIRECT_PARTICIPATION_ACTION.test(sentence)) score += 22;
+  if (SUPPORT_ACTIVITY.test(sentence)) score += 14;
   if (PARTICIPATION_SIGNAL.test(sentence)) score += 8;
   if (SPECIFIC_OBJECT.test(sentence)) score += 8;
   if (/\b(?:by|while|then|and)\b/i.test(sentence) && CONCRETE_ACTION.test(sentence)) score += 3;
@@ -245,7 +255,7 @@ export function selectLabeledActivityBundle(sourceText, options = {}) {
   for (const item of matches) {
     const valid = !NON_ACTIVITY_LABEL.test(item.label)
       && !LOGISTICS.test(item.text)
-      && (CONCRETE_ACTION.test(item.body) || SPECIFIC_OBJECT.test(item.body))
+      && (CONCRETE_ACTION.test(item.body) || DIRECT_PARTICIPATION_ACTION.test(item.body) || SUPPORT_ACTIVITY.test(item.body) || SPECIFIC_OBJECT.test(item.body))
       && !isLikelyFragment(item.body);
 
     if (!valid) {
