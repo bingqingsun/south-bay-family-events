@@ -2954,10 +2954,10 @@ const candidateResults = await Promise.all(sourceLimited.map(async item => {
     }
   };
 }));
-const verifiedSearchEvents = candidateResults.filter(result => result.event.date !== fallbackTime).map(result => result.event);
+const candidates = candidateResults.filter(result => result.event.date !== fallbackTime).map(result => result.event);
 searchSources.forEach(source => {
   const attempted = candidateResults.filter(result => result.sourceName === source.name).length;
-  const accepted = verifiedSearchEvents.filter(event => event.source === source.name).length;
+  const accepted = candidates.filter(event => event.source === source.name).length;
   console.log(`SerpApi verification · ${source.name}: ${accepted} published / ${attempted} checked (requires matching official Event data and future date).`);
 });
 // Do not publish unverified directory pages or search snippets. A card must
@@ -2965,7 +2965,7 @@ searchSources.forEach(source => {
 // Keep separate official sessions that share one details page. The earlier
 // URL-only dedupe silently discarded all but the final time for a show such
 // as a CMT production, defeating the card's “other sessions” experience.
-const preliminaryEvents = [...new Map([...feedEvents, ...verifiedSearchEvents]
+const preliminaryEvents = [...new Map([...feedEvents, ...candidates]
   .map(event => [`${event.url.toLowerCase()}|${event.dateValue || ''}`, event])).values()]
   // A card must explain what the activity is. A source's speaker bio, social
   // promotion, or logistics copy is not an activity summary and cannot pass
