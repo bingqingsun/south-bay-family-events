@@ -106,6 +106,11 @@ assert.equal(
   'promotional-only copy must not publish as an activity description'
 );
 assert.equal(
+  buildExtractiveSummary('Start your Journey Today Your gift makes the entire visitor experience possible, from care of the estate to public programs and events.').summary,
+  '',
+  'site-wide donation copy must not publish as an event description'
+);
+assert.equal(
   buildExtractiveSummary('Terms and Conditions apply. Please review the refund policy before purchasing.').summary,
   '',
   'legal and policy copy must never become an activity description'
