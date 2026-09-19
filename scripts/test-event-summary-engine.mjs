@@ -71,15 +71,131 @@ assert.equal(splitSourceSentences(abbreviationSentence).length, 2, 'honorific ab
 const adjacentTimeSentences = "The program begins at 10 a.m. Families can make a paper lantern afterward.";
 assert.equal(splitSourceSentences(adjacentTimeSentences).length, 2, 'a real sentence after a time abbreviation must remain separate');
 
+const punctuatedTitleSource = "Join The Great Big BOO! at Gilroy Gardens for a family-friendly Halloween experience with light displays and interactive adventures. Come in costume and follow the BOO Trail throughout the park to go trick-or-treating for candy. Find all 8 BOO Zones to uncover the hidden message.";
+const punctuatedTitleSegments = splitSourceSentences(punctuatedTitleSource, { title: 'The Great Big BOO!' });
+assert.equal(
+  punctuatedTitleSegments[0],
+  "Join The Great Big BOO! at Gilroy Gardens for a family-friendly Halloween experience with light displays and interactive adventures.",
+  'punctuation inside an event title must not create a fake sentence boundary'
+);
+const punctuatedTitleSummary = buildExtractiveSummary(punctuatedTitleSource, { title: 'The Great Big BOO!' });
+assert.match(punctuatedTitleSummary.summary, /(?:follow the BOO Trail|Find all 8 BOO Zones)/i,
+  'a generic SEO experience sentence must not beat concrete official activity copy');
+assert.doesNotMatch(punctuatedTitleSummary.summary, /family-friendly Halloween experience/i,
+  'generic experience copy must not be the parent-facing summary when concrete activity evidence exists');
+
 // Readability gate: reject dependent clauses, allow complete imperatives.
 assert.equal(isLikelyFragment('to make beautiful 3D layered greeting cards in celebration of the festival.'), true);
 assert.equal(isLikelyFragment('Make beautiful 3D layered greeting cards in celebration of the festival.'), false);
 assert.equal(isLikelyFragment('And enjoy a craft with your family.'), true);
+assert.equal(isLikelyFragment('at Gilroy Gardens for a family-friendly Halloween experience.'), true,
+  'lowercase dependent prepositional fragments must be rejected');
+assert.equal(isLikelyFragment('In this weekly class, participants will learn basic Tai Chi principles.'), false,
+  'capitalized complete prepositional sentences must remain valid');
+assert.equal(isLikelyFragment('Until the day they start following him… or do they?'), true,
+  'narrative continuation fragments must not become activity summaries');
+
+assert.equal(
+  buildExtractiveSummary("Join The Great Big BOO! at Gilroy Gardens for a family-friendly Halloween experience with light displays and interactive adventures.", { title: 'The Great Big BOO!' }).summary,
+  '',
+  'generic experience-only SEO copy must not publish by itself'
+);
+assert.equal(
+  buildExtractiveSummary('This beloved community tradition is treasured by local families and offers an unforgettable experience.').summary,
+  '',
+  'promotional-only copy must not publish as an activity description'
+);
+assert.equal(
+  buildExtractiveSummary('Start your Journey Today Your gift makes the entire visitor experience possible, from care of the estate to public programs and events.').summary,
+  '',
+  'site-wide donation copy must not publish as an event description'
+);
+assert.equal(
+  buildExtractiveSummary('Terms and Conditions apply. Please review the refund policy before purchasing.').summary,
+  '',
+  'legal and policy copy must never become an activity description'
+);
+
+assert.equal(
+  buildExtractiveSummary('Bright colors and lots of little friends may make the area visually busy. Texture: Different stations may include sticky tape and other unusual textures.').summary,
+  '',
+  'sensory and accessibility notes must not become the parent-facing activity summary'
+);
+assert.equal(
+  buildExtractiveSummary('You may be asked to confirm your membership in a follow-up email.').summary,
+  '',
+  'membership administration must not become the activity summary'
+);
+assert.equal(
+  buildExtractiveSummary('Trick-or-Treat stops to be announced soon.').summary,
+  '',
+  'future operational placeholders must not become the activity summary'
+);
+assert.equal(
+  buildExtractiveSummary("Now in its 59th season, Example Arts is one of the region's premier youth performing arts organizations, offering training and performance opportunities to thousands of young artists each year.").summary,
+  '',
+  'organization biography must not become the activity summary'
+);
+assert.equal(
+  buildExtractiveSummary('Experience this exhibit online or in person.', { format: 'museum-exhibition' }).summary,
+  '',
+  'display modality alone is not enough to explain an exhibit'
+);
+assert.equal(isLikelyFragment('A. We cannot guarantee that we will have your size.'), true,
+  'Q&A answer fragments must not be published by themselves');
+
+const storytimeSpecific = buildExtractiveSummary(
+  'Join Señorita Juliana for Bilingual Family Storytime at the College Terrace Library! Enjoy stories, songs, rhymes, and movement activities in Spanish and English.'
+);
+assert.match(storytimeSpecific.summary, /Enjoy stories, songs, rhymes/i,
+  'specific participation details must outrank a generic join-the-program introduction');
+
+assert.match(
+  buildExtractiveSummary('Join Mini Yoga Club for a free yoga adventure through movement, music, and mindfulness.').summary,
+  /yoga adventure through movement, music, and mindfulness/i,
+  'a Join sentence with substantive activity content must remain publishable'
+);
+assert.match(
+  buildExtractiveSummary('Join us for our monthly two-day event featuring good food, shopping, music, and vibes!', { format: 'festival' }).summary,
+  /good food, shopping, music/i,
+  'a Join sentence with concrete event contents must remain publishable'
+);
+assert.equal(
+  buildExtractiveSummary('Join us on the first Friday of the month to explore new ways to play and learn!').summary,
+  '',
+  'abstract play-and-learn copy must not outrank concrete activity details'
+);
+assert.match(
+  buildExtractiveSummary('Check out the monsters, scares and laughs galore at the Milpitas Spooky Movies Festival on October 18th and 25th in our beautiful auditorium.', { title: 'Spooky Movies', format: 'program' }).summary,
+  /Spooky Movies Festival/i,
+  'plural movie titles should support a grounded movie-event description'
+);
+
+const featureListVsAction = buildExtractiveSummary(
+  "Games, live music, food and drink, and thousands of pumpkins. Follow the trail of clues through a glowing woodland and into a hidden village."
+);
+assert.match(featureListVsAction.summary, /Follow the trail of clues/i,
+  'a visitor action should outrank a static feature list');
+
+const liveShowStory = buildExtractiveSummary(
+  "Jasper Rabbit loves carrots, especially the ones from Crackenhopper Field. Based on the beloved book by Aaron Reynolds and illustrated by Peter Brown, this funny and slightly spooky tale is the perfect fall treat for our youngest community members and their families.",
+  { title: 'Creepy Carrots!', format: 'live-show' }
+);
+assert.match(liveShowStory.summary, /Jasper Rabbit loves carrots/i,
+  'live-show story evidence should outrank promotional adaptation copy');
+assert.doesNotMatch(liveShowStory.summary, /perfect fall treat/i);
 
 assert.equal(hasUsableSourceContent('Fall is here and the garden is full of color. Make a lantern with your family.'), true,
   'source gate should keep multi-sentence official content for the engine to evaluate');
 assert.equal(hasUsableSourceContent('Registration required. Parking is available in the rear lot.'), false,
   'source gate should reject logistics-only content');
+
+const homeworkSummary = buildExtractiveSummary(
+  "Are you a student in grades K-6th and need help with homework? We have tutors for you to receive homework help Monday through Thursday. Walk-ins welcome as spaces allow. Homework Help will not be held on October 12."
+);
+assert.match(homeworkSummary.summary, /tutors.*homework help/i,
+  'educational support copy must outrank walk-in and no-session logistics');
+assert.doesNotMatch(homeworkSummary.summary, /Walk-ins|will not be held/i);
 
 // Multi-activity bundles must remain exact contiguous source excerpts and skip
 // operational/accessibility labels.
@@ -121,7 +237,7 @@ const summaryRecord = buildSummaryRecord({
   status: 'extractive',
   verifiedAt: '2026-09-19T00:00:00.000Z'
 });
-assert.equal(summaryRecord.summaryVersion, 'event-summary-v2-p3');
+assert.equal(summaryRecord.summaryVersion, 'event-summary-v2-p4');
 assert.equal(summaryRecord.parentSummary, timeSegments[0]);
 assert.equal(summaryRecord.summaryEvidence, summaryRecord.parentSummary);
 assert.ok(summaryRecord.sourceDescriptionHash, 'engine owns source hash and provenance');
@@ -140,6 +256,10 @@ assert.doesNotMatch(updateScript, /\.find\(hasUsableSourceContent\)|descriptionC
   'source adapters may extract official text but must not rank or hand-pick the parent-facing sentence');
 assert.match(updateScript, /buildSummaryRecord\s*\(/, 'summary metadata must come from the shared engine');
 assert.match(updateScript, /hasPublishableSummary\s*\(/, 'adapter publishability checks must use the shared engine');
+assert.match(updateScript, /revalidateMissingOfficialEvent\s*\(/,
+  'refresh must revalidate a missing future event on its official detail page before deleting it');
+assert.match(updateScript, /isOfficialUrl\(event\.url, source\.domain\)/,
+  'missing-event revalidation must stay on the approved first-party domain');
 
 assert.doesNotMatch(updateScript, /description:\s*`Official San Jose/i, 'sports adapters must use the structured summary builder');
 assert.doesNotMatch(updateScript, /family movie screening/i, 'cinema adapters must not maintain their own structured fallback copy');

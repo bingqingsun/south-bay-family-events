@@ -1876,21 +1876,21 @@ async function readFiloli(source) {
     const html = await response.text();
     if (!response.ok || !/listing-item/.test(html)) return [];
     // The card itself contains nested lists for tags and dates, therefore a
-    // non-greedy `</li>` match stops too early. Splitting at the next card
-    // boundary retains each complete listing including its description.
+    // non-greedy </li> match stops too early. Splitting at the next card
+    // boundary retains each complete listing including its teaser.
     return html.split(/<li class=["']listing-item["'][^>]*>/i).slice(1);
   }));
   const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
   const seen = new Set();
-  return pages.flat().flatMap(block => {
+  const candidates = pages.flat().flatMap(block => {
     const title = htmlAttribute(block, /<h4[^>]*>\s*<a[^>]+>([\s\S]*?)<\/a>/i);
     const href = htmlAttribute(block, /<h4[^>]*>\s*<a[^>]+href=["']([^"']+)/i);
-    const description = htmlAttribute(block, /<h4[\s\S]*?<p>([\s\S]*?)<\/p>/i);
+    const listingDescription = htmlAttribute(block, /<h4[\s\S]*?<p>([\s\S]*?)<\/p>/i);
     const tags = [...block.matchAll(/<ul class=["']taglist["'][\s\S]*?<\/ul>/gi)].map(match => plainText(match[0])).join(' ');
     const dateBlock = block.match(/fa-calendar-alt[\s\S]*?<\/li>/i)?.[0] || '';
     const dateText = plainText(dateBlock);
     const image = htmlAttribute(block, /<img[^>]+data-src=["']([^"']+)/i);
-    const familySignal = /famil(?:y|ies)|children|kids?/i.test(`${tags} ${title} ${description}`);
+    const familySignal = /famil(?:y|ies)|children|kids?/i.test(`${tags} ${title} ${listingDescription}`);
     const range = dateText.match(/\b([A-Z][a-z]+)\s+(\d{1,2})(?:st|nd|rd|th)?\s*-\s*([A-Z][a-z]+)\s+(\d{1,2})(?:st|nd|rd|th)?\s+(\d{4})/);
     const dateValue = range
       ? `${range[5]}-${String(months[range[1].slice(0, 3).toLowerCase()] || 0).padStart(2, '0')}-${String(Number(range[2])).padStart(2, '0')}`
@@ -1899,24 +1899,51 @@ async function readFiloli(source) {
       ? `${range[5]}-${String(months[range[3].slice(0, 3).toLowerCase()] || 0).padStart(2, '0')}-${String(Number(range[4])).padStart(2, '0')}`
       : dateValue;
     const url = href ? new URL(href, source.feedUrl).href : '';
-    if (!title || !url || !familySignal || !hasUsableSourceContent(description) || endValue < today || seen.has(url)) return [];
+    if (!title || !url || !familySignal || endValue < today || seen.has(url)) return [];
     seen.add(url);
-    const exhibition = /\b(?:exhibit(?:ion)?|flower show|installation)\b/i.test(`${title} ${description}`);
-    const natureExperience = /\b(?:garden|nest|nature|outdoor|redwood)\b/i.test(`${title} ${description}`);
+    return [{ title, url, listingDescription, tags, dateValue, endValue, range, image }];
+  });
+
+  const events = await Promise.all(candidates.map(async candidate => {
+    let description = candidate.listingDescription;
+    let image = candidate.image;
+    try {
+      const detailResponse = await fetch(candidate.url, { headers, signal: AbortSignal.timeout(15000) });
+      const detail = await detailResponse.text();
+      if (detailResponse.ok) {
+        // Listing cards are often intentionally short marketing teasers.
+        // Scope extraction to the page's main content first so global
+        // membership, donation, newsletter, and footer modules cannot compete
+        // with the event itself. The shared engine still owns sentence ranking.
+        const mainContent = detail.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] || detail;
+        const detailDescription = officialParagraphText(mainContent, {
+          excludePattern: /\b(?:members? receive|buy tickets?|reserve seats?|parking|hours?:|dates?:|typical visit length|what to wear|terms (?:&|and) conditions|privacy policy|refund policy)\b/i
+        });
+        if (hasUsableSourceContent(detailDescription)) description = detailDescription;
+        const detailImage = decodeXml(detail.match(/<meta\s+property=["']og:image["']\s+content=["']([^"']+)/i)?.[1] || '');
+        if (detailImage) image = detailImage;
+      }
+    } catch { /* Keep the official listing teaser if the detail page is temporarily unavailable. */ }
+
+    const exhibition = /\b(?:exhibit(?:ion)?|flower show|installation)\b/i.test(`${candidate.title} ${description}`);
+    const format = exhibition ? 'museum-exhibition' : '';
+    if (!hasPublishableSummary(description, { title: candidate.title, format })) return null;
+    const natureExperience = /\b(?:garden|nest|nature|outdoor|redwood|woodland|trail)\b/i.test(`${candidate.title} ${description}`);
     const event = directEvent({
-      id: 'filoli-' + createHash('sha256').update(url).digest('hex').slice(0, 16), title, dateValue, description,
+      id: 'filoli-' + createHash('sha256').update(candidate.url).digest('hex').slice(0, 16),
+      title: candidate.title, dateValue: candidate.dateValue, description,
       image: image ? new URL(image, source.feedUrl).href : '', place: 'Filoli Historic House & Garden',
-      address: source.address || '', city: source.city || '', source: source.name, url, ageText: `${tags} ${description}`,
-      format: exhibition ? 'museum-exhibition' : ''
+      address: source.address || '', city: source.city || '', source: source.name, url: candidate.url,
+      ageText: `${candidate.tags} ${description}`, format
     });
     const classified = exhibition ? { ...event, type: 'museums', icon: icons.museums, color: colors.museums, tag: labels.museums }
       : natureExperience ? { ...event, type: 'outdoor', icon: icons.outdoor, color: colors.outdoor, tag: labels.outdoor }
       : event;
-    // A multi-day family experience that has already opened should be found as
-    // an ongoing activity rather than disappear merely because its start date
-    // has passed.
-    return [range && dateValue < today ? { ...classified, date: 'On view now', dateValue: '', ongoing: true } : classified];
-  });
+    return candidate.range && candidate.dateValue < today
+      ? { ...classified, date: 'On view now', dateValue: '', ongoing: true }
+      : classified;
+  }));
+  return events.filter(Boolean);
 }
 
 // Los Altos History Museum uses Events Manager's public list. Exhibits are
@@ -2416,7 +2443,14 @@ async function readGilroyGardens(source) {
       const detailResponse = await fetch(result.url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
       const detail = await detailResponse.text();
       if (!detailResponse.ok) return;
-      const description = decodeXml(detail.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)/i)?.[1] || '');
+      const metaDescription = decodeXml(detail.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)/i)?.[1] || '');
+      // Preserve the richest reliable first-party activity copy. Event pages
+      // often expose a vague SEO meta description while the visible body gives
+      // parents the actual things they can do. The shared summary engine still
+      // owns ranking and publication; this adapter only broadens source evidence.
+      const description = officialParagraphText(detail, {
+        excludePattern: /\b(?:premium membership|single-day admission|buy tickets?|parking|terms (?:&|and) conditions|privacy policy|refund policy)\b/i
+      }) || metaDescription;
       const image = decodeXml(detail.match(/<meta\s+property=["']og:image["']\s+content=["']([^"']+)/i)?.[1] || '');
       if (!hasUsableSourceContent(description)) return;
       detailsByTitle.set(normalizedTitle, { url: result.url, description, image, detailText: plainText(detail) });
@@ -2670,7 +2704,55 @@ const retainedSourceEvents = existingEvents
   .filter(event => failedDirectSourceNames.has(event.source) && isStillActive(event))
   .map(event => ({ ...event, refreshStatus: 'stale-source', refreshErrorAt: generatedAt }));
 const freshFeedEvents = feedAttempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
-const feedEvents = [...freshFeedEvents, ...retainedSourceEvents];
+
+// A successful calendar parse can still miss one valid event when the
+// organizer changes only that card/detail wrapper. Do not silently delete a
+// previously verified future activity just because it disappeared from the
+// parser output. Re-open its first-party detail URL and retain it only when:
+// - the source itself refreshed successfully;
+// - the old occurrence is still active;
+// - the URL is still on that source's approved official domain;
+// - the live page still contains the event title;
+// - the page does not explicitly say the event is cancelled.
+// This is a general source-resilience rule, not an event-specific exception.
+const successfulDirectSourceNames = new Set(feedAttempts
+  .filter(result => result.status === 'fulfilled')
+  .map(result => result.sourceName));
+const directSourceByName = new Map(directSources.map(source => [source.name, source]));
+const freshOfficialKeys = new Set(freshFeedEvents.map(event =>
+  `${event.source}\u001f${plainText(event.title).toLowerCase()}\u001f${String(event.url || '').toLowerCase()}`
+));
+
+async function revalidateMissingOfficialEvent(event) {
+  const source = directSourceByName.get(event.source);
+  if (!source || !event.url || !successfulDirectSourceNames.has(event.source) || !isStillActive(event)) return null;
+  if (!isOfficialUrl(event.url, source.domain)) return null;
+  const key = `${event.source}\u001f${plainText(event.title).toLowerCase()}\u001f${String(event.url).toLowerCase()}`;
+  if (freshOfficialKeys.has(key)) return null;
+  try {
+    const response = await fetch(event.url, {
+      headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' },
+      signal: AbortSignal.timeout(12000)
+    });
+    const html = await response.text();
+    if (!response.ok) return null;
+    const pageText = plainText(html);
+    if (!isSameEvent(event.title, pageText)) return null;
+    if (/\b(?:this event (?:has been )?cancell?ed|event cancell?ed)\b/i.test(pageText)) return null;
+    return {
+      ...event,
+      refreshStatus: 'revalidated-missing',
+      refreshVerifiedAt: generatedAt
+    };
+  } catch {
+    return null;
+  }
+}
+
+const revalidatedMissingEvents = (await Promise.all(existingEvents
+  .filter(event => successfulDirectSourceNames.has(event.source) && isStillActive(event))
+  .map(revalidateMissingOfficialEvent))).filter(Boolean);
+const feedEvents = [...freshFeedEvents, ...retainedSourceEvents, ...revalidatedMissingEvents];
 const raw = searchAttempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
 const unique = [...new Map(raw.filter(item => item.title && item.link).map(item => [item.link.toLowerCase(), item])).values()];
 // Search discovery is balanced per source. The old global slice only validated
@@ -2716,6 +2798,9 @@ const preliminaryEvents = [...new Map([...feedEvents, ...candidates]
   // promotion, or logistics copy is not an activity summary and cannot pass
   // this final publication gate.
   .filter(event => hasUsableSourceContent(event.description))
+  // A closure notice is useful operational information, but it is not a
+  // family activity and must never enter the browse catalog.
+  .filter(event => !/\b(?:library|bookmobile|museum|park|facility|center)\b.*\bclosed\b|\bclosed\b.*\b(?:library|bookmobile|museum|park|facility|center)\b/i.test(event.title || ''))
   .filter(event => !isUnavailableEvent(event))
   .filter(isFamilyRelevant)
   .map(withPresentationFields)
