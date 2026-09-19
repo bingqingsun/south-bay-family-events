@@ -5,6 +5,7 @@ import {
   buildExtractiveSummary,
   buildOfficialMovieScreeningSummary,
   buildOfficialSportsSummary,
+  buildSummaryRecord,
   hasUsableSourceContent,
   isLikelyFragment,
   selectConcreteSourceSentence,
@@ -114,12 +115,31 @@ const longResult = buildExtractiveSummary(longAction);
 assert.equal(longResult.summary, longAction, 'selected source sentences are stored whole');
 assert.ok(!longResult.summary.endsWith('…'), 'engine must not create ingest-time ellipsis');
 
+const summaryRecord = buildSummaryRecord({
+  sourceText: timeSentence,
+  title: 'Mid-Autumn Moon Festival Craft',
+  status: 'extractive',
+  verifiedAt: '2026-09-19T00:00:00.000Z'
+});
+assert.equal(summaryRecord.summaryVersion, 'event-summary-v2-p3');
+assert.equal(summaryRecord.parentSummary, timeSegments[0]);
+assert.equal(summaryRecord.summaryEvidence, summaryRecord.parentSummary);
+assert.ok(summaryRecord.sourceDescriptionHash, 'engine owns source hash and provenance');
+assert.equal(summaryRecord.summaryVerifiedAt, '2026-09-19T00:00:00.000Z');
+
 const updateScript = await readFile(new URL('./update-events.mjs', import.meta.url), 'utf8');
 assert.doesNotMatch(updateScript, /summary-policy\.mjs/, 'legacy summary-policy module must not be referenced');
 assert.doesNotMatch(updateScript, /\bhasActivitySummary\b/, 'source adapters must use source-content gate, not the legacy mixed gate');
 assert.doesNotMatch(updateScript, /\bcardSummary\s*\(/, 'source adapters must not implement their own card-summary entrypoint');
 assert.match(updateScript, /event-summary-engine\.mjs/, 'all summary generation must route through the shared engine');
+assert.doesNotMatch(updateScript, /\beventSummaryFields\b|\bextractParentSummary\b|\bbuildExtractiveSummary\b|\bisSummaryAcceptable\b/,
+  'update-events must not contain a second summary implementation');
+assert.doesNotMatch(updateScript, /function\s+[A-Za-z0-9_]*ActivitySummary\s*\(/,
+  'source-specific adapters must not define activity-summary functions');
+assert.match(updateScript, /buildSummaryRecord\s*\(/, 'summary metadata must come from the shared engine');
+assert.match(updateScript, /hasPublishableSummary\s*\(/, 'adapter publishability checks must use the shared engine');
+
 assert.doesNotMatch(updateScript, /description:\s*`Official San Jose/i, 'sports adapters must use the structured summary builder');
 assert.doesNotMatch(updateScript, /family movie screening/i, 'cinema adapters must not maintain their own structured fallback copy');
 
-console.log('event-summary-engine: parser, grounding, ranking, readability, and architecture contracts passed');
+console.log('event-summary-engine: parser, grounding, ranking, readability, provenance, and architecture contracts passed');
