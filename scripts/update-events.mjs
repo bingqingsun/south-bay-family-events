@@ -2926,6 +2926,19 @@ const retainedSourceEvents = existingEvents
   .map(event => ({ ...event, refreshStatus: 'stale-source', refreshErrorAt: generatedAt }));
 const freshFeedEvents = feedAttempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
 
+const sourceRefreshCounts = Object.fromEntries(feedAttempts.map(result => [
+  result.sourceName,
+  result.status === 'fulfilled' ? result.value.length : -1
+]));
+console.log(`Source refresh counts: ${JSON.stringify(sourceRefreshCounts)}`);
+const migrationCoverage = {
+  jmzDirect: freshFeedEvents.filter(event => event.source === 'Palo Alto Junior Museum & Zoo').map(event => ({ title: event.title, dateValue: event.dateValue, id: event.id })),
+  cantorViaStanford: freshFeedEvents.filter(event => event.source === 'Stanford Events' && /Art for All Family Day/i.test(event.title)).map(event => ({ title: event.title, dateValue: event.dateValue, id: event.id })),
+  paloAltoMooncakeViaRss: freshFeedEvents.filter(event => event.source === 'Palo Alto City Library' && /Mooncake Festival|Moon Festival|Jasmine Fang/i.test(event.title)).map(event => ({ title: event.title, dateValue: event.dateValue, id: event.id })),
+  cupertinoSeasonalDirect: freshFeedEvents.filter(event => event.source === 'City of Cupertino' && /Bike Fest|Monster Mash/i.test(event.title)).map(event => ({ title: event.title, dateValue: event.dateValue, id: event.id }))
+};
+console.log(`Source migration coverage: ${JSON.stringify(migrationCoverage)}`);
+
 // A successful calendar parse can still miss one valid event when the
 // organizer changes only that card/detail wrapper. Do not silently delete a
 // previously verified future activity just because it disappeared from the
