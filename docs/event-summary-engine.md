@@ -75,6 +75,16 @@ For all summaries:
 - source hash, status, method, quality, evidence, version, and verified time are
   required.
 
+### Refresh resilience
+
+A successful source refresh is not allowed to silently delete a previously
+verified future event solely because one listing/card parser stopped seeing it.
+For a missing item, the refresh re-opens the stored first-party detail URL and
+retains the event only when the approved official domain still serves a page
+matching the event title, the occurrence is still active, and the page does not
+explicitly report cancellation. This revalidation is generic across sources;
+it must never be implemented as an event-title exception.
+
 ## Summary statuses
 
 - `extractive`: verbatim text selected from the official source.
