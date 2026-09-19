@@ -14,6 +14,8 @@ import {
 } from './movie-policy.mjs';
 import {
   buildExtractiveSummary,
+  buildOfficialMovieScreeningSummary,
+  buildOfficialSportsSummary,
   hasUsableSourceContent,
   isLogisticsOnly,
   isSummaryAcceptable
@@ -769,7 +771,7 @@ function isoDateFromOfficialText(dateText, timeText = '') {
   return date + 'T' + String(hour).padStart(2, '0') + ':' + (time[2] || '00');
 }
 
-function directEvent({ id, title, dateValue, endDateValue = '', description, image = '', imagePresentation = '', imageBackground = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, ageText = '', format = '', movieRating = '', forcedType = '', seasonalTheme = '', availabilityStatus = '', summaryStatus = 'extractive' }) {
+function directEvent({ id, title, dateValue, endDateValue = '', description, image = '', imagePresentation = '', imageBackground = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, ageText = '', format = '', movieRating = '', forcedType = '', seasonalTheme = '', availabilityStatus = '', summaryStatus = 'extractive', summaryEvidenceData = null }) {
   const type = forcedType || (format === 'live-show' ? 'shows' : format === 'movie-screening' ? 'movies' : typeFor(title + ' ' + description + ' ' + ageText, title));
   const age = ageInfo(ageText);
   const summary = eventSummaryFields(description, title, format, summaryStatus);
@@ -780,6 +782,7 @@ function directEvent({ id, title, dateValue, endDateValue = '', description, ima
     type, icon: icons[type], color: colors[type], tag: labels[type],
     verification: 'official-page', lastVerifiedAt: generatedAt, format,
     ...summary,
+    summaryEvidenceData,
     image: optimizedOfficialImageUrl(image, source), imagePresentation, imageBackground, place, address, city: canonicalCity(city), meetingPoint, mapUrl, source, url, movieRating,
     seasonalTheme: seasonalTheme || seasonalThemeFor(`${title} ${description}`), availabilityStatus
   };
@@ -1374,9 +1377,12 @@ async function readNhl(source) {
     // away team listed first. The old team-prefixed, home-first URL resolves
     // to an NHL 404 page even though the schedule API data is valid.
     const url = `https://www.nhl.com/gamecenter/${String(game.awayTeam?.abbrev || '').toLowerCase()}-vs-sjs/${dateValue.slice(0, 4)}/${dateValue.slice(5, 7)}/${dateValue.slice(8, 10)}/${game.id}`;
+    const structured = buildOfficialSportsSummary({
+      homeTeam: 'San Jose Sharks', opponent, venue: game.venue?.default || 'SAP Center at San Jose', gameWord: 'game'
+    });
     return [directEvent({
       id: `nhl-${game.id}`, title: `San Jose Sharks vs ${opponent}`, dateValue,
-      description: `Official San Jose Sharks home game against the ${opponent}.`, summaryStatus: 'official_structured', image: game.homeTeam?.logo || '',
+      description: structured.summary, summaryStatus: 'official_structured', summaryEvidenceData: structured.evidenceData, image: game.homeTeam?.logo || '',
       place: game.venue?.default || 'SAP Center at San Jose', address: source.address || '', city: source.city || '', source: source.name, url,
       ageText: 'all ages', format: 'sports-game'
     })];
@@ -1536,10 +1542,13 @@ async function readCinemark(source) {
     return isKidAppropriateMovie(item.title, item.rating, `${details.genre || ''} ${details.summary || ''}`);
   }).map(item => {
     const details = metadata.get(item.movieUrl) || {};
+    const structuredScreening = buildOfficialMovieScreeningSummary({ rating: item.rating, theater: source.name });
     const event = directEvent({
       id: 'cinemark-' + createHash('sha256').update(`${source.feedUrl}|${item.title}|${item.dateValue}|${item.ticketUrl}`).digest('hex').slice(0, 16),
       title: item.title, dateValue: item.dateValue,
-      description: details.summary || `${item.rating}-rated family movie screening.`, summaryStatus: details.summary ? 'extractive' : 'official_structured',
+      description: details.summary || structuredScreening.summary,
+      summaryStatus: details.summary ? 'extractive' : 'official_structured',
+      summaryEvidenceData: details.summary ? null : structuredScreening.evidenceData,
       image: item.image, place: source.name, address: source.address || '', city: source.city || '', source: 'Cinemark Theatres', url: item.ticketUrl,
       ageText: item.rating === 'G' ? 'all ages' : '', format: 'movie-screening', movieRating: item.rating
     });
@@ -1600,9 +1609,12 @@ async function readCinelux(source) {
     return item.dateValue && isUpcoming(item.dateValue) && isKidAppropriateMovie(item.title, item.rating, `${details.genre || ''} ${details.summary || ''}`);
   }).map(item => {
     const details = metadata.get(item.movieUrl) || {};
+    const structuredScreening = buildOfficialMovieScreeningSummary({ rating: item.rating, theater: source.name });
     const event = directEvent({
       id: 'cinelux-' + createHash('sha256').update(`${source.feedUrl}|${item.title}|${item.dateValue}|${item.ticketUrl}`).digest('hex').slice(0, 16),
-      title: item.title, dateValue: item.dateValue, description: details.summary || `${item.rating}-rated family movie screening.`, summaryStatus: details.summary ? 'extractive' : 'official_structured', image: item.image,
+      title: item.title, dateValue: item.dateValue, description: details.summary || structuredScreening.summary,
+      summaryStatus: details.summary ? 'extractive' : 'official_structured',
+      summaryEvidenceData: details.summary ? null : structuredScreening.evidenceData, image: item.image,
       place: source.name, address: source.address || '', city: source.city || '', source: 'CineLux Theatres', url: item.ticketUrl,
       ageText: item.rating === 'G' ? 'all ages' : '', format: 'movie-screening', movieRating: item.rating
     });
@@ -1628,9 +1640,10 @@ async function readBayfc(source) {
     let hour = Number(time[1]) % 12; if (time[3].toLowerCase() === 'pm') hour += 12;
     const dateValue = `${year}-${String(monthLookup[day[1].toLowerCase()]).padStart(2, '0')}-${String(day[2]).padStart(2, '0')}T${String(hour).padStart(2, '0')}:${time[2]}`;
     if (!isUpcoming(dateValue)) return [];
+    const structured = buildOfficialSportsSummary({ homeTeam: 'Bay FC', opponent, venue: 'PayPal Park', gameWord: 'match' });
     return [directEvent({
       id: 'bayfc-' + createHash('sha256').update(`${matchUrl}|${dateValue}`).digest('hex').slice(0, 16), title: `Bay FC vs ${opponent}`, dateValue,
-      description: `Official Bay FC home match against ${opponent} at PayPal Park.`, summaryStatus: 'official_structured', image: BAY_FC_TEAM_MARK,
+      description: structured.summary, summaryStatus: 'official_structured', summaryEvidenceData: structured.evidenceData, image: BAY_FC_TEAM_MARK,
       imagePresentation: 'team-mark', imageBackground: '#e5eef1',
       place: 'PayPal Park', address: source.address || '', city: source.city || '', source: source.name, url: new URL(matchUrl, source.feedUrl).href,
       ageText: 'all ages', format: 'sports-game'
@@ -1652,11 +1665,13 @@ async function readMlb(source) {
   return payload.dates.flatMap(day => day.games || []).flatMap(game => {
     if (game.teams?.home?.team?.id !== 476 || !game.gameDate || !isUpcoming(game.gameDate)) return [];
     const opponent = game.teams?.away?.team?.name || 'away team';
+    const venue = game.venue?.name || 'Excite Ballpark';
+    const structured = buildOfficialSportsSummary({ homeTeam: 'San Jose Giants', opponent, venue, gameWord: 'game' });
     return [directEvent({
       id: `mlb-${game.gamePk}`, title: `San Jose Giants vs ${opponent}`, dateValue: pacificDateTime(game.gameDate),
-      description: `Official San Jose Giants home game against ${opponent} at Excite Ballpark.`, summaryStatus: 'official_structured', image: SAN_JOSE_GIANTS_TEAM_MARK,
+      description: structured.summary, summaryStatus: 'official_structured', summaryEvidenceData: structured.evidenceData, image: SAN_JOSE_GIANTS_TEAM_MARK,
       imagePresentation: 'team-mark', imageBackground: '#f4f1ed',
-      place: game.venue?.name || 'Excite Ballpark', address: source.address || '', city: source.city || '', source: source.name,
+      place: venue, address: source.address || '', city: source.city || '', source: source.name,
       url: 'https://www.milb.com/san-jose/schedule', ageText: 'all ages', format: 'sports-game'
     })];
   });
@@ -1682,9 +1697,10 @@ async function readMls(source) {
     const venueName = match.stadium_name || 'PayPal Park';
     const city = /levi/i.test(venueName) ? 'Santa Clara' : (source.city || 'San Jose');
     const address = /levi/i.test(venueName) ? '4900 Marie P DeBartolo Way, Santa Clara' : (source.address || '');
+    const structured = buildOfficialSportsSummary({ homeTeam: 'San Jose Earthquakes', opponent, venue: venueName, gameWord: 'match' });
     return [directEvent({
       id: `mls-${match.match_id}`, title: `San Jose Earthquakes vs ${opponent}`, dateValue: pacificDateTime(match.planned_kickoff_time),
-      description: `Official San Jose Earthquakes home match against ${opponent} at ${venueName}.`, summaryStatus: 'official_structured', image: EARTHQUAKES_TEAM_MARK,
+      description: structured.summary, summaryStatus: 'official_structured', summaryEvidenceData: structured.evidenceData, image: EARTHQUAKES_TEAM_MARK,
       imagePresentation: 'team-mark', imageBackground: '#0d2c4b', place: venueName, address, city,
       source: source.name, url: `https://www.sjearthquakes.com/schedule/matches#${encodeURIComponent(match.match_id)}`, ageText: 'all ages', format: 'sports-game'
     })];
@@ -1859,11 +1875,14 @@ async function readBarracuda(source) {
     const opponent = plainText(game.title || '').replace(/^vs\.?(?:\s*)/i, '').trim();
     if (!opponent) return [];
     const promotions = Array.isArray(game.promos) ? game.promos.filter(Boolean) : [];
-    const description = `Watch the San Jose Barracuda take on ${opponent} at Tech CU Arena.${promotions.length ? ` Featured promotion: ${promotions.join('; ')}.` : ''}`;
+    const structured = buildOfficialSportsSummary({
+      homeTeam: 'San Jose Barracuda', opponent, venue: 'Tech CU Arena', gameWord: 'game', promotions
+    });
     const image = game.logo?.source?.url || game.logo?.url || '';
     const event = directEvent({
       id: 'barracuda-' + (game.id || createHash('sha256').update(`${opponent}|${dateValue}`).digest('hex').slice(0, 16)),
-      title: `San Jose Barracuda vs ${opponent}`, dateValue, description, image,
+      title: `San Jose Barracuda vs ${opponent}`, dateValue, description: structured.summary,
+      summaryStatus: 'official_structured', summaryEvidenceData: structured.evidenceData, image,
       place: 'Tech CU Arena', address: source.address || '', city: source.city || '',
       source: source.name, url: source.feedUrl, format: 'sports-game'
     });
