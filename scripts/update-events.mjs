@@ -447,7 +447,7 @@ function costInfo(cost, description = '') {
   }
 
   const donationPattern = /\b(?:suggested|requested|optional) donation\b/i;
-  const freePattern = /\b(?:free admission|admission is free|free event|free program|free activity|free entry|free to attend|free and open to (?:the )?public|complimentary admission|registration is free|no (?:admission )?cost|no (?:admission |entry )?charge|no (?:registration |entry |admission )?fee)\b/i;
+  const freePattern = /\b(?:free admission|admission is free|free (?:community )?event|free program|free activity|free entry|free to attend|free and open to (?:the )?public|complimentary admission|registration is free|no (?:admission )?cost|no (?:admission |entry )?charge|no (?:registration |entry |admission )?fee)\b/i;
   const memberPricingPattern = /(?<!non-)\bmembers?\b[\s\S]{0,180}\b(?:non-?members?|general (?:public|admission))\b|\b(?:non-?members?|general (?:public|admission))\b[\s\S]{0,180}(?<!non-)\bmembers?\b/i;
   const paidPattern = /\b(?:paid admission|admission fee|entry fee|registration fee|fee applies|ticket purchase (?:is )?required|tickets? must be purchased|purchase (?:a |your )?tickets?|buy (?:a |your )?tickets?)\b/i;
   const costContextPattern = /\b(?:admission|entry|registration|ticket|tickets|fee|fees|cost|price|pricing)\b/i;
@@ -2502,10 +2502,11 @@ async function readPaloAlto(source) {
     throw new Error('Palo Alto official calendar was not valid: ' + response.status);
   }
   const monthNumbers = { jan: '01', feb: '02', mar: '03', apr: '04', may: '05', jun: '06', jul: '07', aug: '08', sep: '09', oct: '10', nov: '11', dec: '12' };
-  const youthSignal = /children|kids?|famil(?:y|ies)|youth|teen|toddler|preschool|elementary|middle school|high school|all ages|parent(?:s)?\s*(?:and|&)\s*(?:child|kid)/i;
+  const youthSignal = new RegExp(source.familyPattern
+    || 'children|kids?|famil(?:y|ies)|youth|teen|toddler|preschool|elementary|middle school|high school|all ages|parent(?:s)?\\s*(?:and|&)\\s*(?:child|kid)', 'i');
   const excluded = /\b(?:committee|commission|council|board|meeting|recruitment|hearing|work session)\b/i;
   const seen = new Set();
-  return [...html.matchAll(/<div class=["']list-item-container[\s\S]*?<\/article>/gi)].flatMap(blockMatch => {
+  const candidates = [...html.matchAll(/<div class=["']list-item-container[\s\S]*?<\/article>/gi)].flatMap(blockMatch => {
     const block = blockMatch[0];
     const href = htmlAttribute(block, /<a[^>]+href=["']([^"']+)["']/i);
     const title = plainText(block.match(/list-item-title[^>]*>([\s\S]*?)<\/h2>/i)?.[1] || '');
@@ -2526,13 +2527,29 @@ async function readPaloAlto(source) {
     const place = parts.shift() || source.name;
     const cityIndex = parts.findIndex(value => /^palo alto(?:\s+ca)?$/i.test(value));
     const street = cityIndex >= 0 ? parts.slice(0, cityIndex).join(', ') : '';
-    const event = directEvent({
-      id: 'paloalto-' + createHash('sha256').update(key).digest('hex').slice(0, 16), title, dateValue, description,
-      image: image ? new URL(image, source.feedUrl).href : '', place, address: shortAddress(street, 'Palo Alto'), city: 'Palo Alto',
-      source: source.name, url, ageText: audienceText
-    });
-    return [{ ...event, ...costInfo('', description) }];
+    return [{ title, url, dateValue, description, image, place, street, audienceText, key }];
   });
+  const events = await Promise.all(candidates.map(async candidate => {
+    let detailHtml = '';
+    try {
+      const detailResponse = await fetch(candidate.url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+      if (detailResponse.ok) detailHtml = await detailResponse.text();
+    } catch {}
+    const detailText = plainText(detailHtml);
+    const detailDescription = officialParagraphText(detailHtml, { minLength: 20 });
+    const dateMatch = detailText.match(/Next date:\s*((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\s*\|\s*(\d{1,2}:\d{2}\s*(?:AM|PM))/i);
+    const dateValue = dateMatch ? isoDateFromOfficialText(dateMatch[1], dateMatch[2]) : candidate.dateValue;
+    const description = detailDescription || candidate.description;
+    const event = directEvent({
+      id: 'paloalto-' + createHash('sha256').update(`${candidate.url}|${dateValue}`).digest('hex').slice(0, 16),
+      title: candidate.title, dateValue, description,
+      image: officialPageOgImage(detailHtml) || (candidate.image ? new URL(candidate.image, source.feedUrl).href : ''),
+      place: candidate.place, address: shortAddress(candidate.street, 'Palo Alto'), city: 'Palo Alto',
+      source: source.name, url: candidate.url, ageText: `${candidate.audienceText} ${detailText.slice(0, 3500)}`
+    });
+    return hasUsableSourceContent(event.description) ? { ...event, ...costInfo('', detailDescription || detailText || description) } : null;
+  }));
+  return events.filter(Boolean);
 }
 
 // Happy Hollow exposes its special-event calendar as server-rendered Event
