@@ -45,6 +45,24 @@ export function selectConcreteSourceSentence(sourceText) {
 }
 
 
+export function selectLabeledActivityBundle(sourceText) {
+  const text = String(sourceText || '').replace(/\s+/g, ' ').trim();
+  const items = [];
+  const pattern = /\b([A-Z][A-Za-z'’&-]*(?:\s+[A-Z][A-Za-z'’&-]*){0,3}):\s*([^.!?]+[.!?])/g;
+
+  for (const match of text.matchAll(pattern)) {
+    const label = match[1].trim();
+    const body = match[2].trim();
+    const combined = `${label}: ${body}`;
+    if (!CONCRETE_ACTION.test(body) && !SPECIFIC_OBJECT.test(body)) continue;
+    if (LOGISTICS_ONLY.test(combined)) continue;
+    items.push(combined);
+    if (items.length >= 4) break;
+  }
+
+  return items.length >= 2 ? items.join(' ') : '';
+}
+
 export function shouldReplaceWeakSummary(existingSummary) {
   const value = String(existingSummary || '').replace(/\s+/g, ' ').trim();
   if (!value) return false;
