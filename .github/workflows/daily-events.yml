@@ -11,8 +11,8 @@ on:
   push:
     paths:
       - 'scripts/update-events.mjs'
-      - 'scripts/summary-policy.mjs'
-      - 'scripts/test-summary-policy.mjs'
+      - 'scripts/event-summary-engine.mjs'
+      - 'scripts/test-event-summary-engine.mjs'
       - 'scripts/test-summary-output.mjs'
       - 'data/sources.json'
       - '.github/workflows/daily-events.yml'
@@ -39,8 +39,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Test grounded event-summary policy
-        run: node scripts/test-summary-policy.mjs
+      - name: Test event-summary engine contracts
+        run: node scripts/test-event-summary-engine.mjs
       - run: node scripts/update-events.mjs
         env:
           SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
