@@ -14,7 +14,7 @@ import {
 } from './movie-policy.mjs';
 import {
   buildExtractiveSummary,
-  hasActivitySummary,
+  hasUsableSourceContent,
   isLogisticsOnly,
   isSummaryAcceptable
 } from './event-summary-engine.mjs';
@@ -656,19 +656,19 @@ async function readTribe(source) {
     }];
   });
   const enriched = await Promise.all(seeds.map(async event => {
-    if (hasActivitySummary(event.description) && event.image) return event;
+    if (hasUsableSourceContent(event.description) && event.image) return event;
     const details = await tribePageDetails(event.url);
     const detailSummary = details.sourceDescriptionRaw
       ? eventSummaryFields(details.sourceDescriptionRaw, event.title, event.format)
       : null;
-    const useDetail = detailSummary && hasActivitySummary(detailSummary.description);
+    const useDetail = detailSummary && hasUsableSourceContent(detailSummary.description);
     return {
       ...event,
       ...(useDetail ? detailSummary : {}),
       image: event.image || details.image
     };
   }));
-  return enriched.filter(event => hasActivitySummary(event.description));
+  return enriched.filter(event => hasUsableSourceContent(event.description));
 }
 
 async function readChcp(source) {
@@ -691,7 +691,7 @@ async function readChcp(source) {
     // CHCP's calendar also syndicates adult lectures and non-local events.
     // Keep only locally held cultural activities with an explicit family or
     // youth signal in CHCP's own title or description.
-    if (!title || !href || !isUpcoming(dateValue) || /\bonline\b/i.test(location) || !/San Jose|Santa Clara|Mountain View|Palo Alto|Milpitas|Cupertino|Los Altos|Sunnyvale/i.test(location) || !familySignal || !hasActivitySummary(description)) return [];
+    if (!title || !href || !isUpcoming(dateValue) || /\bonline\b/i.test(location) || !/San Jose|Santa Clara|Mountain View|Palo Alto|Milpitas|Cupertino|Los Altos|Sunnyvale/i.test(location) || !familySignal || !hasUsableSourceContent(description)) return [];
     const url = new URL(href, source.feedUrl).href;
     const event = directEvent({
       id: 'chcp-' + createHash('sha256').update(`${url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
@@ -725,7 +725,7 @@ async function readHistorySanJose(source) {
     // The listing also contains fundraisers, private rentals, and adult-only
     // programs. Publish only when the official title has an explicit family
     // signal and it yields a parent-facing explanation of the activity.
-    if (!title || !isUpcoming(dateValue) || !familySignal || !hasActivitySummary(extractParentSummary(description, title)) || isExplicitlyAdultOnly(`${title} ${locationText}`)) return [];
+    if (!title || !isUpcoming(dateValue) || !familySignal || !hasUsableSourceContent(extractParentSummary(description, title)) || isExplicitlyAdultOnly(`${title} ${locationText}`)) return [];
     const event = directEvent({
       id: 'history-' + createHash('sha256').update(`${url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
       title, dateValue, endDateValue, description,
@@ -820,7 +820,7 @@ async function curatedOfficialDescription(url, title) {
           return type.includes('event') && isSameEvent(name, title);
         });
         const description = sourceDescriptionText(event?.description || '');
-        if (description && hasActivitySummary(extractParentSummary(description, title))) return description;
+        if (description && hasUsableSourceContent(extractParentSummary(description, title))) return description;
       } catch {
         // Malformed analytics JSON-LD must not block the verified manual copy.
       }
@@ -840,7 +840,7 @@ async function curatedOfficialDescription(url, title) {
       || ''
     );
     const description = sourceDescriptionText(meta);
-    return description && hasActivitySummary(extractParentSummary(description, title)) ? description : '';
+    return description && hasUsableSourceContent(extractParentSummary(description, title)) ? description : '';
   } catch {
     return '';
   }
@@ -870,7 +870,7 @@ async function readCurated(source) {
       availabilityStatus: item.availabilityStatus || '',
       summaryStatus: officialDescription ? 'extractive' : 'manual_verified'
     });
-    if (!hasActivitySummary(event.description)) return null;
+    if (!hasUsableSourceContent(event.description)) return null;
     return { ...event, ...costInfo(item.cost || '', officialDescription || item.description || '') };
   }))).filter(Boolean);
 }
@@ -904,7 +904,7 @@ async function readEventbriteOrganizer(source) {
     const longDescription = plainText(detailHtml.match(/Overview[^>]*__summary[^>]*>\s*<p[^>]*>([\s\S]*?)<\/p>/i)?.[1] || '');
     const description = longDescription || plainText(schema.description || item.summary);
     const audienceText = `${title} ${description}`;
-    if (!title || !hasActivitySummary(description) || !familyPattern.test(audienceText) || isExplicitlyAdultOnly(audienceText)) return null;
+    if (!title || !hasUsableSourceContent(description) || !familyPattern.test(audienceText) || isExplicitlyAdultOnly(audienceText)) return null;
     const venue = schema.location || {};
     const venueAddress = item.primary_venue?.address || {};
     const city = canonicalCity(venueAddress.city || venue.address?.addressLocality || source.city || '');
@@ -996,7 +996,7 @@ async function readGoogleVisitorEvents(source) {
       source: source.name, url: item.url, ageText: `${item.title} ${item.description}`
     });
     return { ...event, ...costInfo('', item.description) };
-  }).filter(event => hasActivitySummary(event.description));
+  }).filter(event => hasUsableSourceContent(event.description));
 }
 
 function officialPageOgImage(html) {
@@ -1043,7 +1043,7 @@ async function readWixEvents(source) {
       title, dateValue, endDateValue, description, image, place, address, city: source.city || '', source: source.name,
       url: slug ? new URL(`/event-details/${slug}`, source.feedUrl).href : source.feedUrl, format: source.format || 'festival'
     })];
-  }).filter(event => hasActivitySummary(event.description));
+  }).filter(event => hasUsableSourceContent(event.description));
 }
 
 // Squarespace event collections are server rendered, which makes them a
@@ -1064,7 +1064,7 @@ async function readSquarespaceEvents(source) {
     const image = htmlAttribute(block, /<img[^>]+(?:data-image|src)=["']([^"']+)/i);
     const place = htmlAttribute(block, /eventlist-meta-address-line["'][^>]*>([\s\S]*?)<\/span>/i) || source.name;
     const text = `${title} ${description}`;
-    if (!title || !href || !isUpcoming(dateValue) || !familyPattern.test(text) || !hasActivitySummary(description)) return [];
+    if (!title || !href || !isUpcoming(dateValue) || !familyPattern.test(text) || !hasUsableSourceContent(description)) return [];
     const event = directEvent({
       id: 'squarespace-' + createHash('sha256').update(`${href}|${dateValue}|${index}`).digest('hex').slice(0, 16),
       title, dateValue, endDateValue, description, image, place, address: source.address || '', city: source.city || '',
@@ -1114,7 +1114,7 @@ async function readSantanaRow(source) {
   }));
 
   return details.flatMap(card => {
-    if (!hasActivitySummary(card.description)) return [];
+    if (!hasUsableSourceContent(card.description)) return [];
     const event = directEvent({
       id: 'santana-' + createHash('sha256').update(`${card.href}|${card.dateValue}`).digest('hex').slice(0, 16),
       title: card.title, dateValue: card.dateValue, description: card.description, image: card.image,
@@ -1148,7 +1148,7 @@ async function readAnnualFestival(source) {
     url: source.feedUrl, ageText: source.ageText || '', format: source.format || 'festival',
     summaryStatus: metaDescription ? 'extractive' : 'manual_verified'
   });
-  return hasActivitySummary(event.description) ? [event] : [];
+  return hasUsableSourceContent(event.description) ? [event] : [];
 }
 
 function htmlAttribute(block, pattern) {
@@ -1452,7 +1452,7 @@ async function readSapCenter(source) {
       // Without first-party description evidence, do not infer show content
       // from the event title.
     }
-    if (!hasActivitySummary(extractParentSummary(description, listing.title, 'live-show'))) return [];
+    if (!hasUsableSourceContent(extractParentSummary(description, listing.title, 'live-show'))) return [];
     return dates.filter(isUpcoming).map((dateValue, index) => directEvent({
       id: 'sapcenter-' + createHash('sha256').update(`${listing.url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
       title: listing.title, dateValue, description, image: listing.image,
@@ -1699,7 +1699,7 @@ async function readShoware(source) {
     const dateValue = isoDateFromOfficialText(item.PerformanceDateTime || '');
     const description = plainText(item.Description || '');
     const title = plainText(item.Event || '').replace(/^\s*\([^)]*\)\s*/i, '').replace(/\s*-\s*go to\b.*$/i, '').trim();
-    if (!title || !dateValue || !isUpcoming(dateValue) || !hasActivitySummary(description)) return [];
+    if (!title || !dateValue || !isUpcoming(dateValue) || !hasUsableSourceContent(description)) return [];
     const eventId = item.EventID || item.PerformanceID;
     const url = new URL(`eventperformances.asp?evt=${encodeURIComponent(eventId)}`, 'https://pact.showare.com/');
     url.hash = `performance-${item.PerformanceID}`;
@@ -1797,7 +1797,7 @@ async function readPyt(source) {
       const title = plainText(detail.match(/<h1[^>]*class=["'][^"']*heading[^"']*["'][^>]*>([\s\S]*?)<\/h1>/i)?.[1] || '');
       const descriptionCandidates = [...detail.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)]
         .map(match => plainText(match[1]))
-        .filter(value => hasActivitySummary(value) && !/^(?:performances?|dates?|location|length|appropriate|general admission|student matinee|tickets?|box office|auditions?)\b/i.test(value))
+        .filter(value => hasUsableSourceContent(value) && !/^(?:performances?|dates?|location|length|appropriate|general admission|student matinee|tickets?|box office|auditions?)\b/i.test(value))
         .filter(value => !/\b(?:audition|rehears|conflict|casting|participation fee|volunteer hours?|student groups?)\b/i.test(value));
       const description = descriptionCandidates.find(value => /\b(?:follow|find out|discover|story|tale|adventure|journey|based on|world premiere)\b/i.test(value))
         || descriptionCandidates.find(value => /\b(?:musical|production)\b/i.test(value) && value.length > 90) || descriptionCandidates[0] || '';
@@ -1805,7 +1805,7 @@ async function readPyt(source) {
       const year = text.match(/\b(20\d{2})\b/)?.[1] || '';
       const image = decodeXml(detail.match(/<div\s+id=["']sub-banner["'][\s\S]*?<img[^>]+src=["']([^"']+)/i)?.[1] || '');
       const ticketRows = [...detail.matchAll(/<div\s+class=["']ticket-row["'][\s\S]*?<div\s+class=["']ticket-col ticketname["'][\s\S]*?>([\s\S]*?)<\/div>\s*<\/div>[\s\S]*?<div\s+class=["']ticket-col ticketdate["'][\s\S]*?>([\s\S]*?)<\/div>\s*<\/div>/gi)];
-      if (!title || !hasActivitySummary(description)) return [];
+      if (!title || !hasUsableSourceContent(description)) return [];
       return ticketRows.flatMap(row => {
         const ticketType = plainText(row[1]);
         // The product is for families planning outings, not closed school
@@ -1905,7 +1905,7 @@ async function readFiloli(source) {
       ? `${range[5]}-${String(months[range[3].slice(0, 3).toLowerCase()] || 0).padStart(2, '0')}-${String(Number(range[4])).padStart(2, '0')}`
       : dateValue;
     const url = href ? new URL(href, source.feedUrl).href : '';
-    if (!title || !url || !familySignal || !hasActivitySummary(description) || endValue < today || seen.has(url)) return [];
+    if (!title || !url || !familySignal || !hasUsableSourceContent(description) || endValue < today || seen.has(url)) return [];
     seen.add(url);
     const exhibition = /\b(?:exhibit(?:ion)?|flower show|installation)\b/i.test(`${title} ${description}`);
     const natureExperience = /\b(?:garden|nest|nature|outdoor|redwood)\b/i.test(`${title} ${description}`);
@@ -1957,7 +1957,7 @@ async function readLahm(source) {
       const detailBody = detail.match(/<div class=["']event-details["']>[\s\S]*?<h2>Event Details<\/h2>([\s\S]*?)<\/div>/i)?.[1] || '';
       const metaDescription = decodeXml(detail.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)/i)?.[1] || '');
       const description = sourceDescriptionText(detailBody || metaDescription || summary);
-      if (!hasActivitySummary(extractParentSummary(description, title, exhibition ? 'museum-exhibition' : ''))) return null;
+      if (!hasUsableSourceContent(extractParentSummary(description, title, exhibition ? 'museum-exhibition' : ''))) return null;
       // The calendar sometimes gives an exhibition only a placement/date
       // sentence. That does not explain the experience, so wait for a richer
       // first-party description instead of publishing a vague museum card.
@@ -2035,7 +2035,7 @@ async function readMontalvo(source) {
       if (/school groups?|student matinee|homeschool(?:ed)? students?/i.test(detailText)) return null;
       if (!/famil(?:y|ies)|children|kids?|all ages|public performance/i.test(`${title} ${detailText}`)) return null;
       const description = decodeXml(detail.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)/i)?.[1] || '');
-      if (!hasActivitySummary(description)) return null;
+      if (!hasUsableSourceContent(description)) return null;
       const image = decodeXml(detail.match(/tn-production-season-detail-page__image[^>]+src=["']([^"']+)/i)?.[1] || item.image || '');
       return directEvent({
         id: 'montalvo-' + createHash('sha256').update(`${url}|${dateValue}`).digest('hex').slice(0, 16), title, dateValue,
@@ -2065,7 +2065,7 @@ async function readIcs(source) {
     const dateValue = start.match(/^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2}))?/) ? `${start.slice(0, 4)}-${start.slice(4, 6)}-${start.slice(6, 8)}${start[8] === 'T' ? `T${start.slice(9, 11)}:${start.slice(11, 13)}` : ''}` : '';
     const activityText = `${title} ${description}`;
     const familySignal = /famil(?:y|ies)|kids?|children|youth|teen|toddler|concert|movie|music|craft|art|game|egg hunt|festival|celebration|holiday/i.test(activityText);
-    if (!title || !dateValue || !isUpcoming(dateValue) || !familySignal || !hasActivitySummary(description)) return [];
+    if (!title || !dateValue || !isUpcoming(dateValue) || !familySignal || !hasUsableSourceContent(description)) return [];
     return [directEvent({
       id: 'ics-' + createHash('sha256').update(`${detailUrl}|${dateValue}`).digest('hex').slice(0, 16), title, dateValue, description,
       place: location || source.name, address: '', city: source.city || '', source: source.name, url: detailUrl, ageText: activityText
@@ -2129,7 +2129,7 @@ async function readCivic(source) {
       const officialText = sourceDescriptionText(editorialBlocks.join(' ') || detailHtml);
       const description = officialText;
       const audienceText = `${item.title} ${officialText} ${plainText(landingHtml.match(/<meta\s+name=["']description["']\s+content=["']([^"']*)/i)?.[1] || '')}`;
-      if (!hasActivitySummary(extractParentSummary(description, item.title)) || isExplicitlyAdultOnly(audienceText)) return null;
+      if (!hasUsableSourceContent(extractParentSummary(description, item.title)) || isExplicitlyAdultOnly(audienceText)) return null;
       const image = htmlAttribute(landingHtml, /widget image[\s\S]{0,1600}?<img[^>]+src=["']([^"']+)["']/i);
       const event = directEvent({
         id: 'civic-' + createHash('sha256').update(`${landingUrl}|${item.dateValue}|${index}`).digest('hex').slice(0, 16),
@@ -2385,7 +2385,7 @@ async function readHappyHollow(source) {
       image: image ? new URL(image, source.feedUrl).href : '', place: source.name, address: source.address || '', city: source.city || '',
       source: source.name, url: source.feedUrl, ageText: text
     });
-    return hasActivitySummary(event.description) ? [{ ...event, ...costInfo('', description) }] : [];
+    return hasUsableSourceContent(event.description) ? [{ ...event, ...costInfo('', description) }] : [];
   });
 }
 
@@ -2424,7 +2424,7 @@ async function readGilroyGardens(source) {
       if (!detailResponse.ok) return;
       const description = decodeXml(detail.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)/i)?.[1] || '');
       const image = decodeXml(detail.match(/<meta\s+property=["']og:image["']\s+content=["']([^"']+)/i)?.[1] || '');
-      if (!hasActivitySummary(description)) return;
+      if (!hasUsableSourceContent(description)) return;
       detailsByTitle.set(normalizedTitle, { url: result.url, description, image, detailText: plainText(detail) });
     } catch { /* A missing campaign landing page is not a publishable activity. */ }
   }));
@@ -2737,7 +2737,7 @@ const preliminaryEvents = [...new Map([...feedEvents, ...candidates]
   // A card must explain what the activity is. A source's speaker bio, social
   // promotion, or logistics copy is not an activity summary and cannot pass
   // this final publication gate.
-  .filter(event => hasActivitySummary(event.description))
+  .filter(event => hasUsableSourceContent(event.description))
   .filter(event => !isUnavailableEvent(event))
   .filter(isFamilyRelevant)
   .map(withPresentationFields)
