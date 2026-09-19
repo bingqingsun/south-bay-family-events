@@ -1,4 +1,6 @@
 name: Verify South Bay Family Finds
+# This workflow is intentionally read-only: generated activity data is
+# validated separately by the refresh workflow and does not need a second CI run.
 
 on:
   pull_request:
