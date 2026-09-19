@@ -201,7 +201,7 @@ export function hasActivitySummary(text, options = {}) {
 function scoreSentence(sentence, index) {
   let score = Math.min(sentence.length, 220) / 35;
   if (CONCRETE_ACTION.test(sentence)) score += 22;
-  if (DIRECT_PARTICIPATION_ACTION.test(sentence)) score += 22;
+  if (DIRECT_PARTICIPATION_ACTION.test(sentence)) score += 32;
   if (SUPPORT_ACTIVITY.test(sentence)) score += 14;
   if (PARTICIPATION_SIGNAL.test(sentence)) score += 8;
   if (SPECIFIC_OBJECT.test(sentence)) score += 8;
@@ -210,6 +210,7 @@ function scoreSentence(sentence, index) {
   if (sentence.length > 420) score -= 8;
   if (sentence.length < 22) score -= 8;
   if (BACKGROUND_ONLY.test(sentence)) score -= 22;
+  if (PROMOTIONAL_FLUFF.test(sentence)) score -= 18;
   if (LOGISTICS.test(sentence)) score -= 20;
   if (isBiographyOrPromotion(sentence)) score -= 60;
   if (isOperationalNote(sentence)) score -= 24;
