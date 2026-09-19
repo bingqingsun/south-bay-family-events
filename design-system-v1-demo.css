@@ -207,6 +207,137 @@
   color: var(--sbff-muted);
 }
 
+/* Shared Event Card presentation.
+   Keep the production information structure unchanged; Collection visually reuses the Homepage card. */
+.collection-page .collection-event-grid .event-card {
+  border-color: #e1e6ee;
+  border-radius: 19px;
+  box-shadow: 0 5px 0 rgba(32,62,116,.02);
+}
+
+.collection-page .collection-event-grid .event-card:hover {
+  box-shadow: 0 18px 33px rgba(32,62,116,.11);
+  transform: translateY(-5px);
+}
+
+.collection-page .collection-event-grid .card-image {
+  height: 166px;
+}
+
+.collection-page .collection-event-grid .tag,
+.collection-page .collection-event-grid .heart {
+  box-shadow: 0 3px 12px rgba(32,62,116,.08);
+}
+
+.collection-page .collection-event-grid .card-content {
+  padding: 17px 17px 19px;
+}
+
+.collection-page .collection-event-grid .card-content h3 {
+  color: #1e2c46;
+  font-family: "DM Sans", "Noto Sans SC", sans-serif;
+  letter-spacing: -.35px;
+}
+
+.collection-page .collection-event-grid .card-facts {
+  align-items: center;
+  gap: 0;
+  margin-top: 9px;
+}
+
+.collection-page .collection-event-grid .fact,
+.collection-page .collection-event-grid .fact-cost,
+.collection-page .collection-event-grid .fact-rating {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: #65738b;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.45;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.collection-page .collection-event-grid .fact-age {
+  color: #465773;
+  font-weight: 700;
+}
+
+.collection-page .collection-event-grid .fact-cost.is-free {
+  color: #37765c;
+  font-weight: 700;
+}
+
+.collection-page .collection-event-grid .fact + .fact::before {
+  color: #b5bfce;
+  content: "·";
+  margin: 0 7px;
+}
+
+.collection-page .collection-event-grid .description {
+  min-height: 42px;
+  max-height: 42px;
+}
+
+.collection-page .collection-event-grid .description[hidden] {
+  display: -webkit-box;
+  visibility: hidden;
+}
+
+.collection-page .collection-event-grid .description.is-expanded {
+  max-height: none;
+  overflow: visible;
+}
+
+.collection-page .collection-event-grid .description-toggle {
+  min-height: 19px;
+}
+
+.collection-page .collection-event-grid .description-toggle[hidden] {
+  display: block;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.collection-page .collection-event-grid .details {
+  margin-top: 13px;
+}
+
+.collection-page .collection-event-grid .source-link {
+  color: #235ce8;
+  margin-top: auto;
+  padding-top: 18px;
+}
+
+.collection-page .collection-event-grid .source-link span {
+  color: #ff7462;
+}
+
+@media (max-width: 760px) {
+  .collection-page .collection-event-grid .card-image {
+    height: 178px;
+  }
+
+  .collection-page .collection-event-grid .description {
+    min-height: 0;
+    max-height: 59px;
+  }
+
+  .collection-page .collection-event-grid .description[hidden] {
+    min-height: 59px;
+  }
+
+  .collection-page .collection-event-grid .description.is-expanded {
+    max-height: none;
+  }
+
+  .collection-page .collection-event-grid .source-link {
+    padding-top: 18px;
+  }
+}
+
 /* Collection — shared system + theme expression */
 .collection-page .collection-main {
   padding-bottom: 88px;
