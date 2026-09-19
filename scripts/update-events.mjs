@@ -2704,7 +2704,55 @@ const retainedSourceEvents = existingEvents
   .filter(event => failedDirectSourceNames.has(event.source) && isStillActive(event))
   .map(event => ({ ...event, refreshStatus: 'stale-source', refreshErrorAt: generatedAt }));
 const freshFeedEvents = feedAttempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
-const feedEvents = [...freshFeedEvents, ...retainedSourceEvents];
+
+// A successful calendar parse can still miss one valid event when the
+// organizer changes only that card/detail wrapper. Do not silently delete a
+// previously verified future activity just because it disappeared from the
+// parser output. Re-open its first-party detail URL and retain it only when:
+// - the source itself refreshed successfully;
+// - the old occurrence is still active;
+// - the URL is still on that source's approved official domain;
+// - the live page still contains the event title;
+// - the page does not explicitly say the event is cancelled.
+// This is a general source-resilience rule, not an event-specific exception.
+const successfulDirectSourceNames = new Set(feedAttempts
+  .filter(result => result.status === 'fulfilled')
+  .map(result => result.sourceName));
+const directSourceByName = new Map(directSources.map(source => [source.name, source]));
+const freshOfficialKeys = new Set(freshFeedEvents.map(event =>
+  `${event.source}\u001f${plainText(event.title).toLowerCase()}\u001f${String(event.url || '').toLowerCase()}`
+));
+
+async function revalidateMissingOfficialEvent(event) {
+  const source = directSourceByName.get(event.source);
+  if (!source || !event.url || !successfulDirectSourceNames.has(event.source) || !isStillActive(event)) return null;
+  if (!isOfficialUrl(event.url, source.domain)) return null;
+  const key = `${event.source}\u001f${plainText(event.title).toLowerCase()}\u001f${String(event.url).toLowerCase()}`;
+  if (freshOfficialKeys.has(key)) return null;
+  try {
+    const response = await fetch(event.url, {
+      headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' },
+      signal: AbortSignal.timeout(12000)
+    });
+    const html = await response.text();
+    if (!response.ok) return null;
+    const pageText = plainText(html);
+    if (!isSameEvent(event.title, pageText)) return null;
+    if (/\b(?:this event (?:has been )?cancell?ed|event cancell?ed)\b/i.test(pageText)) return null;
+    return {
+      ...event,
+      refreshStatus: 'revalidated-missing',
+      refreshVerifiedAt: generatedAt
+    };
+  } catch {
+    return null;
+  }
+}
+
+const revalidatedMissingEvents = (await Promise.all(existingEvents
+  .filter(event => successfulDirectSourceNames.has(event.source) && isStillActive(event))
+  .map(revalidateMissingOfficialEvent))).filter(Boolean);
+const feedEvents = [...freshFeedEvents, ...retainedSourceEvents, ...revalidatedMissingEvents];
 const raw = searchAttempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
 const unique = [...new Map(raw.filter(item => item.title && item.link).map(item => [item.link.toLowerCase(), item])).values()];
 // Search discovery is balanced per source. The old global slice only validated
