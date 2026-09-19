@@ -24,7 +24,7 @@ for (const event of events) {
   // Extractive summaries may shorten or select official-source text, but must
   // never introduce a clause that is absent from the preserved source copy.
   if (event.summaryStatus === 'extractive' && comparableSummary && raw && !raw.includes(comparableSummary)) {
-    violations.push(`${id}: extractive summary is not present in sourceDescriptionRaw`);
+    violations.push(`${id}: extractive summary is not present in sourceDescriptionRaw | summary="${summary.slice(0, 220)}" | raw="${raw.slice(0, 320)}"`);
   }
 }
 
