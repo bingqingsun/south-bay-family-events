@@ -29,12 +29,17 @@
   };
   // Editorial membership is explicit. The event database supplies fresh
   // details, but a newly scraped seasonal event must not silently change the
-  // guide's curated lineup.
-  const selectedEventIds = [
+  // guide's curated lineup. A reference may also carry the organizer's
+  // canonical event URL: source IDs are implementation details and can change
+  // when a verified event moves from a curated record to an official feed.
+  const selectedEventRefs = [
     'curated-2ef8db4c6c34be78',
     'lahm-50332644c3a62b5d',
     'rss-6a8f6bb3aafa6100295f6779',
-    'curated-261f4bd1519605e7',
+    {
+      id: 'curated-261f4bd1519605e7',
+      url: 'https://paloalto.bibliocommons.com/events/6a6cdceee30fe4845965ed72'
+    },
     'rss-6a7fa742d4b10d0030069349',
     'civic-70e54d8492ed1a97',
     'curated-f1d6a411a90a62b1',
@@ -66,6 +71,16 @@
     const candidates = Array.isArray(event.sessions) && event.sessions.length ? event.sessions : [event];
     const current = candidates.filter((session) => isCurrent({ ...event, ...session }));
     return current.length ? current : candidates.slice(0, 1);
+  }
+
+  function resolveEditorialEvent(reference, byId, databaseEvents) {
+    if (typeof reference === 'string') return byId.get(reference);
+    if (!reference || typeof reference !== 'object') return null;
+    const byStableId = reference.id ? byId.get(reference.id) : null;
+    if (byStableId) return byStableId;
+    if (!reference.url) return null;
+    return databaseEvents.find((event) => event.url === reference.url
+      || (event.sessions || []).some((session) => session.url === reference.url)) || null;
   }
 
   function dateLabel(value) {
@@ -343,8 +358,8 @@
       byId.set(event.id, event);
       (event.legacyIds || []).forEach((legacyId) => byId.set(legacyId, event));
     });
-    const events = selectedEventIds
-      .map((id) => byId.get(id))
+    const events = selectedEventRefs
+      .map((reference) => resolveEditorialEvent(reference, byId, databaseEvents))
       .filter(Boolean)
       .filter((event, index, all) => all.findIndex((candidate) => candidate.id === event.id) === index)
       .sort((a, b) => String(a.dateValue).localeCompare(String(b.dateValue)));
