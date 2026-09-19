@@ -71,10 +71,43 @@ assert.equal(splitSourceSentences(abbreviationSentence).length, 2, 'honorific ab
 const adjacentTimeSentences = "The program begins at 10 a.m. Families can make a paper lantern afterward.";
 assert.equal(splitSourceSentences(adjacentTimeSentences).length, 2, 'a real sentence after a time abbreviation must remain separate');
 
+const punctuatedTitleSource = "Join The Great Big BOO! at Gilroy Gardens for a family-friendly Halloween experience with light displays and interactive adventures. Come in costume and follow the BOO Trail throughout the park to go trick-or-treating for candy. Find all 8 BOO Zones to uncover the hidden message.";
+const punctuatedTitleSegments = splitSourceSentences(punctuatedTitleSource, { title: 'The Great Big BOO!' });
+assert.equal(
+  punctuatedTitleSegments[0],
+  "Join The Great Big BOO! at Gilroy Gardens for a family-friendly Halloween experience with light displays and interactive adventures.",
+  'punctuation inside an event title must not create a fake sentence boundary'
+);
+const punctuatedTitleSummary = buildExtractiveSummary(punctuatedTitleSource, { title: 'The Great Big BOO!' });
+assert.match(punctuatedTitleSummary.summary, /(?:follow the BOO Trail|Find all 8 BOO Zones)/i,
+  'a generic SEO experience sentence must not beat concrete official activity copy');
+assert.doesNotMatch(punctuatedTitleSummary.summary, /family-friendly Halloween experience/i,
+  'generic experience copy must not be the parent-facing summary when concrete activity evidence exists');
+
 // Readability gate: reject dependent clauses, allow complete imperatives.
 assert.equal(isLikelyFragment('to make beautiful 3D layered greeting cards in celebration of the festival.'), true);
 assert.equal(isLikelyFragment('Make beautiful 3D layered greeting cards in celebration of the festival.'), false);
 assert.equal(isLikelyFragment('And enjoy a craft with your family.'), true);
+assert.equal(isLikelyFragment('at Gilroy Gardens for a family-friendly Halloween experience.'), true,
+  'lowercase dependent prepositional fragments must be rejected');
+assert.equal(isLikelyFragment('In this weekly class, participants will learn basic Tai Chi principles.'), false,
+  'capitalized complete prepositional sentences must remain valid');
+
+assert.equal(
+  buildExtractiveSummary("Join The Great Big BOO! at Gilroy Gardens for a family-friendly Halloween experience with light displays and interactive adventures.", { title: 'The Great Big BOO!' }).summary,
+  '',
+  'generic experience-only SEO copy must not publish by itself'
+);
+assert.equal(
+  buildExtractiveSummary('This beloved community tradition is treasured by local families and offers an unforgettable experience.').summary,
+  '',
+  'promotional-only copy must not publish as an activity description'
+);
+assert.equal(
+  buildExtractiveSummary('Terms and Conditions apply. Please review the refund policy before purchasing.').summary,
+  '',
+  'legal and policy copy must never become an activity description'
+);
 
 assert.equal(hasUsableSourceContent('Fall is here and the garden is full of color. Make a lantern with your family.'), true,
   'source gate should keep multi-sentence official content for the engine to evaluate');
@@ -121,7 +154,7 @@ const summaryRecord = buildSummaryRecord({
   status: 'extractive',
   verifiedAt: '2026-09-19T00:00:00.000Z'
 });
-assert.equal(summaryRecord.summaryVersion, 'event-summary-v2-p3');
+assert.equal(summaryRecord.summaryVersion, 'event-summary-v2-p4');
 assert.equal(summaryRecord.parentSummary, timeSegments[0]);
 assert.equal(summaryRecord.summaryEvidence, summaryRecord.parentSummary);
 assert.ok(summaryRecord.sourceDescriptionHash, 'engine owns source hash and provenance');
