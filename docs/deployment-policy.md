@@ -18,7 +18,7 @@
 - 不要把 Vercel 链接当作正式站链接，也不要把自定义正式域名绑定到 Vercel。
 - Vercel 的 Git 自动部署已关闭，避免日常活动刷新和普通 PR 消耗 Preview 配额。
 - 需要 Preview 时，应使用一次性手动部署／受控验收流程，而不是重新打开所有分支的自动部署。
-- 受控流程由 `.github/workflows/manual-preview.yml` 提供：仓库所有者在 PR 留言 `/preview`，或在 GitHub Actions 手动填写分支／提交。工作流只使用 Vercel Preview；不含 `--prod`，也不会修改 GitHub Pages。
+- 受控流程由 `.github/workflows/manual-preview.yml` 提供：仓库所有者要求 Preview 时，由维护者给 PR 添加 `preview-acceptance` 标签；合并后也可在 PR 留言 `/preview`，或在 GitHub Actions 手动填写分支／提交。工作流只使用 Vercel Preview；不含 `--prod`，也不会修改 GitHub Pages。
 - 该流程一次性需要三个 GitHub Actions secrets：`VERCEL_TOKEN`、`VERCEL_ORG_ID`、`VERCEL_PROJECT_ID`。没有它们时部署会停止，不会回退为正式部署。
 - 日常活动数据刷新会提交到 `main`；其正式发布同样由 GitHub Pages 完成。
 - 一次合并若紧接着触发活动数据刷新，GitHub Pages 可能取消针对前一个提交的构建，并自动部署刷新后的提交。只要最新的 `pages build and deployment` 为绿色成功，即视为已上线；被后续提交取消的旧构建不是故障。
