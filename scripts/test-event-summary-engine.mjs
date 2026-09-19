@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import {
   assessSummaryReadability,
   buildExtractiveSummary,
+  hasUsableSourceContent,
   isLikelyFragment,
   selectConcreteSourceSentence,
   selectLabeledActivityBundle,
@@ -70,6 +71,11 @@ assert.equal(splitSourceSentences(adjacentTimeSentences).length, 2, 'a real sent
 assert.equal(isLikelyFragment('to make beautiful 3D layered greeting cards in celebration of the festival.'), true);
 assert.equal(isLikelyFragment('Make beautiful 3D layered greeting cards in celebration of the festival.'), false);
 assert.equal(isLikelyFragment('And enjoy a craft with your family.'), true);
+
+assert.equal(hasUsableSourceContent('Fall is here and the garden is full of color. Make a lantern with your family.'), true,
+  'source gate should keep multi-sentence official content for the engine to evaluate');
+assert.equal(hasUsableSourceContent('Registration required. Parking is available in the rear lot.'), false,
+  'source gate should reject logistics-only content');
 
 // Multi-activity bundles must remain exact contiguous source excerpts and skip
 // operational/accessibility labels.
