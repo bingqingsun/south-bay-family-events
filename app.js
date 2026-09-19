@@ -355,7 +355,7 @@ function render() {
   });
   document.querySelector('#emptyState').hidden = visible.length !== 0; const active = state.query !== '' || state.type !== 'all' || state.age !== 'all' || state.city !== 'all' || state.date !== 'all' || state.onlySaved;
   document.querySelector('#emptyMessage').textContent = active ? t('emptyFiltered') : t('emptyAll'); document.querySelector('#clearFilters').hidden = !active; document.querySelector('#resultCount').textContent = state.onlySaved ? t('savedResults')(visible.length) : t('results')(visible.length); document.querySelector('#savedCount').textContent = state.saved.length;
-  const savedButton = document.querySelector('#savedButton'); savedButton.setAttribute('aria-pressed', String(state.onlySaved)); savedButton.setAttribute('aria-label', state.onlySaved ? t('showAll') : t('showSaved')); syncDateControls(); syncMobileQuickFilters();
+  const savedButton = document.querySelector('#savedButton'); savedButton.setAttribute('aria-pressed', String(state.onlySaved)); savedButton.setAttribute('aria-label', state.onlySaved ? t('showAll') : t('showSaved')); syncDateControls(); syncMobileQuickFilters(); requestAnimationFrame(updateMobileQuickFilterMode);
 }
 function setActiveType(type) { document.querySelectorAll('.chip').forEach(chip => { const active = chip.dataset.type === type; chip.classList.toggle('active', active); chip.setAttribute('aria-pressed', String(active)); }); }
 function syncDatePriority() { document.querySelector('.date-priority').classList.toggle('is-active', state.date !== 'all'); }
@@ -478,9 +478,35 @@ function syncMobileQuickFilters() {
   heroNearbyQuick.classList.toggle('active', state.sort === 'distance');
   heroNearbyQuick.setAttribute('aria-pressed', String(state.sort === 'distance'));
 }
-mobileFilterToggle.addEventListener('click', () => { const isOpen = mobileFilters.classList.toggle('is-open'); mobileFilterToggle.setAttribute('aria-expanded', String(isOpen)); });
+mobileFilterToggle.addEventListener('click', () => {
+  const wasDeepBrowsing = mobileQuickFilters?.classList.contains('is-deep-browsing');
+  const isOpen = mobileFilters.classList.toggle('is-open');
+  mobileFilterToggle.setAttribute('aria-expanded', String(isOpen));
+  if (isOpen && wasDeepBrowsing) mobileFilters.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
 mobileWeekend.addEventListener('click', () => { state.date = state.date === 'weekend' ? 'all' : 'weekend'; syncDateControls(); track('quick_filter_used', { filter_name: 'date', filter_value: state.date }); syncDatePriority(); render(); });
 mobileNearby.addEventListener('click', () => { const sortFilter = document.querySelector('#sortFilter'); if (state.sort === 'distance') { state.sort = 'recommended'; sortFilter.value = 'recommended'; setLocationStatus(); render(); return; } enableNearbySort(); });
+const mobileQuickFilters = document.querySelector('.mobile-quick-filters');
+let mobileQuickFilterFrame = null;
+function updateMobileQuickFilterMode() {
+  mobileQuickFilterFrame = null;
+  if (!mobileQuickFilters || window.matchMedia('(min-width: 761px)').matches) {
+    mobileQuickFilters?.classList.remove('is-deep-browsing');
+    return;
+  }
+  const firstCard = grid.querySelector('.event-card');
+  const eventsSection = document.querySelector('#events');
+  const toolbarHeight = mobileQuickFilters.offsetHeight || 52;
+  const firstCardPassed = Boolean(firstCard && firstCard.getBoundingClientRect().top <= 8);
+  const eventsStillVisible = Boolean(eventsSection && eventsSection.getBoundingClientRect().bottom > toolbarHeight + 24);
+  mobileQuickFilters.classList.toggle('is-deep-browsing', firstCardPassed && eventsStillVisible);
+}
+function scheduleMobileQuickFilterMode() {
+  if (mobileQuickFilterFrame !== null) return;
+  mobileQuickFilterFrame = window.requestAnimationFrame(updateMobileQuickFilterMode);
+}
+window.addEventListener('scroll', scheduleMobileQuickFilterMode, { passive: true });
+window.addEventListener('resize', scheduleMobileQuickFilterMode);
 grid.addEventListener('click', e => { const sessionToggle = e.target.closest('.sessions-inline-toggle'); if (sessionToggle) { const list = document.querySelector(`#sessions-${sessionToggle.dataset.eventId}`); const isExpanded = !list.hidden; list.hidden = isExpanded; sessionToggle.textContent = isExpanded ? t('showOtherSessions')(list.children.length) : t('hideOtherSessions'); sessionToggle.setAttribute('aria-expanded', String(!isExpanded)); return; } const toggle = e.target.closest('.description-toggle'); if (toggle) { const description = document.querySelector(`#description-${toggle.dataset.eventId}`); const isExpanded = description.classList.toggle('is-expanded'); toggle.textContent = isExpanded ? t('collapseDescription') : t('expandDescription'); toggle.setAttribute('aria-expanded', String(isExpanded)); return; } const button = e.target.closest('.heart'); if (!button) return; const id = button.dataset.id; const legacyIds = JSON.parse(button.dataset.legacyIds || '[]'); const saved = state.saved.includes(id) || legacyIds.some(legacyId => state.saved.includes(legacyId)); const saveAnalytics = JSON.parse(button.dataset.analytics || '{}'); track(saved ? 'unsave_event' : 'save_event', saved ? saveAnalytics : { ...saveAnalytics, ...selectedFilterParameters() }); state.saved = saved ? state.saved.filter(item => item !== id && !legacyIds.includes(item)) : [...state.saved.filter(item => !legacyIds.includes(item)), id]; localStorage.setItem('southBaySaved', JSON.stringify(state.saved)); render(); });
 document.querySelector('#savedButton').addEventListener('click', () => { state.onlySaved = !state.onlySaved; document.querySelector('#savedButton').classList.toggle('active', state.onlySaved); render(); document.querySelector('#events').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
 applyStaticCopy();
