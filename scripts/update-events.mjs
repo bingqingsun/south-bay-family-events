@@ -2194,8 +2194,23 @@ async function readOfficialListing(source) {
     headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' },
     signal: AbortSignal.timeout(15000)
   });
-  const html = await response.text();
+  let html = await response.text();
   if (!response.ok) throw new Error('Official listing was not valid: ' + response.status);
+  if (source.followLinkTextPattern) {
+    const followPattern = officialListingPattern(source, 'followLinkTextPattern', source.followLinkTextPattern);
+    const followMatch = [...html.matchAll(/<a[^>]+href=["']([^"']+)["'][^>]*>([\\s\\S]*?)<\\/a>/gi)]
+      .find(match => followPattern.test(plainText(match[2])));
+    if (followMatch) {
+      const followUrl = new URL(decodeXml(followMatch[1]), source.feedUrl).href;
+      if (isOfficialUrl(followUrl, source.domain)) {
+        const followResponse = await fetch(followUrl, {
+          headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' },
+          signal: AbortSignal.timeout(15000)
+        });
+        if (followResponse.ok) html = await followResponse.text();
+      }
+    }
+  }
   const candidatePattern = officialListingPattern(source, 'candidatePattern', 'family|children|kids?|youth|teen|toddler|storytime|festival|celebration|halloween|holiday|pumpkin|lantern|moon|art|craft|science|nature|movie|concert|music|performance|parade|farm|garden|book|robot|magic|play');
   const linkPattern = officialListingPattern(source, 'linkPattern', '/(?:Home/Components/Calendar/Event|events?|calendar|programs?)/');
   const seen = new Set();
