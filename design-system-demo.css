@@ -401,12 +401,15 @@
     display: grid;
     gap: 6px;
     grid-template-columns: 1.2fr 1fr .82fr;
-    margin-left: 0;
-    margin-right: 0;
+    left: 16px;
+    margin: 0;
+    max-width: 560px;
     padding: 6px;
-    position: sticky;
-    top: 8px;
-    z-index: 12;
+    position: fixed;
+    right: 16px;
+    top: max(8px, env(safe-area-inset-top));
+    width: auto;
+    z-index: 30;
   }
 
   .home-page .mobile-quick-filters.is-deep-browsing #mobileWeekend,
