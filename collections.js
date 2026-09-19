@@ -333,7 +333,7 @@
   function renderCollectionEvents() {
     const grid = document.getElementById('collectionEventGrid');
     const quickGrid = document.getElementById('quickPickGrid');
-    if (!grid || !quickGrid || !document.getElementById('cardTemplate')) return;
+    if (!grid || !quickGrid || !window.SBFFEventCard) return;
 
     const databaseEvents = Array.isArray(window.SOUTH_BAY_EVENTS)
       ? window.SOUTH_BAY_EVENTS.filter((event) => isCurrent(event))
