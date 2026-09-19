@@ -61,4 +61,8 @@ assert.equal(shouldReplaceWeakSummary("Our mission is to inspire curiosity and s
 assert.equal(shouldReplaceWeakSummary("Come listen, come read, come perform, or simply come to be present."), false);
 assert.equal(shouldReplaceWeakSummary("The Happy Birds Show includes over 25 amazing tricks performed by talking and singing parrots."), false);
 
+const littleExplorersSource = "Little Explorers is celebrating fall! Make mess-free leaf art, shoot pom-pom spiders onto sticky webs, and enjoy some not-so spooky fun. Sensory Notes: Sound: Little Explorers may become noisy with lots of play. Visuals: Little Explorers will have different stations for play.";
+assert.equal(selectLabeledActivityBundle(littleExplorersSource), '', 'sensory/accessibility labels must not become an activity bundle');
+assert.match(selectConcreteSourceSentence(littleExplorersSource), /Make mess-free leaf art/i, 'concrete fall activities should outrank sensory notes');
+
 console.log('summary-policy: safety-gate assertions passed');
