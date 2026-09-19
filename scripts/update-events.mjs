@@ -1301,13 +1301,20 @@ async function readMidpen(source) {
 }
 
 async function readStanford(source) {
-  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
-  const payload = await response.json();
-  if (!response.ok || !Array.isArray(payload.events)) throw new Error('Stanford official event API was not valid: ' + response.status);
+  const maxPages = Math.max(1, Math.min(Number(source.maxPages) || 1, 10));
+  const payloads = await Promise.all(Array.from({ length: maxPages }, async (_, pageIndex) => {
+    const url = new URL(source.feedUrl);
+    if (maxPages > 1) url.searchParams.set('page', String(pageIndex + 1));
+    const response = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+    const payload = await response.json();
+    if (!response.ok || !Array.isArray(payload.events)) throw new Error('Stanford official event API was not valid: ' + response.status);
+    return payload;
+  }));
   // “Everyone” in Stanford's calendar includes adult lectures. We only accept
   // entries with an explicit youth/family signal in the organizer's own copy.
-  const youthSignal = /family day|family-friendly|families welcome|for families|family program|family event|family workshop|family activit(?:y|ies)|\b(?:kids?|children|teens?|tweens?)\b|youth (?:program|workshop|activit(?:y|ies)|camp)|for youth|K[-– ]?12|elementary|middle school|high school|school[- ]age|girl scout|summer camp|homeschool/i;
-  return payload.events.flatMap(wrapper => {
+  const youthSignal = /family day|family-friendly|families welcome|for families|family program|family event|family workshop|family activit(?:y|ies)|\b(?:kids?|children|teens?|tweens?)\b|youth (?:program|workshop|activit(?:y|ies)|camp)|for youth|K[-– ]?12|elementary|middle school|high school|school[- ]age|girl scout|summer camp|homeschool|storytime/i;
+  const seen = new Set();
+  return payloads.flatMap(payload => payload.events).flatMap(wrapper => {
     const item = wrapper.event || wrapper;
     const instance = item.event_instances?.[0]?.event_instance;
     const dateValue = String(instance?.start || '');
@@ -1318,9 +1325,11 @@ async function readStanford(source) {
     const tags = [...(item.tags || []), ...(item.keywords || [])].join(' ');
     const audienceText = [title, description, audiences, departments, tags].join(' ');
     const url = item.localist_url || item.url;
-    if (!title || !url || !isUpcoming(dateValue) || item.private || item.status !== 'live' || /\bcancel+ed\b/i.test(title) || !youthSignal.test(audienceText)) return [];
+    const key = String(item.id || url || '');
+    if (!title || !url || !key || seen.has(key) || !isUpcoming(dateValue) || item.private || item.status !== 'live' || /\bcancel+ed\b/i.test(title) || !youthSignal.test(audienceText)) return [];
+    seen.add(key);
     const event = directEvent({
-      id: 'stanford-' + createHash('sha256').update(String(item.id || url)).digest('hex').slice(0, 16),
+      id: 'stanford-' + createHash('sha256').update(key).digest('hex').slice(0, 16),
       title, dateValue, description, image: item.photo_url || '',
       place: item.location_name || item.location || 'Stanford University',
       source: source.name, url, ageText: audienceText
@@ -2255,7 +2264,7 @@ async function readJmzFamily(source) {
   if (!response.ok) throw new Error('JMZ family page was not valid: ' + response.status);
   const text = plainText(html);
   const dateMatch = text.match(/(20\d{2}) dates:\s*([^.]*(?:January|February|March|April|May|June|July|August|September|October|November|December)[^.]*)/i);
-  const timeMatch = text.match(/Event time for all:\s*(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?))/i);
+  const timeMatch = text.match(/Event time for all:\s*(\d{1,2}(?::\d{2})?)\s*-\s*\d{1,2}(?::\d{2})?\s*(a\.?m\.?|p\.?m\.?)/i);
   const description = sourceDescriptionText(
     text.match(/(A free event when the JMZ is open exclusively to families with children[^.]*\. Children with all disabilities are welcome[^.]*\. Come and meet zoo animals up-close\.)/i)?.[1] || ''
   );
@@ -2263,7 +2272,7 @@ async function readJmzFamily(source) {
   const year = dateMatch[1];
   const dates = [...dateMatch[2].matchAll(/(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2})/gi)];
   return dates.flatMap(match => {
-    const dateValue = isoDateFromOfficialText(`${match[1]} ${match[2]}, ${year}`, timeMatch[1]);
+    const dateValue = isoDateFromOfficialText(`${match[1]} ${match[2]}, ${year}`, `${timeMatch[1]} ${timeMatch[2]}`);
     if (!isUpcoming(dateValue)) return [];
     const event = directEvent({
       id: 'jmz-family-' + createHash('sha256').update(`${dateValue}|Super Family Sunday`).digest('hex').slice(0, 16),
@@ -2398,7 +2407,7 @@ async function readCupertino(source) {
     const image = htmlAttribute(block, /<img[^>]+src=["']([^"']+)["']/i);
     const dateValue = year && monthNumbers[month] && day ? `${year}-${monthNumbers[month]}-${String(Number(day)).padStart(2, '0')}` : '';
     const activityText = `${title} ${description} ${audience}`;
-    const youthSignal = /kids?\s*&\s*family|children|famil(?:y|ies)|youth|teen|toddler|school/i.test(activityText);
+    const youthSignal = sourceFamilyPattern(source).test(activityText);
     const url = href ? new URL(decodeXml(href), source.feedUrl).href : '';
     const id = url && dateValue ? `${url}|${dateValue}` : '';
     if (!id || seen.has(id) || !isUpcoming(dateValue) || !youthSignal) return [];
