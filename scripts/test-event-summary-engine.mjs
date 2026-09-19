@@ -116,6 +116,20 @@ assert.equal(
   'legal and policy copy must never become an activity description'
 );
 
+const featureListVsAction = buildExtractiveSummary(
+  "Games, live music, food and drink, and thousands of pumpkins. Follow the trail of clues through a glowing woodland and into a hidden village."
+);
+assert.match(featureListVsAction.summary, /Follow the trail of clues/i,
+  'a visitor action should outrank a static feature list');
+
+const liveShowStory = buildExtractiveSummary(
+  "Jasper Rabbit loves carrots, especially the ones from Crackenhopper Field. Based on the beloved book by Aaron Reynolds, this funny tale is the perfect fall treat for families.",
+  { title: 'Creepy Carrots!', format: 'live-show' }
+);
+assert.match(liveShowStory.summary, /Jasper Rabbit loves carrots/i,
+  'live-show story evidence should outrank promotional adaptation copy');
+assert.doesNotMatch(liveShowStory.summary, /perfect fall treat/i);
+
 assert.equal(hasUsableSourceContent('Fall is here and the garden is full of color. Make a lantern with your family.'), true,
   'source gate should keep multi-sentence official content for the engine to evaluate');
 assert.equal(hasUsableSourceContent('Registration required. Parking is available in the rear lot.'), false,
