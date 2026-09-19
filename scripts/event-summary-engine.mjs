@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 
-export const EVENT_SUMMARY_VERSION = 'event-summary-v2-p3';
+export const EVENT_SUMMARY_VERSION = 'event-summary-v2-p4';
 
 // South Bay Family Finds event-summary engine.
 //
@@ -28,9 +28,13 @@ const OPERATIONAL_NOTE = /\b(?:will be|is) held (?:inside|indoors?|outdoors?)\b|
 const ACTIVITY_VERB = /\b(?:watch|watching|listen|listening|enjoy|join|explore|discover|create|build|make|making|play|sing|dance|read|learn|practice|taste|eat|drink|walk|hike|tour|meet|test|testing|paint|painting|decorate|decorating|design|designing|draw|drawing|sew|sewing|knit|knitting|crochet|crocheting|see|experience|ride|visit|try|participate)\b/i;
 const EVENT_NOUN = /\b(?:story(?:time)?|songs?|rhymes?|crafts?|games?|workshop|class|concert|performance|show|movie|film|exhibit(?:ion)?|festival|parade|museum|science|art|music|opera|ballet|theat(?:er|re)|sports?|match|game)\b/i;
 const EXPERIENCE_STRUCTURE = /\b(?:with|featur(?:e|es|ing)|includes?|offers?|offering|where|activities?|demonstrations?|performances?|stations?|zone|zones)\b/i;
+const STRONG_ACTIVITY_DETAIL = /\b(?:make|making|build|building|create|creating|paint|painting|decorate|decorating|assemble|assembling|plant|planting|cook|cooking|bake|baking|craft|crafting|play|playing|watch|watching|read|reading|dance|dancing|sing|singing|taste|tasting|eat|eating|drink|drinking|tour|touring|hike|hiking|try|trying|practice|practicing|explore|exploring|learn|learning|design|designing|draw|drawing|sew|sewing|knit|knitting|crochet|crocheting|meet|meeting|listen|listening|perform|performing|compete|competing|solve|solving|experiment|experimenting|test|testing|launch|launching|fly|flying|throw|throwing|kick|kicking|jump|jumping|stamp|stamping|fold|folding|color|coloring|write|writing|ride|riding|walk|walking|follow|following|find|finding|collect|collecting|participate|participating|discuss|discussing|trick[- ]or[- ]treat(?:ing)?)\b/i;
+const GENERIC_EXPERIENCE = /\b(?:family[- ]friendly|fun|exciting|interactive|immersive|magical|spectacular|unforgettable|special)\b[^.!?]{0,100}\bexperience\b/i;
+const PROMOTIONAL_FLUFF = /\b(?:cherished|treasured|beloved|community favorite|unforgettable experience|something for everyone|perfect way to|experience the magic|make memories|memories that last|must[- ]see|can't miss|cannot miss|not to be missed)\b/i;
 
 const CONTINUATION_START = /^(?:and|or|but|because|which|that|who|whose|where|when|while|with|without|from|by|including|such as)\b/i;
 const DANGLING_INFINITIVE = /^to\s+[a-z]+\b/i;
+const LOWERCASE_DEPENDENT_START = /^(?:at|in|on|for|of|into|onto|through|during|after|before|under|over|near|around|across|inside|outside|within|between|among)\b/;
 const NON_ACTIVITY_LABEL = /^(?:sensory notes?|sound|visuals?|accessibility|accommodations?|registration|parking|location|tickets?|admission|check[- ]in)$/i;
 const ABBREVIATION_END = /(?:\b(?:mr|mrs|ms|dr|prof|sr|jr|st|vs|etc|e\.g|i\.e|a\.m|p\.m)\.|(?:\b[A-Za-z]\.){2,})$/i;
 const HONORIFIC_END = /\b(?:mr|mrs|ms|dr|prof|sr|jr|st)\.$/i;
@@ -55,11 +59,12 @@ function rawSentenceSegments(text) {
   return (text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || []).map(item => item.trim()).filter(Boolean);
 }
 
-export function splitSourceSentences(sourceText) {
+export function splitSourceSentences(sourceText, { title = '' } = {}) {
   const text = normalizeText(sourceText);
   if (!text) return [];
 
   const raw = rawSentenceSegments(text);
+  const normalizedTitle = normalizeText(title);
   const merged = [];
 
   for (const segment of raw) {
@@ -75,12 +80,18 @@ export function splitSourceSentences(sourceText) {
     const previousLooksAbbreviated = ABBREVIATION_END.test(previous);
     const honorificNeedsName = HONORIFIC_END.test(previous) && /^[A-Z][A-Za-z'’-]+\b/.test(segment);
     const initialNeedsName = INITIAL_END.test(previous) && /^[A-Z][A-Za-z'’-]+\b/.test(segment);
+    const titlePunctuationContinuation = Boolean(
+      normalizedTitle
+      && /[.!?]$/.test(normalizedTitle)
+      && previous.endsWith(normalizedTitle)
+      && /^[a-z]/.test(segment)
+    );
 
     // Sentence segmenters occasionally split after abbreviations. Merge a
     // dependent lower-case continuation after any abbreviation, and merge a
     // capitalized proper name after honorifics/initials. Time abbreviations
     // followed by a new capitalized sentence remain separate.
-    if ((previousLooksAbbreviated && startsLikeContinuation) || honorificNeedsName || initialNeedsName) {
+    if (titlePunctuationContinuation || (previousLooksAbbreviated && startsLikeContinuation) || honorificNeedsName || initialNeedsName) {
       merged[merged.length - 1] = `${previous} ${segment}`;
     } else {
       merged.push(segment);
@@ -96,7 +107,7 @@ export function isLogisticsOnly(text) {
   return /^(?:free|by appointment|call(?:\s|\.|$)|contact\b|same day|offered in|registration|reserve\b|tickets?\b|admission\b|please\b|drop-?ins?\b|no registration|must\b|participants?\b)/i.test(value)
     || /^(?:children|kids?|adults?|teens?|famil(?:y|ies)|participants?)\b[\s\S]{0,120}\b(?:welcome|must|should|need|able to|can comfortably|may participate)\b/i.test(value)
     || /^(?:designs?|prints?|library staff|color|file format|materials?)\b.*\b(?:must|are|will|may|if|criteria|available)\b/i.test(value)
-    || /ada accommodation|for more information|please (?:call|email|visit)|click here|all minors under|parent\/guardian approval|release of liability|difficulty rating|terms & conditions|reserves the right to (?:cancel|refuse)|printable if|load and save|file format/i.test(value)
+    || /ada accommodation|for more information|please (?:call|email|visit)|click here|all minors under|parent\/guardian approval|release of liability|difficulty rating|terms (?:&|and) conditions|terms of use|privacy policy|refund policy|all rights reserved|rules (?:&|and) regulations|reserves the right to (?:cancel|refuse)|printable if|load and save|file format/i.test(value)
     || (LOGISTICS.test(value) && !CONCRETE_ACTION.test(value));
 }
 
@@ -117,12 +128,29 @@ export function hasActivitySignal(text) {
     || (EVENT_NOUN.test(value) && EXPERIENCE_STRUCTURE.test(value));
 }
 
+export function isGenericExperienceOnly(text) {
+  const value = normalizeText(text);
+  return GENERIC_EXPERIENCE.test(value)
+    && !STRONG_ACTIVITY_DETAIL.test(value)
+    && !SPECIFIC_OBJECT.test(value)
+    && !EVENT_NOUN.test(value);
+}
+
+export function isPromotionalFluffOnly(text) {
+  const value = normalizeText(text);
+  return PROMOTIONAL_FLUFF.test(value)
+    && !STRONG_ACTIVITY_DETAIL.test(value)
+    && !SPECIFIC_OBJECT.test(value)
+    && !EVENT_NOUN.test(value);
+}
+
 export function isLikelyFragment(text) {
   const value = normalizeText(text);
   if (!value) return true;
   const words = value.match(/[A-Za-z][A-Za-z'’-]*/g) || [];
   if (words.length < 3) return true;
   if (CONTINUATION_START.test(value)) return true;
+  if (LOWERCASE_DEPENDENT_START.test(value)) return true;
   // "To make cards..." without a following independent clause is usually a
   // clause torn from the previous sentence. "To make cards, join us..." is
   // allowed because the comma introduces a complete main clause.
@@ -135,7 +163,7 @@ export function isLikelyFragment(text) {
 export function isSummaryAcceptable(text, { title = '', format = '' } = {}) {
   const value = normalizeText(text);
   if (value.length < 20) return false;
-  if (isLikelyFragment(value) || isLogisticsOnly(value) || isBiographyOrPromotion(value) || isOperationalNote(value)) return false;
+  if (isLikelyFragment(value) || isLogisticsOnly(value) || isBiographyOrPromotion(value) || isOperationalNote(value) || isGenericExperienceOnly(value) || isPromotionalFluffOnly(value)) return false;
   if (/\bpreview\b/i.test(title) && !/\b(?:preview|introduction|intro(?:duction)?|talk|discussion|guide)\b/i.test(value)) return false;
   return hasActivitySignal(value)
     || ['movie-screening', 'live-show', 'museum-exhibition', 'sports-game'].includes(format)
@@ -175,6 +203,8 @@ function scoreSentence(sentence, index) {
   if (LOGISTICS.test(sentence)) score -= 20;
   if (isBiographyOrPromotion(sentence)) score -= 60;
   if (isOperationalNote(sentence)) score -= 24;
+  if (isGenericExperienceOnly(sentence)) score -= 45;
+  if (isPromotionalFluffOnly(sentence)) score -= 45;
   if (isLikelyFragment(sentence)) score -= 60;
   // Small tie-breaker toward earlier official text without allowing a generic
   // lead sentence to beat a later sentence that contains the actual activity.
@@ -183,7 +213,7 @@ function scoreSentence(sentence, index) {
 }
 
 export function selectConcreteSourceSentence(sourceText, options = {}) {
-  const sentences = splitSourceSentences(sourceText);
+  const sentences = splitSourceSentences(sourceText, options);
   let best = null;
 
   for (let index = 0; index < sentences.length; index += 1) {
@@ -264,7 +294,7 @@ export function buildExtractiveSummary(sourceText, { title = '', format = '' } =
     return { summary: concrete, method: 'concrete_sentence', quality: 'strong', evidence: concrete };
   }
 
-  const candidates = splitSourceSentences(text)
+  const candidates = splitSourceSentences(text, options)
     .map((sentence, index) => ({ sentence, index, score: scoreSentence(sentence, index) }))
     .filter(item => isSummaryAcceptable(item.sentence, options))
     .sort((a, b) => b.score - a.score);
@@ -323,6 +353,8 @@ export function assessSummaryReadability(text) {
   if (value && isLogisticsOnly(value)) issues.push('logistics_only');
   if (value && isBiographyOrPromotion(value)) issues.push('biography_or_promotion');
   if (value && isOperationalNote(value)) issues.push('operational_note');
+  if (value && isGenericExperienceOnly(value)) issues.push('generic_experience');
+  if (value && isPromotionalFluffOnly(value)) issues.push('promotional_fluff');
   return { ok: issues.length === 0, issues };
 }
 
