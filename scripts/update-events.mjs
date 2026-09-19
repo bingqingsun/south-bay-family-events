@@ -2155,7 +2155,7 @@ function officialDetailLocation(html, schema, source) {
 async function readOfficialDetailCandidate(source, candidate, index, idPrefix = 'official') {
   try {
     const response = await fetch(candidate.url, {
-      headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' },
+      headers: { 'user-agent': 'Mozilla/5.0 (compatible; SouthBayFamilyFinds/1.0; +https://southbayfamilyfinds.com/)', 'accept': 'text/html,application/xhtml+xml' },
       signal: AbortSignal.timeout(15000)
     });
     const html = await response.text();
@@ -2191,7 +2191,7 @@ async function readOfficialDetailCandidate(source, candidate, index, idPrefix = 
 
 async function readOfficialListing(source) {
   const response = await fetch(source.feedUrl, {
-    headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' },
+    headers: { 'user-agent': 'Mozilla/5.0 (compatible; SouthBayFamilyFinds/1.0; +https://southbayfamilyfinds.com/)', 'accept': 'text/html,application/xhtml+xml' },
     signal: AbortSignal.timeout(15000)
   });
   let html = await response.text();
@@ -2204,7 +2204,7 @@ async function readOfficialListing(source) {
       const followUrl = new URL(decodeXml(followMatch[1]), source.feedUrl).href;
       if (isOfficialUrl(followUrl, source.domain)) {
         const followResponse = await fetch(followUrl, {
-          headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' },
+          headers: { 'user-agent': 'Mozilla/5.0 (compatible; SouthBayFamilyFinds/1.0; +https://southbayfamilyfinds.com/)', 'accept': 'text/html,application/xhtml+xml' },
           signal: AbortSignal.timeout(15000)
         });
         if (followResponse.ok) html = await followResponse.text();
@@ -2229,7 +2229,7 @@ async function readOfficialListing(source) {
 
 async function readCantorFamily(source) {
   const response = await fetch(source.feedUrl, {
-    headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' },
+    headers: { 'user-agent': 'Mozilla/5.0 (compatible; SouthBayFamilyFinds/1.0; +https://southbayfamilyfinds.com/)', 'accept': 'text/html,application/xhtml+xml' },
     signal: AbortSignal.timeout(15000)
   });
   const html = await response.text();
