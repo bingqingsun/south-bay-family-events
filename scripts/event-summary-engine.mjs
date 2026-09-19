@@ -21,7 +21,7 @@ const BACKGROUND_ONLY = /\b(?:our mission is|is designed to|aims? to|a great way
 
 const LOGISTICS = /\b(?:parking|entrance|room|location|arrive early|first[- ]come|space is limited|registration required|register online|weather permitting|held indoors|held outdoors|cancell?ed|rescheduled|sensory notes?|accessibility|accommodations?|visuals?|noise level|sound|check[- ]in|waiver|required form|ticket(?:s|ing)?|admission)\b/i;
 
-const BIOGRAPHY_OR_PROMOTION = /\b(?:recent publications?|publications? include|translations? of|editorial prefaces?|biography|biographical|curriculum vitae|cv\b|degrees?|earned (?:a|an|their)|has performed|has appeared|awards?|accolades?|career highlights?|follow us|follow along|subscribe|newsletter|youtube|instagram|facebook|donate|support us)\b/i;
+const BIOGRAPHY_OR_PROMOTION = /\b(?:recent publications?|publications? include|translations? of|editorial prefaces?|biography|biographical|curriculum vitae|cv\b|degrees?|earned (?:a|an|their)|has performed|has appeared|awards?|accolades?|career highlights?|follow us|follow along|subscribe|newsletter|youtube|instagram|facebook|donate|support us|your gift makes|start your journey today|become a member|membership now includes|sign up for email)\b/i;
 
 const OPERATIONAL_NOTE = /\b(?:will be|is) held (?:inside|indoors?|outdoors?)\b|\b(?:will not|won't|does not|doesn't) (?:be )?held\b|\bnot (?:be )?held\b|\b(?:in case of|depending on) (?:rain|weather)\b|\b(?:parking|entrance|room|location) (?:is|will be|has changed)\b|\b(?:cancell?ed|postponed|rescheduled)\b/i;
 
