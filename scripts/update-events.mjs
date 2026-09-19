@@ -2926,16 +2926,17 @@ const retainedSourceEvents = existingEvents
   .map(event => ({ ...event, refreshStatus: 'stale-source', refreshErrorAt: generatedAt }));
 const freshFeedEvents = feedAttempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
 
-const sourceRefreshCounts = Object.fromEntries(feedAttempts.map(result => [
-  result.sourceName,
+const sourceRefreshCounts = Object.fromEntries(feedAttempts.map((result, index) => [
+  `${result.sourceName} [${directSources[index].method || 'rss'}]`,
   result.status === 'fulfilled' ? result.value.length : -1
 ]));
 console.log(`Source refresh counts: ${JSON.stringify(sourceRefreshCounts)}`);
 const migrationCoverage = {
-  jmzDirect: freshFeedEvents.filter(event => event.source === 'Palo Alto Junior Museum & Zoo').map(event => ({ title: event.title, dateValue: event.dateValue, id: event.id })),
-  cantorViaStanford: freshFeedEvents.filter(event => event.source === 'Stanford Events' && /Art for All Family Day/i.test(event.title)).map(event => ({ title: event.title, dateValue: event.dateValue, id: event.id })),
-  paloAltoMooncakeViaRss: freshFeedEvents.filter(event => event.source === 'Palo Alto City Library' && /Mooncake Festival|Moon Festival|Jasmine Fang/i.test(event.title)).map(event => ({ title: event.title, dateValue: event.dateValue, id: event.id })),
-  cupertinoSeasonalDirect: freshFeedEvents.filter(event => event.source === 'City of Cupertino' && /Bike Fest|Monster Mash/i.test(event.title)).map(event => ({ title: event.title, dateValue: event.dateValue, id: event.id }))
+  jmzDirect: freshFeedEvents.filter(event => event.source === 'Palo Alto Junior Museum & Zoo' && /^jmz-family-/.test(event.id)).map(event => ({ title: event.title, dateValue: event.dateValue, id: event.id })),
+  cantorDirect: freshFeedEvents.filter(event => event.source === 'Cantor Arts Center' && /^stanford-/.test(event.id)).map(event => ({ title: event.title, dateValue: event.dateValue, id: event.id })),
+  paloAltoMooncakeViaRss: freshFeedEvents.filter(event => event.source === 'Palo Alto City Library' && /^rss-/.test(event.id) && /Mooncake Festival|Moon Festival|Jasmine Fang/i.test(event.title)).map(event => ({ title: event.title, dateValue: event.dateValue, id: event.id })),
+  cupertinoSeasonalDirect: freshFeedEvents.filter(event => event.source === 'City of Cupertino' && /^cupertino-/.test(event.id) && /Bike Fest|Monster Mash/i.test(event.title)).map(event => ({ title: event.title, dateValue: event.dateValue, id: event.id })),
+  santaClaraDirect: freshFeedEvents.filter(event => event.source === 'City of Santa Clara' && /^official-listing-/.test(event.id)).map(event => ({ title: event.title, dateValue: event.dateValue, id: event.id }))
 };
 console.log(`Source migration coverage: ${JSON.stringify(migrationCoverage)}`);
 
