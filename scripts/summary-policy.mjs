@@ -9,7 +9,7 @@ const PARTICIPATION_SIGNAL = /\b(?:with us|hands-on|take (?:it|them) home|bring 
 const SPECIFIC_OBJECT = /\b(?:feeder|kite|lantern|painting|paint|flower|keychain|cardholder|lego|legos|craft|project|experiment|game|games|story|stories|song|songs|instrument|bracelet|jewelry|robot|puzzle|moon(?:cake)?|collage|mask|puppet|book|books|seed|garden|cookie|cookies|cake|clay|pottery|origami|model|slime|rocket|birdhouse)\b/i;
 
 const BACKGROUND_ONLY = /\b(?:our mission is|is designed to|aims? to|a great way to|fall migration season|there are lots of|celebrates? the history of|highlights? the participation of|inspires? curiosity|spark a love for|benefits? include|supports? .* development)\b/i;
-const LOGISTICS_ONLY = /\b(?:parking|entrance|room|location|arrive early|first[- ]come|space is limited|registration required|register online|weather permitting|held indoors|held outdoors|cancell?ed|rescheduled)\b/i;
+const LOGISTICS_ONLY = /\b(?:parking|entrance|room|location|arrive early|first[- ]come|space is limited|registration required|register online|weather permitting|held indoors|held outdoors|cancell?ed|rescheduled|sensory notes?|accessibility|accommodations?|visuals?|noise level|sound)\b/i;
 
 export function splitSourceSentences(sourceText) {
   return (String(sourceText || '').match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [])
@@ -54,6 +54,7 @@ export function selectLabeledActivityBundle(sourceText) {
     const label = match[1].trim();
     const body = match[2].trim();
     const combined = `${label}: ${body}`;
+    if (/^(?:sensory notes?|sound|visuals?|accessibility|accommodations?|registration|parking|location)$/i.test(label)) continue;
     if (!CONCRETE_ACTION.test(body) && !SPECIFIC_OBJECT.test(body)) continue;
     if (LOGISTICS_ONLY.test(combined)) continue;
     items.push(combined);
