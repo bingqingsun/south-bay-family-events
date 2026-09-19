@@ -2025,11 +2025,11 @@ async function readLahm(source) {
   // source outage as a failed refresh.
   let response;
   let html = '';
-  for (let attempt = 0; attempt < 2; attempt += 1) {
+  for (let attempt = 0; attempt < 4; attempt += 1) {
     response = await fetch(source.feedUrl, { headers, signal: AbortSignal.timeout(15000) });
     html = await response.text();
     if (response.status !== 202) break;
-    await new Promise(resolve => setTimeout(resolve, 1200));
+    await new Promise(resolve => setTimeout(resolve, 1500 * (attempt + 1)));
   }
   if (!response.ok || !/events-table/.test(html)) throw new Error('Los Altos History Museum event list was not valid: ' + response.status);
   const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
