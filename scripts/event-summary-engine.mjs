@@ -21,7 +21,9 @@ const BIOGRAPHY_OR_PROMOTION = /\b(?:recent publications?|publications? include|
 
 const OPERATIONAL_NOTE = /\b(?:will be|is) held (?:inside|indoors?|outdoors?)\b|\b(?:in case of|depending on) (?:rain|weather)\b|\b(?:parking|entrance|room|location) (?:is|will be|has changed)\b|\b(?:cancell?ed|postponed|rescheduled)\b/i;
 
-const ACTIVITY_SIGNAL = /\b(?:watch|watching|listen|listening|enjoy|join|explore|discover|create|build|make|making|play|sing|dance|read|learn|practice|taste|walk|hike|tour|meet|test|testing|paint|painting|decorate|decorating|design|designing|draw|drawing|sew|sewing|knit|knitting|crochet|crocheting|see|experience|story(?:time)?|songs?|rhymes?|crafts?|games?|workshop|class|concert|performance|show|movie|film|exhibit(?:ion)?|festival|parade|museum|nature|garden|science|art|music|opera|ballet|theat(?:er|re)|sports?|match|game|ride|visit)\b/i;
+const ACTIVITY_VERB = /\b(?:watch|watching|listen|listening|enjoy|join|explore|discover|create|build|make|making|play|sing|dance|read|learn|practice|taste|walk|hike|tour|meet|test|testing|paint|painting|decorate|decorating|design|designing|draw|drawing|sew|sewing|knit|knitting|crochet|crocheting|see|experience|ride|visit|try|participate)\b/i;
+const EVENT_NOUN = /\b(?:story(?:time)?|songs?|rhymes?|crafts?|games?|workshop|class|concert|performance|show|movie|film|exhibit(?:ion)?|festival|parade|museum|science|art|music|opera|ballet|theat(?:er|re)|sports?|match|game)\b/i;
+const EXPERIENCE_STRUCTURE = /\b(?:with|featur(?:e|es|ing)|includes?|offers?|offering|where|activities?|demonstrations?|performances?|stations?|zone|zones)\b/i;
 
 const CONTINUATION_START = /^(?:and|or|but|because|which|that|who|whose|where|when|while|with|without|from|by|including|such as)\b/i;
 const DANGLING_INFINITIVE = /^to\s+[a-z]+\b/i;
@@ -100,7 +102,10 @@ export function isOperationalNote(text) {
 }
 
 export function hasActivitySignal(text) {
-  return ACTIVITY_SIGNAL.test(normalizeText(text));
+  const value = normalizeText(text);
+  return ACTIVITY_VERB.test(value)
+    || CONCRETE_ACTION.test(value)
+    || (EVENT_NOUN.test(value) && EXPERIENCE_STRUCTURE.test(value));
 }
 
 export function isLikelyFragment(text) {
