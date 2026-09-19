@@ -2020,8 +2020,17 @@ async function readFiloli(source) {
 // only when the organizer explicitly signals a youth or family audience.
 async function readLahm(source) {
   const headers = { 'user-agent': 'SouthBayFamilyEventsBot/1.0' };
-  const response = await fetch(source.feedUrl, { headers, signal: AbortSignal.timeout(15000) });
-  const html = await response.text();
+  // The museum's CDN occasionally answers the first calendar request with
+  // 202 Accepted while warming the page. Retry once before treating a real
+  // source outage as a failed refresh.
+  let response;
+  let html = '';
+  for (let attempt = 0; attempt < 4; attempt += 1) {
+    response = await fetch(source.feedUrl, { headers, signal: AbortSignal.timeout(15000) });
+    html = await response.text();
+    if (response.status !== 202) break;
+    await new Promise(resolve => setTimeout(resolve, 1500 * (attempt + 1)));
+  }
   if (!response.ok || !/events-table/.test(html)) throw new Error('Los Altos History Museum event list was not valid: ' + response.status);
   const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
   const rows = [...html.matchAll(/<tr>([\s\S]*?)<\/tr>/gi)].map(match => match[1]);
@@ -2795,8 +2804,10 @@ const target = new URL('../data/events.json', import.meta.url);
 const browserTarget = new URL('../data/events.js', import.meta.url);
 const museumTarget = new URL('../data/museums.json', import.meta.url);
 const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
+const sourceHealthTarget = new URL('../data/source-health.json', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
+const existingSourceHealth = await readFile(sourceHealthTarget, 'utf8').then(JSON.parse).catch(() => ({ sources: [] }));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
 const directMethods = ['jmz-family', 'stanford-venue-family', 'rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'santana-row', 'annual-festival', 'curated', 'google-visitor-events', 'eventbrite-organizer'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
@@ -2879,6 +2890,42 @@ const sourceRefreshCounts = Object.fromEntries(feedAttempts.map((result, index) 
   result.status === 'fulfilled' ? result.value.length : -1
 ]));
 console.log(`Source refresh counts: ${JSON.stringify(sourceRefreshCounts)}`);
+const sourceHealthKey = source => `${source.name}|${source.domain || ''}|${source.feedUrl || ''}`;
+const previousHealthByKey = new Map((existingSourceHealth.sources || []).map(source => [source.key || source.name, source]));
+const directHealthByKey = new Map(feedAttempts.map((result, index) => [sourceHealthKey(directSources[index]), result]));
+const fallbackHealthByKey = new Map(searchAttempts.map((result, index) => [sourceHealthKey(searchSources[index]), result]));
+const sourceHealth = {
+  generatedAt,
+  configuredSources: sources.length,
+  directSources: directSources.length,
+  fallbackSourcesRun: searchSources.length,
+  sources: sources.map(source => {
+    const key = sourceHealthKey(source);
+    const previous = previousHealthByKey.get(key) || {};
+    const result = directHealthByKey.get(key) || fallbackHealthByKey.get(key);
+    if (!result) return {
+      key, name: source.name, method: source.method || 'search-fallback', mode: 'not-run',
+      failureStreak: previous.failureStreak || 0
+    };
+    const failed = result.status === 'rejected';
+    return {
+      key,
+      name: source.name,
+      method: source.method || 'search-fallback',
+      mode: directHealthByKey.has(key) ? 'direct' : 'search-fallback',
+      status: failed ? 'failed' : 'ok',
+      eventCount: failed ? 0 : result.value.length,
+      failureStreak: failed ? (previous.failureStreak || 0) + 1 : 0,
+      error: failed ? String(result.reason?.message || 'unknown refresh error').slice(0, 240) : ''
+    };
+  })
+};
+sourceHealth.alerts = sourceHealth.sources
+  .filter(source => source.status === 'failed' && source.failureStreak >= 3)
+  .map(source => ({ name: source.name, failureStreak: source.failureStreak, error: source.error }));
+if (sourceHealth.alerts.length) {
+  console.warn(`::warning::Source health alert: ${JSON.stringify(sourceHealth.alerts)}`);
+}
 // A successful calendar parse can still miss one valid event when the
 // organizer changes only that card/detail wrapper. Do not silently delete a
 // previously verified future activity just because it disappeared from the
@@ -3302,6 +3349,7 @@ await writeFile(target, `${JSON.stringify(events, null, 2)}\n`);
 await writeFile(browserTarget, `window.SOUTH_BAY_EVENTS = ${JSON.stringify(events)};\nwindow.SOUTH_BAY_EVENTS_META = ${JSON.stringify({ generatedAt })};\n`);
 await writeFile(museumTarget, `${JSON.stringify(museums, null, 2)}\n`);
 await writeFile(museumBrowserTarget, `window.SOUTH_BAY_MUSEUMS = ${JSON.stringify(museums)};\n`);
+await writeFile(sourceHealthTarget, `${JSON.stringify(sourceHealth, null, 2)}\n`);
 const summaryStatusCounts = events.reduce((counts, event) => {
   const status = event.summaryStatus || 'missing';
   counts[status] = (counts[status] || 0) + 1;

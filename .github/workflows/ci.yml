@@ -1,0 +1,42 @@
+name: Verify South Bay Family Finds
+# This workflow is intentionally read-only: generated activity data is
+# validated separately by the refresh workflow and does not need a second CI run.
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/**'
+      - 'data/sources.json'
+      - 'analytics.js'
+      - 'privacy.html'
+      - '.github/workflows/ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/**'
+      - 'data/sources.json'
+      - 'analytics.js'
+      - 'privacy.html'
+      - '.github/workflows/ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check refresh-script syntax
+        run: node --check scripts/update-events.mjs
+      - name: Run policy and data-contract tests
+        run: |
+          node scripts/test-event-summary-engine.mjs
+          node scripts/test-summary-output.mjs
+          node scripts/classification.test.mjs
+          node scripts/cost-policy.test.mjs
+          node scripts/movie-policy.test.mjs
+          node scripts/recommendation.test.mjs

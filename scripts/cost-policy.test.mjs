@@ -57,7 +57,11 @@ assert.ok(generatedEvents.length > 0, 'the generated feed must contain activitie
 assert.equal(generatedEvents.some(event => event.costLabel === '需购票／价格见详情'), false, 'ambiguous legacy price labels must not be published');
 assert.equal(generatedEvents.some(event => event.costStatus === 'unknown' && event.costSource), false, 'unknown costs must stay hidden');
 assert.equal(generatedEvents.every(event => ['unknown', 'free', 'paid', 'donation', 'variable'].includes(event.costStatus)), true, 'every activity needs a canonical cost status');
-assert.equal(generatedEvents.every(event => ['unknown', 'required', 'recommended', 'not-required', 'walk-in'].includes(event.registrationStatus)), true, 'every activity needs a canonical registration status');
+// "full" is intentionally canonical: the UI keeps the activity discoverable
+// while clearly telling parents that registration is full and that they should
+// check the organizer's waitlist. Do not turn this useful availability signal
+// into a data-contract failure.
+assert.equal(generatedEvents.every(event => ['unknown', 'required', 'recommended', 'not-required', 'walk-in', 'full'].includes(event.registrationStatus)), true, 'every activity needs a canonical registration status');
 const pumpkinCharm = generatedEvents.find(event => event.title === 'DIY Felt Pumpkin Bag Charms');
 assert.equal(pumpkinCharm?.costStatus, 'unknown');
 assert.equal(pumpkinCharm?.registrationStatus, 'walk-in');

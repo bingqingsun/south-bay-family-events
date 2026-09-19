@@ -1,10 +1,8 @@
 (() => {
   const measurementId = 'G-VV1LPH4DE9';
-  const consentKey = 'southBayFamilyPlansAnalyticsConsent';
+  const consentKey = 'southBayFamilyFindsAnalyticsConsent';
   const publishedHosts = new Set([
     'bingqingsun.github.io',
-    'southbayfamilyplans.com',
-    'www.southbayfamilyplans.com',
     'southbayfamilyfinds.com',
     'www.southbayfamilyfinds.com'
   ]);
@@ -43,7 +41,7 @@
     enableAnalytics();
   }
 
-  window.setWeekendPlansAnalyticsConsent = setAnalyticsChoice;
+  window.setSouthBayFamilyFindsAnalyticsConsent = setAnalyticsChoice;
 
   document.addEventListener('DOMContentLoaded', enableAnalytics);
 })();
