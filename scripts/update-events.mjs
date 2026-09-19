@@ -2416,7 +2416,14 @@ async function readGilroyGardens(source) {
       const detailResponse = await fetch(result.url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
       const detail = await detailResponse.text();
       if (!detailResponse.ok) return;
-      const description = decodeXml(detail.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)/i)?.[1] || '');
+      const metaDescription = decodeXml(detail.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)/i)?.[1] || '');
+      // Preserve the richest reliable first-party activity copy. Event pages
+      // often expose a vague SEO meta description while the visible body gives
+      // parents the actual things they can do. The shared summary engine still
+      // owns ranking and publication; this adapter only broadens source evidence.
+      const description = officialParagraphText(detail, {
+        excludePattern: /\b(?:premium membership|single-day admission|buy tickets?|parking|terms (?:&|and) conditions|privacy policy|refund policy)\b/i
+      }) || metaDescription;
       const image = decodeXml(detail.match(/<meta\s+property=["']og:image["']\s+content=["']([^"']+)/i)?.[1] || '');
       if (!hasUsableSourceContent(description)) return;
       detailsByTitle.set(normalizedTitle, { url: result.url, description, image, detailText: plainText(detail) });
