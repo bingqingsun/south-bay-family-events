@@ -1350,22 +1350,51 @@ async function readStanford(source) {
 }
 
 async function readStanfordVenueFamily(source) {
-  const placeUrl = new URL('/api/2/places/search', source.feedUrl || 'https://events.stanford.edu');
+  const base = new URL(source.feedUrl || 'https://events.stanford.edu');
+  const matchPattern = new RegExp(source.venuePattern || source.venueSearch || source.departmentSearch || 'Cantor Arts Center', 'i');
+
+  let filterKey = '';
+  let filterId = '';
+
+  const placeUrl = new URL('/api/2/places/search', base);
   placeUrl.searchParams.set('search', source.venueSearch || 'Cantor Arts Center');
-  placeUrl.searchParams.set('pp', '25');
+  placeUrl.searchParams.set('pp', '50');
   const placeResponse = await fetch(placeUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
-  const placePayload = await placeResponse.json();
-  if (!placeResponse.ok || !Array.isArray(placePayload.places)) throw new Error('Stanford venue search was not valid: ' + placeResponse.status);
-  const venuePattern = new RegExp(source.venuePattern || source.venueSearch || 'Cantor Arts Center', 'i');
-  const place = placePayload.places.map(wrapper => wrapper.place || wrapper).find(item => venuePattern.test(String(item?.name || item?.title || item?.location || '')));
-  if (!place?.id) throw new Error('Stanford venue was not found for ' + source.name);
-  const eventsUrl = new URL('/api/2/events', placeUrl);
-  eventsUrl.searchParams.set('venue_id', String(place.id));
+  if (placeResponse.ok) {
+    const placePayload = await placeResponse.json();
+    const place = (placePayload.places || []).map(wrapper => wrapper.place || wrapper)
+      .find(item => matchPattern.test(String(item?.name || item?.title || item?.location || '')));
+    if (place?.id) {
+      filterKey = 'venue_id';
+      filterId = String(place.id);
+    }
+  }
+
+  if (!filterId) {
+    const departmentUrl = new URL('/api/2/departments/search', base);
+    departmentUrl.searchParams.set('search', source.departmentSearch || source.venueSearch || 'Cantor Arts Center');
+    departmentUrl.searchParams.set('pp', '50');
+    const departmentResponse = await fetch(departmentUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+    if (departmentResponse.ok) {
+      const departmentPayload = await departmentResponse.json();
+      const department = (departmentPayload.departments || []).map(wrapper => wrapper.department || wrapper)
+        .find(item => matchPattern.test(String(item?.name || item?.title || '')));
+      if (department?.id) {
+        filterKey = 'group_id';
+        filterId = String(department.id);
+      }
+    }
+  }
+
+  if (!filterId) throw new Error('Stanford venue/department was not found for ' + source.name);
+
+  const eventsUrl = new URL('/api/2/events', base);
+  eventsUrl.searchParams.set(filterKey, filterId);
   eventsUrl.searchParams.set('days', String(Math.max(1, Math.min(Number(source.days) || 365, 365))));
   eventsUrl.searchParams.set('pp', '100');
   const response = await fetch(eventsUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
   const payload = await response.json();
-  if (!response.ok || !Array.isArray(payload.events)) throw new Error('Stanford venue event API was not valid: ' + response.status);
+  if (!response.ok || !Array.isArray(payload.events)) throw new Error('Stanford venue/department event API was not valid: ' + response.status);
   return stanfordEventsFromPayloads([payload], source);
 }
 
