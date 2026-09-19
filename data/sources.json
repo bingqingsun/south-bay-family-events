@@ -532,14 +532,34 @@
   },
   {
     "name": "City of Santa Clara",
-    "domain": "santaclaraca.gov",
-    "method": "official-listing",
-    "feedUrl": "https://www.santaclaraca.gov/our-city/departments-g-z/parks-recreation/-toggle-allupcoming",
-    "maxLinks": 120,
+    "domain": "calendar.santaclaraca.gov",
+    "method": "curated",
+    "feedUrl": "https://calendar.santaclaraca.gov/santaclaraca/260168831",
     "city": "Santa Clara",
-    "candidatePattern": "family|families|children|kids?|youth|spook|festival|movie|cinema|tree lighting|bioblitz|holiday|art & wine|halloween",
-    "familyPattern": "family|families|children|kids?|youth|all ages|spook|festival|movie|cinema|tree lighting|bioblitz|holiday|art & wine|halloween",
-    "linkPattern": "/Home/Components/Calendar/Event/"
+    "events": [
+      {
+        "title": "Santa Clara Art & Wine Festival",
+        "dateValue": "2026-09-19T10:00",
+        "description": "A free family-friendly festival with artists and craft vendors, live entertainment, food, and activities for children.",
+        "image": "https://www.santaclaraca.gov/home/showpublishedimage/83122/639233437690000000",
+        "place": "Central Park",
+        "address": "909 Kiely Blvd, Santa Clara",
+        "ageText": "Children Families All ages",
+        "cost": "Free",
+        "format": "festival"
+      },
+      {
+        "title": "Santa Clara Art & Wine Festival",
+        "dateValue": "2026-09-20T10:00",
+        "description": "A free family-friendly festival with artists and craft vendors, live entertainment, food, and activities for children.",
+        "image": "https://www.santaclaraca.gov/home/showpublishedimage/83122/639233437690000000",
+        "place": "Central Park",
+        "address": "909 Kiely Blvd, Santa Clara",
+        "ageText": "Children Families All ages",
+        "cost": "Free",
+        "format": "festival"
+      }
+    ]
   },
   {
     "name": "City of Cupertino",
@@ -584,15 +604,22 @@
   {
     "name": "City of Sunnyvale",
     "domain": "sunnyvale.ca.gov",
-    "method": "official-listing",
-    "feedUrl": "https://www.sunnyvale.ca.gov/news-center-and-events-calendar/city-calendar",
-    "monthlyCivic": true,
-    "monthsAhead": 4,
-    "maxLinks": 180,
+    "method": "curated",
+    "feedUrl": "https://www.sunnyvale.ca.gov/recreation-and-community/special-events/hands-on-the-arts",
     "city": "Sunnyvale",
-    "candidatePattern": "family|families|kids?|children|youth|teen|toddler|preschool|baby|storytime|lego|stem|craft|movie|festival|playtime|dance|monkey king|graphic novel|pumpkin|halloween|holiday|hands on the arts|mid-autumn",
-    "familyPattern": "family|families|kids?|children|youth|teen|toddler|preschool|baby|caregiver|all ages|storytime|lego|stem|craft|festival|mid-autumn",
-    "linkPattern": "/Home/Components/Calendar/Event/"
+    "events": [
+      {
+        "title": "Hands on the Arts Festival",
+        "dateValue": "2026-10-17T10:00",
+        "description": "A free children's arts festival with hands-on visual and performing arts workshops, family-friendly entertainment, and food vendors.",
+        "image": "assets/official/hands-on-the-arts-festival-2026.png",
+        "place": "Sunnyvale Community Center",
+        "address": "550 E Remington Dr, Sunnyvale",
+        "ageText": "All ages Children Family-friendly",
+        "cost": "Free",
+        "format": "arts"
+      }
+    ]
   },
   {
     "name": "Santa Clara Parade of Champions",
