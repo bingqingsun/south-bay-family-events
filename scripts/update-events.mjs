@@ -2162,9 +2162,9 @@ async function readOfficialDetailCandidate(source, candidate, index, idPrefix = 
     if (!response.ok) return null;
     const schema = firstOfficialEventSchema(html);
     const title = plainText(schema?.name
+      || candidate.title
       || String(html).match(/<h1[^>]*>([\\s\\S]*?)<\\/h1>/i)?.[1]
-      || String(html).match(/<h2[^>]*>([\\s\\S]*?)<\\/h2>/i)?.[1]
-      || candidate.title);
+      || String(html).match(/<h2[^>]*>([\\s\\S]*?)<\\/h2>/i)?.[1]);
     const dateValue = officialDetailDate(html, schema) || candidate.dateValue || '';
     if (!title || !dateValue || !isUpcoming(dateValue)) return null;
     const description = officialDetailDescription(html, schema, title);
@@ -2239,7 +2239,10 @@ async function readCantorFamily(source) {
   if (!dateMatch) return [];
   const dateValue = isoDateFromOfficialText(dateMatch[1], source.defaultTime || '10:00 AM');
   if (!isUpcoming(dateValue)) return [];
-  const description = 'Children, families, and caregivers come together for free educational activities, hands-on art-making, and performances at the Stanford art museums.';
+  const description = sourceDescriptionText(
+    text.match(/(Twice-yearly in-person Family Days bring children, families, and caregivers together for a day of free educational activities, art-making, and performances\\.)/i)?.[1] || ''
+  );
+  if (!hasPublishableSummary(description, { title: 'Art for All Family Day' })) return [];
   return [directEvent({
     id: 'cantor-family-' + createHash('sha256').update(dateMatch[1]).digest('hex').slice(0, 16),
     title: 'Art for All Family Day', dateValue, description,
