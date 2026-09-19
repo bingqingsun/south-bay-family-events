@@ -13,7 +13,7 @@ import {
   normalizedMovieTitle,
   normalizedMovieRating
 } from './movie-policy.mjs';
-import { selectConcreteSourceSentence, shouldReplaceWeakSummary } from './summary-policy.mjs';
+import { selectConcreteSourceSentence, selectLabeledActivityBundle, shouldReplaceWeakSummary } from './summary-policy.mjs';
 
 const key = process.env.SERPAPI_KEY;
 // Translation is intentionally paused: no third-party translation key is read
@@ -291,7 +291,7 @@ function isOperationalNote(text) {
 }
 
 function hasActivitySignal(text) {
-  return /\b(?:watch(?:ing)?|listen(?:ing)?|enjoy(?:ing)?|join(?:ing)?|explor(?:e|ing)|discover(?:ing)?|creat(?:e|ing)|build(?:ing)?|mak(?:e|ing)|play(?:ing)?|sing(?:ing)?|danc(?:e|ing)|read(?:ing)?|learn(?:ing)?|practic(?:e|ing)|tast(?:e|ing)|walk(?:ing)?|hik(?:e|ing)|tour(?:ing)?|meet(?:ing)?|paint(?:ing)?|decorat(?:e|ing)|design(?:ing)?|draw(?:ing)?|sew(?:ing)?|knit(?:ting)?|crochet(?:ing)?|test(?:ing)?|experiment(?:ing)?|see|experience|story(?:time)?|songs?|rhymes?|crafts?|games?|workshop|class|concert|performance|show|movie|film|exhibit(?:ion)?|festival|parade|museum|nature|garden|science|art|music|opera|ballet|theat(?:er|re)|sports?|match|game)\b/i.test(plainText(text));
+  return /\b(?:watch|watching|listen|enjoy|join|explore|discover|create|build|make|making|play|sing|dance|read|learn|practice|taste|walk|hike|tour|meet|test|testing|paint|painting|decorate|decorating|design|designing|draw|drawing|sew|sewing|knit|knitting|crochet|crocheting|see|experience|story(?:time)?|songs?|rhymes?|crafts?|games?|workshop|class|concert|performance|show|movie|film|exhibit(?:ion)?|festival|parade|museum|nature|garden|science|art|music|opera|ballet|theat(?:er|re)|sports?|match|game)\b/i.test(plainText(text));
 }
 
 function fallbackActivitySummary(title) {
@@ -410,12 +410,15 @@ function cardSummary(html, title = '', format = '') {
   // P0 trust rule: preserve an already-clear official-source summary. Only
   // replace it when it is clearly background/mission/benefit copy and the
   // same official source contains a more concrete participation sentence.
-  const concreteSourceSentence = shouldReplaceWeakSummary(verified)
+  const labeledBundle = selectLabeledActivityBundle(text);
+  const bundleUpgrade = labeledBundle && verified && labeledBundle.includes(verified)
+    ? labeledBundle
+    : '';
+  const concreteSourceSentence = !bundleUpgrade && shouldReplaceWeakSummary(verified)
     ? selectConcreteSourceSentence(text)
     : '';
-  const grounded = concreteSourceSentence && isCardSummaryAcceptable(concreteSourceSentence, title, format)
-    ? concreteSourceSentence
-    : verified;
+  const grounded = bundleUpgrade
+    || (concreteSourceSentence && isCardSummaryAcceptable(concreteSourceSentence, title, format) ? concreteSourceSentence : verified);
   // Keep enough of the organizer-derived summary for the in-card “expand"
   // control. The collapsed card remains short through CSS line clamping.
   return grounded.length > 320 ? `${grounded.slice(0, 317).trimEnd()}…` : grounded;
