@@ -33,7 +33,7 @@ const GENERIC_EXPERIENCE = /\b(?:family[- ]friendly|fun|exciting|interactive|imm
 const PROMOTIONAL_FLUFF = /\b(?:cherished|treasured|beloved|community favorite|unforgettable experience|something for everyone|perfect way to|experience the magic|make memories|memories that last|never forget|must[- ]see|can't miss|cannot miss|not to be missed)\b/i;
 const SENSORY_OR_ACCESSIBILITY_DETAIL = /\b(?:visually busy|visual stimulation|sensory (?:need|needs|difference|differences|processing)|different textures?|unusual textures?|noise level|may become noisy|bright lights?|flashing lights?|loud sounds?|accessibility accommodations?)\b/i;
 const ADMINISTRATIVE_COPY = /\b(?:confirm your membership|membership in a follow-up email|stops? to be announced|details? to be announced|schedule subject to change|regular library hours|library hours|organization is one of|one of the region'?s premier|now in its \d+(?:st|nd|rd|th) season|offering training and performance opportunities|experience this exhibit online or in person)\b/i;
-const GENERIC_JOIN_INTRO = /^join\s+(?:us|[A-Z][A-Za-z'’.-]+(?:\s+[A-Z][A-Za-z'’.-]+){0,3})\s+for\s+[^.!?]{3,100}[.!?]?$/i;
+const GENERIC_JOIN_INTRO = /^join\s+[^.!?]{1,80}\s+for\s+[^.!?]{3,140}[.!?]?$/i;
 const DIRECT_PARTICIPATION_ACTION = /(?:^(?:come\b[^.!?]{0,80}\band\s+)?(?:follow|find|collect|trick[- ]or[- ]treat(?:ing)?)\b|\b(?:you|families|kids|children|visitors|participants|attendees|guests?)\b[^.!?]{0,100}\b(?:can|will|are invited to|are welcome to)?\s*(?:follow|find|collect|trick[- ]or[- ]treat(?:ing)?)\b)/i;
 const SUPPORT_ACTIVITY = /\b(?:homework help|tutoring|tutors?|study help|academic support)\b/i;
 
@@ -147,6 +147,14 @@ export function hasActivitySignal(text) {
     || (EVENT_NOUN.test(value) && EXPERIENCE_STRUCTURE.test(value));
 }
 
+function isGenericJoinOnly(text) {
+  const value = normalizeText(text);
+  return GENERIC_JOIN_INTRO.test(value)
+    && !CONCRETE_ACTION.test(value)
+    && !DIRECT_PARTICIPATION_ACTION.test(value)
+    && !SPECIFIC_OBJECT.test(value);
+}
+
 export function isGenericExperienceOnly(text) {
   const value = normalizeText(text);
   return GENERIC_EXPERIENCE.test(value)
@@ -188,7 +196,7 @@ export function isLikelyFragment(text) {
 export function isSummaryAcceptable(text, { title = '', format = '' } = {}) {
   const value = normalizeText(text);
   if (value.length < 20) return false;
-  if (isLikelyFragment(value) || isLogisticsOnly(value) || isBiographyOrPromotion(value) || isOperationalNote(value) || isGenericExperienceOnly(value) || isPromotionalFluffOnly(value) || GENERIC_JOIN_INTRO.test(value)) return false;
+  if (isLikelyFragment(value) || isLogisticsOnly(value) || isBiographyOrPromotion(value) || isOperationalNote(value) || isGenericExperienceOnly(value) || isPromotionalFluffOnly(value) || isGenericJoinOnly(value)) return false;
   if (/\bpreview\b/i.test(title) && !/\b(?:preview|introduction|intro(?:duction)?|talk|discussion|guide)\b/i.test(value)) return false;
   return hasActivitySignal(value)
     || ['movie-screening', 'live-show', 'museum-exhibition', 'sports-game'].includes(format)
@@ -228,7 +236,7 @@ function scoreSentence(sentence, index) {
   if (sentence.length < 22) score -= 8;
   if (BACKGROUND_ONLY.test(sentence)) score -= 22;
   if (PROMOTIONAL_FLUFF.test(sentence)) score -= 30;
-  if (GENERIC_JOIN_INTRO.test(sentence)) score -= 22;
+  if (isGenericJoinOnly(sentence)) score -= 22;
   if (isFeatureListOnly(sentence)) score -= 14;
   if (LOGISTICS.test(sentence)) score -= 20;
   if (isBiographyOrPromotion(sentence)) score -= 60;
@@ -385,7 +393,7 @@ export function assessSummaryReadability(text) {
   if (value && isOperationalNote(value)) issues.push('operational_note');
   if (value && isGenericExperienceOnly(value)) issues.push('generic_experience');
   if (value && isPromotionalFluffOnly(value)) issues.push('promotional_fluff');
-  if (value && GENERIC_JOIN_INTRO.test(value)) issues.push('generic_join_intro');
+  if (value && isGenericJoinOnly(value)) issues.push('generic_join_intro');
   return { ok: issues.length === 0, issues };
 }
 
