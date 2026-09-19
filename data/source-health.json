@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-19T18:21:35.350Z",
+  "generatedAt": "2026-09-19T18:23:38.225Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -243,7 +243,7 @@
       "method": "cinemark",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 10,
+      "eventCount": 14,
       "failureStreak": 0,
       "error": ""
     },
@@ -359,10 +359,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "failed",
-      "eventCount": 0,
-      "failureStreak": 2,
-      "error": "Los Altos History Museum event list was not valid: 202"
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "name": "Museum of American Heritage",
