@@ -1,3 +1,7 @@
+import { createHash } from 'node:crypto';
+
+export const EVENT_SUMMARY_VERSION = 'event-summary-v2-p3';
+
 // South Bay Family Finds event-summary engine.
 //
 // Architectural rule:
@@ -269,6 +273,46 @@ export function buildExtractiveSummary(sourceText, { title = '', format = '' } =
   return selected
     ? { summary: selected, method: 'best_source_sentence', quality: 'acceptable', evidence: selected }
     : { summary: '', method: 'none', quality: 'needs_review', evidence: '' };
+}
+
+export function hasPublishableSummary(sourceText, { title = '', format = '' } = {}) {
+  return Boolean(buildExtractiveSummary(sourceText, { title, format }).summary);
+}
+
+export function buildSummaryRecord({
+  sourceText,
+  title = '',
+  format = '',
+  status = 'extractive',
+  verifiedAt = '',
+  evidenceData = null
+} = {}) {
+  const sourceDescriptionRaw = normalizeText(sourceText);
+  const extracted = status === 'extractive'
+    ? buildExtractiveSummary(sourceDescriptionRaw, { title, format })
+    : {
+        summary: isSummaryAcceptable(sourceDescriptionRaw, { title, format }) ? sourceDescriptionRaw : '',
+        method: status,
+        quality: status === 'manual_verified' ? 'manual_verified' : 'structured',
+        evidence: sourceDescriptionRaw
+      };
+
+  const parentSummary = extracted.summary || '';
+  return {
+    description: parentSummary,
+    parentSummary,
+    sourceDescriptionRaw,
+    sourceDescriptionHash: sourceDescriptionRaw
+      ? createHash('sha256').update(sourceDescriptionRaw).digest('hex')
+      : '',
+    summaryStatus: parentSummary ? status : 'needs_review',
+    summaryMethod: extracted.method,
+    summaryQuality: extracted.quality,
+    summaryEvidence: extracted.evidence || '',
+    summaryEvidenceData: evidenceData,
+    summaryVersion: EVENT_SUMMARY_VERSION,
+    summaryVerifiedAt: verifiedAt
+  };
 }
 
 export function assessSummaryReadability(text) {
