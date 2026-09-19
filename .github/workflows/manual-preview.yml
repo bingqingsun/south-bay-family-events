@@ -3,6 +3,8 @@ name: Create Vercel Preview
 # This workflow is intentionally opt-in. It never runs for ordinary PR updates
 # and it never uses Vercel's production flag.
 on:
+  pull_request:
+    types: [labeled]
   issue_comment:
     types: [created]
   workflow_dispatch:
@@ -31,6 +33,9 @@ jobs:
     # manual form remains available for a branch or a one-off commit preview.
     if: >-
       github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'pull_request' &&
+       github.event.label.name == 'preview-acceptance' &&
+       github.event.pull_request.author_association == 'OWNER') ||
       (github.event.issue.pull_request &&
        github.event.comment.body == '/preview' &&
        github.event.comment.author_association == 'OWNER')
@@ -39,8 +44,8 @@ jobs:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      PREVIEW_REF: ${{ github.event_name == 'issue_comment' && format('refs/pull/{0}/head', github.event.issue.number) || inputs.ref }}
-      PR_NUMBER: ${{ github.event_name == 'issue_comment' && github.event.issue.number || inputs.pr_number }}
+      PREVIEW_REF: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.event_name == 'issue_comment' && format('refs/pull/{0}/head', github.event.issue.number) || inputs.ref }}
+      PR_NUMBER: ${{ github.event_name == 'pull_request' && github.event.pull_request.number || github.event_name == 'issue_comment' && github.event.issue.number || inputs.pr_number }}
     steps:
       - name: Check out requested source
         uses: actions/checkout@v4
