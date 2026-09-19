@@ -333,14 +333,21 @@ function hasActivitySummary(text) {
 }
 
 function qualityGateSummary(event) {
-  const description = plainText(event.parentSummary || event.description);
+  const normalized = eventSummaryFields(
+    event.sourceDescriptionRaw || event.description || '',
+    event.title,
+    event.format,
+    event.summaryStatus || 'extractive'
+  );
+  const description = plainText(normalized.parentSummary);
   if (!isCardSummaryAcceptable(description, event.title, event.format)) return null;
   return {
     ...event,
+    ...normalized,
     description,
     parentSummary: description,
-    summaryStatus: event.summaryStatus || 'extractive',
-    summaryVersion: event.summaryVersion || 'event-summary-v2-p1',
+    summaryStatus: event.summaryStatus || normalized.summaryStatus,
+    summaryVersion: 'event-summary-v2-p1',
     summaryVerifiedAt: event.summaryVerifiedAt || generatedAt
   };
 }
@@ -3081,4 +3088,10 @@ await writeFile(target, `${JSON.stringify(events, null, 2)}\n`);
 await writeFile(browserTarget, `window.SOUTH_BAY_EVENTS = ${JSON.stringify(events)};\nwindow.SOUTH_BAY_EVENTS_META = ${JSON.stringify({ generatedAt })};\n`);
 await writeFile(museumTarget, `${JSON.stringify(museums, null, 2)}\n`);
 await writeFile(museumBrowserTarget, `window.SOUTH_BAY_MUSEUMS = ${JSON.stringify(museums)};\n`);
+const summaryStatusCounts = events.reduce((counts, event) => {
+  const status = event.summaryStatus || 'missing';
+  counts[status] = (counts[status] || 0) + 1;
+  return counts;
+}, {});
 console.log(`Published ${events.length} verified activities from ${directSources.length} official calendars and ${searchSources.length} fallback sources; ${retainedSourceEvents.length} retained from last-known-good source data; ${translationStats.translated} translated and ${translationStats.cached} translation entries reused from cache.`);
+console.log(`Event summary coverage: ${JSON.stringify(summaryStatusCounts)}`);
