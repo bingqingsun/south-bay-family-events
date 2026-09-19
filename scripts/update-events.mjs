@@ -9,7 +9,6 @@ import {
   cautiousMovieRating,
   isKidAppropriateMovie,
   isPotentialFamilyMovieRating,
-  kidMovieSummary,
   normalizedMovieTitle,
   normalizedMovieRating
 } from './movie-policy.mjs';
@@ -745,12 +744,7 @@ async function readChcp(source) {
     const dateText = plainText(block.match(/eventInfoStartDate[\s\S]*?<strong>([\s\S]*?)<\/strong>/i)?.[1] || '');
     const timeText = plainText(block.match(/eventInfoStartTime[\s\S]*?<div[^>]*eventInfoBoxValue[^>]*>([\s\S]*?)<\/div>/i)?.[1] || '');
     const location = plainText(block.match(/eventInfoLocation[\s\S]*?<div[^>]*eventInfoBoxValue[^>]*>([\s\S]*?)<\/div>/i)?.[1] || '');
-    let description = cardSummary(block, title);
-    if (/^CAH Museum Open/i.test(title)) {
-      description = 'Explore the Chinese American Historical Museum at History Park and its stories of early Chinese American communities in Santa Clara Valley.';
-    } else if (/Doors Open Tour: Gilded Altars and Lost Chinatowns/i.test(title)) {
-      description = 'A guided History Park tour exploring San José’s lost Chinatowns, Chinese American history, and the Chinese American Historical Museum.';
-    }
+    const description = sourceDescriptionText(block);
     const dateValue = isoDateFromOfficialText(dateText, timeText);
     const eventText = `${title} ${description}`;
     const parsedLocation = venueAndAddress(location, source.city || '');
@@ -775,16 +769,6 @@ async function readChcp(source) {
   });
 }
 
-function historySanJoseSummary(title) {
-  const cleanTitle = plainText(title).replace(/^\*+|\*+$/g, '').trim();
-  if (/cars in the park/i.test(cleanTitle)) return 'See pre-1955 antique and classic vehicles, touch selected cars, watch a Model T assembly demonstration, ride a historic trolley, and enjoy children’s activities at History Park.';
-  if (/children[’']?s halloween haunt/i.test(cleanTitle)) return 'A Halloween celebration created for children and families at History Park.';
-  if (/italian family festa/i.test(cleanTitle)) return 'A free Italian cultural festival for families at History Park.';
-  if (/lunar new year/i.test(cleanTitle)) return 'A family celebration of Lunar New Year with cultural performances and hands-on activities.';
-  if (/family sunday/i.test(cleanTitle)) return 'A family program at History Park with activities that explore local history and culture.';
-  return '';
-}
-
 async function readHistorySanJose(source) {
   const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
   const html = await response.text();
@@ -800,11 +784,11 @@ async function readHistorySanJose(source) {
     const dateValue = isoDateFromOfficialText(dateText, times[0] || '');
     const endDateValue = isoDateFromOfficialText(dateText, times.at(-1) || times[0] || '');
     const familySignal = /\b(?:children|child|family|families|kid|youth|teen|lunar new year|cultural|cars in the park)\b/i.test(`${title} ${locationText}`);
-    const description = historySanJoseSummary(title);
+    const description = sourceDescriptionText(block);
     // The listing also contains fundraisers, private rentals, and adult-only
     // programs. Publish only when the official title has an explicit family
     // signal and it yields a parent-facing explanation of the activity.
-    if (!title || !isUpcoming(dateValue) || !familySignal || !hasActivitySummary(description) || isExplicitlyAdultOnly(`${title} ${locationText}`)) return [];
+    if (!title || !isUpcoming(dateValue) || !familySignal || !hasActivitySummary(cardSummary(description, title)) || isExplicitlyAdultOnly(`${title} ${locationText}`)) return [];
     const event = directEvent({
       id: 'history-' + createHash('sha256').update(`${url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
       title, dateValue, endDateValue, description,
@@ -900,7 +884,8 @@ function readCurated(source) {
       ageText: item.ageText || '',
       format: item.format || '',
       seasonalTheme: item.seasonalTheme || '',
-      availabilityStatus: item.availabilityStatus || ''
+      availabilityStatus: item.availabilityStatus || '',
+      summaryStatus: 'manual_verified'
     });
     return [{ ...event, ...costInfo(item.cost || '', item.description || '') }];
   });
@@ -1132,7 +1117,8 @@ async function readSantanaRow(source) {
       const detailHtml = await detailResponse.text();
       if (!detailResponse.ok) return card;
       const detailText = plainText(detailHtml);
-      const description = cardSummary(card.description || detailHtml, card.title);
+      const metaDescription = decodeXml(detailHtml.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)/i)?.[1] || '');
+      const description = sourceDescriptionText(metaDescription || card.description);
       return {
         ...card,
         description,
@@ -1168,11 +1154,15 @@ async function readAnnualFestival(source) {
   const dateText = pattern.exec(plainText(html))?.[0] || '';
   const dateValue = isoDateFromOfficialText(dateText);
   if (!dateValue || !isUpcoming(dateValue) || !isWithinPublishingHorizon(dateValue)) return [];
+  const metaDescription = decodeXml(html.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)/i)?.[1]
+    || html.match(/<meta\s+property=["']og:description["']\s+content=["']([^"']+)/i)?.[1] || '');
+  const officialDescription = sourceDescriptionText(metaDescription || source.description || '');
   const event = directEvent({
     id: 'annual-' + createHash('sha256').update(`${source.feedUrl}|${dateValue}`).digest('hex').slice(0, 16),
-    title: source.title || source.name, dateValue, description: source.description || '', image: officialPageOgImage(html),
+    title: source.title || source.name, dateValue, description: officialDescription, image: officialPageOgImage(html),
     place: source.place || source.name, address: source.address || '', city: source.city || '', source: source.name,
-    url: source.feedUrl, ageText: source.ageText || '', format: source.format || 'festival'
+    url: source.feedUrl, ageText: source.ageText || '', format: source.format || 'festival',
+    summaryStatus: metaDescription ? 'extractive' : 'manual_verified'
   });
   return hasActivitySummary(event.description) ? [event] : [];
 }
@@ -1199,7 +1189,7 @@ async function readFoothill(source) {
   if (!response.ok || !/Events__item/i.test(html)) throw new Error('Foothill official event list was not valid: ' + response.status);
   const physicsHtml = physicsResponse?.ok ? await physicsResponse.text() : '';
   const physicsScheduleHtml = physicsScheduleResponse?.ok ? await physicsScheduleResponse.text() : '';
-  const physicsSummary = cardSummary(physicsHtml.match(/Physics Show at Foothill[\s\S]{0,1200}?<p[^>]*>([\s\S]*?)<\/p>/i)?.[1] || '');
+  const physicsDescription = sourceDescriptionText(physicsHtml.match(/Physics Show at Foothill[\s\S]{0,1200}?<p[^>]*>([\s\S]*?)<\/p>/i)?.[1] || '');
   const physicsImage = officialPageImage(physicsHtml, 'https://foothill.edu/physics/index.html', /(<img[^>]+alt=["'][^"']*Physics Show[^"']*["'][^>]*>)/i);
   const physicsScheduleYear = Number(physicsScheduleHtml.match(/\b(?:January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\.?\s+\d{1,2},\s+(20\d{2})\b/i)?.[1]
     || new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date()).slice(0, 4));
@@ -1224,7 +1214,7 @@ async function readFoothill(source) {
     if (!url || !dateValue || !isUpcoming(dateValue)) return [];
     return [directEvent({
       id: 'physics-show-' + createHash('sha256').update(`${url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
-      title: 'The Physics Show', dateValue, description: physicsSummary, image: physicsImage,
+      title: 'The Physics Show', dateValue, description: physicsDescription, image: physicsImage,
       place: 'Smithwick Theatre', address: source.address || '', city: source.city || '', source: source.name, url
     })];
   });
@@ -1244,7 +1234,7 @@ async function readFoothill(source) {
     if (cleanTitle === 'The Physics Show' && scheduledPhysicsSessions.length) return [];
     return [directEvent({
       id: 'foothill-' + createHash('sha256').update(title).digest('hex').slice(0, 16),
-      title: cleanTitle, dateValue, description: cleanTitle === 'The Physics Show' ? physicsSummary : '', image: cleanTitle === 'The Physics Show' ? physicsImage : '',
+      title: cleanTitle, dateValue, description: cleanTitle === 'The Physics Show' ? physicsDescription : '', image: cleanTitle === 'The Physics Show' ? physicsImage : '',
       place, address: source.address || '', city: source.city || '', source: source.name, url: title
     })];
   });
@@ -1402,7 +1392,7 @@ async function readNhl(source) {
     const url = `https://www.nhl.com/gamecenter/${String(game.awayTeam?.abbrev || '').toLowerCase()}-vs-sjs/${dateValue.slice(0, 4)}/${dateValue.slice(5, 7)}/${dateValue.slice(8, 10)}/${game.id}`;
     return [directEvent({
       id: `nhl-${game.id}`, title: `San Jose Sharks vs ${opponent}`, dateValue,
-      description: `Official San Jose Sharks home game against the ${opponent}.`, image: game.homeTeam?.logo || '',
+      description: `Official San Jose Sharks home game against the ${opponent}.`, summaryStatus: 'official_structured', image: game.homeTeam?.logo || '',
       place: game.venue?.default || 'SAP Center at San Jose', address: source.address || '', city: source.city || '', source: source.name, url,
       ageText: 'all ages', format: 'sports-game'
     })];
@@ -1415,21 +1405,6 @@ async function readNhl(source) {
 // schedule API, which is the canonical source for game dates and details.
 function isSapCenterFamilyShow(title) {
   return /\b(?:monster jam|disney on ice|paw patrol|bluey|blippi|sesame street|harlem globetrotters|hot wheels monster trucks|jurassic world|marvel universe live|family|children(?:'s)?|kids?|youth)\b/i.test(title);
-}
-
-function sapCenterSummary(title) {
-  if (/monster jam/i.test(title)) return 'Live monster truck competition and freestyle show at SAP Center.';
-  if (/disney on ice/i.test(title)) return 'A live ice-skating show featuring Disney stories and characters.';
-  if (/paw patrol/i.test(title)) return 'A live family stage show featuring PAW Patrol characters and adventures.';
-  if (/bluey/i.test(title)) return 'A live family stage show featuring Bluey and her friends.';
-  if (/blippi/i.test(title)) return 'An interactive live show with Blippi for young children and families.';
-  if (/sesame street/i.test(title)) return 'A live family show with Sesame Street characters, music, and playful learning.';
-  if (/harlem globetrotters/i.test(title)) return 'Family-friendly basketball entertainment with tricks, games, and audience fun.';
-  if (/hot wheels monster trucks/i.test(title)) return 'A live monster truck show with oversized Hot Wheels vehicles and stunts.';
-  if (/jurassic world/i.test(title)) return 'A live family arena show featuring dinosaur adventures inspired by Jurassic World.';
-  if (/marvel universe live/i.test(title)) return 'A live family arena show featuring Marvel heroes, action, and stunts.';
-  if (/family|children(?:'s)?|kids?|youth/i.test(title)) return 'A live family-focused show at SAP Center.';
-  return '';
 }
 
 function sapCenterListingDates(dateText) {
@@ -1472,25 +1447,31 @@ async function readSapCenter(source) {
     // Sharks promotional game names can contain “Youth” or “Family”, but the
     // NHL source remains the canonical sports schedule and prevents duplicate
     // cards with a less useful promotional title.
-    if (!title || !url || /\b(?:sharks|hockey)\b/i.test(`${title} ${url}`) || !listingDates.length || !isSapCenterFamilyShow(title) || !hasActivitySummary(sapCenterSummary(title))) return [];
+    if (!title || !url || /\b(?:sharks|hockey)\b/i.test(`${title} ${url}`) || !listingDates.length || !isSapCenterFamilyShow(title)) return [];
     return [{ title, url: new URL(url, source.feedUrl).href, image: image ? new URL(image, source.feedUrl).href : '', listingDates, year }];
   });
   const expanded = await Promise.all(listings.map(async listing => {
     let dates = listing.listingDates;
+    let description = '';
     try {
       const detailResponse = await fetch(listing.url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
       if (detailResponse.ok) {
         const detailHtml = await detailResponse.text();
         const detailSessions = sapCenterDetailSessions(detailHtml, listing.year || Number(listing.listingDates[0].slice(0, 4)));
         if (detailSessions.length) dates = detailSessions;
+        const meta = decodeXml(detailHtml.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)/i)?.[1]
+          || detailHtml.match(/<meta\s+property=["']og:description["']\s+content=["']([^"']+)/i)?.[1] || '');
+        const body = detailHtml.match(/<div[^>]+class=["'][^"']*(?:eventDescription|event-description|description)[^"']*["'][^>]*>([\s\S]*?)<\/div>/i)?.[1] || '';
+        description = sourceDescriptionText(body || meta);
       }
     } catch {
-      // The official list still gives a reliable date range if an individual
-      // detail page is temporarily unavailable.
+      // Without first-party description evidence, do not infer show content
+      // from the event title.
     }
+    if (!hasActivitySummary(cardSummary(description, listing.title, 'live-show'))) return [];
     return dates.filter(isUpcoming).map((dateValue, index) => directEvent({
       id: 'sapcenter-' + createHash('sha256').update(`${listing.url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
-      title: listing.title, dateValue, description: sapCenterSummary(listing.title), image: listing.image,
+      title: listing.title, dateValue, description, image: listing.image,
       place: 'SAP Center at San Jose', address: source.address || '', city: source.city || '', source: source.name, url: listing.url,
       ageText: 'family', format: 'live-show'
     }));
@@ -1597,9 +1578,7 @@ async function readSouthFirstFridays(source) {
     const hasStreetMarket = /street\s*mrkt|street\s*market/i.test(`${postTitle} ${content}`);
     const image = htmlAttribute(content, /<img[^>]+src=["']([^"']+)/i);
     const title = hasStreetMarket ? 'South FIRST FRIDAYS ArtWalk SJ + Street Mrkt' : 'South FIRST FRIDAYS ArtWalk SJ';
-    const description = hasStreetMarket
-      ? 'A self-guided SoFA evening art walk with gallery exhibitions, live performances, and an indie art market.'
-      : 'A self-guided SoFA evening art walk with gallery exhibitions, live music, and special performances.';
+    const description = sourceDescriptionText(content);
     return [directEvent({
       id: 'south-first-fridays-' + createHash('sha256').update(`${post.link}|${dateValue}`).digest('hex').slice(0, 16),
       // The ArtWalk is intentionally spread across the SoFA district. Publish
@@ -2972,7 +2951,7 @@ async function readChmMuseumCards(source) {
     if (!title || !description || !url || !/^(?:Special Exhibit:|REVOLUTION:|Chatbots Decoded:|Make Software:)/i.test(title)) return [];
     return [{
       id: 'chm-museum-' + createHash('sha256').update(url).digest('hex').slice(0, 16), museum: source.name, title,
-      dateLabel, description: cardSummary(description, title), image: image ? new URL(image, 'https://computerhistory.org/').href : '',
+      dateLabel, description: sourceDescriptionText(description), image: image ? new URL(image, 'https://computerhistory.org/').href : '',
       url: new URL(url, 'https://computerhistory.org/').href, lastVerifiedAt: generatedAt
     }];
   });
