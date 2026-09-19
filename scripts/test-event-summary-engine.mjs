@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
 import {
   assessSummaryReadability,
   buildExtractiveSummary,
@@ -97,4 +98,10 @@ const longResult = buildExtractiveSummary(longAction);
 assert.equal(longResult.summary, longAction, 'selected source sentences are stored whole');
 assert.ok(!longResult.summary.endsWith('…'), 'engine must not create ingest-time ellipsis');
 
-console.log('event-summary-engine: parser, grounding, ranking, and readability contracts passed');
+const updateScript = await readFile(new URL('./update-events.mjs', import.meta.url), 'utf8');
+assert.doesNotMatch(updateScript, /summary-policy\.mjs/, 'legacy summary-policy module must not be referenced');
+assert.doesNotMatch(updateScript, /\bhasActivitySummary\b/, 'source adapters must use source-content gate, not the legacy mixed gate');
+assert.doesNotMatch(updateScript, /\bcardSummary\s*\(/, 'source adapters must not implement their own card-summary entrypoint');
+assert.match(updateScript, /event-summary-engine\.mjs/, 'all summary generation must route through the shared engine');
+
+console.log('event-summary-engine: parser, grounding, ranking, readability, and architecture contracts passed');
