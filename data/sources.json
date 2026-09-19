@@ -14,14 +14,7 @@
   {
     "name": "Santa Clara County Parks",
     "domain": "parks.santaclaracounty.gov",
-    "method": "official-listing",
-    "feedUrl": "https://parks.santaclaracounty.gov/events",
-    "pageCount": 4,
-    "pageParam": "page",
-    "maxLinks": 140,
-    "candidatePattern": "family|families|children|kids?|youth|teen|toddler|preschool|all ages|crafternoon|barnyard|birding|festival|nature|wildlife|craft|story|pumpkin|halloween|holiday",
-    "familyPattern": "family|families|children|kids?|youth|teen|toddler|preschool|all ages|crafternoon|barnyard|birding|nature|wildlife|craft|festival",
-    "linkPattern": "/(?:events?|calendar)/"
+    "query": "family events Chitactac Family Day Fall Festival"
   },
   {
     "name": "Midpeninsula Regional Open Space District",
@@ -54,15 +47,7 @@
   {
     "name": "City of San José",
     "domain": "sanjoseca.gov",
-    "method": "official-listing",
-    "feedUrl": "https://www.sanjoseca.gov/your-government/departments-offices/parks-recreation-neighborhood-services/general-information/parks-recreation-neighborhood-services-calendar",
-    "monthlyCivic": true,
-    "monthsAhead": 4,
-    "maxLinks": 160,
-    "city": "San Jose",
-    "candidatePattern": "family|families|kids?|children|youth|teen|toddler|preschool|egg hunt|viva calle|viva parks|movie|festival|halloween|harvest|pumpkin|trunk|holiday|parade|community",
-    "familyPattern": "family|families|kids?|children|youth|teen|toddler|preschool|all ages|egg hunt|viva calle|viva parks|festival|halloween|harvest|pumpkin|trunk|holiday",
-    "linkPattern": "/Home/Components/Calendar/Event/"
+    "query": "events kids family"
   },
   {
     "name": "Santa Clara County Library District",
@@ -74,26 +59,12 @@
   {
     "name": "City of Sunnyvale",
     "domain": "sunnyvale.ca.gov",
-    "method": "official-listing",
-    "feedUrl": "https://www.sunnyvale.ca.gov/news-center-and-events-calendar/city-calendar",
-    "monthlyCivic": true,
-    "monthsAhead": 4,
-    "maxLinks": 180,
-    "city": "Sunnyvale",
-    "candidatePattern": "family|families|kids?|children|youth|teen|toddler|preschool|baby|storytime|lego|stem|craft|movie|festival|playtime|dance|monkey king|graphic novel|pumpkin|halloween|holiday|hands on the arts|mid-autumn",
-    "familyPattern": "family|families|kids?|children|youth|teen|toddler|preschool|baby|caregiver|all ages|storytime|lego|stem|craft|festival|mid-autumn",
-    "linkPattern": "/Home/Components/Calendar/Event/"
+    "query": "events kids family"
   },
   {
     "name": "City of Mountain View",
     "domain": "mountainview.gov",
-    "method": "official-listing",
-    "feedUrl": "https://www.mountainview.gov/our-city/departments/community-services/special-events/-toggle-allupcoming/-sortn-EDate",
-    "maxLinks": 100,
-    "city": "Mountain View",
-    "candidatePattern": "family|families|children|kids?|youth|harvest|magical bridge|halloween|monster|holiday|tree lighting|festival|bazaar|spooky",
-    "familyPattern": "family|families|children|kids?|youth|all ages|harvest|magical bridge|halloween|monster|holiday|festival",
-    "linkPattern": "/Home/Components/Calendar/Event/"
+    "query": "events kids family"
   },
   {
     "name": "City of Cupertino",
@@ -104,14 +75,14 @@
   },
   {
     "name": "City of Santa Clara",
-    "domain": "santaclaraca.gov",
+    "domain": "calendar.santaclaraca.gov",
     "method": "official-listing",
-    "feedUrl": "https://www.santaclaraca.gov/our-city/departments-g-z/parks-recreation/-toggle-allupcoming",
-    "maxLinks": 120,
+    "feedUrl": "https://calendar.santaclaraca.gov/santaclaraca",
+    "maxLinks": 160,
     "city": "Santa Clara",
-    "candidatePattern": "family|families|children|kids?|youth|spook|festival|movie|cinema|tree lighting|bioblitz|holiday|art & wine|halloween",
-    "familyPattern": "family|families|children|kids?|youth|all ages|spook|festival|movie|cinema|tree lighting|bioblitz|holiday|art & wine|halloween",
-    "linkPattern": "/Home/Components/Calendar/Event/"
+    "candidatePattern": "family|children|kids?|spook|halloween|art|wine|festival|cinema|movie|concert|night market|holiday|celebration|garden|youth|parade|diwali|lunar|mid-autumn",
+    "familyPattern": "family|families|children|kids?|youth|teens?|all ages|family & kids activities|caregiver|parent|festival|movie|cinema|community",
+    "linkPattern": "/santaclaraca/\\\\d+"
   },
   {
     "name": "Computer History Museum",
@@ -123,13 +94,10 @@
   },
   {
     "name": "Cantor Arts Center",
-    "domain": "museum.stanford.edu",
-    "method": "cantor-family",
-    "feedUrl": "https://museum.stanford.edu/events/family-programs",
-    "city": "Stanford",
-    "address": "328 Lomita Dr, Stanford",
-    "format": "arts",
-    "defaultTime": "10:00 AM"
+    "domain": "events.stanford.edu",
+    "method": "stanford",
+    "feedUrl": "https://events.stanford.edu/api/2/events/search?search=Art%20for%20All%20Family%20Day&days=365&pp=50",
+    "city": "Stanford"
   },
   {
     "name": "Happy Hollow Park & Zoo",
@@ -833,27 +801,6 @@
         "format": "festival",
         "seasonalTheme": "dia-de-muertos",
         "url": "https://sjmusart.org/programs-at-sjma/community-days"
-      }
-    ]
-  },
-  {
-    "name": "Palo Alto City Library",
-    "domain": "paloalto.bibliocommons.com",
-    "method": "curated",
-    "feedUrl": "https://paloalto.bibliocommons.com/v2/events?types=59d6a892bfc5882400d9955b",
-    "city": "Palo Alto",
-    "events": [
-      {
-        "title": "Author Event: Celebrate the Mooncake Festival with Jasmine Fang",
-        "dateValue": "2026-09-23T14:00",
-        "endDateValue": "2026-09-23T15:00:00",
-        "description": "Author Jasmine Fang introduces children to the Mooncake Festival through a story and a related hands-on craft.",
-        "place": "Children’s Library",
-        "address": "1276 Harriet St, Palo Alto",
-        "ageText": "Ages 6–11",
-        "cost": "Free",
-        "format": "program",
-        "seasonalTheme": "mid-autumn"
       }
     ]
   },
