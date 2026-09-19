@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { selectConcreteSourceSentence } from './summary-policy.mjs';
+import { selectConcreteSourceSentence, selectLabeledActivityBundle, shouldReplaceWeakSummary } from './summary-policy.mjs';
 
 const escapeRegex = value => value.replace(/[.*+?^$()|[\]\\]/g, '\\$&');
 
@@ -47,3 +47,18 @@ for (const testCase of cases) {
 }
 
 console.log(`summary-policy: ${cases.length} regression cases passed`);
+
+
+const midAutumnSource = "You're Invited to the Mid-Autumn Festival! Check out all the fun waiting for you: Yummy Mooncakes: Eat sweet, delicious treats shaped like the moon! DIY Lanterns: Make your own glowing lantern to take home. Awesome Tales: Explore the origins of the festival and enjoy beautiful moon lore!";
+const midAutumnBundle = selectLabeledActivityBundle(midAutumnSource);
+assert.match(midAutumnBundle, /Yummy Mooncakes:/, 'multi-activity bundle should keep mooncakes');
+assert.match(midAutumnBundle, /DIY Lanterns:/, 'multi-activity bundle should keep lanterns');
+assert.match(midAutumnBundle, /Awesome Tales:/, 'multi-activity bundle should keep stories');
+assert.ok(midAutumnSource.includes(midAutumnBundle), 'multi-activity bundle must remain a contiguous official-source excerpt');
+
+assert.equal(shouldReplaceWeakSummary("It's fall migration season and there are lots of birds in the Secret Garden!"), true);
+assert.equal(shouldReplaceWeakSummary("Our mission is to inspire curiosity and spark a love for science."), true);
+assert.equal(shouldReplaceWeakSummary("Come listen, come read, come perform, or simply come to be present."), false);
+assert.equal(shouldReplaceWeakSummary("The Happy Birds Show includes over 25 amazing tricks performed by talking and singing parrots."), false);
+
+console.log('summary-policy: safety-gate assertions passed');
