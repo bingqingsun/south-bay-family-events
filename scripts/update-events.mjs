@@ -951,7 +951,7 @@ function googleVisitorActivitySummary(title, description) {
   // event. A card must never claim that a yoga class is a craft workshop. In
   // that case the official title is the only trustworthy activity detail.
   if (specificTitleWords.length && !specificTitleWords.some(word => descriptionText.includes(word))) {
-    return `Official Google Visitor Experience event: ${plainText(title)}.`;
+    return '';
   }
   return description;
 }
@@ -1646,7 +1646,7 @@ async function readBayfc(source) {
     if (!isUpcoming(dateValue)) return [];
     return [directEvent({
       id: 'bayfc-' + createHash('sha256').update(`${matchUrl}|${dateValue}`).digest('hex').slice(0, 16), title: `Bay FC vs ${opponent}`, dateValue,
-      description: `Official Bay FC home match against ${opponent} at PayPal Park.`, image: BAY_FC_TEAM_MARK,
+      description: `Official Bay FC home match against ${opponent} at PayPal Park.`, summaryStatus: 'official_structured', image: BAY_FC_TEAM_MARK,
       imagePresentation: 'team-mark', imageBackground: '#e5eef1',
       place: 'PayPal Park', address: source.address || '', city: source.city || '', source: source.name, url: new URL(matchUrl, source.feedUrl).href,
       ageText: 'all ages', format: 'sports-game'
@@ -1670,7 +1670,7 @@ async function readMlb(source) {
     const opponent = game.teams?.away?.team?.name || 'away team';
     return [directEvent({
       id: `mlb-${game.gamePk}`, title: `San Jose Giants vs ${opponent}`, dateValue: pacificDateTime(game.gameDate),
-      description: `Official San Jose Giants home game against ${opponent} at Excite Ballpark.`, image: SAN_JOSE_GIANTS_TEAM_MARK,
+      description: `Official San Jose Giants home game against ${opponent} at Excite Ballpark.`, summaryStatus: 'official_structured', image: SAN_JOSE_GIANTS_TEAM_MARK,
       imagePresentation: 'team-mark', imageBackground: '#f4f1ed',
       place: game.venue?.name || 'Excite Ballpark', address: source.address || '', city: source.city || '', source: source.name,
       url: 'https://www.milb.com/san-jose/schedule', ageText: 'all ages', format: 'sports-game'
@@ -1700,7 +1700,7 @@ async function readMls(source) {
     const address = /levi/i.test(venueName) ? '4900 Marie P DeBartolo Way, Santa Clara' : (source.address || '');
     return [directEvent({
       id: `mls-${match.match_id}`, title: `San Jose Earthquakes vs ${opponent}`, dateValue: pacificDateTime(match.planned_kickoff_time),
-      description: `Official San Jose Earthquakes home match against ${opponent} at ${venueName}.`, image: EARTHQUAKES_TEAM_MARK,
+      description: `Official San Jose Earthquakes home match against ${opponent} at ${venueName}.`, summaryStatus: 'official_structured', image: EARTHQUAKES_TEAM_MARK,
       imagePresentation: 'team-mark', imageBackground: '#0d2c4b', place: venueName, address, city,
       source: source.name, url: `https://www.sjearthquakes.com/schedule/matches#${encodeURIComponent(match.match_id)}`, ageText: 'all ages', format: 'sports-game'
     })];
