@@ -2190,31 +2190,50 @@ async function readOfficialDetailCandidate(source, candidate, index, idPrefix = 
 }
 
 async function readOfficialListing(source) {
-  const response = await fetch(source.feedUrl, {
-    headers: { 'user-agent': 'Mozilla/5.0 (compatible; SouthBayFamilyFinds/1.0; +https://southbayfamilyfinds.com/)', 'accept': 'text/html,application/xhtml+xml' },
-    signal: AbortSignal.timeout(15000)
-  });
-  let html = await response.text();
-  if (!response.ok) throw new Error('Official listing was not valid: ' + response.status);
-  if (source.followLinkTextPattern) {
-    const followPattern = officialListingPattern(source, 'followLinkTextPattern', source.followLinkTextPattern);
-    const followMatch = [...html.matchAll(/<a[^>]+href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)]
-      .find(match => followPattern.test(plainText(match[2])));
-    if (followMatch) {
-      const followUrl = new URL(decodeXml(followMatch[1]), source.feedUrl).href;
-      if (isOfficialUrl(followUrl, source.domain)) {
-        const followResponse = await fetch(followUrl, {
-          headers: { 'user-agent': 'Mozilla/5.0 (compatible; SouthBayFamilyFinds/1.0; +https://southbayfamilyfinds.com/)', 'accept': 'text/html,application/xhtml+xml' },
-          signal: AbortSignal.timeout(15000)
-        });
-        if (followResponse.ok) html = await followResponse.text();
+  const now = new Date();
+  let listingUrls = [source.feedUrl];
+  if (source.monthlyCivic) {
+    const monthsAhead = Math.max(1, Math.min(Number(source.monthsAhead) || 4, 8));
+    const clean = String(source.feedUrl).replace(/\/-curm-\d+/gi, '').replace(/\/-cury-\d+/gi, '').replace(/\/+$/, '');
+    listingUrls = Array.from({ length: monthsAhead }, (_, offset) => {
+      const date = new Date(now.getFullYear(), now.getMonth() + offset, 1);
+      return `${clean}/-curm-${date.getMonth() + 1}/-cury-${date.getFullYear()}`;
+    });
+  } else if (Number(source.pageCount) > 1) {
+    listingUrls = Array.from({ length: Math.min(Number(source.pageCount), 8) }, (_, page) => {
+      const url = new URL(source.feedUrl);
+      url.searchParams.set(source.pageParam || 'page', String(page));
+      return url.href;
+    });
+  }
+  const pages = await Promise.all(listingUrls.map(async listingUrl => {
+    const response = await fetch(listingUrl, {
+      headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' },
+      signal: AbortSignal.timeout(15000)
+    });
+    let html = await response.text();
+    if (!response.ok) throw new Error('Official listing was not valid: ' + response.status);
+    if (source.followLinkTextPattern) {
+      const followPattern = officialListingPattern(source, 'followLinkTextPattern', source.followLinkTextPattern);
+      const followMatch = [...html.matchAll(/<a[^>]+href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)]
+        .find(match => followPattern.test(plainText(match[2])));
+      if (followMatch) {
+        const followUrl = new URL(decodeXml(followMatch[1]), listingUrl).href;
+        if (isOfficialUrl(followUrl, source.domain)) {
+          const followResponse = await fetch(followUrl, {
+            headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' },
+            signal: AbortSignal.timeout(15000)
+          });
+          if (followResponse.ok) html = await followResponse.text();
+        }
       }
     }
-  }
+    return html;
+  }));
   const candidatePattern = officialListingPattern(source, 'candidatePattern', 'family|children|kids?|youth|teen|toddler|storytime|festival|celebration|halloween|holiday|pumpkin|lantern|moon|art|craft|science|nature|movie|concert|music|performance|parade|farm|garden|book|robot|magic|play');
   const linkPattern = officialListingPattern(source, 'linkPattern', '/(?:Home/Components/Calendar/Event|events?|calendar|programs?)/');
   const seen = new Set();
-  const candidates = [...html.matchAll(/<a[^>]+href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)].flatMap(match => {
+  const candidates = pages.flatMap(html => [...html.matchAll(/<a[^>]+href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)]).flatMap(match => {
     const title = plainText(match[2]);
     if (!title || !candidatePattern.test(title)) return [];
     let url;
@@ -2222,9 +2241,43 @@ async function readOfficialListing(source) {
     if (!isOfficialUrl(url, source.domain) || !linkPattern.test(url) || seen.has(url)) return [];
     seen.add(url);
     return [{ title, url }];
-  }).slice(0, Math.max(10, Math.min(Number(source.maxLinks) || 80, 160)));
+  }).slice(0, Math.max(10, Math.min(Number(source.maxLinks) || 120, 200)));
   const events = await Promise.all(candidates.map((candidate, index) => readOfficialDetailCandidate(source, candidate, index, 'official-listing')));
   return events.filter(Boolean);
+}
+
+async function readJmzFamily(source) {
+  const response = await fetch(source.feedUrl, {
+    headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' },
+    signal: AbortSignal.timeout(15000)
+  });
+  const html = await response.text();
+  if (!response.ok) throw new Error('JMZ family page was not valid: ' + response.status);
+  const text = plainText(html);
+  const dateMatch = text.match(/(20\d{2}) dates:\s*([^.]*(?:January|February|March|April|May|June|July|August|September|October|November|December)[^.]*)/i);
+  const timeMatch = text.match(/Event time for all:\s*(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?))/i);
+  const description = sourceDescriptionText(
+    text.match(/(A free event when the JMZ is open exclusively to families with children[^.]*\. Children with all disabilities are welcome[^.]*\. Come and meet zoo animals up-close\.)/i)?.[1] || ''
+  );
+  if (!dateMatch || !timeMatch || !hasPublishableSummary(description, { title: 'Super Family Sunday' })) return [];
+  const year = dateMatch[1];
+  const dates = [...dateMatch[2].matchAll(/(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2})/gi)];
+  return dates.flatMap(match => {
+    const dateValue = isoDateFromOfficialText(`${match[1]} ${match[2]}, ${year}`, timeMatch[1]);
+    if (!isUpcoming(dateValue)) return [];
+    const event = directEvent({
+      id: 'jmz-family-' + createHash('sha256').update(`${dateValue}|Super Family Sunday`).digest('hex').slice(0, 16),
+      title: 'Super Family Sunday', dateValue, description,
+      image: htmlAttribute(html, /<meta\s+property=["']og:image["']\s+content=["']([^"']+)/i),
+      place: 'Palo Alto Junior Museum & Zoo',
+      address: source.address || '1451 Middlefield Rd, Palo Alto',
+      city: source.city || 'Palo Alto',
+      source: source.name, url: source.feedUrl,
+      ageText: 'Families Children Parents Siblings Grandparents',
+      cost: 'Free', format: 'museum-program'
+    });
+    return [event];
+  });
 }
 
 async function readCantorFamily(source) {
@@ -2787,7 +2840,7 @@ const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['official-listing', 'cantor-family', 'rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'santana-row', 'annual-festival', 'curated', 'google-visitor-events', 'eventbrite-organizer'];
+const directMethods = ['official-listing', 'jmz-family', 'cantor-family', 'rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'santana-row', 'annual-festival', 'curated', 'google-visitor-events', 'eventbrite-organizer'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
@@ -2801,6 +2854,7 @@ if (searchSources.length && !key) throw new Error('SERPAPI_KEY is required when 
 
 const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'official-listing') return readOfficialListing(source);
+  if (source.method === 'jmz-family') return readJmzFamily(source);
   if (source.method === 'cantor-family') return readCantorFamily(source);
   if (source.method === 'curated') return readCurated(source);
   if (source.method === 'google-visitor-events') return readGoogleVisitorEvents(source);
