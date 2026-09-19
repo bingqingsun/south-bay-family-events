@@ -1300,6 +1300,42 @@ async function readMidpen(source) {
   }));
 }
 
+function stanfordEventsFromPayloads(payloads, source) {
+  // “Everyone” in Stanford's calendar includes adult lectures. We only accept
+  // entries with an explicit youth/family signal in the organizer's own copy.
+  const youthSignal = /family day|family-friendly|families welcome|for families|family program|family event|family workshop|family activit(?:y|ies)|\\b(?:kids?|children|teens?|tweens?)\\b|youth (?:program|workshop|activit(?:y|ies)|camp)|for youth|K[-– ]?12|elementary|middle school|high school|school[- ]age|girl scout|summer camp|homeschool|storytime/i;
+  const titlePattern = source.titlePattern ? new RegExp(source.titlePattern, 'i') : null;
+  const seen = new Set();
+  return payloads.flatMap(payload => payload.events || []).flatMap(wrapper => {
+    const item = wrapper.event || wrapper;
+    const instances = (item.event_instances || []).map(value => value.event_instance || value).filter(Boolean);
+    const liveInstances = instances.filter(instance => isUpcoming(String(instance?.start || '')));
+    if (!liveInstances.length) return [];
+    const title = decodeXml(item.title || '').trim();
+    const description = item.description_text || item.description || '';
+    const audiences = (item.filters?.event_audience || []).map(value => value.name || '').join(' ');
+    const departments = (item.departments || []).map(value => value.name || '').join(' ');
+    const tags = [...(item.tags || []), ...(item.keywords || [])].join(' ');
+    const audienceText = [title, description, audiences, departments, tags].join(' ');
+    const url = item.localist_url || item.url;
+    const key = String(item.id || url || '');
+    if (!title || !url || !key || seen.has(key) || item.private || item.status !== 'live' || /\\bcancel+ed\\b/i.test(title) || !youthSignal.test(audienceText) || (titlePattern && !titlePattern.test(title))) return [];
+    seen.add(key);
+    return liveInstances.map((instance, instanceIndex) => {
+      const dateValue = String(instance.start || '');
+      const endDateValue = String(instance.end || '');
+      const event = directEvent({
+        id: 'stanford-' + createHash('sha256').update(`${key}|${dateValue}|${instanceIndex}`).digest('hex').slice(0, 16),
+        title, dateValue, endDateValue, description, image: item.photo_url || '',
+        place: item.location_name || item.location || 'Stanford University',
+        address: item.address || '', city: canonicalCity(item.geo?.city || source.city || 'Stanford'),
+        source: source.name, url, ageText: audienceText
+      });
+      return { ...event, ...costInfo(item.ticket_cost || '', description) };
+    });
+  });
+}
+
 async function readStanford(source) {
   const maxPages = Math.max(1, Math.min(Number(source.maxPages) || 1, 10));
   const payloads = await Promise.all(Array.from({ length: maxPages }, async (_, pageIndex) => {
@@ -1310,32 +1346,27 @@ async function readStanford(source) {
     if (!response.ok || !Array.isArray(payload.events)) throw new Error('Stanford official event API was not valid: ' + response.status);
     return payload;
   }));
-  // “Everyone” in Stanford's calendar includes adult lectures. We only accept
-  // entries with an explicit youth/family signal in the organizer's own copy.
-  const youthSignal = /family day|family-friendly|families welcome|for families|family program|family event|family workshop|family activit(?:y|ies)|\b(?:kids?|children|teens?|tweens?)\b|youth (?:program|workshop|activit(?:y|ies)|camp)|for youth|K[-– ]?12|elementary|middle school|high school|school[- ]age|girl scout|summer camp|homeschool|storytime/i;
-  const seen = new Set();
-  return payloads.flatMap(payload => payload.events).flatMap(wrapper => {
-    const item = wrapper.event || wrapper;
-    const instance = item.event_instances?.[0]?.event_instance;
-    const dateValue = String(instance?.start || '');
-    const title = decodeXml(item.title || '').trim();
-    const description = item.description_text || item.description || '';
-    const audiences = (item.filters?.event_audience || []).map(value => value.name || '').join(' ');
-    const departments = (item.departments || []).map(value => value.name || '').join(' ');
-    const tags = [...(item.tags || []), ...(item.keywords || [])].join(' ');
-    const audienceText = [title, description, audiences, departments, tags].join(' ');
-    const url = item.localist_url || item.url;
-    const key = String(item.id || url || '');
-    if (!title || !url || !key || seen.has(key) || !isUpcoming(dateValue) || item.private || item.status !== 'live' || /\bcancel+ed\b/i.test(title) || !youthSignal.test(audienceText)) return [];
-    seen.add(key);
-    const event = directEvent({
-      id: 'stanford-' + createHash('sha256').update(key).digest('hex').slice(0, 16),
-      title, dateValue, description, image: item.photo_url || '',
-      place: item.location_name || item.location || 'Stanford University',
-      source: source.name, url, ageText: audienceText
-    });
-    return [{ ...event, ...costInfo(item.ticket_cost || '', description) }];
-  });
+  return stanfordEventsFromPayloads(payloads, source);
+}
+
+async function readStanfordVenueFamily(source) {
+  const placeUrl = new URL('/api/2/places/search', source.feedUrl || 'https://events.stanford.edu');
+  placeUrl.searchParams.set('search', source.venueSearch || 'Cantor Arts Center');
+  placeUrl.searchParams.set('pp', '25');
+  const placeResponse = await fetch(placeUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const placePayload = await placeResponse.json();
+  if (!placeResponse.ok || !Array.isArray(placePayload.places)) throw new Error('Stanford venue search was not valid: ' + placeResponse.status);
+  const venuePattern = new RegExp(source.venuePattern || source.venueSearch || 'Cantor Arts Center', 'i');
+  const place = placePayload.places.map(wrapper => wrapper.place || wrapper).find(item => venuePattern.test(String(item?.name || item?.title || item?.location || '')));
+  if (!place?.id) throw new Error('Stanford venue was not found for ' + source.name);
+  const eventsUrl = new URL('/api/2/events', placeUrl);
+  eventsUrl.searchParams.set('venue_id', String(place.id));
+  eventsUrl.searchParams.set('days', String(Math.max(1, Math.min(Number(source.days) || 365, 365))));
+  eventsUrl.searchParams.set('pp', '100');
+  const response = await fetch(eventsUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const payload = await response.json();
+  if (!response.ok || !Array.isArray(payload.events)) throw new Error('Stanford venue event API was not valid: ' + response.status);
+  return stanfordEventsFromPayloads([payload], source);
 }
 
 function pacificDateTime(value) {
@@ -2389,21 +2420,21 @@ async function readCivic(source) {
 async function readCupertino(source) {
   const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
   const html = await response.text();
-  if (!response.ok || !/list-item-container[\s\S]*list-item-title/i.test(html)) {
+  if (!response.ok || !/list-item-container[\\s\\S]*list-item-title/i.test(html)) {
     throw new Error('Cupertino official calendar was not valid: ' + response.status);
   }
   const monthNumbers = { jan: '01', feb: '02', mar: '03', apr: '04', may: '05', jun: '06', jul: '07', aug: '08', sep: '09', oct: '10', nov: '11', dec: '12' };
   const seen = new Set();
-  return [...html.matchAll(/<div class=["']list-item-container[\s\S]*?<\/article>/gi)].flatMap(blockMatch => {
+  const items = [...html.matchAll(/<div class=["']list-item-container[\\s\\S]*?<\\/article>/gi)].flatMap(blockMatch => {
     const block = blockMatch[0];
     const href = htmlAttribute(block, /<a[^>]+href=["']([^"']+)["']/i);
-    const title = plainText(block.match(/list-item-title[^>]*>([\s\S]*?)<\/h2>/i)?.[1] || '');
-    const day = htmlAttribute(block, /part-date[^>]*>([\s\S]*?)<\/span>/i);
-    const month = htmlAttribute(block, /part-month[^>]*>([\s\S]*?)<\/span>/i).slice(0, 3).toLowerCase();
-    const year = htmlAttribute(block, /part-year[^>]*>([\s\S]*?)<\/span>/i);
-    const description = htmlAttribute(block, /list-item-block-desc[^>]*>([\s\S]*?)<\/span>/i);
-    const placeText = htmlAttribute(block, /list-item-address[^>]*>([\s\S]*?)<\/p>/i).replace(/\s*,\s*/g, ', ');
-    const audience = htmlAttribute(block, /tagged-as-list[\s\S]*?<span class=["']text["'][^>]*>([\s\S]*?)<\/span>\s*<\/p>/i);
+    const title = plainText(block.match(/list-item-title[^>]*>([\\s\\S]*?)<\\/h2>/i)?.[1] || '');
+    const day = htmlAttribute(block, /part-date[^>]*>([\\s\\S]*?)<\\/span>/i);
+    const month = htmlAttribute(block, /part-month[^>]*>([\\s\\S]*?)<\\/span>/i).slice(0, 3).toLowerCase();
+    const year = htmlAttribute(block, /part-year[^>]*>([\\s\\S]*?)<\\/span>/i);
+    const description = htmlAttribute(block, /list-item-block-desc[^>]*>([\\s\\S]*?)<\\/span>/i);
+    const placeText = htmlAttribute(block, /list-item-address[^>]*>([\\s\\S]*?)<\\/p>/i).replace(/\\s*,\\s*/g, ', ');
+    const audience = htmlAttribute(block, /tagged-as-list[\\s\\S]*?<span class=["']text["'][^>]*>([\\s\\S]*?)<\\/span>\\s*<\\/p>/i);
     const image = htmlAttribute(block, /<img[^>]+src=["']([^"']+)["']/i);
     const dateValue = year && monthNumbers[month] && day ? `${year}-${monthNumbers[month]}-${String(Number(day)).padStart(2, '0')}` : '';
     const activityText = `${title} ${description} ${audience}`;
@@ -2412,17 +2443,40 @@ async function readCupertino(source) {
     const id = url && dateValue ? `${url}|${dateValue}` : '';
     if (!id || seen.has(id) || !isUpcoming(dateValue) || !youthSignal) return [];
     seen.add(id);
-    const locationParts = placeText.split(',').map(value => value.trim()).filter(Boolean);
-    const place = locationParts.shift() || source.name;
-    const street = locationParts.filter(value => !/^\d{5}(?:-\d{4})?$/.test(value)).join(', ');
-    const event = directEvent({
-      id: 'cupertino-' + createHash('sha256').update(id).digest('hex').slice(0, 16),
-      title, dateValue, description, image: image ? new URL(decodeXml(image), source.feedUrl).href : '',
-      place, address: shortAddress(street, source.city || 'Cupertino'), city: source.city || 'Cupertino', source: source.name, url,
-      ageText: audience || activityText
-    });
-    return [{ ...event, ...costInfo('', description) }];
+    return [{ title, dateValue, description, placeText, audience, image, url }];
   });
+
+  const events = await Promise.all(items.map(async (item, index) => {
+    let detailHtml = '';
+    try {
+      const detailResponse = await fetch(item.url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+      if (detailResponse.ok) detailHtml = await detailResponse.text();
+    } catch {}
+    const detailText = plainText(detailHtml);
+    const detailTitle = plainText(detailHtml.match(/<h1[^>]*>([\\s\\S]*?)<\\/h1>/i)?.[1] || item.title);
+    let dateValue = item.dateValue;
+    const nextDate = detailText.match(/Next date:\\s*((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{1,2},\\s+20\\d{2})\\s*\\|\\s*(\\d{1,2}:\\d{2}\\s*(?:AM|PM))/i);
+    const plainDate = detailText.match(/\\b((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{1,2},\\s+20\\d{2})\\b/i);
+    const timeAfterDate = plainDate ? detailText.slice(detailText.indexOf(plainDate[0]) + plainDate[0].length, detailText.indexOf(plainDate[0]) + plainDate[0].length + 180)
+      .match(/(\\d{1,2}(?::\\d{2})?\\s*(?:a\\.?m\\.?|p\\.?m\\.?))\\s+(?:to|-)/i) : null;
+    const normalizeClock = value => String(value || '').replace(/a\\.?m\\.?/i, 'AM').replace(/p\\.?m\\.?/i, 'PM');
+    if (nextDate) dateValue = isoDateFromOfficialText(nextDate[1], normalizeClock(nextDate[2]));
+    else if (plainDate && timeAfterDate) dateValue = isoDateFromOfficialText(plainDate[1], normalizeClock(timeAfterDate[1]));
+    const description = detailHtml ? officialDetailDescription(detailHtml, firstOfficialEventSchema(detailHtml), detailTitle) || item.description : item.description;
+    const locationParts = item.placeText.split(',').map(value => value.trim()).filter(Boolean);
+    const place = locationParts.shift() || source.name;
+    const street = locationParts.filter(value => !/^\\d{5}(?:-\\d{4})?$/.test(value)).join(', ');
+    const evidence = `${detailTitle} ${description} ${item.audience} ${detailText.slice(0, 3500)}`;
+    const event = directEvent({
+      id: 'cupertino-' + createHash('sha256').update(`${item.url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
+      title: detailTitle, dateValue, description,
+      image: item.image ? new URL(decodeXml(item.image), source.feedUrl).href : htmlAttribute(detailHtml, /<meta\\s+property=["']og:image["']\\s+content=["']([^"']+)/i),
+      place, address: shortAddress(street, source.city || 'Cupertino'), city: source.city || 'Cupertino',
+      source: source.name, url: item.url, ageText: evidence
+    });
+    return { ...event, ...costInfo('', evidence) };
+  }));
+  return events.filter(Boolean);
 }
 
 // SLAC's public-events page links to current event details. Each detail page
@@ -2849,7 +2903,7 @@ const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['official-listing', 'jmz-family', 'cantor-family', 'rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'santana-row', 'annual-festival', 'curated', 'google-visitor-events', 'eventbrite-organizer'];
+const directMethods = ['official-listing', 'jmz-family', 'stanford-venue-family', 'rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'santana-row', 'annual-festival', 'curated', 'google-visitor-events', 'eventbrite-organizer'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
@@ -2864,7 +2918,7 @@ if (searchSources.length && !key) throw new Error('SERPAPI_KEY is required when 
 const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'official-listing') return readOfficialListing(source);
   if (source.method === 'jmz-family') return readJmzFamily(source);
-  if (source.method === 'cantor-family') return readCantorFamily(source);
+  if (source.method === 'stanford-venue-family') return readStanfordVenueFamily(source);
   if (source.method === 'curated') return readCurated(source);
   if (source.method === 'google-visitor-events') return readGoogleVisitorEvents(source);
   if (source.method === 'eventbrite-organizer') return readEventbriteOrganizer(source);
