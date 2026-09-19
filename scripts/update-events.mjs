@@ -2750,6 +2750,9 @@ const preliminaryEvents = [...new Map([...feedEvents, ...candidates]
   // promotion, or logistics copy is not an activity summary and cannot pass
   // this final publication gate.
   .filter(event => hasUsableSourceContent(event.description))
+  // A closure notice is useful operational information, but it is not a
+  // family activity and must never enter the browse catalog.
+  .filter(event => !/\b(?:library|bookmobile|museum|park|facility|center)\b.*\bclosed\b|\bclosed\b.*\b(?:library|bookmobile|museum|park|facility|center)\b/i.test(event.title || ''))
   .filter(event => !isUnavailableEvent(event))
   .filter(isFamilyRelevant)
   .map(withPresentationFields)
