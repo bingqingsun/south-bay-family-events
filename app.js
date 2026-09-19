@@ -497,8 +497,11 @@ function updateMobileQuickFilterMode() {
     return;
   }
   const firstCard = grid.querySelector('.event-card');
-  const deepBrowsing = Boolean(firstCard && firstCard.getBoundingClientRect().top <= 0);
-  mobileQuickFilters.classList.toggle('is-deep-browsing', deepBrowsing);
+  const eventsSection = document.querySelector('#events');
+  const toolbarHeight = mobileQuickFilters.offsetHeight || 52;
+  const firstCardPassed = Boolean(firstCard && firstCard.getBoundingClientRect().top <= 8);
+  const eventsStillVisible = Boolean(eventsSection && eventsSection.getBoundingClientRect().bottom > toolbarHeight + 24);
+  mobileQuickFilters.classList.toggle('is-deep-browsing', firstCardPassed && eventsStillVisible);
 }
 function scheduleMobileQuickFilterMode() {
   if (mobileQuickFilterFrame !== null) return;
