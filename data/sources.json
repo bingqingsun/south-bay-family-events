@@ -34,7 +34,8 @@
     "name": "City of Palo Alto",
     "domain": "paloalto.gov",
     "method": "paloalto",
-    "feedUrl": "https://www.paloalto.gov/Events-Directory"
+    "feedUrl": "https://www.paloalto.gov/Events-Directory",
+    "familyPattern": "children|kids?|famil(?:y|ies)|youth|teen|toddler|preschool|elementary|middle school|high school|all ages|parent(?:s)?\\s*(?:and|&)\\s*(?:child|kid)|palo alto airport day"
   },
   {
     "name": "Palo Alto Junior Museum & Zoo",
