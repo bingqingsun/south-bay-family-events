@@ -2890,26 +2890,29 @@ const sourceRefreshCounts = Object.fromEntries(feedAttempts.map((result, index) 
   result.status === 'fulfilled' ? result.value.length : -1
 ]));
 console.log(`Source refresh counts: ${JSON.stringify(sourceRefreshCounts)}`);
-const previousHealthByName = new Map((existingSourceHealth.sources || []).map(source => [source.name, source]));
-const directHealthByName = new Map(feedAttempts.map((result, index) => [directSources[index].name, result]));
-const fallbackHealthByName = new Map(searchAttempts.map((result, index) => [searchSources[index].name, result]));
+const sourceHealthKey = source => `${source.name}|${source.domain || ''}|${source.feedUrl || ''}`;
+const previousHealthByKey = new Map((existingSourceHealth.sources || []).map(source => [source.key || source.name, source]));
+const directHealthByKey = new Map(feedAttempts.map((result, index) => [sourceHealthKey(directSources[index]), result]));
+const fallbackHealthByKey = new Map(searchAttempts.map((result, index) => [sourceHealthKey(searchSources[index]), result]));
 const sourceHealth = {
   generatedAt,
   configuredSources: sources.length,
   directSources: directSources.length,
   fallbackSourcesRun: searchSources.length,
   sources: sources.map(source => {
-    const previous = previousHealthByName.get(source.name) || {};
-    const result = directHealthByName.get(source.name) || fallbackHealthByName.get(source.name);
+    const key = sourceHealthKey(source);
+    const previous = previousHealthByKey.get(key) || {};
+    const result = directHealthByKey.get(key) || fallbackHealthByKey.get(key);
     if (!result) return {
-      name: source.name, method: source.method || 'search-fallback', mode: 'not-run',
+      key, name: source.name, method: source.method || 'search-fallback', mode: 'not-run',
       failureStreak: previous.failureStreak || 0
     };
     const failed = result.status === 'rejected';
     return {
+      key,
       name: source.name,
       method: source.method || 'search-fallback',
-      mode: directHealthByName.has(source.name) ? 'direct' : 'search-fallback',
+      mode: directHealthByKey.has(key) ? 'direct' : 'search-fallback',
       status: failed ? 'failed' : 'ok',
       eventCount: failed ? 0 : result.value.length,
       failureStreak: failed ? (previous.failureStreak || 0) + 1 : 0,
