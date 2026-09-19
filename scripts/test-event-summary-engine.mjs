@@ -3,6 +3,8 @@ import { readFile } from 'node:fs/promises';
 import {
   assessSummaryReadability,
   buildExtractiveSummary,
+  buildOfficialMovieScreeningSummary,
+  buildOfficialSportsSummary,
   hasUsableSourceContent,
   isLikelyFragment,
   selectConcreteSourceSentence,
@@ -91,6 +93,20 @@ const sensorySource = "Little Explorers is celebrating fall! Make mess-free leaf
 assert.equal(selectLabeledActivityBundle(sensorySource), '', 'sensory/accessibility sections cannot become activity bundles');
 assert.match(selectConcreteSourceSentence(sensorySource), /Make mess-free leaf art/i, 'actual participation must outrank sensory notes');
 
+const sportsStructured = buildOfficialSportsSummary({
+  homeTeam: 'Example FC', opponent: 'Rivals United', venue: 'Community Stadium', gameWord: 'match',
+  promotions: ['Kids Day']
+});
+assert.equal(sportsStructured.summary, 'Official Example FC home match against Rivals United at Community Stadium. Featured promotion: Kids Day.');
+assert.deepEqual(sportsStructured.evidenceData, {
+  kind: 'sports-game', homeTeam: 'Example FC', opponent: 'Rivals United', venue: 'Community Stadium',
+  gameWord: 'match', promotions: ['Kids Day']
+});
+
+const movieStructured = buildOfficialMovieScreeningSummary({ rating: 'PG', theater: 'Example Cinema' });
+assert.equal(movieStructured.summary, 'PG-rated movie screening at Example Cinema.');
+assert.deepEqual(movieStructured.evidenceData, { kind: 'movie-screening', rating: 'PG', theater: 'Example Cinema' });
+
 // Engine contract: it selects evidence but never truncates a selected sentence
 // into a stored ellipsis or invents a replacement clause.
 const longAction = "Families can create a detailed paper city together using reusable templates, markers, stickers, recycled materials, and guided design prompts while talking with library staff about how neighborhoods are planned and built.";
@@ -103,5 +119,7 @@ assert.doesNotMatch(updateScript, /summary-policy\.mjs/, 'legacy summary-policy 
 assert.doesNotMatch(updateScript, /\bhasActivitySummary\b/, 'source adapters must use source-content gate, not the legacy mixed gate');
 assert.doesNotMatch(updateScript, /\bcardSummary\s*\(/, 'source adapters must not implement their own card-summary entrypoint');
 assert.match(updateScript, /event-summary-engine\.mjs/, 'all summary generation must route through the shared engine');
+assert.doesNotMatch(updateScript, /description:\s*`Official San Jose/i, 'sports adapters must use the structured summary builder');
+assert.doesNotMatch(updateScript, /family movie screening/i, 'cinema adapters must not maintain their own structured fallback copy');
 
 console.log('event-summary-engine: parser, grounding, ranking, readability, and architecture contracts passed');
