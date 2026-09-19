@@ -241,23 +241,24 @@
 
     const address = node.querySelector('.address');
     const addressLink = node.querySelector('.address-link');
+    const mapTarget = window.SBFFMapNavigation?.getNavigationTarget({ event, session });
     const addressText = session.address || event.address || '';
     const meetingPoint = !addressText ? String(event.meetingPoint || '').trim() : '';
-    const locationText = addressText || (meetingPoint ? `Meet at: ${meetingPoint}` : '');
+    const locationText = addressText || (meetingPoint ? `Meet at: ${meetingPoint}` : (mapTarget ? (session.place || event.place || event.city || 'Map location') : ''));
     address.hidden = !locationText;
-    addressLink.href = event.mapUrl || `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(addressText)}`;
-    addressLink.querySelector('.detail-text').textContent = locationText;
+    address.querySelector('.detail-text').textContent = locationText;
+    addressLink.hidden = !mapTarget;
     addressLink.querySelector('.directions').textContent = 'Directions';
     addressLink.setAttribute('aria-label', `Directions: ${locationText}`);
-    addressLink.addEventListener('click', () => track('directions_click', {
+    addressLink.addEventListener('click', () => window.SBFFMapNavigation?.openMapPicker({ event, session, analyticsParameters: {
       ...analytics,
-      date_filter: 'collection',
-      city_filter: event.city || 'all',
-      age_filter: 'all',
-      type_filter: event.type || 'all',
-      sort_order: 'editorial',
+      selected_category: 'all',
+      selected_date_filter: 'collection',
+      selected_city: event.city || 'all',
+      selected_age_band: 'any',
+      search_query: '',
       saved_only: false
-    }));
+    }, triggerElement: addressLink }));
 
     const organizerName = event.verification === 'search-verified' ? '' : String(event.source || '').trim();
     if (organizerName) {
