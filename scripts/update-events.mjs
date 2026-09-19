@@ -13,7 +13,7 @@ import {
   normalizedMovieTitle,
   normalizedMovieRating
 } from './movie-policy.mjs';
-import { selectConcreteSourceSentence } from './summary-policy.mjs';
+import { selectConcreteSourceSentence, shouldReplaceWeakSummary } from './summary-policy.mjs';
 
 const key = process.env.SERPAPI_KEY;
 // Translation is intentionally paused: no third-party translation key is read
@@ -342,13 +342,6 @@ function cardSummary(html, title = '', format = '') {
   if (/^giving thanks$/i.test(title) && /Native Californians/i.test(text)) {
     return 'A moderately paced docent-led hike exploring how Native Californians have cared for local land and plants.';
   }
-  const concreteSourceSentence = selectConcreteSourceSentence(text);
-  if (concreteSourceSentence && isCardSummaryAcceptable(concreteSourceSentence, title, format)) {
-    return concreteSourceSentence.length > 320
-      ? `${concreteSourceSentence.slice(0, 317).trimEnd()}…`
-      : concreteSourceSentence;
-  }
-
   // Gamble Garden publishes Second Saturday details as long bullet lists.
   // Flattening those lists produces an unreadable run-on sentence and can
   // leave a clipped final word on the card. Lead with the program concept,
@@ -414,9 +407,18 @@ function cardSummary(html, title = '', format = '') {
   const concise = useful.replace(/^(?:[a-z]+,?\s+)?[a-z]+\s+\d{1,2}\s*[-:–—]\s*/i, '')
     .replace(/^\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4}\s*[-:–—]\s*/, '');
   const verified = isCardSummaryAcceptable(concise, title, format) ? concise : fallbackActivitySummary(title);
+  // P0 trust rule: preserve an already-clear official-source summary. Only
+  // replace it when it is clearly background/mission/benefit copy and the
+  // same official source contains a more concrete participation sentence.
+  const concreteSourceSentence = shouldReplaceWeakSummary(verified)
+    ? selectConcreteSourceSentence(text)
+    : '';
+  const grounded = concreteSourceSentence && isCardSummaryAcceptable(concreteSourceSentence, title, format)
+    ? concreteSourceSentence
+    : verified;
   // Keep enough of the organizer-derived summary for the in-card “expand"
   // control. The collapsed card remains short through CSS line clamping.
-  return verified.length > 320 ? `${verified.slice(0, 317).trimEnd()}…` : verified;
+  return grounded.length > 320 ? `${grounded.slice(0, 317).trimEnd()}…` : grounded;
 }
 
 function officialImageUrl(item) {
