@@ -13,6 +13,7 @@ import {
   normalizedMovieTitle,
   normalizedMovieRating
 } from './movie-policy.mjs';
+import { selectConcreteSourceSentence } from './summary-policy.mjs';
 
 const key = process.env.SERPAPI_KEY;
 // Translation is intentionally paused: no third-party translation key is read
@@ -265,6 +266,11 @@ function plainText(html) {
     .replace(/(?:\s*[-–—_]\s*){3,}/g, ' ').replace(/\s+/g, ' ').replace(/\s+([,.;:!?])/g, '$1').trim();
 }
 
+function sourceDescriptionText(html, maxLength = 4000) {
+  const value = plainText(html).replace(/https?:\/\/\S+/g, '').trim();
+  return value.length > maxLength ? `${value.slice(0, maxLength - 1).trimEnd()}…` : value;
+}
+
 function isLogisticsOnly(text) {
   return /^(?:free|by appointment|call(?:\s|\.|$)|contact\b|same day|offered in|registration|reserve\b|tickets?\b|admission\b|please\b|drop-?ins?\b|no registration|must\b|participants?\b)/i.test(text)
     || /^(?:children|kids?|adults?|teens?|famil(?:y|ies)|participants?)\b[\s\S]{0,120}\b(?:welcome|must|should|need|able to|can comfortably|may participate)\b/i.test(text)
@@ -285,7 +291,7 @@ function isOperationalNote(text) {
 }
 
 function hasActivitySignal(text) {
-  return /\b(?:watch|listen|enjoy|join|explore|discover|create|build|make|play|sing|dance|read|learn|practice|taste|walk|hike|tour|meet|see|experience|story(?:time)?|songs?|rhymes?|crafts?|games?|workshop|class|concert|performance|show|movie|film|exhibit(?:ion)?|festival|parade|museum|nature|garden|science|art|music|opera|ballet|theat(?:er|re)|sports?|match|game)\b/i.test(plainText(text));
+  return /\b(?:watch(?:ing)?|listen(?:ing)?|enjoy(?:ing)?|join(?:ing)?|explor(?:e|ing)|discover(?:ing)?|creat(?:e|ing)|build(?:ing)?|mak(?:e|ing)|play(?:ing)?|sing(?:ing)?|danc(?:e|ing)|read(?:ing)?|learn(?:ing)?|practic(?:e|ing)|tast(?:e|ing)|walk(?:ing)?|hik(?:e|ing)|tour(?:ing)?|meet(?:ing)?|paint(?:ing)?|decorat(?:e|ing)|design(?:ing)?|draw(?:ing)?|sew(?:ing)?|knit(?:ting)?|crochet(?:ing)?|test(?:ing)?|experiment(?:ing)?|see|experience|story(?:time)?|songs?|rhymes?|crafts?|games?|workshop|class|concert|performance|show|movie|film|exhibit(?:ion)?|festival|parade|museum|nature|garden|science|art|music|opera|ballet|theat(?:er|re)|sports?|match|game)\b/i.test(plainText(text));
 }
 
 function fallbackActivitySummary(title) {
@@ -336,6 +342,13 @@ function cardSummary(html, title = '', format = '') {
   if (/^giving thanks$/i.test(title) && /Native Californians/i.test(text)) {
     return 'A moderately paced docent-led hike exploring how Native Californians have cared for local land and plants.';
   }
+  const concreteSourceSentence = selectConcreteSourceSentence(text);
+  if (concreteSourceSentence && isCardSummaryAcceptable(concreteSourceSentence, title, format)) {
+    return concreteSourceSentence.length > 320
+      ? `${concreteSourceSentence.slice(0, 317).trimEnd()}…`
+      : concreteSourceSentence;
+  }
+
   // Gamble Garden publishes Second Saturday details as long bullet lists.
   // Flattening those lists produces an unreadable run-on sentence and can
   // leave a clipped final word on the card. Lead with the program concept,
@@ -657,6 +670,8 @@ async function readRss(source) {
     // when the event itself is expressly for adults. Audience eligibility wins.
     if (isExplicitlyAdultOnly(categories)) return [];
     const description = xmlText(item, 'description');
+    const sourceDescriptionRaw = sourceDescriptionText(description);
+    const parentSummary = cardSummary(sourceDescriptionRaw, title);
     const eventKey = `${xmlText(item, 'guid') || link}|${startDate}`;
     if (!title || !link || seen.has(eventKey) || !isUpcoming(startDate) || !familyAudience
       || xmlText(item, 'is_cancelled') === 'true'
@@ -680,7 +695,11 @@ async function readRss(source) {
     return [{
       id: 'rss-' + eventId, title, date: displayEventDate(startDate), dateValue: startDate, endDateValue: endDate, ...age, ...cost,
       type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'rss', lastVerifiedAt: generatedAt,
-      description: cardSummary(description, title),
+      description: parentSummary,
+      parentSummary,
+      sourceDescriptionRaw,
+      summaryStatus: 'extractive',
+      summaryVersion: 'event-summary-v2-p0',
       image: officialImageUrl(item),
       place: [venue, room].filter(Boolean).join(' · ') || source.name, address, city, source: source.name, url: link,
       availabilityStatus: isFull ? 'full' : ''
@@ -698,12 +717,18 @@ async function tribePageDetails(url) {
     // Prefer the event image inside the event content. The wide page-header
     // image is site decoration and may not depict the activity itself.
     const image = html.match(/(?:mobile-event-image|my-event-image)[\s\S]*?<img[^>]+src=["']([^"']+)["']/i)?.[1] || '';
+    const sourceDescriptionRaw = sourceDescriptionText(body || meta);
+    const parentSummary = cardSummary(sourceDescriptionRaw);
     return {
-      description: cardSummary(body) || cardSummary(meta),
+      description: parentSummary,
+      parentSummary,
+      sourceDescriptionRaw,
+      summaryStatus: parentSummary ? 'extractive' : 'needs_review',
+      summaryVersion: 'event-summary-v2-p0',
       image: image ? new URL(decodeXml(image), url).href : ''
     };
   } catch {
-    return { description: '', image: '' };
+    return { description: '', parentSummary: '', sourceDescriptionRaw: '', summaryStatus: 'needs_review', summaryVersion: 'event-summary-v2-p0', image: '' };
   }
 }
 
@@ -724,10 +749,16 @@ async function readTribe(source) {
     // card only shows an age range when the organizer actually supplied one.
     const age = ageInfo(audienceText);
     const cost = costInfo(item.cost, item.description || item.excerpt || '');
+    const sourceDescriptionRaw = sourceDescriptionText(item.description || item.excerpt || '');
+    const parentSummary = cardSummary(sourceDescriptionRaw, title);
     return [{
       id: 'calendar-' + (item.id || index), title, date: displayEventDate(startDate), dateValue: startDate, endDateValue: endDate, ...age, ...cost,
       type, icon: icons[type], color: colors[type], tag: labels[type], verification: 'calendar', lastVerifiedAt: generatedAt,
-      description: cardSummary(item.description || item.excerpt || '', title),
+      description: parentSummary,
+      parentSummary,
+      sourceDescriptionRaw,
+      summaryStatus: parentSummary ? 'extractive' : 'needs_review',
+      summaryVersion: 'event-summary-v2-p0',
       image: item.image?.url || '', place: item.venue?.venue || source.name,
       address: shortAddress(item.venue?.address, item.venue?.city), city: canonicalCity(item.venue?.city), source: source.name, url: item.url
     }];
@@ -735,9 +766,15 @@ async function readTribe(source) {
   const enriched = await Promise.all(seeds.map(async event => {
     if (hasActivitySummary(event.description) && event.image) return event;
     const details = await tribePageDetails(event.url);
+    const useExisting = hasActivitySummary(event.description);
+    const description = useExisting ? event.description : details.description;
     return {
       ...event,
-      description: hasActivitySummary(event.description) ? event.description : details.description,
+      description,
+      parentSummary: description,
+      sourceDescriptionRaw: useExisting ? event.sourceDescriptionRaw : (details.sourceDescriptionRaw || event.sourceDescriptionRaw),
+      summaryStatus: description ? 'extractive' : 'needs_review',
+      summaryVersion: 'event-summary-v2-p0',
       image: event.image || details.image
     };
   }));
