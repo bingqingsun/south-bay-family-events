@@ -2550,6 +2550,7 @@ async function readPaloAlto(source) {
     return hasUsableSourceContent(event.description) ? { ...event, ...costInfo('', detailText || description) } : null;
   }));
   return events.filter(Boolean);
+}
 
 // Happy Hollow exposes its special-event calendar as server-rendered Event
 // schema.  It also includes daily operating hours in that same calendar;
