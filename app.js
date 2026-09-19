@@ -4,7 +4,6 @@ let events = Array.isArray(window.SOUTH_BAY_EVENTS) ? window.SOUTH_BAY_EVENTS : 
 const translationEnabled = false;
 const state = { type: 'all', age: 'all', city: 'all', date: 'all', sort: 'recommended', query: '', position: null, locationRequested: false, locationPending: false, locationFailed: false, saved: JSON.parse(localStorage.getItem('southBaySaved') || '[]'), onlySaved: false, language: 'en' };
 const grid = document.querySelector('#eventGrid');
-const template = document.querySelector('#cardTemplate');
 const track = (name, parameters = {}) => window.trackAnalyticsEvent?.(name, parameters);
 const seenCardImpressions = new Set();
 let cardImpressionObserver = null;
@@ -313,7 +312,7 @@ function render() {
   }, { threshold: 0.5 }) : null;
   grid.innerHTML = '';
   visible.forEach((event, eventIndex) => {
-    const session = activeSession(event); const sessions = matchingSessions(event); const node = template.content.cloneNode(true); const fallbackImage = `assets/fallback/${fallbackImageType[event.type] || event.type || 'community'}.png?v=20260830-1`; const officialImage = optimizedOfficialImageUrl(event.image, event.source); const image = officialImage || fallbackImage; const imageArea = node.querySelector('.card-image');
+    const session = activeSession(event); const sessions = matchingSessions(event); const node = window.SBFFEventCard.render({ eventId: event.id, entryPoint: 'home-events' }); const fallbackImage = `assets/fallback/${fallbackImageType[event.type] || event.type || 'community'}.png?v=20260830-1`; const officialImage = optimizedOfficialImageUrl(event.image, event.source); const image = officialImage || fallbackImage; const imageArea = node.querySelector('.card-image');
     const setCardImage = url => { imageArea.style.backgroundImage = `linear-gradient(0deg, rgba(18, 49, 42, .08), rgba(18, 49, 42, .08)), url(${JSON.stringify(url)})`; };
     imageArea.style.backgroundColor = event.imageBackground || event.color; imageArea.classList.add('has-image'); imageArea.classList.toggle('team-mark', event.imagePresentation === 'team-mark');
     if (event.imagePresentation === 'team-mark' && officialImage) {
