@@ -149,8 +149,7 @@
   }
 
   function buildCard(event, rank, entryPoint) {
-    const template = document.getElementById('cardTemplate');
-    const node = template.content.cloneNode(true);
+    const node = window.SBFFEventCard.render({ eventId: event.id, entryPoint });
     const card = node.querySelector('.event-card');
     const sessions = activeSessions(event);
     const session = sessions[0] || event;
