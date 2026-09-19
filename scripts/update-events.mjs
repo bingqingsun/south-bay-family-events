@@ -2104,7 +2104,7 @@ function officialListingPattern(source, key, fallback) {
 }
 
 function firstOfficialEventSchema(html) {
-  return [...String(html || '').matchAll(/<script[^>]+type=["']application\\/ld\\+json["'][^>]*>([\\s\\S]*?)<\\/script>/gi)].flatMap(match => {
+  return [...String(html || '').matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)].flatMap(match => {
     try { return eventNodes(JSON.parse(decodeXml(match[1]))); } catch { return []; }
   }).find(node => String(node?.['@type'] || '').toLowerCase() === 'event') || {};
 }
@@ -2116,9 +2116,9 @@ function officialDetailDate(html, schema) {
     || htmlAttribute(html, /(?:content|datetime)=["']([^"']+)["'][^>]*itemprop=["']startDate["']/i);
   if (micro) return micro.slice(0, 19);
   const text = plainText(html);
-  const numeric = text.match(/\\bDate:\\s*((?:0?[1-9]|1[0-2])\\/(?:0?[1-9]|[12]\\d|3[01])\\/20\\d{2})(?:\\s+(\\d{1,2}(?::\\d{2})?\\s*(?:AM|PM)))?/i);
+  const numeric = text.match(/\bDate:\s*((?:0?[1-9]|1[0-2])\/(?:0?[1-9]|[12]\d|3[01])\/20\d{2})(?:\s+(\d{1,2}(?::\d{2})?\s*(?:AM|PM)))?/i);
   if (numeric) return isoDateFromOfficialText(numeric[1], numeric[2] || '');
-  const named = text.match(/\\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\\s+((?:January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{1,2},\\s+20\\d{2})(?:\\s+(?:at\\s+)?(\\d{1,2}(?::\\d{2})?\\s*(?:AM|PM)))?/i);
+  const named = text.match(/\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+((?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})(?:\s+(?:at\s+)?(\d{1,2}(?::\d{2})?\s*(?:AM|PM)))?/i);
   return named ? isoDateFromOfficialText(named[1], named[2] || '') : '';
 }
 
@@ -2133,8 +2133,8 @@ function officialDetailEndDate(html, schema) {
 function officialDetailDescription(html, schema, title) {
   const blocks = [
     schema?.description || '',
-    ...[...String(html || '').matchAll(/<(?:div|section)[^>]+(?:itemprop=["']description["']|class=["'][^"']*(?:fr-view|detail-content|event-description|eventDescription|content-body|event-body)[^"']*["'])[^>]*>([\\s\\S]*?)<\\/(?:div|section)>/gi)].map(match => match[1]),
-    decodeXml(String(html || '').match(/<meta\\s+(?:name|property)=["'](?:description|og:description)["']\\s+content=["']([^"']+)/i)?.[1] || '')
+    ...[...String(html || '').matchAll(/<(?:div|section)[^>]+(?:itemprop=["']description["']|class=["'][^"']*(?:fr-view|detail-content|event-description|eventDescription|content-body|event-body)[^"']*["'])[^>]*>([\s\S]*?)<\/(?:div|section)>/gi)].map(match => match[1]),
+    decodeXml(String(html || '').match(/<meta\s+(?:name|property)=["'](?:description|og:description)["']\s+content=["']([^"']+)/i)?.[1] || '')
   ].map(sourceDescriptionText).filter(Boolean);
   return blocks.find(value => hasPublishableSummary(value, { title })) || blocks[0] || '';
 }
@@ -2144,10 +2144,10 @@ function officialDetailLocation(html, schema, source) {
   const address = location?.address || {};
   const city = canonicalCity(address?.addressLocality || source.city || '');
   const place = plainText(location?.name
-    || String(html || '').match(/itemprop=["']location["'][\\s\\S]{0,700}?itemprop=["']name["'][^>]*>([\\s\\S]*?)<\\//i)?.[1]
+    || String(html || '').match(/itemprop=["']location["'][\s\S]{0,700}?itemprop=["']name["'][^>]*>([\s\S]*?)<\//i)?.[1]
     || source.name);
   const street = plainText(address?.streetAddress
-    || String(html || '').match(/itemprop=["']streetAddress["'][^>]*>([\\s\\S]*?)<\\//i)?.[1]
+    || String(html || '').match(/itemprop=["']streetAddress["'][^>]*>([\s\S]*?)<\//i)?.[1]
     || source.address || '');
   return { place, city, address: shortAddress(street, city) };
 }
@@ -2163,8 +2163,8 @@ async function readOfficialDetailCandidate(source, candidate, index, idPrefix = 
     const schema = firstOfficialEventSchema(html);
     const title = plainText(schema?.name
       || candidate.title
-      || String(html).match(/<h1[^>]*>([\\s\\S]*?)<\\/h1>/i)?.[1]
-      || String(html).match(/<h2[^>]*>([\\s\\S]*?)<\\/h2>/i)?.[1]);
+      || String(html).match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)?.[1]
+      || String(html).match(/<h2[^>]*>([\s\S]*?)<\/h2>/i)?.[1]);
     const dateValue = officialDetailDate(html, schema) || candidate.dateValue || '';
     if (!title || !dateValue || !isUpcoming(dateValue)) return null;
     const description = officialDetailDescription(html, schema, title);
@@ -2175,7 +2175,7 @@ async function readOfficialDetailCandidate(source, candidate, index, idPrefix = 
     const location = officialDetailLocation(html, schema, source);
     const imageValue = Array.isArray(schema?.image) ? schema.image[0] : schema?.image;
     const image = typeof imageValue === 'string' ? imageValue : imageValue?.url
-      || htmlAttribute(html, /<meta\\s+property=["']og:image["']\\s+content=["']([^"']+)/i);
+      || htmlAttribute(html, /<meta\s+property=["']og:image["']\s+content=["']([^"']+)/i);
     const event = directEvent({
       id: `${idPrefix}-` + createHash('sha256').update(`${candidate.url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
       title, dateValue, endDateValue, description,
@@ -2198,7 +2198,7 @@ async function readOfficialListing(source) {
   if (!response.ok) throw new Error('Official listing was not valid: ' + response.status);
   if (source.followLinkTextPattern) {
     const followPattern = officialListingPattern(source, 'followLinkTextPattern', source.followLinkTextPattern);
-    const followMatch = [...html.matchAll(/<a[^>]+href=["']([^"']+)["'][^>]*>([\\s\\S]*?)<\\/a>/gi)]
+    const followMatch = [...html.matchAll(/<a[^>]+href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)]
       .find(match => followPattern.test(plainText(match[2])));
     if (followMatch) {
       const followUrl = new URL(decodeXml(followMatch[1]), source.feedUrl).href;
@@ -2214,7 +2214,7 @@ async function readOfficialListing(source) {
   const candidatePattern = officialListingPattern(source, 'candidatePattern', 'family|children|kids?|youth|teen|toddler|storytime|festival|celebration|halloween|holiday|pumpkin|lantern|moon|art|craft|science|nature|movie|concert|music|performance|parade|farm|garden|book|robot|magic|play');
   const linkPattern = officialListingPattern(source, 'linkPattern', '/(?:Home/Components/Calendar/Event|events?|calendar|programs?)/');
   const seen = new Set();
-  const candidates = [...html.matchAll(/<a[^>]+href=["']([^"']+)["'][^>]*>([\\s\\S]*?)<\\/a>/gi)].flatMap(match => {
+  const candidates = [...html.matchAll(/<a[^>]+href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)].flatMap(match => {
     const title = plainText(match[2]);
     if (!title || !candidatePattern.test(title)) return [];
     let url;
@@ -2235,18 +2235,18 @@ async function readCantorFamily(source) {
   const html = await response.text();
   if (!response.ok) throw new Error('Cantor family page was not valid: ' + response.status);
   const text = plainText(html);
-  const dateMatch = text.match(/next Art for All Family Day will take place on\\s+((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{1,2},\\s+20\\d{2})/i);
+  const dateMatch = text.match(/next Art for All Family Day will take place on\s+((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})/i);
   if (!dateMatch) return [];
   const dateValue = isoDateFromOfficialText(dateMatch[1], source.defaultTime || '10:00 AM');
   if (!isUpcoming(dateValue)) return [];
   const description = sourceDescriptionText(
-    text.match(/(Twice-yearly in-person Family Days bring children, families, and caregivers together for a day of free educational activities, art-making, and performances\\.)/i)?.[1] || ''
+    text.match(/(Twice-yearly in-person Family Days bring children, families, and caregivers together for a day of free educational activities, art-making, and performances\.)/i)?.[1] || ''
   );
   if (!hasPublishableSummary(description, { title: 'Art for All Family Day' })) return [];
   return [directEvent({
     id: 'cantor-family-' + createHash('sha256').update(dateMatch[1]).digest('hex').slice(0, 16),
     title: 'Art for All Family Day', dateValue, description,
-    image: htmlAttribute(html, /<meta\\s+property=["']og:image["']\\s+content=["']([^"']+)/i),
+    image: htmlAttribute(html, /<meta\s+property=["']og:image["']\s+content=["']([^"']+)/i),
     place: 'Cantor Arts Center', address: source.address || '328 Lomita Dr, Stanford',
     city: source.city || 'Stanford', source: source.name, url: source.feedUrl,
     ageText: 'Children Families Caregivers All ages', format: 'arts'
