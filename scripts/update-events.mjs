@@ -2545,7 +2545,7 @@ function timelyActivityDescription(html, title) {
     if (isLogisticsOnly(text)) value -= 12;
     return value;
   };
-  const selected = paragraphs.sort((a, b) => score(b) - score(a)).find(hasActivitySummary);
+  const selected = paragraphs.sort((a, b) => score(b) - score(a)).find(hasUsableSourceContent);
   return selected || plainText(html);
 }
 
