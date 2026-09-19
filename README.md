@@ -20,8 +20,21 @@
 
 推荐工作流：每个工作日运行一次抓取 → 根据标题、日期、地点去重 → 将活动按年龄、类别与来源链接补齐 → 自动发布静态网站。每一条活动必须保留主办方原始链接，并在页面说明“以主办方信息为准”。
 
-在 GitHub 仓库的 **Settings → Secrets and variables → Actions** 中添加 `SERPAPI_KEY`，随后启用 Actions；网站每个工作日会自动刷新并提交活动列表，GitHub Pages / Netlify / Vercel 会随之重新部署。每一条活动仍会保留其原始链接，方便家庭确认最新安排。
+在 GitHub 仓库的 **Settings → Secrets and variables → Actions** 中添加 `SERPAPI_KEY`，随后启用 Actions；网站每个工作日会自动刷新并提交活动列表。生产分支 `main` 继续由 Vercel 自动部署；普通开发分支只做代码与数据验证，不自动创建 Vercel Preview。每一条活动仍会保留其原始链接，方便家庭确认最新安排。
 
 ## 语言
 
 目前网站固定显示中文界面，活动标题和简述保留主办方原文。自动翻译功能已暂停：更新工作流不会调用任何翻译服务，也不需要翻译 API 密钥。
+
+
+## Preview 与 CI 工作流
+
+CI 验证和 Vercel Preview 部署是两条独立链路：
+
+- `main`：允许 Vercel 自动生产部署。
+- 普通开发分支（例如 `feat/*`、`fix/*`、`refactor/*`）：继续运行 GitHub Actions / 数据质量验证，但不创建 Vercel Preview。
+- `preview-acceptance`：唯一允许自动创建验收 Preview 的非生产分支。
+- 只有在产品需要实际页面验收时，才把 `preview-acceptance` 指向已经通过 CI 的目标 commit。
+- `preview-acceptance` 不运行自动事件刷新，避免验收分支生成新的数据 commit 后再触发第二次 Preview。
+
+Vercel 分支部署闸门由根目录 `vercel.json` 管理。不要在单个功能分支里恢复“每次 push 自动 Preview”的行为。
