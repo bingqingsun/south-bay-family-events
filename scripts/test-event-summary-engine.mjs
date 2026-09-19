@@ -150,6 +150,27 @@ const storytimeSpecific = buildExtractiveSummary(
 assert.match(storytimeSpecific.summary, /Enjoy stories, songs, rhymes/i,
   'specific participation details must outrank a generic join-the-program introduction');
 
+assert.match(
+  buildExtractiveSummary('Join Mini Yoga Club for a free yoga adventure through movement, music, and mindfulness.').summary,
+  /yoga adventure through movement, music, and mindfulness/i,
+  'a Join sentence with substantive activity content must remain publishable'
+);
+assert.match(
+  buildExtractiveSummary('Join us for our monthly two-day event featuring good food, shopping, music, and vibes!', { format: 'festival' }).summary,
+  /good food, shopping, music/i,
+  'a Join sentence with concrete event contents must remain publishable'
+);
+assert.equal(
+  buildExtractiveSummary('Join us on the first Friday of the month to explore new ways to play and learn!').summary,
+  '',
+  'abstract play-and-learn copy must not outrank concrete activity details'
+);
+assert.match(
+  buildExtractiveSummary('Check out the monsters, scares and laughs galore at the Milpitas Spooky Movies Festival on October 18th and 25th in our beautiful auditorium.', { title: 'Spooky Movies', format: 'program' }).summary,
+  /Spooky Movies Festival/i,
+  'plural movie titles should support a grounded movie-event description'
+);
+
 const featureListVsAction = buildExtractiveSummary(
   "Games, live music, food and drink, and thousands of pumpkins. Follow the trail of clues through a glowing woodland and into a hidden village."
 );
