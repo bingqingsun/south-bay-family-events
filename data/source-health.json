@@ -1,10 +1,11 @@
 {
-  "generatedAt": "2026-09-19T18:23:38.225Z",
+  "generatedAt": "2026-09-19T18:25:46.782Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
   "sources": [
     {
+      "key": "Palo Alto City Library|library.cityofpaloalto.org|https://gateway.bibliocommons.com/v2/libraries/paloalto/rss/events",
       "name": "Palo Alto City Library",
       "method": "rss",
       "mode": "direct",
@@ -14,6 +15,7 @@
       "error": ""
     },
     {
+      "key": "San José Public Library|sjpl.org|https://gateway.bibliocommons.com/v2/libraries/sjpl/rss/events",
       "name": "San José Public Library",
       "method": "rss",
       "mode": "direct",
@@ -23,12 +25,14 @@
       "error": ""
     },
     {
+      "key": "Santa Clara County Parks|parks.santaclaracounty.gov|",
       "name": "Santa Clara County Parks",
       "method": "search-fallback",
       "mode": "not-run",
       "failureStreak": 0
     },
     {
+      "key": "Midpeninsula Regional Open Space District|openspace.org|https://www.openspace.org/get-involved/events-activities?f%5B0%5D=rating%3A146",
       "name": "Midpeninsula Regional Open Space District",
       "method": "midpen",
       "mode": "direct",
@@ -38,6 +42,7 @@
       "error": ""
     },
     {
+      "key": "The Tech Interactive|thetech.org|https://www.thetech.org/explore/upcoming-events",
       "name": "The Tech Interactive",
       "method": "thetech",
       "mode": "direct",
@@ -47,6 +52,7 @@
       "error": ""
     },
     {
+      "key": "City of Palo Alto|paloalto.gov|https://www.paloalto.gov/Events-Directory",
       "name": "City of Palo Alto",
       "method": "paloalto",
       "mode": "direct",
@@ -56,6 +62,7 @@
       "error": ""
     },
     {
+      "key": "Palo Alto Junior Museum & Zoo|paloaltozoo.org|https://www.paloaltozoo.org/Visit/Accessibility",
       "name": "Palo Alto Junior Museum & Zoo",
       "method": "jmz-family",
       "mode": "direct",
@@ -65,12 +72,14 @@
       "error": ""
     },
     {
+      "key": "City of San José|sanjoseca.gov|",
       "name": "City of San José",
       "method": "search-fallback",
       "mode": "not-run",
       "failureStreak": 0
     },
     {
+      "key": "Santa Clara County Library District|sccld.org|https://gateway.bibliocommons.com/v2/libraries/sccl/rss/events?audiences=5b28181c4727c7344c796675%2C5b28181c4727c7344c796676%2C5b28181c4727c7344c796677%2C5b28181c4727c7344c796678%2C5b28181c4727c7344c796679%2C5b28181c4727c7344c79667a%2C5b2a5dcb2c1d736b168c62ac",
       "name": "Santa Clara County Library District",
       "method": "rss",
       "mode": "direct",
@@ -80,21 +89,21 @@
       "error": ""
     },
     {
+      "key": "City of Sunnyvale|sunnyvale.ca.gov|",
       "name": "City of Sunnyvale",
       "method": "search-fallback",
-      "mode": "direct",
-      "status": "ok",
-      "eventCount": 1,
-      "failureStreak": 0,
-      "error": ""
+      "mode": "not-run",
+      "failureStreak": 0
     },
     {
+      "key": "City of Mountain View|mountainview.gov|",
       "name": "City of Mountain View",
       "method": "search-fallback",
       "mode": "not-run",
       "failureStreak": 0
     },
     {
+      "key": "City of Cupertino|cupertino.gov|https://www.cupertino.gov/Events-directory?dlv_OC+CL+City+Events+Listing=%28dd_OC+Event+Categories%3DMajor+events%29%28dd_OC+Composite+Date%3D0d%29",
       "name": "City of Cupertino",
       "method": "cupertino",
       "mode": "direct",
@@ -104,15 +113,14 @@
       "error": ""
     },
     {
+      "key": "City of Santa Clara|santaclaraca.gov|",
       "name": "City of Santa Clara",
       "method": "search-fallback",
-      "mode": "direct",
-      "status": "ok",
-      "eventCount": 2,
-      "failureStreak": 0,
-      "error": ""
+      "mode": "not-run",
+      "failureStreak": 0
     },
     {
+      "key": "Computer History Museum|computerhistory.org|https://computerhistory.org/events/feed/",
       "name": "Computer History Museum",
       "method": "chm",
       "mode": "direct",
@@ -122,6 +130,7 @@
       "error": ""
     },
     {
+      "key": "Cantor Arts Center|events.stanford.edu|https://events.stanford.edu",
       "name": "Cantor Arts Center",
       "method": "stanford-venue-family",
       "mode": "direct",
@@ -131,6 +140,7 @@
       "error": ""
     },
     {
+      "key": "Happy Hollow Park & Zoo|happyhollow.org|https://happyhollow.org/events/",
       "name": "Happy Hollow Park & Zoo",
       "method": "happyhollow",
       "mode": "direct",
@@ -140,6 +150,7 @@
       "error": ""
     },
     {
+      "key": "Gilroy Gardens|gilroygardens.org|https://www.gilroygardens.org/calendar-hours/",
       "name": "Gilroy Gardens",
       "method": "gilroy",
       "mode": "direct",
@@ -149,6 +160,7 @@
       "error": ""
     },
     {
+      "key": "Foothill College|foothill.edu|https://foothill.edu/",
       "name": "Foothill College",
       "method": "foothill",
       "mode": "direct",
@@ -158,6 +170,7 @@
       "error": ""
     },
     {
+      "key": "De Anza College Planetarium|deanza.edu|https://daweb2.deanza.edu/events/month.html",
       "name": "De Anza College Planetarium",
       "method": "deanza",
       "mode": "direct",
@@ -167,6 +180,7 @@
       "error": ""
     },
     {
+      "key": "SLAC National Accelerator Laboratory|slac.stanford.edu|https://www6.slac.stanford.edu/news-and-events/events",
       "name": "SLAC National Accelerator Laboratory",
       "method": "slac",
       "mode": "direct",
@@ -176,6 +190,7 @@
       "error": ""
     },
     {
+      "key": "Stanford Events|events.stanford.edu|https://events.stanford.edu/api/2/events?pp=100&days=120",
       "name": "Stanford Events",
       "method": "stanford",
       "mode": "direct",
@@ -185,6 +200,7 @@
       "error": ""
     },
     {
+      "key": "San Jose Sharks|nhl.com|https://api-web.nhle.com/v1/club-schedule-season/SJS/",
       "name": "San Jose Sharks",
       "method": "nhl",
       "mode": "direct",
@@ -194,6 +210,7 @@
       "error": ""
     },
     {
+      "key": "CineLux Almaden|cineluxtheatres.com|https://www.cineluxtheatres.com/cinelux-almaden-cafe-lounge/showtimes",
       "name": "CineLux Almaden",
       "method": "cinelux",
       "mode": "direct",
@@ -203,6 +220,7 @@
       "error": ""
     },
     {
+      "key": "CineLux Plaza|cineluxtheatres.com|https://www.cineluxtheatres.com/cinelux-plaza-cafe-lounge/showtimes",
       "name": "CineLux Plaza",
       "method": "cinelux",
       "mode": "direct",
@@ -212,6 +230,7 @@
       "error": ""
     },
     {
+      "key": "CineLux Los Gatos|cineluxtheatres.com|https://www.cineluxtheatres.com/cinelux-los-gatos-theatre/showtimes",
       "name": "CineLux Los Gatos",
       "method": "cinelux",
       "mode": "direct",
@@ -221,6 +240,7 @@
       "error": ""
     },
     {
+      "key": "CineLux Morgan Hill|cineluxtheatres.com|https://www.cineluxtheatres.com/cinelux-tennant-station/showtimes",
       "name": "CineLux Morgan Hill",
       "method": "cinelux",
       "mode": "direct",
@@ -230,6 +250,7 @@
       "error": ""
     },
     {
+      "key": "CineLux Gilroy|cineluxtheatres.com|https://www.cineluxtheatres.com/cinelux-gilroy-cafe-lounge/showtimes",
       "name": "CineLux Gilroy",
       "method": "cinelux",
       "mode": "direct",
@@ -239,15 +260,17 @@
       "error": ""
     },
     {
+      "key": "Cinemark Century Oakridge 20|cinemark.com|https://www.cinemark.com/theatres/ca-san-jose/cinemark-century-oakridge-20-xd-and-screenx",
       "name": "Cinemark Century Oakridge 20",
       "method": "cinemark",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 14,
+      "eventCount": 10,
       "failureStreak": 0,
       "error": ""
     },
     {
+      "key": "Cinemark Century Great Mall 20|cinemark.com|https://www.cinemark.com/theatres/ca-milpitas/cinemark-century-great-mall-20-xd-and-screenx",
       "name": "Cinemark Century Great Mall 20",
       "method": "cinemark",
       "mode": "direct",
@@ -257,6 +280,7 @@
       "error": ""
     },
     {
+      "key": "Cinemark CineArts Santana Row|cinemark.com|https://www.cinemark.com/theatres/ca-san-jose/cinemark-cinearts-santana-row",
       "name": "Cinemark CineArts Santana Row",
       "method": "cinemark",
       "mode": "direct",
@@ -266,6 +290,7 @@
       "error": ""
     },
     {
+      "key": "South FIRST FRIDAYS / ArtWalkSJ|southfirstfridays.com|https://www.southfirstfridays.com/wp-json/wp/v2/posts?categories=4&per_page=15",
       "name": "South FIRST FRIDAYS / ArtWalkSJ",
       "method": "southfirstfridays",
       "mode": "direct",
@@ -275,6 +300,7 @@
       "error": ""
     },
     {
+      "key": "SAP Center|sapcenter.com|https://www.sapcenter.com/events/all",
       "name": "SAP Center",
       "method": "sapcenter",
       "mode": "direct",
@@ -284,6 +310,7 @@
       "error": ""
     },
     {
+      "key": "Bay FC|bayfc.com|https://bayfc.com/schedule/",
       "name": "Bay FC",
       "method": "bayfc",
       "mode": "direct",
@@ -293,6 +320,7 @@
       "error": ""
     },
     {
+      "key": "San Jose Giants|milb.com|https://statsapi.mlb.com/api/v1/schedule?teamId=476",
       "name": "San Jose Giants",
       "method": "mlb",
       "mode": "direct",
@@ -302,6 +330,7 @@
       "error": ""
     },
     {
+      "key": "San Jose Earthquakes|sjearthquakes.com|https://stats-api.mlssoccer.com/competitions/MLS-COM-000001/seasons",
       "name": "San Jose Earthquakes",
       "method": "mls",
       "mode": "direct",
@@ -311,6 +340,7 @@
       "error": ""
     },
     {
+      "key": "Palo Alto Children's Theatre|pact.showare.com|https://pact.showare.com/include/widgets/events/performancelist.asp?action=perf&page=1&listPageSize=100&showPackages=1",
       "name": "Palo Alto Children's Theatre",
       "method": "showare",
       "mode": "direct",
@@ -320,6 +350,7 @@
       "error": ""
     },
     {
+      "key": "CMT San Jose|cmtsj.org|https://www.cmtsj.org/wp-json/wp/v2/pages/12073",
       "name": "CMT San Jose",
       "method": "cmt",
       "mode": "direct",
@@ -329,6 +360,7 @@
       "error": ""
     },
     {
+      "key": "Peninsula Youth Theatre|pytnet.org|https://pytnet.org/",
       "name": "Peninsula Youth Theatre",
       "method": "pyt",
       "mode": "direct",
@@ -338,6 +370,7 @@
       "error": ""
     },
     {
+      "key": "San Jose Barracuda|sjbarracuda.com|https://sjbarracuda.com/schedule",
       "name": "San Jose Barracuda",
       "method": "barracuda",
       "mode": "direct",
@@ -347,6 +380,7 @@
       "error": ""
     },
     {
+      "key": "Filoli Historic House & Garden|filoli.org|https://filoli.org/whats-on/events/",
       "name": "Filoli Historic House & Garden",
       "method": "filoli",
       "mode": "direct",
@@ -356,6 +390,7 @@
       "error": ""
     },
     {
+      "key": "Los Altos History Museum|losaltoshistory.org|https://www.losaltoshistory.org/events/",
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
@@ -365,6 +400,7 @@
       "error": ""
     },
     {
+      "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
       "name": "Museum of American Heritage",
       "method": "moah",
       "mode": "direct",
@@ -374,6 +410,7 @@
       "error": ""
     },
     {
+      "key": "Montalvo Arts Center|montalvoarts.org|https://montalvoarts.org/experience/events-calendar/",
       "name": "Montalvo Arts Center",
       "method": "montalvo",
       "mode": "direct",
@@ -383,6 +420,7 @@
       "error": ""
     },
     {
+      "key": "City of Los Altos Parks & Recreation|losaltosca.gov|https://www.losaltosca.gov/common/modules/iCalendar/iCalendar.aspx?catID=37&feed=calendar",
       "name": "City of Los Altos Parks & Recreation",
       "method": "ics",
       "mode": "direct",
@@ -392,6 +430,7 @@
       "error": ""
     },
     {
+      "key": "Gamble Garden|gamblegarden.org|https://www.gamblegarden.org/wp-json/tribe/events/v1/events?per_page=50&categories=kids",
       "name": "Gamble Garden",
       "method": "tribe",
       "mode": "direct",
@@ -401,6 +440,7 @@
       "error": ""
     },
     {
+      "key": "Symphony San Jose|symphonysanjose.org|https://www.symphonysanjose.org/attend/2026-2027-season/concerts-2026-2027/",
       "name": "Symphony San Jose",
       "method": "symphony",
       "mode": "direct",
@@ -410,6 +450,7 @@
       "error": ""
     },
     {
+      "key": "San Jose Theaters|sanjosetheaters.org|https://events.timely.fun/jc0x91t0/stream?tags=677512582",
       "name": "San Jose Theaters",
       "method": "timely",
       "mode": "direct",
@@ -419,6 +460,7 @@
       "error": ""
     },
     {
+      "key": "History San José|historysanjose.org|https://historysanjose.org/programs-events/",
       "name": "History San José",
       "method": "history",
       "mode": "direct",
@@ -428,6 +470,7 @@
       "error": ""
     },
     {
+      "key": "San José Buddhist Church Betsuin|sjbetsuin.org|https://www.sjbetsuin.org/wp-json/tribe/events/v1/events?per_page=100",
       "name": "San José Buddhist Church Betsuin",
       "method": "tribe",
       "mode": "direct",
@@ -437,6 +480,7 @@
       "error": ""
     },
     {
+      "key": "Chinese Historical & Cultural Project|chcp.org|https://www.chcp.org/Events",
       "name": "Chinese Historical & Cultural Project",
       "method": "chcp",
       "mode": "direct",
@@ -446,6 +490,7 @@
       "error": ""
     },
     {
+      "key": "City of Milpitas|milpitas.gov|https://www.milpitas.gov/calendar.aspx?CID=0&view=list",
       "name": "City of Milpitas",
       "method": "civic",
       "mode": "direct",
@@ -455,6 +500,7 @@
       "error": ""
     },
     {
+      "key": "Google Visitor Experience|visit.withgoogle.com|https://visit.withgoogle.com/events/",
       "name": "Google Visitor Experience",
       "method": "google-visitor-events",
       "mode": "direct",
@@ -464,6 +510,7 @@
       "error": ""
     },
     {
+      "key": "The Village at San Antonio Center|eventbrite.com|https://www.eventbrite.com/o/the-village-at-san-antonio-center-79938931743",
       "name": "The Village at San Antonio Center",
       "method": "eventbrite-organizer",
       "mode": "direct",
@@ -473,6 +520,7 @@
       "error": ""
     },
     {
+      "key": "CalColor Academy|eventbrite.com|https://www.eventbrite.com/o/calcolor-academy-9700734107",
       "name": "CalColor Academy",
       "method": "eventbrite-organizer",
       "mode": "direct",
@@ -482,6 +530,7 @@
       "error": ""
     },
     {
+      "key": "365 Night Market|365nightmarket.com|https://www.365nightmarket.com/",
       "name": "365 Night Market",
       "method": "wix-events",
       "mode": "direct",
@@ -491,6 +540,7 @@
       "error": ""
     },
     {
+      "key": "Silicon Valley Pride|svpride.com|https://www.svpride.com/events",
       "name": "Silicon Valley Pride",
       "method": "squarespace-events",
       "mode": "direct",
@@ -500,6 +550,7 @@
       "error": ""
     },
     {
+      "key": "Chinese Performing Arts of America|cpaasv.org|https://www.cpaasv.org/events",
       "name": "Chinese Performing Arts of America",
       "method": "squarespace-events",
       "mode": "direct",
@@ -509,6 +560,7 @@
       "error": ""
     },
     {
+      "key": "Niles Antique Faire|niles.org|https://www.niles.org/antique-faire-and-flea-market?itemId=mc4m7bjm66f5wmnljuwb7tpucftx10-3d5wg-nws5r-7f654-37ctx",
       "name": "Niles Antique Faire",
       "method": "annual-festival",
       "mode": "direct",
@@ -518,6 +570,7 @@
       "error": ""
     },
     {
+      "key": "Bay Area Lebanese Festival|bayarealebanesefestival.net|https://www.bayarealebanesefestival.net/",
       "name": "Bay Area Lebanese Festival",
       "method": "annual-festival",
       "mode": "direct",
@@ -527,6 +580,7 @@
       "error": ""
     },
     {
+      "key": "Holy Family Parish|holyfamilysanjose.org|https://holyfamilysanjose.org/holy-family-parish-festival",
       "name": "Holy Family Parish",
       "method": "curated",
       "mode": "direct",
@@ -536,6 +590,7 @@
       "error": ""
     },
     {
+      "key": "City of Santa Clara|calendar.santaclaraca.gov|https://calendar.santaclaraca.gov/santaclaraca/260168831",
       "name": "City of Santa Clara",
       "method": "curated",
       "mode": "direct",
@@ -545,6 +600,7 @@
       "error": ""
     },
     {
+      "key": "Visit San Jose|sanjose.org|https://www.sanjose.org/events/mid-autumn-festival-bay-area",
       "name": "Visit San Jose",
       "method": "curated",
       "mode": "direct",
@@ -554,6 +610,7 @@
       "error": ""
     },
     {
+      "key": "City of Sunnyvale|sunnyvale.ca.gov|https://www.sunnyvale.ca.gov/recreation-and-community/special-events/hands-on-the-arts",
       "name": "City of Sunnyvale",
       "method": "curated",
       "mode": "direct",
@@ -563,6 +620,7 @@
       "error": ""
     },
     {
+      "key": "Santa Clara Parade of Champions|sc-parade-of-champions.squarespace.com|https://www.scparadeofchampions.org/parade-schedule",
       "name": "Santa Clara Parade of Champions",
       "method": "curated",
       "mode": "direct",
@@ -572,6 +630,7 @@
       "error": ""
     },
     {
+      "key": "Downtown Campbell|downtowncampbell.com|https://www.downtowncampbell.com/event/31st-annual-campbell-oktoberfest",
       "name": "Downtown Campbell",
       "method": "curated",
       "mode": "direct",
@@ -581,6 +640,7 @@
       "error": ""
     },
     {
+      "key": "San Jose Book Festival|sanjosebookfestival.org|https://sanjosebookfestival.org/calendar/",
       "name": "San Jose Book Festival",
       "method": "curated",
       "mode": "direct",
@@ -590,6 +650,7 @@
       "error": ""
     },
     {
+      "key": "Mountain View Art & Wine Festival|mvartwine.com|https://www.mvartwine.com/",
       "name": "Mountain View Art & Wine Festival",
       "method": "curated",
       "mode": "direct",
@@ -599,6 +660,7 @@
       "error": ""
     },
     {
+      "key": "San José Made|sanjosemade.com|https://www.sanjosemade.com/pages/sjmade-little-shops-village-september-2026-at-cityline",
       "name": "San José Made",
       "method": "curated",
       "mode": "direct",
@@ -608,6 +670,7 @@
       "error": ""
     },
     {
+      "key": "Viva CalleSJ / City of San José|sanjoseca.gov|https://www.sanjoseca.gov/Home/Components/Calendar/Event/8229/",
       "name": "Viva CalleSJ / City of San José",
       "method": "curated",
       "mode": "direct",
@@ -617,6 +680,7 @@
       "error": ""
     },
     {
+      "key": "Sunnyvale Public Library|sunnyvale.ca.gov|https://www.sunnyvale.ca.gov/Home/Components/Calendar/Event/12391/",
       "name": "Sunnyvale Public Library",
       "method": "curated",
       "mode": "direct",
@@ -626,6 +690,7 @@
       "error": ""
     },
     {
+      "key": "San José Museum of Art|sjmusart.org|https://sjmusart.org/calendar",
       "name": "San José Museum of Art",
       "method": "curated",
       "mode": "direct",
@@ -635,6 +700,7 @@
       "error": ""
     },
     {
+      "key": "Children’s Discovery Museum of San Jose|cdm.org|https://www.cdm.org/events/",
       "name": "Children’s Discovery Museum of San Jose",
       "method": "curated",
       "mode": "direct",
@@ -644,6 +710,7 @@
       "error": ""
     },
     {
+      "key": "City of Mountain View · Seasonal Events|mountainview.gov|https://www.mountainview.gov/our-city/departments/community-services/special-events",
       "name": "City of Mountain View · Seasonal Events",
       "method": "curated",
       "mode": "direct",
@@ -653,6 +720,7 @@
       "error": ""
     },
     {
+      "key": "City of San José · Almaden Community Center|sanjoseca.gov|https://www.sanjoseca.gov/Home/Components/Calendar/Event/8548/5117",
       "name": "City of San José · Almaden Community Center",
       "method": "curated",
       "mode": "direct",
@@ -662,6 +730,7 @@
       "error": ""
     },
     {
+      "key": "City of Milpitas · Seasonal Events|milpitas.gov|https://www.milpitas.gov/1160/Pumpkins-in-the-Park",
       "name": "City of Milpitas · Seasonal Events",
       "method": "curated",
       "mode": "direct",
@@ -671,6 +740,7 @@
       "error": ""
     },
     {
+      "key": "City of Fremont · Seasonal Events|fremont.gov|https://www.fremont.gov/government/departments/parks-recreation/events",
       "name": "City of Fremont · Seasonal Events",
       "method": "curated",
       "mode": "direct",
@@ -680,6 +750,7 @@
       "error": ""
     },
     {
+      "key": "City of Santa Clara · Seasonal Events|santaclaraca.gov|https://www.santaclaraca.gov/Home/Components/Calendar/Event/111000/41",
       "name": "City of Santa Clara · Seasonal Events",
       "method": "curated",
       "mode": "direct",
@@ -689,6 +760,7 @@
       "error": ""
     },
     {
+      "key": "Teatro Visión|sanjose.org|https://www.sanjose.org/events/teatro-visions-alebrijes-dia-de-muertos-tale",
       "name": "Teatro Visión",
       "method": "curated",
       "mode": "direct",
@@ -698,6 +770,7 @@
       "error": ""
     },
     {
+      "key": "City of Menlo Park|menlopark.gov|https://www.menlopark.gov/Citywide-calendar/Community-events/20261028-Trunk-or-Treat",
       "name": "City of Menlo Park",
       "method": "curated",
       "mode": "direct",
@@ -707,6 +780,7 @@
       "error": ""
     },
     {
+      "key": "History San José · Seasonal Events|historysanjose.org|https://historysanjose.org/event/childrens-halloween-haunt/",
       "name": "History San José · Seasonal Events",
       "method": "curated",
       "mode": "direct",
@@ -716,6 +790,7 @@
       "error": ""
     },
     {
+      "key": "Santana Row|santanarow.com|https://santanarow.com/events/",
       "name": "Santana Row",
       "method": "santana-row",
       "mode": "direct",
