@@ -52,6 +52,8 @@
     'curated-3dc3446a01d92775'
   ];
   let savedIds = JSON.parse(localStorage.getItem('southBaySaved') || '[]');
+  const seenCardImpressions = new Set();
+  let cardImpressionObserver = null;
 
   function track(name, parameters = {}) {
     if (typeof window.trackAnalyticsEvent === 'function') {
@@ -133,9 +135,10 @@
 
   function eventAnalytics(event, rank, entryPoint) {
     return {
+      surface: 'collection',
+      placement: entryPoint === 'collection-quick-pick' ? 'quick_picks' : 'event_grid',
       collection_slug: collectionSlug,
       collection_position: rank,
-      entry_point: entryPoint,
       event_id: event.id,
       event_title: event.title,
       event_city: event.city || '',
@@ -158,6 +161,24 @@
       search_query: '',
       saved_only: false
     };
+  }
+
+  function observeCardImpression(card) {
+    if (!card || typeof IntersectionObserver !== 'function') return;
+    if (!cardImpressionObserver) {
+      cardImpressionObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting || entry.intersectionRatio < 0.5) return;
+          const observedCard = entry.target;
+          const key = observedCard.dataset.impressionKey;
+          if (!key || seenCardImpressions.has(key)) return;
+          seenCardImpressions.add(key);
+          track('event_card_impression', JSON.parse(observedCard.dataset.analytics || '{}'));
+          cardImpressionObserver.unobserve(observedCard);
+        });
+      }, { threshold: 0.5 });
+    }
+    cardImpressionObserver.observe(card);
   }
 
   function isSaved(event) {
@@ -308,14 +329,6 @@
     link.firstChild.textContent = 'View details ';
     link.addEventListener('click', () => {
       if (!resolvedLink) return;
-      track('collection_event_click', { ...analytics, link_resolution: event.linkResolution || 'canonical' });
-      if (entryPoint === 'collection-quick-pick') {
-        track('collection_quick_pick_click', {
-          collection_slug: collectionSlug,
-          event_id: event.id,
-          collection_position: rank
-        });
-      }
       track('view_event_details', {
         ...analytics,
         ...collectionContextParameters(event),
@@ -340,7 +353,8 @@
     });
 
     if (entryPoint === 'collection-all-events') card.id = `event-${event.id}`;
-    card.dataset.analytics = JSON.stringify(analytics);
+    card.dataset.analytics = JSON.stringify({ ...analytics, ...collectionContextParameters(event) });
+    card.dataset.impressionKey = [collectionSlug, analytics.placement, event.id].join(':');
     requestAnimationFrame(() => {
       descriptionToggle.hidden = description.hidden || description.scrollHeight <= description.clientHeight + 1;
     });
@@ -380,8 +394,16 @@
     const quickIdSet = new Set(quickEvents.map((event) => event.id));
     const otherEvents = events.filter((event) => !quickIdSet.has(event.id));
 
-    quickEvents.forEach((event, index) => quickGrid.append(buildCard(event, index + 1, 'collection-quick-pick')));
-    otherEvents.forEach((event, index) => grid.append(buildCard(event, index + 1, 'collection-all-events')));
+    quickEvents.forEach((event, index) => {
+      const node = buildCard(event, index + 1, 'collection-quick-pick');
+      quickGrid.append(node);
+      observeCardImpression(node.querySelector('.event-card'));
+    });
+    otherEvents.forEach((event, index) => {
+      const node = buildCard(event, index + 1, 'collection-all-events');
+      grid.append(node);
+      observeCardImpression(node.querySelector('.event-card'));
+    });
 
     const countNode = document.getElementById('collectionEventCount');
     const datesNode = document.getElementById('collectionDateRange');
