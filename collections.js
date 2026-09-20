@@ -149,6 +149,17 @@
     };
   }
 
+  function collectionContextParameters(event) {
+    return {
+      selected_category: 'all',
+      selected_date_filter: 'collection',
+      selected_city: event.city || 'all',
+      selected_age_band: 'any',
+      search_query: '',
+      saved_only: false
+    };
+  }
+
   function isSaved(event) {
     return savedIds.includes(event.id) || (event.legacyIds || []).some((id) => savedIds.includes(id));
   }
@@ -250,15 +261,12 @@
     addressLink.hidden = !mapTarget;
     addressLink.querySelector('.directions').textContent = 'Directions';
     addressLink.setAttribute('aria-label', `Directions: ${locationText}`);
-    addressLink.addEventListener('click', () => window.SBFFMapNavigation?.openMapPicker({ event, session, analyticsParameters: {
-      ...analytics,
-      selected_category: 'all',
-      selected_date_filter: 'collection',
-      selected_city: event.city || 'all',
-      selected_age_band: 'any',
-      search_query: '',
-      saved_only: false
-    }, triggerElement: addressLink }));
+    addressLink.addEventListener('click', () => window.SBFFMapNavigation?.openMapPicker({
+      event,
+      session,
+      analyticsParameters: { ...analytics, ...collectionContextParameters(event) },
+      triggerElement: addressLink
+    }));
 
     const organizerName = event.verification === 'search-verified' ? '' : String(event.source || '').trim();
     if (organizerName) {
@@ -309,13 +317,9 @@
         });
       }
       track('view_event_details', {
-        ...analytics, link_resolution: event.linkResolution || 'canonical',
-        date_filter: 'collection',
-        city_filter: event.city || 'all',
-        age_filter: 'all',
-        type_filter: event.type || 'all',
-        sort_order: 'editorial',
-        saved_only: false
+        ...analytics,
+        ...collectionContextParameters(event),
+        link_resolution: event.linkResolution || 'canonical'
       });
     });
 
@@ -330,12 +334,7 @@
       localStorage.setItem('southBaySaved', JSON.stringify(savedIds));
       track(wasSaved ? 'unsave_event' : 'save_event', {
         ...analytics,
-        date_filter: 'collection',
-        city_filter: event.city || 'all',
-        age_filter: 'all',
-        type_filter: event.type || 'all',
-        sort_order: 'editorial',
-        saved_only: false
+        ...collectionContextParameters(event)
       });
       syncSavedButtons(event);
     });
