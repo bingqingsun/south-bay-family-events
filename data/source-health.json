@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-19T23:56:17.441Z",
+  "generatedAt": "2026-09-21T14:29:08.521Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -20,7 +20,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 15,
+      "eventCount": 12,
       "failureStreak": 0,
       "error": ""
     },
@@ -67,7 +67,7 @@
       "method": "jmz-family",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 2,
+      "eventCount": 1,
       "failureStreak": 0,
       "error": ""
     },
@@ -165,7 +165,7 @@
       "method": "foothill",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 4,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -195,7 +195,7 @@
       "method": "stanford",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 4,
+      "eventCount": 5,
       "failureStreak": 0,
       "error": ""
     },
@@ -215,7 +215,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 64,
+      "eventCount": 55,
       "failureStreak": 0,
       "error": ""
     },
@@ -225,7 +225,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 48,
+      "eventCount": 42,
       "failureStreak": 0,
       "error": ""
     },
@@ -235,7 +235,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 7,
+      "eventCount": 6,
       "failureStreak": 0,
       "error": ""
     },
@@ -245,7 +245,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 77,
+      "eventCount": 65,
       "failureStreak": 0,
       "error": ""
     },
@@ -255,7 +255,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 59,
+      "eventCount": 49,
       "failureStreak": 0,
       "error": ""
     },
@@ -265,7 +265,7 @@
       "method": "cinemark",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 5,
+      "eventCount": 11,
       "failureStreak": 0,
       "error": ""
     },
@@ -275,7 +275,7 @@
       "method": "cinemark",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 4,
+      "eventCount": 8,
       "failureStreak": 0,
       "error": ""
     },
@@ -285,7 +285,7 @@
       "method": "cinemark",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 5,
+      "eventCount": 7,
       "failureStreak": 0,
       "error": ""
     },
@@ -315,7 +315,7 @@
       "method": "bayfc",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 4,
+      "eventCount": 3,
       "failureStreak": 0,
       "error": ""
     },
@@ -335,7 +335,7 @@
       "method": "mls",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 3,
+      "eventCount": 4,
       "failureStreak": 0,
       "error": ""
     },
@@ -394,10 +394,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 1,
-      "error": "Los Altos History Museum event list was not valid: 202"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -426,7 +426,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 2,
+      "failureStreak": 3,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -435,7 +435,7 @@
       "method": "tribe",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 5,
+      "eventCount": 4,
       "failureStreak": 0,
       "error": ""
     },
@@ -505,7 +505,7 @@
       "method": "google-visitor-events",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 4,
+      "eventCount": 3,
       "failureStreak": 0,
       "error": ""
     },
@@ -585,7 +585,7 @@
       "method": "curated",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 2,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -595,7 +595,7 @@
       "method": "curated",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 2,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -695,7 +695,7 @@
       "method": "curated",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 2,
+      "eventCount": 1,
       "failureStreak": 0,
       "error": ""
     },
@@ -800,5 +800,11 @@
       "error": ""
     }
   ],
-  "alerts": []
+  "alerts": [
+    {
+      "name": "City of Los Altos Parks & Recreation",
+      "failureStreak": 3,
+      "error": "Official iCalendar feed was not valid: 403"
+    }
+  ]
 }
