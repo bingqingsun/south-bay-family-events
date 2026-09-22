@@ -18,7 +18,6 @@ export function cupertinoAudienceEvidence(listingAudience = '', eventCopy = '') 
   const copy = clean(eventCopy);
   const clauses = [];
   const patterns = [
-    /\b(?:children|kids?|youth|participants?|attendees?)\s+(?:are\s+|is\s+)?(?:for\s+)?ages?\s+(?:zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|\d{1,2})\s*(?:-|–|—|to)\s*(?:zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|\d{1,2})\b/gi,
     /\bages?\s+(?:zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|\d{1,2})\s*(?:-|–|—|to)\s*(?:zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|\d{1,2})\b/gi,
     /\b(?:recommended\s+for\s+)?ages?\s+\d{1,2}\s*(?:(?:and|&)\s*up\b|\+)/gi,
     /\bgrades?\s*(?:k|kindergarten|\d{1,2})\s*(?:-|–|—|to)\s*\d{1,2}\b/gi
