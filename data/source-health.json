@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T07:39:29.887Z",
+  "generatedAt": "2026-09-22T07:41:37.065Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -265,7 +265,7 @@
       "method": "cinemark",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 16,
+      "eventCount": 11,
       "failureStreak": 0,
       "error": ""
     },
@@ -416,7 +416,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 17,
+      "failureStreak": 18,
       "error": "Montalvo official calendar was not valid: 500"
     },
     {
@@ -426,7 +426,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 20,
+      "failureStreak": 21,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -803,41 +803,41 @@
   "alerts": [
     {
       "name": "Montalvo Arts Center",
-      "failureStreak": 17,
+      "failureStreak": 18,
       "error": "Montalvo official calendar was not valid: 500"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 20,
+      "failureStreak": 21,
       "error": "Official iCalendar feed was not valid: 403"
     }
   ],
   "canonicalDetailEnrichment": {
-    "checkedAt": "2026-09-22T07:39:29.887Z",
-    "total": 390,
+    "checkedAt": "2026-09-22T07:41:37.065Z",
+    "total": 393,
     "statuses": {
-      "not-eligible": 51,
-      "enriched": 323,
+      "not-eligible": 50,
+      "enriched": 327,
       "fetch-failed": 12,
       "identity-mismatch": 4
     },
     "fieldsUpdated": {
-      "canonicalUrl": 302,
+      "canonicalUrl": 306,
       "description": 244,
       "sourceDescriptionRaw": 159,
       "registrationEvidence": 49,
-      "image": 43,
+      "image": 55,
       "registrationStatus": 9,
       "registrationSource": 8,
       "dateValue": 22,
-      "address": 11,
-      "costStatus": 3,
-      "costLabel": 3,
-      "costSource": 3,
-      "costEvidence": 6,
+      "address": 15,
+      "costStatus": 6,
+      "costLabel": 6,
+      "costSource": 6,
+      "costEvidence": 9,
       "endDateValue": 16,
       "city": 2,
-      "url": 2,
+      "url": 6,
       "place": 3
     }
   }
