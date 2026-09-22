@@ -234,7 +234,7 @@ export function enrichEventFromDetail(event, {
 
   const merged = { ...event };
   const fieldsUpdated = [];
-  const fieldProvenance = {};
+  const fieldProvenance = { ...(event.fieldProvenance || {}) };
   const set = (field, value, method, { onlyIfMissing = false } = {}) => {
     if (!fieldExists(value)) return;
     if (onlyIfMissing && fieldExists(merged[field])) return;
@@ -242,26 +242,41 @@ export function enrichEventFromDetail(event, {
     merged[field] = value;
     fieldsUpdated.push(field);
     fieldProvenance[field] = {
+      source: 'canonical-detail',
       method: method || 'detail-page',
       sourceUrl: finalUrl || event.url || '',
       verifiedAt
     };
   };
 
-  set('url', generic.canonicalUrl, generic.canonicalMethod);
-  set('canonicalUrl', generic.canonicalUrl, generic.canonicalMethod);
-  set('dateValue', specific.startDate || generic.startDate, specific.startDate ? specific.method : generic.dateMethod);
-  set('endDateValue', specific.endDate || generic.endDate, specific.endDate ? specific.method : generic.dateMethod);
+  // Canonical resolution happens before this stage. Enrichment may strengthen
+  // facts from that page, but it must not silently choose a different URL.
+  const canonicalStart = specific.startDate || generic.startDate;
+  const canonicalEnd = specific.endDate || generic.endDate;
+  const knownDay = String(event.dateValue || '').slice(0, 10);
+  const sameStartDay = canonicalStart && (!knownDay || String(canonicalStart).slice(0, 10) === knownDay);
+  const currentHasTime = hasTime(event.dateValue);
+  const canonicalHasTime = hasTime(canonicalStart) && !/T00:00(?::00)?$/.test(String(canonicalStart));
+  // Preserve precise session times from an official discovery feed when the
+  // canonical page exposes only an all-day umbrella. A source adapter may
+  // refine an existing time because it understands that organizer's layout.
+  if (sameStartDay && canonicalHasTime && (!currentHasTime || specific.startDate)) {
+    set('dateValue', canonicalStart, specific.startDate ? specific.method : generic.dateMethod);
+  }
+  if (canonicalEnd && (!knownDay || String(canonicalEnd).slice(0, 10) === knownDay)
+      && hasTime(canonicalEnd) && !/T00:00(?::00)?$/.test(String(canonicalEnd))) {
+    set('endDateValue', canonicalEnd, specific.endDate ? specific.method : generic.dateMethod);
+  }
 
   // Earlier refreshes may have persisted a schema.org all-day placeholder as
   // 00:00 on the same day. Once the generic extractor recognizes the detail
   // page as date-only, repair that stale value to end-of-day so the event
   // cannot expire at the start of its advertised date.
-  const knownDay = String(merged.dateValue || event.dateValue || '').slice(0, 10);
+  const mergedKnownDay = String(merged.dateValue || event.dateValue || '').slice(0, 10);
   if (generic.dateMethod === 'schema.org-date-only'
-      && knownDay
-      && String(merged.endDateValue || '') === knownDay + 'T00:00:00') {
-    set('endDateValue', knownDay + 'T23:59:59', 'schema.org-date-only-repair');
+      && mergedKnownDay
+      && String(merged.endDateValue || '') === mergedKnownDay + 'T00:00:00') {
+    set('endDateValue', mergedKnownDay + 'T23:59:59', 'schema.org-date-only-repair');
   }
 
   const city = specific.city || generic.city || merged.city || source.city || '';
@@ -273,8 +288,20 @@ export function enrichEventFromDetail(event, {
   }
   if (city) set('city', city, specific.city ? specific.method : generic.locationMethod);
 
-  set('description', generic.description, generic.descriptionMethod, { onlyIfMissing: true });
-  set('image', generic.image, generic.imageMethod, { onlyIfMissing: true });
+  // Once identity is verified, the canonical detail page is the stronger
+  // source for descriptive copy and event-specific artwork. Generic image
+  // extraction already rejects logos/default assets and unrelated Event data.
+  set('description', generic.description, generic.descriptionMethod);
+  set('image', generic.image, generic.imageMethod);
+  if (generic.description) {
+    merged.sourceDescriptionRaw = generic.description;
+    fieldProvenance.sourceDescriptionRaw = {
+      source: 'canonical-detail',
+      method: generic.descriptionMethod || 'detail-page',
+      sourceUrl: finalUrl || event.url || '',
+      verifiedAt
+    };
+  }
 
   const audience = specific.audienceText || generic.audienceText;
   const age = agePatch(audience);
@@ -284,6 +311,7 @@ export function enrichEventFromDetail(event, {
       merged[field] = value;
       fieldsUpdated.push(field);
       fieldProvenance[field] = {
+        source: 'canonical-detail',
         method: specific.audienceText ? specific.method : generic.audienceMethod,
         sourceUrl: finalUrl || event.url || '',
         verifiedAt
@@ -319,9 +347,16 @@ export function enrichEventFromDetail(event, {
     set('registrationEvidence', commerce.registrationEvidence, commerce.registrationMethod);
   }
 
+  merged.fieldProvenance = fieldProvenance;
   merged.detailVerifiedAt = verifiedAt;
   merged.detailStatus = 'enriched';
   merged.detailFailureCount = 0;
+  merged.canonicalDetail = {
+    status: 'enriched',
+    sourceUrl: finalUrl || event.url || '',
+    verifiedAt,
+    fieldsUpdated: [...new Set(fieldsUpdated)]
+  };
 
   const extractionSignals = [];
   if (/\b(?:time|when|starts?|am|pm)\b/i.test(pageText)) extractionSignals.push('start_time');
