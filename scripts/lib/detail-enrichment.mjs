@@ -238,15 +238,21 @@ export function enrichEventFromDetail(event, {
   const set = (field, value, method, { onlyIfMissing = false } = {}) => {
     if (!fieldExists(value)) return;
     if (onlyIfMissing && fieldExists(merged[field])) return;
-    if (String(merged[field] ?? '') === String(value)) return;
-    merged[field] = value;
-    fieldsUpdated.push(field);
-    fieldProvenance[field] = {
+    const evidence = {
       source: 'canonical-detail',
       method: method || 'detail-page',
       sourceUrl: finalUrl || event.url || '',
       verifiedAt
     };
+    // Provenance matters even when discovery and canonical page agree on the
+    // exact value: it proves the published field was re-verified at source.
+    if (String(merged[field] ?? '') === String(value)) {
+      fieldProvenance[field] = evidence;
+      return;
+    }
+    merged[field] = value;
+    fieldsUpdated.push(field);
+    fieldProvenance[field] = evidence;
   };
 
   // Canonical resolution happens before this stage. Enrichment may strengthen
