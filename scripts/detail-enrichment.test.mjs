@@ -90,6 +90,30 @@ const source = { name: 'City Test', method: 'civic', domain: 'example.gov', city
   assert.deepEqual(result.event, baseEvent);
 }
 
+// Midnight schema placeholders must not turn a date-only occurrence into
+// a user-visible 12:00 AM event or make it expire at the start of the day.
+{
+  const html = `<html><body><h1>Family Lantern Night</h1>
+    <script type="application/ld+json">{
+      "@context":"https://schema.org","@type":"Event","name":"Family Lantern Night",
+      "startDate":"2026-09-26T00:00:00","endDate":"2026-09-26T00:00:00"
+    }</script>
+  </body></html>`;
+  const result = enrichEventFromDetail(baseEvent, { source, html, finalUrl: baseEvent.url });
+  assert.equal(result.event.dateValue, '2026-09-26');
+  assert.equal(result.event.endDateValue, '2026-09-26T23:59:59');
+}
+
+// Generic pages may mention "family" in global navigation. Without structured
+// audience evidence that must not create an age label.
+{
+  const event = { ...baseEvent, ageLabel: '', ageRanges: [], ageBands: [] };
+  const html = `<html><body><nav>Family resources</nav><h1>Family Lantern Night</h1>
+    <p>Lantern making and music.</p></body></html>`;
+  const result = enrichEventFromDetail(event, { source, html, finalUrl: event.url });
+  assert.equal(result.event.ageLabel, '');
+}
+
 // Cupertino adapter: recover text-only time and address when structured data is absent.
 {
   const cupertinoSource = { name: 'City of Cupertino', method: 'cupertino', domain: 'cupertino.gov', city: 'Cupertino' };
