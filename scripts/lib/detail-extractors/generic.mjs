@@ -171,7 +171,7 @@ export function usefulOfficialImage(value) {
     const fingerprint = decodeURIComponent(url.pathname + ' ' + url.search).toLowerCase();
     // A canonical page may expose a site logo/default share card as og:image.
     // Those are official assets but not evidence of the event's main image.
-    return !/\b(?:favicon|logo|brandmark|site[-_ ]?icon|avatar|placeholder|default[-_ ]?(?:image|event|share)|transparent|spacer|sprite|seal)\b/.test(fingerprint);
+    return !/(?:^|[\\/_ .-])(?:favicon|logo|brandmark|site[-_ ]?icon|avatar|placeholder|default[-_ ]?(?:image|event|share)|transparent|spacer|sprite|seal)(?:[\\/_ .-]|$)/.test(fingerprint);
   } catch {
     return false;
   }
