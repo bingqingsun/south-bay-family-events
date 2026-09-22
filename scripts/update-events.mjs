@@ -24,6 +24,7 @@ import { selectPublishableOfficialDescription } from './official-description.mjs
 import { configuredCandidates, sitemapCandidates, verifySpecialEventPage } from './special-event-pages.mjs';
 import { selectCupertinoDetailDates } from './cupertino-detail-date.mjs';
 import { cupertinoAudienceEvidence } from './cupertino-audience.mjs';
+import { enrichCanonicalDetails } from './lib/canonical-detail-enrichment.mjs';
 
 const key = process.env.SERPAPI_KEY;
 // Translation is intentionally paused: no third-party translation key is read
@@ -3589,6 +3590,24 @@ function museumAsEvent(museum, source) {
 
 let events = groupRepeatedSessions([...scheduledEvents, ...museums.map(museum => museumAsEvent(museum, museumSource)).map(qualityGateSummary).filter(Boolean)])
   .map(event => ({ ...event, image: optimizedOfficialImageUrl(event.image, event.source) }));
+
+// Canonical Detail Enrichment is deliberately after canonical resolution and
+// card grouping, but before Link Health/publish. The canonical organizer page
+// is re-opened as the highest-quality evidence source for hero image,
+// description and structured event facts. Discovery feeds remain useful for
+// finding sessions; they no longer permanently own the parent card content.
+const canonicalDetail = await enrichCanonicalDetails(events, sources, {
+  concurrency: 8,
+  timeoutMs: 12000,
+  verifiedAt: generatedAt
+});
+sourceHealth.canonicalDetailEnrichment = canonicalDetail.summary;
+events = canonicalDetail.events
+  .map(event => ({ ...event, image: optimizedOfficialImageUrl(event.image, event.source) }))
+  .map(withPresentationFields)
+  .map(qualityGateSummary)
+  .filter(Boolean);
+console.log(`Canonical detail enrichment: ${JSON.stringify(canonicalDetail.summary)}`);
 
 // Link health is a release-quality stage. A known-bad detail URL is replaced
 // only with an explicitly configured, user-facing official landing page.
