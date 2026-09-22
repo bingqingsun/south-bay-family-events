@@ -162,12 +162,33 @@ export function extractDescription({ html, schema }) {
   return { value: value.length >= 25 ? value : '', method: value.length >= 25 ? 'meta-description' : '' };
 }
 
+export function usefulOfficialImage(value) {
+  if (!/^https?:\/\//i.test(String(value || ''))) return false;
+  try {
+    const url = new URL(value);
+    const fingerprint = decodeURIComponent(url.pathname + ' ' + url.search).toLowerCase();
+    // A canonical page may expose a site logo/default share card as og:image.
+    // Those are official assets but not evidence of the event's main image.
+    return !/\b(?:favicon|logo|brandmark|site[-_ ]?icon|avatar|placeholder|default[-_ ]?(?:image|event|share)|transparent|spacer|sprite|seal)\b/.test(fingerprint);
+  } catch {
+    return false;
+  }
+}
+
 export function extractImage({ html, schema, baseUrl }) {
   const schemaImage = Array.isArray(schema?.image) ? schema.image[0] : (typeof schema?.image === 'object' ? schema.image?.url : schema?.image);
-  const rawImage = schemaImage || htmlAttribute(html, /<meta\s+property=["']og:image["']\s+content=["']([^"']+)/i);
-  if (!rawImage) return { value: '', method: '' };
-  try { return { value: new URL(decodeHtml(rawImage), baseUrl).href, method: schemaImage ? 'schema.org' : 'og:image' }; }
-  catch { return { value: '', method: '' }; }
+  const ogImage = htmlAttribute(html, /<meta\s+property=["']og:image(?::secure_url)?["']\s+content=["']([^"']+)/i)
+    || htmlAttribute(html, /<meta\s+content=["']([^"']+)["']\s+property=["']og:image(?::secure_url)?["']/i);
+  const twitterImage = htmlAttribute(html, /<meta\s+(?:name|property)=["']twitter:image["']\s+content=["']([^"']+)/i)
+    || htmlAttribute(html, /<meta\s+content=["']([^"']+)["']\s+(?:name|property)=["']twitter:image["']/i);
+  for (const [rawImage, method] of [[schemaImage, 'schema.org'], [ogImage, 'og:image'], [twitterImage, 'twitter:image']]) {
+    if (!rawImage) continue;
+    try {
+      const value = new URL(decodeHtml(rawImage), baseUrl).href;
+      if (usefulOfficialImage(value)) return { value, method };
+    } catch {}
+  }
+  return { value: '', method: '' };
 }
 
 export function extractAudience({ schema, text = '' }) {
