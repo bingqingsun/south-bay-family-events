@@ -2302,7 +2302,7 @@ async function readCivic(source) {
   return events.filter(Boolean);
 }
 
-function cupertinoDetailEnrichment(event, html, source) {
+function cupertinoDetailEnrichment(event, html, source, listingDescription = '') {
   if (!html) return event;
   const schema = firstOfficialEventSchema(html);
   const detailText = plainText(html);
@@ -2361,6 +2361,8 @@ function cupertinoDetailEnrichment(event, html, source) {
   let city = event.city || source.city || 'Cupertino';
   let place = event.place || '';
   let address = event.address || '';
+  const placeHint = listingSourceDescription.match(/\bat (?:the )?([A-Z][A-Za-z0-9&'’.-]*(?:\s+[A-Z][A-Za-z0-9&'’.-]*){0,5}\s+(?:Pools?|Center|Plaza|Park|Preserve|Hall|Library|Farm|Garden|Museum|Ranch|School|Theatre|Theater|Arena|Stadium))\b/)?.[1] || '';
+  if ((!place || place === source.name) && placeHint) place = placeHint;
 
   if (schemaLocation && typeof schemaLocation === 'object') {
     place = plainText(schemaLocation.name || '') || place;
@@ -2376,14 +2378,15 @@ function cupertinoDetailEnrichment(event, html, source) {
   }
 
   const addressPattern = /\b(\d{1,6}\s+[A-Za-z0-9.'’ -]+?(?:Avenue|Ave\.?|Street|St\.?|Road|Rd\.?|Boulevard|Blvd\.?|Drive|Dr\.?|Lane|Ln\.?|Court|Ct\.?|Way|Parkway|Pkwy\.?|Circle|Cir\.?))\s+(Cupertino),\s*CA\s*\d{5}(?:-\d{4})?\b/gi;
-  const titleIndexes = [];
-  for (let index = detailText.indexOf(detailTitle); index >= 0; index = detailText.indexOf(detailTitle, index + detailTitle.length)) titleIndexes.push(index);
+  const contextText = placeHint || detailTitle;
+  const contextIndexes = [];
+  for (let index = detailText.indexOf(contextText); index >= 0; index = detailText.indexOf(contextText, index + contextText.length)) contextIndexes.push(index);
   const addressMatches = [...detailText.matchAll(addressPattern)];
   const addressMatch = addressMatches
     .map(match => {
       const index = match.index ?? Number.MAX_SAFE_INTEGER;
-      const precedingTitle = titleIndexes.filter(titleIndex => titleIndex <= index).at(-1);
-      const distance = precedingTitle === undefined ? Number.MAX_SAFE_INTEGER : index - precedingTitle;
+      const precedingContext = contextIndexes.filter(contextIndex => contextIndex <= index).at(-1);
+      const distance = precedingContext === undefined ? Number.MAX_SAFE_INTEGER : index - precedingContext;
       return { match, distance };
     })
     .sort((a, b) => a.distance - b.distance)[0]?.match || null;
@@ -2406,12 +2409,13 @@ function cupertinoDetailEnrichment(event, html, source) {
   }
 
   const officialDescription = officialDetailDescription(html, schema, detailTitle);
+  const listingSourceDescription = sourceDescriptionText(listingDescription || event.sourceDescriptionRaw || event.description || '');
   // Cupertino's CMS sometimes exposes a literal ellipsis or generic metadata
   // as the first detail-description candidate. Keep the useful official list
   // description unless the detail page actually gives us usable event copy.
   const description = hasUsableSourceContent(officialDescription)
     ? officialDescription
-    : event.description;
+    : listingSourceDescription;
   const detailSummary = buildSummaryRecord({
     sourceText: sourceDescriptionText(description),
     title: detailTitle || event.title,
@@ -2517,7 +2521,9 @@ async function readCupertino(source) {
       source: source.name, url: item.url, ageText: evidence
     });
     const withCost = { ...event, ...costInfo('', evidence) };
-    return detailHtml ? cupertinoDetailEnrichment(withCost, detailHtml, source) : withCost;
+    return detailHtml
+      ? cupertinoDetailEnrichment(withCost, detailHtml, source, item.description)
+      : { ...withCost, ...buildSummaryRecord({ sourceText: item.description, title: detailTitle, format: withCost.format, verifiedAt: generatedAt }) };
   }));
   console.log('DEBUG Cupertino enriched events:', JSON.stringify(events.filter(Boolean).map(event => ({ title: event.title, dateValue: event.dateValue, endDateValue: event.endDateValue, summaryStatus: event.summaryStatus, description: event.description, sourceDescriptionRaw: event.sourceDescriptionRaw, place: event.place, address: event.address, url: event.url }))));
   return events.filter(Boolean);
@@ -3118,7 +3124,7 @@ async function revalidateMissingOfficialEvent(event) {
     if (!isSameEvent(event.title, pageText)) return null;
     if (/\b(?:this event (?:has been )?cancell?ed|event cancell?ed)\b/i.test(pageText)) return null;
     const refreshedEvent = source.method === 'cupertino'
-      ? cupertinoDetailEnrichment(event, html, source)
+      ? cupertinoDetailEnrichment(event, html, source, event.sourceDescriptionRaw || event.description)
       : event;
     return {
       ...refreshedEvent,
