@@ -36,7 +36,7 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css?v=20260830-1" />
     <link rel="stylesheet" href="overrides.css?v=20260918-1" />
-    <link rel="stylesheet" href="collections.css?v=20260916-2" />
+    <link rel="stylesheet" href="collections.css?v=20260921-1" />
     <link rel="stylesheet" href="design-system.css?v=20260919-1" />
     <link rel="stylesheet" href="map-navigation.css?v=20260919-1" />
   </head>
@@ -79,7 +79,7 @@
         </div>
       </section>
 
-      <section class="collection-home wrap" aria-labelledby="collectionsHeading">
+      <section class="collection-home wrap" aria-labelledby="collectionsHeading" hidden>
         <div class="collection-home-heading">
           <div>
             <p class="eyebrow">FAMILY GUIDES</p>
@@ -87,18 +87,7 @@
             <p>Curated guides that make it easier to choose what to do together.</p>
           </div>
         </div>
-        <div class="collection-strip">
-          <a class="collection-home-card collection-home-card-featured" href="collections/mid-autumn-festival/" data-collection-slug="mid-autumn-festival" style="--collection-cover:url('assets/collections/mid-autumn-hero.webp')">
-            <span class="collection-home-overlay" aria-hidden="true"></span>
-            <span class="collection-home-content">
-              <span class="collection-home-label">Featured guide</span>
-              <strong>2026 Mid-Autumn Festival Guide</strong>
-              <span class="collection-home-description">9 family-friendly celebrations across the South Bay</span>
-              <span class="collection-home-tags"><span>Lanterns</span><span>Mooncakes</span><span>Lion dances</span></span>
-              <span class="collection-home-cta">Explore the guide <b aria-hidden="true">→</b></span>
-            </span>
-          </a>
-        </div>
+        <div class="collection-strip" id="collectionStrip"></div>
       </section>
 
       <section class="filter-area wrap" id="events">
@@ -122,11 +111,13 @@
     </main>
     <footer><div class="wrap"><a class="brand" href="#top"><img class="brand-mark" src="assets/brand/south-bay-family-finds-mark-v2.svg" width="36" height="36" alt="" /><span class="brand-name"><span>South Bay Family</span> <span class="brand-accent">Finds</span></span></a><p data-i18n="footer">Made for curious South Bay families · Please confirm details with the organizer</p><div class="legal-links"><a class="privacy-link" href="about.html">About &amp; contact</a><a class="privacy-link" href="privacy.html">Privacy &amp; analytics</a><a class="privacy-link" href="terms.html">Terms &amp; data notice</a></div></div></footer>
     <script src="data/events.js?v=20260908-2"></script>
+    <script src="data/collections.js?v=20260921-1"></script>
     <script src="analytics.js?v=20260916-1"></script>
     <script src="map-navigation.js?v=20260919-1"></script>
     <script src="recommendation.js?v=20260912-1"></script>
     <script src="event-card.js?v=20260919-1"></script>
-    <script src="collections.js?v=20260916-2"></script>
+    <script src="collection-runtime.js?v=20260921-1"></script>
+    <script src="collections.js?v=20260921-1"></script>
     <script src="app.js?v=20260918-1"></script>
   </body>
 </html>
