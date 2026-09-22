@@ -442,7 +442,7 @@ function costInfo(cost, description = '') {
   // registration-required signal.
   let registrationStatus = 'unknown';
   let registrationEvidence = '';
-  const noRegistrationPattern = /\b(?:no registration (?:is )?required|registration (?:is )?not required|without registration)\b/i;
+  const noRegistrationPattern = /\b(?:no registration (?:is )?required|registration (?:is )?not required|without registration|does not require (?:tickets?|registration)|no tickets? (?:or )?registration (?:is )?required)\b/i;
   const walkInPattern = /\b(?:walk-?ins? (?:are )?(?:welcome|accepted|available)|walk-?in (?:event|program|activity|while)|drop-?ins? (?:are )?(?:welcome|accepted))\b/i;
   const registrationRequiredPattern = /\b(?:registration (?:is )?required|advance registration (?:is )?required|register (?:online |in advance |beforehand )?(?:to attend|required)|reservation (?:is )?required|free tickets? (?:are )?required|tickets? (?:are )?required for (?:admission|entry))\b/i;
   const registrationRecommendedPattern = /\b(?:registration|reservations?) (?:is |are )?(?:recommended|encouraged)\b/i;
@@ -461,7 +461,7 @@ function costInfo(cost, description = '') {
   }
 
   const donationPattern = /\b(?:suggested|requested|optional) donation\b/i;
-  const freePattern = /\b(?:free admission|admission is free|free (?:community )?event|free program|free activity|free entry|free to attend|free and open to (?:the )?public|complimentary admission|registration is free|no (?:admission )?cost|no (?:admission |entry )?charge|no (?:registration |entry |admission )?fee)\b/i;
+  const freePattern = /\b(?:free admission|admission is free|free (?:community )?event|free program|free activity|free entry|free to attend|free to (?:the )?public|free and open to (?:the )?public|complimentary admission|registration is free|no (?:admission )?cost|no (?:admission |entry )?charge|no (?:registration |entry |admission )?fee)\b/i;
   const memberPricingPattern = /(?<!non-)\bmembers?\b[\s\S]{0,180}\b(?:non-?members?|general (?:public|admission))\b|\b(?:non-?members?|general (?:public|admission))\b[\s\S]{0,180}(?<!non-)\bmembers?\b/i;
   const paidPattern = /\b(?:paid admission|admission fee|entry fee|registration fee|fee applies|ticket purchase (?:is )?required|tickets? must be purchased|purchase (?:a |your )?tickets?|buy (?:a |your )?tickets?)\b/i;
   const costContextPattern = /\b(?:admission|entry|registration|ticket|tickets|fee|fees|cost|price|pricing)\b/i;
@@ -3082,7 +3082,19 @@ const retainedSourceEvents = await Promise.all(existingEvents
     // official specialty page from refreshing a retained card's details.
     return source?.specialEventPageDiscovery ? enrichWithSpecialEventPage(retained, source) : retained;
   }));
-const freshFeedEvents = feedAttempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
+const freshFeedEvents = await Promise.all(feedAttempts.flatMap((result, index) =>
+  result.status === 'fulfilled'
+    ? result.value.map(event => {
+      const source = directSources[index];
+      // Apply the same verified specialty-page resolution to fresh calendar
+      // entries. Otherwise the next successful calendar refresh would undo a
+      // richer card that was previously retained after a source outage.
+      return source?.specialEventPageDiscovery
+        ? enrichWithSpecialEventPage(event, source)
+        : event;
+    })
+    : []
+));
 
 const sourceRefreshCounts = Object.fromEntries(feedAttempts.map((result, index) => [
   `${result.sourceName} [${directSources[index].method || 'rss'}]`,
