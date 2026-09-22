@@ -26,6 +26,16 @@ function fieldExists(value) {
   return value !== undefined && value !== null && String(value).trim() !== '';
 }
 
+function isVirtualEvent(event) {
+  return /\b(?:online|virtual|zoom|webinar)\b/i.test([event.title, event.place, event.description].filter(Boolean).join(' '));
+}
+
+function hasMeaningfulLocation(event) {
+  if (isVirtualEvent(event)) return true;
+  if (fieldExists(event.city) || fieldExists(event.meetingPoint) || fieldExists(event.address)) return true;
+  return fieldExists(event.place) && plainText(event.place).toLowerCase() !== plainText(event.source).toLowerCase();
+}
+
 function normalizeAddress(street, city) {
   const cleanStreet = plainText(street).replace(/[.,;:]$/, '');
   const cleanCity = plainText(city);
@@ -81,32 +91,30 @@ function agePatch(text) {
 }
 
 export function detailCompletenessScore(event) {
+  const ongoing = event.ongoing === true;
+  const virtual = isVirtualEvent(event);
   let score = 0;
   if (/^https?:\/\//i.test(event.url || event.canonicalUrl || '')) score += 15;
-  if (/^\d{4}-\d{2}-\d{2}/.test(event.dateValue || '')) score += 10;
-  if (hasTime(event.dateValue)) score += 10;
-  if (fieldExists(event.place) && !/^City of\s+/i.test(String(event.place))) score += 10;
-  if (fieldExists(event.address) || fieldExists(event.meetingPoint)) score += 10;
+  if (ongoing || /^\d{4}-\d{2}-\d{2}/.test(event.dateValue || '')) score += 10;
+  if (ongoing || hasTime(event.dateValue)) score += 10;
+  if (virtual || (fieldExists(event.place) && !/^City of\s+/i.test(String(event.place)))) score += 10;
+  if (virtual || fieldExists(event.address) || fieldExists(event.meetingPoint)) score += 10;
   if (String(event.description || '').trim().length >= 25) score += 10;
   if (/^https?:\/\//i.test(event.image || '')) score += 5;
   if (fieldExists(event.ageLabel) || (Array.isArray(event.ageRanges) && event.ageRanges.length)) score += 8;
   if (event.costStatus && event.costStatus !== 'unknown') score += 8;
   if (event.registrationStatus && event.registrationStatus !== 'unknown') score += 6;
-  if (hasTime(event.endDateValue)) score += 4;
-  if (fieldExists(event.address) || fieldExists(event.meetingPoint) || fieldExists(event.mapUrl)) score += 4;
+  if (ongoing || hasTime(event.endDateValue)) score += 4;
+  if (virtual || fieldExists(event.address) || fieldExists(event.meetingPoint) || fieldExists(event.mapUrl)) score += 4;
   return score;
 }
 
 function qualityState(event) {
-  const core = [
-    event.title,
-    event.source,
-    event.dateValue,
-    event.url || event.canonicalUrl,
-    event.description,
-    event.city
-  ];
-  if (core.some(value => !fieldExists(value))) return DETAIL_QUALITY_STATES.HOLD_DATA_ERROR;
+  const identityCore = [event.title, event.source, event.url || event.canonicalUrl, event.description];
+  const dateCore = event.ongoing === true || /^\d{4}-\d{2}-\d{2}/.test(event.dateValue || '');
+  if (identityCore.some(value => !fieldExists(value)) || !dateCore || !hasMeaningfulLocation(event)) {
+    return DETAIL_QUALITY_STATES.HOLD_DATA_ERROR;
+  }
   return detailCompletenessScore(event) >= 80
     ? DETAIL_QUALITY_STATES.PUBLISH_READY
     : DETAIL_QUALITY_STATES.PUBLISH_PARTIAL;
@@ -123,18 +131,20 @@ export function buildEventQuality(event, {
   extractionSignals = [],
   fieldProvenance = {}
 } = {}) {
+  const ongoing = event.ongoing === true;
+  const virtual = isVirtualEvent(event);
   const checks = {
     url: /^https?:\/\//i.test(event.url || event.canonicalUrl || ''),
-    date: /^\d{4}-\d{2}-\d{2}/.test(event.dateValue || ''),
-    start_time: hasTime(event.dateValue),
-    venue: fieldExists(event.place) && !/^City of\s+/i.test(String(event.place)),
-    address: fieldExists(event.address) || fieldExists(event.meetingPoint),
+    date: ongoing || /^\d{4}-\d{2}-\d{2}/.test(event.dateValue || ''),
+    start_time: ongoing || hasTime(event.dateValue),
+    venue: virtual || (fieldExists(event.place) && !/^City of\s+/i.test(String(event.place))),
+    address: virtual || fieldExists(event.address) || fieldExists(event.meetingPoint),
     description: String(event.description || '').trim().length >= 25,
     image: /^https?:\/\//i.test(event.image || ''),
     age: fieldExists(event.ageLabel) || (Array.isArray(event.ageRanges) && event.ageRanges.length > 0),
     cost: event.costStatus && event.costStatus !== 'unknown',
     registration: event.registrationStatus && event.registrationStatus !== 'unknown',
-    end_time: hasTime(event.endDateValue)
+    end_time: ongoing || hasTime(event.endDateValue)
   };
   const missingFields = Object.entries(checks).filter(([, ok]) => !ok).map(([field]) => field);
   return {
