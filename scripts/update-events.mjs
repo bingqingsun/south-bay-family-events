@@ -20,6 +20,7 @@ import {
   hasUsableSourceContent
 } from './event-summary-engine.mjs';
 import { auditLinks } from './link-health.mjs';
+import { selectPublishableOfficialDescription } from './official-description.mjs';
 
 const key = process.env.SERPAPI_KEY;
 // Translation is intentionally paused: no third-party translation key is read
@@ -2194,7 +2195,11 @@ function officialDetailDescription(html, schema, title) {
     ...[...String(html || '').matchAll(/<(?:div|section)[^>]+(?:itemprop=["']description["']|class=["'][^"']*(?:fr-view|detail-content|event-description|eventDescription|content-body|event-body)[^"']*["'])[^>]*>([\s\S]*?)<\/(?:div|section)>/gi)].map(match => match[1]),
     decodeXml(String(html || '').match(/<meta\s+(?:name|property)=["'](?:description|og:description)["']\s+content=["']([^"']+)/i)?.[1] || '')
   ].map(sourceDescriptionText).filter(Boolean);
-  return blocks.find(value => hasPublishableSummary(value, { title })) || blocks[0] || '';
+  // Detail pages occasionally expose a visual placeholder (for example, a
+  // standalone ellipsis) in their description field. Never let a non-empty
+  // but non-publishable detail value replace the usable official teaser from
+  // the calendar listing; the caller retains that listing description.
+  return selectPublishableOfficialDescription(blocks, value => hasPublishableSummary(value, { title }));
 }
 
 async function readJmzFamily(source) {
