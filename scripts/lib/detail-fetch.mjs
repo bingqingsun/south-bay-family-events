@@ -21,7 +21,11 @@ export async function fetchOfficialDetail(url, {
       signal: AbortSignal.timeout(timeoutMs)
     });
     const contentType = response.headers?.get?.('content-type') || '';
-    const html = /html|xhtml/i.test(contentType) || !contentType ? await response.text() : '';
+    // Some municipal CMS/CDN responses are readable event pages but advertise
+    // an unusual or missing MIME type. Identity validation happens after this
+    // fetch, so reading the body is safer than treating MIME metadata as proof
+    // that no detail page exists.
+    const html = await response.text();
     let finalUrl = response.url || url;
     if (allowedHosts.length && !hostAllowed(finalUrl, allowedHosts)) finalUrl = url;
     return {
