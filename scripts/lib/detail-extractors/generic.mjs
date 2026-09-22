@@ -175,7 +175,9 @@ export function extractImage({ html, schema, baseUrl, title = '', allowGenericOg
   const asUrl = raw => {
     if (!raw) return '';
     try {
-      const url = new URL(decodeHtml(raw), baseUrl).href;
+      const parsed = new URL(decodeHtml(raw), baseUrl);
+      if (!/^https?:$/.test(parsed.protocol)) return '';
+      const url = parsed.href;
       return genericAsset.test(decodeURIComponent(url)) ? '' : url;
     } catch { return ''; }
   };
