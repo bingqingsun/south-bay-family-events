@@ -2413,9 +2413,9 @@ function cupertinoDetailEnrichment(event, html, source, listingDescription = '')
   // Cupertino's CMS sometimes exposes a literal ellipsis or generic metadata
   // as the first detail-description candidate. Keep the useful official list
   // description unless the detail page actually gives us usable event copy.
-  const description = hasUsableSourceContent(officialDescription)
-    ? officialDescription
-    : listingSourceDescription;
+  const description = hasUsableSourceContent(listingSourceDescription)
+    ? listingSourceDescription
+    : officialDescription;
   const detailSummary = buildSummaryRecord({
     sourceText: sourceDescriptionText(description),
     title: detailTitle || event.title,
