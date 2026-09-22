@@ -2,7 +2,8 @@ import {
   extractCostAndRegistration,
   genericDetailExtraction,
   plainText,
-  sameEventIdentity
+  sameEventIdentity,
+  usefulOfficialImage
 } from './detail-extractors/generic.mjs';
 import { parseCupertinoDetail } from './source-adapters/cupertino.mjs';
 import { hasPublishableSummary } from '../event-summary-engine.mjs';
@@ -236,6 +237,21 @@ export function enrichEventFromDetail(event, {
   const merged = { ...event };
   const fieldsUpdated = [];
   const fieldProvenance = {};
+
+  // If a previous canonical-enrichment version persisted an asset that the
+  // current image policy now recognizes as a logo/blank/default placeholder,
+  // remove that stale enrichment instead of preserving it forever.
+  if (event.detailProvenance?.image && event.image && !usefulOfficialImage(event.image)) {
+    merged.image = '';
+    merged.detailProvenance = { ...(event.detailProvenance || {}) };
+    delete merged.detailProvenance.image;
+    fieldsUpdated.push('image');
+    fieldProvenance.image = {
+      method: 'canonical-image-policy-cleanup',
+      sourceUrl: finalUrl || event.url || '',
+      verifiedAt
+    };
+  }
   const set = (field, value, method, { onlyIfMissing = false } = {}) => {
     if (!fieldExists(value)) return;
     if (onlyIfMissing && fieldExists(merged[field])) return;
