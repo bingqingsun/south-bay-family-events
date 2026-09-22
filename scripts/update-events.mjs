@@ -3601,7 +3601,7 @@ function museumAsEvent(museum, source) {
 let events = groupRepeatedSessions([...scheduledEvents, ...museums.map(museum => museumAsEvent(museum, museumSource)).map(qualityGateSummary).filter(Boolean)])
   .map(event => ({ ...event, image: optimizedOfficialImageUrl(event.image, event.source) }));
 
-// Canonical Detail Enrichment v1 release path; production baseline is the cache seed.
+// Canonical Detail Enrichment v1 release path; last verified first-party dataset is the cache seed.
 // Canonical Detail Enrichment is intentionally after discovery/dedupe and
 // before Link Health: once a card has a stable official destination, reopen
 // that exact page and let event-level evidence strengthen the card. This is a
