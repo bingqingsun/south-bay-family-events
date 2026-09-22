@@ -3037,11 +3037,21 @@ async function readTimely(source) {
     const payload = await response.json();
     if (!response.ok || !payload?.data) return null;
     const detail = payload.data;
-    const firstPartyUrl = await resolveConfiguredFirstPartyDetail(
+    const priorFirstPartyUrl = existingEvents.find(event =>
+      event.source === source.name
+      && plainText(event.title).toLowerCase() === plainText(detail.title).toLowerCase()
+      && isOfficialUrl(event.canonicalUrl || event.url || '', source.domain)
+      && /\/event\//i.test(new URL(event.canonicalUrl || event.url).pathname)
+    );
+    const resolvedFirstPartyUrl = await resolveConfiguredFirstPartyDetail(
       source,
       detail.title,
       String(detail.start_datetime || '').replace(' ', 'T')
     );
+    // A transient first-party fetch failure must not regress a previously
+    // verified event-detail URL back to the generic calendar. Link Health will
+    // revalidate the retained canonical later in the same refresh.
+    const firstPartyUrl = resolvedFirstPartyUrl || priorFirstPartyUrl?.canonicalUrl || priorFirstPartyUrl?.url || '';
     return { ...detail, firstPartyUrl };
   }));
   return pagesWithDetails.flatMap((detail, detailIndex) => {
