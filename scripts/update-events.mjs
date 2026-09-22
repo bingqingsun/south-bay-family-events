@@ -21,6 +21,7 @@ import {
 } from './event-summary-engine.mjs';
 import { auditLinks } from './link-health.mjs';
 import { selectPublishableOfficialDescription } from './official-description.mjs';
+import { configuredCandidates, sitemapCandidates, verifySpecialEventPage } from './special-event-pages.mjs';
 
 const key = process.env.SERPAPI_KEY;
 // Translation is intentionally paused: no third-party translation key is read
@@ -40,7 +41,7 @@ function typeFor(text, title = '') {
   if (/\b(?:hike|nature(?:\s+walk)?|trail|wildlife|marsh|forest|creek|pond|ranger|bird(?:s)?\b|habitat restoration|environmental education)\b/.test(value)) return 'outdoor';
   // Citywide festivals and service/help events are community experiences even
   // when their schedules include music, crafts, or games.
-  if (/\b(?:bike|bicycle)\b[^.!?]{0,48}\brepair\b|\b(?:community service|volunteer(?:ing)?|cleanup|donation|food drive|swap|mento(?:r|ring)|appointment|customer service|career help|tech help|free snacks|festival|celebration|fest)\b/.test(value)) return 'community';
+  if (/\b(?:bike|bicycle)\b[^.!?]{0,48}\brepair\b|\b(?:community service|volunteer(?:ing)?|cleanup|donation|food drive|swap|mento(?:r|ring)|appointment|customer service|career help|tech help|free snacks|festival|celebration|fest|halloween|trick[- ]or[- ]treat|monster mash|tree lighting|holiday|santa)\b/.test(value)) return 'community';
   // A title naming a concrete art medium is more trustworthy than a broad
   // source taxonomy such as “STEM” or “Engineering” attached to the listing.
   if (/\b(?:illustration|paint(?:ing)?|photography|knit(?:ting)?|crochet|tie-dye|ceramics?|pottery|drawing|sew(?:ing)?|mend(?:ing)?)\b/.test(titleValue)
@@ -132,9 +133,20 @@ function isExplicitlyAdultOnly(text) {
 function withPresentationFields(event) {
   const audienceText = `${event.title || ''} ${event.description || ''} ${event.ageLabel || ''} ${event.ageSource || ''}`;
   const knownMidAutumnEvent = /^Lantern Festival$/i.test(event.title || '') && /^City of Milpitas$/i.test(event.source || '');
+  const format = event.format || formatFor(audienceText);
+  // A stale-source card deliberately preserves official content when a source
+  // times out, but its old presentation fields are derived data. Recompute
+  // them so a previous bad category cannot survive an otherwise safe fallback.
+  const type = event.refreshStatus === 'stale-source'
+    ? (format === 'live-show' ? 'shows' : typeFor(audienceText, event.title))
+    : event.type;
   return {
     ...event,
-    format: event.format || formatFor(audienceText),
+    type,
+    icon: icons[type],
+    color: colors[type],
+    tag: labels[type],
+    format,
     seasonalTheme: event.seasonalTheme || (knownMidAutumnEvent ? 'mid-autumn' : seasonalThemeFor(audienceText)),
     audienceStatus: event.audienceStatus || (event.ageSource ? 'organizer-confirmed' : 'not-confirmed')
   };
@@ -746,7 +758,9 @@ function isoDateFromOfficialText(dateText, timeText = '') {
 }
 
 function directEvent({ id, title, dateValue, endDateValue = '', description, image = '', imagePresentation = '', imageBackground = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, ageText = '', format = '', movieRating = '', forcedType = '', seasonalTheme = '', availabilityStatus = '', summaryStatus = 'extractive', summaryEvidenceData = null }) {
-  const type = forcedType || (format === 'live-show' ? 'shows' : format === 'movie-screening' ? 'movies' : typeFor(title + ' ' + description + ' ' + ageText, title));
+  const sourceText = title + ' ' + description + ' ' + ageText;
+  const effectiveFormat = format || formatFor(sourceText);
+  const type = forcedType || (effectiveFormat === 'live-show' ? 'shows' : effectiveFormat === 'movie-screening' ? 'movies' : typeFor(sourceText, title));
   const age = ageInfo(ageText);
   const summary = buildSummaryRecord({
     sourceText: sourceDescriptionText(description),
@@ -761,7 +775,7 @@ function directEvent({ id, title, dateValue, endDateValue = '', description, ima
     costStatus: 'unknown', costLabel: '费用未注明', costSource: '', costEvidence: '',
     registrationStatus: 'unknown', registrationSource: '', registrationEvidence: '',
     type, icon: icons[type], color: colors[type], tag: labels[type],
-    verification: 'official-page', lastVerifiedAt: generatedAt, format,
+    verification: 'official-page', lastVerifiedAt: generatedAt, format: effectiveFormat,
     ...summary,
     image: optimizedOfficialImageUrl(image, source), imagePresentation, imageBackground, place, address, city: canonicalCity(city), meetingPoint, mapUrl, source, url, movieRating,
     seasonalTheme: seasonalTheme || seasonalThemeFor(`${title} ${description}`), availabilityStatus
@@ -2414,6 +2428,70 @@ function cupertinoDetailEnrichment(event, html, source) {
   };
 }
 
+// Some organizers publish a terse calendar entry and a richer evergreen
+// event page on the same official domain. Sources opt in with their sitemap;
+// a page is used only after title, date, and content all agree with the
+// calendar listing. This keeps discovery general while preserving the
+// calendar page whenever a specialty-page match is uncertain.
+async function enrichWithSpecialEventPage(event, source) {
+  const config = source.specialEventPageDiscovery;
+  if (!config?.sitemapUrl || !event.url || !event.dateValue) return event;
+  try {
+    let sitemap = '';
+    try {
+      const sitemapResponse = await fetch(config.sitemapUrl, {
+        headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000)
+      });
+      if (sitemapResponse.ok) sitemap = await sitemapResponse.text();
+    } catch { /* Configured aliases remain independently verifiable. */ }
+    const candidates = [
+      ...configuredCandidates(event, config.preferredPages),
+      ...sitemapCandidates(sitemap, event, {
+        domain: source.domain,
+        maxCandidates: config.maxCandidates || 4
+      })
+    ].filter(candidate => isOfficialUrl(candidate.url, source.domain))
+      .filter((candidate, index, list) => list.findIndex(other => other.url === candidate.url) === index);
+    for (const candidate of candidates) {
+      const response = await fetch(candidate.url, {
+        headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000)
+      });
+      if (!response.ok) continue;
+      const html = await response.text();
+      const verified = verifySpecialEventPage(event, candidate, html);
+      if (!verified) continue;
+      const pageEnriched = cupertinoDetailEnrichment(event, html, source);
+      const officialImages = [...html.matchAll(/<img\b[^>]+src=["']([^"']+)["'][^>]*>/gi)]
+        .map(match => decodeXml(match[1]))
+        .filter(value => /\.(?:jpe?g|png|webp)(?:\?|$)/i.test(value))
+        // A title strip and a parking diagram are official assets, but neither
+        // is a useful activity-card image. Prefer the organizer's real event
+        // photography; never synthesize a fallback for this case.
+        .filter(value => !/(?:short[-_]?header|parking[-_]?map)/i.test(value))
+        .map(value => {
+          const url = new URL(value, verified.url);
+          if (url.hostname.endsWith('cupertino.gov')) url.search = '';
+          return url.href;
+        });
+      const officialImage = officialImages[0] || '';
+      return {
+        ...pageEnriched,
+        // Keep the calendar title, but make the verified specialty page the
+        // parent-facing destination and evidence for the generated summary.
+        title: event.title,
+        url: verified.url,
+        canonicalUrl: verified.url,
+        description: verified.description,
+        sourceDescriptionRaw: verified.description,
+        image: officialImage || pageEnriched.image || event.image || '',
+        specialEventPageUrl: verified.url,
+        specialEventPageEvidence: verified.evidence
+      };
+    }
+  } catch { /* A sitemap/page outage must not erase the calendar activity. */ }
+  return event;
+}
+
 // Cupertino publishes a server-rendered public event list rather than an RSS
 // or ICS feed. The list itself includes an official date, description, venue,
 // image, and audience tags, so it is more reliable than a web-search result.
@@ -2475,7 +2553,8 @@ async function readCupertino(source) {
       source: source.name, url: item.url, ageText: evidence
     });
     const withCost = { ...event, ...costInfo('', evidence) };
-    return detailHtml ? cupertinoDetailEnrichment(withCost, detailHtml, source) : withCost;
+    const calendarEnriched = detailHtml ? cupertinoDetailEnrichment(withCost, detailHtml, source) : withCost;
+    return enrichWithSpecialEventPage(calendarEnriched, source);
   }));
   return events.filter(Boolean);
 }
@@ -2994,9 +3073,15 @@ if (directSources.length && feedAttempts.every(result => result.status === 'reje
 const failedDirectSourceNames = new Set(feedAttempts
   .filter(result => result.status === 'rejected')
   .map(result => result.sourceName));
-const retainedSourceEvents = existingEvents
+const retainedSourceEvents = await Promise.all(existingEvents
   .filter(event => failedDirectSourceNames.has(event.source) && isStillActive(event))
-  .map(event => ({ ...event, refreshStatus: 'stale-source', refreshErrorAt: generatedAt }));
+  .map(async event => {
+    const retained = { ...event, refreshStatus: 'stale-source', refreshErrorAt: generatedAt };
+    const source = directSources.find(candidate => candidate.name === event.source);
+    // A calendar timeout must not prevent a separately available, verified
+    // official specialty page from refreshing a retained card's details.
+    return source?.specialEventPageDiscovery ? enrichWithSpecialEventPage(retained, source) : retained;
+  }));
 const freshFeedEvents = feedAttempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
 
 const sourceRefreshCounts = Object.fromEntries(feedAttempts.map((result, index) => [
@@ -3318,7 +3403,10 @@ function groupRepeatedSessions(items) {
   }).sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
 }
 
-const scheduledEvents = groupRepeatedSessions(individualEvents);
+// Grouping can select an older retained occurrence as the card representative.
+// Apply presentation derivation once more after that selection so stale cards
+// cannot reintroduce a legacy type/icon/tag into the final published payload.
+const scheduledEvents = groupRepeatedSessions(individualEvents).map(withPresentationFields);
 
 if (!scheduledEvents.length) throw new Error('No verified upcoming events; leaving the published list unchanged.');
 

@@ -88,7 +88,17 @@
     "method": "cupertino",
     "feedUrl": "https://www.cupertino.gov/Events-directory?dlv_OC+CL+City+Events+Listing=%28dd_OC+Event+Categories%3DMajor+events%29%28dd_OC+Composite+Date%3D0d%29",
     "city": "Cupertino",
-    "familyPattern": "Kids & family|Youth events|family|families|children|kids?|youth|teen|toddler|school"
+    "familyPattern": "Kids & family|Youth events|family|families|children|kids?|youth|teen|toddler|school",
+    "specialEventPageDiscovery": {
+      "sitemapUrl": "https://www.cupertino.gov/sitemap.xml",
+      "maxCandidates": 4,
+      "preferredPages": [
+        {
+          "titlePattern": "\\bbike\\s+fest\\b",
+          "url": "https://www.cupertino.gov/bikefest"
+        }
+      ]
+    }
   },
   {
     "name": "City of Santa Clara",

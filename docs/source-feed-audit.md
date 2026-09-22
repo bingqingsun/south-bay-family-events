@@ -41,7 +41,7 @@
 | 6 | City of San José | 单场 iCalendar | [官方市政活动示例](https://www.sanjoseca.gov/Home/Components/Calendar/Event/6752/5114)提供 Outlook/iCalendar。 | 有官方城市／文化活动日历，但找到的是每场下载而非全量订阅；不应伪装成 RSS。 |
 | 7 | City of Sunnyvale | 单场 iCalendar | [官方活动示例](https://www.sunnyvale.ca.gov/Home/Components/Calendar/Event/12306/19)提供 Outlook/iCalendar。 | 有儿童活动条目；另发现的公开 ICS 是市政会议日历，不适合亲子活动，不能接入。 |
 | 8 | City of Mountain View | 单场 iCalendar | [官方活动示例](https://www.mountainview.gov/Home/Components/Calendar/Event/3482/1029)提供 Outlook/iCalendar，并明确为 family-friendly。 | 有可靠活动页和日期；尚未发现全量 feed。 |
-| 9 | City of Cupertino | 官方网页日历 | [Parks & Recreation Event Calendar](https://www.cupertino.gov/Parks-Recreation/Events/Parks-and-Recreation-Event-Calendar)含 Kids & family 分类。 | 官方日历可用；未验证全量 RSS/ICS/API。 |
+| 9 | City of Cupertino | 官方网页日历 + 同域专题页核验 | [Parks & Recreation Event Calendar](https://www.cupertino.gov/Parks-Recreation/Events/Parks-and-Recreation-Event-Calendar)含 Kids & family 分类。 | 官方日历用于发现；当同域 sitemap 中的专题页通过标题、日期和内容三重核验时，用专题页补全信息并作为卡片链接。 |
 | 10 | City of Santa Clara | 单场 iCalendar | [官方 Community Calendar](https://calendar.santaclaraca.gov/santaclaraca/260194458)含 Family & Kids Activities 及单场 iCal。 | 受众字段清楚，价值高；还没有可验证的全量订阅链接。 |
 | 11 | Computer History Museum | 官方网页日历 | [CHM 首页当前活动](https://computerhistory.org/)及其 [活动页](https://computerhistory.org/events/)；有面向家庭的 TechFest 等项目。 | 可作为 STEM 补充；旧活动页虽有 “Add to Calendar”，本轮未验证现在可用的全量 feed，不能直接接入。 |
 | 12 | Cantor Arts Center | 官方网页日历 | [Cantor 活动日历](https://www.cantorcenter.com/events-calendar/)；也同步出现在 [Stanford Events](https://events.stanford.edu/department/cantor_arts_center)。 | 有明确的 all-ages/family workshop；不能双重采集。优先在 Stanford API 做安全受众筛选后统一接入。 |

@@ -19,6 +19,9 @@ assert.equal(context.typeFor('Bilingual family storytime with early literacy son
 assert.equal(context.typeFor('LEGO free play with STEAM benefits for early childhood development.'), 'play');
 assert.equal(context.typeFor('LEGO robotics workshop with coding challenges.'), 'learning');
 assert.equal(context.typeFor('Rotary Fall Festival with music, artisan crafts, and games.'), 'community');
+assert.equal(context.typeFor('Monster Mash Halloween event with trick-or-treating, crafts, and games.'), 'community');
+assert.equal(context.typeFor('Breakfast with Santa includes photos, crafts, and activities for children.'), 'community');
+assert.equal(context.typeFor('Cupertino Fall Bike Fest has family bike rides, arts and crafts, and food.'), 'community');
 assert.equal(context.typeFor('Kids painting and craft games at the library.'), 'arts');
 assert.equal(context.typeFor('Digital illustration workshop using the Procreate app.'), 'arts');
 assert.equal(context.typeFor('Digital illustration workshop listed in a STEM catalog.'), 'arts');
