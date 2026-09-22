@@ -80,4 +80,15 @@ const html=`<html><head>
  assert.equal(result.diagnostics.status,'cached');
 }
 
+{
+ const movie={...base,id:'movie-1',title:'Family Movie',summaryStatus:'official_structured',description:'G-rated movie screening at Official Cinema.',sourceDescriptionRaw:'G-rated movie screening at Official Cinema.'};
+ const page=`<html><head><meta property="og:title" content="Family Movie"><meta name="description" content="Visit our movie theater, enjoy popcorn, snacks, an onsite bar and premium recliners."></head><body><h1>Family Movie</h1></body></html>`;
+ const result=await enrichOneCanonicalEvent(movie,{
+   sources:[source],verifiedAt:'2026-09-22T12:00:00Z',
+   fetchImpl:async url=>({ok:true,status:200,url,headers:{get:()=> 'text/html'},text:async()=>page})
+ });
+ assert.equal(result.event.description,'G-rated movie screening at Official Cinema.');
+ assert.equal(result.event.sourceDescriptionRaw,'G-rated movie screening at Official Cinema.');
+}
+
 console.log('canonical detail pipeline tests passed');
