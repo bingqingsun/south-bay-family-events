@@ -12,7 +12,7 @@ assert.equal(
     'Kids & family',
     'Monster Mash is a kids Halloween event in Cupertino for children ages 2–12 and their families.'
   ),
-  'Kids & family children ages 2–12 Ages 2–12'
+  'Kids & family ages 2–12'
 );
 
 assert.equal(
