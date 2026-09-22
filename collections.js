@@ -149,7 +149,7 @@
       sort_type: 'editorial',
       activity_category: event.type || 'other',
       organizer: event.source || 'unknown',
-      ...collectionLifecycleAnalytics(viewModel)
+      collection_state: runtime.analyticsState(viewModel.collectionState)
     };
   }
 
@@ -469,6 +469,7 @@
     if (viewModel.dataIncomplete) {
       console.warn('[SBFF collection] unresolved editorial refs', slug, viewModel.unresolvedRefs);
     }
+    page.dataset.collectionState = runtime.analyticsState(viewModel.collectionState);
 
     const hero = document.getElementById('collectionHero');
     if (hero) hero.style.setProperty('--collection-cover', `url("../../${config.coverImage}")`);
@@ -491,7 +492,10 @@
       eyebrow.textContent = `${config.year} FAMILY GUIDE`;
       heroMeta.hidden = false;
       document.getElementById('collectionEventCount').textContent = `${viewModel.currentEventCount} upcoming celebration${viewModel.currentEventCount === 1 ? '' : 's'}`;
-      document.getElementById('collectionDateRange').textContent = dateRangeLabel(viewModel.currentDateRange);
+      const dateNode = document.getElementById('collectionDateRange');
+      const dateText = dateRangeLabel(viewModel.currentDateRange);
+      dateNode.textContent = dateText;
+      dateNode.hidden = !dateText;
       const cities = viewModel.currentCities.join(' · ');
       const cityNode = document.getElementById('collectionCities');
       cityNode.textContent = cities;
