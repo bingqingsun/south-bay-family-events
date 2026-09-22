@@ -183,7 +183,8 @@ export function enrichEventFromDetail(event, {
     title: event.title,
     currentUrl: event.url,
     finalUrl,
-    domain: source.domain
+    domain: source.domain,
+    currentDate: event.dateValue
   });
   const adapter = adapterFor(source);
   const specific = adapter ? adapter({ html, event, source, generic }) : {};
