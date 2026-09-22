@@ -156,12 +156,17 @@ export function extractLocation({ schema }) {
 }
 
 export function extractDescription({ html, schema }) {
-  const schemaDescription = plainText(schema?.description || '');
-  if (schemaDescription.length >= 25) return { value: schemaDescription, method: 'schema.org' };
+  const boilerplate = /^(?:this page displays information for a specific event|buy tickets online|official website of|events? calendar|find events?)\b|\bupdate the public about either the past\b/i;
+  const useful = value => {
+    const text = plainText(value);
+    return text.length >= 40 && !boilerplate.test(text) ? text : '';
+  };
+  const schemaDescription = useful(schema?.description || '');
+  if (schemaDescription) return { value: schemaDescription, method: 'schema.org' };
   const meta = htmlAttribute(html, /<meta\s+(?:name|property)=["'](?:description|og:description)["']\s+content=["']([^"']+)/i)
     || htmlAttribute(html, /<meta\s+content=["']([^"']+)["']\s+(?:name|property)=["'](?:description|og:description)["']/i);
-  const value = plainText(meta);
-  return { value: value.length >= 25 ? value : '', method: value.length >= 25 ? 'meta-description' : '' };
+  const value = useful(meta);
+  return { value, method: value ? 'meta-description' : '' };
 }
 
 export function extractImage({ html, schema, baseUrl, title = '', allowGenericOgWhenMissing = false }) {
