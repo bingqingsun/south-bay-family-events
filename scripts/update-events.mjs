@@ -2569,7 +2569,7 @@ async function readCupertino(source) {
     // evidence. Cupertino's global Parks & Recreation chrome contains labels
     // such as "Preschool" and "Teens", which previously produced fake,
     // disconnected ranges like Ages 3–5 · Ages 13–18 on unrelated events.
-    const costEvidence = `${detailTitle} ${description} ${detailText}`;
+    const costEvidence = `${detailTitle} ${description} ${item.audience} ${detailText.slice(0, 3500)}`;
     const initialAudienceEvidence = cupertinoAudienceEvidence(item.audience, description);
     const event = directEvent({
       id: 'cupertino-' + createHash('sha256').update(`${item.url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
