@@ -3607,9 +3607,11 @@ events = canonicalDetail.events
   .filter(event => !isUnavailableEvent(event))
   .map(event => {
     const prior = beforeCanonicalById.get(event.id);
-    const descriptionChanged = event.fieldProvenance?.description?.source === 'canonical-detail'
-      && event.description !== prior?.description;
-    if (!descriptionChanged) return event;
+    const canonicalDescriptionEvidence = event.fieldProvenance?.description?.source === 'canonical-detail'
+      || event.fieldProvenance?.sourceDescriptionRaw?.source === 'canonical-detail';
+    const descriptionEvidenceChanged = canonicalDescriptionEvidence
+      && (event.description !== prior?.description || event.sourceDescriptionRaw !== prior?.sourceDescriptionRaw);
+    if (!descriptionEvidenceChanged) return event;
     // The official long description is the evidence input; the user-facing
     // card still goes through the Summary Engine.
     const normalized = qualityGateSummary(event);
