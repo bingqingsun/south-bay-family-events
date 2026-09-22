@@ -36,7 +36,7 @@ assert.equal(
     'Kids & family',
     'Recommended for ages 6 and up.'
   ),
-  'Kids & family ages 6 and up'
+  'Kids & family Recommended for ages 6 and up'
 );
 
 console.log('Cupertino audience evidence tests passed');
