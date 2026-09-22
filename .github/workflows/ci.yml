@@ -53,6 +53,7 @@ jobs:
           node --check scripts/cupertino-audience.mjs
           node --check scripts/link-health.mjs
           node --check map-navigation.js
+          node --check age-policy.js
           node --check collection-runtime.js
           node --check collections.js
           node --check data/collections.js
@@ -61,6 +62,7 @@ jobs:
           node scripts/test-event-summary-engine.mjs
           node scripts/cupertino-detail-date.test.mjs
           node scripts/cupertino-audience.test.mjs
+          node scripts/age-policy.test.cjs
           node scripts/test-summary-output.mjs
           node scripts/classification.test.mjs
           node scripts/cost-policy.test.mjs
