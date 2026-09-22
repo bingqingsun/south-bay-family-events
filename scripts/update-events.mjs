@@ -3611,8 +3611,32 @@ events = canonicalDetail.events
       && (event.description !== prior?.description || event.sourceDescriptionRaw !== prior?.sourceDescriptionRaw);
     if (!descriptionEvidenceChanged) return event;
     const normalized = qualityGateSummary(event);
-    if (normalized) return normalized;
-    return { ...event, description: prior?.description || event.description, parentSummary: prior?.parentSummary || prior?.description || event.description };
+    if (normalized) {
+      const summary = String(normalized.parentSummary || normalized.description || '').replace(/\s+/g, ' ').trim();
+      const raw = String(normalized.sourceDescriptionRaw || '').replace(/\s+/g, ' ').trim();
+      const evidence = String(normalized.summaryEvidence || '').replace(/\s+/g, ' ').trim();
+      const summaryContractOk = normalized.summaryStatus === 'extractive'
+        ? Boolean(summary && raw.includes(summary) && evidence === summary && !summary.endsWith('…'))
+        : Boolean(evidence && evidence === raw);
+      if (summaryContractOk) return normalized;
+    }
+    // Canonical prose is only promoted when it can satisfy the existing
+    // summary evidence contract. Otherwise keep the previously verified card
+    // summary while still accepting independent canonical fields such as image,
+    // venue, time, cost, registration and age.
+    const restored = { ...event };
+    for (const field of [
+      'description','parentSummary','sourceDescriptionRaw','sourceDescriptionHash',
+      'summaryMethod','summaryStatus','summaryQuality','summaryEvidence',
+      'summaryEvidenceData','summaryVersion','summaryVerifiedAt'
+    ]) {
+      if (prior?.[field] !== undefined) restored[field] = prior[field];
+      else delete restored[field];
+    }
+    restored.fieldProvenance = { ...(event.fieldProvenance || {}) };
+    delete restored.fieldProvenance.description;
+    delete restored.fieldProvenance.sourceDescriptionRaw;
+    return restored;
   })
   .map(event => ({ ...event, image: optimizedOfficialImageUrl(event.image, event.source) }));
 
