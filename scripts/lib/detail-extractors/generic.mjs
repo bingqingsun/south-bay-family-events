@@ -53,8 +53,10 @@ export function eventSchemas(html, title = '') {
     })
     .filter(node => String(node?.['@type'] || '').toLowerCase().includes('event'));
   if (!title) return nodes;
-  const matching = nodes.filter(node => sameEventIdentity(node?.name || node?.headline || '', title));
-  return matching.length ? matching : nodes;
+  // Never borrow Event structured data from another card/widget on the page.
+  // A canonical detail merge requires event-level identity, not merely the
+  // presence of some Event schema in global page chrome.
+  return nodes.filter(node => sameEventIdentity(node?.name || node?.headline || '', title));
 }
 
 function approvedUrl(value, baseUrl, domain) {
@@ -162,12 +164,39 @@ export function extractDescription({ html, schema }) {
   return { value: value.length >= 25 ? value : '', method: value.length >= 25 ? 'meta-description' : '' };
 }
 
-export function extractImage({ html, schema, baseUrl }) {
-  const schemaImage = Array.isArray(schema?.image) ? schema.image[0] : (typeof schema?.image === 'object' ? schema.image?.url : schema?.image);
-  const rawImage = schemaImage || htmlAttribute(html, /<meta\s+property=["']og:image["']\s+content=["']([^"']+)/i);
-  if (!rawImage) return { value: '', method: '' };
-  try { return { value: new URL(decodeHtml(rawImage), baseUrl).href, method: schemaImage ? 'schema.org' : 'og:image' }; }
-  catch { return { value: '', method: '' }; }
+export function extractImage({ html, schema, baseUrl, title = '', allowGenericOgWhenMissing = false }) {
+  const schemaImage = Array.isArray(schema?.image) ? schema.image[0] : (typeof schema?.image === 'object' ? (schema.image?.url || schema.image?.contentUrl) : schema?.image);
+  const genericAsset = /(?:logo|favicon|site[-_ ]?icon|avatar|placeholder|default[-_ ]?(?:image|share|social)|sponsor|branding)/i;
+  const asUrl = raw => {
+    if (!raw) return '';
+    try {
+      const url = new URL(decodeHtml(raw), baseUrl).href;
+      return genericAsset.test(decodeURIComponent(url)) ? '' : url;
+    } catch { return ''; }
+  };
+  const structured = asUrl(schemaImage);
+  if (structured) return { value: structured, method: 'schema.org' };
+
+  // A body image whose alt text identifies this event is stronger evidence
+  // than a site-wide social sharing image.
+  for (const match of String(html || '').matchAll(/<img\b[^>]*>/gi)) {
+    const tag = match[0];
+    const alt = decodeHtml(tag.match(/\balt=["']([^"']*)["']/i)?.[1] || '');
+    if (!title || !alt || !sameEventIdentity(title, alt)) continue;
+    const bodyImage = asUrl(tag.match(/\b(?:src|data-src)=["']([^"']+)["']/i)?.[1] || '');
+    if (bodyImage) return { value: bodyImage, method: 'event-image' };
+  }
+
+  const rawOg = htmlAttribute(html, /<meta\s+(?:property|name)=["'](?:og:image|twitter:image)["']\s+content=["']([^"']+)/i)
+    || htmlAttribute(html, /<meta\s+content=["']([^"']+)["']\s+(?:property|name)=["'](?:og:image|twitter:image)["']/i);
+  const og = asUrl(rawOg);
+  if (!og) return { value: '', method: '' };
+  const ogAlt = htmlAttribute(html, /<meta\s+(?:property|name)=["'](?:og:image:alt|twitter:image:alt)["']\s+content=["']([^"']+)/i);
+  const pathText = (() => { try { return decodeURIComponent(new URL(og).pathname).replace(/[-_]+/g, ' '); } catch { return ''; } })();
+  if (allowGenericOgWhenMissing || (title && (sameEventIdentity(title, ogAlt) || sameEventIdentity(title, pathText)))) {
+    return { value: og, method: 'og:image' };
+  }
+  return { value: '', method: '' };
 }
 
 export function extractAudience({ schema, text = '' }) {
@@ -237,7 +266,7 @@ export function genericDetailExtraction({ html, title, currentUrl, finalUrl, dom
   const dateTime = extractDateTime({ html, schema, currentDate });
   const location = extractLocation({ schema });
   const description = extractDescription({ html, schema });
-  const image = extractImage({ html, schema, baseUrl: canonical.value || currentUrl || finalUrl });
+  const image = extractImage({ html, schema, baseUrl: canonical.value || currentUrl || finalUrl, title });
   const pageText = plainText(html);
   // Generic enrichment only trusts structured audience data. Broad words such
   // as "family" in site navigation must never manufacture an age label.
