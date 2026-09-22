@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T04:36:07.509Z",
+  "generatedAt": "2026-09-22T04:38:58.528Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -159,15 +159,15 @@
       "eventCount": 491,
       "failureStreak": 0,
       "error": "",
-      "publishedCount": 182,
+      "publishedCount": 175,
       "publishReadyCount": 173,
-      "publishPartialCount": 9,
+      "publishPartialCount": 2,
       "holdDataErrorCount": 0,
-      "missingTimeCount": 9,
+      "missingTimeCount": 2,
       "missingAddressCount": 0,
       "revalidatedMissingCount": 0,
-      "avgCompletenessScore": 87.1,
-      "publicationYield": 0.371
+      "avgCompletenessScore": 87.5,
+      "publicationYield": 0.356
     },
     {
       "key": "City of Sunnyvale|sunnyvale.ca.gov|",
@@ -416,15 +416,15 @@
       "eventCount": 55,
       "failureStreak": 0,
       "error": "",
-      "publishedCount": 0,
-      "publishReadyCount": 0,
+      "publishedCount": 4,
+      "publishReadyCount": 4,
       "publishPartialCount": 0,
       "holdDataErrorCount": 0,
       "missingTimeCount": 0,
       "missingAddressCount": 0,
       "revalidatedMissingCount": 0,
-      "avgCompletenessScore": null,
-      "publicationYield": 0
+      "avgCompletenessScore": 86,
+      "publicationYield": 0.073
     },
     {
       "key": "CineLux Plaza|cineluxtheatres.com|https://www.cineluxtheatres.com/cinelux-plaza-cafe-lounge/showtimes",
@@ -435,15 +435,15 @@
       "eventCount": 41,
       "failureStreak": 0,
       "error": "",
-      "publishedCount": 0,
-      "publishReadyCount": 0,
+      "publishedCount": 4,
+      "publishReadyCount": 4,
       "publishPartialCount": 0,
       "holdDataErrorCount": 0,
       "missingTimeCount": 0,
       "missingAddressCount": 0,
       "revalidatedMissingCount": 0,
-      "avgCompletenessScore": null,
-      "publicationYield": 0
+      "avgCompletenessScore": 86,
+      "publicationYield": 0.098
     },
     {
       "key": "CineLux Los Gatos|cineluxtheatres.com|https://www.cineluxtheatres.com/cinelux-los-gatos-theatre/showtimes",
@@ -454,15 +454,15 @@
       "eventCount": 3,
       "failureStreak": 0,
       "error": "",
-      "publishedCount": 0,
-      "publishReadyCount": 0,
+      "publishedCount": 1,
+      "publishReadyCount": 1,
       "publishPartialCount": 0,
       "holdDataErrorCount": 0,
       "missingTimeCount": 0,
       "missingAddressCount": 0,
       "revalidatedMissingCount": 0,
-      "avgCompletenessScore": null,
-      "publicationYield": 0
+      "avgCompletenessScore": 86,
+      "publicationYield": 0.333
     },
     {
       "key": "CineLux Morgan Hill|cineluxtheatres.com|https://www.cineluxtheatres.com/cinelux-tennant-station/showtimes",
@@ -473,15 +473,15 @@
       "eventCount": 87,
       "failureStreak": 0,
       "error": "",
-      "publishedCount": 0,
-      "publishReadyCount": 0,
+      "publishedCount": 4,
+      "publishReadyCount": 4,
       "publishPartialCount": 0,
       "holdDataErrorCount": 0,
       "missingTimeCount": 0,
       "missingAddressCount": 0,
       "revalidatedMissingCount": 0,
-      "avgCompletenessScore": null,
-      "publicationYield": 0
+      "avgCompletenessScore": 86,
+      "publicationYield": 0.046
     },
     {
       "key": "CineLux Gilroy|cineluxtheatres.com|https://www.cineluxtheatres.com/cinelux-gilroy-cafe-lounge/showtimes",
@@ -492,15 +492,15 @@
       "eventCount": 49,
       "failureStreak": 0,
       "error": "",
-      "publishedCount": 0,
-      "publishReadyCount": 0,
+      "publishedCount": 4,
+      "publishReadyCount": 4,
       "publishPartialCount": 0,
       "holdDataErrorCount": 0,
       "missingTimeCount": 0,
       "missingAddressCount": 0,
       "revalidatedMissingCount": 0,
-      "avgCompletenessScore": null,
-      "publicationYield": 0
+      "avgCompletenessScore": 86,
+      "publicationYield": 0.082
     },
     {
       "key": "Cinemark Century Oakridge 20|cinemark.com|https://www.cinemark.com/theatres/ca-san-jose/cinemark-century-oakridge-20-xd-and-screenx",
@@ -511,15 +511,15 @@
       "eventCount": 2,
       "failureStreak": 0,
       "error": "",
-      "publishedCount": 0,
-      "publishReadyCount": 0,
+      "publishedCount": 2,
+      "publishReadyCount": 2,
       "publishPartialCount": 0,
       "holdDataErrorCount": 0,
       "missingTimeCount": 0,
       "missingAddressCount": 0,
       "revalidatedMissingCount": 0,
-      "avgCompletenessScore": null,
-      "publicationYield": 0
+      "avgCompletenessScore": 86,
+      "publicationYield": 1
     },
     {
       "key": "Cinemark Century Great Mall 20|cinemark.com|https://www.cinemark.com/theatres/ca-milpitas/cinemark-century-great-mall-20-xd-and-screenx",
@@ -756,7 +756,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 1,
+      "failureStreak": 2,
       "error": "Los Altos History Museum event list was not valid: 202",
       "publishedCount": 0,
       "publishReadyCount": 0,
@@ -794,7 +794,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 4,
+      "failureStreak": 5,
       "error": "Montalvo official calendar was not valid: 500",
       "publishedCount": 2,
       "publishReadyCount": 2,
@@ -813,7 +813,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 7,
+      "failureStreak": 8,
       "error": "Official iCalendar feed was not valid: 403",
       "publishedCount": 0,
       "publishReadyCount": 0,
@@ -1532,20 +1532,20 @@
   "alerts": [
     {
       "name": "Montalvo Arts Center",
-      "failureStreak": 4,
+      "failureStreak": 5,
       "error": "Montalvo official calendar was not valid: 500"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 7,
+      "failureStreak": 8,
       "error": "Official iCalendar feed was not valid: 403"
     }
   ],
   "detailEnrichment": {
     "frameworkVersion": "event-detail-enrichment-v1",
-    "publishedEvents": 387,
+    "publishedEvents": 380,
     "publishReady": 300,
-    "publishPartial": 87,
+    "publishPartial": 80,
     "holdDataError": 0,
     "revalidatedMissing": 3,
     "extractionGaps": 3
@@ -1555,48 +1555,6 @@
       "name": "City of Cupertino",
       "method": "cupertino",
       "discoveredOrParsed": 6,
-      "published": 0,
-      "reason": "source_returned_events_but_none_reached_public_catalog"
-    },
-    {
-      "name": "CineLux Almaden",
-      "method": "cinelux",
-      "discoveredOrParsed": 55,
-      "published": 0,
-      "reason": "source_returned_events_but_none_reached_public_catalog"
-    },
-    {
-      "name": "CineLux Plaza",
-      "method": "cinelux",
-      "discoveredOrParsed": 41,
-      "published": 0,
-      "reason": "source_returned_events_but_none_reached_public_catalog"
-    },
-    {
-      "name": "CineLux Los Gatos",
-      "method": "cinelux",
-      "discoveredOrParsed": 3,
-      "published": 0,
-      "reason": "source_returned_events_but_none_reached_public_catalog"
-    },
-    {
-      "name": "CineLux Morgan Hill",
-      "method": "cinelux",
-      "discoveredOrParsed": 87,
-      "published": 0,
-      "reason": "source_returned_events_but_none_reached_public_catalog"
-    },
-    {
-      "name": "CineLux Gilroy",
-      "method": "cinelux",
-      "discoveredOrParsed": 49,
-      "published": 0,
-      "reason": "source_returned_events_but_none_reached_public_catalog"
-    },
-    {
-      "name": "Cinemark Century Oakridge 20",
-      "method": "cinemark",
-      "discoveredOrParsed": 2,
       "published": 0,
       "reason": "source_returned_events_but_none_reached_public_catalog"
     },
