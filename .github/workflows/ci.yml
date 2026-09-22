@@ -49,6 +49,10 @@ jobs:
       - name: Check refresh-script syntax
         run: |
           node --check scripts/update-events.mjs
+          node --check scripts/lib/detail-fetch.mjs
+          node --check scripts/lib/detail-extractors/generic.mjs
+          node --check scripts/lib/source-adapters/cupertino.mjs
+          node --check scripts/lib/detail-enrichment.mjs
           node --check scripts/link-health.mjs
           node --check map-navigation.js
           node --check collection-runtime.js
@@ -57,6 +61,7 @@ jobs:
       - name: Run policy and data-contract tests
         run: |
           node scripts/test-event-summary-engine.mjs
+          node scripts/detail-enrichment.test.mjs
           node scripts/test-summary-output.mjs
           node scripts/classification.test.mjs
           node scripts/cost-policy.test.mjs
