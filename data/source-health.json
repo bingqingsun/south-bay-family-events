@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-21T14:29:08.521Z",
+  "generatedAt": "2026-09-22T03:50:56.300Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -20,7 +20,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 12,
+      "eventCount": 10,
       "failureStreak": 0,
       "error": ""
     },
@@ -84,7 +84,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 489,
+      "eventCount": 491,
       "failureStreak": 0,
       "error": ""
     },
@@ -225,7 +225,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 42,
+      "eventCount": 41,
       "failureStreak": 0,
       "error": ""
     },
@@ -235,7 +235,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 6,
+      "eventCount": 3,
       "failureStreak": 0,
       "error": ""
     },
@@ -245,7 +245,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 65,
+      "eventCount": 66,
       "failureStreak": 0,
       "error": ""
     },
@@ -265,7 +265,7 @@
       "method": "cinemark",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 11,
+      "eventCount": 2,
       "failureStreak": 0,
       "error": ""
     },
@@ -275,7 +275,7 @@
       "method": "cinemark",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 8,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -285,7 +285,7 @@
       "method": "cinemark",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 7,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -385,7 +385,7 @@
       "method": "filoli",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 3,
+      "eventCount": 2,
       "failureStreak": 0,
       "error": ""
     },
@@ -394,10 +394,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "ok",
+      "status": "failed",
       "eventCount": 0,
-      "failureStreak": 0,
-      "error": ""
+      "failureStreak": 1,
+      "error": "Los Altos History Museum event list was not valid: 202"
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -414,10 +414,10 @@
       "name": "Montalvo Arts Center",
       "method": "montalvo",
       "mode": "direct",
-      "status": "ok",
-      "eventCount": 2,
-      "failureStreak": 0,
-      "error": ""
+      "status": "failed",
+      "eventCount": 0,
+      "failureStreak": 1,
+      "error": "Montalvo official calendar was not valid: 500"
     },
     {
       "key": "City of Los Altos Parks & Recreation|losaltosca.gov|https://www.losaltosca.gov/common/modules/iCalendar/iCalendar.aspx?catID=37&feed=calendar",
@@ -426,7 +426,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 3,
+      "failureStreak": 4,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -803,7 +803,7 @@
   "alerts": [
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 3,
+      "failureStreak": 4,
       "error": "Official iCalendar feed was not valid: 403"
     }
   ]
