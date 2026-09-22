@@ -238,8 +238,10 @@ export function extractCostAndRegistration({ schema, text = '' }) {
 
   let registrationStatus='unknown', registrationEvidence='';
   const patterns=[
+    // "No registration required; walk-in while supplies last" is best shown as
+    // walk-in because it is the more actionable organizer instruction.
+    ['walk-in', /[^.!?]{0,110}\b(?:walk-?ins?(?:\s+while\s+supplies\s+last)?|walk-?ins? (?:are )?(?:welcome|accepted)|drop-?ins? (?:are )?(?:welcome|accepted))\b[^.!?]{0,110}/i],
     ['not-required', /[^.!?]{0,90}\b(?:no registration (?:is )?required|registration (?:is )?not required|without registration)\b[^.!?]{0,90}/i],
-    ['walk-in', /[^.!?]{0,90}\b(?:walk-?ins? (?:are )?(?:welcome|accepted)|drop-?ins? (?:are )?(?:welcome|accepted))\b[^.!?]{0,90}/i],
     ['required', /[^.!?]{0,100}\b(?:registration (?:is )?required|advance registration (?:is )?required|all attendees must register|register (?:online |in advance )?to attend|tickets? (?:are )?required for (?:admission|entry))\b[^.!?]{0,100}/i],
     ['recommended', /[^.!?]{0,100}\b(?:(?:registration|reservations?|rsvp) (?:is |are )?(?:recommended|encouraged)|please rsvp)\b[^.!?]{0,100}/i]
   ];
