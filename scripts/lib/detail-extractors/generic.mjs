@@ -53,8 +53,10 @@ export function eventSchemas(html, title = '') {
     })
     .filter(node => String(node?.['@type'] || '').toLowerCase().includes('event'));
   if (!title) return nodes;
-  const matching = nodes.filter(node => sameEventIdentity(node?.name || node?.headline || '', title));
-  return matching.length ? matching : nodes;
+  // Never borrow structured data from another Event node on a calendar or
+  // venue page. With a requested title, no identity match means no schema
+  // evidence; meta/HTML extraction may still contribute non-structured fields.
+  return nodes.filter(node => sameEventIdentity(node?.name || node?.headline || '', title));
 }
 
 function approvedUrl(value, baseUrl, domain) {
