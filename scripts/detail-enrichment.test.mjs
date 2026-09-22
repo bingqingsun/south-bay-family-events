@@ -104,6 +104,20 @@ const source = { name: 'City Test', method: 'civic', domain: 'example.gov', city
   assert.equal(result.event.endDateValue, '2026-09-26T23:59:59');
 }
 
+// A date-only schema start paired with an end at 00:00 is also an all-day
+// placeholder. Preserve the previously verified end-of-day behavior.
+{
+  const html = `<html><body><h1>Family Lantern Night</h1>
+    <script type="application/ld+json">{
+      "@context":"https://schema.org","@type":"Event","name":"Family Lantern Night",
+      "startDate":"2026-09-26","endDate":"2026-09-26T00:00:00"
+    }</script>
+  </body></html>`;
+  const result = enrichEventFromDetail(baseEvent, { source, html, finalUrl: baseEvent.url });
+  assert.equal(result.event.dateValue, '2026-09-26');
+  assert.equal(result.event.endDateValue, '2026-09-26T23:59:59');
+}
+
 // Generic pages may mention "family" in global navigation. Without structured
 // audience evidence that must not create an age label.
 {
