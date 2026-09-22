@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { enrichCanonicalDetails, shouldEnrichCanonicalDetail } from './lib/canonical-detail-enrichment.mjs';
+import { extractCostAndRegistration } from './lib/detail-extractors/generic.mjs';
 
 const source = { id: 'city-test', name: 'City Test', domain: 'example.gov', method: 'civic', feedUrl: 'https://example.gov/events', landingUrl: 'https://example.gov/events' };
 const base = {
@@ -13,6 +14,10 @@ const base = {
 assert.equal(shouldEnrichCanonicalDetail(base, source), true);
 assert.equal(shouldEnrichCanonicalDetail({ ...base, url: source.feedUrl, canonicalUrl: source.feedUrl }, source), false);
 assert.equal(shouldEnrichCanonicalDetail({ ...base, format: 'movie-screening' }, source), false);
+assert.equal(
+  extractCostAndRegistration({ schema: {}, text: 'No registration required; walk-in while supplies last.' }).registrationStatus,
+  'walk-in'
+);
 
 const html = '<html><head><title>Family Lantern Night</title>' +
   '<meta property="og:image" content="/images/official-lantern.jpg">' +
