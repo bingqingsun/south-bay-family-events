@@ -1,5 +1,6 @@
 export async function fetchOfficialDetail(url, {
   domain = '',
+  allowedHosts = [],
   timeoutMs = 12000,
   userAgent = 'SouthBayFamilyEventsBot/1.0'
 } = {}) {
@@ -13,10 +14,11 @@ export async function fetchOfficialDetail(url, {
     const contentType = response.headers.get('content-type') || '';
     const html = /html|xhtml/i.test(contentType) || !contentType ? await response.text() : '';
     let finalUrl = response.url || url;
-    if (domain) {
+    const hosts = [...new Set([domain, ...allowedHosts].map(value => String(value || '').toLowerCase()).filter(Boolean))];
+    if (hosts.length) {
       try {
         const host = new URL(finalUrl).hostname.toLowerCase();
-        const approved = host === domain.toLowerCase() || host.endsWith('.' + domain.toLowerCase());
+        const approved = hosts.some(value => host === value || host.endsWith('.' + value));
         if (!approved) finalUrl = url;
       } catch {
         finalUrl = url;
