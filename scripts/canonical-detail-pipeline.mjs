@@ -57,7 +57,8 @@ export async function enrichOneCanonicalEvent(event, {
   sources = [],
   previous = null,
   verifiedAt = new Date().toISOString(),
-  timeoutMs = 12000
+  timeoutMs = 12000,
+  fetchImpl = fetch
 } = {}) {
   const source = sourceForEvent(event, sources);
   const decision = canonicalEnrichmentDecision(event, previous, Date.parse(verifiedAt));
@@ -80,7 +81,8 @@ export async function enrichOneCanonicalEvent(event, {
   const detail = await fetchOfficialDetail(currentUrl, {
     domain: source.domain,
     allowedHosts: allowedHostsFor(source),
-    timeoutMs
+    timeoutMs,
+    fetchImpl
   });
   if (!detail.ok || !isAllowedOfficialUrl(detail.finalUrl || currentUrl, source)) {
     const status = detail.status === 403 || detail.status === 429 ? 'fetch-blocked' : 'fetch-failed';
@@ -150,7 +152,8 @@ export async function enrichCanonicalEvents(events, {
   previousEvents = [],
   verifiedAt = new Date().toISOString(),
   concurrency = 6,
-  timeoutMs = 12000
+  timeoutMs = 12000,
+  fetchImpl = fetch
 } = {}) {
   const previousById = new Map();
   previousEvents.forEach(event => {
@@ -170,7 +173,8 @@ export async function enrichCanonicalEvents(events, {
         sources,
         previous: previousFor(event, previousById),
         verifiedAt,
-        timeoutMs
+        timeoutMs,
+        fetchImpl
       });
       output[index] = result.event;
       diagnostics[index] = { id: event.id, title: event.title, source: event.source, ...result.diagnostics };
