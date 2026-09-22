@@ -3142,6 +3142,7 @@ searchSources.forEach(source => {
 // Keep separate official sessions that share one details page. The earlier
 // URL-only dedupe silently discarded all but the final time for a show such
 // as a CMT production, defeating the card's “other sessions” experience.
+console.log('DEBUG Cupertino feedEvents:', JSON.stringify(feedEvents.filter(event => event.source === 'City of Cupertino').map(event => ({ title: event.title, dateValue: event.dateValue, endDateValue: event.endDateValue, summaryStatus: event.summaryStatus, description: event.description, place: event.place, address: event.address, url: event.url }))));
 const preliminaryEvents = [...new Map([...feedEvents, ...candidates]
   .map(event => [`${event.url.toLowerCase()}|${event.dateValue || ''}`, event])).values()]
   // A card must explain what the activity is. A source's speaker bio, social
@@ -3158,6 +3159,7 @@ const preliminaryEvents = [...new Map([...feedEvents, ...candidates]
   .filter(Boolean)
   .sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
 
+console.log('DEBUG Cupertino preliminaryEvents:', JSON.stringify(preliminaryEvents.filter(event => event.source === 'City of Cupertino').map(event => ({ title: event.title, dateValue: event.dateValue, endDateValue: event.endDateValue, summaryStatus: event.summaryStatus }))));
 function eventTitleTokens(title) {
   return new Set(plainText(title).toLowerCase().replace(/\b(?:san|jose|milpitas|palo|alto|santa|clara|cupertino|sunnyvale|mountain|view|los)\b/g, '')
     .replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(word => word.length > 2));
@@ -3276,6 +3278,7 @@ const individualEvents = coalesceCrossSourceDuplicates(preliminaryEvents)
   .map(withEffectiveEndTime)
   .sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
 
+console.log('DEBUG Cupertino individualEvents:', JSON.stringify(individualEvents.filter(event => event.source === 'City of Cupertino').map(event => ({ title: event.title, dateValue: event.dateValue, endDateValue: event.endDateValue }))));
 function seriesKey(event) {
   if (event.format === 'movie-screening') {
     // A title is one parent-facing activity even when cinema chains disagree
@@ -3332,6 +3335,7 @@ function groupRepeatedSessions(items) {
 
 const scheduledEvents = groupRepeatedSessions(individualEvents);
 
+console.log('DEBUG Cupertino scheduledEvents:', JSON.stringify(scheduledEvents.filter(event => event.source === 'City of Cupertino').map(event => ({ title: event.title, dateValue: event.dateValue, endDateValue: event.endDateValue }))));
 if (!scheduledEvents.length) throw new Error('No verified upcoming events; leaving the published list unchanged.');
 
 async function readChmMuseumCards(source) {
