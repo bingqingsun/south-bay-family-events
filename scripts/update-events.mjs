@@ -3603,7 +3603,13 @@ const canonicalDetail = await enrichCanonicalDetails(events, sources, {
 });
 sourceHealth.canonicalDetailEnrichment = canonicalDetail.summary;
 events = canonicalDetail.events
-  .map(event => ({ ...event, image: optimizedOfficialImageUrl(event.image, event.source) }))
+  .map(event => ({
+    ...event,
+    // A hero explicitly re-read from the verified canonical detail page is
+    // authoritative. Legacy source-specific thumbnail cleanup applies only to
+    // discovery images, not to canonical-page evidence.
+    image: event.detailProvenance?.image ? event.image : optimizedOfficialImageUrl(event.image, event.source)
+  }))
   .map(withPresentationFields)
   .map(qualityGateSummary)
   .filter(Boolean);
