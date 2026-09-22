@@ -18,6 +18,14 @@ const fallback = resolvePublishedLink(
 );
 assert.equal(fallback.url, source.landingUrl);
 
+const trustedUnknown = resolvePublishedLink(
+  { title: 'Family Show', source: 'Theater', linkSource: 'canonical_resolved_previous' },
+  { canonicalUrl: 'https://theater.org/event/family-show', fallbackUrl: 'https://theater.org/calendar', linkStatus: 'unknown', linkCheckedAt: 'now', linkCheckMethod: 'machine', linkEvidence: 'timeout' },
+  { id: 'theater', name: 'Theater', domain: 'theater.org' }
+);
+assert.equal(trustedUnknown.url, 'https://theater.org/event/family-show');
+assert.equal(trustedUnknown.linkResolution, 'canonical');
+
 const result = await auditLinks(
   [{ title: 'Book Club', source: 'Library', url: 'https://events.platform.org/events/1' }],
   [source],
