@@ -38,7 +38,13 @@
     "method": "thetech",
     "feedUrl": "https://www.thetech.org/explore/upcoming-events",
     "address": "201 S Market St, San Jose",
-    "city": "San Jose"
+    "city": "San Jose",
+    "id": "the-tech-interactive",
+    "linkHosts": [
+      "outreach-foundation.org"
+    ],
+    "landingUrl": "https://www.thetech.org/explore/upcoming-events",
+    "linkPolicy": "official_listing_partner_detail"
   },
   {
     "name": "City of Palo Alto",
@@ -366,7 +372,10 @@
     "method": "montalvo",
     "feedUrl": "https://montalvoarts.org/experience/events-calendar/",
     "address": "15400 Montalvo Rd, Saratoga",
-    "city": "Saratoga"
+    "city": "Saratoga",
+    "id": "montalvo-arts-center",
+    "landingUrl": "https://montalvoarts.org/experience/events-calendar/",
+    "linkPolicy": "first_party_detail_with_listing_fallback"
   },
   {
     "name": "City of Los Altos Parks & Recreation",
