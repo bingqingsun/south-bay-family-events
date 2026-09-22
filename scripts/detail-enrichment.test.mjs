@@ -22,8 +22,8 @@ const baseEvent = {
 
 const source = { name: 'City Test', method: 'civic', domain: 'example.gov', city: 'San Jose' };
 
-// Generic schema.org enrichment should refresh canonical URL, exact time,
-// venue/address, image and price without changing the stable event id.
+// Generic schema.org enrichment strengthens canonical-page facts after URL
+// resolution. URL selection itself remains the resolver/Link Health contract.
 {
   const html = `
   <html><head>
@@ -54,7 +54,7 @@ const source = { name: 'City Test', method: 'civic', domain: 'example.gov', city
     verifiedAt: '2026-09-21T12:00:00Z'
   });
   assert.equal(result.event.id, 'e1');
-  assert.equal(result.event.url, 'https://example.gov/events/family-lantern-night');
+  assert.equal(result.event.url, 'https://example.gov/events/old-lantern-night');
   assert.equal(result.event.dateValue, '2026-09-26T18:00:00');
   assert.equal(result.event.endDateValue, '2026-09-26T20:30:00');
   assert.equal(result.event.place, 'Civic Plaza');
