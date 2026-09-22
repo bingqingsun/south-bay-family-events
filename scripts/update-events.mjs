@@ -22,6 +22,7 @@ import {
 import { auditLinks } from './link-health.mjs';
 import { selectPublishableOfficialDescription } from './official-description.mjs';
 import { configuredCandidates, sitemapCandidates, verifySpecialEventPage } from './special-event-pages.mjs';
+import { selectCupertinoDetailDates } from './cupertino-detail-date.mjs';
 
 const key = process.env.SERPAPI_KEY;
 // Translation is intentionally paused: no third-party translation key is read
@@ -2343,10 +2344,6 @@ function cupertinoDetailEnrichment(event, html, source) {
   })();
 
   const normalizeClock = value => String(value || '').replace(/a\.?m\.?/i, 'AM').replace(/p\.?m\.?/i, 'PM');
-  let dateValue = event.dateValue;
-  let endDateValue = event.endDateValue;
-  if (schema?.startDate) dateValue = String(schema.startDate);
-  if (schema?.endDate) endDateValue = String(schema.endDate);
 
   const nextDate = detailText.match(/Next date:\s*((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\s*\|\s*(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM))(?:\s*(?:to|-|–|—)\s*(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM)))?/i);
   const plainDate = detailText.match(/\b((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\b/i);
@@ -2358,8 +2355,28 @@ function cupertinoDetailEnrichment(event, html, source) {
         const match = nearbyText.match(/(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM))\s*(?:to|-|–|—)\s*(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM))/i);
         return match ? [match[1], match[2]] : [];
       })();
-  if (!schema?.startDate && dateAnchor && timeRange[0]) dateValue = isoDateFromOfficialText(dateAnchor, normalizeClock(timeRange[0]));
-  if (!schema?.endDate && dateAnchor && timeRange[1]) endDateValue = isoDateFromOfficialText(dateAnchor, normalizeClock(timeRange[1]));
+  const visibleStart = dateAnchor && timeRange[0]
+    ? isoDateFromOfficialText(dateAnchor, normalizeClock(timeRange[0]))
+    : '';
+  const visibleEnd = dateAnchor && timeRange[1]
+    ? isoDateFromOfficialText(dateAnchor, normalizeClock(timeRange[1]))
+    : '';
+  const selectedDates = selectCupertinoDetailDates({
+    listingStart: event.dateValue,
+    listingEnd: event.endDateValue,
+    schemaStart: schema?.startDate || '',
+    schemaEnd: schema?.endDate || '',
+    visibleStart,
+    visibleEnd
+  });
+  const dateValue = selectedDates.startDateValue;
+  const endDateValue = selectedDates.endDateValue;
+  if (selectedDates.ignoredSchemaStart) {
+    console.warn(`Ignoring mismatched Cupertino schema startDate for "${event.title}": ${schema.startDate} (listing ${String(event.dateValue || '').slice(0, 10) || 'unknown'})`);
+  }
+  if (selectedDates.ignoredSchemaEnd) {
+    console.warn(`Ignoring mismatched Cupertino schema endDate for "${event.title}": ${schema.endDate} (listing ${String(event.dateValue || '').slice(0, 10) || 'unknown'})`);
+  }
 
   const schemaLocation = Array.isArray(schema?.location) ? schema.location[0] : schema?.location;
   const schemaAddress = schemaLocation && typeof schemaLocation === 'object' ? schemaLocation.address : null;
