@@ -5,6 +5,7 @@ import {
   sameEventIdentity
 } from './detail-extractors/generic.mjs';
 import { parseCupertinoDetail } from './source-adapters/cupertino.mjs';
+import { hasPublishableSummary } from '../event-summary-engine.mjs';
 
 export const DETAIL_QUALITY_STATES = Object.freeze({
   PUBLISH_READY: 'PUBLISH_READY',
@@ -250,8 +251,21 @@ export function enrichEventFromDetail(event, {
 
   set('url', generic.canonicalUrl, generic.canonicalMethod);
   set('canonicalUrl', generic.canonicalUrl, generic.canonicalMethod);
-  set('dateValue', specific.startDate || generic.startDate, specific.startDate ? specific.method : generic.dateMethod);
-  set('endDateValue', specific.endDate || generic.endDate, specific.endDate ? specific.method : generic.dateMethod);
+
+  // A canonical detail page may refine the clock time, but it may not move an
+  // already-known occurrence to another calendar day. This prevents stale
+  // schema.org data or page chrome from silently rescheduling a card.
+  const candidateStart = specific.startDate || generic.startDate;
+  const candidateEnd = specific.endDate || generic.endDate;
+  const currentDay = String(event.dateValue || '').slice(0, 10);
+  const candidateDay = String(candidateStart || '').slice(0, 10);
+  const sameOccurrenceDay = !currentDay || !candidateDay || currentDay === candidateDay;
+  if (sameOccurrenceDay) {
+    set('dateValue', candidateStart, specific.startDate ? specific.method : generic.dateMethod);
+    if (!candidateEnd || !currentDay || String(candidateEnd).slice(0, 10) === currentDay) {
+      set('endDateValue', candidateEnd, specific.endDate ? specific.method : generic.dateMethod);
+    }
+  }
 
   // Earlier refreshes may have persisted a schema.org all-day placeholder as
   // 00:00 on the same day. Once the generic extractor recognizes the detail
@@ -273,12 +287,21 @@ export function enrichEventFromDetail(event, {
   }
   if (city) set('city', city, specific.city ? specific.method : generic.locationMethod);
 
-  set('description', generic.description, generic.descriptionMethod, { onlyIfMissing: true });
-  set('image', generic.image, generic.imageMethod, { onlyIfMissing: true });
+  // Once identity is verified, the canonical organizer detail page outranks
+  // discovery/listing copy. Description still has to pass the shared parent-
+  // facing summary gate; otherwise keep the existing official discovery text.
+  if (generic.description && hasPublishableSummary(generic.description, { title: event.title })) {
+    set('description', generic.description, generic.descriptionMethod);
+    set('sourceDescriptionRaw', generic.description, generic.descriptionMethod);
+  }
+  // The generic extractor already rejects obvious logo/default assets. A
+  // usable image explicitly published by the canonical page therefore
+  // outranks a discovery-feed thumbnail.
+  set('image', generic.image, generic.imageMethod);
 
   const audience = specific.audienceText || generic.audienceText;
   const age = agePatch(audience);
-  if ((!merged.ageLabel || merged.ageLabel === 'Family-friendly') && age.ageLabel) {
+  if (age.ageLabel && (specific.audienceText || generic.audienceMethod === 'schema.org')) {
     Object.entries(age).forEach(([field, value]) => {
       if (JSON.stringify(merged[field]) === JSON.stringify(value)) return;
       merged[field] = value;
@@ -307,13 +330,13 @@ export function enrichEventFromDetail(event, {
       ? adapterCommerce.registrationMethod : generic.registrationMethod
   };
 
-  if ((!merged.costStatus || merged.costStatus === 'unknown') && commerce.costStatus && commerce.costStatus !== 'unknown') {
+  if (commerce.costStatus && commerce.costStatus !== 'unknown') {
     set('costStatus', commerce.costStatus, commerce.costMethod);
     set('costLabel', commerce.costLabel, commerce.costMethod);
     set('costSource', commerce.costMethod === 'schema.org' ? 'Official structured data' : '官方活动说明', commerce.costMethod);
     set('costEvidence', commerce.costEvidence, commerce.costMethod);
   }
-  if ((!merged.registrationStatus || merged.registrationStatus === 'unknown') && commerce.registrationStatus && commerce.registrationStatus !== 'unknown') {
+  if (commerce.registrationStatus && commerce.registrationStatus !== 'unknown') {
     set('registrationStatus', commerce.registrationStatus, commerce.registrationMethod);
     set('registrationSource', '官方活动说明', commerce.registrationMethod);
     set('registrationEvidence', commerce.registrationEvidence, commerce.registrationMethod);
@@ -322,6 +345,11 @@ export function enrichEventFromDetail(event, {
   merged.detailVerifiedAt = verifiedAt;
   merged.detailStatus = 'enriched';
   merged.detailFailureCount = 0;
+  merged.detailSourceUrl = generic.canonicalUrl || finalUrl || event.url || '';
+  merged.detailProvenance = {
+    ...(event.detailProvenance || {}),
+    ...fieldProvenance
+  };
 
   const extractionSignals = [];
   if (/\b(?:time|when|starts?|am|pm)\b/i.test(pageText)) extractionSignals.push('start_time');
@@ -339,7 +367,7 @@ export function enrichEventFromDetail(event, {
       fieldsUpdated,
       fetchStatus,
       extractionSignals,
-      fieldProvenance
+      fieldProvenance: merged.detailProvenance
     })
   };
 }
