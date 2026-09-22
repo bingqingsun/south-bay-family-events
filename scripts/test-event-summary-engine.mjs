@@ -6,12 +6,14 @@ import {
   buildOfficialMovieScreeningSummary,
   buildOfficialSportsSummary,
   buildSummaryRecord,
+  hasPublishableSummary,
   hasUsableSourceContent,
   isLikelyFragment,
   selectConcreteSourceSentence,
   selectLabeledActivityBundle,
   splitSourceSentences
 } from './event-summary-engine.mjs';
+import { selectPublishableOfficialDescription } from './official-description.mjs';
 
 const escapeRegex = value => value.replace(/[.*+?^$()|[\]\\]/g, '\\$&');
 
@@ -189,6 +191,18 @@ assert.equal(hasUsableSourceContent('Fall is here and the garden is full of colo
   'source gate should keep multi-sentence official content for the engine to evaluate');
 assert.equal(hasUsableSourceContent('Registration required. Parking is available in the rear lot.'), false,
   'source gate should reject logistics-only content');
+assert.equal(hasPublishableSummary('…', { title: 'Cupertino Fall Bike Fest' }), false,
+  'a visual placeholder must never replace an official calendar description');
+assert.equal(
+  selectPublishableOfficialDescription(['…'], value => hasPublishableSummary(value, { title: 'Cupertino Fall Bike Fest' })),
+  '',
+  'a detail-page placeholder must preserve the usable official description from the calendar listing'
+);
+assert.equal(
+  selectPublishableOfficialDescription(['…', 'Bring your bike for a free safety check, join hands-on games, and make a craft with your family.'], value => hasPublishableSummary(value, { title: 'Cupertino Fall Bike Fest' })),
+  'Bring your bike for a free safety check, join hands-on games, and make a craft with your family.',
+  'a substantive official detail description should still enrich the calendar listing'
+);
 
 const homeworkSummary = buildExtractiveSummary(
   "Are you a student in grades K-6th and need help with homework? We have tutors for you to receive homework help Monday through Thursday. Walk-ins welcome as spaces allow. Homework Help will not be held on October 12."
@@ -256,6 +270,8 @@ assert.doesNotMatch(updateScript, /\.find\(hasUsableSourceContent\)|descriptionC
   'source adapters may extract official text but must not rank or hand-pick the parent-facing sentence');
 assert.match(updateScript, /buildSummaryRecord\s*\(/, 'summary metadata must come from the shared engine');
 assert.match(updateScript, /hasPublishableSummary\s*\(/, 'adapter publishability checks must use the shared engine');
+assert.match(updateScript, /selectPublishableOfficialDescription\(blocks, value => hasPublishableSummary\(value, \{ title \}\)\)/,
+  'detail description enrichment must retain the listing copy when no publishable detail description exists');
 assert.match(updateScript, /revalidateMissingOfficialEvent\s*\(/,
   'refresh must revalidate a missing future event on its official detail page before deleting it');
 assert.match(updateScript, /isOfficialUrl\(event\.url, source\.domain\)/,
