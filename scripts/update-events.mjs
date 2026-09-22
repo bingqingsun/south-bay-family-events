@@ -23,6 +23,7 @@ import { auditLinks } from './link-health.mjs';
 import { selectPublishableOfficialDescription } from './official-description.mjs';
 import { configuredCandidates, sitemapCandidates, verifySpecialEventPage } from './special-event-pages.mjs';
 import { selectCupertinoDetailDates } from './cupertino-detail-date.mjs';
+import { cupertinoAudienceEvidence } from './cupertino-audience.mjs';
 
 const key = process.env.SERPAPI_KEY;
 // Translation is intentionally paused: no third-party translation key is read
@@ -2564,17 +2565,27 @@ async function readCupertino(source) {
     const locationParts = item.placeText.split(',').map(value => value.trim()).filter(Boolean);
     const place = locationParts.shift() || source.name;
     const street = locationParts.filter(value => !/^\d{5}(?:-\d{4})?$/.test(value)).join(', ');
-    const evidence = `${detailTitle} ${description} ${item.audience} ${detailText.slice(0, 3500)}`;
+    // Do not use the first N characters of the whole detail page as audience
+    // evidence. Cupertino's global Parks & Recreation chrome contains labels
+    // such as "Preschool" and "Teens", which previously produced fake,
+    // disconnected ranges like Ages 3–5 · Ages 13–18 on unrelated events.
+    const costEvidence = `${detailTitle} ${description} ${item.audience} ${detailText.slice(0, 3500)}`;
+    const initialAudienceEvidence = cupertinoAudienceEvidence(item.audience, description);
     const event = directEvent({
       id: 'cupertino-' + createHash('sha256').update(`${item.url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
       title: detailTitle, dateValue, description,
       image: item.image ? new URL(decodeXml(item.image), source.feedUrl).href : htmlAttribute(detailHtml, /<meta\s+property=["']og:image["']\s+content=["']([^"']+)/i),
       place, address: shortAddress(street, source.city || 'Cupertino'), city: source.city || 'Cupertino',
-      source: source.name, url: item.url, ageText: evidence
+      source: source.name, url: item.url, ageText: initialAudienceEvidence
     });
-    const withCost = { ...event, ...costInfo('', evidence) };
+    const withCost = { ...event, ...costInfo('', costEvidence) };
     const calendarEnriched = detailHtml ? cupertinoDetailEnrichment(withCost, detailHtml, source) : withCost;
-    return enrichWithSpecialEventPage(calendarEnriched, source);
+    const pageEnriched = await enrichWithSpecialEventPage(calendarEnriched, source);
+    const finalAudienceEvidence = cupertinoAudienceEvidence(
+      item.audience,
+      pageEnriched.sourceDescriptionRaw || pageEnriched.description || description
+    );
+    return { ...pageEnriched, ...ageInfo(finalAudienceEvidence) };
   }));
   return events.filter(Boolean);
 }

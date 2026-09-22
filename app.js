@@ -114,29 +114,11 @@ function eventSummary(event) {
   const text = eventText(event, 'description') || event.parentSummary || '';
   return summaryIsNonActivity(text) ? '' : text;
 }
-function eventAgeLabel(event) {
-  if (event.ageLabel) return event.ageLabel;
-  return event.ageBands?.length ? event.ageBands.map(band => legacyAgeLabels[band]?.[state.language === 'zh' ? 0 : 1]).filter(Boolean).join(' · ') : t('ageUnknown');
-}
 function eventAgeFact(event) {
-  const label = eventAgeLabel(event).trim();
-  if (!label) return '';
-  // When an organizer marks an activity family-friendly but does not publish
-  // a narrower age range, treat it as available to every child-age filter.
-  // The card uses the same concise wording as the explicit All ages category.
-  if (label === 'Family-friendly' && !(event.ageRanges || []).length) return 'All ages';
-  const grade = label.match(/^Grades?\s+(.+)$/i);
-  if (grade) {
-    // The filter already uses the conventional K–12 age equivalent. Show
-    // that same parent-friendly range on the card rather than a grade label.
-    const ranges = event.ageRanges || [];
-    if (ranges.length) return `Ages ${ranges.map(([start, end]) => start === end ? start : `${start}–${end}`).join(' · ')}`;
-    return `Ages ${grade[1]}`;
-  }
-  // Keep every age value in the same concise metadata pattern, including
-  // organizer wording such as “All ages” and “Ages 6+”.
-  if (/^all ages$/i.test(label)) return 'All ages';
-  return `Ages ${label.replace(/\bAges?\s*/gi, '')}`;
+  // Display is evidence-only. ageRanges/ageMin/ageMax may be broader internal
+  // matching metadata (for example a Grades K–5 conversion) and must never be
+  // turned back into an organizer claim on the card.
+  return window.SBFFAgePolicy.displayLabel(event);
 }
 function eventCostLabel(event) { return !event.costLabel || event.costLabel === '费用未注明' ? t('costUnknown') : costLabels[event.costLabel]?.[state.language === 'zh' ? 0 : 1] || event.costLabel; }
 function renderUpdateTime() {

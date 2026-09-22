@@ -18,6 +18,8 @@ on:
       - 'scripts/test-summary-output.mjs'
       - 'scripts/link-health.mjs'
       - 'scripts/link-health.test.mjs'
+      - 'scripts/cupertino-audience.mjs'
+      - 'scripts/cupertino-audience.test.mjs'
       - 'data/sources.json'
       - '.github/workflows/daily-events.yml'
   schedule:
@@ -47,6 +49,8 @@ jobs:
         run: |
           node scripts/test-event-summary-engine.mjs
           node scripts/link-health.test.mjs
+          node scripts/cupertino-audience.test.mjs
+          node scripts/age-policy.test.cjs
       - run: node scripts/update-events.mjs
         env:
           SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
