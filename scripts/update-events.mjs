@@ -20,6 +20,7 @@ import {
   hasUsableSourceContent
 } from './event-summary-engine.mjs';
 import { auditLinks, releaseBlockingLinks } from './link-health.mjs';
+import { enrichCanonicalEvents } from './canonical-detail-pipeline.mjs';
 import { selectPublishableOfficialDescription } from './official-description.mjs';
 import { configuredCandidates, sitemapCandidates, verifySpecialEventPage } from './special-event-pages.mjs';
 import { selectCupertinoDetailDates } from './cupertino-detail-date.mjs';
@@ -3589,6 +3590,47 @@ function museumAsEvent(museum, source) {
 
 let events = groupRepeatedSessions([...scheduledEvents, ...museums.map(museum => museumAsEvent(museum, museumSource)).map(qualityGateSummary).filter(Boolean)])
   .map(event => ({ ...event, image: optimizedOfficialImageUrl(event.image, event.source) }));
+
+// Once a stable official canonical destination exists, reopen that exact page
+// and let event-level evidence strengthen the card before Link Health.
+const beforeCanonicalById = new Map(events.map(event => [event.id, event]));
+const canonicalDetail = await enrichCanonicalEvents(events, {
+  sources,
+  previousEvents: existingEvents,
+  verifiedAt: generatedAt,
+  concurrency: 6,
+  timeoutMs: 12000
+});
+events = canonicalDetail.events
+  .filter(event => !isUnavailableEvent(event))
+  .map(event => {
+    const prior = beforeCanonicalById.get(event.id);
+    const canonicalDescriptionEvidence = event.fieldProvenance?.description?.source === 'canonical-detail'
+      || event.fieldProvenance?.sourceDescriptionRaw?.source === 'canonical-detail';
+    const descriptionEvidenceChanged = canonicalDescriptionEvidence
+      && (event.description !== prior?.description || event.sourceDescriptionRaw !== prior?.sourceDescriptionRaw);
+    if (!descriptionEvidenceChanged) return event;
+    const normalized = qualityGateSummary(event);
+    if (normalized) return normalized;
+    return { ...event, description: prior?.description || event.description, parentSummary: prior?.parentSummary || prior?.description || event.description };
+  })
+  .map(event => ({ ...event, image: optimizedOfficialImageUrl(event.image, event.source) }));
+
+const canonicalStatusCounts = canonicalDetail.diagnostics.reduce((counts, item) => {
+  counts[item.status] = (counts[item.status] || 0) + 1;
+  return counts;
+}, {});
+const canonicalFieldUpdates = canonicalDetail.diagnostics.reduce((counts, item) => {
+  (item.fieldsUpdated || []).forEach(field => { counts[field] = (counts[field] || 0) + 1; });
+  return counts;
+}, {});
+sourceHealth.canonicalDetailEnrichment = {
+  frameworkVersion: 'canonical-detail-enrichment-v1',
+  checkedAt: generatedAt,
+  ...canonicalStatusCounts,
+  fieldUpdates: canonicalFieldUpdates
+};
+console.log(`Canonical detail summary: ${JSON.stringify(sourceHealth.canonicalDetailEnrichment)}`);
 
 // Link health is a release-quality stage. A known-bad detail URL is replaced
 // only with an explicitly configured, user-facing official landing page.
