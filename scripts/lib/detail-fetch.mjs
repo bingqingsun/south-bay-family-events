@@ -2,11 +2,12 @@ export async function fetchOfficialDetail(url, {
   domain = '',
   allowedHosts = [],
   timeoutMs = 12000,
-  userAgent = 'SouthBayFamilyEventsBot/1.0'
+  userAgent = 'SouthBayFamilyEventsBot/1.0',
+  fetchImpl = fetch
 } = {}) {
   const startedAt = Date.now();
   try {
-    const response = await fetch(url, {
+    const response = await fetchImpl(url, {
       headers: { 'user-agent': userAgent, 'accept': 'text/html,application/xhtml+xml' },
       redirect: 'follow',
       signal: AbortSignal.timeout(timeoutMs)
