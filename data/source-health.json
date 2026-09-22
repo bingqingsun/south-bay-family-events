@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T07:20:01.874Z",
+  "generatedAt": "2026-09-22T07:35:48.181Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -394,10 +394,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 1,
-      "error": "Los Altos History Museum event list was not valid: 202"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -416,7 +416,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 14,
+      "failureStreak": 15,
       "error": "Montalvo official calendar was not valid: 500"
     },
     {
@@ -426,7 +426,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 17,
+      "failureStreak": 18,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -803,13 +803,42 @@
   "alerts": [
     {
       "name": "Montalvo Arts Center",
-      "failureStreak": 14,
+      "failureStreak": 15,
       "error": "Montalvo official calendar was not valid: 500"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 17,
+      "failureStreak": 18,
       "error": "Official iCalendar feed was not valid: 403"
     }
-  ]
+  ],
+  "canonicalDetailEnrichment": {
+    "checkedAt": "2026-09-22T07:35:48.181Z",
+    "total": 386,
+    "statuses": {
+      "not-eligible": 50,
+      "enriched": 322,
+      "identity-mismatch": 4,
+      "fetch-failed": 10
+    },
+    "fieldsUpdated": {
+      "canonicalUrl": 313,
+      "description": 245,
+      "image": 140,
+      "sourceDescriptionRaw": 160,
+      "registrationEvidence": 49,
+      "registrationStatus": 15,
+      "registrationSource": 8,
+      "dateValue": 28,
+      "address": 15,
+      "costStatus": 6,
+      "costLabel": 6,
+      "costSource": 6,
+      "costEvidence": 9,
+      "endDateValue": 16,
+      "city": 3,
+      "url": 13,
+      "place": 5
+    }
+  }
 }
