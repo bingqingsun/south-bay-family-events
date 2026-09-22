@@ -2375,13 +2375,24 @@ function cupertinoDetailEnrichment(event, html, source) {
     }
   }
 
-  const addressMatch = detailText.match(/\b(\d{1,6}\s+[A-Za-z0-9.'’ -]+?(?:Avenue|Ave\.?|Street|St\.?|Road|Rd\.?|Boulevard|Blvd\.?|Drive|Dr\.?|Lane|Ln\.?|Court|Ct\.?|Way|Parkway|Pkwy\.?|Circle|Cir\.?))\s+(Cupertino),\s*CA\s*\d{5}(?:-\d{4})?\b/i);
+  const addressPattern = /\b(\d{1,6}\s+[A-Za-z0-9.'’ -]+?(?:Avenue|Ave\.?|Street|St\.?|Road|Rd\.?|Boulevard|Blvd\.?|Drive|Dr\.?|Lane|Ln\.?|Court|Ct\.?|Way|Parkway|Pkwy\.?|Circle|Cir\.?))\s+(Cupertino),\s*CA\s*\d{5}(?:-\d{4})?\b/gi;
+  const titleIndexes = [];
+  for (let index = detailText.indexOf(detailTitle); index >= 0; index = detailText.indexOf(detailTitle, index + detailTitle.length)) titleIndexes.push(index);
+  const addressMatches = [...detailText.matchAll(addressPattern)];
+  const addressMatch = addressMatches
+    .map(match => {
+      const index = match.index ?? Number.MAX_SAFE_INTEGER;
+      const precedingTitle = titleIndexes.filter(titleIndex => titleIndex <= index).at(-1);
+      const distance = precedingTitle === undefined ? Number.MAX_SAFE_INTEGER : index - precedingTitle;
+      return { match, distance };
+    })
+    .sort((a, b) => a.distance - b.distance)[0]?.match || null;
   if (!address && addressMatch) {
     city = canonicalCity(addressMatch[2] || city);
     address = shortAddress(addressMatch[1], city);
   }
   if ((!place || place === source.name) && addressMatch) {
-    const addressIndex = detailText.indexOf(addressMatch[0]);
+    const addressIndex = addressMatch.index ?? detailText.indexOf(addressMatch[0]);
     let prefix = detailText.slice(Math.max(0, addressIndex - 220), addressIndex);
     prefix = prefix
       .replace(detailTitle, ' ')
@@ -2394,7 +2405,13 @@ function cupertinoDetailEnrichment(event, html, source) {
     if (candidate && !/^(?:South Bay|City of Cupertino)$/i.test(candidate)) place = candidate;
   }
 
-  const description = officialDetailDescription(html, schema, detailTitle) || event.description;
+  const officialDescription = officialDetailDescription(html, schema, detailTitle);
+  // Cupertino's CMS sometimes exposes a literal ellipsis or generic metadata
+  // as the first detail-description candidate. Keep the useful official list
+  // description unless the detail page actually gives us usable event copy.
+  const description = hasUsableSourceContent(officialDescription)
+    ? officialDescription
+    : event.description;
   const detailSummary = buildSummaryRecord({
     sourceText: sourceDescriptionText(description),
     title: detailTitle || event.title,
