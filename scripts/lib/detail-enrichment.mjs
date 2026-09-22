@@ -190,7 +190,8 @@ export function enrichEventFromDetail(event, {
   const pageTitle = specific.title || generic.pageTitle || '';
   const pageText = plainText(html);
 
-  if (pageTitle && !sameEventIdentity(event.title, pageTitle)) {
+  const pageCarriesTitle = plainText(pageText).toLowerCase().includes(plainText(event.title).toLowerCase());
+  if (pageTitle && !sameEventIdentity(event.title, pageTitle) && !pageCarriesTitle) {
     return {
       event,
       diagnostics: buildEventQuality(event, {
@@ -268,17 +269,21 @@ export function enrichEventFromDetail(event, {
     });
   }
 
-  const commerce = specific.evidenceText
+  const adapterCommerce = specific.evidenceText
     ? extractCostAndRegistration({ schema: {}, text: specific.evidenceText })
-    : {
-        costStatus: generic.costStatus,
-        costLabel: generic.costLabel,
-        costEvidence: generic.costEvidence,
-        costMethod: generic.costMethod,
-        registrationStatus: generic.registrationStatus,
-        registrationEvidence: generic.registrationEvidence,
-        registrationMethod: generic.registrationMethod
-      };
+    : {};
+  const commerce = {
+    costStatus: adapterCommerce.costStatus && adapterCommerce.costStatus !== 'unknown' ? adapterCommerce.costStatus : generic.costStatus,
+    costLabel: adapterCommerce.costStatus && adapterCommerce.costStatus !== 'unknown' ? adapterCommerce.costLabel : generic.costLabel,
+    costEvidence: adapterCommerce.costStatus && adapterCommerce.costStatus !== 'unknown' ? adapterCommerce.costEvidence : generic.costEvidence,
+    costMethod: adapterCommerce.costStatus && adapterCommerce.costStatus !== 'unknown' ? adapterCommerce.costMethod : generic.costMethod,
+    registrationStatus: adapterCommerce.registrationStatus && adapterCommerce.registrationStatus !== 'unknown'
+      ? adapterCommerce.registrationStatus : generic.registrationStatus,
+    registrationEvidence: adapterCommerce.registrationStatus && adapterCommerce.registrationStatus !== 'unknown'
+      ? adapterCommerce.registrationEvidence : generic.registrationEvidence,
+    registrationMethod: adapterCommerce.registrationStatus && adapterCommerce.registrationStatus !== 'unknown'
+      ? adapterCommerce.registrationMethod : generic.registrationMethod
+  };
 
   if ((!merged.costStatus || merged.costStatus === 'unknown') && commerce.costStatus && commerce.costStatus !== 'unknown') {
     set('costStatus', commerce.costStatus, commerce.costMethod);
