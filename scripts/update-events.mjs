@@ -3615,10 +3615,29 @@ events = canonicalDetail.events
     // The official long description is the evidence input; the user-facing
     // card still goes through the Summary Engine.
     const normalized = qualityGateSummary(event);
-    if (normalized) return normalized;
+    if (normalized && !/(?:\.\.\.|…)/.test(normalized.description || '')) return normalized;
     // A canonical page should never make a previously valid card disappear
-    // merely because its prose cannot be summarized automatically.
-    return { ...event, description: prior?.description || event.description, parentSummary: prior?.parentSummary || prior?.description || event.description };
+    // or corrupt summary provenance merely because its meta/schema copy is too
+    // generic to produce a valid SBFF summary. Roll back only the summary
+    // evidence; independently verified image/time/location fields remain.
+    const fieldProvenance = { ...(event.fieldProvenance || {}) };
+    delete fieldProvenance.description;
+    delete fieldProvenance.sourceDescriptionRaw;
+    return {
+      ...event,
+      description: prior?.description || event.description,
+      parentSummary: prior?.parentSummary || prior?.description || event.description,
+      sourceDescriptionRaw: prior?.sourceDescriptionRaw || '',
+      sourceDescriptionHash: prior?.sourceDescriptionHash || '',
+      summaryStatus: prior?.summaryStatus || event.summaryStatus,
+      summaryMethod: prior?.summaryMethod || event.summaryMethod,
+      summaryQuality: prior?.summaryQuality || event.summaryQuality,
+      summaryEvidence: prior?.summaryEvidence || '',
+      summaryEvidenceData: prior?.summaryEvidenceData || null,
+      summaryVersion: prior?.summaryVersion || event.summaryVersion,
+      summaryVerifiedAt: prior?.summaryVerifiedAt || event.summaryVerifiedAt,
+      fieldProvenance
+    };
   })
   .map(event => ({ ...event, image: optimizedOfficialImageUrl(event.image, event.source) }));
 
