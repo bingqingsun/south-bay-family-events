@@ -760,7 +760,7 @@ function isoDateFromOfficialText(dateText, timeText = '') {
   return date + 'T' + String(hour).padStart(2, '0') + ':' + (time[2] || '00');
 }
 
-function directEvent({ id, title, dateValue, endDateValue = '', description, image = '', imagePresentation = '', imageBackground = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, ageText = '', format = '', movieRating = '', forcedType = '', seasonalTheme = '', availabilityStatus = '', summaryStatus = 'extractive', summaryEvidenceData = null }) {
+function directEvent({ id, title, dateValue, endDateValue = '', description, image = '', imagePresentation = '', imageBackground = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, linkSource = '', ageText = '', format = '', movieRating = '', forcedType = '', seasonalTheme = '', availabilityStatus = '', summaryStatus = 'extractive', summaryEvidenceData = null }) {
   // Detail-page chrome can list unrelated sports/classes. It is useful for
   // detecting a stated child audience, but must never determine the card's
   // activity type. Classify from the actual event title and description.
@@ -783,7 +783,7 @@ function directEvent({ id, title, dateValue, endDateValue = '', description, ima
     type, icon: icons[type], color: colors[type], tag: labels[type],
     verification: 'official-page', lastVerifiedAt: generatedAt, format: effectiveFormat,
     ...summary,
-    image: optimizedOfficialImageUrl(image, source), imagePresentation, imageBackground, place, address, city: canonicalCity(city), meetingPoint, mapUrl, source, url, movieRating,
+    image: optimizedOfficialImageUrl(image, source), imagePresentation, imageBackground, place, address, city: canonicalCity(city), meetingPoint, mapUrl, source, url, linkSource, movieRating,
     seasonalTheme: seasonalTheme || seasonalThemeFor(`${title} ${description}`), availabilityStatus
   };
 }
@@ -3052,7 +3052,10 @@ async function readTimely(source) {
     // verified event-detail URL back to the generic calendar. Link Health will
     // revalidate the retained canonical later in the same refresh.
     const firstPartyUrl = resolvedFirstPartyUrl || priorFirstPartyUrl?.canonicalUrl || priorFirstPartyUrl?.url || '';
-    return { ...detail, firstPartyUrl };
+    const firstPartyLinkSource = resolvedFirstPartyUrl
+      ? 'canonical_resolved_live'
+      : firstPartyUrl ? 'canonical_resolved_previous' : '';
+    return { ...detail, firstPartyUrl, firstPartyLinkSource };
   }));
   return pagesWithDetails.flatMap((detail, detailIndex) => {
     const description = detail?.description || detail?.description_short || '';
@@ -3079,6 +3082,7 @@ async function readTimely(source) {
         description: sourceDescriptionText(description), image: detail.images?.[0]?.full?.url || detail.images?.[0]?.medium?.url || '',
         place: plainText(venue.title || 'San Jose Theaters'), address, city,
         source: source.name, url: detail.firstPartyUrl || source.landingUrl || source.feedUrl,
+        linkSource: detail.firstPartyLinkSource || '',
         ageText: description, format: 'live-show'
       });
       // Timely returns a platform default of "0" even for external ticketed
