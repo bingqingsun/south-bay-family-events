@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T04:06:51.951Z",
+  "generatedAt": "2026-09-22T04:08:54.786Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -109,7 +109,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 1,
+      "failureStreak": 2,
       "error": "Cannot access 'listingSourceDescription' before initialization"
     },
     {
@@ -396,7 +396,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 1,
+      "failureStreak": 2,
       "error": "Los Altos History Museum event list was not valid: 202"
     },
     {
@@ -416,7 +416,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 10,
+      "failureStreak": 11,
       "error": "Montalvo official calendar was not valid: 500"
     },
     {
@@ -426,7 +426,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 13,
+      "failureStreak": 14,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -803,12 +803,12 @@
   "alerts": [
     {
       "name": "Montalvo Arts Center",
-      "failureStreak": 10,
+      "failureStreak": 11,
       "error": "Montalvo official calendar was not valid: 500"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 13,
+      "failureStreak": 14,
       "error": "Official iCalendar feed was not valid: 403"
     }
   ]
