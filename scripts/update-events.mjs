@@ -3074,7 +3074,7 @@ const preliminaryEvents = [...new Map([...feedEvents, ...candidates]
   .filter(event => hasUsableSourceContent(event.description))
   // A closure notice is useful operational information, but it is not a
   // family activity and must never enter the browse catalog.
-  .filter(event => !/\b(?:library|bookmobile|museum|park|facility|center)\b.*\bclosed\b|\bclosed\b.*\b(?:library|bookmobile|museum|park|facility|center)\b/i.test(event.title || ''))
+  .filter(event => !/\b(?:libraries?|bookmobile|museum|park|facility|center)\b.*\bclosed\b|\bclosed\b.*\b(?:libraries?|bookmobile|museum|park|facility|center)\b/i.test(event.title || ''))
   .filter(event => !isUnavailableEvent(event))
   .filter(isFamilyRelevant)
   .map(withPresentationFields)
@@ -3249,7 +3249,7 @@ function groupRepeatedSessions(items) {
       movieRating,
       legacyIds: [...new Set(ordered.flatMap(event => [event.id, ...(event.legacyIds || [])]))],
       source: first.format === 'movie-screening' ? 'Official cinema listings' : first.source,
-      sessions: cardSessions.map(event => ({ id: event.id, date: event.date, dateValue: event.dateValue, endDateValue: event.endDateValue, url: event.url, place: event.place, address: event.address, city: event.city }))
+      sessions: cardSessions.map(event => ({ id: event.id, date: event.date, dateValue: event.dateValue, endDateValue: event.endDateValue, url: event.url, place: event.place, address: event.address, city: event.city, source: event.source }))
     }];
   }).sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
 }
@@ -3391,10 +3391,17 @@ const eventQuality = {
 };
 
 const qualityBySource = new Map();
-eventQuality.events.forEach(item => {
-  const rows = qualityBySource.get(item.source) || [];
-  rows.push(item);
-  qualityBySource.set(item.source, rows);
+eventQuality.events.forEach((item, index) => {
+  const publishedEvent = events[index] || {};
+  const sourceNames = new Set([
+    item.source,
+    ...(publishedEvent.sessions || []).map(session => session.source).filter(Boolean)
+  ].filter(Boolean));
+  sourceNames.forEach(sourceName => {
+    const rows = qualityBySource.get(sourceName) || [];
+    if (!rows.some(row => row.event_id === item.event_id)) rows.push(item);
+    qualityBySource.set(sourceName, rows);
+  });
 });
 sourceHealth.sources = sourceHealth.sources.map(source => {
   const rows = qualityBySource.get(source.name) || [];
