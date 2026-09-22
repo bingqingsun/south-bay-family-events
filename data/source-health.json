@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T23:50:31.838Z",
+  "generatedAt": "2026-09-22T23:52:03.217Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -394,10 +394,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "ok",
+      "status": "failed",
       "eventCount": 0,
-      "failureStreak": 0,
-      "error": ""
+      "failureStreak": 1,
+      "error": "Los Altos History Museum event list was not valid: 202"
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -803,16 +803,14 @@
   "alerts": [],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-09-22T23:50:31.838Z",
-    "enriched": 335,
-    "fetch-blocked": 18,
+    "checkedAt": "2026-09-22T23:52:03.217Z",
+    "enriched": 336,
     "cached": 4,
+    "fetch-blocked": 17,
     "identity-mismatch": 41,
     "fetch-failed": 3,
     "fieldUpdates": {
-      "description": 232,
-      "image": 2,
-      "place": 1
+      "description": 232
     }
   }
 }
