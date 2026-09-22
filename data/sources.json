@@ -585,7 +585,7 @@
   },
   {
     "name": "Santa Clara Parade of Champions",
-    "domain": "sc-parade-of-champions.squarespace.com",
+    "domain": "scparadeofchampions.org",
     "method": "curated",
     "feedUrl": "https://www.scparadeofchampions.org/parade-schedule",
     "city": "Santa Clara",
@@ -600,6 +600,11 @@
         "cost": "Free",
         "format": "festival"
       }
+    ],
+    "linkHosts": [
+      "scparadeofchampions.org",
+      "www.scparadeofchampions.org",
+      "sc-parade-of-champions.squarespace.com"
     ]
   },
   {
