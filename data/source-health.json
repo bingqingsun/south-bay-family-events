@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T14:46:31.227Z",
+  "generatedAt": "2026-09-22T14:50:05.845Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -275,7 +275,7 @@
       "method": "cinemark",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 9,
+      "eventCount": 15,
       "failureStreak": 0,
       "error": ""
     },
@@ -394,10 +394,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 1,
-      "error": "Los Altos History Museum event list was not valid: 202"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -416,7 +416,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 20,
+      "failureStreak": 21,
       "error": "Montalvo official calendar was not valid: 500"
     },
     {
@@ -426,7 +426,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 23,
+      "failureStreak": 24,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -803,21 +803,21 @@
   "alerts": [
     {
       "name": "Montalvo Arts Center",
-      "failureStreak": 20,
+      "failureStreak": 21,
       "error": "Montalvo official calendar was not valid: 500"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 23,
+      "failureStreak": 24,
       "error": "Official iCalendar feed was not valid: 403"
     }
   ],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-09-22T14:46:31.227Z",
-    "enriched": 329,
+    "checkedAt": "2026-09-22T14:50:05.845Z",
+    "fetch-blocked": 20,
+    "enriched": 326,
     "cached": 4,
-    "fetch-blocked": 16,
     "identity-mismatch": 39,
     "fetch-failed": 4,
     "fieldUpdates": {
