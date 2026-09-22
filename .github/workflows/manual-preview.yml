@@ -76,11 +76,10 @@ jobs:
           echo "url=$preview_url" >> "$GITHUB_OUTPUT"
 
       - name: Post Preview link to PR
-        # GitHub restricts the token for pull_request-triggered workflows, so
-        # that event cannot reliably write a PR comment. The deployment URL is
-        # still available in the job output and can be posted by the requester.
-        # The owner-only /preview command and manual dispatch keep auto-posting.
-        if: env.PR_NUMBER != '' && github.event_name != 'pull_request'
+        # The PR token can be restricted; do not mark a successful deployment
+        # as failed if GitHub declines the convenience comment.
+        if: env.PR_NUMBER != ''
+        continue-on-error: true
         uses: actions/github-script@v7
         env:
           PREVIEW_URL: ${{ steps.deploy.outputs.url }}
