@@ -102,14 +102,29 @@ function isoFromText(dateText, timeText = '') {
   return date + 'T' + String(hour).padStart(2, '0') + ':' + (t[2] || '00') + ':00';
 }
 
-export function extractDateTime({ html, schema }) {
+export function extractDateTime({ html, schema, currentDate = '' }) {
   const startSchema = normalizeIso(schema?.startDate);
   const endSchema = normalizeIso(schema?.endDate);
-  if (startSchema) return { startDate: startSchema, endDate: endSchema, method: 'schema.org' };
+  if (startSchema) {
+    const pageText = plainText(html);
+    const midnightPlaceholder = /T00:00(?::00)?$/.test(startSchema)
+      && !/\b(?:12(?::00)?\s*(?:a\.?m\.?|AM)|midnight)\b/i.test(pageText);
+    if (midnightPlaceholder) {
+      return { startDate: startSchema.slice(0, 10), endDate: '', method: 'schema.org-date-only' };
+    }
+    return { startDate: startSchema, endDate: endSchema, method: 'schema.org' };
+  }
 
+  // Text-only time parsing is intentionally conservative. It may refine an
+  // already-known occurrence on the same day, but it may not move an event to
+  // a different date based on an arbitrary date found elsewhere on the page.
+  const currentDay = String(currentDate || '').slice(0, 10);
+  if (!currentDay) return { startDate: '', endDate: '', method: '' };
   const text = plainText(html);
   const date = text.match(/\b((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+)?((?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\b/i);
   if (!date) return { startDate: '', endDate: '', method: '' };
+  const parsedDay = isoFromText(date[2]).slice(0, 10);
+  if (parsedDay !== currentDay) return { startDate: '', endDate: '', method: '' };
   const startIndex = text.indexOf(date[0]);
   const nearby = text.slice(startIndex, startIndex + 220);
   const range = nearby.match(/(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM))\s*(?:to|-|–|—)\s*(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM))/i);
@@ -213,16 +228,24 @@ export function extractCostAndRegistration({ schema, text = '' }) {
   };
 }
 
-export function genericDetailExtraction({ html, title, currentUrl, finalUrl, domain }) {
+export function genericDetailExtraction({ html, title, currentUrl, finalUrl, domain, currentDate = '' }) {
   const schema = eventSchemas(html, title)[0] || {};
   const canonical = extractCanonical({ html, schema, currentUrl, finalUrl, domain });
-  const dateTime = extractDateTime({ html, schema });
+  const dateTime = extractDateTime({ html, schema, currentDate });
   const location = extractLocation({ schema });
   const description = extractDescription({ html, schema });
   const image = extractImage({ html, schema, baseUrl: canonical.value || currentUrl || finalUrl });
   const pageText = plainText(html);
-  const audience = extractAudience({ schema, text: pageText.slice(0, 7000) });
-  const commerce = extractCostAndRegistration({ schema, text: pageText.slice(0, 12000) });
+  // Generic enrichment only trusts structured audience data. Broad words such
+  // as "family" in site navigation must never manufacture an age label.
+  const audience = extractAudience({ schema, text: '' });
+  // Generic commerce parsing is likewise scoped to event description/schema.
+  // Full-page text is available only to a source adapter that understands the
+  // organizer's layout.
+  const commerce = extractCostAndRegistration({
+    schema,
+    text: [plainText(schema?.description || ''), description.value].filter(Boolean).join(' ')
+  });
   const pageTitle = plainText(html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)?.[1]
     || htmlAttribute(html, /<meta\s+property=["']og:title["']\s+content=["']([^"']+)/i)
     || html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] || '');
