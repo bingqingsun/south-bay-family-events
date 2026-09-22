@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Explore nine family-friendly Mid-Autumn Festival celebrations across San José, Los Altos, Campbell, Palo Alto, and Milpitas." />
+    <meta name="description" content="Explore family-friendly Mid-Autumn Festival celebrations across the South Bay, with lanterns, mooncakes, performances, crafts, and cultural experiences." />
     <meta property="og:site_name" content="South Bay Family Finds" />
     <meta property="og:title" content="2026 South Bay Mid-Autumn Festival Guide" />
-    <meta property="og:description" content="Nine family-friendly celebrations with lanterns, mooncakes, performances, crafts, and cultural experiences." />
+    <meta property="og:description" content="Explore family-friendly Mid-Autumn Festival celebrations across the South Bay, with lanterns, mooncakes, performances, crafts, and cultural experiences." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://southbayfamilyfinds.com/collections/mid-autumn-festival/" />
     <meta property="og:image" content="https://southbayfamilyfinds.com/assets/collections/mid-autumn-hero.webp" />
@@ -19,7 +19,7 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../../styles.css?v=20260830-1" />
     <link rel="stylesheet" href="../../overrides.css?v=20260913-3" />
-    <link rel="stylesheet" href="../../collections.css?v=20260916-4" />
+    <link rel="stylesheet" href="../../collections.css?v=20260921-1" />
     <link rel="stylesheet" href="../../design-system.css?v=20260918-1" />
     <link rel="stylesheet" href="../../map-navigation.css?v=20260919-1" />
   </head>
@@ -33,24 +33,29 @@
       <div class="collection-main wrap">
         <div class="collection-breadcrumbs"><a href="../../">Home</a> / Collections / Mid-Autumn Festival</div>
 
-        <header class="collection-hero" style="--collection-cover:url('../../assets/collections/mid-autumn-hero.webp')">
+        <header class="collection-hero" id="collectionHero">
           <div class="collection-hero-content">
-            <p class="eyebrow">2026 FAMILY GUIDE</p>
-            <h1>South Bay Mid-Autumn Festival Guide</h1>
-            <p class="collection-hero-description">Celebrate with lanterns, mooncakes, lion dances, cultural performances, crafts, and family activities across the South Bay.</p>
-            <div class="collection-hero-meta"><span id="collectionEventCount">9 selected events</span><span id="collectionDateRange">Sep 19–27</span><span id="collectionCities">San José · Los Altos · Campbell · Palo Alto · Milpitas</span></div>
+            <p class="eyebrow" id="collectionHeroEyebrow">FAMILY GUIDE</p>
+            <h1 id="collectionHeroTitle">Mid-Autumn Festival Guide</h1>
+            <p class="collection-hero-description" id="collectionHeroDescription"></p>
+            <div class="collection-hero-meta" id="collectionHeroMeta" hidden><span id="collectionEventCount"></span><span id="collectionDateRange"></span><span id="collectionCities"></span></div>
           </div>
         </header>
 
-        <section class="collection-section" aria-labelledby="quickPicksHeading">
-          <div class="collection-section-heading"><div><p class="eyebrow">START HERE</p><h2 id="quickPicksHeading">Quick Picks</h2><p>Three strong choices when you want to decide fast.</p></div></div>
+        <section class="collection-state-panel" id="collectionStatePanel" aria-live="polite" hidden>
+          <h2 id="collectionStateTitle"></h2>
+          <p id="collectionStateBody"></p>
+          <a id="collectionStateCta" href="../../#events">Explore current family activities</a>
+        </section>
+
+        <section class="collection-section" id="quickPicksSection" aria-labelledby="quickPicksHeading" hidden>
+          <div class="collection-section-heading"><div><p class="eyebrow">START HERE</p><h2 id="quickPicksHeading">Quick Picks</h2><p>Strong choices when you want to decide fast.</p></div></div>
           <div class="cards collection-event-grid" id="quickPickGrid" aria-live="polite"></div>
         </section>
 
-        <section class="collection-section" aria-labelledby="allEventsHeading">
+        <section class="collection-section" id="allEventsSection" aria-labelledby="allEventsHeading" hidden>
           <div class="collection-section-heading"><div><p class="eyebrow">KEEP EXPLORING</p><h2 id="allEventsHeading">More Celebrations</h2><p>More family-friendly picks across the South Bay, verified with official event sources.</p></div></div>
           <div class="cards collection-event-grid" id="collectionEventGrid" aria-live="polite"></div>
-          <div class="collection-empty" id="collectionEmpty" hidden>No current events are available in this guide. Browse the latest family activities on the homepage.</div>
         </section>
 
         <section class="festival-about" aria-labelledby="festivalAboutHeading">
@@ -60,7 +65,7 @@
             <h2 id="festivalAboutHeading">About the Mid-Autumn Festival</h2>
             <p>The Mid-Autumn Festival, also called the Moon Festival, is celebrated across Chinese, Vietnamese, and other Asian communities. It is a time for families to gather under the full moon, share mooncakes, light lanterns, and celebrate reunion, gratitude, and the harvest.</p>
             <p>In Vietnamese communities, <em>Tết Trung Thu</em> often puts children at the center, with lantern parades, lion dances, storytelling, and performances.</p>
-            <a href="#quickPicksHeading">Find a celebration near you <span aria-hidden="true">↑</span></a>
+            <a id="festivalExploreLink" href="#quickPicksHeading">Find a celebration near you <span aria-hidden="true">↑</span></a>
           </div>
         </section>
       </div>
@@ -68,9 +73,11 @@
 
     <footer><div class="wrap"><a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand/south-bay-family-finds-mark-v2.svg" width="36" height="36" alt="" /><span class="brand-name"><span>South Bay Family</span> <span class="brand-accent">Finds</span></span></a><p>Made for curious South Bay families · Please confirm details with the organizer</p><div class="legal-links"><a class="privacy-link" href="../../about.html">About &amp; contact</a><a class="privacy-link" href="../../privacy.html">Privacy &amp; analytics</a><a class="privacy-link" href="../../terms.html">Terms &amp; data notice</a></div></div></footer>
     <script src="../../data/events.js?v=20260908-2"></script>
+    <script src="../../data/collections.js?v=20260921-1"></script>
     <script src="../../analytics.js?v=20260916-1"></script>
     <script src="../../map-navigation.js?v=20260919-1"></script>
     <script src="../../event-card.js?v=20260919-1"></script>
-    <script src="../../collections.js?v=20260918-1"></script>
+    <script src="../../collection-runtime.js?v=20260921-1"></script>
+    <script src="../../collections.js?v=20260921-1"></script>
   </body>
 </html>

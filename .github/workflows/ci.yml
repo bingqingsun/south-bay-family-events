@@ -8,6 +8,12 @@ on:
       - 'scripts/**'
       - 'data/sources.json'
       - 'analytics.js'
+      - 'collection-runtime.js'
+      - 'collections.js'
+      - 'collections.css'
+      - 'data/collections.js'
+      - 'collections/**'
+      - 'scripts/collection-runtime.test.mjs'
       - 'map-navigation.js'
       - 'scripts/map-navigation.test.mjs'
       - 'privacy.html'
@@ -18,6 +24,12 @@ on:
       - 'scripts/**'
       - 'data/sources.json'
       - 'analytics.js'
+      - 'collection-runtime.js'
+      - 'collections.js'
+      - 'collections.css'
+      - 'data/collections.js'
+      - 'collections/**'
+      - 'scripts/collection-runtime.test.mjs'
       - 'map-navigation.js'
       - 'scripts/map-navigation.test.mjs'
       - 'privacy.html'
@@ -39,6 +51,9 @@ jobs:
           node --check scripts/update-events.mjs
           node --check scripts/link-health.mjs
           node --check map-navigation.js
+          node --check collection-runtime.js
+          node --check collections.js
+          node --check data/collections.js
       - name: Run policy and data-contract tests
         run: |
           node scripts/test-event-summary-engine.mjs
@@ -48,4 +63,5 @@ jobs:
           node scripts/movie-policy.test.mjs
           node scripts/recommendation.test.mjs
           node scripts/map-navigation.test.mjs
+          node scripts/collection-runtime.test.mjs
           node scripts/link-health.test.mjs

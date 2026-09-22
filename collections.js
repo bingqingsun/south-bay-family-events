@@ -1,5 +1,5 @@
 (() => {
-  const collectionSlug = 'mid-autumn-festival';
+  const runtime = window.SBFFCollectionRuntime;
   const categoryLabels = {
     sports: 'Sports & games',
     shows: 'Shows & performances',
@@ -27,77 +27,53 @@
     '需付费／价格见详情': 'Paid admission',
     '需购票／价格见详情': 'Paid admission'
   };
-  // Editorial membership is explicit. The event database supplies fresh
-  // details, but a newly scraped seasonal event must not silently change the
-  // guide's curated lineup. A reference may also carry the organizer's
-  // canonical event URL: source IDs are implementation details and can change
-  // when a verified event moves from a curated record to an official feed.
-  const selectedEventRefs = [
-    'curated-2ef8db4c6c34be78',
-    'lahm-50332644c3a62b5d',
-    'rss-6a8f6bb3aafa6100295f6779',
-    {
-      id: 'curated-261f4bd1519605e7',
-      url: 'https://paloalto.bibliocommons.com/events/6a6cdceee30fe4845965ed72'
-    },
-    'rss-6a7fa742d4b10d0030069349',
-    'civic-70e54d8492ed1a97',
-    'curated-f1d6a411a90a62b1',
-    'curated-3dc3446a01d92775',
-    'squarespace-86e397631a011714'
-  ];
-  const quickPickIds = [
-    'curated-2ef8db4c6c34be78',
-    'lahm-50332644c3a62b5d',
-    'curated-3dc3446a01d92775'
-  ];
+
   let savedIds = JSON.parse(localStorage.getItem('southBaySaved') || '[]');
   const seenCardImpressions = new Set();
   let cardImpressionObserver = null;
 
   function track(name, parameters = {}) {
-    if (typeof window.trackAnalyticsEvent === 'function') {
-      window.trackAnalyticsEvent(name, parameters);
-    }
-  }
-
-  function isCurrent(event) {
-    const endValue = event.endDateValue || event.dateValue;
-    if (!endValue) return true;
-    const normalized = String(endValue).includes('T') ? endValue : `${endValue}T23:59:59`;
-    const endDate = new Date(normalized);
-    return Number.isNaN(endDate.getTime()) || endDate.getTime() >= Date.now();
-  }
-
-  function activeSessions(event) {
-    const candidates = Array.isArray(event.sessions) && event.sessions.length ? event.sessions : [event];
-    const current = candidates.filter((session) => isCurrent({ ...event, ...session }));
-    return current.length ? current : candidates.slice(0, 1);
-  }
-
-  function resolveEditorialEvent(reference, byId, databaseEvents) {
-    if (typeof reference === 'string') return byId.get(reference);
-    if (!reference || typeof reference !== 'object') return null;
-    const byStableId = reference.id ? byId.get(reference.id) : null;
-    if (byStableId) return byStableId;
-    if (!reference.url) return null;
-    return databaseEvents.find((event) => event.url === reference.url
-      || (event.sessions || []).some((session) => session.url === reference.url)) || null;
+    window.trackAnalyticsEvent?.(name, parameters);
   }
 
   function dateLabel(value) {
     const match = String(value || '').match(/^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}))?/);
     if (!match) return null;
     const date = new Date(`${match[1]}-${match[2]}-${match[3]}T12:00:00Z`);
-    const currentYear = new Date().getFullYear().toString();
     const formatted = new Intl.DateTimeFormat('en-US', {
       timeZone: 'UTC',
       month: 'short',
       day: 'numeric',
       weekday: 'short',
-      year: match[1] === currentYear ? undefined : 'numeric'
+      year: match[1] === String(new Date().getFullYear()) ? undefined : 'numeric'
     }).format(date);
     return `${formatted}${match[4] ? ` · ${match[4]}:${match[5]}` : ''}`;
+  }
+
+  function conciseDate(value) {
+    if (!value) return '';
+    const match = String(value).match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (!match) return value;
+    const date = new Date(`${match[1]}-${match[2]}-${match[3]}T12:00:00Z`);
+    return new Intl.DateTimeFormat('en-US', {
+      timeZone: 'UTC',
+      month: 'short',
+      day: 'numeric',
+      year: match[1] === String(new Date().getFullYear()) ? undefined : 'numeric'
+    }).format(date);
+  }
+
+  function dateRangeLabel(range) {
+    if (!range?.start) return '';
+    if (!range.end || range.start === range.end) return conciseDate(range.start);
+    const first = conciseDate(range.start);
+    const last = conciseDate(range.end);
+    const firstMonth = first.split(' ')[0];
+    const lastMonth = last.split(' ')[0];
+    if (firstMonth === lastMonth && !first.includes(',')) {
+      return `${firstMonth} ${first.split(' ')[1]}–${last.split(' ')[1]}`;
+    }
+    return `${first}–${last}`;
   }
 
   function eventAgeFact(event) {
@@ -133,11 +109,35 @@
     }
   }
 
-  function eventAnalytics(event, rank, entryPoint) {
+  function isSaved(event) {
+    return savedIds.includes(event.id) || (event.legacyIds || []).some((id) => savedIds.includes(id));
+  }
+
+  function syncSavedButtons(event) {
+    const saved = isSaved(event);
+    document.querySelectorAll(`.heart[data-id="${CSS.escape(event.id)}"]`).forEach((heart) => {
+      heart.classList.toggle('saved', saved);
+      heart.textContent = saved ? '♥' : '♡';
+      heart.setAttribute('aria-pressed', String(saved));
+      heart.setAttribute('aria-label', `${saved ? 'Remove saved activity' : 'Save'}: ${event.title}`);
+    });
+  }
+
+  function collectionLifecycleAnalytics(viewModel) {
+    return {
+      collection_state: runtime.analyticsState(viewModel.collectionState),
+      current_event_count: viewModel.currentEventCount,
+      event_count: viewModel.currentEventCount,
+      resolved_event_count: viewModel.resolvedEditorialCount,
+      unresolved_ref_count: viewModel.unresolvedRefs.length
+    };
+  }
+
+  function eventAnalytics(viewModel, event, rank, placement) {
     return {
       surface: 'collection',
-      placement: entryPoint === 'collection-quick-pick' ? 'quick_picks' : 'event_grid',
-      collection_slug: collectionSlug,
+      placement,
+      collection_slug: viewModel.slug,
       collection_position: rank,
       event_id: event.id,
       event_title: event.title,
@@ -148,7 +148,8 @@
       rank,
       sort_type: 'editorial',
       activity_category: event.type || 'other',
-      organizer: event.source || 'unknown'
+      organizer: event.source || 'unknown',
+      collection_state: runtime.analyticsState(viewModel.collectionState)
     };
   }
 
@@ -169,41 +170,27 @@
       cardImpressionObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting || entry.intersectionRatio < 0.5) return;
-          const observedCard = entry.target;
-          const key = observedCard.dataset.impressionKey;
+          const cardNode = entry.target;
+          const key = cardNode.dataset.impressionKey;
           if (!key || seenCardImpressions.has(key)) return;
           seenCardImpressions.add(key);
-          track('event_card_impression', JSON.parse(observedCard.dataset.analytics || '{}'));
-          cardImpressionObserver.unobserve(observedCard);
+          track('event_card_impression', JSON.parse(cardNode.dataset.analytics || '{}'));
+          cardImpressionObserver.unobserve(cardNode);
         });
       }, { threshold: 0.5 });
     }
     cardImpressionObserver.observe(card);
   }
 
-  function isSaved(event) {
-    return savedIds.includes(event.id) || (event.legacyIds || []).some((id) => savedIds.includes(id));
-  }
-
-  function syncSavedButtons(event) {
-    const saved = isSaved(event);
-    document.querySelectorAll(`.heart[data-id="${CSS.escape(event.id)}"]`).forEach((heart) => {
-      heart.classList.toggle('saved', saved);
-      heart.textContent = saved ? '♥' : '♡';
-      heart.setAttribute('aria-pressed', String(saved));
-      heart.setAttribute('aria-label', `${saved ? 'Remove saved activity' : 'Save'}: ${event.title}`);
-    });
-  }
-
-  function buildCard(event, rank, entryPoint) {
+  function buildCard(viewModel, event, rank, placement) {
+    const entryPoint = placement === 'quick_picks' ? 'collection-quick-pick' : 'collection-all-events';
     const node = window.SBFFEventCard.render({ eventId: event.id, entryPoint });
     const card = node.querySelector('.event-card');
-    const sessions = activeSessions(event);
+    const sessions = viewModel.currentSessionsByEventId[event.id] || [];
     const session = sessions[0] || event;
-    const analytics = eventAnalytics(event, rank, entryPoint);
-    const assetRoot = document.body.classList.contains('collection-page') ? '../../' : '';
+    const analytics = eventAnalytics(viewModel, event, rank, placement);
     const fallbackType = fallbackImageType[event.type] || event.type || 'community';
-    const fallbackImage = `${assetRoot}assets/fallback/${fallbackType}.png?v=20260830-1`;
+    const fallbackImage = `../../assets/fallback/${fallbackType}.png?v=20260830-1`;
     const officialImage = optimizedOfficialImageUrl(event.image, event.source);
     const imageArea = node.querySelector('.card-image');
     const setCardImage = (url) => {
@@ -268,7 +255,9 @@
       descriptionToggle.setAttribute('aria-expanded', String(expanded));
     });
 
-    node.querySelector('.time .detail-text').textContent = event.ongoing ? 'On view now' : (dateLabel(session.dateValue) || session.date || 'See organizer details for the event time');
+    node.querySelector('.time .detail-text').textContent = event.ongoing
+      ? 'On view now'
+      : (dateLabel(session.dateValue) || session.date || 'See organizer details for the event time');
     node.querySelector('.place .detail-text').textContent = session.place || event.place || event.city || 'South Bay';
 
     const address = node.querySelector('.address');
@@ -352,9 +341,9 @@
       syncSavedButtons(event);
     });
 
-    if (entryPoint === 'collection-all-events') card.id = `event-${event.id}`;
+    if (placement === 'event_grid') card.id = `event-${event.id}`;
     card.dataset.analytics = JSON.stringify({ ...analytics, ...collectionContextParameters(event) });
-    card.dataset.impressionKey = [collectionSlug, analytics.placement, event.id].join(':');
+    card.dataset.impressionKey = [viewModel.slug, placement, event.id].join(':');
     requestAnimationFrame(() => {
       descriptionToggle.hidden = description.hidden || description.scrollHeight <= description.clientHeight + 1;
     });
@@ -362,84 +351,200 @@
     return node;
   }
 
-  function renderCollectionEvents() {
-    const grid = document.getElementById('collectionEventGrid');
-    const quickGrid = document.getElementById('quickPickGrid');
-    if (!grid || !quickGrid || !window.SBFFEventCard) return;
+  function buildHomeCard(viewModel, position) {
+    const { config } = viewModel;
+    const card = document.createElement('a');
+    card.className = 'collection-home-card collection-home-card-featured';
+    card.href = config.landingPath;
+    card.dataset.collectionSlug = config.slug;
+    card.style.setProperty('--collection-cover', `url("${config.coverImage}")`);
 
-    const databaseEvents = Array.isArray(window.SOUTH_BAY_EVENTS)
-      ? window.SOUTH_BAY_EVENTS.filter((event) => isCurrent(event))
-      : [];
-    const byId = new Map();
-    databaseEvents.forEach((event) => {
-      byId.set(event.id, event);
-      (event.legacyIds || []).forEach((legacyId) => byId.set(legacyId, event));
+    const overlay = document.createElement('span');
+    overlay.className = 'collection-home-overlay';
+    overlay.setAttribute('aria-hidden', 'true');
+
+    const body = document.createElement('span');
+    body.className = 'collection-home-content';
+
+    const label = document.createElement('span');
+    label.className = 'collection-home-label';
+    label.textContent = viewModel.collectionState === runtime.STATES.LAST_CHANCE
+      ? (config.homeLabelLastChance || 'Last chance')
+      : (config.homeLabelActive || 'Featured guide');
+
+    const title = document.createElement('strong');
+    title.textContent = config.title;
+
+    const description = document.createElement('span');
+    description.className = 'collection-home-description';
+    description.textContent = config.homeDescription || '';
+
+    const tags = document.createElement('span');
+    tags.className = 'collection-home-tags';
+    (config.homeTags || []).forEach((tagText) => {
+      const tag = document.createElement('span');
+      tag.textContent = tagText;
+      tags.append(tag);
     });
-    const events = selectedEventRefs
-      .map((reference) => resolveEditorialEvent(reference, byId, databaseEvents))
-      .filter(Boolean)
-      .filter((event, index, all) => all.findIndex((candidate) => candidate.id === event.id) === index)
-      .sort((a, b) => String(a.dateValue).localeCompare(String(b.dateValue)));
 
-    const empty = document.getElementById('collectionEmpty');
-    if (!events.length) {
-      if (empty) empty.hidden = false;
+    const cta = document.createElement('span');
+    cta.className = 'collection-home-cta';
+    cta.append(document.createTextNode(`${config.homeCta || 'Explore the guide'} `));
+    const arrow = document.createElement('b');
+    arrow.setAttribute('aria-hidden', 'true');
+    arrow.textContent = '→';
+    cta.append(arrow);
+
+    body.append(label, title, description, tags, cta);
+    card.append(overlay, body);
+    card.addEventListener('click', () => {
+      track('collection_card_click', {
+        collection_slug: viewModel.slug,
+        collection_position: position,
+        entry_point: 'homepage',
+        ...collectionLifecycleAnalytics(viewModel)
+      });
+    });
+    return card;
+  }
+
+  function renderCollectionHome() {
+    const section = document.querySelector('.collection-home');
+    const strip = document.getElementById('collectionStrip');
+    if (!section || !strip || !runtime) return;
+
+    const viewModels = (window.SBFF_COLLECTIONS || [])
+      .map((config) => runtime.getCollectionViewModel(config.slug))
+      .filter(Boolean)
+      .filter((viewModel) => [runtime.STATES.FEATURED, runtime.STATES.LAST_CHANCE].includes(viewModel.collectionState));
+
+    strip.innerHTML = '';
+    viewModels.forEach((viewModel, index) => strip.append(buildHomeCard(viewModel, index + 1)));
+    section.hidden = viewModels.length === 0;
+  }
+
+  function setLandingStatePanel({ title, body, cta = 'Explore current family activities' }) {
+    const panel = document.getElementById('collectionStatePanel');
+    if (!panel) return;
+    panel.hidden = false;
+    document.getElementById('collectionStateTitle').textContent = title;
+    document.getElementById('collectionStateBody').textContent = body;
+    document.getElementById('collectionStateCta').textContent = cta;
+  }
+
+  function hideLandingActivitySections() {
+    document.getElementById('quickPicksSection')?.setAttribute('hidden', '');
+    document.getElementById('allEventsSection')?.setAttribute('hidden', '');
+  }
+
+  function updateFestivalExploreLink(viewModel) {
+    const link = document.getElementById('festivalExploreLink');
+    if (!link) return;
+    if ([runtime.STATES.ENDED, runtime.STATES.DATA_ERROR, runtime.STATES.DRAFT].includes(viewModel.collectionState)) {
+      link.href = '../../#events';
+      link.firstChild.textContent = 'Explore current family activities ';
+      return;
+    }
+    const target = viewModel.currentQuickPicks.length ? '#quickPicksHeading' : '#allEventsHeading';
+    link.href = target;
+    link.firstChild.textContent = 'Find a celebration near you ';
+  }
+
+  function renderCollectionLanding() {
+    const page = document.querySelector('.collection-page');
+    if (!page || !runtime) return;
+    const slug = page.dataset.collectionSlug;
+    const viewModel = runtime.getCollectionViewModel(slug);
+    const config = viewModel?.config;
+
+    if (!viewModel || !config) {
+      hideLandingActivitySections();
+      setLandingStatePanel({
+        title: 'This guide is temporarily unavailable',
+        body: 'We are refreshing this guide. Explore current South Bay family activities in the meantime.'
+      });
       return;
     }
 
-    const quickEvents = quickPickIds
-      .map((id) => byId.get(id))
-      .filter((event) => event && isCurrent(event))
-      .filter((event, index, all) => all.findIndex((candidate) => candidate.id === event.id) === index);
-    const quickIdSet = new Set(quickEvents.map((event) => event.id));
-    const otherEvents = events.filter((event) => !quickIdSet.has(event.id));
-
-    quickEvents.forEach((event, index) => {
-      const node = buildCard(event, index + 1, 'collection-quick-pick');
-      quickGrid.append(node);
-      observeCardImpression(node.querySelector('.event-card'));
-    });
-    otherEvents.forEach((event, index) => {
-      const node = buildCard(event, index + 1, 'collection-all-events');
-      grid.append(node);
-      observeCardImpression(node.querySelector('.event-card'));
-    });
-
-    const countNode = document.getElementById('collectionEventCount');
-    const datesNode = document.getElementById('collectionDateRange');
-    const citiesNode = document.getElementById('collectionCities');
-    if (countNode) countNode.textContent = `${events.length} selected event${events.length === 1 ? '' : 's'}`;
-    if (datesNode) {
-      const dates = events.map((event) => String(event.dateValue || '').slice(0, 10)).filter(Boolean);
-      if (dates.length) {
-        const first = dateLabel(dates[0])?.replace(/,?\s*(Mon|Tue|Wed|Thu|Fri|Sat|Sun)$/i, '') || dates[0];
-        const last = dateLabel(dates.at(-1))?.replace(/,?\s*(Mon|Tue|Wed|Thu|Fri|Sat|Sun)$/i, '') || dates.at(-1);
-        datesNode.textContent = first === last ? first : `${first}–${last}`;
-      }
+    if (viewModel.dataIncomplete) {
+      console.warn('[SBFF collection] unresolved editorial refs', slug, viewModel.unresolvedRefs);
     }
-    if (citiesNode) citiesNode.textContent = [...new Set(events.map((event) => event.city).filter(Boolean))].join(' · ');
+    page.dataset.collectionState = runtime.analyticsState(viewModel.collectionState);
 
-    track('collection_view', {
-      collection_slug: collectionSlug,
-      collection_title: '2026 South Bay Mid-Autumn Festival Guide',
-      event_count: events.length
-    });
-  }
+    const hero = document.getElementById('collectionHero');
+    if (hero) hero.style.setProperty('--collection-cover', `url("../../${config.coverImage}")`);
+    document.getElementById('collectionHeroTitle').textContent = config.landingTitle || config.title;
+    document.getElementById('collectionHeroDescription').textContent = config.landingDescription || config.homeDescription || '';
 
-  function bindCollectionEntry() {
-    document.querySelectorAll('[data-collection-slug]').forEach((entry, index) => {
-      entry.addEventListener('click', () => {
-        track('collection_card_click', {
-          collection_slug: entry.dataset.collectionSlug,
-          collection_position: index + 1,
-          entry_point: 'homepage'
-        });
+    const eyebrow = document.getElementById('collectionHeroEyebrow');
+    const heroMeta = document.getElementById('collectionHeroMeta');
+    const quickSection = document.getElementById('quickPicksSection');
+    const allSection = document.getElementById('allEventsSection');
+    const quickGrid = document.getElementById('quickPickGrid');
+    const allGrid = document.getElementById('collectionEventGrid');
+    const statePanel = document.getElementById('collectionStatePanel');
+
+    statePanel.hidden = true;
+    quickGrid.innerHTML = '';
+    allGrid.innerHTML = '';
+
+    if ([runtime.STATES.FEATURED, runtime.STATES.LAST_CHANCE].includes(viewModel.collectionState)) {
+      eyebrow.textContent = `${config.year} FAMILY GUIDE`;
+      heroMeta.hidden = false;
+      document.getElementById('collectionEventCount').textContent = `${viewModel.currentEventCount} upcoming celebration${viewModel.currentEventCount === 1 ? '' : 's'}`;
+      const dateNode = document.getElementById('collectionDateRange');
+      const dateText = dateRangeLabel(viewModel.currentDateRange);
+      dateNode.textContent = dateText;
+      dateNode.hidden = !dateText;
+      const cities = viewModel.currentCities.join(' · ');
+      const cityNode = document.getElementById('collectionCities');
+      cityNode.textContent = cities;
+      cityNode.hidden = !cities;
+
+      const quickIds = new Set(viewModel.currentQuickPicks.map((event) => event.id));
+      const otherEvents = viewModel.currentEvents.filter((event) => !quickIds.has(event.id));
+
+      quickSection.hidden = viewModel.currentQuickPicks.length === 0;
+      allSection.hidden = otherEvents.length === 0;
+
+      viewModel.currentQuickPicks.forEach((event, index) => {
+        const node = buildCard(viewModel, event, index + 1, 'quick_picks');
+        quickGrid.append(node);
+        observeCardImpression(node.querySelector('.event-card'));
       });
+      otherEvents.forEach((event, index) => {
+        const node = buildCard(viewModel, event, index + 1, 'event_grid');
+        allGrid.append(node);
+        observeCardImpression(node.querySelector('.event-card'));
+      });
+    } else if (viewModel.collectionState === runtime.STATES.ENDED) {
+      eyebrow.textContent = config.archiveEyebrow || `${config.year} SEASON ENDED`;
+      heroMeta.hidden = true;
+      hideLandingActivitySections();
+      setLandingStatePanel({
+        title: config.archiveTitle || 'This season has ended',
+        body: config.archiveDescription || 'These events have passed, but there are plenty of family activities happening across the South Bay.'
+      });
+    } else {
+      eyebrow.textContent = config.unavailableEyebrow || 'GUIDE TEMPORARILY UNAVAILABLE';
+      heroMeta.hidden = true;
+      hideLandingActivitySections();
+      setLandingStatePanel({
+        title: config.unavailableTitle || 'This guide is temporarily unavailable',
+        body: config.unavailableDescription || 'We are refreshing the event details for this guide. Explore current South Bay family activities in the meantime.'
+      });
+    }
+
+    updateFestivalExploreLink(viewModel);
+    track('collection_view', {
+      collection_slug: slug,
+      collection_title: config.title,
+      ...collectionLifecycleAnalytics(viewModel)
     });
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    bindCollectionEntry();
-    renderCollectionEvents();
+    renderCollectionHome();
+    renderCollectionLanding();
   });
 })();

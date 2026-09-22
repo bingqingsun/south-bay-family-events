@@ -627,3 +627,68 @@
     min-height: 0;
   }
 }
+
+
+/* Collection lifecycle states */
+.collection-state-panel {
+  background: #fff;
+  border: 1px solid #dfe6f0;
+  border-radius: 22px;
+  box-shadow: 0 12px 30px #203e740d;
+  margin-top: 30px;
+  padding: 30px 32px;
+}
+
+.collection-state-panel h2 {
+  font-size: clamp(28px, 3.4vw, 40px);
+  letter-spacing: -1.4px;
+  line-height: 1.08;
+  margin: 0;
+}
+
+.collection-state-panel p {
+  color: #5b6880;
+  font-size: 15px;
+  line-height: 1.65;
+  margin: 12px 0 0;
+  max-width: 760px;
+}
+
+.collection-state-panel a {
+  align-items: center;
+  background: #245cc8;
+  border-radius: 999px;
+  color: #fff;
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 800;
+  justify-content: center;
+  margin-top: 20px;
+  min-height: 44px;
+  padding: 0 18px;
+  text-decoration: none;
+}
+
+.collection-state-panel a:hover {
+  background: #1d4ea9;
+}
+
+.collection-state-panel a:focus-visible {
+  outline: 3px solid #d17a22;
+  outline-offset: 3px;
+}
+
+.collection-page[data-collection-state="last_chance"] .collection-home-label {
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .collection-state-panel {
+    margin-top: 24px;
+    padding: 24px;
+  }
+
+  .collection-state-panel a {
+    width: 100%;
+  }
+}
