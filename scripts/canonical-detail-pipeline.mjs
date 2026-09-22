@@ -41,12 +41,14 @@ function reuseCanonicalEvidence(event, previous) {
   if (!previous || canonicalUrl(event) !== normalizeOfficialUrl(previous?.canonicalDetail?.sourceUrl || previous?.canonicalUrl || previous?.url || '')) return event;
   const provenance = previous.fieldProvenance || {};
   const merged = { ...event, fieldProvenance: { ...(event.fieldProvenance || {}) } };
+  const strongerSummaryEvidence = ['official_structured', 'manual_verified'].includes(event.summaryStatus);
   Object.entries(provenance).forEach(([field, evidence]) => {
     if (evidence?.source !== 'canonical-detail' || previous[field] === undefined) return;
+    if (strongerSummaryEvidence && ['description', 'sourceDescriptionRaw'].includes(field)) return;
     merged[field] = previous[field];
     merged.fieldProvenance[field] = evidence;
   });
-  if (previous.sourceDescriptionRaw && provenance.sourceDescriptionRaw?.source === 'canonical-detail') {
+  if (!strongerSummaryEvidence && previous.sourceDescriptionRaw && provenance.sourceDescriptionRaw?.source === 'canonical-detail') {
     merged.sourceDescriptionRaw = previous.sourceDescriptionRaw;
   }
   if (previous.canonicalDetail) merged.canonicalDetail = previous.canonicalDetail;
