@@ -2360,15 +2360,16 @@ async function readCupertino(source) {
     const locationParts = item.placeText.split(',').map(value => value.trim()).filter(Boolean);
     const place = locationParts.shift() || source.name;
     const street = locationParts.filter(value => !/^\d{5}(?:-\d{4})?$/.test(value)).join(', ');
-    const evidence = `${detailTitle} ${description} ${item.audience} ${detailText.slice(0, 3500)}`;
+    const audienceEvidence = `${detailTitle} ${description} ${item.audience}`;
+    const commerceEvidence = `${audienceEvidence} ${detailText.slice(0, 7000)}`;
     const event = directEvent({
       id: 'cupertino-' + createHash('sha256').update(`${item.url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
       title: detailTitle, dateValue, description,
       image: item.image ? new URL(decodeXml(item.image), source.feedUrl).href : htmlAttribute(detailHtml, /<meta\s+property=["']og:image["']\s+content=["']([^"']+)/i),
       place, address: shortAddress(street, source.city || 'Cupertino'), city: source.city || 'Cupertino',
-      source: source.name, url: item.url, ageText: evidence
+      source: source.name, url: item.url, ageText: audienceEvidence
     });
-    const withCost = { ...event, ...costInfo('', evidence) };
+    const withCost = { ...event, ...costInfo('', commerceEvidence) };
     if (!detailHtml) return withCost;
     return enrichEventFromDetail(withCost, {
       source,
@@ -3442,6 +3443,17 @@ sourceHealth.detailEnrichment = {
   revalidatedMissing: revalidatedMissingEvents.length,
   extractionGaps: eventQuality.events.reduce((sum, item) => sum + (item.extraction_gaps?.length || 0), 0)
 };
+function publicationDropReason(event) {
+  if (!hasUsableSourceContent(event.description)) return 'missing_usable_description';
+  if (/\b(?:librar(?:y|ies)|bookmobile|museum|park|facility|center)\b.*\bclosed\b|\bclosed\b.*\b(?:librar(?:y|ies)|bookmobile|museum|park|facility|center)\b/i.test(event.title || '')) return 'closure_notice';
+  if (isUnavailableEvent(event)) return 'unavailable_or_cancelled';
+  if (!isFamilyRelevant(event)) return 'not_family_relevant';
+  const presented = withPresentationFields(event);
+  if (!qualityGateSummary(presented)) return 'summary_quality_gate';
+  if (!isStillActive(withEffectiveEndTime(presented))) return 'expired_after_effective_end';
+  return 'downstream_dedupe_or_grouping';
+}
+
 sourceHealth.pipelineAlerts = sourceHealth.sources
   .filter(source => source.status === 'ok' && Number(source.eventCount || 0) > 0 && Number(source.publishedCount || 0) === 0)
   .map(source => {
@@ -3453,7 +3465,8 @@ sourceHealth.pipelineAlerts = sourceHealth.sources
           dateValue: event.dateValue,
           city: event.city,
           type: event.type,
-          ageLabel: event.ageLabel
+          ageLabel: event.ageLabel,
+          dropReason: publicationDropReason(event)
         }))
       : [];
     return {
