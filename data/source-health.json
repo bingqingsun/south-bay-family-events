@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T07:41:37.065Z",
+  "generatedAt": "2026-09-22T07:43:24.101Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -416,7 +416,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 18,
+      "failureStreak": 19,
       "error": "Montalvo official calendar was not valid: 500"
     },
     {
@@ -426,7 +426,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 21,
+      "failureStreak": 22,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -803,42 +803,42 @@
   "alerts": [
     {
       "name": "Montalvo Arts Center",
-      "failureStreak": 18,
+      "failureStreak": 19,
       "error": "Montalvo official calendar was not valid: 500"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 21,
+      "failureStreak": 22,
       "error": "Official iCalendar feed was not valid: 403"
     }
   ],
   "canonicalDetailEnrichment": {
-    "checkedAt": "2026-09-22T07:41:37.065Z",
-    "total": 393,
+    "checkedAt": "2026-09-22T07:43:24.101Z",
+    "total": 388,
     "statuses": {
       "not-eligible": 50,
-      "enriched": 327,
-      "fetch-failed": 12,
-      "identity-mismatch": 4
+      "enriched": 324,
+      "identity-mismatch": 4,
+      "fetch-failed": 10
     },
     "fieldsUpdated": {
-      "canonicalUrl": 306,
-      "description": 244,
-      "sourceDescriptionRaw": 159,
+      "canonicalUrl": 315,
+      "description": 245,
+      "sourceDescriptionRaw": 160,
       "registrationEvidence": 49,
-      "image": 55,
+      "image": 45,
       "registrationStatus": 9,
       "registrationSource": 8,
-      "dateValue": 22,
-      "address": 15,
-      "costStatus": 6,
-      "costLabel": 6,
-      "costSource": 6,
-      "costEvidence": 9,
+      "dateValue": 28,
+      "address": 14,
+      "costStatus": 2,
+      "costLabel": 2,
+      "costSource": 2,
+      "costEvidence": 5,
       "endDateValue": 16,
       "city": 2,
-      "url": 6,
-      "place": 3
+      "url": 13,
+      "place": 5
     }
   }
 }
