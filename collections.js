@@ -77,18 +77,8 @@
   }
 
   function eventAgeFact(event) {
-    let label = String(event.ageLabel || '').trim();
-    if (!label && Array.isArray(event.ageRanges) && event.ageRanges.length) {
-      label = event.ageRanges.map(([start, end]) => start === end ? String(start) : `${start}–${end}`).join(' · ');
-    }
-    if (!label) return '';
-    if (label === 'Family-friendly' && !(event.ageRanges || []).length) return 'All ages';
-    const grade = label.match(/^Grades?\s+(.+)$/i);
-    if (grade && event.ageRanges?.length) {
-      return `Ages ${event.ageRanges.map(([start, end]) => start === end ? start : `${start}–${end}`).join(' · ')}`;
-    }
-    if (/^all ages$/i.test(label)) return 'All ages';
-    return `Ages ${label.replace(/\bAges?\s*/gi, '')}`;
+    // Keep collection cards on the same evidence-only contract as homepage.
+    return window.SBFFAgePolicy.displayLabel(event);
   }
 
   function eventCostLabel(event) {
