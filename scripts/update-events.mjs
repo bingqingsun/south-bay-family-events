@@ -2273,7 +2273,6 @@ async function readCivic(source) {
     seen.add(key);
     return true;
   });
-  console.log('DEBUG Cupertino listing items:', JSON.stringify(items));
   const events = await Promise.all(items.map(async (item, index) => {
     try {
       const detailResponse = await fetch(item.url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
@@ -2471,6 +2470,7 @@ async function readCupertino(source) {
     return [{ title, dateValue, description, placeText, audience, image, url }];
   });
 
+  console.log('DEBUG Cupertino listing items:', JSON.stringify(items));
   const events = await Promise.all(items.map(async (item, index) => {
     let detailHtml = '';
     try {
