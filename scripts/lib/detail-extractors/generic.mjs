@@ -171,7 +171,8 @@ export function usefulOfficialImage(value) {
     const fingerprint = decodeURIComponent(url.pathname + ' ' + url.search).toLowerCase();
     // A canonical page may expose a site logo/default share card as og:image.
     // Those are official assets but not evidence of the event's main image.
-    return !/(?:^|[\\/_ .-])(?:favicon|logo|brandmark|site[-_ ]?icon|avatar|placeholder|default[-_ ]?(?:image|event|share)|transparent|spacer|sprite|seal)(?:[\\/_ .-]|$)/.test(fingerprint);
+    if (/(?:^|\/)https?\/\//.test(fingerprint)) return false;
+    return !/(?:^|[\\/_ .-])(?:favicon|logo|brandmark|site[-_ ]?icon|avatar|placeholder|blank|default[-_ ]?(?:featured[-_ ]?)?(?:image|event|share)|banner[-_ ]?small|transparent|spacer|sprite|seal)(?:[\\/_ .-]|$)/.test(fingerprint);
   } catch {
     return false;
   }
@@ -186,7 +187,9 @@ export function extractImage({ html, schema, baseUrl }) {
   for (const [rawImage, method] of [[schemaImage, 'schema.org'], [ogImage, 'og:image'], [twitterImage, 'twitter:image']]) {
     if (!rawImage) continue;
     try {
-      const value = new URL(decodeHtml(rawImage), baseUrl).href;
+      const url = new URL(decodeHtml(rawImage), baseUrl);
+      if (url.protocol === 'http:') url.protocol = 'https:';
+      const value = url.href;
       if (usefulOfficialImage(value)) return { value, method };
     } catch {}
   }
