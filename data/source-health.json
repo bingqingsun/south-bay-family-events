@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T06:56:30.752Z",
+  "generatedAt": "2026-09-22T07:00:04.043Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -20,7 +20,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 10,
+      "eventCount": 8,
       "failureStreak": 0,
       "error": ""
     },
@@ -84,7 +84,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 491,
+      "eventCount": 490,
       "failureStreak": 0,
       "error": ""
     },
@@ -195,7 +195,7 @@
       "method": "stanford",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 5,
+      "eventCount": 3,
       "failureStreak": 0,
       "error": ""
     },
@@ -215,7 +215,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 55,
+      "eventCount": 47,
       "failureStreak": 0,
       "error": ""
     },
@@ -225,7 +225,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 41,
+      "eventCount": 36,
       "failureStreak": 0,
       "error": ""
     },
@@ -235,7 +235,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 3,
+      "eventCount": 2,
       "failureStreak": 0,
       "error": ""
     },
@@ -245,7 +245,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 96,
+      "eventCount": 95,
       "failureStreak": 0,
       "error": ""
     },
@@ -255,7 +255,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 60,
+      "eventCount": 54,
       "failureStreak": 0,
       "error": ""
     },
@@ -265,7 +265,7 @@
       "method": "cinemark",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 0,
+      "eventCount": 11,
       "failureStreak": 0,
       "error": ""
     },
@@ -275,7 +275,7 @@
       "method": "cinemark",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 0,
+      "eventCount": 9,
       "failureStreak": 0,
       "error": ""
     },
@@ -285,7 +285,7 @@
       "method": "cinemark",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 0,
+      "eventCount": 8,
       "failureStreak": 0,
       "error": ""
     },
@@ -394,10 +394,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 2,
-      "error": "Los Altos History Museum event list was not valid: 202"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -416,7 +416,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 10,
+      "failureStreak": 11,
       "error": "Montalvo official calendar was not valid: 500"
     },
     {
@@ -426,7 +426,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 13,
+      "failureStreak": 14,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -803,12 +803,12 @@
   "alerts": [
     {
       "name": "Montalvo Arts Center",
-      "failureStreak": 10,
+      "failureStreak": 11,
       "error": "Montalvo official calendar was not valid: 500"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 13,
+      "failureStreak": 14,
       "error": "Official iCalendar feed was not valid: 403"
     }
   ]
