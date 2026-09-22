@@ -3074,7 +3074,7 @@ const preliminaryEvents = [...new Map([...feedEvents, ...candidates]
   .filter(event => hasUsableSourceContent(event.description))
   // A closure notice is useful operational information, but it is not a
   // family activity and must never enter the browse catalog.
-  .filter(event => !/\b(?:libraries?|bookmobile|museum|park|facility|center)\b.*\bclosed\b|\bclosed\b.*\b(?:libraries?|bookmobile|museum|park|facility|center)\b/i.test(event.title || ''))
+  .filter(event => !/\b(?:librar(?:y|ies)|bookmobile|museum|park|facility|center)\b.*\bclosed\b|\bclosed\b.*\b(?:librar(?:y|ies)|bookmobile|museum|park|facility|center)\b/i.test(event.title || ''))
   .filter(event => !isUnavailableEvent(event))
   .filter(isFamilyRelevant)
   .map(withPresentationFields)
@@ -3391,12 +3391,14 @@ const eventQuality = {
 };
 
 const qualityBySource = new Map();
+const configuredSourceNames = new Set(sources.map(source => source.name));
 eventQuality.events.forEach((item, index) => {
   const publishedEvent = events[index] || {};
-  const sourceNames = new Set([
-    item.source,
-    ...(publishedEvent.sessions || []).map(session => session.source).filter(Boolean)
-  ].filter(Boolean));
+  const sessionSourceNames = (publishedEvent.sessions || []).flatMap(session => [
+    session.source,
+    configuredSourceNames.has(session.place) ? session.place : ''
+  ]).filter(Boolean);
+  const sourceNames = new Set([item.source, ...sessionSourceNames].filter(Boolean));
   sourceNames.forEach(sourceName => {
     const rows = qualityBySource.get(sourceName) || [];
     if (!rows.some(row => row.event_id === item.event_id)) rows.push(item);
