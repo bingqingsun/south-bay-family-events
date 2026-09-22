@@ -21,6 +21,8 @@ on:
       - 'scripts/cupertino-audience.mjs'
       - 'scripts/cupertino-audience.test.mjs'
       - 'data/sources.json'
+      - 'app.js'
+      - 'collections.js'
       - '.github/workflows/daily-events.yml'
   schedule:
     # Weekdays at 06:20 PST / 07:20 PDT. RSS feeds refresh every weekday;
@@ -49,6 +51,7 @@ jobs:
         run: |
           node scripts/test-event-summary-engine.mjs
           node scripts/link-health.test.mjs
+          node scripts/link-ui.test.cjs
           node scripts/cupertino-audience.test.mjs
           node scripts/age-policy.test.cjs
       - run: node scripts/update-events.mjs

@@ -8,6 +8,7 @@ on:
       - 'scripts/**'
       - 'data/sources.json'
       - 'analytics.js'
+      - 'app.js'
       - 'collection-runtime.js'
       - 'collections.js'
       - 'collections.css'
@@ -24,6 +25,7 @@ on:
       - 'scripts/**'
       - 'data/sources.json'
       - 'analytics.js'
+      - 'app.js'
       - 'collection-runtime.js'
       - 'collections.js'
       - 'collections.css'
@@ -53,6 +55,7 @@ jobs:
           node --check scripts/cupertino-audience.mjs
           node --check scripts/link-health.mjs
           node --check map-navigation.js
+          node --check app.js
           node --check age-policy.js
           node --check collection-runtime.js
           node --check collections.js
@@ -71,3 +74,4 @@ jobs:
           node scripts/map-navigation.test.mjs
           node scripts/collection-runtime.test.mjs
           node scripts/link-health.test.mjs
+          node scripts/link-ui.test.cjs

@@ -36,6 +36,15 @@
     window.trackAnalyticsEvent?.(name, parameters);
   }
 
+  function safeOutboundUrl(value) {
+    try {
+      if (!value) return '';
+      const url = new URL(value, window.location.href);
+      if (!/^https?:$/.test(url.protocol) || url.origin === window.location.origin) return '';
+      return url.href;
+    } catch { return ''; }
+  }
+
   function dateLabel(value) {
     const match = String(value || '').match(/^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}))?/);
     if (!match) return null;
@@ -286,10 +295,13 @@
     sessionToggle.textContent = `Show ${otherSessions.length} other session${otherSessions.length === 1 ? '' : 's'}`;
     otherSessions.forEach((item) => {
       const row = document.createElement('li');
-      const sessionLink = document.createElement('a');
-      sessionLink.href = item.url || event.url;
-      sessionLink.target = '_blank';
-      sessionLink.rel = 'noopener';
+      const sessionUrl = safeOutboundUrl(item.url || event.url);
+      const sessionLink = document.createElement(sessionUrl ? 'a' : 'span');
+      if (sessionUrl) {
+        sessionLink.href = sessionUrl;
+        sessionLink.target = '_blank';
+        sessionLink.rel = 'noopener';
+      }
       sessionLink.textContent = dateLabel(item.dateValue) || item.date || 'View session';
       row.append(sessionLink);
       sessionList.append(row);
@@ -302,9 +314,10 @@
     });
 
     const link = node.querySelector('.source-link');
-    const resolvedLink = event.url || '';
+    const resolvedLink = safeOutboundUrl(event.url);
     link.hidden = !resolvedLink;
-    link.href = resolvedLink;
+    if (resolvedLink) link.href = resolvedLink;
+    else link.removeAttribute('href');
     link.firstChild.textContent = 'View details ';
     link.addEventListener('click', () => {
       if (!resolvedLink) return;
