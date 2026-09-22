@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { enrichCanonicalDetails, shouldEnrichCanonicalDetail } from './lib/canonical-detail-enrichment.mjs';
 import { extractCostAndRegistration, usefulOfficialImage } from './lib/detail-extractors/generic.mjs';
+import { fetchOfficialDetail } from './lib/detail-fetch.mjs';
 
 const source = { id: 'city-test', name: 'City Test', domain: 'example.gov', method: 'civic', feedUrl: 'https://example.gov/events', landingUrl: 'https://example.gov/events' };
 const base = {
@@ -14,6 +15,12 @@ const base = {
 assert.equal(shouldEnrichCanonicalDetail(base, source), true);
 assert.equal(shouldEnrichCanonicalDetail({ ...base, url: source.feedUrl, canonicalUrl: source.feedUrl }, source), false);
 assert.equal(shouldEnrichCanonicalDetail({ ...base, format: 'movie-screening' }, source), false);
+const oddMime = await fetchOfficialDetail(base.url, {
+  allowedHosts: ['example.gov'],
+  fetchImpl: async url => ({ ok: true, status: 200, url, headers: { get: () => 'application/octet-stream' }, text: async () => '<h1>Family Lantern Night</h1>' })
+});
+assert.equal(oddMime.ok, true);
+assert.match(oddMime.html, /Family Lantern Night/);
 assert.equal(usefulOfficialImage('https://example.gov/images/events_email_logo.png'), false);
 assert.equal(usefulOfficialImage('https://example.gov/wp-content/uploads/default_featured-image.jpg'), false);
 assert.equal(usefulOfficialImage('https://example.gov/uplimage/Blank.gif'), false);
