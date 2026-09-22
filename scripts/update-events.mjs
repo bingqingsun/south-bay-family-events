@@ -2453,7 +2453,10 @@ async function readCupertino(source) {
     const day = htmlAttribute(block, /part-date[^>]*>([\s\S]*?)<\/span>/i);
     const month = htmlAttribute(block, /part-month[^>]*>([\s\S]*?)<\/span>/i).slice(0, 3).toLowerCase();
     const year = htmlAttribute(block, /part-year[^>]*>([\s\S]*?)<\/span>/i);
-    const description = htmlAttribute(block, /list-item-block-desc[^>]*>([\s\S]*?)<\/span>/i);
+    const description = [...block.matchAll(/<(?:span|div)[^>]*class=["'][^"']*list-item-block-desc[^"']*["'][^>]*>([\s\S]*?)<\/(?:span|div)>/gi)]
+      .map(match => sourceDescriptionText(match[1]))
+      .filter(value => value && value !== '…' && value !== '...')
+      .sort((a, b) => b.length - a.length)[0] || '';
     const placeText = htmlAttribute(block, /list-item-address[^>]*>([\s\S]*?)<\/p>/i).replace(/\s*,\s*/g, ', ');
     const audience = htmlAttribute(block, /tagged-as-list[\s\S]*?<span class=["']text["'][^>]*>([\s\S]*?)<\/span>\s*<\/p>/i);
     const image = htmlAttribute(block, /<img[^>]+src=["']([^"']+)["']/i);
