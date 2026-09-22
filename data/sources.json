@@ -86,7 +86,7 @@
     "name": "City of Cupertino",
     "domain": "cupertino.gov",
     "method": "cupertino",
-    "feedUrl": "https://www.cupertino.gov/Events-directory?dlv_OC+CL+City+Events+Listing=%28dd_OC+Event+Categories%3DMajor+events%29%28dd_OC+Composite+Date%3D0d%29",
+    "feedUrl": "https://www.cupertino.gov/Events-directory",
     "city": "Cupertino",
     "familyPattern": "Kids & family|Youth events|family|families|children|kids?|youth|teen|toddler|school"
   },
