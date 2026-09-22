@@ -1,27 +1,29 @@
+function hostAllowed(value, allowedHosts = []) {
+  try {
+    const host = new URL(value).hostname.toLowerCase();
+    return allowedHosts.some(item => host === item || host.endsWith('.' + item));
+  } catch {
+    return false;
+  }
+}
+
 export async function fetchOfficialDetail(url, {
-  domain = '',
+  allowedHosts = [],
   timeoutMs = 12000,
-  userAgent = 'SouthBayFamilyEventsBot/1.0'
+  userAgent = 'SouthBayFamilyEventsBot/1.0',
+  fetchImpl = fetch
 } = {}) {
   const startedAt = Date.now();
   try {
-    const response = await fetch(url, {
+    const response = await fetchImpl(url, {
       headers: { 'user-agent': userAgent, 'accept': 'text/html,application/xhtml+xml' },
       redirect: 'follow',
       signal: AbortSignal.timeout(timeoutMs)
     });
-    const contentType = response.headers.get('content-type') || '';
+    const contentType = response.headers?.get?.('content-type') || '';
     const html = /html|xhtml/i.test(contentType) || !contentType ? await response.text() : '';
     let finalUrl = response.url || url;
-    if (domain) {
-      try {
-        const host = new URL(finalUrl).hostname.toLowerCase();
-        const approved = host === domain.toLowerCase() || host.endsWith('.' + domain.toLowerCase());
-        if (!approved) finalUrl = url;
-      } catch {
-        finalUrl = url;
-      }
-    }
+    if (allowedHosts.length && !hostAllowed(finalUrl, allowedHosts)) finalUrl = url;
     return {
       ok: response.ok && Boolean(html),
       status: response.status,
