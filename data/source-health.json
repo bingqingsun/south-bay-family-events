@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T07:00:04.043Z",
+  "generatedAt": "2026-09-22T07:16:25.799Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -416,7 +416,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 11,
+      "failureStreak": 12,
       "error": "Montalvo official calendar was not valid: 500"
     },
     {
@@ -426,7 +426,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 14,
+      "failureStreak": 15,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -794,21 +794,21 @@
       "name": "Santana Row",
       "method": "santana-row",
       "mode": "direct",
-      "status": "ok",
-      "eventCount": 4,
-      "failureStreak": 0,
-      "error": ""
+      "status": "failed",
+      "eventCount": 0,
+      "failureStreak": 1,
+      "error": "fetch failed"
     }
   ],
   "alerts": [
     {
       "name": "Montalvo Arts Center",
-      "failureStreak": 11,
+      "failureStreak": 12,
       "error": "Montalvo official calendar was not valid: 500"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 14,
+      "failureStreak": 15,
       "error": "Official iCalendar feed was not valid: 403"
     }
   ]
