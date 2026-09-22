@@ -19,7 +19,7 @@ import {
   hasPublishableSummary,
   hasUsableSourceContent
 } from './event-summary-engine.mjs';
-import { auditLinks } from './link-health.mjs';
+import { auditLinks, releaseBlockingLinks } from './link-health.mjs';
 import { selectPublishableOfficialDescription } from './official-description.mjs';
 import { configuredCandidates, sitemapCandidates, verifySpecialEventPage } from './special-event-pages.mjs';
 import { selectCupertinoDetailDates } from './cupertino-detail-date.mjs';
@@ -873,7 +873,14 @@ async function readCurated(source) {
       summaryStatus: officialDescription ? 'extractive' : 'manual_verified'
     });
     if (!hasUsableSourceContent(event.description)) return null;
-    return { ...event, ...costInfo(item.cost || '', officialDescription || item.description || '') };
+    return {
+      ...event,
+      ...costInfo(item.cost || '', officialDescription || item.description || ''),
+      // This URL is explicitly configured from a first-party organizer page.
+      // Link Health still checks HTTP/soft errors, but an inconclusive machine
+      // title extraction must not erase this human-verified evidence.
+      linkSource: 'curated_verified'
+    };
   }))).filter(Boolean);
 }
 
@@ -2961,10 +2968,48 @@ async function readSymphony(source) {
   });
 }
 
-// San Jose Theaters exposes its official public calendar through Timely's
-// documented browser API. The listing contains all venue programming, so we
-// fetch detailed pages only for likely family shows and still require explicit
-// audience language on the official detail before publishing a card.
+function eventDetailSlug(title) {
+  return plainText(title).toLowerCase()
+    .replace(/[’']/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+async function resolveConfiguredFirstPartyDetail(source, title, dateValue) {
+  if (!source.canonicalEventBase || !title) return '';
+  const slug = eventDetailSlug(title);
+  const year = String(dateValue || '').match(/^(20\d{2})/)?.[1] || '';
+  const base = String(source.canonicalEventBase).replace(/\/+$/, '') + '/';
+  const candidates = [...new Set([
+    new URL(slug + '/', base).href,
+    year ? new URL(slug + '-' + year + '/', base).href : ''
+  ].filter(Boolean))];
+
+  for (const candidate of candidates) {
+    try {
+      const response = await fetch(candidate, {
+        headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' },
+        redirect: 'follow',
+        signal: AbortSignal.timeout(12000)
+      });
+      const html = await response.text();
+      if (!response.ok) continue;
+      const pageText = plainText(html);
+      if (!isSameEvent(title, pageText)) continue;
+      if (year && !pageText.includes(year)) continue;
+      const resolved = response.url || candidate;
+      if (isOfficialUrl(resolved, source.domain)) return resolved;
+    } catch {
+      // Try the next deterministic first-party candidate.
+    }
+  }
+  return '';
+}
+
+// San Jose Theaters exposes discovery data through Timely, but the public CTA
+// belongs on SanJoseTheaters.org. The resolver above deterministically checks
+// the first-party event slug (plus a year variant) and verifies title/year.
+// Timely remains discovery infrastructure, never the long-lived user canonical.
 async function readTimely(source) {
   const headers = { 'x-api-key': 'c6e5e0363b5925b28552de8805464c66f25ba0ce', 'user-agent': 'SouthBayFamilyEventsBot/1.0' };
   const baseUrl = `https://events.timely.fun/api/calendars/${source.calendarId}/events`;
@@ -2989,7 +3034,14 @@ async function readTimely(source) {
   const pagesWithDetails = await Promise.all(candidates.map(async item => {
     const response = await fetch(`${baseUrl}/${item.id}`, { headers, signal: AbortSignal.timeout(15000) });
     const payload = await response.json();
-    return response.ok && payload?.data ? payload.data : null;
+    if (!response.ok || !payload?.data) return null;
+    const detail = payload.data;
+    const firstPartyUrl = await resolveConfiguredFirstPartyDetail(
+      source,
+      detail.title,
+      String(detail.start_datetime || '').replace(' ', 'T')
+    );
+    return { ...detail, firstPartyUrl };
   }));
   return pagesWithDetails.flatMap((detail, detailIndex) => {
     const description = detail?.description || detail?.description_short || '';
@@ -3015,7 +3067,8 @@ async function readTimely(source) {
         id: `timely-${detailIndex}-${sessionIndex}`, title: detail.title, dateValue,
         description: sourceDescriptionText(description), image: detail.images?.[0]?.full?.url || detail.images?.[0]?.medium?.url || '',
         place: plainText(venue.title || 'San Jose Theaters'), address, city,
-        source: source.name, url: detail.url || source.feedUrl, ageText: description, format: 'live-show'
+        source: source.name, url: detail.firstPartyUrl || source.landingUrl || source.feedUrl,
+        ageText: description, format: 'live-show'
       });
       // Timely returns a platform default of "0" even for external ticketed
       // events. Use a price only when the organizer actually supplies it.
@@ -3440,8 +3493,13 @@ function groupRepeatedSessions(items) {
       title: displayTitle,
       movieRating,
       legacyIds: [...new Set(ordered.flatMap(event => [event.id, ...(event.legacyIds || [])]))],
+      // Keep the parent-facing movie label while preserving each concrete
+      // session's real source identity and official ticket URL.
       source: first.format === 'movie-screening' ? 'Official cinema listings' : first.source,
-      sessions: cardSessions.map(event => ({ id: event.id, date: event.date, dateValue: event.dateValue, endDateValue: event.endDateValue, url: event.url, place: event.place, address: event.address, city: event.city }))
+      sessions: cardSessions.map(event => ({
+        id: event.id, date: event.date, dateValue: event.dateValue, endDateValue: event.endDateValue,
+        url: event.url, source: event.source, place: event.place, address: event.address, city: event.city
+      }))
     }];
   }).sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
 }
@@ -3537,8 +3595,14 @@ let events = groupRepeatedSessions([...scheduledEvents, ...museums.map(museum =>
 const linkHealth = await auditLinks(events, sources, { concurrency: 6 });
 events = linkHealth.events.map(event => ({
   ...event,
-  // Alternate sessions inherit the card's resolved official destination.
-  sessions: (event.sessions || []).map(session => ({ ...session, url: event.url, linkResolution: event.linkResolution }))
+  // Never erase a session's concrete official URL because the parent card was
+  // downgraded. If a session has no URL of its own, it may inherit the card's
+  // already-resolved safe destination; otherwise preserve the source URL.
+  sessions: (event.sessions || []).map(session => ({
+    ...session,
+    url: session.url || event.url || '',
+    linkResolution: session.url ? 'session-canonical' : event.linkResolution
+  }))
 }));
 const linkHealthSummary = {
   checkedAt: generatedAt, publishedEvents: events.length, checkedLinks: events.length,
@@ -3547,8 +3611,16 @@ const linkHealthSummary = {
   unavailable: events.filter(event => event.linkResolution === 'unavailable').length
 };
 console.log(`Link health summary: ${JSON.stringify(linkHealthSummary)}`);
+const releaseBlocking = releaseBlockingLinks(events);
+if (releaseBlocking.length) {
+  const sample = releaseBlocking.slice(0, 12).map(event => ({
+    title: event.title, source: event.source, status: event.linkStatus,
+    canonicalUrl: event.canonicalUrl
+  }));
+  throw new Error(`Link Health publish gate blocked ${releaseBlocking.length} known-broken official links: ${JSON.stringify(sample)}`);
+}
 if ((linkHealthSummary['not-found'] || 0) + (linkHealthSummary['content-mismatch'] || 0) > 0) {
-  console.warn(`::warning::Link health downgraded ${(linkHealthSummary['not-found'] || 0) + (linkHealthSummary['content-mismatch'] || 0)} detail links to an official fallback where configured.`);
+  console.warn(`::warning::Link health downgraded ${(linkHealthSummary['not-found'] || 0) + (linkHealthSummary['content-mismatch'] || 0)} detail links to a verified official fallback.`);
 }
 
 function translationFingerprint(event) {
