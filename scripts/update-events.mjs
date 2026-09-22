@@ -20,6 +20,12 @@ import {
   hasUsableSourceContent
 } from './event-summary-engine.mjs';
 import { auditLinks } from './link-health.mjs';
+import { fetchOfficialDetail } from './lib/detail-fetch.mjs';
+import {
+  buildEventQuality,
+  DETAIL_QUALITY_STATES,
+  enrichEventFromDetail
+} from './lib/detail-enrichment.mjs';
 
 const key = process.env.SERPAPI_KEY;
 // Translation is intentionally paused: no third-party translation key is read
@@ -2302,113 +2308,6 @@ async function readCivic(source) {
   return events.filter(Boolean);
 }
 
-function cupertinoDetailEnrichment(event, html, source) {
-  if (!html) return event;
-  const schema = firstOfficialEventSchema(html);
-  const detailText = plainText(html);
-  const detailTitle = plainText(html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)?.[1] || event.title);
-  const canonicalHref = htmlAttribute(html, /<link[^>]+rel=["'][^"']*canonical[^"']*["'][^>]+href=["']([^"']+)["']/i)
-    || htmlAttribute(html, /<link[^>]+href=["']([^"']+)["'][^>]+rel=["'][^"']*canonical[^"']*["']/i)
-    || String(schema?.url || '');
-  const canonicalUrl = (() => {
-    if (!canonicalHref) return event.url;
-    try {
-      const value = new URL(decodeXml(canonicalHref), event.url || source.feedUrl).href;
-      return isOfficialUrl(value, source.domain) ? value : event.url;
-    } catch {
-      return event.url;
-    }
-  })();
-
-  const normalizeClock = value => String(value || '').replace(/a\.?m\.?/i, 'AM').replace(/p\.?m\.?/i, 'PM');
-  let dateValue = event.dateValue;
-  let endDateValue = event.endDateValue;
-  if (schema?.startDate) dateValue = String(schema.startDate);
-  if (schema?.endDate) endDateValue = String(schema.endDate);
-
-  const nextDate = detailText.match(/Next date:\s*((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\s*\|\s*(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM))(?:\s*(?:to|-|–|—)\s*(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM)))?/i);
-  const plainDate = detailText.match(/\b((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\b/i);
-  const dateAnchor = nextDate?.[1] || plainDate?.[1] || '';
-  const nearbyText = dateAnchor ? detailText.slice(Math.max(0, detailText.indexOf(dateAnchor)), detailText.indexOf(dateAnchor) + 260) : '';
-  const timeRange = nextDate
-    ? [nextDate[2], nextDate[3] || '']
-    : (() => {
-        const match = nearbyText.match(/(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM))\s*(?:to|-|–|—)\s*(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM))/i);
-        return match ? [match[1], match[2]] : [];
-      })();
-  if (!schema?.startDate && dateAnchor && timeRange[0]) dateValue = isoDateFromOfficialText(dateAnchor, normalizeClock(timeRange[0]));
-  if (!schema?.endDate && dateAnchor && timeRange[1]) endDateValue = isoDateFromOfficialText(dateAnchor, normalizeClock(timeRange[1]));
-
-  const schemaLocation = Array.isArray(schema?.location) ? schema.location[0] : schema?.location;
-  const schemaAddress = schemaLocation && typeof schemaLocation === 'object' ? schemaLocation.address : null;
-  let city = event.city || source.city || 'Cupertino';
-  let place = event.place || '';
-  let address = event.address || '';
-
-  if (schemaLocation && typeof schemaLocation === 'object') {
-    place = plainText(schemaLocation.name || '') || place;
-    if (schemaAddress && typeof schemaAddress === 'object') {
-      city = canonicalCity(schemaAddress.addressLocality || city);
-      address = shortAddress(schemaAddress.streetAddress || '', city) || address;
-    } else if (typeof schemaAddress === 'string') {
-      const parsed = venueAndAddress([place, schemaAddress].filter(Boolean).join(', '), city);
-      place = parsed.place || place;
-      address = parsed.address || address;
-      city = parsed.city || city;
-    }
-  }
-
-  const addressMatch = detailText.match(/\b(\d{1,6}\s+[A-Za-z0-9.'’ -]+?(?:Avenue|Ave\.?|Street|St\.?|Road|Rd\.?|Boulevard|Blvd\.?|Drive|Dr\.?|Lane|Ln\.?|Court|Ct\.?|Way|Parkway|Pkwy\.?|Circle|Cir\.?))\s+(Cupertino),\s*CA\s*\d{5}(?:-\d{4})?\b/i);
-  if (!address && addressMatch) {
-    city = canonicalCity(addressMatch[2] || city);
-    address = shortAddress(addressMatch[1], city);
-  }
-  if ((!place || place === source.name) && addressMatch) {
-    const addressIndex = detailText.indexOf(addressMatch[0]);
-    let prefix = detailText.slice(Math.max(0, addressIndex - 220), addressIndex);
-    prefix = prefix
-      .replace(detailTitle, ' ')
-      .replace(/\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2}\b/gi, ' ')
-      .replace(/\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM)\s*(?:to|-|–|—)\s*\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM)/gi, ' ')
-      .replace(/\b(?:Next date|When|Where|Location)\b\s*:?/gi, ' ')
-      .replace(/\s+/g, ' ')
-      .trim();
-    const candidate = prefix.match(/([A-Z][A-Za-z0-9&'’.-]*(?:\s+[A-Z][A-Za-z0-9&'’.-]*){1,5})$/)?.[1] || '';
-    if (candidate && !/^(?:South Bay|City of Cupertino)$/i.test(candidate)) place = candidate;
-  }
-
-  const description = officialDetailDescription(html, schema, detailTitle) || event.description;
-  const image = event.image || htmlAttribute(html, /<meta\s+property=["']og:image["']\s+content=["']([^"']+)/i);
-  const pricing = costInfo('', detailText);
-  const costFields = pricing.costStatus !== 'unknown' ? {
-    costStatus: pricing.costStatus,
-    costLabel: pricing.costLabel,
-    costSource: pricing.costSource,
-    costEvidence: pricing.costEvidence
-  } : {};
-  const registrationFields = pricing.registrationStatus !== 'unknown' ? {
-    registrationStatus: pricing.registrationStatus,
-    registrationSource: pricing.registrationSource,
-    registrationEvidence: pricing.registrationEvidence
-  } : {};
-
-  return {
-    ...event,
-    title: detailTitle || event.title,
-    dateValue: dateValue || event.dateValue,
-    endDateValue: endDateValue || event.endDateValue,
-    description,
-    image,
-    place: place || event.place,
-    address: address || event.address,
-    city: canonicalCity(city),
-    url: canonicalUrl || event.url,
-    canonicalUrl: canonicalUrl || event.canonicalUrl || event.url,
-    ...costFields,
-    ...registrationFields
-  };
-}
-
 // Cupertino publishes a server-rendered public event list rather than an RSS
 // or ICS feed. The list itself includes an official date, description, venue,
 // image, and audience tags, so it is more reliable than a web-search result.
@@ -2470,7 +2369,15 @@ async function readCupertino(source) {
       source: source.name, url: item.url, ageText: evidence
     });
     const withCost = { ...event, ...costInfo('', evidence) };
-    return detailHtml ? cupertinoDetailEnrichment(withCost, detailHtml, source) : withCost;
+    if (!detailHtml) return withCost;
+    return enrichEventFromDetail(withCost, {
+      source,
+      html: detailHtml,
+      finalUrl: item.url,
+      mode: 'fresh',
+      verifiedAt: generatedAt,
+      fetchStatus: 200
+    }).event;
   }));
   return events.filter(Boolean);
 }
@@ -2914,6 +2821,7 @@ const browserTarget = new URL('../data/events.js', import.meta.url);
 const museumTarget = new URL('../data/museums.json', import.meta.url);
 const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
 const sourceHealthTarget = new URL('../data/source-health.json', import.meta.url);
+const eventQualityTarget = new URL('../data/event-quality.json', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const existingSourceHealth = await readFile(sourceHealthTarget, 'utf8').then(JSON.parse).catch(() => ({ sources: [] }));
@@ -3049,42 +2957,75 @@ const successfulDirectSourceNames = new Set(feedAttempts
   .filter(result => result.status === 'fulfilled')
   .map(result => result.sourceName));
 const directSourceByName = new Map(directSources.map(source => [source.name, source]));
-const freshOfficialKeys = new Set(freshFeedEvents.map(event =>
-  `${event.source}\u001f${plainText(event.title).toLowerCase()}\u001f${String(event.url || '').toLowerCase()}`
+const freshOfficialIdentityKeys = new Set(freshFeedEvents.map(event =>
+  [event.source, plainText(event.title).toLowerCase(), String(event.dateValue || '').slice(0, 10)].join('\u001f')
 ));
+const revalidationDiagnostics = [];
 
 async function revalidateMissingOfficialEvent(event) {
   const source = directSourceByName.get(event.source);
   if (!source || !event.url || !successfulDirectSourceNames.has(event.source) || !isStillActive(event)) return null;
   if (!isOfficialUrl(event.url, source.domain)) return null;
-  const key = `${event.source}\u001f${plainText(event.title).toLowerCase()}\u001f${String(event.url).toLowerCase()}`;
-  if (freshOfficialKeys.has(key)) return null;
-  try {
-    const response = await fetch(event.url, {
-      headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' },
-      signal: AbortSignal.timeout(12000)
+
+  const identityKey = [event.source, plainText(event.title).toLowerCase(), String(event.dateValue || '').slice(0, 10)].join('\u001f');
+  if (freshOfficialIdentityKeys.has(identityKey)) return null;
+
+  const detail = await fetchOfficialDetail(event.url, { domain: source.domain, timeoutMs: 12000 });
+  if (!detail.ok) {
+    const failureCount = Number(event.detailFailureCount || 0) + 1;
+    const diagnostics = buildEventQuality(event, {
+      detailStatus: 'fetch-failed',
+      mode: 'revalidated-missing',
+      detailUrl: event.url,
+      detailVerifiedAt: event.detailVerifiedAt || event.refreshVerifiedAt || event.lastVerifiedAt || '',
+      fetchStatus: detail.status,
+      warnings: [detail.error || 'detail_fetch_failed']
     });
-    const html = await response.text();
-    if (!response.ok) return null;
-    const pageText = plainText(html);
-    if (!isSameEvent(event.title, pageText)) return null;
-    if (/\b(?:this event (?:has been )?cancell?ed|event cancell?ed)\b/i.test(pageText)) return null;
-    const refreshedEvent = source.method === 'cupertino'
-      ? cupertinoDetailEnrichment(event, html, source)
-      : event;
+    revalidationDiagnostics.push(diagnostics);
+
+    // A definitive missing page is not a transient source outage. Do not keep
+    // publishing it. For 403/429/5xx/timeouts, preserve the last verified
+    // record briefly so one blocked refresh does not erase a real event.
+    if ([404, 410].includes(detail.status) || failureCount > 2) return null;
     return {
-      ...refreshedEvent,
+      event: {
+        ...event,
+        refreshStatus: 'revalidated-missing-stale',
+        refreshErrorAt: generatedAt,
+        detailStatus: 'fetch-failed',
+        detailFailureCount: failureCount
+      },
+      diagnostics
+    };
+  }
+
+  const enriched = enrichEventFromDetail(event, {
+    source,
+    html: detail.html,
+    finalUrl: detail.finalUrl,
+    mode: 'revalidated-missing',
+    verifiedAt: generatedAt,
+    fetchStatus: detail.status
+  });
+  revalidationDiagnostics.push(enriched.diagnostics);
+
+  if (enriched.diagnostics.quality_state === DETAIL_QUALITY_STATES.CANCELLED
+      || enriched.diagnostics.detail_status === 'identity-mismatch') return null;
+
+  return {
+    event: {
+      ...enriched.event,
       refreshStatus: 'revalidated-missing',
       refreshVerifiedAt: generatedAt
-    };
-  } catch {
-    return null;
-  }
+    },
+    diagnostics: enriched.diagnostics
+  };
 }
 
-const revalidatedMissingEvents = (await Promise.all(existingEvents
+const revalidatedMissingResults = (await Promise.all(existingEvents
   .filter(event => successfulDirectSourceNames.has(event.source) && isStillActive(event))
   .map(revalidateMissingOfficialEvent))).filter(Boolean);
+const revalidatedMissingEvents = revalidatedMissingResults.map(result => result.event);
 const feedEvents = [...freshFeedEvents, ...retainedSourceEvents, ...revalidatedMissingEvents];
 const raw = searchAttempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
 const unique = [...new Map(raw.filter(item => item.title && item.link).map(item => [item.link.toLowerCase(), item])).values()];
@@ -3415,6 +3356,82 @@ if ((linkHealthSummary['not-found'] || 0) + (linkHealthSummary['content-mismatch
   console.warn(`::warning::Link health downgraded ${(linkHealthSummary['not-found'] || 0) + (linkHealthSummary['content-mismatch'] || 0)} detail links to an official fallback where configured.`);
 }
 
+const revalidationQualityById = new Map(revalidationDiagnostics
+  .filter(item => item?.event_id)
+  .map(item => [item.event_id, item]));
+
+const eventQuality = {
+  generatedAt,
+  frameworkVersion: 'event-detail-enrichment-v1',
+  events: events.map(event => {
+    const inherited = revalidationQualityById.get(event.id)
+      || (event.legacyIds || []).map(id => revalidationQualityById.get(id)).find(Boolean);
+    if (inherited) {
+      return {
+        ...buildEventQuality(event, {
+          detailStatus: inherited.detail_status,
+          mode: inherited.mode,
+          detailUrl: inherited.detail_url,
+          detailVerifiedAt: inherited.detail_verified_at,
+          fieldsUpdated: inherited.fields_updated,
+          fetchStatus: inherited.fetch_status,
+          warnings: inherited.warnings,
+          fieldProvenance: inherited.field_provenance
+        }),
+        extraction_gaps: inherited.extraction_gaps || []
+      };
+    }
+    return buildEventQuality(event, {
+      detailStatus: event.detailStatus || 'not-enriched',
+      mode: event.refreshStatus || 'fresh',
+      detailUrl: event.canonicalUrl || event.url || '',
+      detailVerifiedAt: event.detailVerifiedAt || event.refreshVerifiedAt || event.lastVerifiedAt || ''
+    });
+  })
+};
+
+const qualityBySource = new Map();
+eventQuality.events.forEach(item => {
+  const rows = qualityBySource.get(item.source) || [];
+  rows.push(item);
+  qualityBySource.set(item.source, rows);
+});
+sourceHealth.sources = sourceHealth.sources.map(source => {
+  const rows = qualityBySource.get(source.name) || [];
+  if (!rows.length) return {
+    ...source,
+    publishedCount: 0,
+    publishReadyCount: 0,
+    publishPartialCount: 0,
+    holdDataErrorCount: 0,
+    missingTimeCount: 0,
+    missingAddressCount: 0,
+    revalidatedMissingCount: 0,
+    avgCompletenessScore: null
+  };
+  const average = rows.reduce((sum, item) => sum + Number(item.completeness_score || 0), 0) / rows.length;
+  return {
+    ...source,
+    publishedCount: rows.length,
+    publishReadyCount: rows.filter(item => item.quality_state === 'PUBLISH_READY').length,
+    publishPartialCount: rows.filter(item => item.quality_state === 'PUBLISH_PARTIAL').length,
+    holdDataErrorCount: rows.filter(item => item.quality_state === 'HOLD_DATA_ERROR').length,
+    missingTimeCount: rows.filter(item => item.missing_fields.includes('start_time')).length,
+    missingAddressCount: rows.filter(item => item.missing_fields.includes('address')).length,
+    revalidatedMissingCount: rows.filter(item => String(item.mode || '').startsWith('revalidated-missing')).length,
+    avgCompletenessScore: Number(average.toFixed(1))
+  };
+});
+sourceHealth.detailEnrichment = {
+  frameworkVersion: eventQuality.frameworkVersion,
+  publishedEvents: eventQuality.events.length,
+  publishReady: eventQuality.events.filter(item => item.quality_state === 'PUBLISH_READY').length,
+  publishPartial: eventQuality.events.filter(item => item.quality_state === 'PUBLISH_PARTIAL').length,
+  holdDataError: eventQuality.events.filter(item => item.quality_state === 'HOLD_DATA_ERROR').length,
+  revalidatedMissing: revalidatedMissingEvents.length,
+  extractionGaps: eventQuality.events.reduce((sum, item) => sum + (item.extraction_gaps?.length || 0), 0)
+};
+
 function translationFingerprint(event) {
   return createHash('sha256').update(String(event.title || '') + '\n' + String(event.description || '')).digest('hex');
 }
@@ -3481,6 +3498,7 @@ await writeFile(browserTarget, `window.SOUTH_BAY_EVENTS = ${JSON.stringify(event
 await writeFile(museumTarget, `${JSON.stringify(museums, null, 2)}\n`);
 await writeFile(museumBrowserTarget, `window.SOUTH_BAY_MUSEUMS = ${JSON.stringify(museums)};\n`);
 await writeFile(sourceHealthTarget, `${JSON.stringify(sourceHealth, null, 2)}\n`);
+await writeFile(eventQualityTarget, `${JSON.stringify(eventQuality, null, 2)}\n`);
 const summaryStatusCounts = events.reduce((counts, event) => {
   const status = event.summaryStatus || 'missing';
   counts[status] = (counts[status] || 0) + 1;
