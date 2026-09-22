@@ -44,7 +44,7 @@ const stale = await enrichCanonicalDetails([base], [source], { concurrency: 1, f
 assert.equal(stale.events[0].dateValue, '2026-09-26');
 
 const logoHtml = '<html><head><title>Family Lantern Night</title>' +
-  '<meta property="og:image" content="/assets/site-logo.png">' +
+  '<meta property="og:image" content="/images/CAL-SCCL/events_email_logo.png">' +
   '<meta name="description" content="Families make lanterns and enjoy music at this community celebration.">' +
   '</head><body><h1>Family Lantern Night</h1></body></html>';
 const logo = await enrichCanonicalDetails([base], [source], { concurrency: 1, fetchImpl: fakeFetch(logoHtml) });
