@@ -2502,6 +2502,7 @@ async function readCupertino(source) {
     const withCost = { ...event, ...costInfo('', evidence) };
     return detailHtml ? cupertinoDetailEnrichment(withCost, detailHtml, source) : withCost;
   }));
+  console.log('DEBUG Cupertino enriched events:', JSON.stringify(events.filter(Boolean).map(event => ({ title: event.title, dateValue: event.dateValue, endDateValue: event.endDateValue, summaryStatus: event.summaryStatus, description: event.description, sourceDescriptionRaw: event.sourceDescriptionRaw, place: event.place, address: event.address, url: event.url }))));
   return events.filter(Boolean);
 }
 
