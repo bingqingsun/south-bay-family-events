@@ -183,7 +183,10 @@
     "method": "cinelux",
     "feedUrl": "https://www.cineluxtheatres.com/cinelux-almaden-cafe-lounge/showtimes",
     "address": "2306 Almaden Rd, San Jose",
-    "city": "San Jose"
+    "city": "San Jose",
+    "id": "cinelux-almaden",
+    "landingUrl": "https://www.cineluxtheatres.com/cinelux-almaden-cafe-lounge/showtimes",
+    "linkPolicy": "ticket_partner"
   },
   {
     "name": "CineLux Plaza",
@@ -191,7 +194,10 @@
     "method": "cinelux",
     "feedUrl": "https://www.cineluxtheatres.com/cinelux-plaza-cafe-lounge/showtimes",
     "address": "2501 S Winchester Blvd, Campbell",
-    "city": "Campbell"
+    "city": "Campbell",
+    "id": "cinelux-plaza",
+    "landingUrl": "https://www.cineluxtheatres.com/cinelux-plaza-cafe-lounge/showtimes",
+    "linkPolicy": "ticket_partner"
   },
   {
     "name": "CineLux Los Gatos",
@@ -199,7 +205,10 @@
     "method": "cinelux",
     "feedUrl": "https://www.cineluxtheatres.com/cinelux-los-gatos-theatre/showtimes",
     "address": "43 N Santa Cruz Ave, Los Gatos",
-    "city": "Los Gatos"
+    "city": "Los Gatos",
+    "id": "cinelux-los-gatos",
+    "landingUrl": "https://www.cineluxtheatres.com/cinelux-los-gatos-theatre/showtimes",
+    "linkPolicy": "ticket_partner"
   },
   {
     "name": "CineLux Morgan Hill",
@@ -207,7 +216,10 @@
     "method": "cinelux",
     "feedUrl": "https://www.cineluxtheatres.com/cinelux-tennant-station/showtimes",
     "address": "750 Tennant Station Way, Morgan Hill",
-    "city": "Morgan Hill"
+    "city": "Morgan Hill",
+    "id": "cinelux-morgan-hill",
+    "landingUrl": "https://www.cineluxtheatres.com/cinelux-tennant-station/showtimes",
+    "linkPolicy": "ticket_partner"
   },
   {
     "name": "CineLux Gilroy",
@@ -215,7 +227,10 @@
     "method": "cinelux",
     "feedUrl": "https://www.cineluxtheatres.com/cinelux-gilroy-cafe-lounge/showtimes",
     "address": "6851 Monterey Rd, Gilroy",
-    "city": "Gilroy"
+    "city": "Gilroy",
+    "id": "cinelux-gilroy",
+    "landingUrl": "https://www.cineluxtheatres.com/cinelux-gilroy-cafe-lounge/showtimes",
+    "linkPolicy": "ticket_partner"
   },
   {
     "name": "Cinemark Century Oakridge 20",
@@ -223,7 +238,10 @@
     "method": "cinemark",
     "feedUrl": "https://www.cinemark.com/theatres/ca-san-jose/cinemark-century-oakridge-20-xd-and-screenx",
     "address": "925 Blossom Hill Rd, San Jose",
-    "city": "San Jose"
+    "city": "San Jose",
+    "id": "cinemark-century-oakridge-20",
+    "landingUrl": "https://www.cinemark.com/theatres/ca-san-jose/cinemark-century-oakridge-20-xd-and-screenx",
+    "linkPolicy": "ticket_partner"
   },
   {
     "name": "Cinemark Century Great Mall 20",
@@ -231,7 +249,10 @@
     "method": "cinemark",
     "feedUrl": "https://www.cinemark.com/theatres/ca-milpitas/cinemark-century-great-mall-20-xd-and-screenx",
     "address": "1010 Great Mall Dr, Milpitas",
-    "city": "Milpitas"
+    "city": "Milpitas",
+    "id": "cinemark-century-great-mall-20",
+    "landingUrl": "https://www.cinemark.com/theatres/ca-milpitas/cinemark-century-great-mall-20-xd-and-screenx",
+    "linkPolicy": "ticket_partner"
   },
   {
     "name": "Cinemark CineArts Santana Row",
@@ -239,7 +260,10 @@
     "method": "cinemark",
     "feedUrl": "https://www.cinemark.com/theatres/ca-san-jose/cinemark-cinearts-santana-row",
     "address": "3088 Olsen Dr, San Jose",
-    "city": "San Jose"
+    "city": "San Jose",
+    "id": "cinemark-cinearts-santana-row",
+    "landingUrl": "https://www.cinemark.com/theatres/ca-san-jose/cinemark-cinearts-santana-row",
+    "linkPolicy": "ticket_partner"
   },
   {
     "name": "South FIRST FRIDAYS / ArtWalkSJ",
@@ -370,7 +394,11 @@
     "domain": "sanjosetheaters.org",
     "method": "timely",
     "feedUrl": "https://events.timely.fun/jc0x91t0/stream?tags=677512582",
-    "calendarId": 54710614
+    "calendarId": 54710614,
+    "id": "san-jose-theaters",
+    "landingUrl": "https://sanjosetheaters.org/calendar-condensed/",
+    "canonicalEventBase": "https://sanjosetheaters.org/event/",
+    "linkPolicy": "first_party_detail"
   },
   {
     "name": "History San José",
@@ -409,7 +437,13 @@
     "address": "2000 N Shoreline Blvd, Mountain View, CA 94043",
     "city": "Mountain View",
     "monthsAhead": 4,
-    "familyPattern": "family|families|children|kids?|all ages|youth|accompanying adult|for ages"
+    "familyPattern": "family|families|children|kids?|all ages|youth|accompanying adult|for ages",
+    "id": "google-visitor-experience",
+    "linkHosts": [
+      "rsvp.withgoogle.com"
+    ],
+    "landingUrl": "https://visit.withgoogle.com/events/",
+    "linkPolicy": "registration_partner"
   },
   {
     "name": "The Village at San Antonio Center",
