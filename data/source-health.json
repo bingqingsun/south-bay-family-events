@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T23:48:34.606Z",
+  "generatedAt": "2026-09-22T23:50:31.838Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -803,23 +803,16 @@
   "alerts": [],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-09-22T23:48:34.606Z",
-    "enriched": 333,
-    "fetch-failed": 3,
+    "checkedAt": "2026-09-22T23:50:31.838Z",
+    "enriched": 335,
     "fetch-blocked": 18,
+    "cached": 4,
     "identity-mismatch": 41,
+    "fetch-failed": 3,
     "fieldUpdates": {
-      "description": 241,
-      "image": 24,
-      "address": 15,
-      "costStatus": 6,
-      "costLabel": 6,
-      "costSource": 6,
-      "costEvidence": 6,
-      "endDateValue": 18,
-      "city": 3,
-      "dateValue": 12,
-      "place": 3
+      "description": 232,
+      "image": 2,
+      "place": 1
     }
   }
 }
