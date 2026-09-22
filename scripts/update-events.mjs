@@ -3444,13 +3444,27 @@ sourceHealth.detailEnrichment = {
 };
 sourceHealth.pipelineAlerts = sourceHealth.sources
   .filter(source => source.status === 'ok' && Number(source.eventCount || 0) > 0 && Number(source.publishedCount || 0) === 0)
-  .map(source => ({
-    name: source.name,
-    method: source.method,
-    discoveredOrParsed: source.eventCount,
-    published: source.publishedCount,
-    reason: 'source_returned_events_but_none_reached_public_catalog'
-  }));
+  .map(source => {
+    const attemptIndex = directSources.findIndex(item => item.name === source.name);
+    const attempt = attemptIndex >= 0 ? feedAttempts[attemptIndex] : null;
+    const samples = attempt?.status === 'fulfilled'
+      ? attempt.value.slice(0, 6).map(event => ({
+          title: event.title,
+          dateValue: event.dateValue,
+          city: event.city,
+          type: event.type,
+          ageLabel: event.ageLabel
+        }))
+      : [];
+    return {
+      name: source.name,
+      method: source.method,
+      discoveredOrParsed: source.eventCount,
+      published: source.publishedCount,
+      reason: 'source_returned_events_but_none_reached_public_catalog',
+      sampleParsedEvents: samples
+    };
+  });
 if (sourceHealth.pipelineAlerts.length) {
   console.warn(`::warning::Event pipeline zero-publish alert: ${JSON.stringify(sourceHealth.pipelineAlerts)}`);
 }
