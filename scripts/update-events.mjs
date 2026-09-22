@@ -758,10 +758,13 @@ function isoDateFromOfficialText(dateText, timeText = '') {
 }
 
 function directEvent({ id, title, dateValue, endDateValue = '', description, image = '', imagePresentation = '', imageBackground = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, ageText = '', format = '', movieRating = '', forcedType = '', seasonalTheme = '', availabilityStatus = '', summaryStatus = 'extractive', summaryEvidenceData = null }) {
-  const sourceText = title + ' ' + description + ' ' + ageText;
+  // Detail-page chrome can list unrelated sports/classes. It is useful for
+  // detecting a stated child audience, but must never determine the card's
+  // activity type. Classify from the actual event title and description.
+  const sourceText = title + ' ' + description;
   const effectiveFormat = format || formatFor(sourceText);
   const type = forcedType || (effectiveFormat === 'live-show' ? 'shows' : effectiveFormat === 'movie-screening' ? 'movies' : typeFor(sourceText, title));
-  const age = ageInfo(ageText);
+  const age = ageInfo(sourceText + ' ' + ageText);
   const summary = buildSummaryRecord({
     sourceText: sourceDescriptionText(description),
     title,
