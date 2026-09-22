@@ -202,7 +202,12 @@ export async function checkLink(event, source, { fetchImpl = fetch, timeoutMs = 
 }
 
 export function resolvePublishedLink(event, result, source = {}) {
-  const canonicalWorks = ['ok', 'redirected', 'blocked-machine'].includes(result.linkStatus);
+  const trustedCanonicalEvidence = ['canonical_resolved_live', 'canonical_resolved_previous', 'curated_verified'].includes(event.linkSource);
+  // A transient machine fetch failure is not evidence that a previously
+  // verified first-party canonical disappeared. Keep that canonical on
+  // UNKNOWN; definitive 404/410/content-mismatch still downgrade normally.
+  const canonicalWorks = ['ok', 'redirected', 'blocked-machine'].includes(result.linkStatus)
+    || (result.linkStatus === 'unknown' && trustedCanonicalEvidence);
   const url = canonicalWorks ? result.canonicalUrl : result.fallbackUrl;
   return {
     ...event,
