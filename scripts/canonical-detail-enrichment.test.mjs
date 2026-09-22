@@ -59,6 +59,14 @@ const logoHtml = '<html><head><title>Family Lantern Night</title>' +
 const logo = await enrichCanonicalDetails([base], [source], { concurrency: 1, fetchImpl: fakeFetch(logoHtml) });
 assert.equal(logo.events[0].image, base.image);
 
+const stalePlaceholder = await enrichCanonicalDetails([{
+  ...base,
+  image: 'https://example.gov/uplimage/Blank.gif',
+  detailProvenance: { image: { method: 'og:image', sourceUrl: base.url, verifiedAt: '2026-09-21T00:00:00Z' } }
+}], [source], { concurrency: 1, fetchImpl: fakeFetch(logoHtml) });
+assert.equal(stalePlaceholder.events[0].image, '');
+assert.equal(stalePlaceholder.events[0].detailProvenance.image.method, 'canonical-image-policy-cleanup');
+
 // A truncated meta teaser must not replace a complete discovery description.
 const truncatedHtml = '<html><head><title>Family Lantern Night</title>' +
   '<meta name="description" content="Families make lanterns, enjoy music, and celebrate together…">' +
