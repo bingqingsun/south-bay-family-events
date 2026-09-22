@@ -290,9 +290,13 @@ export function enrichEventFromDetail(event, {
   // Once identity is verified, the canonical organizer detail page outranks
   // discovery/listing copy. Description still has to pass the shared parent-
   // facing summary gate; otherwise keep the existing official discovery text.
-  if (generic.description && hasPublishableSummary(generic.description, { title: event.title })) {
-    set('description', generic.description, generic.descriptionMethod);
-    set('sourceDescriptionRaw', generic.description, generic.descriptionMethod);
+  const canonicalDescription = plainText(generic.description || '');
+  const canonicalDescriptionComplete = canonicalDescription
+    && !/…|\.\.\.(?:\s|$)/.test(canonicalDescription)
+    && hasPublishableSummary(canonicalDescription, { title: event.title });
+  if (canonicalDescriptionComplete) {
+    set('description', canonicalDescription, generic.descriptionMethod);
+    set('sourceDescriptionRaw', canonicalDescription, generic.descriptionMethod);
   }
   // The generic extractor already rejects obvious logo/default assets. A
   // usable image explicitly published by the canonical page therefore
