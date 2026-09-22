@@ -54,6 +54,10 @@ jobs:
           node --check scripts/cupertino-detail-date.mjs
           node --check scripts/cupertino-audience.mjs
           node --check scripts/link-health.mjs
+          node --check scripts/canonical-detail-pipeline.mjs
+          node --check scripts/lib/detail-fetch.mjs
+          node --check scripts/lib/detail-extractors/generic.mjs
+          node --check scripts/lib/detail-enrichment.mjs
           node --check map-navigation.js
           node --check app.js
           node --check age-policy.js
@@ -74,4 +78,6 @@ jobs:
           node scripts/map-navigation.test.mjs
           node scripts/collection-runtime.test.mjs
           node scripts/link-health.test.mjs
+          node scripts/detail-enrichment.test.mjs
+          node scripts/canonical-detail-pipeline.test.mjs
           node scripts/link-ui.test.cjs

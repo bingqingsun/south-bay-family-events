@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-22T14:29:34.573Z",
+  "generatedAt": "2026-09-22T23:50:31.838Z",
   "configuredSources": 81,
   "directSources": 76,
-  "fallbackSourcesRun": 5,
+  "fallbackSourcesRun": 0,
   "sources": [
     {
       "key": "Palo Alto City Library|library.cityofpaloalto.org|https://gateway.bibliocommons.com/v2/libraries/paloalto/rss/events",
@@ -10,7 +10,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 14,
+      "eventCount": 16,
       "failureStreak": 0,
       "error": ""
     },
@@ -20,7 +20,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 8,
+      "eventCount": 17,
       "failureStreak": 0,
       "error": ""
     },
@@ -28,11 +28,8 @@
       "key": "Santa Clara County Parks|parks.santaclaracounty.gov|",
       "name": "Santa Clara County Parks",
       "method": "search-fallback",
-      "mode": "search-fallback",
-      "status": "ok",
-      "eventCount": 10,
-      "failureStreak": 0,
-      "error": ""
+      "mode": "not-run",
+      "failureStreak": 0
     },
     {
       "key": "Midpeninsula Regional Open Space District|openspace.org|https://www.openspace.org/get-involved/events-activities?f%5B0%5D=rating%3A146",
@@ -50,7 +47,7 @@
       "method": "thetech",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 8,
+      "eventCount": 9,
       "failureStreak": 0,
       "error": ""
     },
@@ -78,11 +75,8 @@
       "key": "City of San José|sanjoseca.gov|",
       "name": "City of San José",
       "method": "search-fallback",
-      "mode": "search-fallback",
-      "status": "ok",
-      "eventCount": 10,
-      "failureStreak": 0,
-      "error": ""
+      "mode": "not-run",
+      "failureStreak": 0
     },
     {
       "key": "Santa Clara County Library District|sccld.org|https://gateway.bibliocommons.com/v2/libraries/sccl/rss/events?audiences=5b28181c4727c7344c796675%2C5b28181c4727c7344c796676%2C5b28181c4727c7344c796677%2C5b28181c4727c7344c796678%2C5b28181c4727c7344c796679%2C5b28181c4727c7344c79667a%2C5b2a5dcb2c1d736b168c62ac",
@@ -98,21 +92,15 @@
       "key": "City of Sunnyvale|sunnyvale.ca.gov|",
       "name": "City of Sunnyvale",
       "method": "search-fallback",
-      "mode": "search-fallback",
-      "status": "ok",
-      "eventCount": 0,
-      "failureStreak": 0,
-      "error": ""
+      "mode": "not-run",
+      "failureStreak": 0
     },
     {
       "key": "City of Mountain View|mountainview.gov|",
       "name": "City of Mountain View",
       "method": "search-fallback",
-      "mode": "search-fallback",
-      "status": "ok",
-      "eventCount": 10,
-      "failureStreak": 0,
-      "error": ""
+      "mode": "not-run",
+      "failureStreak": 0
     },
     {
       "key": "City of Cupertino|cupertino.gov|https://www.cupertino.gov/Events-directory?dlv_OC+CL+City+Events+Listing=%28dd_OC+Event+Categories%3DMajor+events%29%28dd_OC+Composite+Date%3D0d%29",
@@ -128,11 +116,8 @@
       "key": "City of Santa Clara|santaclaraca.gov|",
       "name": "City of Santa Clara",
       "method": "search-fallback",
-      "mode": "search-fallback",
-      "status": "ok",
-      "eventCount": 10,
-      "failureStreak": 0,
-      "error": ""
+      "mode": "not-run",
+      "failureStreak": 0
     },
     {
       "key": "Computer History Museum|computerhistory.org|https://computerhistory.org/events/feed/",
@@ -230,7 +215,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 47,
+      "eventCount": 54,
       "failureStreak": 0,
       "error": ""
     },
@@ -240,7 +225,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 36,
+      "eventCount": 30,
       "failureStreak": 0,
       "error": ""
     },
@@ -260,7 +245,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 95,
+      "eventCount": 86,
       "failureStreak": 0,
       "error": ""
     },
@@ -270,7 +255,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 54,
+      "eventCount": 48,
       "failureStreak": 0,
       "error": ""
     },
@@ -280,7 +265,7 @@
       "method": "cinemark",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 11,
+      "eventCount": 4,
       "failureStreak": 0,
       "error": ""
     },
@@ -290,7 +275,7 @@
       "method": "cinemark",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 15,
+      "eventCount": 3,
       "failureStreak": 0,
       "error": ""
     },
@@ -300,7 +285,7 @@
       "method": "cinemark",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 8,
+      "eventCount": 4,
       "failureStreak": 0,
       "error": ""
     },
@@ -429,20 +414,20 @@
       "name": "Montalvo Arts Center",
       "method": "montalvo",
       "mode": "direct",
-      "status": "failed",
-      "eventCount": 0,
-      "failureStreak": 15,
-      "error": "Montalvo official calendar was not valid: 500"
+      "status": "ok",
+      "eventCount": 2,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "City of Los Altos Parks & Recreation|losaltosca.gov|https://www.losaltosca.gov/common/modules/iCalendar/iCalendar.aspx?catID=37&feed=calendar",
       "name": "City of Los Altos Parks & Recreation",
       "method": "ics",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 18,
-      "error": "Official iCalendar feed was not valid: 403"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Gamble Garden|gamblegarden.org|https://www.gamblegarden.org/wp-json/tribe/events/v1/events?per_page=50&categories=kids",
@@ -810,21 +795,24 @@
       "method": "santana-row",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 4,
+      "eventCount": 5,
       "failureStreak": 0,
       "error": ""
     }
   ],
-  "alerts": [
-    {
-      "name": "Montalvo Arts Center",
-      "failureStreak": 15,
-      "error": "Montalvo official calendar was not valid: 500"
-    },
-    {
-      "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 18,
-      "error": "Official iCalendar feed was not valid: 403"
+  "alerts": [],
+  "canonicalDetailEnrichment": {
+    "frameworkVersion": "canonical-detail-enrichment-v1",
+    "checkedAt": "2026-09-22T23:50:31.838Z",
+    "enriched": 335,
+    "fetch-blocked": 18,
+    "cached": 4,
+    "identity-mismatch": 41,
+    "fetch-failed": 3,
+    "fieldUpdates": {
+      "description": 232,
+      "image": 2,
+      "place": 1
     }
-  ]
+  }
 }
