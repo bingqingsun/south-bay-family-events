@@ -253,6 +253,17 @@ export function enrichEventFromDetail(event, {
   set('dateValue', specific.startDate || generic.startDate, specific.startDate ? specific.method : generic.dateMethod);
   set('endDateValue', specific.endDate || generic.endDate, specific.endDate ? specific.method : generic.dateMethod);
 
+  // Earlier refreshes may have persisted a schema.org all-day placeholder as
+  // 00:00 on the same day. Once the generic extractor recognizes the detail
+  // page as date-only, repair that stale value to end-of-day so the event
+  // cannot expire at the start of its advertised date.
+  const knownDay = String(merged.dateValue || event.dateValue || '').slice(0, 10);
+  if (generic.dateMethod === 'schema.org-date-only'
+      && knownDay
+      && String(merged.endDateValue || '') === knownDay + 'T00:00:00') {
+    set('endDateValue', knownDay + 'T23:59:59', 'schema.org-date-only-repair');
+  }
+
   const city = specific.city || generic.city || merged.city || source.city || '';
   if (meaningfulPlace(specific.venue || generic.venue, source.name)) {
     set('place', specific.venue || generic.venue, specific.venue ? specific.method : generic.locationMethod);
