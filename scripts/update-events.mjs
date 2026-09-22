@@ -2302,6 +2302,113 @@ async function readCivic(source) {
   return events.filter(Boolean);
 }
 
+function cupertinoDetailEnrichment(event, html, source) {
+  if (!html) return event;
+  const schema = firstOfficialEventSchema(html);
+  const detailText = plainText(html);
+  const detailTitle = plainText(html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)?.[1] || event.title);
+  const canonicalHref = htmlAttribute(html, /<link[^>]+rel=["'][^"']*canonical[^"']*["'][^>]+href=["']([^"']+)["']/i)
+    || htmlAttribute(html, /<link[^>]+href=["']([^"']+)["'][^>]+rel=["'][^"']*canonical[^"']*["']/i)
+    || String(schema?.url || '');
+  const canonicalUrl = (() => {
+    if (!canonicalHref) return event.url;
+    try {
+      const value = new URL(decodeXml(canonicalHref), event.url || source.feedUrl).href;
+      return isOfficialUrl(value, source.domain) ? value : event.url;
+    } catch {
+      return event.url;
+    }
+  })();
+
+  const normalizeClock = value => String(value || '').replace(/a\.?m\.?/i, 'AM').replace(/p\.?m\.?/i, 'PM');
+  let dateValue = event.dateValue;
+  let endDateValue = event.endDateValue;
+  if (schema?.startDate) dateValue = String(schema.startDate);
+  if (schema?.endDate) endDateValue = String(schema.endDate);
+
+  const nextDate = detailText.match(/Next date:\s*((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\s*\|\s*(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM))(?:\s*(?:to|-|–|—)\s*(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM)))?/i);
+  const plainDate = detailText.match(/\b((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\b/i);
+  const dateAnchor = nextDate?.[1] || plainDate?.[1] || '';
+  const nearbyText = dateAnchor ? detailText.slice(Math.max(0, detailText.indexOf(dateAnchor)), detailText.indexOf(dateAnchor) + 260) : '';
+  const timeRange = nextDate
+    ? [nextDate[2], nextDate[3] || '']
+    : (() => {
+        const match = nearbyText.match(/(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM))\s*(?:to|-|–|—)\s*(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM))/i);
+        return match ? [match[1], match[2]] : [];
+      })();
+  if (!schema?.startDate && dateAnchor && timeRange[0]) dateValue = isoDateFromOfficialText(dateAnchor, normalizeClock(timeRange[0]));
+  if (!schema?.endDate && dateAnchor && timeRange[1]) endDateValue = isoDateFromOfficialText(dateAnchor, normalizeClock(timeRange[1]));
+
+  const schemaLocation = Array.isArray(schema?.location) ? schema.location[0] : schema?.location;
+  const schemaAddress = schemaLocation && typeof schemaLocation === 'object' ? schemaLocation.address : null;
+  let city = event.city || source.city || 'Cupertino';
+  let place = event.place || '';
+  let address = event.address || '';
+
+  if (schemaLocation && typeof schemaLocation === 'object') {
+    place = plainText(schemaLocation.name || '') || place;
+    if (schemaAddress && typeof schemaAddress === 'object') {
+      city = canonicalCity(schemaAddress.addressLocality || city);
+      address = shortAddress(schemaAddress.streetAddress || '', city) || address;
+    } else if (typeof schemaAddress === 'string') {
+      const parsed = venueAndAddress([place, schemaAddress].filter(Boolean).join(', '), city);
+      place = parsed.place || place;
+      address = parsed.address || address;
+      city = parsed.city || city;
+    }
+  }
+
+  const addressMatch = detailText.match(/\b(\d{1,6}\s+[A-Za-z0-9.'’ -]+?(?:Avenue|Ave\.?|Street|St\.?|Road|Rd\.?|Boulevard|Blvd\.?|Drive|Dr\.?|Lane|Ln\.?|Court|Ct\.?|Way|Parkway|Pkwy\.?|Circle|Cir\.?))\s+(Cupertino),\s*CA\s*\d{5}(?:-\d{4})?\b/i);
+  if (!address && addressMatch) {
+    city = canonicalCity(addressMatch[2] || city);
+    address = shortAddress(addressMatch[1], city);
+  }
+  if ((!place || place === source.name) && addressMatch) {
+    const addressIndex = detailText.indexOf(addressMatch[0]);
+    let prefix = detailText.slice(Math.max(0, addressIndex - 220), addressIndex);
+    prefix = prefix
+      .replace(detailTitle, ' ')
+      .replace(/\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2}\b/gi, ' ')
+      .replace(/\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM)\s*(?:to|-|–|—)\s*\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM)/gi, ' ')
+      .replace(/\b(?:Next date|When|Where|Location)\b\s*:?/gi, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    const candidate = prefix.match(/([A-Z][A-Za-z0-9&'’.-]*(?:\s+[A-Z][A-Za-z0-9&'’.-]*){1,5})$/)?.[1] || '';
+    if (candidate && !/^(?:South Bay|City of Cupertino)$/i.test(candidate)) place = candidate;
+  }
+
+  const description = officialDetailDescription(html, schema, detailTitle) || event.description;
+  const image = event.image || htmlAttribute(html, /<meta\s+property=["']og:image["']\s+content=["']([^"']+)/i);
+  const pricing = costInfo('', detailText);
+  const costFields = pricing.costStatus !== 'unknown' ? {
+    costStatus: pricing.costStatus,
+    costLabel: pricing.costLabel,
+    costSource: pricing.costSource,
+    costEvidence: pricing.costEvidence
+  } : {};
+  const registrationFields = pricing.registrationStatus !== 'unknown' ? {
+    registrationStatus: pricing.registrationStatus,
+    registrationSource: pricing.registrationSource,
+    registrationEvidence: pricing.registrationEvidence
+  } : {};
+
+  return {
+    ...event,
+    title: detailTitle || event.title,
+    dateValue: dateValue || event.dateValue,
+    endDateValue: endDateValue || event.endDateValue,
+    description,
+    image,
+    place: place || event.place,
+    address: address || event.address,
+    city: canonicalCity(city),
+    url: canonicalUrl || event.url,
+    canonicalUrl: canonicalUrl || event.canonicalUrl || event.url,
+    ...costFields,
+    ...registrationFields
+  };
+}
+
 // Cupertino publishes a server-rendered public event list rather than an RSS
 // or ICS feed. The list itself includes an official date, description, venue,
 // image, and audience tags, so it is more reliable than a web-search result.
@@ -2362,7 +2469,8 @@ async function readCupertino(source) {
       place, address: shortAddress(street, source.city || 'Cupertino'), city: source.city || 'Cupertino',
       source: source.name, url: item.url, ageText: evidence
     });
-    return { ...event, ...costInfo('', evidence) };
+    const withCost = { ...event, ...costInfo('', evidence) };
+    return detailHtml ? cupertinoDetailEnrichment(withCost, detailHtml, source) : withCost;
   }));
   return events.filter(Boolean);
 }
@@ -2961,8 +3069,11 @@ async function revalidateMissingOfficialEvent(event) {
     const pageText = plainText(html);
     if (!isSameEvent(event.title, pageText)) return null;
     if (/\b(?:this event (?:has been )?cancell?ed|event cancell?ed)\b/i.test(pageText)) return null;
+    const refreshedEvent = source.method === 'cupertino'
+      ? cupertinoDetailEnrichment(event, html, source)
+      : event;
     return {
-      ...event,
+      ...refreshedEvent,
       refreshStatus: 'revalidated-missing',
       refreshVerifiedAt: generatedAt
     };
