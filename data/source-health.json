@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-22T14:29:34.573Z",
+  "generatedAt": "2026-09-22T14:37:51.593Z",
   "configuredSources": 81,
   "directSources": 76,
-  "fallbackSourcesRun": 5,
+  "fallbackSourcesRun": 0,
   "sources": [
     {
       "key": "Palo Alto City Library|library.cityofpaloalto.org|https://gateway.bibliocommons.com/v2/libraries/paloalto/rss/events",
@@ -28,11 +28,8 @@
       "key": "Santa Clara County Parks|parks.santaclaracounty.gov|",
       "name": "Santa Clara County Parks",
       "method": "search-fallback",
-      "mode": "search-fallback",
-      "status": "ok",
-      "eventCount": 10,
-      "failureStreak": 0,
-      "error": ""
+      "mode": "not-run",
+      "failureStreak": 0
     },
     {
       "key": "Midpeninsula Regional Open Space District|openspace.org|https://www.openspace.org/get-involved/events-activities?f%5B0%5D=rating%3A146",
@@ -78,11 +75,8 @@
       "key": "City of San José|sanjoseca.gov|",
       "name": "City of San José",
       "method": "search-fallback",
-      "mode": "search-fallback",
-      "status": "ok",
-      "eventCount": 10,
-      "failureStreak": 0,
-      "error": ""
+      "mode": "not-run",
+      "failureStreak": 0
     },
     {
       "key": "Santa Clara County Library District|sccld.org|https://gateway.bibliocommons.com/v2/libraries/sccl/rss/events?audiences=5b28181c4727c7344c796675%2C5b28181c4727c7344c796676%2C5b28181c4727c7344c796677%2C5b28181c4727c7344c796678%2C5b28181c4727c7344c796679%2C5b28181c4727c7344c79667a%2C5b2a5dcb2c1d736b168c62ac",
@@ -98,21 +92,15 @@
       "key": "City of Sunnyvale|sunnyvale.ca.gov|",
       "name": "City of Sunnyvale",
       "method": "search-fallback",
-      "mode": "search-fallback",
-      "status": "ok",
-      "eventCount": 0,
-      "failureStreak": 0,
-      "error": ""
+      "mode": "not-run",
+      "failureStreak": 0
     },
     {
       "key": "City of Mountain View|mountainview.gov|",
       "name": "City of Mountain View",
       "method": "search-fallback",
-      "mode": "search-fallback",
-      "status": "ok",
-      "eventCount": 10,
-      "failureStreak": 0,
-      "error": ""
+      "mode": "not-run",
+      "failureStreak": 0
     },
     {
       "key": "City of Cupertino|cupertino.gov|https://www.cupertino.gov/Events-directory?dlv_OC+CL+City+Events+Listing=%28dd_OC+Event+Categories%3DMajor+events%29%28dd_OC+Composite+Date%3D0d%29",
@@ -128,11 +116,8 @@
       "key": "City of Santa Clara|santaclaraca.gov|",
       "name": "City of Santa Clara",
       "method": "search-fallback",
-      "mode": "search-fallback",
-      "status": "ok",
-      "eventCount": 10,
-      "failureStreak": 0,
-      "error": ""
+      "mode": "not-run",
+      "failureStreak": 0
     },
     {
       "key": "Computer History Museum|computerhistory.org|https://computerhistory.org/events/feed/",
@@ -290,7 +275,7 @@
       "method": "cinemark",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 15,
+      "eventCount": 9,
       "failureStreak": 0,
       "error": ""
     },
@@ -409,10 +394,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "ok",
+      "status": "failed",
       "eventCount": 0,
-      "failureStreak": 0,
-      "error": ""
+      "failureStreak": 1,
+      "error": "Los Altos History Museum event list was not valid: 202"
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -431,7 +416,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 15,
+      "failureStreak": 16,
       "error": "Montalvo official calendar was not valid: 500"
     },
     {
@@ -441,7 +426,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 18,
+      "failureStreak": 19,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -818,13 +803,34 @@
   "alerts": [
     {
       "name": "Montalvo Arts Center",
-      "failureStreak": 15,
+      "failureStreak": 16,
       "error": "Montalvo official calendar was not valid: 500"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 18,
+      "failureStreak": 19,
       "error": "Official iCalendar feed was not valid: 403"
     }
-  ]
+  ],
+  "canonicalDetailEnrichment": {
+    "frameworkVersion": "canonical-detail-enrichment-v1",
+    "checkedAt": "2026-09-22T14:37:51.593Z",
+    "enriched": 326,
+    "fetch-failed": 5,
+    "fetch-blocked": 16,
+    "identity-mismatch": 39,
+    "fieldUpdates": {
+      "description": 271,
+      "image": 23,
+      "address": 14,
+      "costStatus": 6,
+      "costLabel": 6,
+      "costSource": 6,
+      "costEvidence": 6,
+      "endDateValue": 16,
+      "city": 3,
+      "dateValue": 10,
+      "place": 3
+    }
+  }
 }
