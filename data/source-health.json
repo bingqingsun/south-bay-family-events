@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T07:20:01.874Z",
+  "generatedAt": "2026-09-22T14:32:27.252Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -394,10 +394,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 1,
-      "error": "Los Altos History Museum event list was not valid: 202"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -416,7 +416,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 14,
+      "failureStreak": 15,
       "error": "Montalvo official calendar was not valid: 500"
     },
     {
@@ -426,7 +426,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 17,
+      "failureStreak": 18,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -803,13 +803,34 @@
   "alerts": [
     {
       "name": "Montalvo Arts Center",
-      "failureStreak": 14,
+      "failureStreak": 15,
       "error": "Montalvo official calendar was not valid: 500"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 17,
+      "failureStreak": 18,
       "error": "Official iCalendar feed was not valid: 403"
     }
-  ]
+  ],
+  "canonicalDetailEnrichment": {
+    "frameworkVersion": "canonical-detail-enrichment-v1",
+    "checkedAt": "2026-09-22T14:32:27.252Z",
+    "fetch-blocked": 19,
+    "enriched": 324,
+    "identity-mismatch": 39,
+    "fetch-failed": 4,
+    "fieldUpdates": {
+      "description": 268,
+      "address": 14,
+      "costStatus": 6,
+      "costLabel": 6,
+      "costSource": 6,
+      "costEvidence": 6,
+      "image": 23,
+      "endDateValue": 16,
+      "city": 3,
+      "dateValue": 10,
+      "place": 4
+    }
+  }
 }
