@@ -50,4 +50,11 @@ const logoHtml = '<html><head><title>Family Lantern Night</title>' +
 const logo = await enrichCanonicalDetails([base], [source], { concurrency: 1, fetchImpl: fakeFetch(logoHtml) });
 assert.equal(logo.events[0].image, base.image);
 
+// A truncated meta teaser must not replace a complete discovery description.
+const truncatedHtml = '<html><head><title>Family Lantern Night</title>' +
+  '<meta name="description" content="Families make lanterns, enjoy music, and celebrate together…">' +
+  '</head><body><h1>Family Lantern Night</h1></body></html>';
+const truncated = await enrichCanonicalDetails([base], [source], { concurrency: 1, fetchImpl: fakeFetch(truncatedHtml) });
+assert.equal(truncated.events[0].description, base.description);
+
 console.log('canonical detail enrichment tests passed');
