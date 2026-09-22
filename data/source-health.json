@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T04:41:55.409Z",
+  "generatedAt": "2026-09-22T04:44:15.967Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -794,7 +794,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 6,
+      "failureStreak": 7,
       "error": "Montalvo official calendar was not valid: 500",
       "publishedCount": 2,
       "publishReadyCount": 2,
@@ -813,7 +813,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 9,
+      "failureStreak": 10,
       "error": "Official iCalendar feed was not valid: 403",
       "publishedCount": 0,
       "publishReadyCount": 0,
@@ -1532,12 +1532,12 @@
   "alerts": [
     {
       "name": "Montalvo Arts Center",
-      "failureStreak": 6,
+      "failureStreak": 7,
       "error": "Montalvo official calendar was not valid: 500"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 9,
+      "failureStreak": 10,
       "error": "Official iCalendar feed was not valid: 403"
     }
   ],
@@ -1562,43 +1562,49 @@
           "title": "Cupertino Fall Bike Fest",
           "dateValue": "2026-09-26T09:00:00",
           "city": "Cupertino",
-          "type": "sports",
-          "ageLabel": "Ages 3–5 · Ages 13–18"
+          "type": "community",
+          "ageLabel": "Family-friendly",
+          "dropReason": "summary_quality_gate"
         },
         {
           "title": "Na Leo Mokupuni in Cupertino",
           "dateValue": "2026-10-03T10:00:00",
           "city": "Cupertino",
-          "type": "sports",
-          "ageLabel": "Ages 3–5 · Ages 13–18"
+          "type": "workshops",
+          "ageLabel": "Family-friendly",
+          "dropReason": "summary_quality_gate"
         },
         {
           "title": "Pizza and Politics",
           "dateValue": "2026-10-15T18:30:00",
           "city": "Cupertino",
-          "type": "sports",
-          "ageLabel": "Ages 3–5 · Ages 13–18"
+          "type": "workshops",
+          "ageLabel": "",
+          "dropReason": "summary_quality_gate"
         },
         {
           "title": "Monster Mash",
           "dateValue": "2026-10-24T17:00:00",
           "city": "Cupertino",
-          "type": "sports",
-          "ageLabel": "Ages 3–5 · Ages 13–18"
+          "type": "workshops",
+          "ageLabel": "Family-friendly",
+          "dropReason": "summary_quality_gate"
         },
         {
           "title": "Tree Lighting",
           "dateValue": "2026-12-04T18:00:00",
           "city": "Cupertino",
-          "type": "sports",
-          "ageLabel": "Ages 3–5 · Ages 13–18"
+          "type": "workshops",
+          "ageLabel": "Family-friendly",
+          "dropReason": "summary_quality_gate"
         },
         {
           "title": "Breakfast with Santa",
           "dateValue": "2026-12-06T08:30:00",
           "city": "Cupertino",
-          "type": "sports",
-          "ageLabel": "Ages 3–5 · Ages 13–18"
+          "type": "workshops",
+          "ageLabel": "Family-friendly",
+          "dropReason": "summary_quality_gate"
         }
       ]
     },
@@ -1614,7 +1620,8 @@
           "dateValue": "2026-09-21T21:45",
           "city": "Milpitas",
           "type": "movies",
-          "ageLabel": ""
+          "ageLabel": "",
+          "dropReason": "downstream_dedupe_or_grouping"
         }
       ]
     },
@@ -1630,7 +1637,8 @@
           "dateValue": "2026-10-10T13:00",
           "city": "Palo Alto",
           "type": "community",
-          "ageLabel": ""
+          "ageLabel": "",
+          "dropReason": "missing_usable_description"
         }
       ]
     }
