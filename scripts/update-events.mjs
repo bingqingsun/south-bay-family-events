@@ -3407,7 +3407,8 @@ sourceHealth.sources = sourceHealth.sources.map(source => {
     missingTimeCount: 0,
     missingAddressCount: 0,
     revalidatedMissingCount: 0,
-    avgCompletenessScore: null
+    avgCompletenessScore: null,
+    publicationYield: Number(source.eventCount || 0) > 0 ? 0 : null
   };
   const average = rows.reduce((sum, item) => sum + Number(item.completeness_score || 0), 0) / rows.length;
   return {
@@ -3419,7 +3420,8 @@ sourceHealth.sources = sourceHealth.sources.map(source => {
     missingTimeCount: rows.filter(item => item.missing_fields.includes('start_time')).length,
     missingAddressCount: rows.filter(item => item.missing_fields.includes('address')).length,
     revalidatedMissingCount: rows.filter(item => String(item.mode || '').startsWith('revalidated-missing')).length,
-    avgCompletenessScore: Number(average.toFixed(1))
+    avgCompletenessScore: Number(average.toFixed(1)),
+    publicationYield: Number((rows.length / Math.max(1, Number(source.eventCount || rows.length))).toFixed(3))
   };
 });
 sourceHealth.detailEnrichment = {
@@ -3431,6 +3433,18 @@ sourceHealth.detailEnrichment = {
   revalidatedMissing: revalidatedMissingEvents.length,
   extractionGaps: eventQuality.events.reduce((sum, item) => sum + (item.extraction_gaps?.length || 0), 0)
 };
+sourceHealth.pipelineAlerts = sourceHealth.sources
+  .filter(source => source.status === 'ok' && Number(source.eventCount || 0) > 0 && Number(source.publishedCount || 0) === 0)
+  .map(source => ({
+    name: source.name,
+    method: source.method,
+    discoveredOrParsed: source.eventCount,
+    published: source.publishedCount,
+    reason: 'source_returned_events_but_none_reached_public_catalog'
+  }));
+if (sourceHealth.pipelineAlerts.length) {
+  console.warn(`::warning::Event pipeline zero-publish alert: ${JSON.stringify(sourceHealth.pipelineAlerts)}`);
+}
 
 function translationFingerprint(event) {
   return createHash('sha256').update(String(event.title || '') + '\n' + String(event.description || '')).digest('hex');
