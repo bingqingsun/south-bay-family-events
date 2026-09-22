@@ -295,11 +295,14 @@ export function enrichEventFromDetail(event, {
   if (city) set('city', city, specific.city ? specific.method : generic.locationMethod);
 
   // Once identity is verified, the canonical detail page is the stronger
-  // source for descriptive copy and event-specific artwork. Generic image
-  // extraction already rejects logos/default assets and unrelated Event data.
-  set('description', generic.description, generic.descriptionMethod);
+  // source for ordinary extractive copy and event-specific artwork. Structured
+  // summaries (movie ratings, sports matchups) and manual editorial evidence
+  // are already stronger than a generic venue meta description and must not be
+  // replaced by it.
+  const canonicalMayReplaceDescription = !['official_structured', 'manual_verified'].includes(event.summaryStatus);
+  if (canonicalMayReplaceDescription) set('description', generic.description, generic.descriptionMethod);
   set('image', generic.image, generic.imageMethod);
-  if (generic.description) {
+  if (canonicalMayReplaceDescription && generic.description) {
     merged.sourceDescriptionRaw = generic.description;
     fieldProvenance.sourceDescriptionRaw = {
       source: 'canonical-detail',
