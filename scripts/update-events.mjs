@@ -2321,14 +2321,31 @@ function cupertinoDetailEnrichment(event, html, source) {
   })();
 
   const normalizeClock = value => String(value || '').replace(/a\.?m\.?/i, 'AM').replace(/p\.?m\.?/i, 'PM');
+  const listingDay = String(event.dateValue || '').match(/^(\d{4}-\d{2}-\d{2})/)?.[1] || '';
+  const sameListingDay = value => {
+    const candidateDay = String(value || '').match(/^(\d{4}-\d{2}-\d{2})/)?.[1] || '';
+    return Boolean(candidateDay && (!listingDay || candidateDay === listingDay));
+  };
   let dateValue = event.dateValue;
   let endDateValue = event.endDateValue;
-  if (schema?.startDate) dateValue = String(schema.startDate);
-  if (schema?.endDate) endDateValue = String(schema.endDate);
+
+  // The Cupertino listing is the source of truth for which occurrence is
+  // currently published. Detail pages can carry stale/duplicated Event JSON-LD
+  // during CMS migrations, so never let a mismatched schema date turn a future
+  // listing occurrence into an already-expired event.
+  const validSchemaStart = schema?.startDate && sameListingDay(schema.startDate);
+  const validSchemaEnd = schema?.endDate && sameListingDay(schema.endDate);
+  if (validSchemaStart) dateValue = String(schema.startDate);
+  if (validSchemaEnd) endDateValue = String(schema.endDate);
+  if (schema?.startDate && !validSchemaStart) {
+    console.warn(`Ignoring mismatched Cupertino schema startDate for "${event.title}": ${schema.startDate} (listing ${listingDay || 'unknown'})`);
+  }
 
   const nextDate = detailText.match(/Next date:\s*((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\s*\|\s*(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM))(?:\s*(?:to|-|–|—)\s*(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM)))?/i);
   const plainDate = detailText.match(/\b((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\b/i);
   const dateAnchor = nextDate?.[1] || plainDate?.[1] || '';
+  const anchorDay = dateAnchor ? isoDateFromOfficialText(dateAnchor) : '';
+  const anchorMatchesListing = Boolean(anchorDay && (!listingDay || anchorDay.slice(0, 10) === listingDay));
   const nearbyText = dateAnchor ? detailText.slice(Math.max(0, detailText.indexOf(dateAnchor)), detailText.indexOf(dateAnchor) + 260) : '';
   const timeRange = nextDate
     ? [nextDate[2], nextDate[3] || '']
@@ -2336,8 +2353,8 @@ function cupertinoDetailEnrichment(event, html, source) {
         const match = nearbyText.match(/(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM))\s*(?:to|-|–|—)\s*(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM))/i);
         return match ? [match[1], match[2]] : [];
       })();
-  if (!schema?.startDate && dateAnchor && timeRange[0]) dateValue = isoDateFromOfficialText(dateAnchor, normalizeClock(timeRange[0]));
-  if (!schema?.endDate && dateAnchor && timeRange[1]) endDateValue = isoDateFromOfficialText(dateAnchor, normalizeClock(timeRange[1]));
+  if (!validSchemaStart && anchorMatchesListing && timeRange[0]) dateValue = isoDateFromOfficialText(dateAnchor, normalizeClock(timeRange[0]));
+  if (!validSchemaEnd && anchorMatchesListing && timeRange[1]) endDateValue = isoDateFromOfficialText(dateAnchor, normalizeClock(timeRange[1]));
 
   const schemaLocation = Array.isArray(schema?.location) ? schema.location[0] : schema?.location;
   const schemaAddress = schemaLocation && typeof schemaLocation === 'object' ? schemaLocation.address : null;
