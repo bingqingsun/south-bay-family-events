@@ -3083,7 +3083,7 @@ async function readTimely(source) {
       if (!dateValue || !isUpcoming(dateValue)) return null;
       const event = directEvent({
         id: `timely-${detailIndex}-${sessionIndex}`, title: detail.title, dateValue,
-        description: sourceDescriptionText(description), image: detail.images?.[0]?.full?.url || detail.images?.[0]?.medium?.url || '',
+        description: sourceDescriptionText(description), image: detail.images?.[0]?.large?.url || detail.images?.[0]?.original?.url || detail.images?.[0]?.full?.url || detail.images?.[0]?.medium?.url || detail.images?.[0]?.url || '',
         place: plainText(venue.title || 'San Jose Theaters'), address, city,
         source: source.name, url: detail.firstPartyUrl || source.landingUrl || source.feedUrl,
         linkSource: detail.firstPartyLinkSource || '',
