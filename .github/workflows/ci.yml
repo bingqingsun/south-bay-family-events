@@ -74,4 +74,6 @@ jobs:
           node scripts/map-navigation.test.mjs
           node scripts/collection-runtime.test.mjs
           node scripts/link-health.test.mjs
+          node scripts/detail-enrichment.test.mjs
+          node scripts/canonical-detail-enrichment.test.mjs
           node scripts/link-ui.test.cjs

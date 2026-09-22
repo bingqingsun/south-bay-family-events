@@ -18,6 +18,9 @@ on:
       - 'scripts/test-summary-output.mjs'
       - 'scripts/link-health.mjs'
       - 'scripts/link-health.test.mjs'
+      - 'scripts/detail-enrichment.test.mjs'
+      - 'scripts/canonical-detail-enrichment.test.mjs'
+      - 'scripts/lib/**'
       - 'scripts/cupertino-audience.mjs'
       - 'scripts/cupertino-audience.test.mjs'
       - 'data/sources.json'
@@ -51,6 +54,8 @@ jobs:
         run: |
           node scripts/test-event-summary-engine.mjs
           node scripts/link-health.test.mjs
+          node scripts/detail-enrichment.test.mjs
+          node scripts/canonical-detail-enrichment.test.mjs
           node scripts/link-ui.test.cjs
           node scripts/cupertino-audience.test.mjs
           node scripts/age-policy.test.cjs
