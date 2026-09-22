@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T03:50:56.300Z",
+  "generatedAt": "2026-09-22T04:28:27.459Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -12,7 +12,15 @@
       "status": "ok",
       "eventCount": 14,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 14,
+      "publishReadyCount": 13,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 1,
+      "missingTimeCount": 0,
+      "missingAddressCount": 1,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 86.3
     },
     {
       "key": "San José Public Library|sjpl.org|https://gateway.bibliocommons.com/v2/libraries/sjpl/rss/events",
@@ -22,14 +30,30 @@
       "status": "ok",
       "eventCount": 10,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 8,
+      "publishReadyCount": 7,
+      "publishPartialCount": 1,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 1,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 86.3
     },
     {
       "key": "Santa Clara County Parks|parks.santaclaracounty.gov|",
       "name": "Santa Clara County Parks",
       "method": "search-fallback",
       "mode": "not-run",
-      "failureStreak": 0
+      "failureStreak": 0,
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "Midpeninsula Regional Open Space District|openspace.org|https://www.openspace.org/get-involved/events-activities?f%5B0%5D=rating%3A146",
@@ -39,7 +63,15 @@
       "status": "ok",
       "eventCount": 9,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 9,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 9,
+      "missingTimeCount": 0,
+      "missingAddressCount": 1,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 83.9
     },
     {
       "key": "The Tech Interactive|thetech.org|https://www.thetech.org/explore/upcoming-events",
@@ -49,7 +81,15 @@
       "status": "ok",
       "eventCount": 8,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 6,
+      "publishReadyCount": 0,
+      "publishPartialCount": 6,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 1,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 77.7
     },
     {
       "key": "City of Palo Alto|paloalto.gov|https://www.paloalto.gov/Events-Directory",
@@ -59,7 +99,15 @@
       "status": "ok",
       "eventCount": 2,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 2,
+      "publishReadyCount": 2,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 86
     },
     {
       "key": "Palo Alto Junior Museum & Zoo|paloaltozoo.org|https://www.paloaltozoo.org/Visit/Accessibility",
@@ -69,14 +117,30 @@
       "status": "ok",
       "eventCount": 1,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 1,
+      "publishReadyCount": 0,
+      "publishPartialCount": 1,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 78
     },
     {
       "key": "City of San José|sanjoseca.gov|",
       "name": "City of San José",
       "method": "search-fallback",
       "mode": "not-run",
-      "failureStreak": 0
+      "failureStreak": 0,
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "Santa Clara County Library District|sccld.org|https://gateway.bibliocommons.com/v2/libraries/sccl/rss/events?audiences=5b28181c4727c7344c796675%2C5b28181c4727c7344c796676%2C5b28181c4727c7344c796677%2C5b28181c4727c7344c796678%2C5b28181c4727c7344c796679%2C5b28181c4727c7344c79667a%2C5b2a5dcb2c1d736b168c62ac",
@@ -86,21 +150,45 @@
       "status": "ok",
       "eventCount": 491,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 176,
+      "publishReadyCount": 168,
+      "publishPartialCount": 2,
+      "holdDataErrorCount": 6,
+      "missingTimeCount": 3,
+      "missingAddressCount": 6,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 87
     },
     {
       "key": "City of Sunnyvale|sunnyvale.ca.gov|",
       "name": "City of Sunnyvale",
       "method": "search-fallback",
       "mode": "not-run",
-      "failureStreak": 0
+      "failureStreak": 0,
+      "publishedCount": 1,
+      "publishReadyCount": 1,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 89
     },
     {
       "key": "City of Mountain View|mountainview.gov|",
       "name": "City of Mountain View",
       "method": "search-fallback",
       "mode": "not-run",
-      "failureStreak": 0
+      "failureStreak": 0,
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "City of Cupertino|cupertino.gov|https://www.cupertino.gov/Events-directory?dlv_OC+CL+City+Events+Listing=%28dd_OC+Event+Categories%3DMajor+events%29%28dd_OC+Composite+Date%3D0d%29",
@@ -110,14 +198,30 @@
       "status": "ok",
       "eventCount": 6,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "City of Santa Clara|santaclaraca.gov|",
       "name": "City of Santa Clara",
       "method": "search-fallback",
       "mode": "not-run",
-      "failureStreak": 0
+      "failureStreak": 0,
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "Computer History Museum|computerhistory.org|https://computerhistory.org/events/feed/",
@@ -127,7 +231,15 @@
       "status": "ok",
       "eventCount": 0,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 3,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 3,
+      "missingTimeCount": 3,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 2,
+      "avgCompletenessScore": 56.7
     },
     {
       "key": "Cantor Arts Center|events.stanford.edu|https://events.stanford.edu",
@@ -137,7 +249,15 @@
       "status": "ok",
       "eventCount": 1,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 1,
+      "publishReadyCount": 1,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 100
     },
     {
       "key": "Happy Hollow Park & Zoo|happyhollow.org|https://happyhollow.org/events/",
@@ -147,7 +267,15 @@
       "status": "ok",
       "eventCount": 0,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "Gilroy Gardens|gilroygardens.org|https://www.gilroygardens.org/calendar-hours/",
@@ -157,7 +285,15 @@
       "status": "ok",
       "eventCount": 5,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 1,
+      "publishReadyCount": 1,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 94
     },
     {
       "key": "Foothill College|foothill.edu|https://foothill.edu/",
@@ -167,7 +303,15 @@
       "status": "ok",
       "eventCount": 0,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "De Anza College Planetarium|deanza.edu|https://daweb2.deanza.edu/events/month.html",
@@ -177,7 +321,15 @@
       "status": "ok",
       "eventCount": 23,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 16,
+      "publishReadyCount": 16,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 90
     },
     {
       "key": "SLAC National Accelerator Laboratory|slac.stanford.edu|https://www6.slac.stanford.edu/news-and-events/events",
@@ -187,7 +339,15 @@
       "status": "ok",
       "eventCount": 0,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "Stanford Events|events.stanford.edu|https://events.stanford.edu/api/2/events?pp=100&days=120",
@@ -197,7 +357,15 @@
       "status": "ok",
       "eventCount": 5,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 3,
+      "publishReadyCount": 1,
+      "publishPartialCount": 2,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 1,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 78.7
     },
     {
       "key": "San Jose Sharks|nhl.com|https://api-web.nhle.com/v1/club-schedule-season/SJS/",
@@ -207,7 +375,15 @@
       "status": "ok",
       "eventCount": 44,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 31,
+      "publishReadyCount": 31,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 86
     },
     {
       "key": "CineLux Almaden|cineluxtheatres.com|https://www.cineluxtheatres.com/cinelux-almaden-cafe-lounge/showtimes",
@@ -217,7 +393,15 @@
       "status": "ok",
       "eventCount": 55,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "CineLux Plaza|cineluxtheatres.com|https://www.cineluxtheatres.com/cinelux-plaza-cafe-lounge/showtimes",
@@ -227,7 +411,15 @@
       "status": "ok",
       "eventCount": 41,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "CineLux Los Gatos|cineluxtheatres.com|https://www.cineluxtheatres.com/cinelux-los-gatos-theatre/showtimes",
@@ -237,7 +429,15 @@
       "status": "ok",
       "eventCount": 3,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "CineLux Morgan Hill|cineluxtheatres.com|https://www.cineluxtheatres.com/cinelux-tennant-station/showtimes",
@@ -247,7 +447,15 @@
       "status": "ok",
       "eventCount": 66,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "CineLux Gilroy|cineluxtheatres.com|https://www.cineluxtheatres.com/cinelux-gilroy-cafe-lounge/showtimes",
@@ -257,7 +465,15 @@
       "status": "ok",
       "eventCount": 49,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "Cinemark Century Oakridge 20|cinemark.com|https://www.cinemark.com/theatres/ca-san-jose/cinemark-century-oakridge-20-xd-and-screenx",
@@ -267,7 +483,15 @@
       "status": "ok",
       "eventCount": 2,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "Cinemark Century Great Mall 20|cinemark.com|https://www.cinemark.com/theatres/ca-milpitas/cinemark-century-great-mall-20-xd-and-screenx",
@@ -277,7 +501,15 @@
       "status": "ok",
       "eventCount": 0,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "Cinemark CineArts Santana Row|cinemark.com|https://www.cinemark.com/theatres/ca-san-jose/cinemark-cinearts-santana-row",
@@ -287,7 +519,15 @@
       "status": "ok",
       "eventCount": 0,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "South FIRST FRIDAYS / ArtWalkSJ|southfirstfridays.com|https://www.southfirstfridays.com/wp-json/wp/v2/posts?categories=4&per_page=15",
@@ -297,7 +537,15 @@
       "status": "ok",
       "eventCount": 1,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 1,
+      "publishReadyCount": 0,
+      "publishPartialCount": 1,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 78
     },
     {
       "key": "SAP Center|sapcenter.com|https://www.sapcenter.com/events/all",
@@ -307,7 +555,15 @@
       "status": "ok",
       "eventCount": 7,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 1,
+      "publishReadyCount": 1,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 86
     },
     {
       "key": "Bay FC|bayfc.com|https://bayfc.com/schedule/",
@@ -317,7 +573,15 @@
       "status": "ok",
       "eventCount": 3,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 3,
+      "publishReadyCount": 3,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 86
     },
     {
       "key": "San Jose Giants|milb.com|https://statsapi.mlb.com/api/v1/schedule?teamId=476",
@@ -327,7 +591,15 @@
       "status": "ok",
       "eventCount": 0,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "San Jose Earthquakes|sjearthquakes.com|https://stats-api.mlssoccer.com/competitions/MLS-COM-000001/seasons",
@@ -337,7 +609,15 @@
       "status": "ok",
       "eventCount": 4,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 4,
+      "publishReadyCount": 4,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 86
     },
     {
       "key": "Palo Alto Children's Theatre|pact.showare.com|https://pact.showare.com/include/widgets/events/performancelist.asp?action=perf&page=1&listPageSize=100&showPackages=1",
@@ -347,7 +627,15 @@
       "status": "ok",
       "eventCount": 99,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 12,
+      "publishReadyCount": 0,
+      "publishPartialCount": 12,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 12,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 69.7
     },
     {
       "key": "CMT San Jose|cmtsj.org|https://www.cmtsj.org/wp-json/wp/v2/pages/12073",
@@ -357,7 +645,15 @@
       "status": "ok",
       "eventCount": 16,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 2,
+      "publishReadyCount": 2,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 86
     },
     {
       "key": "Peninsula Youth Theatre|pytnet.org|https://pytnet.org/",
@@ -367,7 +663,15 @@
       "status": "ok",
       "eventCount": 10,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 3,
+      "publishReadyCount": 3,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 94
     },
     {
       "key": "San Jose Barracuda|sjbarracuda.com|https://sjbarracuda.com/schedule",
@@ -377,7 +681,15 @@
       "status": "ok",
       "eventCount": 36,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 34,
+      "publishReadyCount": 0,
+      "publishPartialCount": 34,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 78
     },
     {
       "key": "Filoli Historic House & Garden|filoli.org|https://filoli.org/whats-on/events/",
@@ -387,7 +699,15 @@
       "status": "ok",
       "eventCount": 2,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 3,
+      "publishReadyCount": 1,
+      "publishPartialCount": 2,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 2,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 1,
+      "avgCompletenessScore": 82
     },
     {
       "key": "Los Altos History Museum|losaltoshistory.org|https://www.losaltoshistory.org/events/",
@@ -396,8 +716,16 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 1,
-      "error": "Los Altos History Museum event list was not valid: 202"
+      "failureStreak": 2,
+      "error": "Los Altos History Museum event list was not valid: 202",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -407,7 +735,15 @@
       "status": "ok",
       "eventCount": 1,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "Montalvo Arts Center|montalvoarts.org|https://montalvoarts.org/experience/events-calendar/",
@@ -416,8 +752,16 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 1,
-      "error": "Montalvo official calendar was not valid: 500"
+      "failureStreak": 2,
+      "error": "Montalvo official calendar was not valid: 500",
+      "publishedCount": 2,
+      "publishReadyCount": 2,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 86
     },
     {
       "key": "City of Los Altos Parks & Recreation|losaltosca.gov|https://www.losaltosca.gov/common/modules/iCalendar/iCalendar.aspx?catID=37&feed=calendar",
@@ -426,8 +770,16 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 4,
-      "error": "Official iCalendar feed was not valid: 403"
+      "failureStreak": 5,
+      "error": "Official iCalendar feed was not valid: 403",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "Gamble Garden|gamblegarden.org|https://www.gamblegarden.org/wp-json/tribe/events/v1/events?per_page=50&categories=kids",
@@ -437,7 +789,15 @@
       "status": "ok",
       "eventCount": 4,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 4,
+      "publishReadyCount": 4,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 86
     },
     {
       "key": "Symphony San Jose|symphonysanjose.org|https://www.symphonysanjose.org/attend/2026-2027-season/concerts-2026-2027/",
@@ -447,7 +807,15 @@
       "status": "ok",
       "eventCount": 15,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 5,
+      "publishReadyCount": 0,
+      "publishPartialCount": 5,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 73
     },
     {
       "key": "San Jose Theaters|sanjosetheaters.org|https://events.timely.fun/jc0x91t0/stream?tags=677512582",
@@ -457,7 +825,15 @@
       "status": "ok",
       "eventCount": 17,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 4,
+      "publishReadyCount": 2,
+      "publishPartialCount": 2,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 79.5
     },
     {
       "key": "History San José|historysanjose.org|https://historysanjose.org/programs-events/",
@@ -467,7 +843,15 @@
       "status": "ok",
       "eventCount": 0,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "San José Buddhist Church Betsuin|sjbetsuin.org|https://www.sjbetsuin.org/wp-json/tribe/events/v1/events?per_page=100",
@@ -477,7 +861,15 @@
       "status": "ok",
       "eventCount": 0,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "Chinese Historical & Cultural Project|chcp.org|https://www.chcp.org/Events",
@@ -487,7 +879,15 @@
       "status": "ok",
       "eventCount": 5,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 3,
+      "publishReadyCount": 0,
+      "publishPartialCount": 3,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 1,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 73.3
     },
     {
       "key": "City of Milpitas|milpitas.gov|https://www.milpitas.gov/calendar.aspx?CID=0&view=list",
@@ -497,7 +897,15 @@
       "status": "ok",
       "eventCount": 1,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 1,
+      "publishReadyCount": 1,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 94
     },
     {
       "key": "Google Visitor Experience|visit.withgoogle.com|https://visit.withgoogle.com/events/",
@@ -507,7 +915,15 @@
       "status": "ok",
       "eventCount": 3,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 3,
+      "publishReadyCount": 3,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 86
     },
     {
       "key": "The Village at San Antonio Center|eventbrite.com|https://www.eventbrite.com/o/the-village-at-san-antonio-center-79938931743",
@@ -517,7 +933,15 @@
       "status": "ok",
       "eventCount": 0,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "CalColor Academy|eventbrite.com|https://www.eventbrite.com/o/calcolor-academy-9700734107",
@@ -527,7 +951,15 @@
       "status": "ok",
       "eventCount": 0,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "365 Night Market|365nightmarket.com|https://www.365nightmarket.com/",
@@ -537,7 +969,15 @@
       "status": "ok",
       "eventCount": 1,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 1,
+      "publishReadyCount": 0,
+      "publishPartialCount": 1,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 78
     },
     {
       "key": "Silicon Valley Pride|svpride.com|https://www.svpride.com/events",
@@ -547,7 +987,15 @@
       "status": "ok",
       "eventCount": 0,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "Chinese Performing Arts of America|cpaasv.org|https://www.cpaasv.org/events",
@@ -557,7 +1005,15 @@
       "status": "ok",
       "eventCount": 1,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 1,
+      "publishReadyCount": 0,
+      "publishPartialCount": 1,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 1,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 76
     },
     {
       "key": "Niles Antique Faire|niles.org|https://www.niles.org/antique-faire-and-flea-market?itemId=mc4m7bjm66f5wmnljuwb7tpucftx10-3d5wg-nws5r-7f654-37ctx",
@@ -567,7 +1023,15 @@
       "status": "ok",
       "eventCount": 0,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "Bay Area Lebanese Festival|bayarealebanesefestival.net|https://www.bayarealebanesefestival.net/",
@@ -577,7 +1041,15 @@
       "status": "ok",
       "eventCount": 0,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "Holy Family Parish|holyfamilysanjose.org|https://holyfamilysanjose.org/holy-family-parish-festival",
@@ -587,7 +1059,15 @@
       "status": "ok",
       "eventCount": 0,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "City of Santa Clara|calendar.santaclaraca.gov|https://calendar.santaclaraca.gov/santaclaraca/260168831",
@@ -597,7 +1077,15 @@
       "status": "ok",
       "eventCount": 0,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "Visit San Jose|sanjose.org|https://www.sanjose.org/events/mid-autumn-festival-bay-area",
@@ -607,7 +1095,15 @@
       "status": "ok",
       "eventCount": 1,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 1,
+      "publishReadyCount": 1,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 86
     },
     {
       "key": "City of Sunnyvale|sunnyvale.ca.gov|https://www.sunnyvale.ca.gov/recreation-and-community/special-events/hands-on-the-arts",
@@ -617,7 +1113,15 @@
       "status": "ok",
       "eventCount": 1,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 1,
+      "publishReadyCount": 1,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 89
     },
     {
       "key": "Santa Clara Parade of Champions|sc-parade-of-champions.squarespace.com|https://www.scparadeofchampions.org/parade-schedule",
@@ -627,7 +1131,15 @@
       "status": "ok",
       "eventCount": 1,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 1,
+      "publishReadyCount": 0,
+      "publishPartialCount": 1,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 1,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 70
     },
     {
       "key": "Downtown Campbell|downtowncampbell.com|https://www.downtowncampbell.com/event/31st-annual-campbell-oktoberfest",
@@ -637,7 +1149,15 @@
       "status": "ok",
       "eventCount": 2,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 1,
+      "publishReadyCount": 1,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 94
     },
     {
       "key": "San Jose Book Festival|sanjosebookfestival.org|https://sanjosebookfestival.org/calendar/",
@@ -647,7 +1167,15 @@
       "status": "ok",
       "eventCount": 0,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "Mountain View Art & Wine Festival|mvartwine.com|https://www.mvartwine.com/",
@@ -657,7 +1185,15 @@
       "status": "ok",
       "eventCount": 0,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "San José Made|sanjosemade.com|https://www.sanjosemade.com/pages/sjmade-little-shops-village-september-2026-at-cityline",
@@ -667,7 +1203,15 @@
       "status": "ok",
       "eventCount": 0,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "Viva CalleSJ / City of San José|sanjoseca.gov|https://www.sanjoseca.gov/Home/Components/Calendar/Event/8229/",
@@ -677,7 +1221,15 @@
       "status": "ok",
       "eventCount": 0,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "Sunnyvale Public Library|sunnyvale.ca.gov|https://www.sunnyvale.ca.gov/Home/Components/Calendar/Event/12391/",
@@ -687,7 +1239,15 @@
       "status": "ok",
       "eventCount": 0,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "San José Museum of Art|sjmusart.org|https://sjmusart.org/calendar",
@@ -697,7 +1257,15 @@
       "status": "ok",
       "eventCount": 1,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 1,
+      "publishReadyCount": 1,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 89
     },
     {
       "key": "Children’s Discovery Museum of San Jose|cdm.org|https://www.cdm.org/events/",
@@ -707,7 +1275,15 @@
       "status": "ok",
       "eventCount": 2,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 2,
+      "publishReadyCount": 2,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 86
     },
     {
       "key": "City of Mountain View · Seasonal Events|mountainview.gov|https://www.mountainview.gov/our-city/departments/community-services/special-events",
@@ -717,7 +1293,15 @@
       "status": "ok",
       "eventCount": 2,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 2,
+      "publishReadyCount": 2,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 90
     },
     {
       "key": "City of San José · Almaden Community Center|sanjoseca.gov|https://www.sanjoseca.gov/Home/Components/Calendar/Event/8548/5117",
@@ -727,7 +1311,15 @@
       "status": "ok",
       "eventCount": 1,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 1,
+      "publishReadyCount": 1,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 89
     },
     {
       "key": "City of Milpitas · Seasonal Events|milpitas.gov|https://www.milpitas.gov/1160/Pumpkins-in-the-Park",
@@ -737,7 +1329,15 @@
       "status": "ok",
       "eventCount": 0,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 0,
+      "publishReadyCount": 0,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": null
     },
     {
       "key": "City of Fremont · Seasonal Events|fremont.gov|https://www.fremont.gov/government/departments/parks-recreation/events",
@@ -747,7 +1347,15 @@
       "status": "ok",
       "eventCount": 1,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 1,
+      "publishReadyCount": 1,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 81
     },
     {
       "key": "City of Santa Clara · Seasonal Events|santaclaraca.gov|https://www.santaclaraca.gov/Home/Components/Calendar/Event/111000/41",
@@ -757,7 +1365,15 @@
       "status": "ok",
       "eventCount": 1,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 1,
+      "publishReadyCount": 1,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 89
     },
     {
       "key": "Teatro Visión|sanjose.org|https://www.sanjose.org/events/teatro-visions-alebrijes-dia-de-muertos-tale",
@@ -767,7 +1383,15 @@
       "status": "ok",
       "eventCount": 7,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 1,
+      "publishReadyCount": 1,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 81
     },
     {
       "key": "City of Menlo Park|menlopark.gov|https://www.menlopark.gov/Citywide-calendar/Community-events/20261028-Trunk-or-Treat",
@@ -777,7 +1401,15 @@
       "status": "ok",
       "eventCount": 1,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 1,
+      "publishReadyCount": 1,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 94
     },
     {
       "key": "History San José · Seasonal Events|historysanjose.org|https://historysanjose.org/event/childrens-halloween-haunt/",
@@ -787,7 +1419,15 @@
       "status": "ok",
       "eventCount": 1,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 1,
+      "publishReadyCount": 1,
+      "publishPartialCount": 0,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 0,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 81
     },
     {
       "key": "Santana Row|santanarow.com|https://santanarow.com/events/",
@@ -797,14 +1437,31 @@
       "status": "ok",
       "eventCount": 4,
       "failureStreak": 0,
-      "error": ""
+      "error": "",
+      "publishedCount": 4,
+      "publishReadyCount": 1,
+      "publishPartialCount": 3,
+      "holdDataErrorCount": 0,
+      "missingTimeCount": 4,
+      "missingAddressCount": 0,
+      "revalidatedMissingCount": 0,
+      "avgCompletenessScore": 74
     }
   ],
   "alerts": [
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 4,
+      "failureStreak": 5,
       "error": "Official iCalendar feed was not valid: 403"
     }
-  ]
+  ],
+  "detailEnrichment": {
+    "frameworkVersion": "event-detail-enrichment-v1",
+    "publishedEvents": 381,
+    "publishReady": 285,
+    "publishPartial": 77,
+    "holdDataError": 19,
+    "revalidatedMissing": 3,
+    "extractionGaps": 2
+  }
 }
