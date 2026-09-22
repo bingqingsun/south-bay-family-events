@@ -367,7 +367,7 @@ export function enrichEventFromDetail(event, {
   merged.detailFailureCount = 0;
   merged.detailSourceUrl = generic.canonicalUrl || finalUrl || event.url || '';
   merged.detailProvenance = {
-    ...(event.detailProvenance || {}),
+    ...(merged.detailProvenance || event.detailProvenance || {}),
     ...fieldProvenance
   };
 
