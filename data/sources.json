@@ -1140,6 +1140,10 @@
     "place": "Santana Row",
     "address": "377 Santana Row, San Jose",
     "city": "San Jose",
-    "familyPattern": "family|families|children|kids?|all ages|pumpkin|halloween|trick-or-treat|día de|dia de|craft|glassblowing|costume"
+    "familyPattern": "family|families|children|kids?|all ages|pumpkin|halloween|trick-or-treat|día de|dia de|craft|glassblowing|costume",
+    "id": "santana-row",
+    "landingUrl": "https://santanarow.com/events/",
+    "linkPolicy": "first_party_detail_with_listing_fallback",
+    "runnerAccessPolicy": "transient-fetch-failures-observed"
   }
 ]
