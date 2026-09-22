@@ -107,9 +107,12 @@ export function extractDateTime({ html, schema, currentDate = '' }) {
   const endSchema = normalizeIso(schema?.endDate);
   if (startSchema) {
     const pageText = plainText(html);
-    const midnightPlaceholder = /T00:00(?::00)?$/.test(startSchema)
-      && !/\b(?:12(?::00)?\s*(?:a\.?m\.?|AM)|midnight)\b/i.test(pageText);
-    if (midnightPlaceholder) {
+    const explicitMidnight = /\b(?:12(?::00)?\s*(?:a\.?m\.?|AM)|midnight)\b/i.test(pageText);
+    const startMidnightPlaceholder = /T00:00(?::00)?$/.test(startSchema) && !explicitMidnight;
+    const dateOnlyWithMidnightEnd = /^\d{4}-\d{2}-\d{2}$/.test(startSchema)
+      && endSchema.startsWith(startSchema + 'T00:00')
+      && !explicitMidnight;
+    if (startMidnightPlaceholder || dateOnlyWithMidnightEnd) {
       return { startDate: startSchema.slice(0, 10), endDate: '', method: 'schema.org-date-only' };
     }
     return { startDate: startSchema, endDate: endSchema, method: 'schema.org' };
