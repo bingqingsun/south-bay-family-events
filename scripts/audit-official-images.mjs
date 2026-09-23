@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 
-const file = process.argv[2] || 'data/events.json';
+const file = process.argv[2] || 'data/events.js';
 const source = fs.readFileSync(file, 'utf8').trim();
 const json = source.startsWith('window.SOUTH_BAY_EVENTS')
   ? source.replace(/^window\.SOUTH_BAY_EVENTS\s*=\s*/, '').replace(/;\s*(?:window\.SOUTH_BAY_EVENTS_META[\s\S]*)?$/, '')
