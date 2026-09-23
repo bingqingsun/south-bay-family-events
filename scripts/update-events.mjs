@@ -2771,17 +2771,48 @@ async function readDeAnza(source) {
 // keeps entries whose official title, summary, or tags explicitly identify a
 // child, teen, or family audience.
 async function readPaloAlto(source) {
-  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
-  const html = await response.text();
-  if (!response.ok || !/list-container events-list-container/i.test(html)) {
-    throw new Error('Palo Alto official calendar was not valid: ' + response.status);
+  const headers = { 'user-agent': 'SouthBayFamilyEventsBot/1.0' };
+  const firstResponse = await fetch(source.feedUrl, { headers, signal: AbortSignal.timeout(15000) });
+  const firstHtml = await firstResponse.text();
+  if (!firstResponse.ok || !/list-container events-list-container/i.test(firstHtml)) {
+    throw new Error('Palo Alto official calendar was not valid: ' + firstResponse.status);
   }
-  const paloAltoPaginationHints = [...html.matchAll(/href=["']([^"']+)["']/gi)]
-    .map(match => decodeXml(match[1]))
-    .filter(href => /(?:page|pageindex|dlv_|Events-Directory)/i.test(href));
-  console.log('Palo Alto pagination hints:', JSON.stringify([...new Set(paloAltoPaginationHints)].slice(-40)));
-  const paloPageMarker = html.search(/Page\s*1\s*of\s*\d+/i);
-  if (paloPageMarker >= 0) console.log('Palo Alto pagination html:', html.slice(Math.max(0, paloPageMarker - 5000), paloPageMarker + 5000));
+
+  const totalPages = Number(firstHtml.match(/Page\s+1\s+of\s+(\d+)/i)?.[1] || 1);
+  const pageSelectName = decodeXml(firstHtml.match(/<select\b[^>]*name=["']([^"']+)["'][^>]*title=["']Please select the page here\./i)?.[1]
+    || firstHtml.match(/<select\b[^>]*title=["']Please select the page here\.[^>]*name=["']([^"']+)["']/i)?.[1] || '');
+  const goButtonName = decodeXml(firstHtml.match(/<input\b[^>]*name=["']([^"']+)["'][^>]*value=["']Go["'][^>]*class=["'][^"']*btn_scPagingNonJS_enabled/i)?.[1]
+    || firstHtml.match(/<input\b[^>]*value=["']Go["'][^>]*name=["']([^"']+)["'][^>]*class=["'][^"']*btn_scPagingNonJS_enabled/i)?.[1] || '');
+
+  const pageHtmls = [firstHtml];
+  let currentHtml = firstHtml;
+  for (let page = 2; page <= totalPages; page += 1) {
+    if (!pageSelectName || !goButtonName) break;
+    const form = new URLSearchParams();
+    for (const input of currentHtml.match(/<input\b[^>]*>/gi) || []) {
+      const type = htmlAttribute(input, /\btype=["']([^"']+)["']/i).toLowerCase();
+      const name = decodeXml(htmlAttribute(input, /\bname=["']([^"']+)["']/i));
+      if (type !== 'hidden' || !name) continue;
+      form.set(name, decodeXml(htmlAttribute(input, /\bvalue=["']([^"']*)["']/i)));
+    }
+    form.set(pageSelectName, String(page));
+    form.set(goButtonName, 'Go');
+    try {
+      const pageResponse = await fetch(source.feedUrl, {
+        method: 'POST',
+        headers: { ...headers, 'content-type': 'application/x-www-form-urlencoded' },
+        body: form.toString(),
+        signal: AbortSignal.timeout(15000)
+      });
+      const pageHtml = await pageResponse.text();
+      if (!pageResponse.ok || !/list-container events-list-container/i.test(pageHtml)) break;
+      pageHtmls.push(pageHtml);
+      currentHtml = pageHtml;
+    } catch {
+      break;
+    }
+  }
+  const html = pageHtmls.join('\n');
   const monthNumbers = { jan: '01', feb: '02', mar: '03', apr: '04', may: '05', jun: '06', jul: '07', aug: '08', sep: '09', oct: '10', nov: '11', dec: '12' };
   const youthSignal = new RegExp(source.familyPattern
     || 'children|kids?|famil(?:y|ies)|youth|teen|toddler|preschool|elementary|middle school|high school|all ages|parent(?:s)?\\s*(?:and|&)\\s*(?:child|kid)', 'i');
