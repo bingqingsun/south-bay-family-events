@@ -318,6 +318,7 @@ export function enrichEventFromDetail(event, {
       evidence: officialImageEvidence || ''
     };
     merged.imageStatus = 'official';
+    delete merged.imageFailureReason;
   } else if (!fieldExists(merged.image)) {
     merged.imageStatus = 'missing';
     merged.imageFailureReason = 'no_verified_official_image_candidate';
