@@ -201,7 +201,10 @@ export function extractImageCandidates({ html, schema, baseUrl, title = '', allo
     const tag = match[0];
     const alt = decodeHtml(tag.match(/\balt=["']([^"']*)["']/i)?.[1] || '');
     if (!title || !alt || !sameEventIdentity(title, alt)) continue;
-    add(tag.match(/\b(?:src|data-src)=["']([^"']+)["']/i)?.[1] || '', 'event-image', 85, 'image-alt-matches-event');
+    const raw = tag.match(/\b(?:src|data-src|data-lazy-src)=["']([^"']+)["']/i)?.[1]
+      || tag.match(/\bsrcset=["']([^"']+)["']/i)?.[1]?.split(',').at(-1)?.trim().split(/\s+/)[0]
+      || '';
+    add(raw, 'event-image', 85, 'image-alt-matches-event');
   }
 
   // Listing/card evidence: keep title/link/image association inside the same
@@ -216,7 +219,10 @@ export function extractImageCandidates({ html, schema, baseUrl, title = '', allo
     const images = [...container.matchAll(/<img\b[^>]*>/gi)];
     if (images.length !== 1) continue;
     const tag = images[0][0];
-    add(tag.match(/\b(?:src|data-src)=["']([^"']+)["']/i)?.[1] || '', 'card-dom-bound', 85, 'same-card-title-link-image');
+    const raw = tag.match(/\b(?:src|data-src|data-lazy-src)=["']([^"']+)["']/i)?.[1]
+      || tag.match(/\bsrcset=["']([^"']+)["']/i)?.[1]?.split(',').at(-1)?.trim().split(/\s+/)[0]
+      || '';
+    add(raw, 'card-dom-bound', 85, 'same-card-title-link-image');
   }
 
   const rawOg = htmlAttribute(html, /<meta\s+(?:property|name)=["'](?:og:image|twitter:image)["']\s+content=["']([^"']+)/i)
