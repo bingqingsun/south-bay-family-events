@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T23:52:03.217Z",
+  "generatedAt": "2026-09-23T00:28:46.653Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -20,7 +20,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 17,
+      "eventCount": 12,
       "failureStreak": 0,
       "error": ""
     },
@@ -255,7 +255,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 48,
+      "eventCount": 46,
       "failureStreak": 0,
       "error": ""
     },
@@ -265,7 +265,7 @@
       "method": "cinemark",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 4,
+      "eventCount": 3,
       "failureStreak": 0,
       "error": ""
     },
@@ -275,7 +275,7 @@
       "method": "cinemark",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 3,
+      "eventCount": 2,
       "failureStreak": 0,
       "error": ""
     },
@@ -285,7 +285,7 @@
       "method": "cinemark",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 4,
+      "eventCount": 3,
       "failureStreak": 0,
       "error": ""
     },
@@ -396,7 +396,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 1,
+      "failureStreak": 2,
       "error": "Los Altos History Museum event list was not valid: 202"
     },
     {
@@ -803,14 +803,15 @@
   "alerts": [],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-09-22T23:52:03.217Z",
-    "enriched": 336,
+    "checkedAt": "2026-09-23T00:28:46.653Z",
+    "enriched": 332,
     "cached": 4,
-    "fetch-blocked": 17,
+    "fetch-blocked": 18,
     "identity-mismatch": 41,
-    "fetch-failed": 3,
+    "fetch-failed": 2,
     "fieldUpdates": {
-      "description": 232
+      "description": 228,
+      "image": 44
     }
   }
 }
