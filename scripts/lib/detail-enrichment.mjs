@@ -302,6 +302,20 @@ export function enrichEventFromDetail(event, {
   const canonicalMayReplaceDescription = !['official_structured', 'manual_verified'].includes(event.summaryStatus);
   if (canonicalMayReplaceDescription) set('description', generic.description, generic.descriptionMethod);
   set('image', generic.image, generic.imageMethod);
+  if (generic.image) {
+    merged.imageProvenance = {
+      source: 'canonical-detail',
+      method: generic.imageMethod || 'detail-page',
+      sourceUrl: finalUrl || event.url || '',
+      verifiedAt,
+      score: generic.imageScore || 0,
+      evidence: generic.imageEvidence || ''
+    };
+    merged.imageStatus = 'official';
+  } else if (!fieldExists(merged.image)) {
+    merged.imageStatus = 'missing';
+    merged.imageFailureReason = 'no_verified_official_image_candidate';
+  }
   if (canonicalMayReplaceDescription && generic.description) {
     merged.sourceDescriptionRaw = generic.description;
     fieldProvenance.sourceDescriptionRaw = {
