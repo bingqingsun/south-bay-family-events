@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T05:39:41.896Z",
+  "generatedAt": "2026-09-23T05:42:19.290Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -57,7 +57,7 @@
       "method": "paloalto",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 29,
+      "eventCount": 100,
       "failureStreak": 0,
       "error": ""
     },
@@ -355,7 +355,7 @@
       "method": "cmt",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 7,
+      "eventCount": 16,
       "failureStreak": 0,
       "error": ""
     },
@@ -394,10 +394,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 1,
-      "error": "Los Altos History Museum event list was not valid: 202"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -415,7 +415,7 @@
       "method": "montalvo",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 0,
+      "eventCount": 2,
       "failureStreak": 0,
       "error": ""
     },
@@ -426,7 +426,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 17,
+      "failureStreak": 18,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -435,7 +435,7 @@
       "method": "tribe",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 1,
+      "eventCount": 4,
       "failureStreak": 0,
       "error": ""
     },
@@ -444,20 +444,20 @@
       "name": "Symphony San Jose",
       "method": "symphony",
       "mode": "direct",
-      "status": "failed",
-      "eventCount": 0,
-      "failureStreak": 1,
-      "error": "fetch failed"
+      "status": "ok",
+      "eventCount": 15,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "San Jose Theaters|sanjosetheaters.org|https://events.timely.fun/jc0x91t0/stream?tags=677512582",
       "name": "San Jose Theaters",
       "method": "timely",
       "mode": "direct",
-      "status": "failed",
-      "eventCount": 0,
-      "failureStreak": 1,
-      "error": "fetch failed"
+      "status": "ok",
+      "eventCount": 17,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "History San José|historysanjose.org|https://historysanjose.org/programs-events/",
@@ -803,27 +803,26 @@
   "alerts": [
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 17,
+      "failureStreak": 18,
       "error": "Official iCalendar feed was not valid: 403"
     }
   ],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-09-23T05:39:41.896Z",
-    "enriched": 355,
+    "checkedAt": "2026-09-23T05:42:19.290Z",
+    "enriched": 348,
     "cached": 4,
-    "fetch-blocked": 20,
-    "identity-mismatch": 39,
-    "fetch-failed": 2,
+    "fetch-blocked": 19,
+    "identity-mismatch": 41,
+    "fetch-failed": 3,
     "fieldUpdates": {
-      "description": 246,
-      "image": 1
+      "description": 249
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-09-23T05:39:41.896Z",
-    "official": 260,
+    "checkedAt": "2026-09-23T05:42:19.290Z",
+    "official": 255,
     "unclassified": 156,
     "missing": 4,
     "failure:official_page_fetch_blocked": 3,
