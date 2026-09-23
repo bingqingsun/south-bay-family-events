@@ -3655,6 +3655,18 @@ sourceHealth.canonicalDetailEnrichment = {
   fieldUpdates: canonicalFieldUpdates
 };
 console.log(`Canonical detail summary: ${JSON.stringify(sourceHealth.canonicalDetailEnrichment)}`);
+const imageQualityCounts = events.reduce((counts, event) => {
+  const status = event.imageStatus || (event.image ? 'unclassified' : 'missing');
+  counts[status] = (counts[status] || 0) + 1;
+  if (event.imageFailureReason) counts['failure:' + event.imageFailureReason] = (counts['failure:' + event.imageFailureReason] || 0) + 1;
+  return counts;
+}, {});
+sourceHealth.officialImageEnrichment = {
+  frameworkVersion: 'official-image-enrichment-v2',
+  checkedAt: generatedAt,
+  ...imageQualityCounts
+};
+console.log(`Official image summary: ${JSON.stringify(sourceHealth.officialImageEnrichment)}`);
 
 // Link health is a release-quality stage. A known-bad detail URL is replaced
 // only with an explicitly configured, user-facing official landing page.
