@@ -2939,11 +2939,19 @@ async function readSymphony(source) {
   const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
   const html = await response.text();
   if (!response.ok || !/show-concert/i.test(html)) throw new Error('Symphony San Jose season page was not valid: ' + response.status);
-  const cards = [...html.matchAll(/<li\b[^>]*\bshow-concert\b[\s\S]*?<\/li>/gi)].map(match => match[0]).map(card => ({
-    title: plainText(card.match(/<h3[^>]*>([\s\S]*?)<\/h3>/i)?.[1] || ''),
-    url: htmlAttribute(card, /href=["']([^"']+)["']/i),
-    image: htmlAttribute(card, /<img[^>]+src=["']([^"']+)["']/i)
-  })).filter(card => card.title && card.url)
+  const cards = [...html.matchAll(/<li\b[^>]*\bshow-concert\b[\s\S]*?<\/li>/gi)].map(match => match[0]).map(card => {
+    const imageTag = card.match(/<img\b[^>]*>/i)?.[0] || '';
+    const responsive = imageTag.match(/\bsrcset=["']([^"']+)["']/i)?.[1]
+      ?.split(',').at(-1)?.trim().split(/\s+/)[0] || '';
+    const image = htmlAttribute(imageTag, /\b(?:data-lazy-src|data-src)=["']([^"']+)["']/i)
+      || responsive
+      || htmlAttribute(imageTag, /\bsrc=["']([^"']+)["']/i);
+    return {
+      title: plainText(card.match(/<h3[^>]*>([\s\S]*?)<\/h3>/i)?.[1] || ''),
+      url: htmlAttribute(card, /href=["']([^"']+)["']/i),
+      image
+    };
+  }).filter(card => card.title && card.url)
     // This is a candidate shortlist, not the audience decision. The official
     // detail-page description below remains the authority for publication.
     .filter(card => /\b(?:my very first|nutcracker|spooktacular|family)\b/i.test(card.title));
