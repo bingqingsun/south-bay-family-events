@@ -256,6 +256,26 @@ const source = { name: 'City Test', method: 'civic', domain: 'example.gov', city
   assert.ok(result.event.imageProvenance.score >= 85);
 }
 
+
+{
+  const symphonySource = { name: 'Symphony San Jose', method: 'symphony', domain: 'symphonysanjose.org', city: 'San Jose' };
+  const event = {
+    ...baseEvent,
+    id: 'spooktacular-detail',
+    title: 'Symphonic Spooktacular',
+    source: 'Symphony San Jose',
+    url: 'https://www.symphonysanjose.org/attend/2026-2027-season/concerts/symphonic-spooktacular/',
+    canonicalUrl: 'https://www.symphonysanjose.org/attend/2026-2027-season/concerts/symphonic-spooktacular/',
+    image: 'https://www.symphonysanjose.org/wp-content/uploads/2026/01/5.jpg'
+  };
+  const html = `<html><body><h1>Symphonic Spooktacular</h1>
+    <img src="/icons/when.svg" alt="When"><p>Saturday, October 24, 2026</p>
+    <img src="/icons/location.svg" alt="Location"><p>California Theatre</p>
+  </body></html>`;
+  const result = enrichEventFromDetail(event, { source: symphonySource, html, finalUrl: event.url });
+  assert.equal(result.event.image, 'https://www.symphonysanjose.org/wp-content/uploads/2026/01/5.jpg');
+}
+
 // Completeness is diagnostic only and should favor exact actionable details.
 {
   const sparse = detailCompletenessScore(baseEvent);
