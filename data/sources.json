@@ -860,7 +860,8 @@
         "cost": "Free",
         "format": "festival",
         "seasonalTheme": "dia-de-muertos",
-        "url": "https://sjmusart.org/calendar"
+        "url": "https://sjmusart.org/programs-at-sjma/community-days/dia-de-los-muertos",
+        "image": "https://sjmusart.org/sites/default/files/styles/wide/public/2026-01/sjma%20community%20day%20dod%20banner.png?itok=LXYHKSmS"
       }
     ]
   },
@@ -996,7 +997,8 @@
         "address": "3500 Capitol Ave, Fremont",
         "ageText": "Family-friendly",
         "format": "festival",
-        "seasonalTheme": "halloween"
+        "seasonalTheme": "halloween",
+        "url": "https://www.fremont.gov/government/departments/parks-recreation/events/trick-or-treat-event"
       }
     ]
   },
@@ -1017,7 +1019,8 @@
         "ageText": "Ages 0–10",
         "cost": "Free",
         "format": "festival",
-        "seasonalTheme": "halloween"
+        "seasonalTheme": "halloween",
+        "url": "https://www.santaclaraca.gov/our-city/departments-g-z/parks-recreation/special-events/children-s-halloween-party"
       }
     ]
   },
@@ -1039,7 +1042,8 @@
         "cost": "Tickets required",
         "format": "live-show",
         "seasonalTheme": "dia-de-muertos",
-        "url": "https://www.teatrovision.org/alebrijes"
+        "url": "https://www.teatrovision.org/alebrijes",
+        "image": "https://assets.nationbuilder.com/teatrovision/pages/2610/attachments/original/1785277988/Alebrijes_Title.png"
       },
       {
         "title": "Alebrijes: A Día de Muertos Tale",
@@ -1051,7 +1055,8 @@
         "cost": "Tickets required",
         "format": "live-show",
         "seasonalTheme": "dia-de-muertos",
-        "url": "https://www.teatrovision.org/alebrijes"
+        "url": "https://www.teatrovision.org/alebrijes",
+        "image": "https://assets.nationbuilder.com/teatrovision/pages/2610/attachments/original/1785277988/Alebrijes_Title.png"
       },
       {
         "title": "Alebrijes: A Día de Muertos Tale",
@@ -1063,7 +1068,8 @@
         "cost": "Tickets required",
         "format": "live-show",
         "seasonalTheme": "dia-de-muertos",
-        "url": "https://www.teatrovision.org/alebrijes"
+        "url": "https://www.teatrovision.org/alebrijes",
+        "image": "https://assets.nationbuilder.com/teatrovision/pages/2610/attachments/original/1785277988/Alebrijes_Title.png"
       },
       {
         "title": "Alebrijes: A Día de Muertos Tale",
@@ -1075,7 +1081,8 @@
         "cost": "Tickets required",
         "format": "live-show",
         "seasonalTheme": "dia-de-muertos",
-        "url": "https://www.teatrovision.org/alebrijes"
+        "url": "https://www.teatrovision.org/alebrijes",
+        "image": "https://assets.nationbuilder.com/teatrovision/pages/2610/attachments/original/1785277988/Alebrijes_Title.png"
       },
       {
         "title": "Alebrijes: A Día de Muertos Tale",
@@ -1087,7 +1094,8 @@
         "cost": "Tickets required",
         "format": "live-show",
         "seasonalTheme": "dia-de-muertos",
-        "url": "https://www.teatrovision.org/alebrijes"
+        "url": "https://www.teatrovision.org/alebrijes",
+        "image": "https://assets.nationbuilder.com/teatrovision/pages/2610/attachments/original/1785277988/Alebrijes_Title.png"
       },
       {
         "title": "Alebrijes: A Día de Muertos Tale",
@@ -1099,7 +1107,8 @@
         "cost": "Tickets required",
         "format": "live-show",
         "seasonalTheme": "dia-de-muertos",
-        "url": "https://www.teatrovision.org/alebrijes"
+        "url": "https://www.teatrovision.org/alebrijes",
+        "image": "https://assets.nationbuilder.com/teatrovision/pages/2610/attachments/original/1785277988/Alebrijes_Title.png"
       },
       {
         "title": "Alebrijes: A Día de Muertos Tale",
@@ -1111,7 +1120,8 @@
         "cost": "Tickets required",
         "format": "live-show",
         "seasonalTheme": "dia-de-muertos",
-        "url": "https://www.teatrovision.org/alebrijes"
+        "url": "https://www.teatrovision.org/alebrijes",
+        "image": "https://assets.nationbuilder.com/teatrovision/pages/2610/attachments/original/1785277988/Alebrijes_Title.png"
       }
     ]
   },
