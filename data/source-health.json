@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T01:45:06.430Z",
+  "generatedAt": "2026-09-23T01:46:53.861Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -396,7 +396,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 1,
+      "failureStreak": 2,
       "error": "Los Altos History Museum event list was not valid: 202"
     },
     {
@@ -426,7 +426,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 5,
+      "failureStreak": 6,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -494,10 +494,10 @@
       "name": "City of Milpitas",
       "method": "civic",
       "mode": "direct",
-      "status": "ok",
-      "eventCount": 1,
-      "failureStreak": 0,
-      "error": ""
+      "status": "failed",
+      "eventCount": 0,
+      "failureStreak": 1,
+      "error": "The operation was aborted due to timeout"
     },
     {
       "key": "Google Visitor Experience|visit.withgoogle.com|https://visit.withgoogle.com/events/",
@@ -803,26 +803,24 @@
   "alerts": [
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 5,
+      "failureStreak": 6,
       "error": "Official iCalendar feed was not valid: 403"
     }
   ],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-09-23T01:45:06.430Z",
+    "checkedAt": "2026-09-23T01:46:53.861Z",
     "enriched": 329,
     "cached": 4,
-    "fetch-blocked": 18,
+    "fetch-blocked": 22,
     "identity-mismatch": 41,
-    "fetch-failed": 4,
     "fieldUpdates": {
-      "description": 227,
-      "image": 1
+      "description": 226
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-09-23T01:45:06.430Z",
+    "checkedAt": "2026-09-23T01:46:53.861Z",
     "official": 235,
     "unclassified": 157,
     "missing": 4,
