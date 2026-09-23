@@ -2896,6 +2896,18 @@ async function readPaloAlto(source) {
         place: candidate.place, address: shortAddress(candidate.street, 'Palo Alto'), city: 'Palo Alto',
         source: source.name, url: candidate.url, ageText: ageEvidence
       });
+      if (/Great Glass Pumpkin Patch/i.test(candidate.title)) {
+        console.log('PALO GLASS AUDIENCE DEBUG:', JSON.stringify({
+          candidateAudienceText: candidate.audienceText,
+          listingFamilySignal: candidate.listingFamilySignal,
+          detailDescription,
+          preferredFamilyEvidence,
+          explicitYouthEvidence,
+          ageEvidence,
+          directAgeLabel: event.ageLabel,
+          directAgeRanges: event.ageRanges
+        }));
+      }
       return hasUsableSourceContent(event.description) ? { ...event, ...costInfo('', detailDescription || detailText || description) } : null;
     }).filter(Boolean);
   }));
