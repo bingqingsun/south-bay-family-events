@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T05:53:47.341Z",
+  "generatedAt": "2026-09-23T05:55:36.122Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -57,7 +57,7 @@
       "method": "paloalto",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 100,
+      "eventCount": 88,
       "failureStreak": 0,
       "error": ""
     },
@@ -275,7 +275,7 @@
       "method": "cinemark",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 1,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -426,7 +426,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 22,
+      "failureStreak": 23,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -803,26 +803,26 @@
   "alerts": [
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 22,
+      "failureStreak": 23,
       "error": "Official iCalendar feed was not valid: 403"
     }
   ],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-09-23T05:53:47.341Z",
-    "enriched": 344,
+    "checkedAt": "2026-09-23T05:55:36.122Z",
+    "enriched": 343,
     "cached": 4,
     "fetch-blocked": 18,
     "identity-mismatch": 41,
     "fetch-failed": 4,
     "fieldUpdates": {
-      "description": 245
+      "description": 244
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-09-23T05:53:47.341Z",
-    "official": 251,
+    "checkedAt": "2026-09-23T05:55:36.122Z",
+    "official": 250,
     "unclassified": 156,
     "missing": 4,
     "failure:official_page_fetch_blocked": 3,
