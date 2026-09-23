@@ -1,7 +1,11 @@
 import fs from 'node:fs';
 
 const file = process.argv[2] || 'data/events.json';
-const raw = JSON.parse(fs.readFileSync(file, 'utf8'));
+const source = fs.readFileSync(file, 'utf8').trim();
+const json = source.startsWith('window.SOUTH_BAY_EVENTS')
+  ? source.replace(/^window\.SOUTH_BAY_EVENTS\s*=\s*/, '').replace(/;\s*(?:window\.SOUTH_BAY_EVENTS_META[\s\S]*)?$/, '')
+  : source;
+const raw = JSON.parse(json);
 const events = Array.isArray(raw) ? raw : (raw.events || []);
 const today = new Date().toISOString().slice(0, 10);
 
