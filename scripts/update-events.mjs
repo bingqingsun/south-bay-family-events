@@ -2841,6 +2841,7 @@ async function readPaloAlto(source) {
     const detailFamilyCandidate = /\/Events-Directory\/Community-Services\//i.test(url)
       && /\bCommunity Events\b/i.test(tags);
     if (!title || !url || !dateValue || seen.has(key) || !isUpcoming(dateValue)
+      || !isOfficialUrl(url, source.domain)
       || (!listingFamilySignal && !detailFamilyCandidate) || excluded.test(title)) return [];
     seen.add(key);
     const parts = venue.split(',').map(value => value.trim()).filter(Boolean);
@@ -2857,10 +2858,15 @@ async function readPaloAlto(source) {
     } catch {}
     const detailText = plainText(detailHtml);
     const detailDescription = officialParagraphText(detailHtml, { minLength: 20 });
-    const detailFamilySignal = youthSignal.test(`${candidate.audienceText} ${detailText.slice(0, 7000)}`);
+    const titleIndex = detailText.toLowerCase().indexOf(candidate.title.toLowerCase());
+    let familyDetailText = detailText.slice(Math.max(0, titleIndex), Math.max(0, titleIndex) + 7000);
+    const accommodationIndex = familyDetailText.search(/If you or a family member requires accommodations/i);
+    if (accommodationIndex >= 0) familyDetailText = familyDetailText.slice(0, accommodationIndex);
+    const detailFamilySignal = youthSignal.test(`${candidate.audienceText} ${detailDescription || ''} ${familyDetailText}`);
     // Listing-confirmed family events keep the existing resilience behavior if
     // the detail request is temporarily unavailable. Candidates admitted only
-    // for second-pass validation must prove family relevance on the detail page.
+    // for second-pass validation must prove family relevance in activity copy,
+    // not in Palo Alto's sitewide "family member requires accommodations" text.
     if (!candidate.listingFamilySignal && (!detailHtml || !detailFamilySignal)) return null;
     const dateMatch = detailText.match(/Next date:\s*((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\s*\|\s*(\d{1,2}:\d{2}\s*(?:AM|PM))/i);
     const dateValue = dateMatch ? isoDateFromOfficialText(dateMatch[1], dateMatch[2]) : candidate.dateValue;
