@@ -213,6 +213,32 @@ const source = { name: 'City Test', method: 'civic', domain: 'example.gov', city
   assert.equal(result.event.registrationStatus, 'required');
 }
 
+
+// Symphony adapter: an official season listing binds the image immediately
+// preceding a concert title when generic structured/OG evidence is absent.
+{
+  const symphonySource = { name: 'Symphony San Jose', method: 'symphony', domain: 'symphonysanjose.org', city: 'San Jose' };
+  const event = {
+    ...baseEvent,
+    id: 'spooktacular',
+    title: 'Symphonic Spooktacular',
+    source: 'Symphony San Jose',
+    url: 'https://www.symphonysanjose.org/attend/2026-2027-season/concerts-2026-2027/',
+    canonicalUrl: 'https://www.symphonysanjose.org/attend/2026-2027-season/concerts-2026-2027/',
+    image: ''
+  };
+  const html = `<html><body>
+    <div class="concert"><img src="/wp-content/uploads/2026/01/5.jpg" alt="5">
+      <h3>Symphonic Spooktacular</h3>
+      <a href="/attend/2026-2027-season/concerts/symphonic-spooktacular/">Tickets & Information</a>
+    </div>
+  </body></html>`;
+  const result = enrichEventFromDetail(event, { source: symphonySource, html, finalUrl: event.url });
+  assert.equal(result.event.image, 'https://www.symphonysanjose.org/wp-content/uploads/2026/01/5.jpg');
+  assert.equal(result.event.imageProvenance.method, 'symphony-season-card');
+  assert.equal(result.event.imageProvenance.score, 90);
+}
+
 // Completeness is diagnostic only and should favor exact actionable details.
 {
   const sparse = detailCompletenessScore(baseEvent);
