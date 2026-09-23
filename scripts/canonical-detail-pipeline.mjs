@@ -3,6 +3,7 @@ import { fetchOfficialDetail } from './lib/detail-fetch.mjs';
 import { DETAIL_QUALITY_STATES, enrichEventFromDetail } from './lib/detail-enrichment.mjs';
 
 const DAY = 86400000;
+const IMAGE_RETRY_TTL = 7 * DAY;
 
 function missingHighChangeField(event) {
   return !/T\d{2}:\d{2}/.test(String(event.dateValue || ''))
@@ -27,7 +28,8 @@ export function canonicalEnrichmentDecision(event, previous, now = Date.now()) {
   if (missingHighChangeField(event) || missingLowChangeField(event)) return { run: true, reason: 'missing-fields' };
   const verified = Date.parse(previous?.canonicalDetail?.verifiedAt || '');
   if (!Number.isFinite(verified)) return { run: true, reason: 'unverified' };
-  const ttl = missingHighChangeField(event) ? 7 * DAY : 30 * DAY;
+  const imageNeedsRetry = !event.image || event.imageStatus === 'missing' || Boolean(event.imageFailureReason);
+  const ttl = missingHighChangeField(event) || imageNeedsRetry ? IMAGE_RETRY_TTL : 30 * DAY;
   return { run: now - verified >= ttl, reason: now - verified >= ttl ? 'ttl-expired' : 'cached' };
 }
 
@@ -52,6 +54,14 @@ function reuseCanonicalEvidence(event, previous) {
     merged.sourceDescriptionRaw = previous.sourceDescriptionRaw;
   }
   if (previous.canonicalDetail) merged.canonicalDetail = previous.canonicalDetail;
+  // A transient fetch/parser failure must never erase a previously verified
+  // official image. Carry its evidence forward until stronger evidence exists.
+  if (previous.imageStatus === 'official' && previous.image && previous.imageProvenance?.source === 'canonical-detail') {
+    merged.image = previous.image;
+    merged.imageStatus = 'official';
+    merged.imageProvenance = previous.imageProvenance;
+    delete merged.imageFailureReason;
+  }
   return merged;
 }
 
