@@ -32,6 +32,15 @@ export function paloAltoSpecialEventDescription(html) {
   return decode(afterTitle.match(/<p\b[^>]*>([\s\S]*?)<\/p>/i)?.[1]);
 }
 
+// Only the card and matching event description are safe audience evidence.
+// A Palo Alto calendar page also renders citywide audience navigation, which
+// is not a statement about the event being parsed.
+export function paloAltoSpecialEventAudienceEvidence(candidate, detailDescription) {
+  return [candidate?.title, candidate?.description, detailDescription]
+    .filter(Boolean)
+    .join(' ');
+}
+
 export function paloAltoSpecialEventCalendarUrl(html, detailUrl) {
   const href = String(html || '').match(/<a\b[^>]*href=["']([^"']*\/Events-Directory\/[^"']+)["']/i)?.[1] || '';
   return href ? new URL(href, detailUrl).href : '';
