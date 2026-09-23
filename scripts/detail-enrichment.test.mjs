@@ -312,4 +312,46 @@ const source = { name: 'City Test', method: 'civic', domain: 'example.gov', city
   assert.ok(result.imageScore >= 82);
 }
 
+
+{
+  const source = { name: 'City of Cupertino', method: 'cupertino', domain: 'cupertino.gov', city: 'Cupertino' };
+  const event = {
+    ...baseEvent,
+    id: 'monster-mash-address',
+    title: 'Monster Mash',
+    source: 'City of Cupertino',
+    url: 'https://www.cupertino.gov/Parks-Recreation/Events/Monster-Mash',
+    canonicalUrl: 'https://www.cupertino.gov/Parks-Recreation/Events/Monster-Mash',
+    place: 'Quinlan Community Center',
+    address: ''
+  };
+  const html = `<html><body><h1>Monster Mash</h1>
+    <p>Quinlan Community Center 10185 North Stelling Road, Cupertino</p>
+    <p>$28 Non-Resident Registration includes one child ages 2-12 with up to two adults.</p>
+    <footer>Back to top Site Footer Contact Us 10300 Torre Ave, Cupertino, CA 95014</footer>
+  </body></html>`;
+  const result = enrichEventFromDetail(event, { source, html, finalUrl: event.url });
+  assert.equal(result.event.address, '10185 North Stelling Road, Cupertino');
+  assert.equal(result.event.place, 'Quinlan Community Center');
+}
+
+{
+  const source = { name: 'City of Cupertino', method: 'cupertino', domain: 'cupertino.gov', city: 'Cupertino' };
+  const event = {
+    ...baseEvent,
+    id: 'cupertino-footer-address',
+    title: 'Bike Fest',
+    source: 'City of Cupertino',
+    url: 'https://www.cupertino.gov/bikefest',
+    canonicalUrl: 'https://www.cupertino.gov/bikefest',
+    place: 'Cupertino Civic Plaza',
+    address: ''
+  };
+  const html = `<html><body><h1>Bike Fest</h1><p>Bike Fest is held at Cupertino Civic Plaza on Torre Avenue.</p>
+    <footer>Back to top Site Footer Contact Us 10300 Torre Ave, Cupertino, CA 95014</footer>
+  </body></html>`;
+  const result = enrichEventFromDetail(event, { source, html, finalUrl: event.url });
+  assert.equal(result.event.address, '');
+}
+
 console.log('detail-enrichment tests passed');
