@@ -80,6 +80,35 @@ const html=`<html><head>
  assert.equal(result.diagnostics.status,'cached');
 }
 
+
+{
+ const previous={
+   ...base,
+   image:'https://example.gov/images/verified-official.jpg',
+   imageStatus:'official',
+   imageProvenance:{source:'canonical-detail',sourceUrl:base.url,method:'schema.org',verifiedAt:'2026-08-01T00:00:00Z',score:100,evidence:'event-schema-image'},
+   fieldProvenance:{image:{source:'canonical-detail',sourceUrl:base.url,method:'schema.org',verifiedAt:'2026-08-01T00:00:00Z'}},
+   canonicalDetail:{status:'enriched',sourceUrl:base.url,verifiedAt:'2026-08-01T00:00:00Z',fieldsUpdated:['image']}
+ };
+ const current={...base,image:''};
+ const result=await enrichOneCanonicalEvent(current,{
+   sources:[source],previous,verifiedAt:'2026-09-22T12:00:00Z',
+   fetchImpl:async()=>({ok:false,status:503,url:base.url,headers:{get:()=> 'text/html'},text:async()=>''})
+ });
+ assert.equal(result.event.image,'https://example.gov/images/verified-official.jpg');
+ assert.equal(result.event.imageStatus,'official');
+ assert.equal(result.event.imageFailureReason,undefined);
+ assert.equal(result.event.canonicalDetail.status,'fetch-failed');
+}
+
+{
+ const previous={...base,image:'',imageStatus:'missing',canonicalDetail:{sourceUrl:base.url,verifiedAt:'2026-09-12T00:00:00Z'}};
+ assert.deepEqual(
+   canonicalEnrichmentDecision({...base,image:'',imageStatus:'missing'},previous,Date.parse('2026-09-22T00:00:00Z')),
+   {run:true,reason:'missing-fields'}
+ );
+}
+
 {
  const movie={...base,id:'movie-1',title:'Family Movie',summaryStatus:'official_structured',description:'G-rated movie screening at Official Cinema.',sourceDescriptionRaw:'G-rated movie screening at Official Cinema.'};
  const page=`<html><head><meta property="og:title" content="Family Movie"><meta name="description" content="Visit our movie theater, enjoy popcorn, snacks, an onsite bar and premium recliners."></head><body><h1>Family Movie</h1></body></html>`;
@@ -89,6 +118,58 @@ const html=`<html><head>
  });
  assert.equal(result.event.description,'G-rated movie screening at Official Cinema.');
  assert.equal(result.event.sourceDescriptionRaw,'G-rated movie screening at Official Cinema.');
+}
+
+
+{
+ const previous={
+   ...base,
+   image:'',
+   fieldProvenance:{image:{source:'canonical-detail',sourceUrl:base.url,method:'event-image',verifiedAt:'2026-09-20T00:00:00Z'}},
+   canonicalDetail:{status:'enriched',sourceUrl:base.url,verifiedAt:'2026-09-20T00:00:00Z',fieldsUpdated:['image']}
+ };
+ const current={
+   ...base,
+   image:'https://example.gov/images/recovered-from-current-source.jpg',
+   fieldProvenance:{}
+ };
+ const result=await enrichOneCanonicalEvent(current,{
+   sources:[source],previous,verifiedAt:'2026-09-22T00:00:00Z'
+ });
+ assert.equal(result.diagnostics.status,'cached');
+ assert.equal(result.event.image,'https://example.gov/images/recovered-from-current-source.jpg');
+ assert.equal(result.event.fieldProvenance.image,undefined);
+}
+
+
+{
+ const previous={
+   ...base,
+   image:base.url,
+   imageStatus:'official',
+   imageProvenance:{source:'canonical-detail',sourceUrl:base.url,method:'symphony-season-card',verifiedAt:'2026-09-20T00:00:00Z',score:90},
+   fieldProvenance:{image:{source:'canonical-detail',sourceUrl:base.url,method:'symphony-season-card',verifiedAt:'2026-09-20T00:00:00Z'}},
+   canonicalDetail:{status:'enriched',sourceUrl:base.url,verifiedAt:'2026-09-20T00:00:00Z',fieldsUpdated:['image']}
+ };
+ const current={...base,image:'https://example.gov/images/current-source-official.jpg',fieldProvenance:{}};
+ const result=await enrichOneCanonicalEvent(current,{sources:[source],previous,verifiedAt:'2026-09-22T00:00:00Z'});
+ assert.equal(result.diagnostics.status,'cached');
+ assert.equal(result.event.image,'https://example.gov/images/current-source-official.jpg');
+ assert.notEqual(result.event.image,result.event.canonicalUrl);
+}
+
+
+{
+ const previous={
+   ...base,
+   address:'28 Non-Resident Registration includes one child ages 2-12. Back to top Site Footer Contact Us 10300 Torre Ave, Cupertino',
+   fieldProvenance:{address:{source:'canonical-detail',sourceUrl:base.url,method:'cupertino-adapter',verifiedAt:'2026-09-20T00:00:00Z'}},
+   canonicalDetail:{status:'enriched',sourceUrl:base.url,verifiedAt:'2026-09-20T00:00:00Z',fieldsUpdated:['address']}
+ };
+ const current={...base,address:'10185 North Stelling Road, Cupertino',fieldProvenance:{}};
+ const result=await enrichOneCanonicalEvent(current,{sources:[source],previous,verifiedAt:'2026-09-22T00:00:00Z'});
+ assert.equal(result.diagnostics.status,'cached');
+ assert.equal(result.event.address,'10185 North Stelling Road, Cupertino');
 }
 
 console.log('canonical detail pipeline tests passed');

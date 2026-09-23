@@ -1,5 +1,17 @@
 import { plainText } from '../detail-extractors/generic.mjs';
 
+
+function cupertinoAddressCandidate(text) {
+  const value = String(text || '');
+  const pattern = /\b(\d{1,6}\s+(?:(?:N|S|E|W|North|South|East|West)\s+)?(?:[A-Za-z0-9.'’#-]+\s+){0,5}(?:Avenue|Ave\.?|Street|St\.?|Road|Rd\.?|Boulevard|Blvd\.?|Drive|Dr\.?|Lane|Ln\.?|Court|Ct\.?|Way|Parkway|Pkwy\.?|Circle|Cir\.?))(?=\s*(?:,?\s*Cupertino\b|,?\s*CA\b|\d{5}\b|$))/gi;
+  for (const match of value.matchAll(pattern)) {
+    const context = value.slice(Math.max(0, match.index - 90), Math.min(value.length, match.index + match[0].length + 90));
+    if (/Back to top|Site Footer|Contact Us/i.test(context)) continue;
+    return { street: match[1].replace(/[.,;:]$/, ''), index: match.index };
+  }
+  return null;
+}
+
 function isoDateFromOfficialText(dateText, timeText = '') {
   const months = { january:1,february:2,march:3,april:4,may:5,june:6,july:7,august:8,september:9,october:10,november:11,december:12 };
   const d = String(dateText || '').match(/\b(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),\s+(20\d{2})\b/i);
@@ -26,10 +38,10 @@ export function parseCupertinoDetail({ html, event }) {
         return match ? [match[1], match[2]] : [];
       })();
 
-  const addressMatch = text.match(/(?<!:)\b(\d{1,6}\s+[A-Za-z0-9.'’ -]+?(?:Avenue|Ave\.?|Street|St\.?|Road|Rd\.?|Boulevard|Blvd\.?|Drive|Dr\.?|Lane|Ln\.?|Court|Ct\.?|Way|Parkway|Pkwy\.?|Circle|Cir\.?))\s+(Cupertino),\s*CA\s*\d{5}(?:-\d{4})?\b/i);
+  const addressMatch = cupertinoAddressCandidate(text);
   let venue = '';
   if (addressMatch) {
-    const addressIndex = text.indexOf(addressMatch[0]);
+    const addressIndex = addressMatch.index;
     let prefix = text.slice(Math.max(0, addressIndex - 220), addressIndex);
     prefix = prefix
       .replace(title, ' ')
@@ -47,7 +59,7 @@ export function parseCupertinoDetail({ html, event }) {
     startDate: dateAnchor && range[0] ? isoDateFromOfficialText(dateAnchor, range[0]) : '',
     endDate: dateAnchor && range[1] ? isoDateFromOfficialText(dateAnchor, range[1]) : '',
     venue: venue && !/^(?:South Bay|City of Cupertino)$/i.test(venue) ? venue : '',
-    streetAddress: addressMatch?.[1] ? addressMatch[1].replace(/[.,;:]$/,'') + ', Cupertino' : '',
+    streetAddress: addressMatch?.street ? addressMatch.street + ', Cupertino' : '',
     city: addressMatch ? 'Cupertino' : '',
     audienceText: age ? 'Ages ' + age + '+' : '',
     evidenceText: text.slice(0, 12000),

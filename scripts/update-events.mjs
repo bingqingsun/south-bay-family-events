@@ -794,8 +794,9 @@ function optimizedOfficialImageUrl(value, source = '') {
     const url = new URL(value);
     if (url.hostname.endsWith('cupertino.gov') && (url.searchParams.get('dimension') === 'smallthumbnail' || (url.searchParams.has('w') && Number(url.searchParams.get('w')) <= 100))) url.search = '';
     if (url.hostname === 'filoli.org' && /\/media\//.test(url.pathname) && url.searchParams.has('width') && Number(url.searchParams.get('width')) <= 320) url.search = '';
-    if (source === 'San Jose Theaters' && /(?:^|[-_])200(?:x200)?(?:[-_.]|$)/i.test(url.pathname)) return '';
-    if (url.hostname.endsWith('cupertino.gov') && /short-header-bike-fest/i.test(url.pathname)) return '';
+    // Preserve organizer-provided event artwork even when the upstream CMS uses
+    // a small/square filename convention. A verified official image is safer
+    // than silently discarding it and forcing generic fallback art.
     return url.href;
   } catch { return value; }
 }
@@ -877,6 +878,17 @@ async function readCurated(source) {
     return {
       ...event,
       ...costInfo(item.cost || '', officialDescription || item.description || ''),
+      ...(item.image ? {
+        imageStatus: 'official',
+        imageProvenance: {
+          source: 'curated-manual',
+          method: 'manual_verified',
+          sourceUrl: url,
+          verifiedAt: generatedAt,
+          score: 100,
+          evidence: 'first-party-curated-official-image'
+        }
+      } : {}),
       // This URL is explicitly configured from a first-party organizer page.
       // Link Health still checks HTTP/soft errors, but an inconclusive machine
       // title extraction must not erase this human-verified evidence.
@@ -2334,6 +2346,17 @@ async function readCivic(source) {
   return events.filter(Boolean);
 }
 
+function cupertinoAddressCandidate(text) {
+  const value = String(text || '');
+  const pattern = /\b(\d{1,6}\s+(?:(?:N|S|E|W|North|South|East|West)\s+)?(?:[A-Za-z0-9.'’#-]+\s+){0,5}(?:Avenue|Ave\.?|Street|St\.?|Road|Rd\.?|Boulevard|Blvd\.?|Drive|Dr\.?|Lane|Ln\.?|Court|Ct\.?|Way|Parkway|Pkwy\.?|Circle|Cir\.?))(?=\s*(?:,?\s*Cupertino\b|,?\s*CA\b|\d{5}\b|$))/gi;
+  for (const match of value.matchAll(pattern)) {
+    const context = value.slice(Math.max(0, match.index - 90), Math.min(value.length, match.index + match[0].length + 90));
+    if (/Back to top|Site Footer|Contact Us/i.test(context)) continue;
+    return { street: match[1].replace(/[.,;:]$/, ''), index: match.index };
+  }
+  return null;
+}
+
 function cupertinoDetailEnrichment(event, html, source) {
   if (!html) return event;
   const schema = firstOfficialEventSchema(html);
@@ -2406,13 +2429,13 @@ function cupertinoDetailEnrichment(event, html, source) {
     }
   }
 
-  const addressMatch = detailText.match(/\b(\d{1,6}\s+[A-Za-z0-9.'’ -]+?(?:Avenue|Ave\.?|Street|St\.?|Road|Rd\.?|Boulevard|Blvd\.?|Drive|Dr\.?|Lane|Ln\.?|Court|Ct\.?|Way|Parkway|Pkwy\.?|Circle|Cir\.?))\s+(Cupertino),\s*CA\s*\d{5}(?:-\d{4})?\b/i);
+  const addressMatch = cupertinoAddressCandidate(detailText);
   if (!address && addressMatch) {
-    city = canonicalCity(addressMatch[2] || city);
-    address = shortAddress(addressMatch[1], city);
+    city = canonicalCity(city || 'Cupertino');
+    address = shortAddress(addressMatch.street, city);
   }
   if ((!place || place === source.name) && addressMatch) {
-    const addressIndex = detailText.indexOf(addressMatch[0]);
+    const addressIndex = addressMatch.index;
     let prefix = detailText.slice(Math.max(0, addressIndex - 220), addressIndex);
     prefix = prefix
       .replace(detailTitle, ' ')
@@ -2513,6 +2536,17 @@ async function enrichWithSpecialEventPage(event, source) {
         description: verified.description,
         sourceDescriptionRaw: verified.description,
         image: officialImage || pageEnriched.image || event.image || '',
+        ...(officialImage ? {
+          imageStatus: 'official',
+          imageProvenance: {
+            source: 'special-event-page',
+            method: 'special-page-bound',
+            sourceUrl: verified.url,
+            verifiedAt: generatedAt,
+            score: 85,
+            evidence: verified.evidence || 'verified-special-event-page-image'
+          }
+        } : {}),
         specialEventPageUrl: verified.url,
         specialEventPageEvidence: verified.evidence
       };
@@ -2927,11 +2961,19 @@ async function readSymphony(source) {
   const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
   const html = await response.text();
   if (!response.ok || !/show-concert/i.test(html)) throw new Error('Symphony San Jose season page was not valid: ' + response.status);
-  const cards = [...html.matchAll(/<li\b[^>]*\bshow-concert\b[\s\S]*?<\/li>/gi)].map(match => match[0]).map(card => ({
-    title: plainText(card.match(/<h3[^>]*>([\s\S]*?)<\/h3>/i)?.[1] || ''),
-    url: htmlAttribute(card, /href=["']([^"']+)["']/i),
-    image: htmlAttribute(card, /<img[^>]+src=["']([^"']+)["']/i)
-  })).filter(card => card.title && card.url)
+  const cards = [...html.matchAll(/<li\b[^>]*\bshow-concert\b[\s\S]*?<\/li>/gi)].map(match => match[0]).map(card => {
+    const imageTag = card.match(/<img\b[^>]*>/i)?.[0] || '';
+    const responsive = imageTag.match(/\bsrcset=["']([^"']+)["']/i)?.[1]
+      ?.split(',').at(-1)?.trim().split(/\s+/)[0] || '';
+    const image = htmlAttribute(imageTag, /\b(?:data-lazy-src|data-src)=["']([^"']+)["']/i)
+      || responsive
+      || htmlAttribute(imageTag, /\bsrc=["']([^"']+)["']/i);
+    return {
+      title: plainText(card.match(/<h3[^>]*>([\s\S]*?)<\/h3>/i)?.[1] || ''),
+      url: htmlAttribute(card, /href=["']([^"']+)["']/i),
+      image
+    };
+  }).filter(card => card.title && card.url)
     // This is a candidate shortlist, not the audience decision. The official
     // detail-page description below remains the authority for publication.
     .filter(card => /\b(?:my very first|nutcracker|spooktacular|family)\b/i.test(card.title));
@@ -2955,16 +2997,30 @@ async function readSymphony(source) {
     const sessions = [...detailText.matchAll(/\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),\s+(\d{4})\s+at\s+(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?))/gi)];
     return sessions.map((session, sessionIndex) => {
       const dateValue = isoDateFromOfficialText(`${session[1]} ${session[2]}, ${session[3]}`, session[4]);
-      return dateValue ? directEvent({
+      if (!dateValue) return null;
+      const verifiedImage = source.verifiedImages?.[page.title] || '';
+      const event = directEvent({
         id: `symphony-${pageIndex}-${sessionIndex}`, title: page.title, dateValue,
         description: page.description,
-        image: /(?:season|logo)/i.test(page.image) ? '' : page.image, place: 'California Theatre',
+        image: verifiedImage || (/(?:season|logo)/i.test(page.image) ? '' : page.image), place: 'California Theatre',
         address: source.address, city: source.city, source: source.name, url: page.url,
         // The organizer identifies these as toddler/preschool programs but
         // does not give a precise numeric suitability range. Do not turn
         // descriptive audience words into a misleading card age label.
         ageText: '', format: 'live-show'
-      }) : null;
+      });
+      return verifiedImage ? {
+        ...event,
+        imageStatus: 'official',
+        imageProvenance: {
+          source: 'source-verified',
+          method: 'manual_verified',
+          sourceUrl: source.feedUrl,
+          verifiedAt: generatedAt,
+          score: 100,
+          evidence: 'official-season-card-title-image-binding'
+        }
+      } : event;
     }).filter(Boolean);
   });
 }
@@ -3640,6 +3696,26 @@ events = canonicalDetail.events
   })
   .map(event => ({ ...event, image: optimizedOfficialImageUrl(event.image, event.source) }));
 
+function withImageQualityState(event) {
+  if (event.image) {
+    if (event.imageStatus === 'missing') {
+      const next = { ...event, imageStatus: event.imageProvenance ? 'official' : 'unclassified' };
+      delete next.imageFailureReason;
+      return next;
+    }
+    return event;
+  }
+  if (event.imageStatus === 'missing' && event.imageFailureReason) return event;
+  const detailStatus = event.canonicalDetail?.status || '';
+  const reason = detailStatus === 'fetch-blocked' ? 'official_page_fetch_blocked'
+    : detailStatus === 'fetch-failed' ? 'official_page_fetch_failed'
+    : detailStatus === 'identity-mismatch' ? 'official_page_identity_mismatch'
+    : 'no_verified_official_image_candidate';
+  return { ...event, imageStatus: 'missing', imageFailureReason: reason };
+}
+
+events = events.map(withImageQualityState);
+
 const canonicalStatusCounts = canonicalDetail.diagnostics.reduce((counts, item) => {
   counts[item.status] = (counts[item.status] || 0) + 1;
   return counts;
@@ -3655,6 +3731,18 @@ sourceHealth.canonicalDetailEnrichment = {
   fieldUpdates: canonicalFieldUpdates
 };
 console.log(`Canonical detail summary: ${JSON.stringify(sourceHealth.canonicalDetailEnrichment)}`);
+const imageQualityCounts = events.reduce((counts, event) => {
+  const status = event.imageStatus || (event.image ? 'unclassified' : 'missing');
+  counts[status] = (counts[status] || 0) + 1;
+  if (event.imageFailureReason) counts['failure:' + event.imageFailureReason] = (counts['failure:' + event.imageFailureReason] || 0) + 1;
+  return counts;
+}, {});
+sourceHealth.officialImageEnrichment = {
+  frameworkVersion: 'official-image-enrichment-v2',
+  checkedAt: generatedAt,
+  ...imageQualityCounts
+};
+console.log(`Official image summary: ${JSON.stringify(sourceHealth.officialImageEnrichment)}`);
 
 // Link health is a release-quality stage. A known-bad detail URL is replaced
 // only with an explicitly configured, user-facing official landing page.

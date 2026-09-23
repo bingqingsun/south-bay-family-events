@@ -3,6 +3,7 @@ import { fetchOfficialDetail } from './lib/detail-fetch.mjs';
 import { DETAIL_QUALITY_STATES, enrichEventFromDetail } from './lib/detail-enrichment.mjs';
 
 const DAY = 86400000;
+const IMAGE_RETRY_TTL = 7 * DAY;
 
 function missingHighChangeField(event) {
   return !/T\d{2}:\d{2}/.test(String(event.dateValue || ''))
@@ -27,7 +28,8 @@ export function canonicalEnrichmentDecision(event, previous, now = Date.now()) {
   if (missingHighChangeField(event) || missingLowChangeField(event)) return { run: true, reason: 'missing-fields' };
   const verified = Date.parse(previous?.canonicalDetail?.verifiedAt || '');
   if (!Number.isFinite(verified)) return { run: true, reason: 'unverified' };
-  const ttl = missingHighChangeField(event) ? 7 * DAY : 30 * DAY;
+  const imageNeedsRetry = !event.image || event.imageStatus === 'missing' || Boolean(event.imageFailureReason);
+  const ttl = missingHighChangeField(event) || imageNeedsRetry ? IMAGE_RETRY_TTL : 30 * DAY;
   return { run: now - verified >= ttl, reason: now - verified >= ttl ? 'ttl-expired' : 'cached' };
 }
 
@@ -37,14 +39,26 @@ function previousFor(event, previousById) {
     || null;
 }
 
+function invalidAddressEvidence(value) {
+  const text = String(value || '');
+  return text.length > 120 || /Back to top|Site Footer|Contact Us|Registration includes/i.test(text);
+}
+
 function reuseCanonicalEvidence(event, previous) {
   if (!previous || canonicalUrl(event) !== normalizeOfficialUrl(previous?.canonicalDetail?.sourceUrl || previous?.canonicalUrl || previous?.url || '')) return event;
   const provenance = previous.fieldProvenance || {};
   const merged = { ...event, fieldProvenance: { ...(event.fieldProvenance || {}) } };
+  const previousImageIsPageUrl = Boolean(previous.image)
+    && normalizeOfficialUrl(previous.image) === canonicalUrl(event);
   const strongerSummaryEvidence = ['official_structured', 'manual_verified'].includes(event.summaryStatus);
   Object.entries(provenance).forEach(([field, evidence]) => {
     if (evidence?.source !== 'canonical-detail' || previous[field] === undefined) return;
     if (strongerSummaryEvidence && ['description', 'sourceDescriptionRaw'].includes(field)) return;
+    // Never let stale empty canonical evidence erase a value recovered by the
+    // current source pass. This previously blanked newly recovered official
+    // artwork (for example Cupertino Bike Fest) while retaining old provenance.
+    if (field === 'image' && ((!previous[field] && merged[field]) || previousImageIsPageUrl)) return;
+    if (field === 'address' && invalidAddressEvidence(previous[field]) && !invalidAddressEvidence(merged[field])) return;
     merged[field] = previous[field];
     merged.fieldProvenance[field] = evidence;
   });
@@ -52,6 +66,14 @@ function reuseCanonicalEvidence(event, previous) {
     merged.sourceDescriptionRaw = previous.sourceDescriptionRaw;
   }
   if (previous.canonicalDetail) merged.canonicalDetail = previous.canonicalDetail;
+  // A transient fetch/parser failure must never erase a previously verified
+  // official image. Carry its evidence forward until stronger evidence exists.
+  if (previous.imageStatus === 'official' && previous.image && !previousImageIsPageUrl && previous.imageProvenance?.source === 'canonical-detail') {
+    merged.image = previous.image;
+    merged.imageStatus = 'official';
+    merged.imageProvenance = previous.imageProvenance;
+    delete merged.imageFailureReason;
+  }
   return merged;
 }
 

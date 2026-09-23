@@ -81,7 +81,15 @@
   {
     "name": "City of Sunnyvale",
     "domain": "sunnyvale.ca.gov",
-    "query": "events kids family"
+    "query": "events kids family",
+    "specialEventPageDiscovery": {
+      "preferredPages": [
+        {
+          "titlePattern": "\\bhands\\s+on\\s+the\\s+arts(?:\\s+festival)?\\b",
+          "url": "https://www.sunnyvale.ca.gov/recreation-and-community/special-events"
+        }
+      ]
+    }
   },
   {
     "name": "City of Mountain View",
@@ -396,7 +404,13 @@
     "method": "symphony",
     "feedUrl": "https://www.symphonysanjose.org/attend/2026-2027-season/concerts-2026-2027/",
     "address": "345 S 1st St, San Jose",
-    "city": "San Jose"
+    "city": "San Jose",
+    "verifiedImages": {
+      "Symphonic Spooktacular": "https://www.symphonysanjose.org/wp-content/uploads/2026/01/5.jpg",
+      "My Very First Nutcracker": "https://www.symphonysanjose.org/wp-content/uploads/2024/04/20242025-season-website-1.pdf.png",
+      "My Very First Symphony": "https://www.symphonysanjose.org/wp-content/uploads/2026/01/14.jpg",
+      "My Very First Ballet": "https://www.symphonysanjose.org/wp-content/uploads/2026/01/10.jpg"
+    }
   },
   {
     "name": "San Jose Theaters",
@@ -852,7 +866,8 @@
         "cost": "Free",
         "format": "festival",
         "seasonalTheme": "dia-de-muertos",
-        "url": "https://sjmusart.org/programs-at-sjma/community-days"
+        "url": "https://sjmusart.org/programs-at-sjma/community-days/dia-de-los-muertos",
+        "image": "https://sjmusart.org/sites/default/files/styles/wide/public/2026-01/sjma%20community%20day%20dod%20banner.png?itok=LXYHKSmS"
       }
     ]
   },
@@ -988,7 +1003,8 @@
         "address": "3500 Capitol Ave, Fremont",
         "ageText": "Family-friendly",
         "format": "festival",
-        "seasonalTheme": "halloween"
+        "seasonalTheme": "halloween",
+        "url": "https://www.fremont.gov/government/departments/parks-recreation/events/trick-or-treat-event"
       }
     ]
   },
@@ -1009,15 +1025,17 @@
         "ageText": "Ages 0–10",
         "cost": "Free",
         "format": "festival",
-        "seasonalTheme": "halloween"
+        "seasonalTheme": "halloween",
+        "url": "https://www.santaclaraca.gov/our-city/departments-g-z/parks-recreation/special-events/children-s-halloween-party"
       }
     ]
   },
   {
     "name": "Teatro Visión",
-    "domain": "sanjose.org",
+    "domain": "teatrovision.org",
     "method": "curated",
-    "feedUrl": "https://www.sanjose.org/events/teatro-visions-alebrijes-dia-de-muertos-tale",
+    "feedUrl": "https://www.teatrovision.org/alebrijes",
+    "landingUrl": "https://www.teatrovision.org/alebrijes",
     "city": "San Jose",
     "events": [
       {
@@ -1029,7 +1047,9 @@
         "ageText": "Whole family",
         "cost": "Tickets required",
         "format": "live-show",
-        "seasonalTheme": "dia-de-muertos"
+        "seasonalTheme": "dia-de-muertos",
+        "url": "https://www.teatrovision.org/alebrijes",
+        "image": "https://assets.nationbuilder.com/teatrovision/pages/2610/attachments/original/1785277988/Alebrijes_Title.png"
       },
       {
         "title": "Alebrijes: A Día de Muertos Tale",
@@ -1040,7 +1060,9 @@
         "ageText": "Whole family",
         "cost": "Tickets required",
         "format": "live-show",
-        "seasonalTheme": "dia-de-muertos"
+        "seasonalTheme": "dia-de-muertos",
+        "url": "https://www.teatrovision.org/alebrijes",
+        "image": "https://assets.nationbuilder.com/teatrovision/pages/2610/attachments/original/1785277988/Alebrijes_Title.png"
       },
       {
         "title": "Alebrijes: A Día de Muertos Tale",
@@ -1051,7 +1073,9 @@
         "ageText": "Whole family",
         "cost": "Tickets required",
         "format": "live-show",
-        "seasonalTheme": "dia-de-muertos"
+        "seasonalTheme": "dia-de-muertos",
+        "url": "https://www.teatrovision.org/alebrijes",
+        "image": "https://assets.nationbuilder.com/teatrovision/pages/2610/attachments/original/1785277988/Alebrijes_Title.png"
       },
       {
         "title": "Alebrijes: A Día de Muertos Tale",
@@ -1062,7 +1086,9 @@
         "ageText": "Whole family",
         "cost": "Tickets required",
         "format": "live-show",
-        "seasonalTheme": "dia-de-muertos"
+        "seasonalTheme": "dia-de-muertos",
+        "url": "https://www.teatrovision.org/alebrijes",
+        "image": "https://assets.nationbuilder.com/teatrovision/pages/2610/attachments/original/1785277988/Alebrijes_Title.png"
       },
       {
         "title": "Alebrijes: A Día de Muertos Tale",
@@ -1073,7 +1099,9 @@
         "ageText": "Whole family",
         "cost": "Tickets required",
         "format": "live-show",
-        "seasonalTheme": "dia-de-muertos"
+        "seasonalTheme": "dia-de-muertos",
+        "url": "https://www.teatrovision.org/alebrijes",
+        "image": "https://assets.nationbuilder.com/teatrovision/pages/2610/attachments/original/1785277988/Alebrijes_Title.png"
       },
       {
         "title": "Alebrijes: A Día de Muertos Tale",
@@ -1084,7 +1112,9 @@
         "ageText": "Whole family",
         "cost": "Tickets required",
         "format": "live-show",
-        "seasonalTheme": "dia-de-muertos"
+        "seasonalTheme": "dia-de-muertos",
+        "url": "https://www.teatrovision.org/alebrijes",
+        "image": "https://assets.nationbuilder.com/teatrovision/pages/2610/attachments/original/1785277988/Alebrijes_Title.png"
       },
       {
         "title": "Alebrijes: A Día de Muertos Tale",
@@ -1095,7 +1125,9 @@
         "ageText": "Whole family",
         "cost": "Tickets required",
         "format": "live-show",
-        "seasonalTheme": "dia-de-muertos"
+        "seasonalTheme": "dia-de-muertos",
+        "url": "https://www.teatrovision.org/alebrijes",
+        "image": "https://assets.nationbuilder.com/teatrovision/pages/2610/attachments/original/1785277988/Alebrijes_Title.png"
       }
     ]
   },

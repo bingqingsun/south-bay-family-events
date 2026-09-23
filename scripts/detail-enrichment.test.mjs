@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { enrichEventFromDetail, detailCompletenessScore, DETAIL_QUALITY_STATES } from './lib/detail-enrichment.mjs';
+import { genericDetailExtraction } from './lib/detail-extractors/generic.mjs';
 
 const baseEvent = {
   id: 'e1',
@@ -62,8 +63,74 @@ const source = { name: 'City Test', method: 'civic', domain: 'example.gov', city
   assert.equal(result.event.costStatus, 'paid');
   assert.equal(result.event.costLabel, '$12');
   assert.equal(result.event.image, 'https://example.gov/images/lantern-official.jpg');
+  assert.equal(result.event.imageStatus, 'official');
+  assert.equal(result.event.imageProvenance.method, 'schema.org');
+  assert.equal(result.event.imageProvenance.score, 100);
   assert.equal(result.event.detailStatus, 'enriched');
   assert.ok(result.diagnostics.fields_updated.includes('dateValue'));
+}
+
+
+// Image v2: a listing card may provide an official image when title, detail
+// href and the single image are bound inside the same event container.
+{
+  const event = { ...baseEvent, image: '' };
+  const html = `<html><body>
+    <article class="event-card">
+      <a href="/events/family-lantern-night"><h2>Family Lantern Night</h2></a>
+      <img src="/images/lantern-card.jpg" alt="">
+    </article>
+    <article class="event-card">
+      <a href="/events/adult-tax-workshop"><h2>Adult Tax Workshop</h2></a>
+      <img src="/images/tax.jpg" alt="">
+    </article>
+  </body></html>`;
+  const result = enrichEventFromDetail(event, { source, html, finalUrl: event.url });
+  assert.equal(result.event.image, 'https://example.gov/images/lantern-card.jpg');
+  assert.equal(result.event.imageProvenance.method, 'card-dom-bound');
+  assert.equal(result.event.imageProvenance.evidence, 'same-card-title-link-image');
+}
+
+// Image v2: multi-image ambiguous containers stay conservative rather than
+// borrowing a neighboring activity image.
+{
+  const event = { ...baseEvent, image: '' };
+  const html = `<html><body><section>
+    <a href="/events/family-lantern-night"><h2>Family Lantern Night</h2></a>
+    <img src="/images/one.jpg"><img src="/images/two.jpg">
+  </section></body></html>`;
+  const result = enrichEventFromDetail(event, { source, html, finalUrl: event.url });
+  assert.equal(result.event.image, '');
+  assert.equal(result.event.imageStatus, 'missing');
+  assert.equal(result.event.imageFailureReason, 'no_verified_official_image_candidate');
+}
+
+
+// Image v2: responsive/lazy-loaded official images are valid when the event
+// identity is established by alt text.
+{
+  const event = { ...baseEvent, image: '' };
+  const html = `<html><body><img alt="Family Lantern Night" data-lazy-src="/images/lantern-lazy.jpg"></body></html>`;
+  const result = enrichEventFromDetail(event, { source, html, finalUrl: event.url });
+  assert.equal(result.event.image, 'https://example.gov/images/lantern-lazy.jpg');
+}
+{
+  const event = { ...baseEvent, image: '' };
+  const html = `<html><body><img alt="Family Lantern Night" srcset="/images/lantern-small.jpg 400w, /images/lantern-large.jpg 1200w"></body></html>`;
+  const result = enrichEventFromDetail(event, { source, html, finalUrl: event.url });
+  assert.equal(result.event.image, 'https://example.gov/images/lantern-large.jpg');
+}
+
+// Image v2: event-specific OG title is valid evidence even when the image URL
+// is a CMS asset path with no event words.
+{
+  const event = { ...baseEvent, image: '' };
+  const html = `<html><head>
+    <meta property="og:title" content="Family Lantern Night">
+    <meta property="og:image" content="/uploads/2026/09/hero-18492.jpg">
+  </head><body><h1>Family Lantern Night</h1></body></html>`;
+  const result = enrichEventFromDetail(event, { source, html, finalUrl: event.url });
+  assert.equal(result.event.image, 'https://example.gov/uploads/2026/09/hero-18492.jpg');
 }
 
 // Official page with no price must not invent a price.
@@ -163,6 +230,52 @@ const source = { name: 'City Test', method: 'civic', domain: 'example.gov', city
   assert.equal(result.event.registrationStatus, 'required');
 }
 
+
+// Symphony adapter: an official season listing binds the image immediately
+// preceding a concert title when generic structured/OG evidence is absent.
+{
+  const symphonySource = { name: 'Symphony San Jose', method: 'symphony', domain: 'symphonysanjose.org', city: 'San Jose' };
+  const event = {
+    ...baseEvent,
+    id: 'spooktacular',
+    title: 'Symphonic Spooktacular',
+    source: 'Symphony San Jose',
+    url: 'https://www.symphonysanjose.org/attend/2026-2027-season/concerts-2026-2027/',
+    canonicalUrl: 'https://www.symphonysanjose.org/attend/2026-2027-season/concerts-2026-2027/',
+    image: ''
+  };
+  const html = `<html><body>
+    <div class="concert"><img src="/wp-content/uploads/2026/01/5.jpg" alt="5">
+      <h3>Symphonic Spooktacular</h3>
+      <a href="/attend/2026-2027-season/concerts/symphonic-spooktacular/">Tickets & Information</a>
+    </div>
+  </body></html>`;
+  const result = enrichEventFromDetail(event, { source: symphonySource, html, finalUrl: event.url });
+  assert.equal(result.event.image, 'https://www.symphonysanjose.org/wp-content/uploads/2026/01/5.jpg');
+  assert.ok(['card-dom-bound', 'symphony-season-card'].includes(result.event.imageProvenance.method));
+  assert.ok(result.event.imageProvenance.score >= 85);
+}
+
+
+{
+  const symphonySource = { name: 'Symphony San Jose', method: 'symphony', domain: 'symphonysanjose.org', city: 'San Jose' };
+  const event = {
+    ...baseEvent,
+    id: 'spooktacular-detail',
+    title: 'Symphonic Spooktacular',
+    source: 'Symphony San Jose',
+    url: 'https://www.symphonysanjose.org/attend/2026-2027-season/concerts/symphonic-spooktacular/',
+    canonicalUrl: 'https://www.symphonysanjose.org/attend/2026-2027-season/concerts/symphonic-spooktacular/',
+    image: 'https://www.symphonysanjose.org/wp-content/uploads/2026/01/5.jpg'
+  };
+  const html = `<html><body><h1>Symphonic Spooktacular</h1>
+    <img src="/icons/when.svg" alt="When"><p>Saturday, October 24, 2026</p>
+    <img src="/icons/location.svg" alt="Location"><p>California Theatre</p>
+  </body></html>`;
+  const result = enrichEventFromDetail(event, { source: symphonySource, html, finalUrl: event.url });
+  assert.equal(result.event.image, 'https://www.symphonysanjose.org/wp-content/uploads/2026/01/5.jpg');
+}
+
 // Completeness is diagnostic only and should favor exact actionable details.
 {
   const sparse = detailCompletenessScore(baseEvent);
@@ -179,6 +292,66 @@ const source = { name: 'City Test', method: 'civic', domain: 'example.gov', city
   });
   assert.ok(complete > sparse);
   assert.equal(complete, 100);
+}
+
+
+{
+  const html = `<!doctype html><html><body><h1>Cupertino Fall Bike Fest</h1><main><img class="event-header hero" src="/images/short-header-bike-fest.png" alt="Bike Fest"><p>Join us for biking activities.</p></main></body></html>`;
+  const result = genericDetailExtraction({ html, title: 'Cupertino Fall Bike Fest', currentUrl: 'https://www.cupertino.gov/bikefest', finalUrl: 'https://www.cupertino.gov/bikefest', domain: 'cupertino.gov', currentDate: '2026-09-26' });
+  assert.equal(result.image, 'https://www.cupertino.gov/images/short-header-bike-fest.png');
+  assert.ok(['event-image', 'detail-main-hero'].includes(result.imageMethod));
+  assert.ok(result.imageScore >= 82);
+  assert.ok(['image-alt-matches-event', 'event-h1-main-hero-image'].includes(result.imageEvidence));
+}
+
+{
+  const html = `<!doctype html><html><body><h1>Community Day: Día de Los Muertos</h1><main><img class="site-logo" src="/logo.png"><img class="event-banner" data-lazy-src="/images/dia-de-los-muertos-banner.jpg" alt="Día de Los Muertos"><p>Community Day.</p></main></body></html>`;
+  const result = genericDetailExtraction({ html, title: 'Community Day: Día de Los Muertos', currentUrl: 'https://sjmusart.org/community-day-dia-de-los-muertos', finalUrl: 'https://sjmusart.org/community-day-dia-de-los-muertos', domain: 'sjmusart.org', currentDate: '2026-10-24' });
+  assert.equal(result.image, 'https://sjmusart.org/images/dia-de-los-muertos-banner.jpg');
+  assert.ok(['event-image', 'detail-main-hero'].includes(result.imageMethod));
+  assert.ok(result.imageScore >= 82);
+}
+
+
+{
+  const source = { name: 'City of Cupertino', method: 'cupertino', domain: 'cupertino.gov', city: 'Cupertino' };
+  const event = {
+    ...baseEvent,
+    id: 'monster-mash-address',
+    title: 'Monster Mash',
+    source: 'City of Cupertino',
+    url: 'https://www.cupertino.gov/Parks-Recreation/Events/Monster-Mash',
+    canonicalUrl: 'https://www.cupertino.gov/Parks-Recreation/Events/Monster-Mash',
+    place: 'Quinlan Community Center',
+    address: ''
+  };
+  const html = `<html><body><h1>Monster Mash</h1>
+    <p>Quinlan Community Center 10185 North Stelling Road, Cupertino</p>
+    <p>$28 Non-Resident Registration includes one child ages 2-12 with up to two adults.</p>
+    <footer>Back to top Site Footer Contact Us 10300 Torre Ave, Cupertino, CA 95014</footer>
+  </body></html>`;
+  const result = enrichEventFromDetail(event, { source, html, finalUrl: event.url });
+  assert.equal(result.event.address, '10185 North Stelling Road, Cupertino');
+  assert.equal(result.event.place, 'Quinlan Community Center');
+}
+
+{
+  const source = { name: 'City of Cupertino', method: 'cupertino', domain: 'cupertino.gov', city: 'Cupertino' };
+  const event = {
+    ...baseEvent,
+    id: 'cupertino-footer-address',
+    title: 'Bike Fest',
+    source: 'City of Cupertino',
+    url: 'https://www.cupertino.gov/bikefest',
+    canonicalUrl: 'https://www.cupertino.gov/bikefest',
+    place: 'Cupertino Civic Plaza',
+    address: ''
+  };
+  const html = `<html><body><h1>Bike Fest</h1><p>Bike Fest is held at Cupertino Civic Plaza on Torre Avenue.</p>
+    <footer>Back to top Site Footer Contact Us 10300 Torre Ave, Cupertino, CA 95014</footer>
+  </body></html>`;
+  const result = enrichEventFromDetail(event, { source, html, finalUrl: event.url });
+  assert.equal(result.event.address, '');
 }
 
 console.log('detail-enrichment tests passed');

@@ -5,6 +5,7 @@ import {
   sameEventIdentity
 } from './detail-extractors/generic.mjs';
 import { parseCupertinoDetail } from './source-adapters/cupertino.mjs';
+import { parseSymphonyDetail } from './source-adapters/symphony.mjs';
 
 export const DETAIL_QUALITY_STATES = Object.freeze({
   PUBLISH_READY: 'PUBLISH_READY',
@@ -15,6 +16,7 @@ export const DETAIL_QUALITY_STATES = Object.freeze({
 
 function adapterFor(source) {
   if (source?.method === 'cupertino') return parseCupertinoDetail;
+  if (source?.method === 'symphony') return parseSymphonyDetail;
   return null;
 }
 
@@ -197,7 +199,7 @@ export function enrichEventFromDetail(event, {
     currentDate: event.dateValue
   });
   const adapter = adapterFor(source);
-  const specific = adapter ? adapter({ html, event, source, generic }) : {};
+  const specific = adapter ? adapter({ html, event, source, generic, finalUrl }) : {};
   const pageTitle = specific.title || generic.pageTitle || '';
   const pageText = plainText(html);
 
@@ -301,7 +303,26 @@ export function enrichEventFromDetail(event, {
   // replaced by it.
   const canonicalMayReplaceDescription = !['official_structured', 'manual_verified'].includes(event.summaryStatus);
   if (canonicalMayReplaceDescription) set('description', generic.description, generic.descriptionMethod);
-  set('image', generic.image, generic.imageMethod);
+  const officialImage = specific.image || generic.image;
+  const officialImageMethod = specific.image ? specific.imageMethod : generic.imageMethod;
+  const officialImageScore = specific.image ? specific.imageScore : generic.imageScore;
+  const officialImageEvidence = specific.image ? specific.imageEvidence : generic.imageEvidence;
+  set('image', officialImage, officialImageMethod);
+  if (officialImage) {
+    merged.imageProvenance = {
+      source: 'canonical-detail',
+      method: officialImageMethod || 'detail-page',
+      sourceUrl: finalUrl || event.url || '',
+      verifiedAt,
+      score: officialImageScore || 0,
+      evidence: officialImageEvidence || ''
+    };
+    merged.imageStatus = 'official';
+    delete merged.imageFailureReason;
+  } else if (!fieldExists(merged.image)) {
+    merged.imageStatus = 'missing';
+    merged.imageFailureReason = 'no_verified_official_image_candidate';
+  }
   if (canonicalMayReplaceDescription && generic.description) {
     merged.sourceDescriptionRaw = generic.description;
     fieldProvenance.sourceDescriptionRaw = {
