@@ -430,7 +430,7 @@ function ageInfo(categories) {
       return [{ min: isKindergarten ? 5 : gradeStart + 5, max: gradeEnd + 5, label: `Grades ${isKindergarten ? 'K' : gradeStart}–${gradeEnd}` }];
     });
   if (!hasExplicitAgeRange && gradeRanges.length) {
-    const distinctGrades = gradeRanges.filter((range, index, values) => values.findIndex(value => value.label === range.label) === index);
+    const distinctGrades = gradeRanges.filter((range, index, values) => !values.some((other, otherIndex) => otherIndex !== index && other.min <= range.min && other.max >= range.max && (other.min < range.min || other.max > range.max || otherIndex < index)));
     return {
       ageBands: [],
       ageRanges: distinctGrades.map(range => [range.min, range.max]),
