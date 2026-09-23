@@ -69,7 +69,7 @@ jobs:
           node scripts/test-event-summary-engine.mjs
           node scripts/cupertino-detail-date.test.mjs
           node scripts/cupertino-audience.test.mjs
-          node scripts/age-policy.test.cjs
+          node scripts/age-policy.test.cjs && node scripts/update-events-age.test.mjs
           node scripts/test-summary-output.mjs
           node scripts/classification.test.mjs
           node scripts/cost-policy.test.mjs
