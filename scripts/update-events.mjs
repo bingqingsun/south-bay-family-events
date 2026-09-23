@@ -2975,16 +2975,30 @@ async function readSymphony(source) {
     const sessions = [...detailText.matchAll(/\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),\s+(\d{4})\s+at\s+(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?))/gi)];
     return sessions.map((session, sessionIndex) => {
       const dateValue = isoDateFromOfficialText(`${session[1]} ${session[2]}, ${session[3]}`, session[4]);
-      return dateValue ? directEvent({
+      if (!dateValue) return null;
+      const verifiedImage = source.verifiedImages?.[page.title] || '';
+      const event = directEvent({
         id: `symphony-${pageIndex}-${sessionIndex}`, title: page.title, dateValue,
         description: page.description,
-        image: /(?:season|logo)/i.test(page.image) ? '' : page.image, place: 'California Theatre',
+        image: verifiedImage || (/(?:season|logo)/i.test(page.image) ? '' : page.image), place: 'California Theatre',
         address: source.address, city: source.city, source: source.name, url: page.url,
         // The organizer identifies these as toddler/preschool programs but
         // does not give a precise numeric suitability range. Do not turn
         // descriptive audience words into a misleading card age label.
         ageText: '', format: 'live-show'
-      }) : null;
+      });
+      return verifiedImage ? {
+        ...event,
+        imageStatus: 'official',
+        imageProvenance: {
+          source: 'source-verified',
+          method: 'manual_verified',
+          sourceUrl: source.feedUrl,
+          verifiedAt: generatedAt,
+          score: 100,
+          evidence: 'official-season-card-title-image-binding'
+        }
+      } : event;
     }).filter(Boolean);
   });
 }
