@@ -66,6 +66,49 @@ const source = { name: 'City Test', method: 'civic', domain: 'example.gov', city
   assert.ok(result.diagnostics.fields_updated.includes('dateValue'));
 }
 
+
+// Image v2: a listing card may provide an official image when title, detail
+// href and the single image are bound inside the same event container.
+{
+  const event = { ...baseEvent, image: '' };
+  const html = `<html><body>
+    <article class="event-card">
+      <a href="/events/family-lantern-night"><h2>Family Lantern Night</h2></a>
+      <img src="/images/lantern-card.jpg" alt="">
+    </article>
+    <article class="event-card">
+      <a href="/events/adult-tax-workshop"><h2>Adult Tax Workshop</h2></a>
+      <img src="/images/tax.jpg" alt="">
+    </article>
+  </body></html>`;
+  const result = enrichEventFromDetail(event, { source, html, finalUrl: event.url });
+  assert.equal(result.event.image, 'https://example.gov/images/lantern-card.jpg');
+}
+
+// Image v2: multi-image ambiguous containers stay conservative rather than
+// borrowing a neighboring activity image.
+{
+  const event = { ...baseEvent, image: '' };
+  const html = `<html><body><section>
+    <a href="/events/family-lantern-night"><h2>Family Lantern Night</h2></a>
+    <img src="/images/one.jpg"><img src="/images/two.jpg">
+  </section></body></html>`;
+  const result = enrichEventFromDetail(event, { source, html, finalUrl: event.url });
+  assert.equal(result.event.image, '');
+}
+
+// Image v2: event-specific OG title is valid evidence even when the image URL
+// is a CMS asset path with no event words.
+{
+  const event = { ...baseEvent, image: '' };
+  const html = `<html><head>
+    <meta property="og:title" content="Family Lantern Night">
+    <meta property="og:image" content="/uploads/2026/09/hero-18492.jpg">
+  </head><body><h1>Family Lantern Night</h1></body></html>`;
+  const result = enrichEventFromDetail(event, { source, html, finalUrl: event.url });
+  assert.equal(result.event.image, 'https://example.gov/uploads/2026/09/hero-18492.jpg');
+}
+
 // Official page with no price must not invent a price.
 {
   const html = `<html><body><h1>Family Lantern Night</h1><p>Bring your family for crafts and music.</p></body></html>`;
