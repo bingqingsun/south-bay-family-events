@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T01:43:09.214Z",
+  "generatedAt": "2026-09-23T01:45:06.430Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -20,7 +20,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 8,
+      "eventCount": 9,
       "failureStreak": 0,
       "error": ""
     },
@@ -215,7 +215,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 50,
+      "eventCount": 49,
       "failureStreak": 0,
       "error": ""
     },
@@ -225,7 +225,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 45,
+      "eventCount": 44,
       "failureStreak": 0,
       "error": ""
     },
@@ -245,7 +245,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 84,
+      "eventCount": 83,
       "failureStreak": 0,
       "error": ""
     },
@@ -255,7 +255,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 44,
+      "eventCount": 43,
       "failureStreak": 0,
       "error": ""
     },
@@ -394,10 +394,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "ok",
+      "status": "failed",
       "eventCount": 0,
-      "failureStreak": 0,
-      "error": ""
+      "failureStreak": 1,
+      "error": "Los Altos History Museum event list was not valid: 202"
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -426,7 +426,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 4,
+      "failureStreak": 5,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -794,38 +794,39 @@
       "name": "Santana Row",
       "method": "santana-row",
       "mode": "direct",
-      "status": "failed",
-      "eventCount": 0,
-      "failureStreak": 1,
-      "error": "fetch failed"
+      "status": "ok",
+      "eventCount": 5,
+      "failureStreak": 0,
+      "error": ""
     }
   ],
   "alerts": [
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 4,
+      "failureStreak": 5,
       "error": "Official iCalendar feed was not valid: 403"
     }
   ],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-09-23T01:43:09.214Z",
-    "enriched": 322,
-    "identity-mismatch": 42,
+    "checkedAt": "2026-09-23T01:45:06.430Z",
+    "enriched": 329,
     "cached": 4,
-    "fetch-blocked": 20,
-    "fetch-failed": 7,
+    "fetch-blocked": 18,
+    "identity-mismatch": 41,
+    "fetch-failed": 4,
     "fieldUpdates": {
-      "description": 225
+      "description": 227,
+      "image": 1
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-09-23T01:43:09.214Z",
-    "official": 234,
-    "unclassified": 156,
-    "missing": 5,
-    "failure:no_verified_official_image_candidate": 2,
-    "failure:official_page_fetch_blocked": 3
+    "checkedAt": "2026-09-23T01:45:06.430Z",
+    "official": 235,
+    "unclassified": 157,
+    "missing": 4,
+    "failure:official_page_fetch_blocked": 3,
+    "failure:no_verified_official_image_candidate": 1
   }
 }
