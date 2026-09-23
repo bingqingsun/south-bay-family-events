@@ -2863,6 +2863,8 @@ async function readPaloAlto(source) {
     const accommodationIndex = familyDetailText.search(/If you or a family member requires accommodations/i);
     if (accommodationIndex >= 0) familyDetailText = familyDetailText.slice(0, accommodationIndex);
     const detailFamilySignal = youthSignal.test(`${candidate.audienceText} ${detailDescription || ''} ${familyDetailText}`);
+    const detailAudienceEvidence = familyDetailText.match(youthSignal)?.[0] || '';
+    const ageEvidence = candidate.listingFamilySignal ? candidate.audienceText : detailAudienceEvidence;
     // Listing-confirmed family events keep the existing resilience behavior if
     // the detail request is temporarily unavailable. Candidates admitted only
     // for second-pass validation must prove family relevance in activity copy,
@@ -2889,7 +2891,7 @@ async function readPaloAlto(source) {
         title: candidate.title, dateValue, endDateValue, description,
         image: officialPageOgImage(detailHtml) || (candidate.image ? new URL(candidate.image, source.feedUrl).href : ''),
         place: candidate.place, address: shortAddress(candidate.street, 'Palo Alto'), city: 'Palo Alto',
-        source: source.name, url: candidate.url, ageText: `${candidate.audienceText} ${familyDetailText}`
+        source: source.name, url: candidate.url, ageText: ageEvidence
       });
       return hasUsableSourceContent(event.description) ? { ...event, ...costInfo('', detailDescription || detailText || description) } : null;
     }).filter(Boolean);
