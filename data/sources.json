@@ -404,7 +404,13 @@
     "method": "symphony",
     "feedUrl": "https://www.symphonysanjose.org/attend/2026-2027-season/concerts-2026-2027/",
     "address": "345 S 1st St, San Jose",
-    "city": "San Jose"
+    "city": "San Jose",
+    "verifiedImages": {
+      "Symphonic Spooktacular": "https://www.symphonysanjose.org/wp-content/uploads/2026/01/5.jpg",
+      "My Very First Nutcracker": "https://www.symphonysanjose.org/wp-content/uploads/2024/04/20242025-season-website-1.pdf.png",
+      "My Very First Symphony": "https://www.symphonysanjose.org/wp-content/uploads/2026/01/14.jpg",
+      "My Very First Ballet": "https://www.symphonysanjose.org/wp-content/uploads/2026/01/10.jpg"
+    }
   },
   {
     "name": "San Jose Theaters",
