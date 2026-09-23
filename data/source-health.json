@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T16:49:31.894Z",
+  "generatedAt": "2026-09-23T20:21:50.468Z",
   "configuredSources": 82,
   "directSources": 77,
   "fallbackSourcesRun": 0,
@@ -225,7 +225,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 54,
+      "eventCount": 51,
       "failureStreak": 0,
       "error": ""
     },
@@ -235,7 +235,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 47,
+      "eventCount": 45,
       "failureStreak": 0,
       "error": ""
     },
@@ -255,7 +255,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 94,
+      "eventCount": 91,
       "failureStreak": 0,
       "error": ""
     },
@@ -265,7 +265,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 46,
+      "eventCount": 44,
       "failureStreak": 0,
       "error": ""
     },
@@ -274,30 +274,30 @@
       "name": "Cinemark Century Oakridge 20",
       "method": "cinemark",
       "mode": "direct",
-      "status": "ok",
-      "eventCount": 11,
-      "failureStreak": 0,
-      "error": ""
+      "status": "failed",
+      "eventCount": 0,
+      "failureStreak": 1,
+      "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "key": "Cinemark Century Great Mall 20|cinemark.com|https://www.cinemark.com/theatres/ca-milpitas/cinemark-century-great-mall-20-xd-and-screenx",
       "name": "Cinemark Century Great Mall 20",
       "method": "cinemark",
       "mode": "direct",
-      "status": "ok",
-      "eventCount": 6,
-      "failureStreak": 0,
-      "error": ""
+      "status": "failed",
+      "eventCount": 0,
+      "failureStreak": 1,
+      "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "key": "Cinemark CineArts Santana Row|cinemark.com|https://www.cinemark.com/theatres/ca-san-jose/cinemark-cinearts-santana-row",
       "name": "Cinemark CineArts Santana Row",
       "method": "cinemark",
       "mode": "direct",
-      "status": "ok",
-      "eventCount": 7,
-      "failureStreak": 0,
-      "error": ""
+      "status": "failed",
+      "eventCount": 0,
+      "failureStreak": 1,
+      "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "key": "South FIRST FRIDAYS / ArtWalkSJ|southfirstfridays.com|https://www.southfirstfridays.com/wp-json/wp/v2/posts?categories=4&per_page=15",
@@ -813,22 +813,22 @@
   "alerts": [],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-09-23T16:49:31.894Z",
-    "enriched": 334,
+    "checkedAt": "2026-09-23T20:21:50.468Z",
+    "enriched": 332,
     "cached": 4,
-    "fetch-blocked": 19,
     "identity-mismatch": 41,
-    "fetch-failed": 3,
+    "fetch-blocked": 17,
+    "fetch-failed": 4,
     "fieldUpdates": {
       "description": 230,
-      "image": 5
+      "image": 1
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-09-23T16:49:31.894Z",
-    "official": 241,
-    "unclassified": 156,
+    "checkedAt": "2026-09-23T20:21:50.468Z",
+    "official": 237,
+    "unclassified": 157,
     "missing": 4,
     "failure:official_page_fetch_blocked": 3,
     "failure:no_verified_official_image_candidate": 1
