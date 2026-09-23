@@ -27,6 +27,7 @@ import { selectCupertinoDetailDates } from './cupertino-detail-date.mjs';
 import { cupertinoAudienceEvidence } from './cupertino-audience.mjs';
 import {
   paloAltoSpecialEventCalendarUrl,
+  paloAltoSpecialEventAudienceEvidence,
   paloAltoSpecialEventDescription,
   paloAltoSpecialEventLinks,
   paloAltoSpecialEventOccurrences
@@ -2863,7 +2864,7 @@ async function readPaloAltoSpecialEvents(source) {
       }
       const detailText = plainText(`${detailHtml} ${calendarHtml}`);
       const description = detailDescription || candidate.description;
-      const audienceText = `${candidate.title} ${candidate.description} ${detailDescription} ${detailText.slice(0, 4000)}`;
+      const audienceText = paloAltoSpecialEventAudienceEvidence(candidate, detailDescription);
       if (!familyPattern.test(audienceText) || isExplicitlyAdultOnly(audienceText) || !hasUsableSourceContent(description)) return [];
       const seen = new Set();
       return paloAltoSpecialEventOccurrences(calendarHtml).flatMap(occurrence => {
