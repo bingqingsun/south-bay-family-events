@@ -2867,7 +2867,7 @@ async function readPaloAlto(source) {
     const explicitYouthEvidence = familyDetailText.match(/\b(?:children|kids?|youth|teens?|toddler|preschool|elementary|middle school|high school)\b/i)?.[0] || '';
     const detailAudienceEvidence = preferredFamilyEvidence || explicitYouthEvidence;
     const detailFamilySignal = youthSignal.test(candidate.audienceText) || Boolean(detailAudienceEvidence);
-    const ageEvidence = candidate.listingFamilySignal ? candidate.audienceText : detailAudienceEvidence;
+    const ageEvidence = preferredFamilyEvidence || (candidate.listingFamilySignal ? candidate.audienceText : detailAudienceEvidence);
     // Listing-confirmed family events keep the existing resilience behavior if
     // the detail request is temporarily unavailable. Candidates admitted only
     // for second-pass validation must prove family relevance in activity copy,
