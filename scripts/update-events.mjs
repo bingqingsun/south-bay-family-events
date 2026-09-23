@@ -2771,11 +2771,48 @@ async function readDeAnza(source) {
 // keeps entries whose official title, summary, or tags explicitly identify a
 // child, teen, or family audience.
 async function readPaloAlto(source) {
-  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
-  const html = await response.text();
-  if (!response.ok || !/list-container events-list-container/i.test(html)) {
-    throw new Error('Palo Alto official calendar was not valid: ' + response.status);
+  const headers = { 'user-agent': 'SouthBayFamilyEventsBot/1.0' };
+  const firstResponse = await fetch(source.feedUrl, { headers, signal: AbortSignal.timeout(15000) });
+  const firstHtml = await firstResponse.text();
+  if (!firstResponse.ok || !/list-container events-list-container/i.test(firstHtml)) {
+    throw new Error('Palo Alto official calendar was not valid: ' + firstResponse.status);
   }
+
+  const totalPages = Number(firstHtml.match(/Page\s+1\s+of\s+(\d+)/i)?.[1] || 1);
+  const pageSelectName = decodeXml(firstHtml.match(/<select\b[^>]*name=["']([^"']+)["'][^>]*title=["']Please select the page here\./i)?.[1]
+    || firstHtml.match(/<select\b[^>]*title=["']Please select the page here\.[^>]*name=["']([^"']+)["']/i)?.[1] || '');
+  const goButtonName = decodeXml(firstHtml.match(/<input\b[^>]*name=["']([^"']+)["'][^>]*value=["']Go["'][^>]*class=["'][^"']*btn_scPagingNonJS_enabled/i)?.[1]
+    || firstHtml.match(/<input\b[^>]*value=["']Go["'][^>]*name=["']([^"']+)["'][^>]*class=["'][^"']*btn_scPagingNonJS_enabled/i)?.[1] || '');
+
+  const pageHtmls = [firstHtml];
+  let currentHtml = firstHtml;
+  for (let page = 2; page <= totalPages; page += 1) {
+    if (!pageSelectName || !goButtonName) break;
+    const form = new URLSearchParams();
+    for (const input of currentHtml.match(/<input\b[^>]*>/gi) || []) {
+      const type = htmlAttribute(input, /\btype=["']([^"']+)["']/i).toLowerCase();
+      const name = decodeXml(htmlAttribute(input, /\bname=["']([^"']+)["']/i));
+      if (type !== 'hidden' || !name) continue;
+      form.set(name, decodeXml(htmlAttribute(input, /\bvalue=["']([^"']*)["']/i)));
+    }
+    form.set(pageSelectName, String(page));
+    form.set(goButtonName, 'Go');
+    try {
+      const pageResponse = await fetch(source.feedUrl, {
+        method: 'POST',
+        headers: { ...headers, 'content-type': 'application/x-www-form-urlencoded' },
+        body: form.toString(),
+        signal: AbortSignal.timeout(15000)
+      });
+      const pageHtml = await pageResponse.text();
+      if (!pageResponse.ok || !/list-container events-list-container/i.test(pageHtml)) break;
+      pageHtmls.push(pageHtml);
+      currentHtml = pageHtml;
+    } catch {
+      break;
+    }
+  }
+  const html = pageHtmls.join('\n');
   const monthNumbers = { jan: '01', feb: '02', mar: '03', apr: '04', may: '05', jun: '06', jul: '07', aug: '08', sep: '09', oct: '10', nov: '11', dec: '12' };
   const youthSignal = new RegExp(source.familyPattern
     || 'children|kids?|famil(?:y|ies)|youth|teen|toddler|preschool|elementary|middle school|high school|all ages|parent(?:s)?\\s*(?:and|&)\\s*(?:child|kid)', 'i');
@@ -2796,13 +2833,22 @@ async function readPaloAlto(source) {
     const audienceText = `${title} ${description} ${tags}`;
     const url = href ? new URL(href, source.feedUrl).href : '';
     const key = `${url}|${dateValue}`;
-    if (!title || !url || !dateValue || seen.has(key) || !isUpcoming(dateValue) || !youthSignal.test(audienceText) || excluded.test(title)) return [];
+    const listingFamilySignal = youthSignal.test(audienceText);
+    // Some Palo Alto Community Services listings have terse calendar cards
+    // with only a generic "Community Events" tag. Their detail pages carry
+    // the actual family evidence. Allow those candidates through for a second
+    // pass instead of permanently filtering them before detail verification.
+    const detailFamilyCandidate = /\/Events-Directory\/Community-Services\//i.test(url)
+      && /\bCommunity Events\b/i.test(tags);
+    if (!title || !url || !dateValue || seen.has(key) || !isUpcoming(dateValue)
+      || !isOfficialUrl(url, source.domain)
+      || (!listingFamilySignal && !detailFamilyCandidate) || excluded.test(title)) return [];
     seen.add(key);
     const parts = venue.split(',').map(value => value.trim()).filter(Boolean);
     const place = parts.shift() || source.name;
     const cityIndex = parts.findIndex(value => /^palo alto(?:\s+ca)?$/i.test(value));
     const street = cityIndex >= 0 ? parts.slice(0, cityIndex).join(', ') : '';
-    return [{ title, url, dateValue, description, image, place, street, audienceText, key }];
+    return [{ title, url, dateValue, description, image, place, street, audienceText, listingFamilySignal, key }];
   });
   const events = await Promise.all(candidates.map(async candidate => {
     let detailHtml = '';
@@ -2810,21 +2856,53 @@ async function readPaloAlto(source) {
       const detailResponse = await fetch(candidate.url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
       if (detailResponse.ok) detailHtml = await detailResponse.text();
     } catch {}
-    const detailText = plainText(detailHtml);
-    const detailDescription = officialParagraphText(detailHtml, { minLength: 20 });
-    const dateMatch = detailText.match(/Next date:\s*((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\s*\|\s*(\d{1,2}:\d{2}\s*(?:AM|PM))/i);
-    const dateValue = dateMatch ? isoDateFromOfficialText(dateMatch[1], dateMatch[2]) : candidate.dateValue;
+    const detailMainHtml = detailHtml.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] || detailHtml;
+    const detailText = plainText(detailMainHtml);
+    const detailDescription = officialParagraphText(detailMainHtml, { minLength: 20 });
+    const titleIndex = detailText.toLowerCase().indexOf(candidate.title.toLowerCase());
+    let familyDetailText = detailText.slice(Math.max(0, titleIndex), Math.max(0, titleIndex) + 7000);
+    const accommodationIndex = familyDetailText.search(/If you or a family member requires accommodations/i);
+    if (accommodationIndex >= 0) familyDetailText = familyDetailText.slice(0, accommodationIndex);
+    let audienceBodyText = plainText(detailDescription || '');
+    const audienceAccommodationIndex = audienceBodyText.search(/If you or a family member requires accommodations/i);
+    if (audienceAccommodationIndex >= 0) audienceBodyText = audienceBodyText.slice(0, audienceAccommodationIndex);
+    const preferredFamilyEvidence = audienceBodyText.match(/\b(?:all[-\s]?ages?|family[- ]friendly|entire family|whole family|family\s+(?:day|event|fun|activities)|famil(?:y|ies)\s+(?:can|will|are invited|to enjoy))\b/i)?.[0] || '';
+    const explicitYouthEvidence = audienceBodyText.match(/\b(?:children|kids?|youth|teens?|toddler|preschool|elementary|middle school|high school)\b/i)?.[0] || '';
+    const detailAudienceEvidence = preferredFamilyEvidence || explicitYouthEvidence;
+    const detailFamilySignal = youthSignal.test(candidate.audienceText) || Boolean(detailAudienceEvidence);
+    const ageEvidence = preferredFamilyEvidence || (candidate.listingFamilySignal ? candidate.audienceText : detailAudienceEvidence);
+    // Listing-confirmed family events keep the existing resilience behavior if
+    // the detail request is temporarily unavailable. Candidates admitted only
+    // for second-pass validation must prove family relevance in activity copy,
+    // not in Palo Alto's sitewide "family member requires accommodations" text.
+    if (!candidate.listingFamilySignal && (!detailHtml || !detailFamilySignal)) return null;
+    const occurrencePattern = /\b((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\s*\|\s*(\d{1,2}:\d{2}\s*(?:AM|PM))(?:\s*(?:to|-|–|—)\s*(\d{1,2}:\d{2}\s*(?:AM|PM)))?/gi;
+    const occurrences = [];
+    const occurrenceKeys = new Set();
+    for (const match of detailText.matchAll(occurrencePattern)) {
+      const start = isoDateFromOfficialText(match[1], match[2]);
+      if (!start || occurrenceKeys.has(start)) continue;
+      occurrenceKeys.add(start);
+      occurrences.push({
+        dateValue: start,
+        endDateValue: match[3] ? isoDateFromOfficialText(match[1], match[3]) : ''
+      });
+    }
+    if (!occurrences.length) occurrences.push({ dateValue: candidate.dateValue, endDateValue: '' });
+
     const description = detailDescription || candidate.description;
-    const event = directEvent({
-      id: 'paloalto-' + createHash('sha256').update(`${candidate.url}|${dateValue}`).digest('hex').slice(0, 16),
-      title: candidate.title, dateValue, description,
-      image: officialPageOgImage(detailHtml) || (candidate.image ? new URL(candidate.image, source.feedUrl).href : ''),
-      place: candidate.place, address: shortAddress(candidate.street, 'Palo Alto'), city: 'Palo Alto',
-      source: source.name, url: candidate.url, ageText: `${candidate.audienceText} ${detailText.slice(0, 3500)}`
-    });
-    return hasUsableSourceContent(event.description) ? { ...event, ...costInfo('', detailDescription || detailText || description) } : null;
+    return occurrences.map(({ dateValue, endDateValue }) => {
+      const event = directEvent({
+        id: 'paloalto-' + createHash('sha256').update(`${candidate.url}|${dateValue}`).digest('hex').slice(0, 16),
+        title: candidate.title, dateValue, endDateValue, description,
+        image: officialPageOgImage(detailHtml) || (candidate.image ? new URL(candidate.image, source.feedUrl).href : ''),
+        place: candidate.place, address: shortAddress(candidate.street, 'Palo Alto'), city: 'Palo Alto',
+        source: source.name, url: candidate.url, ageText: ageEvidence
+      });
+      return hasUsableSourceContent(event.description) ? { ...event, ...costInfo('', detailDescription || detailText || description) } : null;
+    }).filter(Boolean);
   }));
-  return events.filter(Boolean);
+  return events.flat().filter(Boolean);
 }
 
 // Happy Hollow exposes its special-event calendar as server-rendered Event
