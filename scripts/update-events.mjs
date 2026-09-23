@@ -2525,6 +2525,17 @@ async function enrichWithSpecialEventPage(event, source) {
         description: verified.description,
         sourceDescriptionRaw: verified.description,
         image: officialImage || pageEnriched.image || event.image || '',
+        ...(officialImage ? {
+          imageStatus: 'official',
+          imageProvenance: {
+            source: 'special-event-page',
+            method: 'special-page-bound',
+            sourceUrl: verified.url,
+            verifiedAt: generatedAt,
+            score: 85,
+            evidence: verified.evidence || 'verified-special-event-page-image'
+          }
+        } : {}),
         specialEventPageUrl: verified.url,
         specialEventPageEvidence: verified.evidence
       };
