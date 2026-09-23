@@ -794,8 +794,9 @@ function optimizedOfficialImageUrl(value, source = '') {
     const url = new URL(value);
     if (url.hostname.endsWith('cupertino.gov') && (url.searchParams.get('dimension') === 'smallthumbnail' || (url.searchParams.has('w') && Number(url.searchParams.get('w')) <= 100))) url.search = '';
     if (url.hostname === 'filoli.org' && /\/media\//.test(url.pathname) && url.searchParams.has('width') && Number(url.searchParams.get('width')) <= 320) url.search = '';
-    if (source === 'San Jose Theaters' && /(?:^|[-_])200(?:x200)?(?:[-_.]|$)/i.test(url.pathname)) return '';
-    if (url.hostname.endsWith('cupertino.gov') && /short-header-bike-fest/i.test(url.pathname)) return '';
+    // Preserve organizer-provided event artwork even when the upstream CMS uses
+    // a small/square filename convention. A verified official image is safer
+    // than silently discarding it and forcing generic fallback art.
     return url.href;
   } catch { return value; }
 }
@@ -877,6 +878,17 @@ async function readCurated(source) {
     return {
       ...event,
       ...costInfo(item.cost || '', officialDescription || item.description || ''),
+      ...(item.image ? {
+        imageStatus: 'official',
+        imageProvenance: {
+          source: 'curated-manual',
+          method: 'manual_verified',
+          sourceUrl: url,
+          verifiedAt: generatedAt,
+          score: 100,
+          evidence: 'first-party-curated-official-image'
+        }
+      } : {}),
       // This URL is explicitly configured from a first-party organizer page.
       // Link Health still checks HTTP/soft errors, but an inconclusive machine
       // title extraction must not erase this human-verified evidence.
@@ -3639,6 +3651,26 @@ events = canonicalDetail.events
     return restored;
   })
   .map(event => ({ ...event, image: optimizedOfficialImageUrl(event.image, event.source) }));
+
+function withImageQualityState(event) {
+  if (event.image) {
+    if (event.imageStatus === 'missing') {
+      const next = { ...event, imageStatus: event.imageProvenance ? 'official' : 'unclassified' };
+      delete next.imageFailureReason;
+      return next;
+    }
+    return event;
+  }
+  if (event.imageStatus === 'missing' && event.imageFailureReason) return event;
+  const detailStatus = event.canonicalDetail?.status || '';
+  const reason = detailStatus === 'fetch-blocked' ? 'official_page_fetch_blocked'
+    : detailStatus === 'fetch-failed' ? 'official_page_fetch_failed'
+    : detailStatus === 'identity-mismatch' ? 'official_page_identity_mismatch'
+    : 'no_verified_official_image_candidate';
+  return { ...event, imageStatus: 'missing', imageFailureReason: reason };
+}
+
+events = events.map(withImageQualityState);
 
 const canonicalStatusCounts = canonicalDetail.diagnostics.reduce((counts, item) => {
   counts[item.status] = (counts[item.status] || 0) + 1;
