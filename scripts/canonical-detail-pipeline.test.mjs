@@ -158,4 +158,18 @@ const html=`<html><head>
  assert.notEqual(result.event.image,result.event.canonicalUrl);
 }
 
+
+{
+ const previous={
+   ...base,
+   address:'28 Non-Resident Registration includes one child ages 2-12. Back to top Site Footer Contact Us 10300 Torre Ave, Cupertino',
+   fieldProvenance:{address:{source:'canonical-detail',sourceUrl:base.url,method:'cupertino-adapter',verifiedAt:'2026-09-20T00:00:00Z'}},
+   canonicalDetail:{status:'enriched',sourceUrl:base.url,verifiedAt:'2026-09-20T00:00:00Z',fieldsUpdated:['address']}
+ };
+ const current={...base,address:'10185 North Stelling Road, Cupertino',fieldProvenance:{}};
+ const result=await enrichOneCanonicalEvent(current,{sources:[source],previous,verifiedAt:'2026-09-22T00:00:00Z'});
+ assert.equal(result.diagnostics.status,'cached');
+ assert.equal(result.event.address,'10185 North Stelling Road, Cupertino');
+}
+
 console.log('canonical detail pipeline tests passed');
