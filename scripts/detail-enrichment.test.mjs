@@ -104,6 +104,22 @@ const source = { name: 'City Test', method: 'civic', domain: 'example.gov', city
   assert.equal(result.event.imageFailureReason, 'no_verified_official_image_candidate');
 }
 
+
+// Image v2: responsive/lazy-loaded official images are valid when the event
+// identity is established by alt text.
+{
+  const event = { ...baseEvent, image: '' };
+  const html = `<html><body><img alt="Family Lantern Night" data-lazy-src="/images/lantern-lazy.jpg"></body></html>`;
+  const result = enrichEventFromDetail(event, { source, html, finalUrl: event.url });
+  assert.equal(result.event.image, 'https://example.gov/images/lantern-lazy.jpg');
+}
+{
+  const event = { ...baseEvent, image: '' };
+  const html = `<html><body><img alt="Family Lantern Night" srcset="/images/lantern-small.jpg 400w, /images/lantern-large.jpg 1200w"></body></html>`;
+  const result = enrichEventFromDetail(event, { source, html, finalUrl: event.url });
+  assert.equal(result.event.image, 'https://example.gov/images/lantern-large.jpg');
+}
+
 // Image v2: event-specific OG title is valid evidence even when the image URL
 // is a CMS asset path with no event words.
 {
