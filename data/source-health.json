@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T05:49:52.303Z",
+  "generatedAt": "2026-09-23T05:53:47.341Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -84,7 +84,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 469,
+      "eventCount": 490,
       "failureStreak": 0,
       "error": ""
     },
@@ -144,10 +144,10 @@
       "name": "Happy Hollow Park & Zoo",
       "method": "happyhollow",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 1,
-      "error": "Happy Hollow official calendar was not valid: 502"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Gilroy Gardens|gilroygardens.org|https://www.gilroygardens.org/calendar-hours/",
@@ -426,7 +426,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 21,
+      "failureStreak": 22,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -803,27 +803,27 @@
   "alerts": [
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 21,
+      "failureStreak": 22,
       "error": "Official iCalendar feed was not valid: 403"
     }
   ],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-09-23T05:49:52.303Z",
-    "enriched": 338,
+    "checkedAt": "2026-09-23T05:53:47.341Z",
+    "enriched": 344,
     "cached": 4,
     "fetch-blocked": 18,
     "identity-mismatch": 41,
     "fetch-failed": 4,
     "fieldUpdates": {
-      "description": 239
+      "description": 245
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-09-23T05:49:52.303Z",
-    "official": 248,
-    "unclassified": 153,
+    "checkedAt": "2026-09-23T05:53:47.341Z",
+    "official": 251,
+    "unclassified": 156,
     "missing": 4,
     "failure:official_page_fetch_blocked": 3,
     "failure:no_verified_official_image_candidate": 1
