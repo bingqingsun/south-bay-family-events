@@ -2780,6 +2780,8 @@ async function readPaloAlto(source) {
     .map(match => decodeXml(match[1]))
     .filter(href => /(?:page|pageindex|dlv_|Events-Directory)/i.test(href));
   console.log('Palo Alto pagination hints:', JSON.stringify([...new Set(paloAltoPaginationHints)].slice(-40)));
+  const paloPageMarker = html.search(/Page\s*1\s*of\s*\d+/i);
+  if (paloPageMarker >= 0) console.log('Palo Alto pagination html:', html.slice(Math.max(0, paloPageMarker - 5000), paloPageMarker + 5000));
   const monthNumbers = { jan: '01', feb: '02', mar: '03', apr: '04', may: '05', jun: '06', jul: '07', aug: '08', sep: '09', oct: '10', nov: '11', dec: '12' };
   const youthSignal = new RegExp(source.familyPattern
     || 'children|kids?|famil(?:y|ies)|youth|teen|toddler|preschool|elementary|middle school|high school|all ages|parent(?:s)?\\s*(?:and|&)\\s*(?:child|kid)', 'i');
