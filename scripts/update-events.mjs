@@ -2863,8 +2863,11 @@ async function readPaloAlto(source) {
     let familyDetailText = detailText.slice(Math.max(0, titleIndex), Math.max(0, titleIndex) + 7000);
     const accommodationIndex = familyDetailText.search(/If you or a family member requires accommodations/i);
     if (accommodationIndex >= 0) familyDetailText = familyDetailText.slice(0, accommodationIndex);
-    const preferredFamilyEvidence = familyDetailText.match(/\b(?:all[-\s]?ages?|family[- ]friendly|entire family|whole family|family\s+(?:day|event|fun|activities)|famil(?:y|ies)\s+(?:can|will|are invited|to enjoy))\b/i)?.[0] || '';
-    const explicitYouthEvidence = familyDetailText.match(/\b(?:children|kids?|youth|teens?|toddler|preschool|elementary|middle school|high school)\b/i)?.[0] || '';
+    let audienceBodyText = plainText(detailDescription || '');
+    const audienceAccommodationIndex = audienceBodyText.search(/If you or a family member requires accommodations/i);
+    if (audienceAccommodationIndex >= 0) audienceBodyText = audienceBodyText.slice(0, audienceAccommodationIndex);
+    const preferredFamilyEvidence = audienceBodyText.match(/\b(?:all[-\s]?ages?|family[- ]friendly|entire family|whole family|family\s+(?:day|event|fun|activities)|famil(?:y|ies)\s+(?:can|will|are invited|to enjoy))\b/i)?.[0] || '';
+    const explicitYouthEvidence = audienceBodyText.match(/\b(?:children|kids?|youth|teens?|toddler|preschool|elementary|middle school|high school)\b/i)?.[0] || '';
     const detailAudienceEvidence = preferredFamilyEvidence || explicitYouthEvidence;
     const detailFamilySignal = youthSignal.test(candidate.audienceText) || Boolean(detailAudienceEvidence);
     const ageEvidence = preferredFamilyEvidence || (candidate.listingFamilySignal ? candidate.audienceText : detailAudienceEvidence);
@@ -2896,18 +2899,6 @@ async function readPaloAlto(source) {
         place: candidate.place, address: shortAddress(candidate.street, 'Palo Alto'), city: 'Palo Alto',
         source: source.name, url: candidate.url, ageText: ageEvidence
       });
-      if (/Great Glass Pumpkin Patch/i.test(candidate.title)) {
-        console.log('PALO GLASS AUDIENCE DEBUG:', JSON.stringify({
-          candidateAudienceText: candidate.audienceText,
-          listingFamilySignal: candidate.listingFamilySignal,
-          detailDescription,
-          preferredFamilyEvidence,
-          explicitYouthEvidence,
-          ageEvidence,
-          directAgeLabel: event.ageLabel,
-          directAgeRanges: event.ageRanges
-        }));
-      }
       return hasUsableSourceContent(event.description) ? { ...event, ...costInfo('', detailDescription || detailText || description) } : null;
     }).filter(Boolean);
   }));
