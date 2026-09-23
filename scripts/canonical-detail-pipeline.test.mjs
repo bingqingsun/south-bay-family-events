@@ -120,4 +120,25 @@ const html=`<html><head>
  assert.equal(result.event.sourceDescriptionRaw,'G-rated movie screening at Official Cinema.');
 }
 
+
+{
+ const previous={
+   ...base,
+   image:'',
+   fieldProvenance:{image:{source:'canonical-detail',sourceUrl:base.url,method:'event-image',verifiedAt:'2026-09-20T00:00:00Z'}},
+   canonicalDetail:{status:'enriched',sourceUrl:base.url,verifiedAt:'2026-09-20T00:00:00Z',fieldsUpdated:['image']}
+ };
+ const current={
+   ...base,
+   image:'https://example.gov/images/recovered-from-current-source.jpg',
+   fieldProvenance:{}
+ };
+ const result=await enrichOneCanonicalEvent(current,{
+   sources:[source],previous,verifiedAt:'2026-09-22T00:00:00Z'
+ });
+ assert.equal(result.diagnostics.status,'cached');
+ assert.equal(result.event.image,'https://example.gov/images/recovered-from-current-source.jpg');
+ assert.equal(result.event.fieldProvenance.image,undefined);
+}
+
 console.log('canonical detail pipeline tests passed');
