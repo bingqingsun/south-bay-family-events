@@ -2856,14 +2856,17 @@ async function readPaloAlto(source) {
       const detailResponse = await fetch(candidate.url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
       if (detailResponse.ok) detailHtml = await detailResponse.text();
     } catch {}
-    const detailText = plainText(detailHtml);
-    const detailDescription = officialParagraphText(detailHtml, { minLength: 20 });
+    const detailMainHtml = detailHtml.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] || detailHtml;
+    const detailText = plainText(detailMainHtml);
+    const detailDescription = officialParagraphText(detailMainHtml, { minLength: 20 });
     const titleIndex = detailText.toLowerCase().indexOf(candidate.title.toLowerCase());
     let familyDetailText = detailText.slice(Math.max(0, titleIndex), Math.max(0, titleIndex) + 7000);
     const accommodationIndex = familyDetailText.search(/If you or a family member requires accommodations/i);
     if (accommodationIndex >= 0) familyDetailText = familyDetailText.slice(0, accommodationIndex);
-    const detailFamilySignal = youthSignal.test(`${candidate.audienceText} ${detailDescription || ''} ${familyDetailText}`);
-    const detailAudienceEvidence = familyDetailText.match(youthSignal)?.[0] || '';
+    const preferredFamilyEvidence = familyDetailText.match(/\b(?:all[-\s]?ages?|family[- ]friendly|entire family|whole family|family\s+(?:day|event|fun|activities)|famil(?:y|ies)\s+(?:can|will|are invited|to enjoy))\b/i)?.[0] || '';
+    const explicitYouthEvidence = familyDetailText.match(/\b(?:children|kids?|youth|teens?|toddler|preschool|elementary|middle school|high school)\b/i)?.[0] || '';
+    const detailAudienceEvidence = preferredFamilyEvidence || explicitYouthEvidence;
+    const detailFamilySignal = youthSignal.test(candidate.audienceText) || Boolean(detailAudienceEvidence);
     const ageEvidence = candidate.listingFamilySignal ? candidate.audienceText : detailAudienceEvidence;
     // Listing-confirmed family events keep the existing resilience behavior if
     // the detail request is temporarily unavailable. Candidates admitted only
