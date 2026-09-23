@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T05:47:16.280Z",
+  "generatedAt": "2026-09-23T05:49:52.303Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -84,7 +84,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 490,
+      "eventCount": 469,
       "failureStreak": 0,
       "error": ""
     },
@@ -144,10 +144,10 @@
       "name": "Happy Hollow Park & Zoo",
       "method": "happyhollow",
       "mode": "direct",
-      "status": "ok",
+      "status": "failed",
       "eventCount": 0,
-      "failureStreak": 0,
-      "error": ""
+      "failureStreak": 1,
+      "error": "Happy Hollow official calendar was not valid: 502"
     },
     {
       "key": "Gilroy Gardens|gilroygardens.org|https://www.gilroygardens.org/calendar-hours/",
@@ -394,10 +394,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 1,
-      "error": "Los Altos History Museum event list was not valid: 202"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -426,7 +426,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 20,
+      "failureStreak": 21,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -803,27 +803,27 @@
   "alerts": [
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 20,
+      "failureStreak": 21,
       "error": "Official iCalendar feed was not valid: 403"
     }
   ],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-09-23T05:47:16.280Z",
-    "enriched": 345,
+    "checkedAt": "2026-09-23T05:49:52.303Z",
+    "enriched": 338,
     "cached": 4,
-    "fetch-blocked": 17,
+    "fetch-blocked": 18,
     "identity-mismatch": 41,
     "fetch-failed": 4,
     "fieldUpdates": {
-      "description": 244
+      "description": 239
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-09-23T05:47:16.280Z",
-    "official": 251,
-    "unclassified": 156,
+    "checkedAt": "2026-09-23T05:49:52.303Z",
+    "official": 248,
+    "unclassified": 153,
     "missing": 4,
     "failure:official_page_fetch_blocked": 3,
     "failure:no_verified_official_image_candidate": 1
