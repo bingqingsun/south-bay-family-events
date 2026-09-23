@@ -38,7 +38,13 @@
     "method": "thetech",
     "feedUrl": "https://www.thetech.org/explore/upcoming-events",
     "address": "201 S Market St, San Jose",
-    "city": "San Jose"
+    "city": "San Jose",
+    "id": "the-tech-interactive",
+    "linkHosts": [
+      "outreach-foundation.org"
+    ],
+    "landingUrl": "https://www.thetech.org/explore/upcoming-events",
+    "linkPolicy": "official_listing_partner_detail"
   },
   {
     "name": "City of Palo Alto",
@@ -87,7 +93,15 @@
   {
     "name": "City of Sunnyvale",
     "domain": "sunnyvale.ca.gov",
-    "query": "events kids family"
+    "query": "events kids family",
+    "specialEventPageDiscovery": {
+      "preferredPages": [
+        {
+          "titlePattern": "\\bhands\\s+on\\s+the\\s+arts(?:\\s+festival)?\\b",
+          "url": "https://www.sunnyvale.ca.gov/recreation-and-community/special-events"
+        }
+      ]
+    }
   },
   {
     "name": "City of Mountain View",
@@ -100,7 +114,17 @@
     "method": "cupertino",
     "feedUrl": "https://www.cupertino.gov/Events-directory?dlv_OC+CL+City+Events+Listing=%28dd_OC+Event+Categories%3DMajor+events%29%28dd_OC+Composite+Date%3D0d%29",
     "city": "Cupertino",
-    "familyPattern": "Kids & family|Youth events|family|families|children|kids?|youth|teen|toddler|school"
+    "familyPattern": "Kids & family|Youth events|family|families|children|kids?|youth|teen|toddler|school",
+    "specialEventPageDiscovery": {
+      "sitemapUrl": "https://www.cupertino.gov/sitemap.xml",
+      "maxCandidates": 4,
+      "preferredPages": [
+        {
+          "titlePattern": "\\bbike\\s+fest\\b",
+          "url": "https://www.cupertino.gov/bikefest"
+        }
+      ]
+    }
   },
   {
     "name": "City of Santa Clara",
@@ -185,7 +209,10 @@
     "method": "cinelux",
     "feedUrl": "https://www.cineluxtheatres.com/cinelux-almaden-cafe-lounge/showtimes",
     "address": "2306 Almaden Rd, San Jose",
-    "city": "San Jose"
+    "city": "San Jose",
+    "id": "cinelux-almaden",
+    "landingUrl": "https://www.cineluxtheatres.com/cinelux-almaden-cafe-lounge/showtimes",
+    "linkPolicy": "ticket_partner"
   },
   {
     "name": "CineLux Plaza",
@@ -193,7 +220,10 @@
     "method": "cinelux",
     "feedUrl": "https://www.cineluxtheatres.com/cinelux-plaza-cafe-lounge/showtimes",
     "address": "2501 S Winchester Blvd, Campbell",
-    "city": "Campbell"
+    "city": "Campbell",
+    "id": "cinelux-plaza",
+    "landingUrl": "https://www.cineluxtheatres.com/cinelux-plaza-cafe-lounge/showtimes",
+    "linkPolicy": "ticket_partner"
   },
   {
     "name": "CineLux Los Gatos",
@@ -201,7 +231,10 @@
     "method": "cinelux",
     "feedUrl": "https://www.cineluxtheatres.com/cinelux-los-gatos-theatre/showtimes",
     "address": "43 N Santa Cruz Ave, Los Gatos",
-    "city": "Los Gatos"
+    "city": "Los Gatos",
+    "id": "cinelux-los-gatos",
+    "landingUrl": "https://www.cineluxtheatres.com/cinelux-los-gatos-theatre/showtimes",
+    "linkPolicy": "ticket_partner"
   },
   {
     "name": "CineLux Morgan Hill",
@@ -209,7 +242,10 @@
     "method": "cinelux",
     "feedUrl": "https://www.cineluxtheatres.com/cinelux-tennant-station/showtimes",
     "address": "750 Tennant Station Way, Morgan Hill",
-    "city": "Morgan Hill"
+    "city": "Morgan Hill",
+    "id": "cinelux-morgan-hill",
+    "landingUrl": "https://www.cineluxtheatres.com/cinelux-tennant-station/showtimes",
+    "linkPolicy": "ticket_partner"
   },
   {
     "name": "CineLux Gilroy",
@@ -217,7 +253,10 @@
     "method": "cinelux",
     "feedUrl": "https://www.cineluxtheatres.com/cinelux-gilroy-cafe-lounge/showtimes",
     "address": "6851 Monterey Rd, Gilroy",
-    "city": "Gilroy"
+    "city": "Gilroy",
+    "id": "cinelux-gilroy",
+    "landingUrl": "https://www.cineluxtheatres.com/cinelux-gilroy-cafe-lounge/showtimes",
+    "linkPolicy": "ticket_partner"
   },
   {
     "name": "Cinemark Century Oakridge 20",
@@ -225,7 +264,10 @@
     "method": "cinemark",
     "feedUrl": "https://www.cinemark.com/theatres/ca-san-jose/cinemark-century-oakridge-20-xd-and-screenx",
     "address": "925 Blossom Hill Rd, San Jose",
-    "city": "San Jose"
+    "city": "San Jose",
+    "id": "cinemark-century-oakridge-20",
+    "landingUrl": "https://www.cinemark.com/theatres/ca-san-jose/cinemark-century-oakridge-20-xd-and-screenx",
+    "linkPolicy": "ticket_partner"
   },
   {
     "name": "Cinemark Century Great Mall 20",
@@ -233,7 +275,10 @@
     "method": "cinemark",
     "feedUrl": "https://www.cinemark.com/theatres/ca-milpitas/cinemark-century-great-mall-20-xd-and-screenx",
     "address": "1010 Great Mall Dr, Milpitas",
-    "city": "Milpitas"
+    "city": "Milpitas",
+    "id": "cinemark-century-great-mall-20",
+    "landingUrl": "https://www.cinemark.com/theatres/ca-milpitas/cinemark-century-great-mall-20-xd-and-screenx",
+    "linkPolicy": "ticket_partner"
   },
   {
     "name": "Cinemark CineArts Santana Row",
@@ -241,7 +286,10 @@
     "method": "cinemark",
     "feedUrl": "https://www.cinemark.com/theatres/ca-san-jose/cinemark-cinearts-santana-row",
     "address": "3088 Olsen Dr, San Jose",
-    "city": "San Jose"
+    "city": "San Jose",
+    "id": "cinemark-cinearts-santana-row",
+    "landingUrl": "https://www.cinemark.com/theatres/ca-san-jose/cinemark-cinearts-santana-row",
+    "linkPolicy": "ticket_partner"
   },
   {
     "name": "South FIRST FRIDAYS / ArtWalkSJ",
@@ -344,7 +392,10 @@
     "method": "montalvo",
     "feedUrl": "https://montalvoarts.org/experience/events-calendar/",
     "address": "15400 Montalvo Rd, Saratoga",
-    "city": "Saratoga"
+    "city": "Saratoga",
+    "id": "montalvo-arts-center",
+    "landingUrl": "https://montalvoarts.org/experience/events-calendar/",
+    "linkPolicy": "first_party_detail_with_listing_fallback"
   },
   {
     "name": "City of Los Altos Parks & Recreation",
@@ -365,14 +416,24 @@
     "method": "symphony",
     "feedUrl": "https://www.symphonysanjose.org/attend/2026-2027-season/concerts-2026-2027/",
     "address": "345 S 1st St, San Jose",
-    "city": "San Jose"
+    "city": "San Jose",
+    "verifiedImages": {
+      "Symphonic Spooktacular": "https://www.symphonysanjose.org/wp-content/uploads/2026/01/5.jpg",
+      "My Very First Nutcracker": "https://www.symphonysanjose.org/wp-content/uploads/2024/04/20242025-season-website-1.pdf.png",
+      "My Very First Symphony": "https://www.symphonysanjose.org/wp-content/uploads/2026/01/14.jpg",
+      "My Very First Ballet": "https://www.symphonysanjose.org/wp-content/uploads/2026/01/10.jpg"
+    }
   },
   {
     "name": "San Jose Theaters",
     "domain": "sanjosetheaters.org",
     "method": "timely",
     "feedUrl": "https://events.timely.fun/jc0x91t0/stream?tags=677512582",
-    "calendarId": 54710614
+    "calendarId": 54710614,
+    "id": "san-jose-theaters",
+    "landingUrl": "https://sanjosetheaters.org/calendar-condensed/",
+    "canonicalEventBase": "https://sanjosetheaters.org/event/",
+    "linkPolicy": "first_party_detail"
   },
   {
     "name": "History San José",
@@ -411,7 +472,13 @@
     "address": "2000 N Shoreline Blvd, Mountain View, CA 94043",
     "city": "Mountain View",
     "monthsAhead": 4,
-    "familyPattern": "family|families|children|kids?|all ages|youth|accompanying adult|for ages"
+    "familyPattern": "family|families|children|kids?|all ages|youth|accompanying adult|for ages",
+    "id": "google-visitor-experience",
+    "linkHosts": [
+      "rsvp.withgoogle.com"
+    ],
+    "landingUrl": "https://visit.withgoogle.com/events/",
+    "linkPolicy": "registration_partner"
   },
   {
     "name": "The Village at San Antonio Center",
@@ -597,7 +664,7 @@
   },
   {
     "name": "Santa Clara Parade of Champions",
-    "domain": "sc-parade-of-champions.squarespace.com",
+    "domain": "scparadeofchampions.org",
     "method": "curated",
     "feedUrl": "https://www.scparadeofchampions.org/parade-schedule",
     "city": "Santa Clara",
@@ -612,6 +679,11 @@
         "cost": "Free",
         "format": "festival"
       }
+    ],
+    "linkHosts": [
+      "scparadeofchampions.org",
+      "www.scparadeofchampions.org",
+      "sc-parade-of-champions.squarespace.com"
     ]
   },
   {
@@ -806,7 +878,8 @@
         "cost": "Free",
         "format": "festival",
         "seasonalTheme": "dia-de-muertos",
-        "url": "https://sjmusart.org/programs-at-sjma/community-days"
+        "url": "https://sjmusart.org/programs-at-sjma/community-days/dia-de-los-muertos",
+        "image": "https://sjmusart.org/sites/default/files/styles/wide/public/2026-01/sjma%20community%20day%20dod%20banner.png?itok=LXYHKSmS"
       }
     ]
   },
@@ -942,7 +1015,8 @@
         "address": "3500 Capitol Ave, Fremont",
         "ageText": "Family-friendly",
         "format": "festival",
-        "seasonalTheme": "halloween"
+        "seasonalTheme": "halloween",
+        "url": "https://www.fremont.gov/government/departments/parks-recreation/events/trick-or-treat-event"
       }
     ]
   },
@@ -963,15 +1037,17 @@
         "ageText": "Ages 0–10",
         "cost": "Free",
         "format": "festival",
-        "seasonalTheme": "halloween"
+        "seasonalTheme": "halloween",
+        "url": "https://www.santaclaraca.gov/our-city/departments-g-z/parks-recreation/special-events/children-s-halloween-party"
       }
     ]
   },
   {
     "name": "Teatro Visión",
-    "domain": "sanjose.org",
+    "domain": "teatrovision.org",
     "method": "curated",
-    "feedUrl": "https://www.sanjose.org/events/teatro-visions-alebrijes-dia-de-muertos-tale",
+    "feedUrl": "https://www.teatrovision.org/alebrijes",
+    "landingUrl": "https://www.teatrovision.org/alebrijes",
     "city": "San Jose",
     "events": [
       {
@@ -983,7 +1059,9 @@
         "ageText": "Whole family",
         "cost": "Tickets required",
         "format": "live-show",
-        "seasonalTheme": "dia-de-muertos"
+        "seasonalTheme": "dia-de-muertos",
+        "url": "https://www.teatrovision.org/alebrijes",
+        "image": "https://assets.nationbuilder.com/teatrovision/pages/2610/attachments/original/1785277988/Alebrijes_Title.png"
       },
       {
         "title": "Alebrijes: A Día de Muertos Tale",
@@ -994,7 +1072,9 @@
         "ageText": "Whole family",
         "cost": "Tickets required",
         "format": "live-show",
-        "seasonalTheme": "dia-de-muertos"
+        "seasonalTheme": "dia-de-muertos",
+        "url": "https://www.teatrovision.org/alebrijes",
+        "image": "https://assets.nationbuilder.com/teatrovision/pages/2610/attachments/original/1785277988/Alebrijes_Title.png"
       },
       {
         "title": "Alebrijes: A Día de Muertos Tale",
@@ -1005,7 +1085,9 @@
         "ageText": "Whole family",
         "cost": "Tickets required",
         "format": "live-show",
-        "seasonalTheme": "dia-de-muertos"
+        "seasonalTheme": "dia-de-muertos",
+        "url": "https://www.teatrovision.org/alebrijes",
+        "image": "https://assets.nationbuilder.com/teatrovision/pages/2610/attachments/original/1785277988/Alebrijes_Title.png"
       },
       {
         "title": "Alebrijes: A Día de Muertos Tale",
@@ -1016,7 +1098,9 @@
         "ageText": "Whole family",
         "cost": "Tickets required",
         "format": "live-show",
-        "seasonalTheme": "dia-de-muertos"
+        "seasonalTheme": "dia-de-muertos",
+        "url": "https://www.teatrovision.org/alebrijes",
+        "image": "https://assets.nationbuilder.com/teatrovision/pages/2610/attachments/original/1785277988/Alebrijes_Title.png"
       },
       {
         "title": "Alebrijes: A Día de Muertos Tale",
@@ -1027,7 +1111,9 @@
         "ageText": "Whole family",
         "cost": "Tickets required",
         "format": "live-show",
-        "seasonalTheme": "dia-de-muertos"
+        "seasonalTheme": "dia-de-muertos",
+        "url": "https://www.teatrovision.org/alebrijes",
+        "image": "https://assets.nationbuilder.com/teatrovision/pages/2610/attachments/original/1785277988/Alebrijes_Title.png"
       },
       {
         "title": "Alebrijes: A Día de Muertos Tale",
@@ -1038,7 +1124,9 @@
         "ageText": "Whole family",
         "cost": "Tickets required",
         "format": "live-show",
-        "seasonalTheme": "dia-de-muertos"
+        "seasonalTheme": "dia-de-muertos",
+        "url": "https://www.teatrovision.org/alebrijes",
+        "image": "https://assets.nationbuilder.com/teatrovision/pages/2610/attachments/original/1785277988/Alebrijes_Title.png"
       },
       {
         "title": "Alebrijes: A Día de Muertos Tale",
@@ -1049,7 +1137,9 @@
         "ageText": "Whole family",
         "cost": "Tickets required",
         "format": "live-show",
-        "seasonalTheme": "dia-de-muertos"
+        "seasonalTheme": "dia-de-muertos",
+        "url": "https://www.teatrovision.org/alebrijes",
+        "image": "https://assets.nationbuilder.com/teatrovision/pages/2610/attachments/original/1785277988/Alebrijes_Title.png"
       }
     ]
   },
@@ -1103,6 +1193,10 @@
     "place": "Santana Row",
     "address": "377 Santana Row, San Jose",
     "city": "San Jose",
-    "familyPattern": "family|families|children|kids?|all ages|pumpkin|halloween|trick-or-treat|día de|dia de|craft|glassblowing|costume"
+    "familyPattern": "family|families|children|kids?|all ages|pumpkin|halloween|trick-or-treat|día de|dia de|craft|glassblowing|costume",
+    "id": "santana-row",
+    "landingUrl": "https://santanarow.com/events/",
+    "linkPolicy": "first_party_detail_with_listing_fallback",
+    "runnerAccessPolicy": "transient-fetch-failures-observed"
   }
 ]
