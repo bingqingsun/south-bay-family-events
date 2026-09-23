@@ -62,6 +62,9 @@ const source = { name: 'City Test', method: 'civic', domain: 'example.gov', city
   assert.equal(result.event.costStatus, 'paid');
   assert.equal(result.event.costLabel, '$12');
   assert.equal(result.event.image, 'https://example.gov/images/lantern-official.jpg');
+  assert.equal(result.event.imageStatus, 'official');
+  assert.equal(result.event.imageProvenance.method, 'schema.org');
+  assert.equal(result.event.imageProvenance.score, 100);
   assert.equal(result.event.detailStatus, 'enriched');
   assert.ok(result.diagnostics.fields_updated.includes('dateValue'));
 }
@@ -83,6 +86,8 @@ const source = { name: 'City Test', method: 'civic', domain: 'example.gov', city
   </body></html>`;
   const result = enrichEventFromDetail(event, { source, html, finalUrl: event.url });
   assert.equal(result.event.image, 'https://example.gov/images/lantern-card.jpg');
+  assert.equal(result.event.imageProvenance.method, 'card-dom-bound');
+  assert.equal(result.event.imageProvenance.evidence, 'same-card-title-link-image');
 }
 
 // Image v2: multi-image ambiguous containers stay conservative rather than
@@ -95,6 +100,8 @@ const source = { name: 'City Test', method: 'civic', domain: 'example.gov', city
   </section></body></html>`;
   const result = enrichEventFromDetail(event, { source, html, finalUrl: event.url });
   assert.equal(result.event.image, '');
+  assert.equal(result.event.imageStatus, 'missing');
+  assert.equal(result.event.imageFailureReason, 'no_verified_official_image_candidate');
 }
 
 // Image v2: event-specific OG title is valid evidence even when the image URL
