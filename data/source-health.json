@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T00:28:46.653Z",
+  "generatedAt": "2026-09-23T00:30:20.891Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -20,7 +20,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 12,
+      "eventCount": 8,
       "failureStreak": 0,
       "error": ""
     },
@@ -215,7 +215,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 54,
+      "eventCount": 53,
       "failureStreak": 0,
       "error": ""
     },
@@ -245,7 +245,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 86,
+      "eventCount": 85,
       "failureStreak": 0,
       "error": ""
     },
@@ -255,7 +255,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 46,
+      "eventCount": 45,
       "failureStreak": 0,
       "error": ""
     },
@@ -394,10 +394,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 2,
-      "error": "Los Altos History Museum event list was not valid: 202"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -803,15 +803,14 @@
   "alerts": [],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-09-23T00:28:46.653Z",
-    "enriched": 332,
+    "checkedAt": "2026-09-23T00:30:20.891Z",
+    "enriched": 328,
+    "fetch-blocked": 20,
     "cached": 4,
-    "fetch-blocked": 18,
     "identity-mismatch": 41,
-    "fetch-failed": 2,
+    "fetch-failed": 1,
     "fieldUpdates": {
-      "description": 228,
-      "image": 44
+      "description": 225
     }
   }
 }
