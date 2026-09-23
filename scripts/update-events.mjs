@@ -2796,13 +2796,21 @@ async function readPaloAlto(source) {
     const audienceText = `${title} ${description} ${tags}`;
     const url = href ? new URL(href, source.feedUrl).href : '';
     const key = `${url}|${dateValue}`;
-    if (!title || !url || !dateValue || seen.has(key) || !isUpcoming(dateValue) || !youthSignal.test(audienceText) || excluded.test(title)) return [];
+    const listingFamilySignal = youthSignal.test(audienceText);
+    // Some Palo Alto Community Services listings have terse calendar cards
+    // with only a generic "Community Events" tag. Their detail pages carry
+    // the actual family evidence. Allow those candidates through for a second
+    // pass instead of permanently filtering them before detail verification.
+    const detailFamilyCandidate = /\/Events-Directory\/Community-Services\//i.test(url)
+      && /\bCommunity Events\b/i.test(tags);
+    if (!title || !url || !dateValue || seen.has(key) || !isUpcoming(dateValue)
+      || (!listingFamilySignal && !detailFamilyCandidate) || excluded.test(title)) return [];
     seen.add(key);
     const parts = venue.split(',').map(value => value.trim()).filter(Boolean);
     const place = parts.shift() || source.name;
     const cityIndex = parts.findIndex(value => /^palo alto(?:\s+ca)?$/i.test(value));
     const street = cityIndex >= 0 ? parts.slice(0, cityIndex).join(', ') : '';
-    return [{ title, url, dateValue, description, image, place, street, audienceText, key }];
+    return [{ title, url, dateValue, description, image, place, street, audienceText, listingFamilySignal, key }];
   });
   const events = await Promise.all(candidates.map(async candidate => {
     let detailHtml = '';
@@ -2812,6 +2820,11 @@ async function readPaloAlto(source) {
     } catch {}
     const detailText = plainText(detailHtml);
     const detailDescription = officialParagraphText(detailHtml, { minLength: 20 });
+    const detailFamilySignal = youthSignal.test(`${candidate.audienceText} ${detailText.slice(0, 7000)}`);
+    // Listing-confirmed family events keep the existing resilience behavior if
+    // the detail request is temporarily unavailable. Candidates admitted only
+    // for second-pass validation must prove family relevance on the detail page.
+    if (!candidate.listingFamilySignal && (!detailHtml || !detailFamilySignal)) return null;
     const dateMatch = detailText.match(/Next date:\s*((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\s*\|\s*(\d{1,2}:\d{2}\s*(?:AM|PM))/i);
     const dateValue = dateMatch ? isoDateFromOfficialText(dateMatch[1], dateMatch[2]) : candidate.dateValue;
     const description = detailDescription || candidate.description;
