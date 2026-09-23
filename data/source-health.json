@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T01:46:53.861Z",
+  "generatedAt": "2026-09-23T01:49:08.921Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -396,7 +396,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 2,
+      "failureStreak": 3,
       "error": "Los Altos History Museum event list was not valid: 202"
     },
     {
@@ -426,7 +426,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 6,
+      "failureStreak": 7,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -494,10 +494,10 @@
       "name": "City of Milpitas",
       "method": "civic",
       "mode": "direct",
-      "status": "failed",
-      "eventCount": 0,
-      "failureStreak": 1,
-      "error": "The operation was aborted due to timeout"
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Google Visitor Experience|visit.withgoogle.com|https://visit.withgoogle.com/events/",
@@ -802,29 +802,35 @@
   ],
   "alerts": [
     {
+      "name": "Los Altos History Museum",
+      "failureStreak": 3,
+      "error": "Los Altos History Museum event list was not valid: 202"
+    },
+    {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 6,
+      "failureStreak": 7,
       "error": "Official iCalendar feed was not valid: 403"
     }
   ],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-09-23T01:46:53.861Z",
+    "checkedAt": "2026-09-23T01:49:08.921Z",
     "enriched": 329,
     "cached": 4,
-    "fetch-blocked": 22,
+    "fetch-blocked": 18,
     "identity-mismatch": 41,
+    "fetch-failed": 4,
     "fieldUpdates": {
       "description": 226
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-09-23T01:46:53.861Z",
-    "official": 235,
+    "checkedAt": "2026-09-23T01:49:08.921Z",
+    "official": 231,
     "unclassified": 157,
-    "missing": 4,
+    "missing": 8,
     "failure:official_page_fetch_blocked": 3,
-    "failure:no_verified_official_image_candidate": 1
+    "failure:no_verified_official_image_candidate": 5
   }
 }
