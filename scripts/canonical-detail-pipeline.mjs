@@ -43,6 +43,8 @@ function reuseCanonicalEvidence(event, previous) {
   if (!previous || canonicalUrl(event) !== normalizeOfficialUrl(previous?.canonicalDetail?.sourceUrl || previous?.canonicalUrl || previous?.url || '')) return event;
   const provenance = previous.fieldProvenance || {};
   const merged = { ...event, fieldProvenance: { ...(event.fieldProvenance || {}) } };
+  const previousImageIsPageUrl = Boolean(previous.image)
+    && normalizeOfficialUrl(previous.image) === canonicalUrl(event);
   const strongerSummaryEvidence = ['official_structured', 'manual_verified'].includes(event.summaryStatus);
   Object.entries(provenance).forEach(([field, evidence]) => {
     if (evidence?.source !== 'canonical-detail' || previous[field] === undefined) return;
@@ -50,7 +52,7 @@ function reuseCanonicalEvidence(event, previous) {
     // Never let stale empty canonical evidence erase a value recovered by the
     // current source pass. This previously blanked newly recovered official
     // artwork (for example Cupertino Bike Fest) while retaining old provenance.
-    if (field === 'image' && !previous[field] && merged[field]) return;
+    if (field === 'image' && ((!previous[field] && merged[field]) || previousImageIsPageUrl)) return;
     merged[field] = previous[field];
     merged.fieldProvenance[field] = evidence;
   });
@@ -60,7 +62,7 @@ function reuseCanonicalEvidence(event, previous) {
   if (previous.canonicalDetail) merged.canonicalDetail = previous.canonicalDetail;
   // A transient fetch/parser failure must never erase a previously verified
   // official image. Carry its evidence forward until stronger evidence exists.
-  if (previous.imageStatus === 'official' && previous.image && previous.imageProvenance?.source === 'canonical-detail') {
+  if (previous.imageStatus === 'official' && previous.image && !previousImageIsPageUrl && previous.imageProvenance?.source === 'canonical-detail') {
     merged.image = previous.image;
     merged.imageStatus = 'official';
     merged.imageProvenance = previous.imageProvenance;
