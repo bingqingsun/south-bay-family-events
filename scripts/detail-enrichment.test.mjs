@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { enrichEventFromDetail, detailCompletenessScore, DETAIL_QUALITY_STATES } from './lib/detail-enrichment.mjs';
+import { genericDetailExtraction } from './lib/detail-extractors/generic.mjs';
 
 const baseEvent = {
   id: 'e1',
