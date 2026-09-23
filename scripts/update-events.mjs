@@ -379,6 +379,13 @@ function ageInfo(categories) {
   const lower = text.toLowerCase();
   const familyFriendly = /family(?:-friendly)?/.test(lower);
   const allAges = /\ball[-\s]ages?\b|\bfor all[-\s]ages\b|\bappropriate for all[-\s]ages\b/.test(lower);
+  // A sentence such as “All ages are welcome” is a direct organizer audience
+  // statement, not a broad category. It must take precedence over narrower
+  // taxonomy chips that can appear alongside it (for example Babies/Teens).
+  const explicitUniversalAudience = /\ball[-\s]ages?\s+(?:are\s+)?(?:welcome|invited|admitted)\b|\b(?:everyone|people)\s+of\s+all\s+ages\s+(?:is|are)\s+(?:welcome|invited)\b/.test(lower);
+  if (explicitUniversalAudience) {
+    return { ageBands: ['all-ages'], ageRanges: [[0, 18]], ageMin: 0, ageMax: 18, ageLabel: 'All ages', ageSource: 'Official audience information', familyFriendly: true };
+  }
 
   const ranges = [];
   const addRange = (min, max) => {
@@ -414,14 +421,25 @@ function ageInfo(categories) {
   // A grade category is an official audience field but not an exact age
   // statement. Its conventional age equivalent is used only for matching;
   // the card keeps the organizer's grade wording so we do not imply precision.
-  const gradeRange = lower.match(/grades?\s*(k|kindergarten|\d{1,2})\s*(?:-|–|to)\s*(\d{1,2})/);
-  const isKindergarten = gradeRange?.[1] === 'k' || gradeRange?.[1] === 'kindergarten';
-  const gradeStart = isKindergarten ? 0 : Number(gradeRange?.[1]);
-  const gradeEnd = Number(gradeRange?.[2]);
-  if (!hasExplicitAgeRange && gradeRange && Number.isFinite(gradeStart) && Number.isFinite(gradeEnd) && gradeEnd >= 0 && gradeEnd <= 12) {
-    const min = isKindergarten ? 5 : gradeStart + 5;
-    addRange(min, gradeEnd + 5);
-    if (ranges.length === 1) return { ageBands: [], ageRanges: [[min, gradeEnd + 5]], ageMin: min, ageMax: gradeEnd + 5, ageLabel: `Grades ${gradeRange[1].toUpperCase()}–${gradeEnd}`, ageSource: 'Official organizer grade range', familyFriendly };
+  const gradeRanges = [...lower.matchAll(/grades?\s*(k|kindergarten|\d{1,2})\s*(?:-|–|to)\s*(\d{1,2})/g)]
+    .flatMap(match => {
+      const isKindergarten = match[1] === 'k' || match[1] === 'kindergarten';
+      const gradeStart = isKindergarten ? 0 : Number(match[1]);
+      const gradeEnd = Number(match[2]);
+      if (!Number.isFinite(gradeStart) || !Number.isFinite(gradeEnd) || gradeEnd < gradeStart || gradeEnd > 12) return [];
+      return [{ min: isKindergarten ? 5 : gradeStart + 5, max: gradeEnd + 5, label: `Grades ${isKindergarten ? 'K' : gradeStart}–${gradeEnd}` }];
+    });
+  if (!hasExplicitAgeRange && gradeRanges.length) {
+    const distinctGrades = gradeRanges.filter((range, index, values) => values.findIndex(value => value.label === range.label) === index);
+    return {
+      ageBands: [],
+      ageRanges: distinctGrades.map(range => [range.min, range.max]),
+      ageMin: Math.min(...distinctGrades.map(range => range.min)),
+      ageMax: Math.max(...distinctGrades.map(range => range.max)),
+      ageLabel: distinctGrades.map(range => range.label).join(' · '),
+      ageSource: 'Official organizer grade range',
+      familyFriendly
+    };
   }
   if (!ranges.length && allAges) return { ageBands: ['all-ages'], ageRanges: [[0, 18]], ageMin: 0, ageMax: 18, ageLabel: 'All ages', ageSource: 'Official audience information', familyFriendly };
   if (!ranges.length) return { ageBands: familyFriendly ? ['family'] : [], ageRanges: [], ageMin: null, ageMax: null, ageLabel: familyFriendly ? 'Family-friendly' : '', ageSource: familyFriendly ? 'Official audience information' : '', familyFriendly };
