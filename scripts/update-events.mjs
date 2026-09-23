@@ -2868,12 +2868,13 @@ async function readPaloAlto(source) {
     // for second-pass validation must prove family relevance in activity copy,
     // not in Palo Alto's sitewide "family member requires accommodations" text.
     if (!candidate.listingFamilySignal && (!detailHtml || !detailFamilySignal)) return null;
-    const dateMatch = detailText.match(/Next date:\s*((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\s*\|\s*(\d{1,2}:\d{2}\s*(?:AM|PM))/i);
+    const dateMatch = detailText.match(/Next date:\s*((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\s*\|\s*(\d{1,2}:\d{2}\s*(?:AM|PM))(?:\s*(?:to|-|–|—)\s*(\d{1,2}:\d{2}\s*(?:AM|PM)))?/i);
     const dateValue = dateMatch ? isoDateFromOfficialText(dateMatch[1], dateMatch[2]) : candidate.dateValue;
+    const endDateValue = dateMatch?.[3] ? isoDateFromOfficialText(dateMatch[1], dateMatch[3]) : '';
     const description = detailDescription || candidate.description;
     const event = directEvent({
       id: 'paloalto-' + createHash('sha256').update(`${candidate.url}|${dateValue}`).digest('hex').slice(0, 16),
-      title: candidate.title, dateValue, description,
+      title: candidate.title, dateValue, endDateValue, description,
       image: officialPageOgImage(detailHtml) || (candidate.image ? new URL(candidate.image, source.feedUrl).href : ''),
       place: candidate.place, address: shortAddress(candidate.street, 'Palo Alto'), city: 'Palo Alto',
       source: source.name, url: candidate.url, ageText: `${candidate.audienceText} ${detailText.slice(0, 3500)}`
