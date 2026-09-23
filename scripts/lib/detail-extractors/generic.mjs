@@ -196,6 +196,31 @@ export function extractImageCandidates({ html, schema, baseUrl, title = '', allo
     add(raw, 'schema.org', 100, 'event-schema-image');
   }
 
+  // Strong body evidence: a prominent page image can be event-bound even when
+  // its alt text is descriptive rather than a repetition of the event title.
+  // Accept only images inside the main event content when the page heading itself
+  // identifies the event, and avoid generic assets. This covers civic CMS/topic
+  // pages that render a named hero (for example a header/banner image).
+  const h1 = plainText(String(html || '').match(/<h1\\b[^>]*>([\\s\\S]*?)<\\/h1>/i)?.[1] || '');
+  if (title && sameEventIdentity(title, h1)) {
+    const main = String(html || '').match(/<main\\b[^>]*>([\\s\\S]*?)<\\/main>/i)?.[1] || '';
+    const heroTags = [...main.matchAll(/<img\\b[^>]*>/gi)].slice(0, 4);
+    for (const match of heroTags) {
+      const tag = match[0];
+      const raw = tag.match(/\\b(?:src|data-src|data-lazy-src)=["']([^"']+)["']/i)?.[1]
+        || tag.match(/\\bsrcset=["']([^"']+)["']/i)?.[1]?.split(',').at(-1)?.trim().split(/\\s+/)[0]
+        || '';
+      const alt = decodeHtml(tag.match(/\\balt=["']([^"']*)["']/i)?.[1] || '');
+      const classText = decodeHtml(tag.match(/\\bclass=["']([^"']*)["']/i)?.[1] || '');
+      const identityHint = [alt, classText, raw].join(' ');
+      if (!raw || genericAsset.test(identityHint)) continue;
+      if (/\\b(?:hero|banner|header|feature|event)\\b/i.test(identityHint) || sameEventIdentity(title, alt)) {
+        add(raw, 'detail-main-hero', 82, 'event-h1-main-hero-image');
+        break;
+      }
+    }
+  }
+
   // Strong body evidence: an image whose alt text identifies the event.
   for (const match of String(html || '').matchAll(/<img\b[^>]*>/gi)) {
     const tag = match[0];
