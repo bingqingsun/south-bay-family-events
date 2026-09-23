@@ -47,6 +47,10 @@ function reuseCanonicalEvidence(event, previous) {
   Object.entries(provenance).forEach(([field, evidence]) => {
     if (evidence?.source !== 'canonical-detail' || previous[field] === undefined) return;
     if (strongerSummaryEvidence && ['description', 'sourceDescriptionRaw'].includes(field)) return;
+    // Never let stale empty canonical evidence erase a value recovered by the
+    // current source pass. This previously blanked newly recovered official
+    // artwork (for example Cupertino Bike Fest) while retaining old provenance.
+    if (field === 'image' && !previous[field] && merged[field]) return;
     merged[field] = previous[field];
     merged.fieldProvenance[field] = evidence;
   });
