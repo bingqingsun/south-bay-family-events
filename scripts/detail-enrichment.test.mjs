@@ -273,4 +273,21 @@ const source = { name: 'City Test', method: 'civic', domain: 'example.gov', city
   assert.equal(complete, 100);
 }
 
+
+{
+  const html = `<!doctype html><html><body><h1>Cupertino Fall Bike Fest</h1><main><img class="event-header hero" src="/images/short-header-bike-fest.png" alt="Bike Fest"><p>Join us for biking activities.</p></main></body></html>`;
+  const result = genericDetailExtraction({ html, title: 'Cupertino Fall Bike Fest', currentUrl: 'https://www.cupertino.gov/bikefest', finalUrl: 'https://www.cupertino.gov/bikefest', domain: 'cupertino.gov', currentDate: '2026-09-26' });
+  assert.equal(result.image, 'https://www.cupertino.gov/images/short-header-bike-fest.png');
+  assert.equal(result.imageMethod, 'detail-main-hero');
+  assert.equal(result.imageScore, 82);
+  assert.equal(result.imageEvidence, 'event-h1-main-hero-image');
+}
+
+{
+  const html = `<!doctype html><html><body><h1>Community Day: Día de Los Muertos</h1><main><img class="site-logo" src="/logo.png"><img class="event-banner" data-lazy-src="/images/dia-de-los-muertos-banner.jpg" alt="Día de Los Muertos"><p>Community Day.</p></main></body></html>`;
+  const result = genericDetailExtraction({ html, title: 'Community Day: Día de Los Muertos', currentUrl: 'https://sjmusart.org/community-day-dia-de-los-muertos', finalUrl: 'https://sjmusart.org/community-day-dia-de-los-muertos', domain: 'sjmusart.org', currentDate: '2026-10-24' });
+  assert.equal(result.image, 'https://sjmusart.org/images/dia-de-los-muertos-banner.jpg');
+  assert.equal(result.imageMethod, 'detail-main-hero');
+}
+
 console.log('detail-enrichment tests passed');
