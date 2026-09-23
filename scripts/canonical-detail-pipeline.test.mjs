@@ -141,4 +141,21 @@ const html=`<html><head>
  assert.equal(result.event.fieldProvenance.image,undefined);
 }
 
+
+{
+ const previous={
+   ...base,
+   image:base.url,
+   imageStatus:'official',
+   imageProvenance:{source:'canonical-detail',sourceUrl:base.url,method:'symphony-season-card',verifiedAt:'2026-09-20T00:00:00Z',score:90},
+   fieldProvenance:{image:{source:'canonical-detail',sourceUrl:base.url,method:'symphony-season-card',verifiedAt:'2026-09-20T00:00:00Z'}},
+   canonicalDetail:{status:'enriched',sourceUrl:base.url,verifiedAt:'2026-09-20T00:00:00Z',fieldsUpdated:['image']}
+ };
+ const current={...base,image:'https://example.gov/images/current-source-official.jpg',fieldProvenance:{}};
+ const result=await enrichOneCanonicalEvent(current,{sources:[source],previous,verifiedAt:'2026-09-22T00:00:00Z'});
+ assert.equal(result.diagnostics.status,'cached');
+ assert.equal(result.event.image,'https://example.gov/images/current-source-official.jpg');
+ assert.notEqual(result.event.image,result.event.canonicalUrl);
+}
+
 console.log('canonical detail pipeline tests passed');
