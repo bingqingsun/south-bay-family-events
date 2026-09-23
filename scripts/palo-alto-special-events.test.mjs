@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {
   paloAltoSpecialEventCalendarUrl,
+  paloAltoSpecialEventAudienceEvidence,
   paloAltoSpecialEventDescription,
   paloAltoSpecialEventLinks,
   paloAltoSpecialEventOccurrences
@@ -20,6 +21,10 @@ const detail = `<h1>The Great Glass Pumpkin Patch</h1><img src="hero.jpg"><p>Mor
   <p class="event-date">Saturday, September 26, 2026 | 10:00 AM - 05:00 PM</p>
   <p>Sunday, September 27, 2026 | 10:00 AM - 05:00 PM</p>`;
 assert.equal(paloAltoSpecialEventDescription(detail), 'More than 10,000 glass pumpkins, demonstrations, food trucks, and family activities.');
+assert.equal(
+  paloAltoSpecialEventAudienceEvidence({ title: 'The Great Glass Pumpkin Patch', description: 'A fall event for the entire family.' }, 'More than 10,000 glass pumpkins and family activities.'),
+  'The Great Glass Pumpkin Patch A fall event for the entire family. More than 10,000 glass pumpkins and family activities.'
+);
 assert.equal(paloAltoSpecialEventCalendarUrl(detail, 'https://www.paloalto.gov/special/Pumpkins'), 'https://www.paloalto.gov/Events-Directory/Community-Services/Great-Glass-Pumpkin-Patch-2026');
 assert.deepEqual(paloAltoSpecialEventOccurrences(detail), [
   { dateText: 'September 26, 2026', startTime: '10:00 AM', endTime: '05:00 PM' },
