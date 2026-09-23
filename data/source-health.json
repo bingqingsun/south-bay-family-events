@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T00:30:20.891Z",
+  "generatedAt": "2026-09-23T01:12:30.283Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -57,7 +57,7 @@
       "method": "paloalto",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 2,
+      "eventCount": 1,
       "failureStreak": 0,
       "error": ""
     },
@@ -175,7 +175,7 @@
       "method": "deanza",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 23,
+      "eventCount": 19,
       "failureStreak": 0,
       "error": ""
     },
@@ -215,7 +215,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 53,
+      "eventCount": 51,
       "failureStreak": 0,
       "error": ""
     },
@@ -225,7 +225,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 30,
+      "eventCount": 42,
       "failureStreak": 0,
       "error": ""
     },
@@ -394,10 +394,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "ok",
+      "status": "failed",
       "eventCount": 0,
-      "failureStreak": 0,
-      "error": ""
+      "failureStreak": 1,
+      "error": "Los Altos History Museum event list was not valid: 202"
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -424,10 +424,10 @@
       "name": "City of Los Altos Parks & Recreation",
       "method": "ics",
       "mode": "direct",
-      "status": "ok",
+      "status": "failed",
       "eventCount": 0,
-      "failureStreak": 0,
-      "error": ""
+      "failureStreak": 1,
+      "error": "Official iCalendar feed was not valid: 403"
     },
     {
       "key": "Gamble Garden|gamblegarden.org|https://www.gamblegarden.org/wp-json/tribe/events/v1/events?per_page=50&categories=kids",
@@ -474,10 +474,10 @@
       "name": "San José Buddhist Church Betsuin",
       "method": "tribe",
       "mode": "direct",
-      "status": "ok",
+      "status": "failed",
       "eventCount": 0,
-      "failureStreak": 0,
-      "error": ""
+      "failureStreak": 1,
+      "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
     },
     {
       "key": "Chinese Historical & Cultural Project|chcp.org|https://www.chcp.org/Events",
@@ -760,7 +760,7 @@
       "error": ""
     },
     {
-      "key": "Teatro Visión|sanjose.org|https://www.sanjose.org/events/teatro-visions-alebrijes-dia-de-muertos-tale",
+      "key": "Teatro Visión|teatrovision.org|https://www.teatrovision.org/alebrijes",
       "name": "Teatro Visión",
       "method": "curated",
       "mode": "direct",
@@ -803,14 +803,23 @@
   "alerts": [],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-09-23T00:30:20.891Z",
-    "enriched": 328,
-    "fetch-blocked": 20,
+    "checkedAt": "2026-09-23T01:12:30.283Z",
+    "enriched": 329,
     "cached": 4,
+    "fetch-blocked": 19,
     "identity-mismatch": 41,
-    "fetch-failed": 1,
+    "fetch-failed": 2,
     "fieldUpdates": {
-      "description": 225
+      "description": 225,
+      "image": 6
     }
+  },
+  "officialImageEnrichment": {
+    "frameworkVersion": "official-image-enrichment-v2",
+    "checkedAt": "2026-09-23T01:12:30.283Z",
+    "official": 229,
+    "unclassified": 157,
+    "missing": 9,
+    "failure:no_verified_official_image_candidate": 1
   }
 }
