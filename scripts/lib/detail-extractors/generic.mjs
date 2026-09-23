@@ -169,8 +169,7 @@ export function extractDescription({ html, schema }) {
   return { value, method: value ? 'meta-description' : '' };
 }
 
-export function extractImage({ html, schema, baseUrl, title = '', allowGenericOgWhenMissing = false }) {
-  const schemaImage = Array.isArray(schema?.image) ? schema.image[0] : (typeof schema?.image === 'object' ? (schema.image?.url || schema.image?.contentUrl) : schema?.image);
+export function extractImageCandidates({ html, schema, baseUrl, title = '', allowGenericOgWhenMissing = false }) {
   const genericAsset = /(?:logo|favicon|site[-_ ]?icon|avatar|placeholder|default[-_ ]?(?:image|share|social)|sponsor|branding)/i;
   const asUrl = raw => {
     if (!raw) return '';
@@ -181,29 +180,64 @@ export function extractImage({ html, schema, baseUrl, title = '', allowGenericOg
       return genericAsset.test(decodeURIComponent(url)) ? '' : url;
     } catch { return ''; }
   };
-  const structured = asUrl(schemaImage);
-  if (structured) return { value: structured, method: 'schema.org' };
+  const candidates = [];
+  const add = (raw, method, score, evidence = '') => {
+    const url = asUrl(raw);
+    if (!url) return;
+    const existing = candidates.find(item => item.url === url);
+    const candidate = { url, method, score, evidence };
+    if (!existing) candidates.push(candidate);
+    else if (score > existing.score) Object.assign(existing, candidate);
+  };
 
-  // A body image whose alt text identifies this event is stronger evidence
-  // than a site-wide social sharing image.
+  const schemaImages = Array.isArray(schema?.image) ? schema.image : schema?.image ? [schema.image] : [];
+  for (const image of schemaImages) {
+    const raw = typeof image === 'object' ? (image?.url || image?.contentUrl) : image;
+    add(raw, 'schema.org', 100, 'event-schema-image');
+  }
+
+  // Strong body evidence: an image whose alt text identifies the event.
   for (const match of String(html || '').matchAll(/<img\b[^>]*>/gi)) {
     const tag = match[0];
     const alt = decodeHtml(tag.match(/\balt=["']([^"']*)["']/i)?.[1] || '');
     if (!title || !alt || !sameEventIdentity(title, alt)) continue;
-    const bodyImage = asUrl(tag.match(/\b(?:src|data-src)=["']([^"']+)["']/i)?.[1] || '');
-    if (bodyImage) return { value: bodyImage, method: 'event-image' };
+    add(tag.match(/\b(?:src|data-src)=["']([^"']+)["']/i)?.[1] || '', 'event-image', 85, 'image-alt-matches-event');
+  }
+
+  // Listing/card evidence: keep title/link/image association inside the same
+  // semantic container. This is intentionally conservative so an image from a
+  // neighboring event card cannot be borrowed.
+  const containers = String(html || '').match(/<(?:article|li|section|div)\b[^>]*>[\s\S]{0,5000}?<\/(?:article|li|section|div)>/gi) || [];
+  for (const container of containers) {
+    if (!title || !sameEventIdentity(title, plainText(container))) continue;
+    const hrefs = [...container.matchAll(/<a\b[^>]+href=["']([^"']+)["'][^>]*>/gi)].map(match => match[1]);
+    const identityLink = hrefs.some(href => sameEventIdentity(title, decodeURIComponent(href).replace(/[-_\/]+/g, ' ')));
+    if (!identityLink) continue;
+    const images = [...container.matchAll(/<img\b[^>]*>/gi)];
+    if (images.length !== 1) continue;
+    const tag = images[0][0];
+    add(tag.match(/\b(?:src|data-src)=["']([^"']+)["']/i)?.[1] || '', 'card-dom-bound', 85, 'same-card-title-link-image');
   }
 
   const rawOg = htmlAttribute(html, /<meta\s+(?:property|name)=["'](?:og:image|twitter:image)["']\s+content=["']([^"']+)/i)
     || htmlAttribute(html, /<meta\s+content=["']([^"']+)["']\s+(?:property|name)=["'](?:og:image|twitter:image)["']/i);
-  const og = asUrl(rawOg);
-  if (!og) return { value: '', method: '' };
   const ogAlt = htmlAttribute(html, /<meta\s+(?:property|name)=["'](?:og:image:alt|twitter:image:alt)["']\s+content=["']([^"']+)/i);
+  const ogTitle = htmlAttribute(html, /<meta\s+(?:property|name)=["']og:title["']\s+content=["']([^"']+)/i)
+    || htmlAttribute(html, /<meta\s+content=["']([^"']+)["']\s+(?:property|name)=["']og:title["']/i);
+  const og = asUrl(rawOg);
   const pathText = (() => { try { return decodeURIComponent(new URL(og).pathname).replace(/[-_]+/g, ' '); } catch { return ''; } })();
-  if (allowGenericOgWhenMissing || (title && (sameEventIdentity(title, ogAlt) || sameEventIdentity(title, pathText)))) {
-    return { value: og, method: 'og:image' };
+  if (og && (allowGenericOgWhenMissing || (title && (sameEventIdentity(title, ogAlt) || sameEventIdentity(title, pathText) || sameEventIdentity(title, ogTitle))))) {
+    add(og, 'og:image', allowGenericOgWhenMissing ? 60 : 70, sameEventIdentity(title, ogTitle) ? 'og-title-matches-event' : 'og-image-identity');
   }
-  return { value: '', method: '' };
+
+  return candidates.sort((a, b) => b.score - a.score);
+}
+
+export function extractImage(args) {
+  const candidate = extractImageCandidates(args)[0];
+  return candidate
+    ? { value: candidate.url, method: candidate.method, score: candidate.score, evidence: candidate.evidence }
+    : { value: '', method: '', score: 0, evidence: '' };
 }
 
 export function extractAudience({ schema, text = '' }) {
@@ -294,7 +328,7 @@ export function genericDetailExtraction({ html, title, currentUrl, finalUrl, dom
     startDate: dateTime.startDate, endDate: dateTime.endDate, dateMethod: dateTime.method,
     venue: location.venue, streetAddress: location.streetAddress, city: location.city, locationMethod: location.method,
     description: description.value, descriptionMethod: description.method,
-    image: image.value, imageMethod: image.method,
+    image: image.value, imageMethod: image.method, imageScore: image.score, imageEvidence: image.evidence,
     audienceText: audience.value, audienceMethod: audience.method,
     ...commerce
   };
