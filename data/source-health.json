@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T01:52:49.175Z",
+  "generatedAt": "2026-09-23T01:54:34.832Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -394,10 +394,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "ok",
+      "status": "failed",
       "eventCount": 0,
-      "failureStreak": 0,
-      "error": ""
+      "failureStreak": 1,
+      "error": "Los Altos History Museum event list was not valid: 202"
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -426,7 +426,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 9,
+      "failureStreak": 10,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -803,27 +803,27 @@
   "alerts": [
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 9,
+      "failureStreak": 10,
       "error": "Official iCalendar feed was not valid: 403"
     }
   ],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-09-23T01:52:49.175Z",
+    "checkedAt": "2026-09-23T01:54:34.832Z",
     "enriched": 329,
     "cached": 4,
-    "fetch-blocked": 19,
+    "fetch-blocked": 21,
     "identity-mismatch": 41,
-    "fetch-failed": 3,
+    "fetch-failed": 1,
     "fieldUpdates": {
       "description": 226
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-09-23T01:52:49.175Z",
-    "official": 235,
-    "unclassified": 157,
+    "checkedAt": "2026-09-23T01:54:34.832Z",
+    "official": 236,
+    "unclassified": 156,
     "missing": 4,
     "failure:official_page_fetch_blocked": 3,
     "failure:no_verified_official_image_candidate": 1
