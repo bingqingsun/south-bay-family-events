@@ -80,6 +80,35 @@ const html=`<html><head>
  assert.equal(result.diagnostics.status,'cached');
 }
 
+
+{
+ const previous={
+   ...base,
+   image:'https://example.gov/images/verified-official.jpg',
+   imageStatus:'official',
+   imageProvenance:{source:'canonical-detail',sourceUrl:base.url,method:'schema.org',verifiedAt:'2026-08-01T00:00:00Z',score:100,evidence:'event-schema-image'},
+   fieldProvenance:{image:{source:'canonical-detail',sourceUrl:base.url,method:'schema.org',verifiedAt:'2026-08-01T00:00:00Z'}},
+   canonicalDetail:{status:'enriched',sourceUrl:base.url,verifiedAt:'2026-08-01T00:00:00Z',fieldsUpdated:['image']}
+ };
+ const current={...base,image:''};
+ const result=await enrichOneCanonicalEvent(current,{
+   sources:[source],previous,verifiedAt:'2026-09-22T12:00:00Z',
+   fetchImpl:async()=>({ok:false,status:503,url:base.url,headers:{get:()=> 'text/html'},text:async()=>''})
+ });
+ assert.equal(result.event.image,'https://example.gov/images/verified-official.jpg');
+ assert.equal(result.event.imageStatus,'official');
+ assert.equal(result.event.imageFailureReason,undefined);
+ assert.equal(result.event.canonicalDetail.status,'fetch-failed');
+}
+
+{
+ const previous={...base,image:'',imageStatus:'missing',canonicalDetail:{sourceUrl:base.url,verifiedAt:'2026-09-12T00:00:00Z'}};
+ assert.deepEqual(
+   canonicalEnrichmentDecision({...base,image:'',imageStatus:'missing'},previous,Date.parse('2026-09-22T00:00:00Z')),
+   {run:true,reason:'missing-fields'}
+ );
+}
+
 {
  const movie={...base,id:'movie-1',title:'Family Movie',summaryStatus:'official_structured',description:'G-rated movie screening at Official Cinema.',sourceDescriptionRaw:'G-rated movie screening at Official Cinema.'};
  const page=`<html><head><meta property="og:title" content="Family Movie"><meta name="description" content="Visit our movie theater, enjoy popcorn, snacks, an onsite bar and premium recliners."></head><body><h1>Family Movie</h1></body></html>`;
