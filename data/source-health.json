@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T01:27:39.650Z",
+  "generatedAt": "2026-09-23T01:35:13.163Z",
   "configuredSources": 81,
   "directSources": 76,
   "fallbackSourcesRun": 0,
@@ -215,7 +215,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 51,
+      "eventCount": 50,
       "failureStreak": 0,
       "error": ""
     },
@@ -245,7 +245,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 85,
+      "eventCount": 84,
       "failureStreak": 0,
       "error": ""
     },
@@ -255,7 +255,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 45,
+      "eventCount": 44,
       "failureStreak": 0,
       "error": ""
     },
@@ -275,7 +275,7 @@
       "method": "cinemark",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 4,
+      "eventCount": 2,
       "failureStreak": 0,
       "error": ""
     },
@@ -426,7 +426,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 2,
+      "failureStreak": 3,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -800,25 +800,30 @@
       "error": ""
     }
   ],
-  "alerts": [],
+  "alerts": [
+    {
+      "name": "City of Los Altos Parks & Recreation",
+      "failureStreak": 3,
+      "error": "Official iCalendar feed was not valid: 403"
+    }
+  ],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-09-23T01:27:39.650Z",
-    "enriched": 329,
+    "checkedAt": "2026-09-23T01:35:13.163Z",
+    "enriched": 328,
     "identity-mismatch": 42,
     "cached": 4,
     "fetch-blocked": 18,
     "fetch-failed": 3,
     "fieldUpdates": {
-      "description": 227,
-      "image": 1
+      "description": 226
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-09-23T01:27:39.650Z",
-    "official": 229,
-    "unclassified": 158,
+    "checkedAt": "2026-09-23T01:35:13.163Z",
+    "official": 227,
+    "unclassified": 159,
     "missing": 9,
     "failure:no_verified_official_image_candidate": 1
   }
