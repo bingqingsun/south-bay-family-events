@@ -19,13 +19,18 @@ import {
   hasPublishableSummary,
   hasUsableSourceContent
 } from './event-summary-engine.mjs';
+import { auditLinks, releaseBlockingLinks } from './link-health.mjs';
+import { enrichCanonicalEvents } from './canonical-detail-pipeline.mjs';
+import { selectPublishableOfficialDescription } from './official-description.mjs';
+import { configuredCandidates, sitemapCandidates, verifySpecialEventPage } from './special-event-pages.mjs';
+import { selectCupertinoDetailDates } from './cupertino-detail-date.mjs';
+import { cupertinoAudienceEvidence } from './cupertino-audience.mjs';
 import {
   paloAltoSpecialEventCalendarUrl,
   paloAltoSpecialEventDescription,
   paloAltoSpecialEventLinks,
   paloAltoSpecialEventOccurrences
 } from './lib/palo-alto-special-events.mjs';
-import { auditLinks } from './link-health.mjs';
 
 const key = process.env.SERPAPI_KEY;
 // Translation is intentionally paused: no third-party translation key is read
@@ -45,7 +50,7 @@ function typeFor(text, title = '') {
   if (/\b(?:hike|nature(?:\s+walk)?|trail|wildlife|marsh|forest|creek|pond|ranger|bird(?:s)?\b|habitat restoration|environmental education)\b/.test(value)) return 'outdoor';
   // Citywide festivals and service/help events are community experiences even
   // when their schedules include music, crafts, or games.
-  if (/\b(?:bike|bicycle)\b[^.!?]{0,48}\brepair\b|\b(?:community service|volunteer(?:ing)?|cleanup|donation|food drive|swap|mento(?:r|ring)|appointment|customer service|career help|tech help|free snacks|festival|celebration|fest)\b/.test(value)) return 'community';
+  if (/\b(?:bike|bicycle)\b[^.!?]{0,48}\brepair\b|\b(?:community service|volunteer(?:ing)?|cleanup|donation|food drive|swap|mento(?:r|ring)|appointment|customer service|career help|tech help|free snacks|festival|celebration|fest|halloween|trick[- ]or[- ]treat|monster mash|tree lighting|holiday|santa)\b/.test(value)) return 'community';
   // A title naming a concrete art medium is more trustworthy than a broad
   // source taxonomy such as “STEM” or “Engineering” attached to the listing.
   if (/\b(?:illustration|paint(?:ing)?|photography|knit(?:ting)?|crochet|tie-dye|ceramics?|pottery|drawing|sew(?:ing)?|mend(?:ing)?)\b/.test(titleValue)
@@ -137,9 +142,20 @@ function isExplicitlyAdultOnly(text) {
 function withPresentationFields(event) {
   const audienceText = `${event.title || ''} ${event.description || ''} ${event.ageLabel || ''} ${event.ageSource || ''}`;
   const knownMidAutumnEvent = /^Lantern Festival$/i.test(event.title || '') && /^City of Milpitas$/i.test(event.source || '');
+  const format = event.format || formatFor(audienceText);
+  // A stale-source card deliberately preserves official content when a source
+  // times out, but its old presentation fields are derived data. Recompute
+  // them so a previous bad category cannot survive an otherwise safe fallback.
+  const type = event.refreshStatus === 'stale-source'
+    ? (format === 'live-show' ? 'shows' : typeFor(audienceText, event.title))
+    : event.type;
   return {
     ...event,
-    format: event.format || formatFor(audienceText),
+    type,
+    icon: icons[type],
+    color: colors[type],
+    tag: labels[type],
+    format,
     seasonalTheme: event.seasonalTheme || (knownMidAutumnEvent ? 'mid-autumn' : seasonalThemeFor(audienceText)),
     audienceStatus: event.audienceStatus || (event.ageSource ? 'organizer-confirmed' : 'not-confirmed')
   };
@@ -435,7 +451,7 @@ function costInfo(cost, description = '') {
   // registration-required signal.
   let registrationStatus = 'unknown';
   let registrationEvidence = '';
-  const noRegistrationPattern = /\b(?:no registration (?:is )?required|registration (?:is )?not required|without registration)\b/i;
+  const noRegistrationPattern = /\b(?:no registration (?:is )?required|registration (?:is )?not required|without registration|does not require (?:tickets?|registration)|no tickets? (?:or )?registration (?:is )?required)\b/i;
   const walkInPattern = /\b(?:walk-?ins? (?:are )?(?:welcome|accepted|available)|walk-?in (?:event|program|activity|while)|drop-?ins? (?:are )?(?:welcome|accepted))\b/i;
   const registrationRequiredPattern = /\b(?:registration (?:is )?required|advance registration (?:is )?required|register (?:online |in advance |beforehand )?(?:to attend|required)|reservation (?:is )?required|free tickets? (?:are )?required|tickets? (?:are )?required for (?:admission|entry))\b/i;
   const registrationRecommendedPattern = /\b(?:registration|reservations?) (?:is |are )?(?:recommended|encouraged)\b/i;
@@ -454,7 +470,7 @@ function costInfo(cost, description = '') {
   }
 
   const donationPattern = /\b(?:suggested|requested|optional) donation\b/i;
-  const freePattern = /\b(?:free admission|admission is free|free (?:community )?event|free program|free activity|free entry|free to attend|free and open to (?:the )?public|complimentary admission|registration is free|no (?:admission )?cost|no (?:admission |entry )?charge|no (?:registration |entry |admission )?fee)\b/i;
+  const freePattern = /\b(?:free admission|admission is free|free (?:community )?event|free program|free activity|free entry|free to attend|free to (?:the )?public|free and open to (?:the )?public|complimentary admission|registration is free|no (?:admission )?cost|no (?:admission |entry )?charge|no (?:registration |entry |admission )?fee)\b/i;
   const memberPricingPattern = /(?<!non-)\bmembers?\b[\s\S]{0,180}\b(?:non-?members?|general (?:public|admission))\b|\b(?:non-?members?|general (?:public|admission))\b[\s\S]{0,180}(?<!non-)\bmembers?\b/i;
   const paidPattern = /\b(?:paid admission|admission fee|entry fee|registration fee|fee applies|ticket purchase (?:is )?required|tickets? must be purchased|purchase (?:a |your )?tickets?|buy (?:a |your )?tickets?)\b/i;
   const costContextPattern = /\b(?:admission|entry|registration|ticket|tickets|fee|fees|cost|price|pricing)\b/i;
@@ -751,8 +767,13 @@ function isoDateFromOfficialText(dateText, timeText = '') {
 }
 
 function directEvent({ id, title, dateValue, endDateValue = '', description, image = '', imagePresentation = '', imageBackground = '', place, address = '', city = '', meetingPoint = '', mapUrl = '', source, url, ageText = '', format = '', movieRating = '', forcedType = '', seasonalTheme = '', availabilityStatus = '', summaryStatus = 'extractive', summaryEvidenceData = null }) {
-  const type = forcedType || (format === 'live-show' ? 'shows' : format === 'movie-screening' ? 'movies' : typeFor(title + ' ' + description + ' ' + ageText, title));
-  const age = ageInfo(ageText);
+  // Detail-page chrome can list unrelated sports/classes. It is useful for
+  // detecting a stated child audience, but must never determine the card's
+  // activity type. Classify from the actual event title and description.
+  const sourceText = title + ' ' + description;
+  const effectiveFormat = format || formatFor(sourceText);
+  const type = forcedType || (effectiveFormat === 'live-show' ? 'shows' : effectiveFormat === 'movie-screening' ? 'movies' : typeFor(sourceText, title));
+  const age = ageInfo(sourceText + ' ' + ageText);
   const summary = buildSummaryRecord({
     sourceText: sourceDescriptionText(description),
     title,
@@ -766,7 +787,7 @@ function directEvent({ id, title, dateValue, endDateValue = '', description, ima
     costStatus: 'unknown', costLabel: '费用未注明', costSource: '', costEvidence: '',
     registrationStatus: 'unknown', registrationSource: '', registrationEvidence: '',
     type, icon: icons[type], color: colors[type], tag: labels[type],
-    verification: 'official-page', lastVerifiedAt: generatedAt, format,
+    verification: 'official-page', lastVerifiedAt: generatedAt, format: effectiveFormat,
     ...summary,
     image: optimizedOfficialImageUrl(image, source), imagePresentation, imageBackground, place, address, city: canonicalCity(city), meetingPoint, mapUrl, source, url, movieRating,
     seasonalTheme: seasonalTheme || seasonalThemeFor(`${title} ${description}`), availabilityStatus
@@ -779,8 +800,9 @@ function optimizedOfficialImageUrl(value, source = '') {
     const url = new URL(value);
     if (url.hostname.endsWith('cupertino.gov') && (url.searchParams.get('dimension') === 'smallthumbnail' || (url.searchParams.has('w') && Number(url.searchParams.get('w')) <= 100))) url.search = '';
     if (url.hostname === 'filoli.org' && /\/media\//.test(url.pathname) && url.searchParams.has('width') && Number(url.searchParams.get('width')) <= 320) url.search = '';
-    if (source === 'San Jose Theaters' && /(?:^|[-_])200(?:x200)?(?:[-_.]|$)/i.test(url.pathname)) return '';
-    if (url.hostname.endsWith('cupertino.gov') && /short-header-bike-fest/i.test(url.pathname)) return '';
+    // Preserve organizer-provided event artwork even when the upstream CMS uses
+    // a small/square filename convention. A verified official image is safer
+    // than silently discarding it and forcing generic fallback art.
     return url.href;
   } catch { return value; }
 }
@@ -859,7 +881,25 @@ async function readCurated(source) {
       summaryStatus: officialDescription ? 'extractive' : 'manual_verified'
     });
     if (!hasUsableSourceContent(event.description)) return null;
-    return { ...event, ...costInfo(item.cost || '', officialDescription || item.description || '') };
+    return {
+      ...event,
+      ...costInfo(item.cost || '', officialDescription || item.description || ''),
+      ...(item.image ? {
+        imageStatus: 'official',
+        imageProvenance: {
+          source: 'curated-manual',
+          method: 'manual_verified',
+          sourceUrl: url,
+          verifiedAt: generatedAt,
+          score: 100,
+          evidence: 'first-party-curated-official-image'
+        }
+      } : {}),
+      // This URL is explicitly configured from a first-party organizer page.
+      // Link Health still checks HTTP/soft errors, but an inconclusive machine
+      // title extraction must not erase this human-verified evidence.
+      linkSource: 'curated_verified'
+    };
   }))).filter(Boolean);
 }
 
@@ -2200,7 +2240,11 @@ function officialDetailDescription(html, schema, title) {
     ...[...String(html || '').matchAll(/<(?:div|section)[^>]+(?:itemprop=["']description["']|class=["'][^"']*(?:fr-view|detail-content|event-description|eventDescription|content-body|event-body)[^"']*["'])[^>]*>([\s\S]*?)<\/(?:div|section)>/gi)].map(match => match[1]),
     decodeXml(String(html || '').match(/<meta\s+(?:name|property)=["'](?:description|og:description)["']\s+content=["']([^"']+)/i)?.[1] || '')
   ].map(sourceDescriptionText).filter(Boolean);
-  return blocks.find(value => hasPublishableSummary(value, { title })) || blocks[0] || '';
+  // Detail pages occasionally expose a visual placeholder (for example, a
+  // standalone ellipsis) in their description field. Never let a non-empty
+  // but non-publishable detail value replace the usable official teaser from
+  // the calendar listing; the caller retains that listing description.
+  return selectPublishableOfficialDescription(blocks, value => hasPublishableSummary(value, { title }));
 }
 
 async function readJmzFamily(source) {
@@ -2308,6 +2352,17 @@ async function readCivic(source) {
   return events.filter(Boolean);
 }
 
+function cupertinoAddressCandidate(text) {
+  const value = String(text || '');
+  const pattern = /\b(\d{1,6}\s+(?:(?:N|S|E|W|North|South|East|West)\s+)?(?:[A-Za-z0-9.'’#-]+\s+){0,5}(?:Avenue|Ave\.?|Street|St\.?|Road|Rd\.?|Boulevard|Blvd\.?|Drive|Dr\.?|Lane|Ln\.?|Court|Ct\.?|Way|Parkway|Pkwy\.?|Circle|Cir\.?))(?=\s*(?:,?\s*Cupertino\b|,?\s*CA\b|\d{5}\b|$))/gi;
+  for (const match of value.matchAll(pattern)) {
+    const context = value.slice(Math.max(0, match.index - 90), Math.min(value.length, match.index + match[0].length + 90));
+    if (/Back to top|Site Footer|Contact Us/i.test(context)) continue;
+    return { street: match[1].replace(/[.,;:]$/, ''), index: match.index };
+  }
+  return null;
+}
+
 function cupertinoDetailEnrichment(event, html, source) {
   if (!html) return event;
   const schema = firstOfficialEventSchema(html);
@@ -2327,10 +2382,6 @@ function cupertinoDetailEnrichment(event, html, source) {
   })();
 
   const normalizeClock = value => String(value || '').replace(/a\.?m\.?/i, 'AM').replace(/p\.?m\.?/i, 'PM');
-  let dateValue = event.dateValue;
-  let endDateValue = event.endDateValue;
-  if (schema?.startDate) dateValue = String(schema.startDate);
-  if (schema?.endDate) endDateValue = String(schema.endDate);
 
   const nextDate = detailText.match(/Next date:\s*((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\s*\|\s*(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM))(?:\s*(?:to|-|–|—)\s*(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM)))?/i);
   const plainDate = detailText.match(/\b((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\b/i);
@@ -2342,8 +2393,28 @@ function cupertinoDetailEnrichment(event, html, source) {
         const match = nearbyText.match(/(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM))\s*(?:to|-|–|—)\s*(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?|AM|PM))/i);
         return match ? [match[1], match[2]] : [];
       })();
-  if (!schema?.startDate && dateAnchor && timeRange[0]) dateValue = isoDateFromOfficialText(dateAnchor, normalizeClock(timeRange[0]));
-  if (!schema?.endDate && dateAnchor && timeRange[1]) endDateValue = isoDateFromOfficialText(dateAnchor, normalizeClock(timeRange[1]));
+  const visibleStart = dateAnchor && timeRange[0]
+    ? isoDateFromOfficialText(dateAnchor, normalizeClock(timeRange[0]))
+    : '';
+  const visibleEnd = dateAnchor && timeRange[1]
+    ? isoDateFromOfficialText(dateAnchor, normalizeClock(timeRange[1]))
+    : '';
+  const selectedDates = selectCupertinoDetailDates({
+    listingStart: event.dateValue,
+    listingEnd: event.endDateValue,
+    schemaStart: schema?.startDate || '',
+    schemaEnd: schema?.endDate || '',
+    visibleStart,
+    visibleEnd
+  });
+  const dateValue = selectedDates.startDateValue;
+  const endDateValue = selectedDates.endDateValue;
+  if (selectedDates.ignoredSchemaStart) {
+    console.warn(`Ignoring mismatched Cupertino schema startDate for "${event.title}": ${schema.startDate} (listing ${String(event.dateValue || '').slice(0, 10) || 'unknown'})`);
+  }
+  if (selectedDates.ignoredSchemaEnd) {
+    console.warn(`Ignoring mismatched Cupertino schema endDate for "${event.title}": ${schema.endDate} (listing ${String(event.dateValue || '').slice(0, 10) || 'unknown'})`);
+  }
 
   const schemaLocation = Array.isArray(schema?.location) ? schema.location[0] : schema?.location;
   const schemaAddress = schemaLocation && typeof schemaLocation === 'object' ? schemaLocation.address : null;
@@ -2364,13 +2435,13 @@ function cupertinoDetailEnrichment(event, html, source) {
     }
   }
 
-  const addressMatch = detailText.match(/\b(\d{1,6}\s+[A-Za-z0-9.'’ -]+?(?:Avenue|Ave\.?|Street|St\.?|Road|Rd\.?|Boulevard|Blvd\.?|Drive|Dr\.?|Lane|Ln\.?|Court|Ct\.?|Way|Parkway|Pkwy\.?|Circle|Cir\.?))\s+(Cupertino),\s*CA\s*\d{5}(?:-\d{4})?\b/i);
+  const addressMatch = cupertinoAddressCandidate(detailText);
   if (!address && addressMatch) {
-    city = canonicalCity(addressMatch[2] || city);
-    address = shortAddress(addressMatch[1], city);
+    city = canonicalCity(city || 'Cupertino');
+    address = shortAddress(addressMatch.street, city);
   }
   if ((!place || place === source.name) && addressMatch) {
-    const addressIndex = detailText.indexOf(addressMatch[0]);
+    const addressIndex = addressMatch.index;
     let prefix = detailText.slice(Math.max(0, addressIndex - 220), addressIndex);
     prefix = prefix
       .replace(detailTitle, ' ')
@@ -2413,6 +2484,81 @@ function cupertinoDetailEnrichment(event, html, source) {
     ...costFields,
     ...registrationFields
   };
+}
+
+// Some organizers publish a terse calendar entry and a richer evergreen
+// event page on the same official domain. Sources opt in with their sitemap;
+// a page is used only after title, date, and content all agree with the
+// calendar listing. This keeps discovery general while preserving the
+// calendar page whenever a specialty-page match is uncertain.
+async function enrichWithSpecialEventPage(event, source) {
+  const config = source.specialEventPageDiscovery;
+  if (!config?.sitemapUrl || !event.url || !event.dateValue) return event;
+  try {
+    let sitemap = '';
+    try {
+      const sitemapResponse = await fetch(config.sitemapUrl, {
+        headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000)
+      });
+      if (sitemapResponse.ok) sitemap = await sitemapResponse.text();
+    } catch { /* Configured aliases remain independently verifiable. */ }
+    const candidates = [
+      ...configuredCandidates(event, config.preferredPages),
+      ...sitemapCandidates(sitemap, event, {
+        domain: source.domain,
+        maxCandidates: config.maxCandidates || 4
+      })
+    ].filter(candidate => isOfficialUrl(candidate.url, source.domain))
+      .filter((candidate, index, list) => list.findIndex(other => other.url === candidate.url) === index);
+    for (const candidate of candidates) {
+      const response = await fetch(candidate.url, {
+        headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000)
+      });
+      if (!response.ok) continue;
+      const html = await response.text();
+      const verified = verifySpecialEventPage(event, candidate, html);
+      if (!verified) continue;
+      const pageEnriched = cupertinoDetailEnrichment(event, html, source);
+      const officialImages = [...html.matchAll(/<img\b[^>]+src=["']([^"']+)["'][^>]*>/gi)]
+        .map(match => decodeXml(match[1]))
+        .filter(value => /\.(?:jpe?g|png|webp)(?:\?|$)/i.test(value))
+        // A title strip and a parking diagram are official assets, but neither
+        // is a useful activity-card image. Prefer the organizer's real event
+        // photography; never synthesize a fallback for this case.
+        .filter(value => !/(?:short[-_]?header|parking[-_]?map)/i.test(value))
+        .map(value => {
+          const url = new URL(value, verified.url);
+          if (url.hostname.endsWith('cupertino.gov')) url.search = '';
+          return url.href;
+        });
+      const officialImage = officialImages[0] || '';
+      return {
+        ...pageEnriched,
+        // Keep the calendar title, but make the verified specialty page the
+        // parent-facing destination and evidence for the generated summary.
+        title: event.title,
+        url: verified.url,
+        canonicalUrl: verified.url,
+        description: verified.description,
+        sourceDescriptionRaw: verified.description,
+        image: officialImage || pageEnriched.image || event.image || '',
+        ...(officialImage ? {
+          imageStatus: 'official',
+          imageProvenance: {
+            source: 'special-event-page',
+            method: 'special-page-bound',
+            sourceUrl: verified.url,
+            verifiedAt: generatedAt,
+            score: 85,
+            evidence: verified.evidence || 'verified-special-event-page-image'
+          }
+        } : {}),
+        specialEventPageUrl: verified.url,
+        specialEventPageEvidence: verified.evidence
+      };
+    }
+  } catch { /* A sitemap/page outage must not erase the calendar activity. */ }
+  return event;
 }
 
 // Cupertino publishes a server-rendered public event list rather than an RSS
@@ -2467,16 +2613,27 @@ async function readCupertino(source) {
     const locationParts = item.placeText.split(',').map(value => value.trim()).filter(Boolean);
     const place = locationParts.shift() || source.name;
     const street = locationParts.filter(value => !/^\d{5}(?:-\d{4})?$/.test(value)).join(', ');
-    const evidence = `${detailTitle} ${description} ${item.audience} ${detailText.slice(0, 3500)}`;
+    // Do not use the first N characters of the whole detail page as audience
+    // evidence. Cupertino's global Parks & Recreation chrome contains labels
+    // such as "Preschool" and "Teens", which previously produced fake,
+    // disconnected ranges like Ages 3–5 · Ages 13–18 on unrelated events.
+    const costEvidence = `${detailTitle} ${description} ${item.audience} ${detailText.slice(0, 3500)}`;
+    const initialAudienceEvidence = cupertinoAudienceEvidence(item.audience, description);
     const event = directEvent({
       id: 'cupertino-' + createHash('sha256').update(`${item.url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
       title: detailTitle, dateValue, description,
       image: item.image ? new URL(decodeXml(item.image), source.feedUrl).href : htmlAttribute(detailHtml, /<meta\s+property=["']og:image["']\s+content=["']([^"']+)/i),
       place, address: shortAddress(street, source.city || 'Cupertino'), city: source.city || 'Cupertino',
-      source: source.name, url: item.url, ageText: evidence
+      source: source.name, url: item.url, ageText: initialAudienceEvidence
     });
-    const withCost = { ...event, ...costInfo('', evidence) };
-    return detailHtml ? cupertinoDetailEnrichment(withCost, detailHtml, source) : withCost;
+    const withCost = { ...event, ...costInfo('', costEvidence) };
+    const calendarEnriched = detailHtml ? cupertinoDetailEnrichment(withCost, detailHtml, source) : withCost;
+    const pageEnriched = await enrichWithSpecialEventPage(calendarEnriched, source);
+    const finalAudienceEvidence = cupertinoAudienceEvidence(
+      item.audience,
+      pageEnriched.sourceDescriptionRaw || pageEnriched.description || description
+    );
+    return { ...pageEnriched, ...ageInfo(finalAudienceEvidence) };
   }));
   return events.filter(Boolean);
 }
@@ -2862,11 +3019,19 @@ async function readSymphony(source) {
   const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
   const html = await response.text();
   if (!response.ok || !/show-concert/i.test(html)) throw new Error('Symphony San Jose season page was not valid: ' + response.status);
-  const cards = [...html.matchAll(/<li\b[^>]*\bshow-concert\b[\s\S]*?<\/li>/gi)].map(match => match[0]).map(card => ({
-    title: plainText(card.match(/<h3[^>]*>([\s\S]*?)<\/h3>/i)?.[1] || ''),
-    url: htmlAttribute(card, /href=["']([^"']+)["']/i),
-    image: htmlAttribute(card, /<img[^>]+src=["']([^"']+)["']/i)
-  })).filter(card => card.title && card.url)
+  const cards = [...html.matchAll(/<li\b[^>]*\bshow-concert\b[\s\S]*?<\/li>/gi)].map(match => match[0]).map(card => {
+    const imageTag = card.match(/<img\b[^>]*>/i)?.[0] || '';
+    const responsive = imageTag.match(/\bsrcset=["']([^"']+)["']/i)?.[1]
+      ?.split(',').at(-1)?.trim().split(/\s+/)[0] || '';
+    const image = htmlAttribute(imageTag, /\b(?:data-lazy-src|data-src)=["']([^"']+)["']/i)
+      || responsive
+      || htmlAttribute(imageTag, /\bsrc=["']([^"']+)["']/i);
+    return {
+      title: plainText(card.match(/<h3[^>]*>([\s\S]*?)<\/h3>/i)?.[1] || ''),
+      url: htmlAttribute(card, /href=["']([^"']+)["']/i),
+      image
+    };
+  }).filter(card => card.title && card.url)
     // This is a candidate shortlist, not the audience decision. The official
     // detail-page description below remains the authority for publication.
     .filter(card => /\b(?:my very first|nutcracker|spooktacular|family)\b/i.test(card.title));
@@ -2890,24 +3055,76 @@ async function readSymphony(source) {
     const sessions = [...detailText.matchAll(/\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),\s+(\d{4})\s+at\s+(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?))/gi)];
     return sessions.map((session, sessionIndex) => {
       const dateValue = isoDateFromOfficialText(`${session[1]} ${session[2]}, ${session[3]}`, session[4]);
-      return dateValue ? directEvent({
+      if (!dateValue) return null;
+      const verifiedImage = source.verifiedImages?.[page.title] || '';
+      const event = directEvent({
         id: `symphony-${pageIndex}-${sessionIndex}`, title: page.title, dateValue,
         description: page.description,
-        image: /(?:season|logo)/i.test(page.image) ? '' : page.image, place: 'California Theatre',
+        image: verifiedImage || (/(?:season|logo)/i.test(page.image) ? '' : page.image), place: 'California Theatre',
         address: source.address, city: source.city, source: source.name, url: page.url,
         // The organizer identifies these as toddler/preschool programs but
         // does not give a precise numeric suitability range. Do not turn
         // descriptive audience words into a misleading card age label.
         ageText: '', format: 'live-show'
-      }) : null;
+      });
+      return verifiedImage ? {
+        ...event,
+        imageStatus: 'official',
+        imageProvenance: {
+          source: 'source-verified',
+          method: 'manual_verified',
+          sourceUrl: source.feedUrl,
+          verifiedAt: generatedAt,
+          score: 100,
+          evidence: 'official-season-card-title-image-binding'
+        }
+      } : event;
     }).filter(Boolean);
   });
 }
 
-// San Jose Theaters exposes its official public calendar through Timely's
-// documented browser API. The listing contains all venue programming, so we
-// fetch detailed pages only for likely family shows and still require explicit
-// audience language on the official detail before publishing a card.
+function eventDetailSlug(title) {
+  return plainText(title).toLowerCase()
+    .replace(/[’']/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+async function resolveConfiguredFirstPartyDetail(source, title, dateValue) {
+  if (!source.canonicalEventBase || !title) return '';
+  const slug = eventDetailSlug(title);
+  const year = String(dateValue || '').match(/^(20\d{2})/)?.[1] || '';
+  const base = String(source.canonicalEventBase).replace(/\/+$/, '') + '/';
+  const candidates = [...new Set([
+    new URL(slug + '/', base).href,
+    year ? new URL(slug + '-' + year + '/', base).href : ''
+  ].filter(Boolean))];
+
+  for (const candidate of candidates) {
+    try {
+      const response = await fetch(candidate, {
+        headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' },
+        redirect: 'follow',
+        signal: AbortSignal.timeout(12000)
+      });
+      const html = await response.text();
+      if (!response.ok) continue;
+      const pageText = plainText(html);
+      if (!isSameEvent(title, pageText)) continue;
+      if (year && !pageText.includes(year)) continue;
+      const resolved = response.url || candidate;
+      if (isOfficialUrl(resolved, source.domain)) return resolved;
+    } catch {
+      // Try the next deterministic first-party candidate.
+    }
+  }
+  return '';
+}
+
+// San Jose Theaters exposes discovery data through Timely, but the public CTA
+// belongs on SanJoseTheaters.org. The resolver above deterministically checks
+// the first-party event slug (plus a year variant) and verifies title/year.
+// Timely remains discovery infrastructure, never the long-lived user canonical.
 async function readTimely(source) {
   const headers = { 'x-api-key': 'c6e5e0363b5925b28552de8805464c66f25ba0ce', 'user-agent': 'SouthBayFamilyEventsBot/1.0' };
   const baseUrl = `https://events.timely.fun/api/calendars/${source.calendarId}/events`;
@@ -2932,7 +3149,14 @@ async function readTimely(source) {
   const pagesWithDetails = await Promise.all(candidates.map(async item => {
     const response = await fetch(`${baseUrl}/${item.id}`, { headers, signal: AbortSignal.timeout(15000) });
     const payload = await response.json();
-    return response.ok && payload?.data ? payload.data : null;
+    if (!response.ok || !payload?.data) return null;
+    const detail = payload.data;
+    const firstPartyUrl = await resolveConfiguredFirstPartyDetail(
+      source,
+      detail.title,
+      String(detail.start_datetime || '').replace(' ', 'T')
+    );
+    return { ...detail, firstPartyUrl };
   }));
   return pagesWithDetails.flatMap((detail, detailIndex) => {
     const description = detail?.description || detail?.description_short || '';
@@ -2958,7 +3182,8 @@ async function readTimely(source) {
         id: `timely-${detailIndex}-${sessionIndex}`, title: detail.title, dateValue,
         description: sourceDescriptionText(description), image: detail.images?.[0]?.full?.url || detail.images?.[0]?.medium?.url || '',
         place: plainText(venue.title || 'San Jose Theaters'), address, city,
-        source: source.name, url: detail.url || source.feedUrl, ageText: description, format: 'live-show'
+        source: source.name, url: detail.firstPartyUrl || source.landingUrl || source.feedUrl,
+        ageText: description, format: 'live-show'
       });
       // Timely returns a platform default of "0" even for external ticketed
       // events. Use a price only when the organizer actually supplies it.
@@ -3048,10 +3273,28 @@ if (directSources.length && feedAttempts.every(result => result.status === 'reje
 const failedDirectSourceNames = new Set(feedAttempts
   .filter(result => result.status === 'rejected')
   .map(result => result.sourceName));
-const retainedSourceEvents = existingEvents
+const retainedSourceEvents = await Promise.all(existingEvents
   .filter(event => failedDirectSourceNames.has(event.source) && isStillActive(event))
-  .map(event => ({ ...event, refreshStatus: 'stale-source', refreshErrorAt: generatedAt }));
-const freshFeedEvents = feedAttempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
+  .map(async event => {
+    const retained = { ...event, refreshStatus: 'stale-source', refreshErrorAt: generatedAt };
+    const source = directSources.find(candidate => candidate.name === event.source);
+    // A calendar timeout must not prevent a separately available, verified
+    // official specialty page from refreshing a retained card's details.
+    return source?.specialEventPageDiscovery ? enrichWithSpecialEventPage(retained, source) : retained;
+  }));
+const freshFeedEvents = await Promise.all(feedAttempts.flatMap((result, index) =>
+  result.status === 'fulfilled'
+    ? result.value.map(event => {
+      const source = directSources[index];
+      // Apply the same verified specialty-page resolution to fresh calendar
+      // entries. Otherwise the next successful calendar refresh would undo a
+      // richer card that was previously retained after a source outage.
+      return source?.specialEventPageDiscovery
+        ? enrichWithSpecialEventPage(event, source)
+        : event;
+    })
+    : []
+));
 
 const sourceRefreshCounts = Object.fromEntries(feedAttempts.map((result, index) => [
   `${result.sourceName} [${directSources[index].method || 'rss'}]`,
@@ -3366,13 +3609,21 @@ function groupRepeatedSessions(items) {
       title: displayTitle,
       movieRating,
       legacyIds: [...new Set(ordered.flatMap(event => [event.id, ...(event.legacyIds || [])]))],
+      // Keep the parent-facing movie label while preserving each concrete
+      // session's real source identity and official ticket URL.
       source: first.format === 'movie-screening' ? 'Official cinema listings' : first.source,
-      sessions: cardSessions.map(event => ({ id: event.id, date: event.date, dateValue: event.dateValue, endDateValue: event.endDateValue, url: event.url, place: event.place, address: event.address, city: event.city }))
+      sessions: cardSessions.map(event => ({
+        id: event.id, date: event.date, dateValue: event.dateValue, endDateValue: event.endDateValue,
+        url: event.url, source: event.source, place: event.place, address: event.address, city: event.city
+      }))
     }];
   }).sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
 }
 
-const scheduledEvents = groupRepeatedSessions(individualEvents);
+// Grouping can select an older retained occurrence as the card representative.
+// Apply presentation derivation once more after that selection so stale cards
+// cannot reintroduce a legacy type/icon/tag into the final published payload.
+const scheduledEvents = groupRepeatedSessions(individualEvents).map(withPresentationFields);
 
 if (!scheduledEvents.length) throw new Error('No verified upcoming events; leaving the published list unchanged.');
 
@@ -3455,13 +3706,116 @@ function museumAsEvent(museum, source) {
 let events = groupRepeatedSessions([...scheduledEvents, ...museums.map(museum => museumAsEvent(museum, museumSource)).map(qualityGateSummary).filter(Boolean)])
   .map(event => ({ ...event, image: optimizedOfficialImageUrl(event.image, event.source) }));
 
+// Once a stable official canonical destination exists, reopen that exact page
+// and let event-level evidence strengthen the card before Link Health.
+const beforeCanonicalById = new Map(events.map(event => [event.id, event]));
+const canonicalDetail = await enrichCanonicalEvents(events, {
+  sources,
+  previousEvents: existingEvents,
+  verifiedAt: generatedAt,
+  concurrency: 6,
+  timeoutMs: 12000
+});
+events = canonicalDetail.events
+  .filter(event => !isUnavailableEvent(event))
+  .map(event => {
+    const prior = beforeCanonicalById.get(event.id);
+    const canonicalDescriptionEvidence = event.fieldProvenance?.description?.source === 'canonical-detail'
+      || event.fieldProvenance?.sourceDescriptionRaw?.source === 'canonical-detail';
+    const descriptionEvidenceChanged = canonicalDescriptionEvidence
+      && (event.description !== prior?.description || event.sourceDescriptionRaw !== prior?.sourceDescriptionRaw);
+    if (!descriptionEvidenceChanged) return event;
+    const normalized = qualityGateSummary(event);
+    if (normalized) {
+      const summary = String(normalized.parentSummary || normalized.description || '').replace(/\s+/g, ' ').trim();
+      const raw = String(normalized.sourceDescriptionRaw || '').replace(/\s+/g, ' ').trim();
+      const evidence = String(normalized.summaryEvidence || '').replace(/\s+/g, ' ').trim();
+      const summaryContractOk = normalized.summaryStatus === 'extractive'
+        ? Boolean(summary && raw.includes(summary) && evidence === summary && !summary.endsWith('…'))
+        : Boolean(evidence && evidence === raw);
+      if (summaryContractOk) return normalized;
+    }
+    // Canonical prose is only promoted when it can satisfy the existing
+    // summary evidence contract. Otherwise keep the previously verified card
+    // summary while still accepting independent canonical fields such as image,
+    // venue, time, cost, registration and age.
+    const restored = { ...event };
+    for (const field of [
+      'description','parentSummary','sourceDescriptionRaw','sourceDescriptionHash',
+      'summaryMethod','summaryStatus','summaryQuality','summaryEvidence',
+      'summaryEvidenceData','summaryVersion','summaryVerifiedAt'
+    ]) {
+      if (prior?.[field] !== undefined) restored[field] = prior[field];
+      else delete restored[field];
+    }
+    restored.fieldProvenance = { ...(event.fieldProvenance || {}) };
+    delete restored.fieldProvenance.description;
+    delete restored.fieldProvenance.sourceDescriptionRaw;
+    return restored;
+  })
+  .map(event => ({ ...event, image: optimizedOfficialImageUrl(event.image, event.source) }));
+
+function withImageQualityState(event) {
+  if (event.image) {
+    if (event.imageStatus === 'missing') {
+      const next = { ...event, imageStatus: event.imageProvenance ? 'official' : 'unclassified' };
+      delete next.imageFailureReason;
+      return next;
+    }
+    return event;
+  }
+  if (event.imageStatus === 'missing' && event.imageFailureReason) return event;
+  const detailStatus = event.canonicalDetail?.status || '';
+  const reason = detailStatus === 'fetch-blocked' ? 'official_page_fetch_blocked'
+    : detailStatus === 'fetch-failed' ? 'official_page_fetch_failed'
+    : detailStatus === 'identity-mismatch' ? 'official_page_identity_mismatch'
+    : 'no_verified_official_image_candidate';
+  return { ...event, imageStatus: 'missing', imageFailureReason: reason };
+}
+
+events = events.map(withImageQualityState);
+
+const canonicalStatusCounts = canonicalDetail.diagnostics.reduce((counts, item) => {
+  counts[item.status] = (counts[item.status] || 0) + 1;
+  return counts;
+}, {});
+const canonicalFieldUpdates = canonicalDetail.diagnostics.reduce((counts, item) => {
+  (item.fieldsUpdated || []).forEach(field => { counts[field] = (counts[field] || 0) + 1; });
+  return counts;
+}, {});
+sourceHealth.canonicalDetailEnrichment = {
+  frameworkVersion: 'canonical-detail-enrichment-v1',
+  checkedAt: generatedAt,
+  ...canonicalStatusCounts,
+  fieldUpdates: canonicalFieldUpdates
+};
+console.log(`Canonical detail summary: ${JSON.stringify(sourceHealth.canonicalDetailEnrichment)}`);
+const imageQualityCounts = events.reduce((counts, event) => {
+  const status = event.imageStatus || (event.image ? 'unclassified' : 'missing');
+  counts[status] = (counts[status] || 0) + 1;
+  if (event.imageFailureReason) counts['failure:' + event.imageFailureReason] = (counts['failure:' + event.imageFailureReason] || 0) + 1;
+  return counts;
+}, {});
+sourceHealth.officialImageEnrichment = {
+  frameworkVersion: 'official-image-enrichment-v2',
+  checkedAt: generatedAt,
+  ...imageQualityCounts
+};
+console.log(`Official image summary: ${JSON.stringify(sourceHealth.officialImageEnrichment)}`);
+
 // Link health is a release-quality stage. A known-bad detail URL is replaced
 // only with an explicitly configured, user-facing official landing page.
 const linkHealth = await auditLinks(events, sources, { concurrency: 6 });
 events = linkHealth.events.map(event => ({
   ...event,
-  // Alternate sessions inherit the card's resolved official destination.
-  sessions: (event.sessions || []).map(session => ({ ...session, url: event.url, linkResolution: event.linkResolution }))
+  // Never erase a session's concrete official URL because the parent card was
+  // downgraded. If a session has no URL of its own, it may inherit the card's
+  // already-resolved safe destination; otherwise preserve the source URL.
+  sessions: (event.sessions || []).map(session => ({
+    ...session,
+    url: session.url || event.url || '',
+    linkResolution: session.url ? 'session-canonical' : event.linkResolution
+  }))
 }));
 const linkHealthSummary = {
   checkedAt: generatedAt, publishedEvents: events.length, checkedLinks: events.length,
@@ -3470,8 +3824,16 @@ const linkHealthSummary = {
   unavailable: events.filter(event => event.linkResolution === 'unavailable').length
 };
 console.log(`Link health summary: ${JSON.stringify(linkHealthSummary)}`);
+const releaseBlocking = releaseBlockingLinks(events);
+if (releaseBlocking.length) {
+  const sample = releaseBlocking.slice(0, 12).map(event => ({
+    title: event.title, source: event.source, status: event.linkStatus,
+    canonicalUrl: event.canonicalUrl
+  }));
+  throw new Error(`Link Health publish gate blocked ${releaseBlocking.length} known-broken official links: ${JSON.stringify(sample)}`);
+}
 if ((linkHealthSummary['not-found'] || 0) + (linkHealthSummary['content-mismatch'] || 0) > 0) {
-  console.warn(`::warning::Link health downgraded ${(linkHealthSummary['not-found'] || 0) + (linkHealthSummary['content-mismatch'] || 0)} detail links to an official fallback where configured.`);
+  console.warn(`::warning::Link health downgraded ${(linkHealthSummary['not-found'] || 0) + (linkHealthSummary['content-mismatch'] || 0)} detail links to a verified official fallback.`);
 }
 
 function translationFingerprint(event) {
