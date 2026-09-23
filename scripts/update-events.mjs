@@ -2346,6 +2346,17 @@ async function readCivic(source) {
   return events.filter(Boolean);
 }
 
+function cupertinoAddressCandidate(text) {
+  const value = String(text || '');
+  const pattern = /\b(\d{1,6}\s+(?:(?:N|S|E|W|North|South|East|West)\s+)?(?:[A-Za-z0-9.'’#-]+\s+){0,5}(?:Avenue|Ave\.?|Street|St\.?|Road|Rd\.?|Boulevard|Blvd\.?|Drive|Dr\.?|Lane|Ln\.?|Court|Ct\.?|Way|Parkway|Pkwy\.?|Circle|Cir\.?))(?=\s*(?:,?\s*Cupertino\b|,?\s*CA\b|\d{5}\b|$))/gi;
+  for (const match of value.matchAll(pattern)) {
+    const context = value.slice(Math.max(0, match.index - 90), Math.min(value.length, match.index + match[0].length + 90));
+    if (/Back to top|Site Footer|Contact Us/i.test(context)) continue;
+    return { street: match[1].replace(/[.,;:]$/, ''), index: match.index };
+  }
+  return null;
+}
+
 function cupertinoDetailEnrichment(event, html, source) {
   if (!html) return event;
   const schema = firstOfficialEventSchema(html);
@@ -2418,13 +2429,13 @@ function cupertinoDetailEnrichment(event, html, source) {
     }
   }
 
-  const addressMatch = detailText.match(/\b(\d{1,6}\s+[A-Za-z0-9.'’ -]+?(?:Avenue|Ave\.?|Street|St\.?|Road|Rd\.?|Boulevard|Blvd\.?|Drive|Dr\.?|Lane|Ln\.?|Court|Ct\.?|Way|Parkway|Pkwy\.?|Circle|Cir\.?))\s+(Cupertino),\s*CA\s*\d{5}(?:-\d{4})?\b/i);
+  const addressMatch = cupertinoAddressCandidate(detailText);
   if (!address && addressMatch) {
-    city = canonicalCity(addressMatch[2] || city);
-    address = shortAddress(addressMatch[1], city);
+    city = canonicalCity(city || 'Cupertino');
+    address = shortAddress(addressMatch.street, city);
   }
   if ((!place || place === source.name) && addressMatch) {
-    const addressIndex = detailText.indexOf(addressMatch[0]);
+    const addressIndex = addressMatch.index;
     let prefix = detailText.slice(Math.max(0, addressIndex - 220), addressIndex);
     prefix = prefix
       .replace(detailTitle, ' ')
