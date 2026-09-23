@@ -10,6 +10,13 @@ function imageFromTag(tag, baseUrl) {
 }
 
 export function parseSymphonyDetail({ html, event, generic, finalUrl = '' }) {
+  // This adapter is only valid on Symphony's season listing, where an image
+  // immediately preceding a concert title is a stable card association. On a
+  // concert detail page, nearby images are date/location/program icons and must
+  // never be promoted as the event hero.
+  let pagePath = '';
+  try { pagePath = new URL(finalUrl || event?.url || '').pathname.replace(/\/+$/, '/'); } catch {}
+  if (!/\/attend\/2026-2027-season\/concerts(?:-2026-2027)?\/$/i.test(pagePath)) return {};
   // Symphony concert detail pages can contain many decorative/program images.
   // Prefer generic structured/OG evidence there; this adapter primarily adds a
   // safe fallback for the official season listing where each concert is a
