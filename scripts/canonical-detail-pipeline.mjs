@@ -39,6 +39,11 @@ function previousFor(event, previousById) {
     || null;
 }
 
+function invalidAddressEvidence(value) {
+  const text = String(value || '');
+  return text.length > 120 || /Back to top|Site Footer|Contact Us|Registration includes/i.test(text);
+}
+
 function reuseCanonicalEvidence(event, previous) {
   if (!previous || canonicalUrl(event) !== normalizeOfficialUrl(previous?.canonicalDetail?.sourceUrl || previous?.canonicalUrl || previous?.url || '')) return event;
   const provenance = previous.fieldProvenance || {};
@@ -53,6 +58,7 @@ function reuseCanonicalEvidence(event, previous) {
     // current source pass. This previously blanked newly recovered official
     // artwork (for example Cupertino Bike Fest) while retaining old provenance.
     if (field === 'image' && ((!previous[field] && merged[field]) || previousImageIsPageUrl)) return;
+    if (field === 'address' && invalidAddressEvidence(previous[field]) && !invalidAddressEvidence(merged[field])) return;
     merged[field] = previous[field];
     merged.fieldProvenance[field] = evidence;
   });
