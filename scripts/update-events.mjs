@@ -25,6 +25,13 @@ import { selectPublishableOfficialDescription } from './official-description.mjs
 import { configuredCandidates, sitemapCandidates, verifySpecialEventPage } from './special-event-pages.mjs';
 import { selectCupertinoDetailDates } from './cupertino-detail-date.mjs';
 import { cupertinoAudienceEvidence } from './cupertino-audience.mjs';
+import {
+  paloAltoSpecialEventCalendarUrl,
+  paloAltoSpecialEventAudienceEvidence,
+  paloAltoSpecialEventDescription,
+  paloAltoSpecialEventLinks,
+  paloAltoSpecialEventOccurrences
+} from './lib/palo-alto-special-events.mjs';
 
 const key = process.env.SERPAPI_KEY;
 // Translation is intentionally paused: no third-party translation key is read
@@ -372,6 +379,13 @@ function ageInfo(categories) {
   const lower = text.toLowerCase();
   const familyFriendly = /family(?:-friendly)?/.test(lower);
   const allAges = /\ball[-\s]ages?\b|\bfor all[-\s]ages\b|\bappropriate for all[-\s]ages\b/.test(lower);
+  // A sentence such as “All ages are welcome” is a direct organizer audience
+  // statement, not a broad category. It must take precedence over narrower
+  // taxonomy chips that can appear alongside it (for example Babies/Teens).
+  const explicitUniversalAudience = /\ball[-\s]ages?\s+(?:are\s+)?(?:welcome|invited|admitted)\b|\b(?:everyone|people)\s+of\s+all\s+ages\s+(?:is|are)\s+(?:welcome|invited)\b/.test(lower);
+  if (explicitUniversalAudience) {
+    return { ageBands: ['all-ages'], ageRanges: [[0, 18]], ageMin: 0, ageMax: 18, ageLabel: 'All ages', ageSource: 'Official audience information', familyFriendly: true };
+  }
 
   const ranges = [];
   const addRange = (min, max) => {
@@ -407,14 +421,25 @@ function ageInfo(categories) {
   // A grade category is an official audience field but not an exact age
   // statement. Its conventional age equivalent is used only for matching;
   // the card keeps the organizer's grade wording so we do not imply precision.
-  const gradeRange = lower.match(/grades?\s*(k|kindergarten|\d{1,2})\s*(?:-|–|to)\s*(\d{1,2})/);
-  const isKindergarten = gradeRange?.[1] === 'k' || gradeRange?.[1] === 'kindergarten';
-  const gradeStart = isKindergarten ? 0 : Number(gradeRange?.[1]);
-  const gradeEnd = Number(gradeRange?.[2]);
-  if (!hasExplicitAgeRange && gradeRange && Number.isFinite(gradeStart) && Number.isFinite(gradeEnd) && gradeEnd >= 0 && gradeEnd <= 12) {
-    const min = isKindergarten ? 5 : gradeStart + 5;
-    addRange(min, gradeEnd + 5);
-    if (ranges.length === 1) return { ageBands: [], ageRanges: [[min, gradeEnd + 5]], ageMin: min, ageMax: gradeEnd + 5, ageLabel: `Grades ${gradeRange[1].toUpperCase()}–${gradeEnd}`, ageSource: 'Official organizer grade range', familyFriendly };
+  const gradeRanges = [...lower.matchAll(/grades?\s*(k|kindergarten|\d{1,2})\s*(?:-|–|to)\s*(\d{1,2})/g)]
+    .flatMap(match => {
+      const isKindergarten = match[1] === 'k' || match[1] === 'kindergarten';
+      const gradeStart = isKindergarten ? 0 : Number(match[1]);
+      const gradeEnd = Number(match[2]);
+      if (!Number.isFinite(gradeStart) || !Number.isFinite(gradeEnd) || gradeEnd < gradeStart || gradeEnd > 12) return [];
+      return [{ min: isKindergarten ? 5 : gradeStart + 5, max: gradeEnd + 5, label: `Grades ${isKindergarten ? 'K' : gradeStart}–${gradeEnd}` }];
+    });
+  if (!hasExplicitAgeRange && gradeRanges.length) {
+    const distinctGrades = gradeRanges.filter((range, index, values) => !values.some((other, otherIndex) => otherIndex !== index && other.min <= range.min && other.max >= range.max && (other.min < range.min || other.max > range.max || otherIndex < index)));
+    return {
+      ageBands: [],
+      ageRanges: distinctGrades.map(range => [range.min, range.max]),
+      ageMin: Math.min(...distinctGrades.map(range => range.min)),
+      ageMax: Math.max(...distinctGrades.map(range => range.max)),
+      ageLabel: distinctGrades.map(range => range.label).join(' · '),
+      ageSource: 'Official organizer grade range',
+      familyFriendly
+    };
   }
   if (!ranges.length && allAges) return { ageBands: ['all-ages'], ageRanges: [[0, 18]], ageMin: 0, ageMax: 18, ageLabel: 'All ages', ageSource: 'Official audience information', familyFriendly };
   if (!ranges.length) return { ageBands: familyFriendly ? ['family'] : [], ageRanges: [], ageMin: null, ageMax: null, ageLabel: familyFriendly ? 'Family-friendly' : '', ageSource: familyFriendly ? 'Official audience information' : '', familyFriendly };
@@ -2827,6 +2852,58 @@ async function readPaloAlto(source) {
   return events.filter(Boolean);
 }
 
+// Some municipal departments publish recurring, public family events on a
+// first-party section landing page rather than in the municipal event
+// directory. Discover only the landing page's visible event cards, then make
+// each detail page the source of truth for the description, image, price and
+// dated occurrences. This avoids hard-coding a season or an individual title.
+async function readPaloAltoSpecialEvents(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+  const landingHtml = await response.text();
+  if (!response.ok || !/landing-page-nav[\s\S]*list-item-container/i.test(landingHtml)) {
+    throw new Error('Palo Alto special-events landing page was not valid: ' + response.status);
+  }
+  const familyPattern = new RegExp(source.familyPattern || 'family|families|children|kids?|all ages|youth|teen', 'i');
+  const candidates = paloAltoSpecialEventLinks(landingHtml, source.feedUrl)
+    .filter(candidate => familyPattern.test(`${candidate.title} ${candidate.description}`));
+  const events = await Promise.all(candidates.map(async candidate => {
+    try {
+      const detailResponse = await fetch(candidate.url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+      const detailHtml = await detailResponse.text();
+      if (!detailResponse.ok) return [];
+      const detailDescription = paloAltoSpecialEventDescription(detailHtml);
+      const calendarUrl = paloAltoSpecialEventCalendarUrl(detailHtml, candidate.url);
+      let calendarHtml = detailHtml;
+      if (calendarUrl) {
+        try {
+          const calendarResponse = await fetch(calendarUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+          if (calendarResponse.ok) calendarHtml = await calendarResponse.text();
+        } catch {}
+      }
+      const detailText = plainText(`${detailHtml} ${calendarHtml}`);
+      const description = detailDescription || candidate.description;
+      const audienceText = paloAltoSpecialEventAudienceEvidence(candidate, detailDescription);
+      if (!familyPattern.test(audienceText) || isExplicitlyAdultOnly(audienceText) || !hasUsableSourceContent(description)) return [];
+      const seen = new Set();
+      return paloAltoSpecialEventOccurrences(calendarHtml).flatMap(occurrence => {
+        const dateValue = isoDateFromOfficialText(occurrence.dateText, occurrence.startTime);
+        const endDateValue = isoDateFromOfficialText(occurrence.dateText, occurrence.endTime);
+        if (!dateValue || !isUpcoming(dateValue) || seen.has(dateValue)) return [];
+        seen.add(dateValue);
+        const event = directEvent({
+          id: 'paloalto-special-' + createHash('sha256').update(`${candidate.url}|${dateValue}`).digest('hex').slice(0, 16),
+          title: candidate.title, dateValue, endDateValue, description,
+          image: officialPageOgImage(detailHtml), place: source.place || source.name,
+          address: source.address || '', city: source.city || 'Palo Alto', source: source.name,
+          url: candidate.url, ageText: audienceText, format: source.format || 'festival'
+        });
+        return [{ ...event, ...costInfo('', detailText) }];
+      });
+    } catch { return []; }
+  }));
+  return events.flat();
+}
+
 // Happy Hollow exposes its special-event calendar as server-rendered Event
 // schema.  It also includes daily operating hours in that same calendar;
 // those are intentionally excluded because they are not activities.
@@ -3143,7 +3220,7 @@ const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve t
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const existingSourceHealth = await readFile(sourceHealthTarget, 'utf8').then(JSON.parse).catch(() => ({ sources: [] }));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['jmz-family', 'stanford-venue-family', 'rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'santana-row', 'annual-festival', 'curated', 'google-visitor-events', 'eventbrite-organizer'];
+const directMethods = ['jmz-family', 'stanford-venue-family', 'rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'paloalto-special-events', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'santana-row', 'annual-festival', 'curated', 'google-visitor-events', 'eventbrite-organizer'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
@@ -3195,6 +3272,7 @@ const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'chm') return readChm(source);
   if (source.method === 'deanza') return readDeAnza(source);
   if (source.method === 'paloalto') return readPaloAlto(source);
+  if (source.method === 'paloalto-special-events') return readPaloAltoSpecialEvents(source);
   if (source.method === 'happyhollow') return readHappyHollow(source);
   if (source.method === 'gilroy') return readGilroyGardens(source);
   if (source.method === 'symphony') return readSymphony(source);

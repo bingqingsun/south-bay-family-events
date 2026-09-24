@@ -54,6 +54,18 @@
     "familyPattern": "children|kids?|famil(?:y|ies)|youth|teen|toddler|preschool|elementary|middle school|high school|all ages|parent(?:s)?\\s*(?:and|&)\\s*(?:child|kid)|palo alto airport day"
   },
   {
+    "id": "palo-alto-art-center-special-events",
+    "name": "Palo Alto Art Center · Special Events",
+    "domain": "paloalto.gov",
+    "method": "paloalto-special-events",
+    "feedUrl": "https://www.paloalto.gov/Departments/Community-Services/Arts-Sciences/Palo-Alto-Art-Center/Special-Events",
+    "place": "Palo Alto Art Center",
+    "address": "1313 Newell Road, Palo Alto",
+    "city": "Palo Alto",
+    "familyPattern": "family|families|children|kids?|all ages|youth|teen",
+    "format": "festival"
+  },
+  {
     "name": "Palo Alto Junior Museum & Zoo",
     "domain": "paloaltozoo.org",
     "method": "jmz-family",

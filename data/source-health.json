@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-09-23T14:30:03.342Z",
-  "configuredSources": 81,
-  "directSources": 76,
+  "generatedAt": "2026-09-23T20:21:50.468Z",
+  "configuredSources": 82,
+  "directSources": 77,
   "fallbackSourcesRun": 0,
   "sources": [
     {
@@ -55,6 +55,16 @@
       "key": "City of Palo Alto|paloalto.gov|https://www.paloalto.gov/Events-Directory",
       "name": "City of Palo Alto",
       "method": "paloalto",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 2,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "key": "Palo Alto Art Center · Special Events|paloalto.gov|https://www.paloalto.gov/Departments/Community-Services/Arts-Sciences/Palo-Alto-Art-Center/Special-Events",
+      "name": "Palo Alto Art Center · Special Events",
+      "method": "paloalto-special-events",
       "mode": "direct",
       "status": "ok",
       "eventCount": 2,
@@ -215,7 +225,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 54,
+      "eventCount": 51,
       "failureStreak": 0,
       "error": ""
     },
@@ -225,7 +235,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 47,
+      "eventCount": 45,
       "failureStreak": 0,
       "error": ""
     },
@@ -245,7 +255,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 94,
+      "eventCount": 91,
       "failureStreak": 0,
       "error": ""
     },
@@ -255,7 +265,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 46,
+      "eventCount": 44,
       "failureStreak": 0,
       "error": ""
     },
@@ -394,10 +404,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 2,
-      "error": "Los Altos History Museum event list was not valid: 202"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -495,7 +505,7 @@
       "method": "civic",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 0,
+      "eventCount": 1,
       "failureStreak": 0,
       "error": ""
     },
@@ -803,22 +813,22 @@
   "alerts": [],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-09-23T14:30:03.342Z",
-    "enriched": 331,
+    "checkedAt": "2026-09-23T20:21:50.468Z",
+    "enriched": 332,
     "cached": 4,
-    "fetch-blocked": 18,
     "identity-mismatch": 41,
+    "fetch-blocked": 17,
     "fetch-failed": 4,
     "fieldUpdates": {
-      "description": 227,
+      "description": 230,
       "image": 1
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-09-23T14:30:03.342Z",
-    "official": 236,
-    "unclassified": 158,
+    "checkedAt": "2026-09-23T20:21:50.468Z",
+    "official": 237,
+    "unclassified": 157,
     "missing": 4,
     "failure:official_page_fetch_blocked": 3,
     "failure:no_verified_official_image_candidate": 1
