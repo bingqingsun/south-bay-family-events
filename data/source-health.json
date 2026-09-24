@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T20:21:50.468Z",
+  "generatedAt": "2026-09-24T00:09:28.601Z",
   "configuredSources": 82,
   "directSources": 77,
   "fallbackSourcesRun": 0,
@@ -10,7 +10,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 16,
+      "eventCount": 17,
       "failureStreak": 0,
       "error": ""
     },
@@ -20,7 +20,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 10,
+      "eventCount": 9,
       "failureStreak": 0,
       "error": ""
     },
@@ -57,7 +57,7 @@
       "method": "paloalto",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 2,
+      "eventCount": 3,
       "failureStreak": 0,
       "error": ""
     },
@@ -225,7 +225,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 51,
+      "eventCount": 47,
       "failureStreak": 0,
       "error": ""
     },
@@ -235,7 +235,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 45,
+      "eventCount": 41,
       "failureStreak": 0,
       "error": ""
     },
@@ -255,7 +255,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 91,
+      "eventCount": 86,
       "failureStreak": 0,
       "error": ""
     },
@@ -265,7 +265,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 44,
+      "eventCount": 40,
       "failureStreak": 0,
       "error": ""
     },
@@ -276,7 +276,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 1,
+      "failureStreak": 2,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 1,
+      "failureStreak": 2,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 1,
+      "failureStreak": 2,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -484,10 +484,10 @@
       "name": "San José Buddhist Church Betsuin",
       "method": "tribe",
       "mode": "direct",
-      "status": "ok",
+      "status": "failed",
       "eventCount": 0,
-      "failureStreak": 0,
-      "error": ""
+      "failureStreak": 1,
+      "error": "The operation was aborted due to timeout"
     },
     {
       "key": "Chinese Historical & Cultural Project|chcp.org|https://www.chcp.org/Events",
@@ -813,22 +813,22 @@
   "alerts": [],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-09-23T20:21:50.468Z",
-    "enriched": 332,
+    "checkedAt": "2026-09-24T00:09:28.601Z",
+    "enriched": 336,
     "cached": 4,
+    "fetch-blocked": 20,
     "identity-mismatch": 41,
-    "fetch-blocked": 17,
-    "fetch-failed": 4,
+    "fetch-failed": 2,
     "fieldUpdates": {
-      "description": 230,
-      "image": 1
+      "description": 235,
+      "image": 2
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-09-23T20:21:50.468Z",
-    "official": 237,
-    "unclassified": 157,
+    "checkedAt": "2026-09-24T00:09:28.601Z",
+    "official": 240,
+    "unclassified": 159,
     "missing": 4,
     "failure:official_page_fetch_blocked": 3,
     "failure:no_verified_official_image_candidate": 1
