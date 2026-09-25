@@ -22,7 +22,11 @@
       allow_ad_personalization_signals: false,
       anonymize_ip: true
     });
-    window.trackAnalyticsEvent = (name, parameters = {}) => window.gtag('event', name, parameters);
+    window.trackAnalyticsEvent = (name, parameters = {}) => {
+      const language = window.SBFF_LOCALE === 'zh' || document.documentElement.lang.toLowerCase().startsWith('zh') ? 'zh-Hans' : 'en';
+      const contentType = document.body?.classList.contains('collection-page') ? 'collection' : document.body?.classList.contains('home-page') ? 'home' : 'page';
+      window.gtag('event', name, { page_language: language, page_path: window.location.pathname, content_type: contentType, ...parameters });
+    };
     const script = document.createElement('script');
     script.async = true;
     script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
@@ -43,5 +47,12 @@
 
   window.setSouthBayFamilyFindsAnalyticsConsent = setAnalyticsChoice;
 
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('[data-language-switch]');
+    if (!link) return;
+    const fromLanguage = window.SBFF_LOCALE === 'zh' || document.documentElement.lang.toLowerCase().startsWith('zh') ? 'zh-Hans' : 'en';
+    const toLanguage = link.dataset.languageSwitch === 'zh' ? 'zh-Hans' : 'en';
+    window.trackAnalyticsEvent?.('language_switch', { from_language: fromLanguage, to_language: toLanguage });
+  });
   document.addEventListener('DOMContentLoaded', enableAnalytics);
 })();
