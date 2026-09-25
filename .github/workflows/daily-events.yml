@@ -72,11 +72,16 @@ jobs:
           INCLUDE_SERPAPI: ${{ github.event_name == 'schedule' && 'auto' || github.event_name == 'push' && 'false' || inputs.include_serpapi }}
       - name: Audit published summary provenance
         run: node scripts/test-summary-output.mjs
+      - name: Generate SEO event pages and sitemap
+        run: |
+          node scripts/generate-event-pages.mjs
+          node scripts/generate-sitemap.mjs
+          node scripts/event-detail-pages.test.mjs
       - name: Save refreshed event list
         run: |
           git config user.name "south-bay-events-bot"
           git config user.email "actions@github.com"
-          git add data/events.json data/events.js data/museums.json data/museums.js data/source-health.json
+          git add data/events.json data/events.js data/museums.json data/museums.js data/source-health.json events sitemap.xml
           if git diff --staged --quiet; then
             exit 0
           fi
