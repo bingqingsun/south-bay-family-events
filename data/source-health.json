@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-25T14:30:49.500Z",
+  "generatedAt": "2026-09-25T15:24:37.118Z",
   "configuredSources": 82,
   "directSources": 77,
   "fallbackSourcesRun": 0,
@@ -156,7 +156,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 1,
+      "failureStreak": 2,
       "error": "The operation was aborted due to timeout"
     },
     {
@@ -276,7 +276,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 4,
+      "failureStreak": 5,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 4,
+      "failureStreak": 5,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 4,
+      "failureStreak": 5,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -376,7 +376,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 1,
+      "failureStreak": 2,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -406,7 +406,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 1,
+      "failureStreak": 2,
       "error": "Los Altos History Museum event list was not valid: 202"
     },
     {
@@ -813,37 +813,34 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 4,
+      "failureStreak": 5,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 4,
+      "failureStreak": 5,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 4,
+      "failureStreak": 5,
       "error": "Cinemark official showtimes were not valid: 200"
     }
   ],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-09-25T14:30:49.500Z",
-    "enriched": 340,
-    "cached": 4,
-    "fetch-blocked": 18,
-    "identity-mismatch": 45,
+    "checkedAt": "2026-09-25T15:24:37.118Z",
+    "enriched": 339,
+    "cached": 5,
+    "fetch-blocked": 19,
+    "identity-mismatch": 44,
     "fieldUpdates": {
-      "description": 239,
-      "image": 9,
-      "endDateValue": 3,
-      "place": 1
+      "description": 237
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-09-25T14:30:49.500Z",
+    "checkedAt": "2026-09-25T15:24:37.118Z",
     "official": 242,
     "unclassified": 160,
     "missing": 4,
