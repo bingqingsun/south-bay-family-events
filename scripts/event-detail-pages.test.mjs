@@ -17,7 +17,7 @@ assert.ok(pages.length >= 5, 'pilot should generate at least five event detail p
 for (const file of pages) {
   const html = fs.readFileSync(file, 'utf8');
   const slug = path.basename(path.dirname(file));
-  assert.match(html, new RegExp(`<link rel="canonical" href="https://southbayfamilyfinds\\\\.com/events/${slug}/" />`));
+  assert.ok(html.includes(`<link rel="canonical" href="https://southbayfamilyfinds.com/events/${slug}/" />`), 'event page canonical must use production URL');
   assert.match(html, /<h1>[^<]+<\/h1>/, 'event page must have a static H1');
   assert.match(html, /application\/ld\+json/, 'event page must include Event JSON-LD');
   assert.match(html, /View official event source/, 'event page must preserve official source access');
