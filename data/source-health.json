@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-25T15:55:09.454Z",
+  "generatedAt": "2026-09-25T23:50:03.907Z",
   "configuredSources": 82,
   "directSources": 77,
   "fallbackSourcesRun": 0,
@@ -20,7 +20,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 13,
+      "eventCount": 16,
       "failureStreak": 0,
       "error": ""
     },
@@ -94,7 +94,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 490,
+      "eventCount": 491,
       "failureStreak": 0,
       "error": ""
     },
@@ -225,7 +225,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 45,
+      "eventCount": 40,
       "failureStreak": 0,
       "error": ""
     },
@@ -235,7 +235,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 44,
+      "eventCount": 39,
       "failureStreak": 0,
       "error": ""
     },
@@ -255,7 +255,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 87,
+      "eventCount": 76,
       "failureStreak": 0,
       "error": ""
     },
@@ -265,7 +265,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 38,
+      "eventCount": 32,
       "failureStreak": 0,
       "error": ""
     },
@@ -276,7 +276,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 5,
+      "failureStreak": 6,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 5,
+      "failureStreak": 6,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 5,
+      "failureStreak": 6,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -305,7 +305,7 @@
       "method": "southfirstfridays",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 1,
+      "eventCount": 2,
       "failureStreak": 0,
       "error": ""
     },
@@ -376,7 +376,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 2,
+      "failureStreak": 3,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -404,10 +404,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 2,
-      "error": "Los Altos History Museum event list was not valid: 202"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -813,36 +813,41 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 5,
+      "failureStreak": 6,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 5,
+      "failureStreak": 6,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 5,
+      "failureStreak": 6,
       "error": "Cinemark official showtimes were not valid: 200"
+    },
+    {
+      "name": "Peninsula Youth Theatre",
+      "failureStreak": 3,
+      "error": "PYT official show list was not valid: 200"
     }
   ],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-09-25T15:55:09.454Z",
-    "enriched": 338,
+    "checkedAt": "2026-09-25T23:50:03.907Z",
+    "enriched": 349,
     "cached": 5,
-    "fetch-blocked": 20,
-    "identity-mismatch": 43,
-    "fetch-failed": 1,
+    "fetch-blocked": 18,
+    "identity-mismatch": 45,
     "fieldUpdates": {
-      "description": 237
+      "description": 248,
+      "image": 1
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-09-25T15:55:09.454Z",
-    "official": 242,
+    "checkedAt": "2026-09-25T23:50:03.907Z",
+    "official": 253,
     "unclassified": 160,
     "missing": 4,
     "failure:official_page_fetch_blocked": 3,
