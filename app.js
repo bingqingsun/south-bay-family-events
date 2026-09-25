@@ -1,4 +1,4 @@
-let events = Array.isArray(window.SOUTH_BAY_EVENTS) ? window.SOUTH_BAY_EVENTS : [];
+let events = [];
 // Kept as a single switch so bilingual presentation can be restored later
 // without changing the canonical, organizer-supplied event data.
 const translationEnabled = false;
@@ -286,8 +286,19 @@ function populateAgeFilter() {
   state.age = previous === 'all' || /^\d+$/.test(previous) ? previous : 'all';
   select.value = state.age;
 }
-function render() {
-  const visible = sortEvents(events.filter(event => searchMatches(event, state.query) && (state.type === 'all' || event.type === state.type) && (state.city === 'all' || event.city === state.city) && ageMatches(event, state.age) && matchingSessions(event).length && (!state.onlySaved || isSaved(event))));
+const BATCH_SIZE = 12;
+let visibleEvents = [];
+let renderedCount = 0;
+let feedObserver = null;
+let feedGeneration = 0;
+let isAppendingBatch = false;
+const feedSentinel = document.createElement('div');
+feedSentinel.id = 'eventFeedSentinel';
+feedSentinel.className = 'event-feed-sentinel';
+feedSentinel.setAttribute('aria-hidden', 'true');
+grid.after(feedSentinel);
+
+function resetCardImpressionObserver() {
   cardImpressionObserver?.disconnect();
   cardImpressionObserver = typeof IntersectionObserver === 'function' ? new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -300,48 +311,95 @@ function render() {
       cardImpressionObserver.unobserve(card);
     });
   }, { threshold: 0.5 }) : null;
-  grid.innerHTML = '';
-  visible.forEach((event, eventIndex) => {
-    const session = activeSession(event); const sessions = matchingSessions(event); const node = window.SBFFEventCard.render({ eventId: event.id, entryPoint: 'home-events' }); const fallbackImage = `assets/fallback/${fallbackImageType[event.type] || event.type || 'community'}.png?v=20260830-1`; const officialImage = optimizedOfficialImageUrl(event.image, event.source); const image = officialImage || fallbackImage; const imageArea = node.querySelector('.card-image');
-    const setCardImage = url => { imageArea.style.backgroundImage = `linear-gradient(0deg, rgba(18, 49, 42, .08), rgba(18, 49, 42, .08)), url(${JSON.stringify(url)})`; };
-    imageArea.style.backgroundColor = event.imageBackground || event.color; imageArea.classList.add('has-image'); imageArea.classList.toggle('team-mark', event.imagePresentation === 'team-mark');
-    if (event.imagePresentation === 'team-mark' && officialImage) {
-      // A transparent club SVG must be an element, not a CSS background. A
-      // background renderer can expose the asset's square canvas against the
-      // card color; an image layer keeps the team mark clean and centered.
-      imageArea.style.backgroundImage = 'none';
-      const teamMark = new Image(); teamMark.className = 'team-mark-image'; teamMark.alt = ''; teamMark.src = event.image;
-      teamMark.onerror = () => { teamMark.remove(); imageArea.classList.remove('team-mark'); imageArea.style.backgroundColor = event.color; setCardImage(fallbackImage); };
-      imageArea.append(teamMark);
-    } else {
-      setCardImage(image);
-      if (officialImage) { const imageProbe = new Image(); imageProbe.onerror = () => setCardImage(fallbackImage); imageProbe.src = officialImage; }
+}
+
+function renderEventCard(event, eventIndex, generation) {
+  if (generation !== feedGeneration) return;
+  const session = activeSession(event); const sessions = matchingSessions(event); const node = window.SBFFEventCard.render({ eventId: event.id, entryPoint: 'home-events' }); const fallbackImage = `assets/fallback/${fallbackImageType[event.type] || event.type || 'community'}.png?v=20260830-1`; const officialImage = optimizedOfficialImageUrl(event.image, event.source); const image = officialImage || fallbackImage; const imageArea = node.querySelector('.card-image');
+  const setCardImage = url => { imageArea.style.backgroundImage = `linear-gradient(0deg, rgba(18, 49, 42, .08), rgba(18, 49, 42, .08)), url(${JSON.stringify(url)})`; };
+  imageArea.style.backgroundColor = event.imageBackground || event.color; imageArea.classList.add('has-image'); imageArea.classList.toggle('team-mark', event.imagePresentation === 'team-mark');
+  if (event.imagePresentation === 'team-mark' && officialImage) {
+    imageArea.style.backgroundImage = 'none';
+    const teamMark = new Image(); teamMark.className = 'team-mark-image'; teamMark.alt = ''; teamMark.src = event.image;
+    teamMark.onerror = () => { teamMark.remove(); imageArea.classList.remove('team-mark'); imageArea.style.backgroundColor = event.color; setCardImage(fallbackImage); };
+    imageArea.append(teamMark);
+  } else {
+    setCardImage(image);
+    if (officialImage) { const imageProbe = new Image(); imageProbe.onerror = () => setCardImage(fallbackImage); imageProbe.src = officialImage; }
+  }
+  node.querySelector('.event-icon').textContent = event.icon; const tag = node.querySelector('.tag'); tag.textContent = categoryLabel(event); node.querySelector('h3').textContent = eventText(event, 'title');
+  const description = node.querySelector('.description'); const descriptionToggle = node.querySelector('.description-toggle'); description.textContent = eventSummary(event); description.hidden = !description.textContent.trim(); description.id = `description-${event.id}`;
+  descriptionToggle.dataset.eventId = event.id; descriptionToggle.setAttribute('aria-controls', description.id); descriptionToggle.setAttribute('aria-expanded', 'false'); descriptionToggle.textContent = t('expandDescription');
+  const facts = node.querySelector('.card-facts');
+  const ageFact = node.querySelector('.fact-age'); const ageText = event.ageSource ? eventAgeFact(event) : ''; ageFact.textContent = ageText; ageFact.title = ageText ? event.ageSource : ''; if (!ageText) ageFact.remove();
+  const ratingFact = node.querySelector('.fact-rating'); const ratingText = event.movieRating ? `Rated ${event.movieRating}` : ''; ratingFact.textContent = ratingText; ratingFact.title = ratingText ? 'Official MPAA rating' : ''; if (!ratingText) ratingFact.remove();
+  const costFact = node.querySelector('.fact-cost'); const costText = event.costSource ? t('costFact')(eventCostLabel(event)).trim() : ''; costFact.textContent = costText; costFact.title = costText ? [event.costSource, event.costEvidence].filter(Boolean).join(': ') : ''; costFact.classList.toggle('is-free', /^(?:Free|免费)$/i.test(costText)); if (!costText) costFact.remove();
+  const registrationFact = node.querySelector('.fact-registration'); const registrationText = event.registrationStatus === 'full' ? t('registrationFull') : event.registrationStatus === 'required' ? t('registrationRequired') : ''; registrationFact.textContent = registrationText; registrationFact.title = registrationText ? [event.registrationSource, event.registrationEvidence].filter(Boolean).join(': ') : ''; if (!registrationText) registrationFact.remove();
+  facts.hidden = facts.querySelectorAll('.fact').length === 0;
+  const distance = eventDistance(event); const distanceNode = node.querySelector('.distance'); distanceNode.hidden = distance === null; distanceNode.textContent = distance === null ? '' : t('distance')(distance < 10 ? distance.toFixed(1) : Math.round(distance));
+  node.querySelector('.time .detail-text').textContent = event.ongoing ? t('onViewNow') : (dateLabel(session.dateValue) || (session.date === '请查看主办方时间' ? t('timeUnavailable') : session.date)); node.querySelector('.place .detail-text').textContent = session.place || event.place;
+  const rank = eventIndex + 1; const analyticsParameters = { event_id: event.id, rank, sort_type: state.sort, recommendation_score: event.recommendationScore || 0, editor_pick: event.recommendationBadge === 'top-pick', activity_category: event.type || 'other', organizer: event.source || 'unknown', surface: 'homepage', placement: 'event_grid' }; const highIntentParameters = { ...analyticsParameters, ...selectedFilterParameters() };
+  const address = node.querySelector('.address'); const addressLink = node.querySelector('.address-link'); const addressText = session.address || event.address || ''; const meetingPoint = !addressText ? String(event.meetingPoint || '').trim() : ''; const mapTarget = window.SBFFMapNavigation?.getNavigationTarget({ event, session }); const locationText = addressText || (meetingPoint ? `Meet at: ${meetingPoint}` : (mapTarget ? (session.place || event.place || event.city || 'Map location') : ''));
+  address.hidden = !locationText; address.querySelector('.detail-text').textContent = locationText; addressLink.hidden = !mapTarget; addressLink.querySelector('.directions').textContent = t('directions'); addressLink.setAttribute('aria-label', `${t('directions')}: ${locationText}`); addressLink.addEventListener('click', () => window.SBFFMapNavigation?.openMapPicker({ event, session, analyticsParameters: highIntentParameters, triggerElement: addressLink }));
+  const organizerName = event.verification === 'search-verified' ? '' : String(event.source || '').trim(); if (organizerName) { const organizer = document.createElement('p'); organizer.className = 'organizer'; organizer.textContent = t('hostedBy')(organizerName); node.querySelector('.details').append(organizer); }
+  const sessionToggle = node.querySelector('.sessions-inline-toggle'); const sessionList = node.querySelector('.sessions-list'); const otherSessions = sessions.filter(item => item.id !== session.id); sessionToggle.hidden = otherSessions.length === 0; sessionToggle.dataset.eventId = event.id; sessionToggle.setAttribute('aria-expanded', 'false'); sessionToggle.textContent = t('showOtherSessions')(otherSessions.length); sessionList.id = `sessions-${event.id}`; sessionToggle.setAttribute('aria-controls', sessionList.id); otherSessions.forEach(item => { const row = document.createElement('li'); const sessionUrl = safeOutboundUrl(item.url || event.url); const sessionLink = document.createElement(sessionUrl ? 'a' : 'span'); if (sessionUrl) { sessionLink.href = sessionUrl; sessionLink.target = '_blank'; sessionLink.rel = 'noopener'; } sessionLink.textContent = `${dateLabel(item.dateValue) || item.date}${event.format === 'movie-screening' && item.place ? ` · ${item.place}` : ''}`; row.append(sessionLink); sessionList.append(row); });
+  const link = node.querySelector('.source-link'); const resolvedLink = safeOutboundUrl(event.url); link.hidden = !resolvedLink; if (resolvedLink) link.href = resolvedLink; else link.removeAttribute('href'); link.firstChild.textContent = `${t('viewDetails')} `; link.addEventListener('click', () => { if (!resolvedLink) return; track('view_event_details', { ...highIntentParameters, link_resolution: event.linkResolution || 'canonical' }); track('outbound_event_click', { ...analyticsParameters, link_resolution: event.linkResolution || 'canonical' }); });
+  const heart = node.querySelector('.heart'); const saved = isSaved(event); heart.dataset.id = event.id; heart.dataset.legacyIds = JSON.stringify(event.legacyIds || []); heart.dataset.analytics = JSON.stringify(analyticsParameters); heart.classList.toggle('saved', saved); heart.textContent = saved ? '♥' : '♡'; heart.setAttribute('aria-pressed', String(saved)); heart.setAttribute('aria-label', saved ? t('unsave')(eventText(event, 'title')) : t('save')(eventText(event, 'title')));
+  const card = node.querySelector('.event-card'); card.dataset.analytics = JSON.stringify(highIntentParameters); card.dataset.impressionKey = [state.sort, state.date, state.city, state.age, state.type, state.onlySaved ? 'saved' : 'all', event.id].join(':'); grid.append(node); cardImpressionObserver?.observe(card);
+  requestAnimationFrame(() => { descriptionToggle.hidden = description.hidden || description.scrollHeight <= description.clientHeight + 1; });
+}
+
+function setupFeedObserver(generation) {
+  feedObserver?.disconnect();
+  feedObserver = null;
+  const hasMore = renderedCount < visibleEvents.length;
+  feedSentinel.hidden = !hasMore;
+  if (!hasMore) return;
+  if (typeof IntersectionObserver !== 'function') {
+    feedSentinel.hidden = true;
+    while (renderedCount < visibleEvents.length && generation === feedGeneration) appendNextBatch(generation, { observe: false });
+    return;
+  }
+  feedObserver = new IntersectionObserver(entries => {
+    if (generation !== feedGeneration) return;
+    if (entries.some(entry => entry.isIntersecting)) appendNextBatch(generation);
+  }, { root: null, rootMargin: '0px 0px 100% 0px', threshold: 0 });
+  feedObserver.observe(feedSentinel);
+}
+
+function appendNextBatch(generation = feedGeneration, { observe = true } = {}) {
+  if (generation !== feedGeneration || isAppendingBatch || renderedCount >= visibleEvents.length) {
+    if (renderedCount >= visibleEvents.length) {
+      feedObserver?.disconnect();
+      feedObserver = null;
+      feedSentinel.hidden = true;
     }
-    node.querySelector('.event-icon').textContent = event.icon; const tag = node.querySelector('.tag'); tag.textContent = categoryLabel(event); node.querySelector('h3').textContent = eventText(event, 'title');
-    const description = node.querySelector('.description'); const descriptionToggle = node.querySelector('.description-toggle'); description.textContent = eventSummary(event); description.hidden = !description.textContent.trim(); description.id = `description-${event.id}`;
-    descriptionToggle.dataset.eventId = event.id; descriptionToggle.setAttribute('aria-controls', description.id); descriptionToggle.setAttribute('aria-expanded', 'false'); descriptionToggle.textContent = t('expandDescription');
-    // Age, rating, and cost are compact decision facts rather than clickable
-    // chips. Only official, readable values enter this metadata line.
-    const facts = node.querySelector('.card-facts');
-    const ageFact = node.querySelector('.fact-age'); const ageText = event.ageSource ? eventAgeFact(event) : ''; ageFact.textContent = ageText; ageFact.title = ageText ? event.ageSource : ''; if (!ageText) ageFact.remove();
-    const ratingFact = node.querySelector('.fact-rating'); const ratingText = event.movieRating ? `Rated ${event.movieRating}` : ''; ratingFact.textContent = ratingText; ratingFact.title = ratingText ? 'Official MPAA rating' : ''; if (!ratingText) ratingFact.remove();
-    const costFact = node.querySelector('.fact-cost'); const costText = event.costSource ? t('costFact')(eventCostLabel(event)).trim() : ''; costFact.textContent = costText; costFact.title = costText ? [event.costSource, event.costEvidence].filter(Boolean).join(': ') : ''; costFact.classList.toggle('is-free', /^(?:Free|免费)$/i.test(costText)); if (!costText) costFact.remove();
-    const registrationFact = node.querySelector('.fact-registration'); const registrationText = event.registrationStatus === 'full' ? t('registrationFull') : event.registrationStatus === 'required' ? t('registrationRequired') : ''; registrationFact.textContent = registrationText; registrationFact.title = registrationText ? [event.registrationSource, event.registrationEvidence].filter(Boolean).join(': ') : ''; if (!registrationText) registrationFact.remove();
-    facts.hidden = facts.querySelectorAll('.fact').length === 0;
-    const distance = eventDistance(event); const distanceNode = node.querySelector('.distance'); distanceNode.hidden = distance === null; distanceNode.textContent = distance === null ? '' : t('distance')(distance < 10 ? distance.toFixed(1) : Math.round(distance));
-    node.querySelector('.time .detail-text').textContent = event.ongoing ? t('onViewNow') : (dateLabel(session.dateValue) || (session.date === '请查看主办方时间' ? t('timeUnavailable') : session.date)); node.querySelector('.place .detail-text').textContent = session.place || event.place;
-    const rank = eventIndex + 1; const analyticsParameters = { event_id: event.id, rank, sort_type: state.sort, recommendation_score: event.recommendationScore || 0, editor_pick: event.recommendationBadge === 'top-pick', activity_category: event.type || 'other', organizer: event.source || 'unknown', surface: 'homepage', placement: 'event_grid' }; const highIntentParameters = { ...analyticsParameters, ...selectedFilterParameters() };
-    const address = node.querySelector('.address'); const addressLink = node.querySelector('.address-link'); const addressText = session.address || event.address || ''; const meetingPoint = !addressText ? String(event.meetingPoint || '').trim() : ''; const mapTarget = window.SBFFMapNavigation?.getNavigationTarget({ event, session }); const locationText = addressText || (meetingPoint ? `Meet at: ${meetingPoint}` : (mapTarget ? (session.place || event.place || event.city || 'Map location') : ''));
-    address.hidden = !locationText; address.querySelector('.detail-text').textContent = locationText; addressLink.hidden = !mapTarget; addressLink.querySelector('.directions').textContent = t('directions'); addressLink.setAttribute('aria-label', `${t('directions')}: ${locationText}`); addressLink.addEventListener('click', () => window.SBFFMapNavigation?.openMapPicker({ event, session, analyticsParameters: highIntentParameters, triggerElement: addressLink }));
-    const organizerName = event.verification === 'search-verified' ? '' : String(event.source || '').trim(); if (organizerName) { const organizer = document.createElement('p'); organizer.className = 'organizer'; organizer.textContent = t('hostedBy')(organizerName); node.querySelector('.details').append(organizer); }
-    const sessionToggle = node.querySelector('.sessions-inline-toggle'); const sessionList = node.querySelector('.sessions-list'); const otherSessions = sessions.filter(item => item.id !== session.id); sessionToggle.hidden = otherSessions.length === 0; sessionToggle.dataset.eventId = event.id; sessionToggle.setAttribute('aria-expanded', 'false'); sessionToggle.textContent = t('showOtherSessions')(otherSessions.length); sessionList.id = `sessions-${event.id}`; sessionToggle.setAttribute('aria-controls', sessionList.id); otherSessions.forEach(item => { const row = document.createElement('li'); const sessionUrl = safeOutboundUrl(item.url || event.url); const sessionLink = document.createElement(sessionUrl ? 'a' : 'span'); if (sessionUrl) { sessionLink.href = sessionUrl; sessionLink.target = '_blank'; sessionLink.rel = 'noopener'; } sessionLink.textContent = `${dateLabel(item.dateValue) || item.date}${event.format === 'movie-screening' && item.place ? ` · ${item.place}` : ''}`; row.append(sessionLink); sessionList.append(row); });
-    const link = node.querySelector('.source-link'); const resolvedLink = safeOutboundUrl(event.url); link.hidden = !resolvedLink; if (resolvedLink) link.href = resolvedLink; else link.removeAttribute('href'); link.firstChild.textContent = `${t('viewDetails')} `; link.addEventListener('click', () => { if (!resolvedLink) return; track('view_event_details', { ...highIntentParameters, link_resolution: event.linkResolution || 'canonical' }); track('outbound_event_click', { ...analyticsParameters, link_resolution: event.linkResolution || 'canonical' }); });
-    const heart = node.querySelector('.heart'); const saved = isSaved(event); heart.dataset.id = event.id; heart.dataset.legacyIds = JSON.stringify(event.legacyIds || []); heart.dataset.analytics = JSON.stringify(analyticsParameters); heart.classList.toggle('saved', saved); heart.textContent = saved ? '♥' : '♡'; heart.setAttribute('aria-pressed', String(saved)); heart.setAttribute('aria-label', saved ? t('unsave')(eventText(event, 'title')) : t('save')(eventText(event, 'title')));
-    const card = node.querySelector('.event-card'); card.dataset.analytics = JSON.stringify(highIntentParameters); card.dataset.impressionKey = [state.sort, state.date, state.city, state.age, state.type, state.onlySaved ? 'saved' : 'all', event.id].join(':'); grid.append(node); cardImpressionObserver?.observe(card);
-    requestAnimationFrame(() => { descriptionToggle.hidden = description.hidden || description.scrollHeight <= description.clientHeight + 1; });
-  });
-  document.querySelector('#emptyState').hidden = visible.length !== 0; const active = state.query !== '' || state.type !== 'all' || state.age !== 'all' || state.city !== 'all' || state.date !== 'all' || state.onlySaved;
-  document.querySelector('#emptyMessage').textContent = active ? t('emptyFiltered') : t('emptyAll'); document.querySelector('#clearFilters').hidden = !active; document.querySelector('#resultCount').textContent = state.onlySaved ? t('savedResults')(visible.length) : t('results')(visible.length); document.querySelector('#savedCount').textContent = state.saved.length;
+    return;
+  }
+  isAppendingBatch = true;
+  const start = renderedCount;
+  const end = Math.min(start + BATCH_SIZE, visibleEvents.length);
+  visibleEvents.slice(start, end).forEach((event, offset) => renderEventCard(event, start + offset, generation));
+  renderedCount = end;
+  isAppendingBatch = false;
+  if (observe) setupFeedObserver(generation);
+  requestAnimationFrame(updateMobileQuickFilterMode);
+}
+
+function render() {
+  visibleEvents = sortEvents(events.filter(event => searchMatches(event, state.query) && (state.type === 'all' || event.type === state.type) && (state.city === 'all' || event.city === state.city) && ageMatches(event, state.age) && matchingSessions(event).length && (!state.onlySaved || isSaved(event))));
+  feedGeneration += 1;
+  const generation = feedGeneration;
+  feedObserver?.disconnect();
+  feedObserver = null;
+  resetCardImpressionObserver();
+  grid.innerHTML = '';
+  renderedCount = 0;
+  feedSentinel.hidden = true;
+  if (visibleEvents.length) appendNextBatch(generation);
+
+  document.querySelector('#emptyState').hidden = visibleEvents.length !== 0; const active = state.query !== '' || state.type !== 'all' || state.age !== 'all' || state.city !== 'all' || state.date !== 'all' || state.onlySaved;
+  document.querySelector('#emptyMessage').textContent = active ? t('emptyFiltered') : t('emptyAll'); document.querySelector('#clearFilters').hidden = !active; document.querySelector('#resultCount').textContent = state.onlySaved ? t('savedResults')(visibleEvents.length) : t('results')(visibleEvents.length); document.querySelector('#savedCount').textContent = state.saved.length;
   const savedButton = document.querySelector('#savedButton'); savedButton.setAttribute('aria-pressed', String(state.onlySaved)); savedButton.setAttribute('aria-label', state.onlySaved ? t('showAll') : t('showSaved')); syncDateControls(); syncMobileQuickFilters(); requestAnimationFrame(updateMobileQuickFilterMode);
 }
 function setActiveType(type) { document.querySelectorAll('.chip').forEach(chip => { const active = chip.dataset.type === type; chip.classList.toggle('active', active); chip.setAttribute('aria-pressed', String(active)); }); }
@@ -498,7 +556,21 @@ grid.addEventListener('click', e => { const sessionToggle = e.target.closest('.s
 document.querySelector('#savedButton').addEventListener('click', () => { state.onlySaved = !state.onlySaved; document.querySelector('#savedButton').classList.toggle('active', state.onlySaved); render(); document.querySelector('#events').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
 applyStaticCopy();
 function refreshExpiredEvents() { populateCityFilter(); render(); }
-fetch('./data/events.json', { cache: 'no-store' }).then(response => response.ok ? response.json() : Promise.reject()).then(data => { if (Array.isArray(data)) events = data; }).catch(() => {}).finally(() => {
+fetch('./data/events.json').then(response => {
+  if (!response.ok) throw new Error(`Unable to load events.json: ${response.status}`);
+  const lastModified = response.headers.get('last-modified');
+  if (lastModified) window.SOUTH_BAY_EVENTS_META = { generatedAt: lastModified };
+  return response.json();
+}).then(data => {
+  if (!Array.isArray(data)) throw new Error('events.json must contain an array');
+  events = data;
+  window.SOUTH_BAY_EVENTS = events;
+}).catch(error => {
+  events = [];
+  window.SOUTH_BAY_EVENTS = events;
+  console.error('South Bay Family Finds event feed failed to load.', error);
+}).finally(() => {
+  renderUpdateTime();
   migrateSavedSeries(); populateAgeFilter(); refreshExpiredEvents();
   // A page can remain open while a session ends. Re-evaluate in Pacific time
   // so cards, saved results, and counts do not wait for a full browser reload.
