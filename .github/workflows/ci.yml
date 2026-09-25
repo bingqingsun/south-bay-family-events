@@ -20,6 +20,7 @@ on:
       - 'privacy.html'
       - 'index.html'
       - 'sitemap.xml'
+      - 'vercel.json'
       - '.github/workflows/**'
   push:
     branches: [main]
@@ -39,6 +40,7 @@ on:
       - 'privacy.html'
       - 'index.html'
       - 'sitemap.xml'
+      - 'vercel.json'
       - '.github/workflows/**'
 
 permissions:
