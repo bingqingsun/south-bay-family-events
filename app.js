@@ -564,10 +564,13 @@ fetch('./data/events.json').then(response => {
 }).then(data => {
   if (!Array.isArray(data)) throw new Error('events.json must contain an array');
   events = data;
+  window.SOUTH_BAY_EVENTS = events;
 }).catch(error => {
   events = [];
+  window.SOUTH_BAY_EVENTS = events;
   console.error('South Bay Family Finds event feed failed to load.', error);
 }).finally(() => {
+  renderUpdateTime();
   migrateSavedSeries(); populateAgeFilter(); refreshExpiredEvents();
   // A page can remain open while a session ends. Re-evaluate in Pacific time
   // so cards, saved results, and counts do not wait for a full browser reload.
