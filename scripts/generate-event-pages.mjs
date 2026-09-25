@@ -8,9 +8,9 @@ const EVENTS_DIR = path.join(ROOT, 'events');
 
 const PILOTS = [
   { slug: 'monster-mash-cupertino', title: /monster mash/i },
-  { slug: 'pumpkin-pool-ooza', title: /pumpkin pool[- ]?ooza/i },
+  { slug: 'cupertino-fall-bike-fest', title: /cupertino fall bike fest/i },
   { slug: 'santa-clara-parade-of-champions', title: /parade of champions/i },
-  { slug: 'palo-alto-art-center-pumpkins', title: /pumpkins/i, source: /palo alto art center/i },
+  { slug: 'breakfast-with-santa', title: /breakfast with santa/i },
   { slug: 'science-of-spa-day', title: /science of spa day/i },
   { slug: 'mariachi-estelar', title: /mariachi estelar/i }
 ];
