@@ -671,3 +671,32 @@
     grid-column: auto;
   }
 }
+
+/* Language switcher */
+.language-switcher {
+  align-items: center;
+  display: inline-flex;
+  gap: 4px;
+  padding: 3px;
+  border: 1px solid rgba(18, 49, 42, .14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .72);
+}
+.language-button {
+  border-radius: 999px;
+  color: var(--sbff-muted);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 7px 9px;
+  text-decoration: none;
+}
+.language-button.active,
+.language-button[aria-current="page"] {
+  background: var(--sbff-ink);
+  color: #fff;
+}
+@media (max-width: 760px) {
+  .language-switcher { margin-left: auto; }
+  .language-button { padding: 7px 8px; }
+}
