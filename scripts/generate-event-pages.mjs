@@ -60,17 +60,22 @@ function officialUrl(event, session) {
 function dateText(value) {
   const v = clean(value);
   if (!v) return '';
-  const d = new Date(v);
-  if (Number.isNaN(d.getTime())) return v;
-  return new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/Los_Angeles',
+  const local = v.match(/^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}))?/);
+  if (!local) return v;
+  const [, year, month, day, hour, minute] = local;
+  const dateOnly = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day)));
+  const base = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'UTC',
     weekday: 'short',
     month: 'short',
     day: 'numeric',
-    year: 'numeric',
-    hour: v.includes('T') ? 'numeric' : undefined,
-    minute: v.includes('T') ? '2-digit' : undefined
-  }).format(d);
+    year: 'numeric'
+  }).format(dateOnly);
+  if (hour == null) return base;
+  const h = Number(hour);
+  const suffix = h >= 12 ? 'PM' : 'AM';
+  const displayHour = h % 12 || 12;
+  return `${base}, ${displayHour}:${minute} ${suffix}`;
 }
 
 function schema(event, session, canonical) {
