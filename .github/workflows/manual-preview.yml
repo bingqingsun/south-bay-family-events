@@ -64,6 +64,18 @@ jobs:
         run: |
           vercel project inspect "$VERCEL_PROJECT_ID" --scope="$VERCEL_ORG_ID" --token="$VERCEL_TOKEN"
 
+      - name: Generate SEO pages when the requested ref supports them
+        run: |
+          if [ -f scripts/generate-event-pages.mjs ]; then
+            node scripts/generate-event-pages.mjs
+          fi
+          if [ -f scripts/generate-sitemap.mjs ]; then
+            node scripts/generate-sitemap.mjs
+          fi
+          if [ -f scripts/event-detail-pages.test.mjs ]; then
+            node scripts/event-detail-pages.test.mjs
+          fi
+
       - name: Build a Preview artifact
         run: |
           vercel pull --yes --environment=preview --token="$VERCEL_TOKEN"
