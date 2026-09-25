@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="发现南湾、圣何塞、硅谷和半岛值得全家一起参与的亲子活动。" />
+    <meta name="impact-site-verification" content="6974d062-7a99-46b1-8d80-b0eba243d1dd" />
+    <meta property="og:site_name" content="South Bay Family Finds" />
+    <meta property="og:title" content="South Bay Family Finds｜南湾亲子活动" />
+    <meta property="og:description" content="发现南湾、圣何塞、硅谷和半岛值得全家一起参与的亲子活动。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://southbayfamilyfinds.com/zh/" />
+    <meta property="og:image" content="https://southbayfamilyfinds.com/assets/home-hero-family-v1.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://southbayfamilyfinds.com/zh/" />
+    <link rel="alternate" hreflang="en" href="https://southbayfamilyfinds.com/" />
+    <link rel="alternate" hreflang="zh-Hans" href="https://southbayfamilyfinds.com/zh/" />
+    <link rel="alternate" hreflang="x-default" href="https://southbayfamilyfinds.com/" />
+    <link rel="icon" href="../assets/brand/south-bay-family-finds-mark-v2.svg" type="image/svg+xml" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://southbayfamilyfinds.com/#organization",
+            "name": "South Bay Family Finds",
+            "url": "https://southbayfamilyfinds.com/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://southbayfamilyfinds.com/assets/brand/south-bay-family-finds-mark-v2.svg"
+            },
+            "description": "An independent guide helping South Bay parents and caregivers find family activities worth doing together.",
+            "email": "hello@southbayfamilyfinds.com"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://southbayfamilyfinds.com/#website",
+            "name": "South Bay Family Finds",
+            "url": "https://southbayfamilyfinds.com/zh/",
+            "description": "发现南湾、圣何塞、硅谷和半岛值得全家一起参与的亲子活动。",
+            "inLanguage": "zh-Hans",
+            "publisher": {
+              "@id": "https://southbayfamilyfinds.com/#organization"
+            }
+          }
+        ]
+      }
+    </script>
+    <title>South Bay Family Finds｜南湾亲子活动</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css?v=20260830-1" />
+    <link rel="stylesheet" href="../overrides.css?v=20260918-1" />
+    <link rel="stylesheet" href="../collections.css?v=20260921-1" />
+    <link rel="stylesheet" href="../design-system.css?v=20260919-1" />
+    <link rel="stylesheet" href="../map-navigation.css?v=20260919-1" />
+  </head>
+  <body class="home-page">
+    <main>
+      <nav class="nav wrap">
+        <a class="brand" href="#top" aria-label="South Bay Family Finds home"><img class="brand-mark" src="../assets/brand/south-bay-family-finds-mark-v2.svg" width="36" height="36" alt="" /><span class="brand-name"><span>South Bay Family</span> <span class="brand-accent">Finds</span></span></a>
+        <div class="nav-links"><a href="#events" data-i18n="findEvents">找活动</a><a href="#how" data-i18n="howItWorks">出发前看看</a><a href="../about.html" data-i18n="about">关于我们</a></div>
+        <div class="language-switcher" aria-label="Language"><a class="language-button" href="../" data-language="en" data-language-switch="en">EN</a><a class="language-button active" href="./" data-language="zh" data-language-switch="zh" aria-current="page">中文</a></div>
+        <button class="saved-button" id="savedButton" type="button" aria-pressed="false" aria-label="Show saved activities">♡ <span id="savedLabel">已收藏</span> <b id="savedCount">0</b></button>
+      </nav>
+
+      <section class="hero wrap" id="top">
+        <div class="hero-copy">
+          <p class="eyebrow" data-i18n="heroEyebrow">南湾 · 家庭时光</p>
+          <h1 data-i18n-html="heroTitle">发现值得全家一起参与的<br /><em>南湾亲子活动。</em></h1>
+          <p class="intro" data-i18n="heroIntro">为南湾从幼儿到青少年的家庭精选亲子活动：从故事会、自然探索到创意工坊和科学体验，更轻松地找到值得全家一起去的活动。</p>
+          <form class="hero-search" id="heroSearchForm" role="search">
+            <label class="sr-only" for="heroSearchInput" data-i18n="searchLabel">搜索亲子活动</label>
+            <svg class="hero-search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+            <input id="heroSearchInput" type="search" placeholder="搜索活动、地点或关键词" data-i18n-placeholder="searchPlaceholder" autocomplete="off" />
+            <span class="hero-search-divider" aria-hidden="true"></span>
+            <label class="hero-date-control" for="heroDateInput" role="button" tabindex="0">
+              <span class="hero-date-label" data-i18n="date">Date</span>
+              <span class="hero-date-display" id="heroDateDisplay" data-i18n="anyDate">任意日期</span>
+              <input id="heroDateInput" type="date" aria-label="Choose an activity date" />
+            </label>
+            <button type="submit" data-i18n="searchButton">搜索</button>
+          </form>
+          <div class="hero-quick-actions" aria-label="Quick activity searches">
+            <button id="heroWeekendQuick" type="button" aria-pressed="false"><span aria-hidden="true">▣</span> <span data-i18n="weekend">本周末</span> <b aria-hidden="true">→</b></button>
+            <button id="heroNearbyQuick" type="button" aria-pressed="false"><span aria-hidden="true">⌖</span> <span data-i18n="nearMe">附近活动</span> <b aria-hidden="true">→</b></button>
+            <div class="update-note"><span class="pulse"></span><span id="updateText">Reading the latest update…</span></div>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="sun"></div><div class="cloud c1"></div><div class="cloud c2"></div>
+          <div class="hill h1"></div><div class="hill h2"></div>
+          <div class="kid kid-one">✦</div><div class="kid kid-two">●</div>
+          <div class="sticker s1">OUTDOOR<br />FINDS</div><div class="sticker s2">WEEKEND<br />JOY</div>
+        </div>
+      </section>
+
+      <section class="collection-home wrap" aria-labelledby="collectionsHeading" hidden>
+        <div class="collection-home-heading">
+          <div>
+            <p class="eyebrow">FAMILY GUIDES</p>
+            <h2 id="collectionsHeading">Explore Collections</h2>
+            <p>Curated guides that make it easier to choose what to do together.</p>
+          </div>
+        </div>
+        <div class="collection-strip" id="collectionStrip"></div>
+      </section>
+
+      <section class="filter-area wrap" id="events">
+        <div class="section-heading"><div><p class="eyebrow">为你精选</p><h2 data-i18n="sectionTitle">今天想做点什么？</h2></div><p id="resultCount" class="result-count"></p></div>
+        <div class="mobile-quick-filters" aria-label="Quick activity filters">
+          <button id="mobileWeekend" type="button" data-i18n="weekend">本周末</button><button id="mobileNearby" type="button" data-i18n="nearMe">附近活动</button><button id="mobileFilterToggle" type="button" aria-expanded="false" aria-controls="filtersPanel"><span data-i18n="filter">Filter</span> <span>☷</span></button>
+        </div>
+        <div class="filters" id="filtersPanel" aria-label="Filter activities">
+          <div class="select-wrap date-priority"><label for="dateFilter" data-i18n="date">日期</label><select id="dateFilter"><option value="all" data-i18n="anyTime">任意时间</option><option value="today" data-i18n="today">今天</option><option value="weekend" data-i18n="weekend">本周末</option><option value="month" data-i18n="month">本月</option></select></div>
+          <div class="select-wrap sort-select"><label for="sortFilter" data-i18n="sort">排序</label><select id="sortFilter"><option value="recommended" data-i18n="sort推荐">推荐</option><option value="date" data-i18n="sortDate">按时间</option><option value="distance" data-i18n="sortDistance">离我最近</option></select></div>
+          <div class="select-wrap"><label for="cityFilter" data-i18n="city">城市</label><select id="cityFilter"></select></div>
+          <div class="select-wrap"><label for="ageFilter" data-i18n="age">孩子年龄</label><select id="ageFilter" aria-label="孩子年龄"></select></div>
+          <div class="chips" id="typeFilters" aria-label="Filter activities"><button class="chip active" data-type="all" aria-pressed="true" data-i18n="all">全部活动</button><button class="chip" data-type="sports" aria-pressed="false" data-i18n="sports">体育与比赛</button><button class="chip" data-type="shows" aria-pressed="false" data-i18n="shows">演出与表演</button><button class="chip" data-type="movies" aria-pressed="false" data-i18n="movies">电影与放映</button><button class="chip" data-type="museums" aria-pressed="false" data-i18n="museums">博物馆与展览</button><button class="chip" data-type="outdoor" aria-pressed="false" data-i18n="outdoor">户外自然</button><button class="chip" data-type="arts" aria-pressed="false" data-i18n="arts">艺术与创作</button><button class="chip" data-type="learning" aria-pressed="false" data-i18n="learning">学习与 STEM</button><button class="chip" data-type="play" aria-pressed="false" data-i18n="play">故事与玩乐</button><button class="chip" data-type="community" aria-pressed="false" data-i18n="community">社区与家庭</button><button class="chip" data-type="workshops" aria-pressed="false" data-i18n="workshops">课程与工作坊</button></div>
+        </div>
+        <p class="location-status" id="locationStatus" aria-live="polite" hidden></p>
+        <div class="cards" id="eventGrid" aria-live="polite"></div>
+        <div class="empty" id="emptyState" hidden><p id="emptyMessage"></p><button class="clear-filters" id="clearFilters" type="button" data-i18n="clearFilters">Clear filters</button></div>
+      </section>
+
+      <section class="how wrap" id="how"><p class="eyebrow" data-i18n="tipsEyebrow">出发前看看</p><h2 data-i18n="howTitle">周末出发小提示</h2><div class="how-grid"><article><b>01</b><h3 data-i18n="how1Title">出门前确认</h3><p data-i18n="how1Body">活动时间、名额和费用可能变化；出发前请查看主办方页面。</p></article><article><b>02</b><h3 data-i18n="how2Title">提前安排</h3><p data-i18n="how2Body">热门活动建议提前预约；户外活动留意天气、停车和步行距离。</p></article><article><b>03</b><h3 data-i18n="how3Title">先收藏，再决定</h3><p data-i18n="how3Body">点击心形收藏感兴趣的活动，周末可以在“已收藏”中一起查看。</p></article></div></section>
+    </main>
+    <footer><div class="wrap"><a class="brand" href="#top"><img class="brand-mark" src="../assets/brand/south-bay-family-finds-mark-v2.svg" width="36" height="36" alt="" /><span class="brand-name"><span>South Bay Family</span> <span class="brand-accent">Finds</span></span></a><p data-i18n="footer">为南湾家庭而做 · 活动信息请以主办方页面为准</p><div class="legal-links"><a class="privacy-link" href="../about.html" data-i18n="aboutContact">关于与联系</a><a class="privacy-link" href="../privacy.html" data-i18n="privacy">隐私与数据分析</a><a class="privacy-link" href="../terms.html" data-i18n="terms">条款与数据说明</a></div></div></footer>
+    <script src="../data/collections.js?v=20260921-1"></script>
+    <script src="../analytics.js?v=20260916-1"></script>
+    <script src="../map-navigation.js?v=20260919-1"></script>
+    <script src="../recommendation.js?v=20260912-1"></script>
+    <script src="../event-card.js?v=20260919-1"></script>
+    <script src="../age-policy.js?v=20260922-1"></script>
+    <script src="../collection-runtime.js?v=20260921-1"></script>
+    <script src="../collections.js?v=20260921-1"></script>
+    <script>window.SBFF_LOCALE = "zh"; window.SBFF_ASSET_BASE = "..";</script>
+    <script src="../app.js?v=20260925-2"></script>
+  </body>
+</html>
