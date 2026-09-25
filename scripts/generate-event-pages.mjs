@@ -115,7 +115,7 @@ function schema(event, session, canonical) {
 
 function render(event, pilot) {
   const session = firstSession(event);
-  const canonical = \`https://southbayfamilyfinds.com/events/\${pilot.slug}/\`;
+  const canonical = `https://southbayfamilyfinds.com/events/${pilot.slug}/`;
   const title = clean(event.title);
   const city = clean(event.city);
   const description = clean(event.description || event.parentSummary);
@@ -127,34 +127,34 @@ function render(event, pilot) {
   const age = clean(event.ageLabel || event.ageDisplay || '');
   const cost = clean(event.costLabel || '');
   const metaDescription = clean(
-    \`\${title}\${city ? \` in \${city}\` : ''}: dates, location and family details verified from the official event source.\`
+    `${title}${city ? ` in ${city}` : ''}: dates, location and family details verified from the official event source.`
   ).slice(0, 160);
   const eventSchema = schema(event, session, canonical);
 
   const fact = (label, value) => value
-    ? \`<div class="event-fact"><dt>\${escapeHtml(label)}</dt><dd>\${escapeHtml(value)}</dd></div>\`
+    ? `<div class="event-fact"><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`
     : '';
 
-  return \`<!doctype html>
+  return `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="\${escapeHtml(metaDescription)}" />
+  <meta name="description" content="${escapeHtml(metaDescription)}" />
   <meta property="og:site_name" content="South Bay Family Finds" />
-  <meta property="og:title" content="\${escapeHtml(title)} | South Bay Family Finds" />
-  <meta property="og:description" content="\${escapeHtml(metaDescription)}" />
+  <meta property="og:title" content="${escapeHtml(title)} | South Bay Family Finds" />
+  <meta property="og:description" content="${escapeHtml(metaDescription)}" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="\${canonical}" />
-  <meta property="og:image" content="\${escapeHtml(absoluteImage(event.image))}" />
+  <meta property="og:url" content="${canonical}" />
+  <meta property="og:image" content="${escapeHtml(absoluteImage(event.image))}" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link rel="canonical" href="\${canonical}" />
+  <link rel="canonical" href="${canonical}" />
   <link rel="icon" href="../../assets/brand/south-bay-family-finds-mark-v2.svg" type="image/svg+xml" />
-  <title>\${escapeHtml(title)}\${city ? \` in \${escapeHtml(city)}\` : ''} | South Bay Family Finds</title>
+  <title>${escapeHtml(title)}${city ? ` in ${escapeHtml(city)}` : ''} | South Bay Family Finds</title>
   <link rel="stylesheet" href="../../styles.css?v=20260830-1" />
   <link rel="stylesheet" href="../../design-system.css?v=20260919-1" />
   <link rel="stylesheet" href="../../event-detail.css?v=20260925-1" />
-  \${eventSchema ? \`<script type="application/ld+json">\${eventSchema.replaceAll('</', '<\\/')}</script>\` : ''}
+  ${eventSchema ? `<script type="application/ld+json">${eventSchema.replaceAll('</', '<\\/')}</script>` : ''}
 </head>
 <body class="site-page event-detail-page">
   <main>
@@ -164,36 +164,36 @@ function render(event, pilot) {
     </nav>
 
     <article class="event-detail wrap">
-      <nav class="event-breadcrumbs" aria-label="Breadcrumb"><a href="../../">Home</a><span>/</span><a href="../../#events">Family activities</a><span>/</span><span aria-current="page">\${escapeHtml(title)}</span></nav>
+      <nav class="event-breadcrumbs" aria-label="Breadcrumb"><a href="../../">Home</a><span>/</span><a href="../../#events">Family activities</a><span>/</span><span aria-current="page">${escapeHtml(title)}</span></nav>
 
       <header class="event-detail-header">
         <p class="eyebrow">FAMILY ACTIVITY</p>
-        <h1>\${escapeHtml(title)}</h1>
-        \${description ? \`<p class="event-detail-summary">\${escapeHtml(description)}</p>\` : ''}
+        <h1>${escapeHtml(title)}</h1>
+        ${description ? `<p class="event-detail-summary">${escapeHtml(description)}</p>` : ''}
       </header>
 
       <div class="event-detail-layout">
         <section class="event-detail-main" aria-labelledby="eventDetailsHeading">
           <h2 id="eventDetailsHeading">Event details</h2>
           <dl class="event-facts">
-            \${fact('Date & time', dateText(startDate))}
-            \${fact('Venue', place)}
-            \${fact('Address', address)}
-            \${fact('City', city)}
-            \${fact('Age', age)}
-            \${fact('Cost', cost)}
-            \${fact('Organizer', source)}
+            ${fact('Date & time', dateText(startDate))}
+            ${fact('Venue', place)}
+            ${fact('Address', address)}
+            ${fact('City', city)}
+            ${fact('Age', age)}
+            ${fact('Cost', cost)}
+            ${fact('Organizer', source)}
           </dl>
 
           <section class="event-source-note">
             <h2>Before you go</h2>
             <p>South Bay Family Finds uses organizer-provided information for this listing. Times, availability, pricing, and registration can change, so please confirm the latest details with the organizer before leaving.</p>
-            \${sourceUrl ? \`<p><a class="event-official-link" href="\${escapeHtml(sourceUrl)}" rel="noopener noreferrer">View official event source →</a></p>\` : ''}
+            ${sourceUrl ? `<p><a class="event-official-link" href="${escapeHtml(sourceUrl)}" rel="noopener noreferrer">View official event source →</a></p>` : ''}
           </section>
         </section>
 
         <aside class="event-detail-aside">
-          <img src="\${escapeHtml(absoluteImage(event.image))}" alt="" loading="eager" />
+          <img src="${escapeHtml(absoluteImage(event.image))}" alt="" loading="eager" />
           <a href="../../#events">Explore more South Bay family activities →</a>
         </aside>
       </div>
@@ -203,7 +203,7 @@ function render(event, pilot) {
   <footer><div class="wrap"><a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand/south-bay-family-finds-mark-v2.svg" width="36" height="36" alt="" /><span class="brand-name"><span>South Bay Family</span> <span class="brand-accent">Finds</span></span></a><p>Made for curious South Bay families · Please confirm details with the organizer</p><div class="legal-links"><a class="privacy-link" href="../../about.html">About &amp; contact</a><a class="privacy-link" href="../../privacy.html">Privacy &amp; analytics</a><a class="privacy-link" href="../../terms.html">Terms &amp; data notice</a></div></div></footer>
 </body>
 </html>
-\`;
+`;
 }
 
 const payload = JSON.parse(fs.readFileSync(DATA, 'utf8'));
@@ -213,13 +213,13 @@ const selected = [];
 for (const pilot of PILOTS) {
   const event = events.find(item => matches(item, pilot));
   if (!event) {
-    console.error(\`Pilot event not found: \${pilot.slug}\`);
+    console.error(`Pilot event not found: ${pilot.slug}`);
     process.exitCode = 1;
     continue;
   }
   const session = firstSession(event);
   if (!clean(event.title) || !clean(event.description || event.parentSummary) || !officialUrl(event, session)) {
-    console.error(\`Pilot event lacks minimum verified detail-page fields: \${pilot.slug}\`);
+    console.error(`Pilot event lacks minimum verified detail-page fields: ${pilot.slug}`);
     process.exitCode = 1;
     continue;
   }
@@ -237,5 +237,5 @@ for (const { pilot, event } of selected) {
   fs.writeFileSync(path.join(dir, 'index.html'), render(event, pilot));
 }
 
-console.log(\`Generated \${selected.length} pilot event detail pages:\`);
-for (const { pilot, event } of selected) console.log(\`- \${pilot.slug}: \${clean(event.title)}\`);
+console.log(`Generated ${selected.length} pilot event detail pages:`);
+for (const { pilot, event } of selected) console.log(`- ${pilot.slug}: ${clean(event.title)}`);
