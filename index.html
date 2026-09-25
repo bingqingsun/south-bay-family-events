@@ -17,17 +17,31 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "South Bay Family Finds",
-        "url": "https://southbayfamilyfinds.com/",
-        "description": "Find family activities worth doing across San José, Silicon Valley, and the Peninsula.",
-        "inLanguage": "en",
-        "publisher": {
-          "@type": "Organization",
-          "name": "South Bay Family Finds",
-          "url": "https://southbayfamilyfinds.com/",
-          "email": "hello@southbayfamilyfinds.com"
-        }
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://southbayfamilyfinds.com/#organization",
+            "name": "South Bay Family Finds",
+            "url": "https://southbayfamilyfinds.com/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://southbayfamilyfinds.com/assets/brand/south-bay-family-finds-mark-v2.svg"
+            },
+            "description": "An independent guide helping South Bay parents and caregivers find family activities worth doing together.",
+            "email": "hello@southbayfamilyfinds.com"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://southbayfamilyfinds.com/#website",
+            "name": "South Bay Family Finds",
+            "url": "https://southbayfamilyfinds.com/",
+            "description": "Find family activities worth doing across San José, Silicon Valley, and the Peninsula.",
+            "inLanguage": "en",
+            "publisher": {
+              "@id": "https://southbayfamilyfinds.com/#organization"
+            }
+          }
+        ]
       }
     </script>
     <title>South Bay Family Finds | Kids &amp; Family Activities</title>

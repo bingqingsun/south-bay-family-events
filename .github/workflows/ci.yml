@@ -18,6 +18,9 @@ on:
       - 'map-navigation.js'
       - 'scripts/map-navigation.test.mjs'
       - 'privacy.html'
+      - 'index.html'
+      - 'sitemap.xml'
+      - 'vercel.json'
       - '.github/workflows/**'
   push:
     branches: [main]
@@ -35,6 +38,9 @@ on:
       - 'map-navigation.js'
       - 'scripts/map-navigation.test.mjs'
       - 'privacy.html'
+      - 'index.html'
+      - 'sitemap.xml'
+      - 'vercel.json'
       - '.github/workflows/**'
 
 permissions:
@@ -64,6 +70,8 @@ jobs:
           node --check collection-runtime.js
           node --check collections.js
           node --check data/collections.js
+          node --check scripts/generate-sitemap.mjs
+          node --check scripts/seo-foundation.test.mjs
       - name: Run policy and data-contract tests
         run: |
           node scripts/test-event-summary-engine.mjs
@@ -82,3 +90,5 @@ jobs:
           node scripts/canonical-detail-pipeline.test.mjs
           node scripts/link-ui.test.cjs
           node scripts/palo-alto-special-events.test.mjs
+          node scripts/generate-sitemap.mjs --check
+          node scripts/seo-foundation.test.mjs
