@@ -2,7 +2,9 @@ import { readFile } from 'node:fs/promises';
 import { translationFingerprint, auditTranslationCatalog } from './event-translations.mjs';
 
 const events = JSON.parse(await readFile(new URL('../data/events.json', import.meta.url), 'utf8'));
-const catalog = JSON.parse(await readFile(new URL('../data/translations.zh.json', import.meta.url), 'utf8'));
+const primary = JSON.parse(await readFile(new URL('../data/translations.zh.json', import.meta.url), 'utf8'));
+const h2 = await readFile(new URL('../data/translations.zh.2026-h2.json', import.meta.url), 'utf8').then(JSON.parse).catch(() => ({ entries: [] }));
+const catalog = { ...primary, entries: [...(primary.entries || []), ...(h2.entries || [])] };
 const { stats, problems, duplicates } = auditTranslationCatalog(events, catalog);
 
 if (duplicates.length) {
@@ -21,14 +23,7 @@ const staleEntries = events.flatMap(event => {
   if (!entry) return [];
   const currentFingerprint = translationFingerprint(event);
   if (entry.sourceFingerprint === currentFingerprint) return [];
-  return [{
-    id: event.id,
-    title: event.title,
-    sourceFingerprint: entry.sourceFingerprint,
-    currentFingerprint,
-    description: event.description,
-    url: event.url || ''
-  }];
+  return [{ id: event.id, title: event.title, sourceFingerprint: entry.sourceFingerprint, currentFingerprint, description: event.description, url: event.url || '' }];
 });
 
 if (stats.stale) {
