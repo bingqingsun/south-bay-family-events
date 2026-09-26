@@ -11,6 +11,7 @@ on:
   push:
     branches:
       - main
+      - feature/multilingual-v1
     paths:
       - 'scripts/update-events.mjs'
       - 'scripts/event-translations.mjs'
