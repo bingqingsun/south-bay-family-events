@@ -1,10 +1,10 @@
 .weekend-picks-entry[hidden]{display:none!important}
 .weekend-picks-entry{margin-top:34px}
-.weekend-picks-entry-card{display:flex;align-items:center;min-height:280px;padding:32px;border:0;border-radius:22px;background-color:#2f5650;background-image:linear-gradient(90deg,rgba(20,49,46,.92) 0%,rgba(28,63,58,.78) 46%,rgba(35,72,66,.28) 78%,rgba(35,72,66,.08) 100%),url("assets/collections/weekend-picks-hero.svg");background-position:center;background-size:cover;box-shadow:0 14px 34px rgba(18,49,42,.14);text-decoration:none;color:#fff;overflow:hidden;transition:box-shadow .2s ease,transform .2s ease}
+.weekend-picks-entry-card{display:flex;align-items:center;min-height:280px;padding:32px;border:0;border-radius:22px;background-color:#2f5650;background-image:linear-gradient(90deg,rgba(16,35,39,.94) 0%,rgba(24,43,46,.80) 44%,rgba(32,52,54,.34) 74%,rgba(32,52,54,.10) 100%),url("https://images.pexels.com/photos/35005849/pexels-photo-35005849.jpeg?auto=compress&cs=tinysrgb&w=1800");background-position:center 48%;background-size:cover;box-shadow:0 14px 34px rgba(18,49,42,.14);text-decoration:none;color:#fff;overflow:hidden;transition:box-shadow .2s ease,transform .2s ease}
 .weekend-picks-entry-card:hover{box-shadow:0 20px 40px rgba(18,49,42,.22);transform:translateY(-3px)}
 .weekend-picks-entry-copy{max-width:660px;position:relative;z-index:1}
-.weekend-picks-entry-copy h2{margin:.25rem 0 .4rem;font-size:clamp(2rem,4.1vw,3rem);line-height:1.02;color:#fff;letter-spacing:-1.7px}
-.weekend-picks-entry-copy p{margin:.35rem 0;color:#f3f7f1}
+.weekend-picks-entry-copy h2{margin:.25rem 0 .4rem;font-size:clamp(2rem,4.1vw,3rem);line-height:1.02;color:#fff;letter-spacing:-1.7px;text-shadow:0 2px 16px rgba(0,0,0,.18)}
+.weekend-picks-entry-copy p{margin:.35rem 0;color:#f5f7f2}
 .weekend-picks-entry-copy .eyebrow{color:#ffd56c}
 .weekend-picks-entry-date{font-weight:700;color:#fff1bf!important}
 .weekend-picks-entry-cta{display:inline-flex;margin-top:12px;font-weight:800;color:#fff}
@@ -14,7 +14,7 @@
 /* Weekend Picks uses the same collection shell, with its own warm weekend identity. */
 .weekend-picks-page{background:#fff8ec}
 .weekend-picks-page .site-nav{background:#fffaf1}
-.weekend-picks-page .weekend-picks-collection-hero{background-color:#2f5650;background-image:linear-gradient(90deg,rgba(20,49,46,.94) 0%,rgba(27,60,56,.78) 44%,rgba(36,74,67,.27) 76%,rgba(36,74,67,.06) 100%),url("assets/collections/weekend-picks-hero.svg");background-position:center;background-size:cover;box-shadow:0 20px 46px rgba(73,71,40,.18)}
+.weekend-picks-page .weekend-picks-collection-hero{background-color:#2f5650;background-image:linear-gradient(90deg,rgba(15,33,38,.95) 0%,rgba(22,42,45,.82) 43%,rgba(31,53,54,.35) 74%,rgba(31,53,54,.08) 100%),url("https://images.pexels.com/photos/35005849/pexels-photo-35005849.jpeg?auto=compress&cs=tinysrgb&w=2000");background-position:center 48%;background-size:cover;box-shadow:0 20px 46px rgba(73,71,40,.18)}
 .weekend-picks-page .weekend-picks-collection-hero .eyebrow{color:#ffd76d}
 .weekend-picks-page .collection-section-heading .eyebrow{color:#d16f33}
 .weekend-picks-page .collection-event-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -37,4 +37,4 @@
 .weekend-picks-more-links a:hover{text-decoration:underline}
 
 @media(max-width:980px){.weekend-picks-page .collection-event-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:760px){.weekend-picks-entry{margin-top:22px}.weekend-picks-entry-card{min-height:330px;padding:24px;align-items:flex-end;background-position:62% center;border-radius:20px}.weekend-picks-entry-copy h2{font-size:35px}.weekend-picks-page .weekend-picks-collection-hero{background-position:62% center}.weekend-picks-page .collection-event-grid{grid-template-columns:1fr}.weekend-picks-more{align-items:flex-start;flex-direction:column;margin-top:36px;padding:24px}.weekend-picks-more-links{gap:10px}}
+@media(max-width:760px){.weekend-picks-entry{margin-top:22px}.weekend-picks-entry-card{min-height:330px;padding:24px;align-items:flex-end;background-position:63% center;border-radius:20px}.weekend-picks-entry-copy h2{font-size:35px}.weekend-picks-page .weekend-picks-collection-hero{background-position:63% center}.weekend-picks-page .collection-event-grid{grid-template-columns:1fr}.weekend-picks-more{align-items:flex-start;flex-direction:column;margin-top:36px;padding:24px}.weekend-picks-more-links{gap:10px}}
