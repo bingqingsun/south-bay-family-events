@@ -921,3 +921,16 @@
     height: 39px;
   }
 }
+
+/* Localized event title pairing: official name stays visible for source matching. */
+.event-title-official,
+.event-title-localized {
+  display: block;
+}
+.event-title-localized {
+  color: var(--sbff-muted);
+  font-size: .86em;
+  font-weight: 600;
+  line-height: 1.45;
+  margin-top: 3px;
+}
