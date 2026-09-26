@@ -9,8 +9,6 @@ on:
       - 'data/sources.json'
       - 'data/translations.zh.json'
       - 'data/translations.zh.js'
-      - 'data/translations.zh.js'
-      - 'data/translations.zh.json'
       - 'analytics.js'
       - 'app.js'
       - 'collection-runtime.js'
@@ -31,6 +29,8 @@ on:
     paths:
       - 'scripts/**'
       - 'data/sources.json'
+      - 'data/translations.zh.json'
+      - 'data/translations.zh.js'
       - 'analytics.js'
       - 'app.js'
       - 'collection-runtime.js'
@@ -66,6 +66,7 @@ jobs:
           node --check scripts/event-translations.mjs
           node --check scripts/event-translations.test.mjs
           node --check scripts/translation-qa.mjs
+          node --check scripts/translation-coverage-report.mjs
           node --check scripts/cupertino-detail-date.mjs
           node --check scripts/cupertino-audience.mjs
           node --check scripts/link-health.mjs
@@ -88,6 +89,7 @@ jobs:
           node scripts/event-translations.test.mjs
           node scripts/translation-overlay.test.mjs
           node scripts/translation-qa.mjs
+          node scripts/translation-coverage-report.mjs
           node scripts/cupertino-detail-date.test.mjs
           node scripts/cupertino-audience.test.mjs
           node scripts/age-policy.test.cjs && node scripts/update-events-age.test.mjs
