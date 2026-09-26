@@ -228,7 +228,19 @@
 
     node.querySelector('.event-icon').textContent = event.icon || '✦';
     node.querySelector('.tag').textContent = categoryLabels[event.type] || event.tag || 'Family activity';
-    node.querySelector('h3').textContent = eventText(event, 'title');
+    const titleNode = node.querySelector('h3');
+    const localizedTitle = isZh ? eventText(event, 'title') : '';
+    titleNode.textContent = '';
+    const officialTitle = document.createElement('span');
+    officialTitle.className = 'event-title-official';
+    officialTitle.textContent = event.title;
+    titleNode.append(officialTitle);
+    if (isZh && localizedTitle && localizedTitle !== event.title) {
+      const zhTitle = document.createElement('span');
+      zhTitle.className = 'event-title-localized';
+      zhTitle.textContent = localizedTitle;
+      titleNode.append(zhTitle);
+    }
 
     const facts = node.querySelector('.card-facts');
     const ageFact = node.querySelector('.fact-age');
