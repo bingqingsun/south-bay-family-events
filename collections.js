@@ -3,7 +3,7 @@
   const language = window.SBFF_LOCALE === 'zh' || document.documentElement.lang.toLowerCase().startsWith('zh') ? 'zh' : 'en';
   const isZh = language === 'zh';
   const assetBase = String(window.SBFF_ASSET_BASE || '../..').replace(/\/$/, '');
-  const eventText = (event, field) => isZh ? event.translations?.zh?.[field] || event[field] : event[field];
+  const eventText = (event, field) => { if (!isZh) return event[field]; const overlay = window.SBFF_TRANSLATIONS_ZH?.[event.id]; return overlay?.[field] || event.translations?.zh?.[field] || event[field]; };
   const ui = {
     showDescription: isZh ? '展开简介' : 'Show description',
     hideDescription: isZh ? '收起简介' : 'Hide description',
