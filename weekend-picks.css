@@ -1,5 +1,5 @@
 .weekend-picks-entry,.weekend-picks-entry[hidden]{display:none!important}
-.weekend-picks-entry-card{display:flex;align-items:center;min-height:280px;padding:32px;border:0;border-radius:22px;background-color:#2f5650;background-image:linear-gradient(90deg,rgba(16,35,39,.94) 0%,rgba(24,43,46,.80) 44%,rgba(32,52,54,.34) 74%,rgba(32,52,54,.10) 100%),url("https://images.pexels.com/photos/35005849/pexels-photo-35005849.jpeg?auto=compress&cs=tinysrgb&w=1800");background-position:center 48%;background-size:cover;box-shadow:0 14px 34px rgba(18,49,42,.14);text-decoration:none;color:#fff;overflow:hidden;transition:box-shadow .2s ease,transform .2s ease}
+.weekend-picks-entry-card{display:flex;align-items:center;min-height:280px;padding:32px;border:0;border-radius:22px;background-color:#355a53;background-image:linear-gradient(90deg,rgba(24,52,46,.9) 0%,rgba(38,75,64,.76) 44%,rgba(57,98,84,.3) 74%,rgba(76,121,104,.08) 100%),url("https://images.pexels.com/photos/35005849/pexels-photo-35005849.jpeg?auto=compress&cs=tinysrgb&w=1800");background-position:center 48%;background-size:cover;box-shadow:0 14px 34px rgba(18,49,42,.14);text-decoration:none;color:#fff;overflow:hidden;transition:box-shadow .2s ease,transform .2s ease}
 .weekend-picks-entry-card:hover{box-shadow:0 20px 40px rgba(18,49,42,.22);transform:translateY(-3px)}
 .weekend-picks-entry-copy{max-width:660px;position:relative;z-index:1}
 .weekend-picks-entry-copy h2{margin:.25rem 0 .4rem;font-size:clamp(2rem,4.1vw,3rem);line-height:1.02;color:#fff;letter-spacing:-1.7px;text-shadow:0 2px 16px rgba(0,0,0,.18)}
@@ -13,7 +13,7 @@
 /* Weekend Picks shares the homepage canvas while keeping its own editorial accents. */
 .weekend-picks-page{background:var(--cream,#fffdf7)}
 .weekend-picks-page .site-nav{background:var(--cream,#fffdf7)}
-.weekend-picks-page .weekend-picks-collection-hero{background-color:#2f5650;background-image:linear-gradient(90deg,rgba(15,33,38,.95) 0%,rgba(22,42,45,.82) 43%,rgba(31,53,54,.35) 74%,rgba(31,53,54,.08) 100%),url("https://images.pexels.com/photos/35005849/pexels-photo-35005849.jpeg?auto=compress&cs=tinysrgb&w=2000");background-position:center 48%;background-size:cover;box-shadow:0 20px 46px rgba(73,71,40,.18)}
+.weekend-picks-page .weekend-picks-collection-hero{background-color:#355a53;background-image:linear-gradient(90deg,rgba(22,49,44,.92) 0%,rgba(35,71,60,.78) 43%,rgba(55,95,82,.32) 74%,rgba(73,117,101,.08) 100%),url("https://images.pexels.com/photos/35005849/pexels-photo-35005849.jpeg?auto=compress&cs=tinysrgb&w=2000");background-position:center 48%;background-size:cover;box-shadow:0 20px 46px rgba(73,71,40,.18)}
 .weekend-picks-page .weekend-picks-collection-hero .eyebrow{color:#ffd76d}
 .weekend-picks-page .collection-section-heading .eyebrow{color:#d16f33}
 .weekend-picks-page .collection-event-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
