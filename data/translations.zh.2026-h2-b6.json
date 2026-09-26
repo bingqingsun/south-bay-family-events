@@ -1,0 +1,303 @@
+{
+  "version": 1,
+  "locale": "zh-CN",
+  "entries": [
+    {
+      "id": "rss-68df10f9023ff328007ce8c0",
+      "title": "1 对 1 技术帮助",
+      "description": "无论你需要制作 Word 文档、Excel 表格或 PowerPoint 演示文稿，还是需要帮助提交在线求职申请、政府文件，或学习新的在线工具，经验丰富且热心的技术辅导员都可以提供帮助。",
+      "sourceFingerprint": "d66aa8e804c30833fe04cfe84e20ed3609cb65df7df03e36e8cbff123efab393",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-6ab2dc3a129d8e0031f449e6",
+      "title": "湾区漫画与 Comix 展览",
+      "description": "展览延续至 1960 年代，介绍“地下漫画”的蓬勃发展。这一现象很大程度上兴起于湾区，并为现代图像小说和另类漫画的发展打开了大门。",
+      "sourceFingerprint": "077b35f2239f3d36d9bed665125ec6523822138165cf838f9c3c0bdcf212856f",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-6a405cd36db61d2800988006",
+      "title": "一起学钩针",
+      "description": "这是一个由志愿者组织的活动，将教参与者学习钩针编织。",
+      "sourceFingerprint": "83496b2628115187ae12566232e061efdb606a71475dfe2f2a328156791e2473",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-6a945a44be148200298b2ce7",
+      "title": "TinkerCad 3D 打印随到随学",
+      "description": "学习 Tinkercad 的基础设计，并通过 3D 打印机把自己的作品变成实物。",
+      "sourceFingerprint": "df30661ce25d05d955af1f104a95372f991c17609585bd04402896766b4dc75e",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-69cd48c08089f23c6765fcbe",
+      "title": "成人与青少年求职面试辅导",
+      "description": "与经验丰富的面试教练 Daniel 进行一对一交流，通过简历反馈和模拟面试帮助你为求职面试做准备。",
+      "sourceFingerprint": "1fde3c43f112fe0d7f4d2fd0c238662f5f58c9766c8cc7a8ef4fbd34dd991d15",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-693331718b29ea2800c2b582",
+      "title": "一对一技术帮助",
+      "description": "可协助解决基础技术问题，例如设置电子邮箱、撰写和发送邮件、使用邮件附件、网页搜索和基础数据录入，学习 Microsoft Word、Excel 以及 Google Docs 等网页办公工具，使用图书馆付费打印和复印设备，在手机或平板上下载应用等。",
+      "sourceFingerprint": "f9272f911dc81eecb58b674ba3d1f6471434064500fc90146870b69fbf36da19",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-69e687f0b6c4ac1fedcda50f",
+      "title": "为儿童读书",
+      "description": "参加 Reading to Children 活动可以帮助孩子发展想象力，并培养对书籍和阅读的兴趣。活动将在儿童区进行。",
+      "sourceFingerprint": "c48c082c60719db2556612081901592950802595552023001e3790074144e129",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-69bc6f201868469f5fc38599",
+      "title": "做志愿服务抵扣罚款",
+      "description": "志愿者可能协助清洁资料、书架、家具、电脑和儿童玩具。活动为 60 分钟；15 岁以下参与者必须与家长或监护人一起做志愿服务。不需要经验或特殊技能，图书馆会提供用品，名额有限。",
+      "sourceFingerprint": "6d902d6a7d14081b2f875b1f624fa3e7ea5f28ecf804b4881e85313238201909",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-6a4007fc29ca8dc67ac6f606",
+      "title": "友好刺绣小组",
+      "description": "喜欢十字绣和刺绣，或想学习这些手工吗？欢迎参加。",
+      "sourceFingerprint": "49c4cd92ddc871b57ce69fb6967402e2da3199532390b2c92b16d80213802188",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-6958022976261f280061ffaf",
+      "title": "音乐与律动",
+      "description": "这是一个适合全家参与的趣味互动体验，通过音乐与律动让各个年龄的参与者感受学习的乐趣。",
+      "sourceFingerprint": "22d189542321e13f98f0db35e2666d88661136846d60646f90ee4c3c8dcb4da9",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-69546cad726b4a92b251210a",
+      "title": "一对一技术帮助",
+      "description": "如需预约，请前往 Vineland Library，或致电 408-808-3000。",
+      "sourceFingerprint": "2cf9da6a6e72894847f758c20da9f69d0a6f678d503eeefdf96d51bf6078f96d",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-6a6cdf460d65ac3600438923",
+      "title": "OneinMath：Seven Trees Library K-3 数学项目",
+      "description": "这个面向小学 K-3 学生的免费项目帮助孩子建立自信并强化数学技能。",
+      "sourceFingerprint": "fdb35dd69c476a5209ef837ba8be163c62985d8511359abc1a4de30ae68f4470",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-6a569b11fa641fe01af37455",
+      "title": "OneinMath：Edenvale Branch K-3rd 数学项目",
+      "description": "项目重点是帮助低龄学生建立自信，并培养对数学的兴趣。",
+      "sourceFingerprint": "972634db8095f419ec9681262423398549810926053336960083218ddd9c51b4",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-6a6555353edb05633e904b2d",
+      "title": "OneinMath：Tully Branch K-3rd 数学项目",
+      "description": "项目重点是帮助低龄学生建立自信并培养对数学的兴趣，适合 K-3rd 年级儿童。",
+      "sourceFingerprint": "55700af54174112d7ce341e28de83550bc8ee88440467564998287e035f3965a",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "chcp-91648b75759448dc",
+      "title": "CAH 博物馆开放日",
+      "description": "CAH Museum Open 将于 2026 年九月 26 日 12:00 PM - 3:45 PM 在 Chinese American Historical Museum 举行，地址为 635 Phelan Ave, San Jose, CA 95112。Chinese American Historical Museum（CAHM）位于 Ng Shing Gung 建筑内，是 San Jose Kelley Park 中 History Park 的一部分。",
+      "sourceFingerprint": "ee20061a20954b4d4208de251098434037058468456106c46bea547e528abf3d",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-68faec5706078d3600744ca4",
+      "title": "与 Sandy 和 Kent 一起跳排舞",
+      "description": "报名后，你会收到活动提醒邮件，其中包含课堂播放列表链接，方便课后练习。",
+      "sourceFingerprint": "2a1b66a3090235823633072260b35154307166576939d9150658990706442296",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-6946005fea69de6e001069c5",
+      "title": "家庭故事时间",
+      "description": "一起来唱歌、念童谣、听故事吧！",
+      "sourceFingerprint": "0a063a9c43c829b85d50863126b93819925260ce27acf9bc647318e795c13cbe",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-6a90cf21660e510bf44040b3",
+      "title": "Yarn Buddies / Pequeños Tejedores 编织小组",
+      "description": "完成这一系列课程后，你将能够织出一个基础编织作品。",
+      "sourceFingerprint": "99cc4687596a63ec3cba2a8294ffeb314b028a23c485f482637d95c06054c8ca",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "south-first-fridays-b1e89ce0480d11e3",
+      "title": "South FIRST FRIDAYS ArtWalk SJ + Street Mrkt",
+      "description": "这是参观 Street Mrkt 的最后机会。这个独立城市艺术市集位于 So. 1st St.，在 Anno Domini 与 KALEID Gallery 前方；你可以在这里发现喜欢的作品，同时支持本地艺术家和创作者。",
+      "sourceFingerprint": "e3a52b75cc0bcc93477841a5ad1ef8d1b23665c7142742335c68e69003810725",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "chcp-919aeccfaa872a7e",
+      "title": "HSJ 筹款活动：Valley of Heart's Delight",
+      "description": "这场庆祝活动表彰社区领导力，并支持保存和分享 Santa Clara Valley 丰富的文化历史。",
+      "sourceFingerprint": "6e44fde5ed995deaf95c8ef1b2589463acf0b222d8bacdb2a8f43cc49d55f62f",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-d54ef38283bc7e87",
+      "title": "宝宝手语故事时间",
+      "description": "故事时间结束后还有自由玩耍环节。欢迎来到图书馆，Arianna 馆员将带来一系列面向宝宝的手语故事时间。",
+      "sourceFingerprint": "c20c71d7a6f7772142211403c57f48f4d88897777b30f7307dd2e4bec374132d",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "chcp-827dad8205dc45a9",
+      "title": "CHCP SDCAP 迎新说明会",
+      "description": "午餐后将介绍讲解员培训手册，并安排 Chinese American Historical Museum 特别导览，同时提供有关 2026-2027 年 SDCAP 活动和项目的具体信息。",
+      "sourceFingerprint": "9b68df52ff4229bbaf53be812a89bf4063a0ad6387806a9c650f6d52198f039c",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-6ab709d6c9d1b8187a99590d",
+      "title": "Sensor E 感官舒缓站",
+      "description": "欢迎来体验 Sensor E。这个组织通过感官游戏促进人们跨越差异、建立联结。",
+      "sourceFingerprint": "8052697697541256e72f5028bf7fcc9cb54662b2690df7876551909624576694",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-6a08e108e13d3b4603b486ec",
+      "title": "Jahri's World 儿童与家庭演出",
+      "description": "欢迎来到庭院参加这场包容、有趣的儿童与家庭嘻哈音乐活动。",
+      "sourceFingerprint": "834ea72a2868f05a8b343486984c274e4303968a713387652172146ac75f4b9c",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-6a74f2cd9006f75353156cdb",
+      "title": "Kira Hooks 音乐演出｜菲律宾裔美国人历史月",
+      "description": "如果填写表格时需要帮助，请咨询当地分馆工作人员，致电 (408) 540-3945，或发送邮件至 ask@lib.sccgov.org。",
+      "sourceFingerprint": "d5a3c020f7aa82da666fa6cb4384218b5e6f0ecf3c0ad3485295761d5bca97ce",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-6a5be2877b79214226a98592",
+      "title": "0-5 岁 Stay and Play Cafe",
+      "description": "欢迎来听故事、唱歌，并参加互动游戏！",
+      "sourceFingerprint": "26f6b8c3984a741f40daac4602c7a0325248f2241548e7c24b29e54e8324091e",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-6a80b28c452bb101b575693a",
+      "title": "游戏俱乐部（4 - 8 年级）",
+      "description": "参加 Gaming Club，一起玩 Super Smash Bros、Mario Kart 等电子游戏。",
+      "sourceFingerprint": "4e4e09078ab99d0632909c7785b2d8cefdff860de52eab0d30d13c56318c13dd",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-6ab6fcbd86d845003118d623",
+      "title": "被遗忘的声音：战时加州被迫迁移的意大利裔美国人",
+      "description": "了解监控、公民权利遭侵犯，以及长期被掩埋并代际延续的创伤。",
+      "sourceFingerprint": "bdd95b32cb48f9a494f52eb286161464051401d03dca2c63eca2d7f1457dfb4e",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-6ab70960d6cf1f1a037de276",
+      "title": "儿童 Saranggola（风筝）手工",
+      "description": "制作 saranggola 庆祝菲律宾文化传承月。Saranggola 是菲律宾儿童常放的一种简单风筝。",
+      "sourceFingerprint": "1edb70554227a0dd4200ed3ed8e7dc18e2ac7fd30b142d9b3d12d1fc079678f2",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-6ab6fef0d6cf1f1a037ddfcf",
+      "title": "被遗忘的声音：战时加州被迫迁移的意大利裔美国人",
+      "description": "了解监控、公民权利遭侵犯，以及长期被掩埋并代际延续的创伤。",
+      "sourceFingerprint": "bdd95b32cb48f9a494f52eb286161464051401d03dca2c63eca2d7f1457dfb4e",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-6ab6ff1531e9a41a0fbc9415",
+      "title": "被遗忘的声音：战时加州被迫迁移的意大利裔美国人",
+      "description": "了解监控、公民权利遭侵犯，以及长期被掩埋并代际延续的创伤。",
+      "sourceFingerprint": "bdd95b32cb48f9a494f52eb286161464051401d03dca2c63eca2d7f1457dfb4e",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-6aa45712101eb7003f2f5c77",
+      "title": "6-8 年级 To Be Read 读书会",
+      "description": "活动中将一起讨论所读书籍，并进行一项有趣的活动。",
+      "sourceFingerprint": "1c4f303f53d98ba3fa76398e43562a9413796027f979460f0db5bf70d67f2013",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "rss-6ab30263001a4a0e055b4845",
+      "title": "Spooktacular 手提袋涂色活动",
+      "description": "为手提袋设计秋季图案、与万圣节讨糖服装搭配的图案，或任何你喜欢的创意图案。",
+      "sourceFingerprint": "69f02fb856853a9e3b31c7b82ac5667e813eb313518f446959066855221e241e",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    }
+  ]
+}
