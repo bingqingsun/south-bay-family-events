@@ -4,7 +4,8 @@ let events = [];
 const translationEnabled = true;
 const assetBase = String(window.SBFF_ASSET_BASE || '.').replace(/\/$/, '');
 const initialLanguage = window.SBFF_LOCALE === 'zh' || document.documentElement.lang.toLowerCase().startsWith('zh') ? 'zh' : 'en';
-const state = { type: 'all', age: 'all', city: 'all', date: 'all', sort: 'recommended', query: '', position: null, locationRequested: false, locationPending: false, locationFailed: false, saved: JSON.parse(localStorage.getItem('southBaySaved') || '[]'), onlySaved: false, language: initialLanguage };
+const requestedSavedOnly = new URLSearchParams(window.location.search).get('saved') === '1';
+const state = { type: 'all', age: 'all', city: 'all', date: 'all', sort: 'recommended', query: '', position: null, locationRequested: false, locationPending: false, locationFailed: false, saved: JSON.parse(localStorage.getItem('southBaySaved') || '[]'), onlySaved: requestedSavedOnly, language: initialLanguage };
 const grid = document.querySelector('#eventGrid');
 const track = (name, parameters = {}) => window.trackAnalyticsEvent?.(name, parameters);
 function safeOutboundUrl(value) {
