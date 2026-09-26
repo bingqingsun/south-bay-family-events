@@ -5,21 +5,66 @@
     try {
       const url = new URL(value);
       url.hash = '';
-      if (!url.search) url.pathname = url.pathname.replace(/\/$/, '') || '/';
+      url.hostname = url.hostname.toLowerCase().replace(/^www\./, '');
+      url.pathname = url.pathname.replace(/\/+$/, '') || '/';
+      [...url.searchParams.keys()].forEach(key => {
+        if (/^(utm_|fbclid$|gclid$|mc_)/i.test(key)) url.searchParams.delete(key);
+      });
+      url.searchParams.sort();
       return url.href.replace(/\/$/, '');
     } catch {
       return String(value || '').trim().replace(/\/$/, '');
     }
   }
 
+  function urlIdentity(value) {
+    try {
+      const url = new URL(normalizeUrl(value));
+      const identityParams = ['id', 'event', 'eventid', 'event_id', 'eid'];
+      const identity = identityParams.map(key => [key, url.searchParams.get(key)]).find(([, val]) => val);
+      return {
+        host: url.hostname,
+        path: url.pathname.replace(/\/+$/, '') || '/',
+        identityKey: identity?.[0] || '',
+        identityValue: identity?.[1] || ''
+      };
+    } catch {
+      return null;
+    }
+  }
+
+  function urlsMatch(left, right) {
+    const a = normalizeUrl(left);
+    const b = normalizeUrl(right);
+    if (!a || !b) return false;
+    if (a === b) return true;
+    const ai = urlIdentity(a);
+    const bi = urlIdentity(b);
+    if (!ai || !bi || ai.host !== bi.host) return false;
+    if (ai.identityValue && bi.identityValue && ai.identityValue === bi.identityValue) return true;
+    return ai.path === bi.path && !ai.identityValue && !bi.identityValue;
+  }
+
   function eventUrls(event) {
     return [event.url, event.sourceUrl, event.officialUrl, event.link, event.detailsUrl, event.registrationUrl]
-      .filter(Boolean)
-      .map(normalizeUrl);
+      .filter(Boolean);
+  }
+
+  function normalizeTitle(value) {
+    return String(value || '')
+      .normalize('NFKD')
+      .replace(/[’‘`]/g, "'")
+      .replace(/&/g, ' and ')
+      .replace(/\b20\d{2}\b/g, ' ')
+      .replace(/\b\d+(?:st|nd|rd|th)\s+annual\b/gi, ' ')
+      .replace(/\bannual\b/gi, ' ')
+      .replace(/[^a-z0-9]+/gi, ' ')
+      .trim()
+      .toLowerCase();
   }
 
   function titleCandidates(ref) {
-    return [ref.title, ...(ref.aliases || [])].filter(Boolean).map(value => String(value).trim().toLowerCase());
+    return [...new Set([ref.title, ...(ref.aliases || [])].filter(Boolean).map(normalizeTitle).filter(Boolean))];
   }
 
   function resolveEvent(ref, events) {
@@ -29,13 +74,12 @@
       if (direct) return direct;
     }
     if (ref.url) {
-      const wanted = normalizeUrl(ref.url);
-      const byUrl = events.find(event => eventUrls(event).includes(wanted));
+      const byUrl = events.find(event => eventUrls(event).some(value => urlsMatch(ref.url, value)));
       if (byUrl) return byUrl;
     }
     const names = titleCandidates(ref);
     if (!names.length) return null;
-    return events.find(event => names.includes(String(event.title || '').trim().toLowerCase())) || null;
+    return events.find(event => names.includes(normalizeTitle(event.title))) || null;
   }
 
   function dateKey(value) {
@@ -123,6 +167,8 @@
 
   window.SBFFWeekendPicksRuntime = Object.freeze({
     normalizeUrl,
+    normalizeTitle,
+    urlsMatch,
     resolveEvent,
     eventOverlapsWeekend,
     currentPacificDate,
