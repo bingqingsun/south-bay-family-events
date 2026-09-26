@@ -9,6 +9,7 @@ on:
       - 'data/sources.json'
       - 'data/translations.zh*.json'
       - 'data/translations.zh*.js'
+      - 'data/weekend-picks.js'
       - 'analytics.js'
       - 'app.js'
       - 'collection-runtime.js'
@@ -16,7 +17,12 @@ on:
       - 'collections.css'
       - 'data/collections.js'
       - 'collections/**'
+      - 'weekend-picks.js'
+      - 'weekend-picks-runtime.js'
+      - 'weekend-picks.css'
+      - 'weekend-picks/**'
       - 'scripts/collection-runtime.test.mjs'
+      - 'scripts/weekend-picks-runtime.test.mjs'
       - 'map-navigation.js'
       - 'scripts/map-navigation.test.mjs'
       - 'privacy.html'
@@ -31,6 +37,7 @@ on:
       - 'data/sources.json'
       - 'data/translations.zh*.json'
       - 'data/translations.zh*.js'
+      - 'data/weekend-picks.js'
       - 'analytics.js'
       - 'app.js'
       - 'collection-runtime.js'
@@ -38,7 +45,12 @@ on:
       - 'collections.css'
       - 'data/collections.js'
       - 'collections/**'
+      - 'weekend-picks.js'
+      - 'weekend-picks-runtime.js'
+      - 'weekend-picks.css'
+      - 'weekend-picks/**'
       - 'scripts/collection-runtime.test.mjs'
+      - 'scripts/weekend-picks-runtime.test.mjs'
       - 'map-navigation.js'
       - 'scripts/map-navigation.test.mjs'
       - 'privacy.html'
@@ -85,6 +97,10 @@ jobs:
           node --check collection-runtime.js
           node --check collections.js
           node --check data/collections.js
+          node --check weekend-picks-runtime.js
+          node --check weekend-picks.js
+          node --check data/weekend-picks.js
+          node --check scripts/weekend-picks-runtime.test.mjs
           node --check scripts/generate-sitemap.mjs
           node --check scripts/seo-foundation.test.mjs
       - name: Run policy and data-contract tests
@@ -107,6 +123,7 @@ jobs:
           node scripts/recommendation.test.mjs
           node scripts/map-navigation.test.mjs
           node scripts/collection-runtime.test.mjs
+          node scripts/weekend-picks-runtime.test.mjs
           node scripts/link-health.test.mjs
           node scripts/detail-enrichment.test.mjs
           node scripts/canonical-detail-pipeline.test.mjs
