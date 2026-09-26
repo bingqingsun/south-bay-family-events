@@ -1,8 +1,10 @@
 import { readFile } from 'node:fs/promises';
 
 const events = JSON.parse(await readFile(new URL('../data/events.json', import.meta.url), 'utf8'));
-const catalog = JSON.parse(await readFile(new URL('../data/translations.zh.json', import.meta.url), 'utf8'));
-const approvedIds = new Set((catalog.entries || []).filter(entry => entry.status === 'approved').map(entry => entry.id));
+const primary = JSON.parse(await readFile(new URL('../data/translations.zh.json', import.meta.url), 'utf8'));
+const h2 = await readFile(new URL('../data/translations.zh.2026-h2.json', import.meta.url), 'utf8').then(JSON.parse).catch(() => ({ entries: [] }));
+const entries = [...(primary.entries || []), ...(h2.entries || [])];
+const approvedIds = new Set(entries.filter(entry => entry.status === 'approved').map(entry => entry.id));
 
 const today = '2026-09-25';
 const active = events
@@ -13,7 +15,12 @@ const active = events
   .sort((a, b) => String(a.dateValue || '').localeCompare(String(b.dateValue || '')) || String(a.title || '').localeCompare(String(b.title || '')));
 
 const missing = active.filter(event => !approvedIds.has(event.id));
-const batch = missing.slice(0, 60).map(event => ({
+const seen = new Set();
+const batch = missing.filter(event => {
+  if (seen.has(event.id)) return false;
+  seen.add(event.id);
+  return true;
+}).slice(0, 60).map(event => ({
   id: event.id,
   dateValue: event.dateValue || '',
   title: event.title || '',
