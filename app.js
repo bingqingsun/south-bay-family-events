@@ -101,7 +101,7 @@ Object.assign(venueCoordinates, {
   '3088 Olsen Dr, San Jose': [37.3220465, -121.948778]
 });
 const t = key => copy[state.language][key];
-const eventText = (event, field) => translationEnabled && state.language === 'zh' ? event.translations?.zh?.[field] || event[field] : event[field];
+const eventText = (event, field) => { if (!(translationEnabled && state.language === 'zh')) return event[field]; const overlay = window.SBFF_TRANSLATIONS_ZH?.[event.id]; return overlay?.[field] || event.translations?.zh?.[field] || event[field]; };
 const categoryLabel = event => categoryLabels[event.type || 'community']?.[state.language === 'zh' ? 0 : 1] || event.tag;
 function searchMatches(event, query) {
   const terms = String(query || '').trim().toLowerCase().split(/\s+/).filter(Boolean);
