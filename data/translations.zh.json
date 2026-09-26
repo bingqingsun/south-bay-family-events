@@ -702,6 +702,266 @@
       "status": "approved",
       "translationSource": "editorial-reviewed",
       "reviewedAt": "2026-09-26T01:21:00Z"
+    },
+    {
+      "id": "series-669e7e8a2c2a8cb9",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a962ae1660e510bf440ac01",
+      "sourceFingerprint": "af627a1a7b2daf671e2acf88dedfbc68f219a1ce3d2474cd6ee3a6942f772d0c",
+      "title": "《The Songs of Nature》艺术展",
+      "description": "从那以后，我们开始每周四一起画水彩。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "series-b5868ea0b99fee4b",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/699dd40c1c129a205bccfe14",
+      "sourceFingerprint": "9151281b5d59b0d9adf0ff52fb542afb33bad3ff5f60a46ca072aa1d071716d2",
+      "title": "周一早晨冥想与正念",
+      "description": "跟随 Manisha 练习 20 分钟冥想，并用 10 分钟提问交流。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "rss-6a8a3bc3feae9600380752e8",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a8a3bc3feae9600380752e8",
+      "sourceFingerprint": "7838be6bb6b62d2919fcfa6de59a1e7de22be123d5b76439bcf78338c86b8304",
+      "title": "Little Learners 幼儿学习俱乐部",
+      "description": "3–5 岁儿童会通过不同主题和动手活动培养早期读写能力。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "series-cc3068f5b9a5009b",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a760e36e30fe4845967b5e7",
+      "sourceFingerprint": "4e874801e430d25733eaf9c66e9a5933e420cb28a80b6051bd84facbae299828",
+      "title": "K–1 年级 Bookcaterpillars 读书会",
+      "description": "如果能参加，请到儿童参考台报名并领取书籍。每月 1 日开始报名和领书。读书会现场会一起阅读，也可以提前读完。活动会提供手工材料和零食。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "series-1256e20570dc334a",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a8252f49d8416003f69bcf2",
+      "sourceFingerprint": "2a73b407135582e118eb27c508bd5e2006175dbdf7df22775ac67e1aad1fdf26",
+      "title": "K–6 年级作业辅导",
+      "description": "由热心的大学生志愿导师带领，帮助孩子理解难点并巩固学习。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "rss-694338476724c63d00e77928",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/694338476724c63d00e77928",
+      "sourceFingerprint": "644dd9742cb4f2d177d552e1dfc116eaf8dfed7463579fbe44ed2e916852ecf2",
+      "title": "4–6 年级 Books & Bricks 读书与 LEGO 俱乐部",
+      "description": "欢迎四到六年级学生参加读书和 LEGO 搭建俱乐部！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "series-a4b2721439034315",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a85008636204e08fbb56c8f",
+      "sourceFingerprint": "f1c4ab6d1399eabb03b957df0b733ee47dd9185ec54e05c9ec2796c5a6197bef",
+      "title": "K–6 年级作业辅导",
+      "description": "周一、周二、周三和周四 4 p.m.–5:30 p.m. 有导师提供作业辅导。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "series-92dfad9cdfad220a",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a88c57a2656cb0046723955",
+      "sourceFingerprint": "97c16a3af22604ac157dd67dde015fde474e3f3ba60b088f9b931d7a2d382e59",
+      "title": "K–6 年级作业辅导",
+      "description": "周一和周三 4 p.m.–5:30 p.m. 有导师提供作业辅导。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "series-4b5ccdcbc588208e",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a7fb7c9d4b10d00300695bf",
+      "sourceFingerprint": "ea470e6dc7e1dfa783f11e87fac73ebf374bd791e4520a2b915344761349206f",
+      "title": "2–3 年级 Bookworms 读书会",
+      "description": "如果能参加，请到儿童参考台报名并领取书籍。每月 1 日开始报名和领书。读书会现场会一起阅读，也可以提前读完。活动会提供手工材料和零食。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "series-e54ec45597fca1b4",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a823b82be1482002987cd01",
+      "sourceFingerprint": "19e016aa61f45f124a729ba937a34fa835847caec43c2b2640817ca202d45d4e",
+      "title": "Homework Help / Ayuda con la Tarea 作业辅导",
+      "description": "由热心的青少年志愿导师带领，帮助理解难点并巩固学习。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "series-5ad2ca9463aa00d9",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a8380583b6c71003e598930",
+      "sourceFingerprint": "cd896050c33d5672f61d24ac87f1e8799bfaab8463513bf847657815ddff4603",
+      "title": "Create-N-Play 创作与游戏",
+      "description": "周一晚上到儿童区，和 Librarian Beth 一起用手工方式探索 Science、Technology、Engineering、Art 和 Math。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "series-34d0b34c56f66607",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a7fafcfaafa6100295cbd51",
+      "sourceFingerprint": "fe22617d23c90636b5938e72943fe941bcc5ff532bd03518f9ce41ebc44601a9",
+      "title": "睡衣故事时间 / Hora de Cuentos en Pijama",
+      "description": "边玩边学。每周一 6:30pm 在 Burrow 举行。欢迎来到 Gilroy 图书馆的睡衣故事时间，一起读故事、唱歌，并和图书馆员 Cameron 玩互动游戏。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "series-fc6e89ea9b041ed3",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/69306df2d875af6300cfe182",
+      "sourceFingerprint": "fad1033779dc19297795ea514f05a82f683f9c5d5e2f7595d4c940bc81644f2d",
+      "title": "周一冥想与正念",
+      "description": "跟随 Manisha 练习 20 分钟冥想，并用 10 分钟提问交流。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "stanford-ee23791e7097f721",
+      "sourceUrl": "https://events.stanford.edu/event/copy-of-pediatric-grand-rounds-cme-beyond-bias-dreaming-designing-and-doing-justice-in-pediatric-medical-education",
+      "sourceFingerprint": "9fc72f7602adff6532eb205eee469a52683b49720b927094befbec9bb5f79adb",
+      "title": "儿科 Grand Rounds（CME）：大麻烟雾与儿童",
+      "description": "学习目标：了解大麻烟雾的组成，以及为什么儿童吸入可能并不安全；回顾儿童接触大麻烟雾的流行病学；了解相关潜在影响和已知后果。线下地点：Center for Academic Medicine Grand Rounds Room，453 Quarry Road, Palo Alto, CA 94304。也可注册通过 Zoom 参加。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "rss-699f624cb0595799c09f604f",
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/699f624cb0595799c09f604f",
+      "sourceFingerprint": "3aafb6be032aeaf2dc0cf4a1737861622924af3325d535d341dac41f8ea831d8",
+      "title": "家庭故事时间",
+      "description": "一起来唱歌、念童谣、听故事吧！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "series-45f793e28c6d5f23",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a08e112748daf857d58e34f",
+      "sourceFingerprint": "918e85501c9ffedd64c2c51ae2cc1a0620a7b66e01aee8a4421de367e9592799",
+      "title": "幼儿故事时间",
+      "description": "这场故事时间包含大量动作、唱歌和互动，特别适合已经坐不住、喜欢活动的小幼儿。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "series-5f970519fb5870c4",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a46ad9d0e851028002ec771",
+      "sourceFingerprint": "6241bcc3214efd94cddfb8412c63a6e12221c839cd4a6bc05b227bcebe50c584",
+      "title": "音乐与律动故事时间",
+      "description": "一起来听音乐、听故事、快乐游戏，很适合有幼儿的家庭。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "series-cdbb8e3f153e3051",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a55bdc71006a63d00224460",
+      "sourceFingerprint": "701132322c451037e624ea38f0a3c1f25d38d2e47bf37a701b398ed292a81646",
+      "title": "学步前宝宝 Baby Bouncers 亲子活动",
+      "description": "这是面向宝宝和照护者的早期读写活动，包括传统童谣、膝上互动、身体律动、歌曲，以及非常简短易懂的图画书。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "series-0daae70389b24b54",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a56d18488e9bf280030f04b",
+      "sourceFingerprint": "3bf1eb8ecffe9f484bfb55ae23ed7d796bb4f7695367c9c5f063ccaacf32057c",
+      "title": "中英双语家庭故事时间",
+      "description": "参加充满动作、唱歌和互动的欢乐故事时间！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "rss-68afa7b0022de53d00d2717a",
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/68afa7b0022de53d00d2717a",
+      "sourceFingerprint": "4e8abafbde74407026ad10354f573464225e0c657d06d396d9ca3f7902f0e2b2",
+      "title": "LEGO 星期二",
+      "description": "发挥想象力，搭建有趣的作品！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "rss-6a83545236204e08fbb50dae",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a83545236204e08fbb50dae",
+      "sourceFingerprint": "e7f3d59f4634c6ac03271e6e9c761c96bd6eca538c2ccbda1695298ed6a2c43e",
+      "title": "KidsCRAFT：纸旋转玩具",
+      "description": "欢迎孩子们到 Saratoga Library 一起制作纸旋转玩具！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "rss-6a90acfcaafa6100295fa84a",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a90acfcaafa6100295fa84a",
+      "sourceFingerprint": "f73e2969c3594625e5d5eee68b18ee6a64473b1984d883dd34b09c754ca18aa3",
+      "title": "转呀转，再转一次",
+      "description": "到 Community Room 设计属于自己的旋转玩具和 whirligig。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "rss-6a8775f9392e9c02993bf166",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a8775f9392e9c02993bf166",
+      "sourceFingerprint": "66629ee81afbde7e33dfff7c61ea7761a0c2e0ac4629d23def90b2ad1f28fbec",
+      "title": "4–5 年级 Bookcrocs 读书会",
+      "description": "本月阅读 E.B. White 的《Stuart Little》。讨论会时间：2026 年九月 29 日星期二 4–5pm。能参加的话，请到儿童参考台报名并领取书籍，并在活动前读完。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "series-79ca1300ee70862e",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a86814fdb86e4004d866f39",
+      "sourceFingerprint": "df979f5ded4b15d2394c8c82a3d456e5a3c976775374ee814c2f098e225b1576",
+      "title": "K–6 年级作业辅导",
+      "description": "每周二和周四 4:30p.m.–6:00p.m.，有受过培训的导师提供免费作业辅导。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "rss-6a8f6dcd6383850d1b2442e0",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a8f6dcd6383850d1b2442e0",
+      "sourceFingerprint": "ed764e36283178f633d511ef3459c2269d5df3b68259014d48b358917e032b25",
+      "title": "制作自己的钥匙扣",
+      "description": "用制作挂绳钥匙扣的有趣夜晚开启新学年，可以挂在钥匙或书包上！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "rss-68faebfc61706d28001f4d6e",
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/68faebfc61706d28001f4d6e",
+      "sourceFingerprint": "5c812540c31c514347a6b76c51724fe646cf93419505a0efc74c4342838ceb54",
+      "title": "线上正念冥想",
+      "description": "小组分享和问答是活动的重要部分，参与者可以一起回顾冥想体验并建立社区连接。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:25:00Z"
     }
   ]
 }
