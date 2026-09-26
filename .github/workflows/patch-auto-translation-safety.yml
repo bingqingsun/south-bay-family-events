@@ -1,0 +1,87 @@
+name: Patch automatic translation safety
+
+on:
+  push:
+    branches:
+      - feature/multilingual-v1
+    paths:
+      - '.github/workflows/patch-auto-translation-safety.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/multilingual-v1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Patch automatic translation chain
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace(path, old, new):
+              p = Path(path)
+              s = p.read_text()
+              if old not in s:
+                  raise SystemExit(f'missing expected source in {path}: {old[:120]}')
+              p.write_text(s.replace(old, new))
+
+          replace('scripts/generate-event-translations.mjs',
+          "      translationSource: 'local-opus-mt-en-zh',\n      reviewedAt: new Date().toISOString()",
+          "      translationSource: 'auto-local-opus-mt-en-zh',\n      qualityGate: 'automated-qa',\n      generatedAt: new Date().toISOString()")
+
+          replace('scripts/event-translations.mjs',
+          "        translatedAt: entry.reviewedAt || generatedAt,",
+          "        translatedAt: entry.reviewedAt || entry.generatedAt || generatedAt,")
+
+          old_app = "const eventText = (event, field) => { if (!(translationEnabled && state.language === 'zh')) return event[field]; const overlay = window.SBFF_TRANSLATIONS_ZH?.[event.id]; return overlay?.[field] || event.translations?.zh?.[field] || event[field]; };"
+          new_app = "const eventText = (event, field) => {\n  if (!(translationEnabled && state.language === 'zh')) return event[field];\n  const embedded = event.translations?.zh;\n  const overlay = window.SBFF_TRANSLATIONS_ZH?.[event.id];\n  const overlayIsCurrent = Boolean(overlay?.sourceFingerprint && embedded?.fingerprint && overlay.sourceFingerprint === embedded.fingerprint);\n  return (overlayIsCurrent ? overlay?.[field] : '') || embedded?.[field] || event[field];\n};"
+          replace('app.js', old_app, new_app)
+
+          old_col = "  const eventText = (event, field) => { if (!isZh) return event[field]; const overlay = window.SBFF_TRANSLATIONS_ZH?.[event.id]; return overlay?.[field] || event.translations?.zh?.[field] || event[field]; };"
+          new_col = "  const eventText = (event, field) => {\n    if (!isZh) return event[field];\n    const embedded = event.translations?.zh;\n    const overlay = window.SBFF_TRANSLATIONS_ZH?.[event.id];\n    const overlayIsCurrent = Boolean(overlay?.sourceFingerprint && embedded?.fingerprint && overlay.sourceFingerprint === embedded.fingerprint);\n    return (overlayIsCurrent ? overlay?.[field] : '') || embedded?.[field] || event[field];\n  };"
+          replace('collections.js', old_col, new_col)
+
+          wf = Path('.github/workflows/daily-events.yml')
+          s = wf.read_text()
+          old = "      - name: Re-apply all approved translation sidecars\n        run: node scripts/apply-event-translations.mjs\n      - name: Verify translation state after refresh\n        run: node scripts/translation-qa.mjs"
+          new = "      - name: Rebuild runtime Chinese translation overlay\n        run: |\n          node scripts/build-translation-overlay.mjs\n          node scripts/translation-overlay.test.mjs\n      - name: Re-apply all approved translation sidecars\n        run: node scripts/apply-event-translations.mjs\n      - name: Verify translation state after refresh\n        run: |\n          node scripts/translation-qa.mjs\n          node scripts/runtime-translation-fallback.test.mjs"
+          if old not in s: raise SystemExit('missing daily workflow translation block')
+          s = s.replace(old, new)
+          oldadd = "          git add data/events.json data/events.js data/museums.json data/museums.js data/source-health.json 'data/translations.zh*.json'"
+          newadd = "          git add data/events.json data/events.js data/museums.json data/museums.js data/source-health.json 'data/translations.zh*.json' data/translations.zh.js"
+          if oldadd not in s: raise SystemExit('missing daily workflow git add')
+          wf.write_text(s.replace(oldadd, newadd))
+
+          ci = Path('.github/workflows/ci.yml')
+          s = ci.read_text()
+          anchor = "          node scripts/translation-overlay.test.mjs\n          node scripts/translation-qa.mjs"
+          repl = "          node scripts/translation-overlay.test.mjs\n          node scripts/runtime-translation-fallback.test.mjs\n          node scripts/translation-qa.mjs"
+          if anchor not in s: raise SystemExit('missing CI translation test anchor')
+          ci.write_text(s.replace(anchor, repl))
+
+          Path('scripts/runtime-translation-fallback.test.mjs').write_text("""import assert from 'node:assert/strict';\nimport { readFile } from 'node:fs/promises';\n\nfor (const file of ['app.js', 'collections.js']) {\n  const source = await readFile(new URL(`../${file}`, import.meta.url), 'utf8');\n  assert.match(source, /overlay\\.sourceFingerprint === embedded\\.fingerprint/, `${file} must reject stale runtime overlay translations`);\n  assert.match(source, /embedded\\?\\.\\[field\\] \\|\\| event\\[field\\]/, `${file} must fall back to current embedded Chinese and then English`);\n}\n\nconst generator = await readFile(new URL('./generate-event-translations.mjs', import.meta.url), 'utf8');\nassert.match(generator, /translationSource: 'auto-local-opus-mt-en-zh'/, 'automatic translations must have a distinct source label');\nassert.match(generator, /qualityGate: 'automated-qa'/, 'automatic translations must identify the automated QA gate');\nassert.doesNotMatch(generator, /translationSource: 'local-opus-mt-en-zh'/, 'legacy ambiguous automatic source label must not remain');\nconsole.log('runtime translation fallback safety passed');\n""")
+          PY
+      - name: Verify patched chain
+        run: |
+          node --check scripts/generate-event-translations.mjs
+          node --check scripts/event-translations.mjs
+          node --check app.js
+          node --check collections.js
+          node scripts/translation-overlay.test.mjs
+          node scripts/runtime-translation-fallback.test.mjs
+          node scripts/translation-qa.mjs
+      - name: Commit patch and remove helper workflow
+        run: |
+          git rm .github/workflows/patch-auto-translation-safety.yml
+          git add scripts/generate-event-translations.mjs scripts/event-translations.mjs scripts/runtime-translation-fallback.test.mjs app.js collections.js .github/workflows/daily-events.yml .github/workflows/ci.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "fix: harden automatic Chinese translation publishing"
+          git push origin HEAD:feature/multilingual-v1
