@@ -568,6 +568,7 @@ fetch(`${assetBase}/data/events.json`).then(response => {
   if (!Array.isArray(data)) throw new Error('events.json must contain an array');
   events = data;
   window.SOUTH_BAY_EVENTS = events;
+  window.dispatchEvent(new CustomEvent('sbff:events-ready', { detail: { count: events.length } }));
 }).catch(error => {
   events = [];
   window.SOUTH_BAY_EVENTS = events;
