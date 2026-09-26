@@ -47,6 +47,7 @@ function typeFor(text, title = '') {
   // the organizer or a secondary activity mechanic. Subject learning and
   // making must outrank words such as “games” when both appear.
   if (/\b(?:vs\.?|versus|football|soccer|hockey|baseball|basketball|matchday|regular season|playoffs?)\b/.test(value)) return 'sports';
+  if (/\b(?:festival|celebration|fest|halloween|trick[- ]or[- ]treat|monster mash|tree lighting|holiday|santa)\b/.test(value)) return 'community';
   if (/\b(?:show|theat(?:er|re)|concert|performance|musical|dance recital|magic|planetarium|laser show|ice show)\b/.test(value)) return 'shows';
   if (/\b(?:museum|gallery|exhibit(?:ion)?|on view|collection)\b/.test(value)) return 'museums';
   if (/\b(?:hike|nature(?:\s+walk)?|trail|wildlife|marsh|forest|creek|pond|ranger|bird(?:s)?\b|habitat restoration|environmental education)\b/.test(value)) return 'outdoor';
@@ -2329,12 +2330,13 @@ async function readCivic(source) {
     const title = plainText(block.match(/id=["']eventTitle_\d+["'][^>]*>[\s\S]*?<span>([\s\S]*?)<\/span>/i)?.[1] || '');
     const href = htmlAttribute(block, /id=["']eventTitle_\d+["'][^>]*href=["']([^"']+)["']/i);
     const dateValue = plainText(block.match(/itemprop=["']startDate["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
+    const endDateValue = plainText(block.match(/itemprop=["']endDate["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
     const place = plainText(block.match(/itemprop=["']location["'][\s\S]*?itemprop=["']name["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
     const street = plainText(block.match(/itemprop=["']streetAddress["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
     const city = canonicalCity(plainText(block.match(/itemprop=["']addressLocality["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || source.city || ''));
     const familySignal = /\b(?:family|families|kids?|children|youth|teen|toddler|movie|concert|music|festival|celebration|holiday|halloween|lantern|campout|egg hunt|art|craft|science|stem|nature|outdoor)\b/i.test(title);
     if (!title || !href || !isUpcoming(dateValue) || !familySignal) return [];
-    return [{ title, url: new URL(decodeXml(href), source.feedUrl).href, dateValue, place, street, city, monthIndex }];
+    return [{ title, url: new URL(decodeXml(href), source.feedUrl).href, dateValue, endDateValue, place, street, city, monthIndex }];
   }));
   const seen = new Set();
   const items = candidates.filter(item => {
@@ -2362,7 +2364,7 @@ async function readCivic(source) {
       const image = htmlAttribute(landingHtml, /widget image[\s\S]{0,1600}?<img[^>]+src=["']([^"']+)["']/i);
       const event = directEvent({
         id: 'civic-' + createHash('sha256').update(`${landingUrl}|${item.dateValue}|${index}`).digest('hex').slice(0, 16),
-        title: item.title, dateValue: item.dateValue, description,
+        title: item.title, dateValue: item.dateValue, endDateValue: item.endDateValue, description,
         image: image ? new URL(image, landingUrl).href : '', place: item.place || source.name,
         address: shortAddress(item.street, item.city), city: item.city || source.city || '', source: source.name, url: landingUrl,
         ageText: audienceText
