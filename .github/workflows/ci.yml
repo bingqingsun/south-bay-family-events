@@ -8,6 +8,8 @@ on:
       - 'scripts/**'
       - 'data/sources.json'
       - 'data/translations.zh.json'
+      - 'data/translations.zh.js'
+      - 'data/translations.zh.js'
       - 'data/translations.zh.json'
       - 'analytics.js'
       - 'app.js'
