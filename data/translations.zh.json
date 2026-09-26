@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "policy": "Official English event facts remain canonical. Only approved entries with an exact sourceFingerprint are published.",
+  "entries": [
+    {
+      "id": "rss-6a7fa742d4b10d0030069349",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a7fa742d4b10d0030069349",
+      "sourceFingerprint": "52ef6332599eb379761474558382ce7fbe83721083ab7fcf0752ddea24c364ce",
+      "title": "中秋节",
+      "description": "美味月饼：品尝形似月亮的香甜点心！DIY 灯笼：亲手制作一盏会发光的灯笼并带回家。精彩故事：了解中秋节的起源，聆听美丽的月亮传说！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-25T00:00:00Z"
+    },
+    {
+      "id": "curated-f1d6a411a90a62b1",
+      "sourceUrl": "https://www.cdm.org/event/mid-autumn-moon-festival/",
+      "sourceFingerprint": "be2be063813a936c53821852cbfff937c88eb8aa46040ab828fc04d76b5978b9",
+      "title": "中秋月节",
+      "description": "在儿童博物馆一起庆祝中秋月节，参加舞狮、灯笼活动和橡皮泥月饼制作。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-25T00:00:00Z"
+    },
+    {
+      "id": "curated-3dc3446a01d92775",
+      "sourceUrl": "https://www.sanjose.org/events/mid-autumn-festival-bay-area",
+      "sourceFingerprint": "098a9a7266da642ae5ce537424bc5eb31f9cab71fba1136051b3cbbe496bbc27",
+      "title": "湾区中秋节",
+      "description": "传统上，这个节日是孩子和家人相聚的时刻。大家一起赏灯、听音乐、看表演、玩游戏、品尝美食和听故事，同时庆祝家庭与社区的重要意义。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-25T00:00:00Z"
+    },
+    {
+      "id": "squarespace-86e397631a011714",
+      "sourceUrl": "https://www.cpaasv.org/events/mid-autumn-festival-2026",
+      "sourceFingerprint": "58e18ad3db6e2c1dd7aae787fb036df13d03f8c460bf63e7be213aa5ec786bc9",
+      "title": "2026 中秋节",
+      "description": "欣赏现场文化表演、参加手工活动、品尝月饼，还有抽奖和本地摊位——这是一场在丰收月色下、适合所有年龄参与的社区聚会。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-25T00:00:00Z"
+    }
+  ]
+}
