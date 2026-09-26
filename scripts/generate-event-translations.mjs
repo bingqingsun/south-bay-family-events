@@ -1,5 +1,6 @@
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 import { translationFingerprint, auditChineseTranslation } from './event-translations.mjs';
+import { translateTextSafely } from './translation-text.mjs';
 
 const args = process.argv.slice(2);
 const previousArg = args.indexOf('--previous');
@@ -43,14 +44,6 @@ async function createLocalTranslator() {
   const { pipeline, env } = await import('@huggingface/transformers');
   if (process.env.HF_HOME) env.cacheDir = process.env.HF_HOME;
   return pipeline('translation', model, { dtype: 'q8' });
-}
-
-async function translateText(translator, text) {
-  const source = String(text || '').trim();
-  if (!source) return '';
-  const output = await translator(source, { max_new_tokens: 512 });
-  const value = Array.isArray(output) ? output[0]?.translation_text : output?.translation_text;
-  return String(value || '').trim();
 }
 
 const currentEvents = JSON.parse(await readFile(eventsUrl, 'utf8'));
@@ -111,8 +104,8 @@ for (const event of candidates) {
   try {
     const entry = {
       id: event.id,
-      title: await translateText(translator, event.title || ''),
-      description: await translateText(translator, event.description || ''),
+      title: await translateTextSafely(translator, event.title || ''),
+      description: await translateTextSafely(translator, event.description || ''),
       sourceFingerprint: translationFingerprint(event),
       status: 'approved',
       translationSource: 'auto-local-opus-mt-en-zh',
