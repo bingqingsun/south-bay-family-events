@@ -29,17 +29,17 @@ assert.equal(
 assert.equal(runtime.normalizeTitle('13th Annual Fall Bike Fest'), 'fall bike fest');
 assert.equal(runtime.normalizeTitle('Great Glass Pumpkin Patch 2026'), 'great glass pumpkin patch');
 
-const resolved = config.picks.map((pick) => ({
+const resolved = Array.from(config.picks, (pick) => ({
   title: pick.eventRef.title,
   event: runtime.resolveEvent(pick.eventRef, events)
 }));
 const unresolved = resolved.filter((item) => !item.event).map((item) => item.title);
-assert.deepEqual(unresolved, [], `All Weekend Picks must resolve against data/events.json; unresolved: ${unresolved.join(', ')}`);
+assert.equal(unresolved.length, 0, `All Weekend Picks must resolve against data/events.json; unresolved: ${unresolved.join(', ')}`);
 
 const offWeekend = resolved
   .filter((item) => !runtime.eventOverlapsWeekend(item.event, config.weekendStart, config.weekendEnd))
   .map((item) => item.title);
-assert.deepEqual(offWeekend, [], `All pilot picks must overlap ${config.weekendStart}–${config.weekendEnd}; outside weekend: ${offWeekend.join(', ')}`);
+assert.equal(offWeekend.length, 0, `All pilot picks must overlap ${config.weekendStart}–${config.weekendEnd}; outside weekend: ${offWeekend.join(', ')}`);
 
 const model = runtime.getWeekendPicksViewModel(events);
 assert.equal(model.resolvedPicks.length, 11);
