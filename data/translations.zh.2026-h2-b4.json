@@ -1,0 +1,546 @@
+{
+  "version": 1,
+  "locale": "zh-CN",
+  "entries": [
+    {
+      "id": "thetech-223044ed7d1ff388",
+      "title": "女童军项目：过山车设计挑战（Daisies）",
+      "description": "Daisies 将有机会设计并制作自己的简易过山车小车，搭建一个过山车模型，并测试自己的作品。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54778",
+      "title": "San Jose Barracuda 对阵 Condors",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Condors。本场主题活动为 Military Appreciation。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-38c81e72a167bafb",
+      "title": "San Jose Sharks 对阵 Calgary Flames",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 Calgary Flames。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-1b377c8bcc2b2f50",
+      "title": "How to Train Your Dragon",
+      "description": "在 CMT San Jose 观看 How to Train Your Dragon Jr.，演出时间为 November 4 - 8。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-af1d4c2921ba70b7",
+      "title": "PAUSD 校园巡演：Escondido Elementary（Noble Gnarble）",
+      "description": "PAUSD Outreach Production 在 Escondido Elementary School 演出 Journey of the Noble Gnarble：Thursday, November 5, 4:30p；Friday, November 6, 7:00p；Saturday, November 7, 12:00p。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54780",
+      "title": "San Jose Barracuda 对阵 Condors",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Condors。本场主题活动为 Tigres Del Mar；前 1,500 名观众可获 Bandana 赠品。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "calendar-24579",
+      "title": "蚯蚓堆肥工作坊",
+      "description": "学习如何轻松制作自己的蚯蚓堆肥。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-f7ddb21173465872",
+      "title": "Magic Tree House",
+      "description": "这场制作精美的节目结合小学低年级的信息技能学习目标，把探索与发现的乐趣带到现场，并为 Magic Tree House 粉丝带来沉浸式体验。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "deanza-45deb90c2ed75b09",
+      "title": "宇宙之旅",
+      "description": "通过卫星真实影像的数字呈现，观察外行星的行星环系统以及多颗卫星的细节。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "deanza-054cc15826bef8eb",
+      "title": "现场探索：星座",
+      "description": "在穹顶下与天文馆讲解员一起度过一个夜晚，探索真实夜空中的星座。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54781",
+      "title": "San Jose Barracuda 对阵 Condors",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Condors。本场主题活动为 Cars Night。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "nhl-2026020285",
+      "title": "San Jose Sharks 对阵 New York Islanders",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 New York Islanders。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "nhl-2026020298",
+      "title": "San Jose Sharks 对阵 Pittsburgh Penguins",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 Pittsburgh Penguins。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-0bf67e0aa8f8148f",
+      "title": "Matilda 音乐剧",
+      "description": "在 Montgomery Theater 观看这部适合家庭的演出，跟随一位勇敢的小女孩展开故事。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "midpen-c20df77ae679a18f",
+      "title": "感恩土地与原住民传统",
+      "description": "通过了解定居殖民者到来之前，加州原住民世代照料土地的方式，向他们表达感谢。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "thetech-67abcf179c2470df",
+      "title": "女童军项目：科技侦探（Juniors and Cadettes）",
+      "description": "Juniors 和 Cadettes 将从法医绘图练习开始，根据“关键证人”的描述画出一名“嫌疑人”。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "thetech-6a7215cf83a24c82",
+      "title": "女童军项目：游乐创新者（Juniors）",
+      "description": "Juniors 会先让自己的作品动起来，再学习电子游戏设计。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-95cc00471300fd8e",
+      "title": "绿野仙踪",
+      "description": "沿着黄砖路加入 Dorothy 和朋友们的冒险，一同前往 Emerald City 面对 Wizard。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "deanza-6c5d94c6fb0f2035",
+      "title": "Big Bird 的冒险｜同一个世界，同一片天空",
+      "description": "旅途中，角色会邀请观众一起唱关于太空的歌曲，共同感受属于每个人的天空。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "timely-2-0",
+      "title": "胡桃夹子！魔法圣诞芭蕾",
+      "description": "体验北美规模最大的 Nutcracker 制作之一，欣赏国际舞者、高难度杂技、华丽服装和巨型木偶带来的节日舞台演出。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54784",
+      "title": "San Jose Barracuda 对阵 Gulls",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Gulls。本场主题活动为 Teddy Bear Toss；前 2,500 名观众可获 Ornament 赠品。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "deanza-0511f7d0d7296696",
+      "title": "Laser K-POP Demon Hunters 激光秀",
+      "description": "进入充满动感的 Laser K-Pop Demon Hunters 世界，体验这场以激光效果呈现的主题秀。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "midpen-bdae0d522b01b50d",
+      "title": "潮汐盐沼探索",
+      "description": "跟随自然讲解员 Susan Bernhard、Ann Reisenauer 和 Alison Hurst，沿 Bay Trail 轻松步行，探索盐沼中的动植物及相关环境议题。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-d79908d3a45ec754",
+      "title": "San Jose Sharks 对阵 Nashville Predators",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 Nashville Predators。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "midpen-d1efff7c2beb56ba",
+      "title": "一起数香蕉蛞蝓！",
+      "description": "沿 Purisima Creek Trail 在红杉树冠下漫步，一边数香蕉蛞蝓，一边了解这些有趣生物及它们的栖息环境。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "showare-368",
+      "title": "Playhouse 系列：小红帽",
+      "description": "Little Red Riding Hood｜November 21-22, 2026。根据 Hans Christian Andersen 的故事改编，以简单布景和服装、互动式讲故事剧场呈现，适合建议年龄 two to six years old 的儿童及其家庭。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "midpen-6b1eabe104ea662e",
+      "title": "秋冬浆果与坚果",
+      "description": "一起认识深秋带来的自然馈赠，例如当地栖息地中野生生长的浆果和坚果。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "deanza-67bee802633bc309",
+      "title": "我们来自星辰",
+      "description": "探索宇宙化学的奥秘，以及我们的爆炸性起源。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-0b120212d85edbfc",
+      "title": "San Jose Sharks 对阵 Seattle Kraken",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 Seattle Kraken。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-e5134358de8f1496",
+      "title": "San Jose Sharks 对阵 Minnesota Wild",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 Minnesota Wild。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54788",
+      "title": "San Jose Barracuda 对阵 Firebirds",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Firebirds。本场主题活动为 Blackout Wednesday。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-565f21267a43d52b",
+      "title": "San Jose Sharks 对阵 Vegas Golden Knights",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 Vegas Golden Knights。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "filoli-0181170b84ec8943",
+      "title": "节日下午茶",
+      "description": "享用精心搭配的下午茶，包括多层点心、起泡酒以及精选茶饮。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54791",
+      "title": "San Jose Barracuda 对阵 Condors",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Condors。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-c7505a6173198805",
+      "title": "Hip Hop Nutcracker - Broadway San Jose",
+      "description": "在 The Hip Hop Nutcracker 中，Maria-Clara 与 Nutcracker Prince 展开梦幻冒险：与一群老鼠交战、造访糖果王国，并在旅途中感受节日主题。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-949eec7cf5ffa5cf",
+      "title": "主舞台演出：A Year with Frog and Toad",
+      "description": "A YEAR WITH FROG AND TOAD，由 Willie Reale 编写剧本与歌词，Robert Reale 作曲，根据 Arnold Lobel 的图书改编。December 3 – 20, 2026。音乐剧讲述开朗受欢迎的 Frog 与有些爱发牢骚的 Toad 这对好友一起度过四个充满乐趣的季节。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "cupertino-ff07a10c7465c585",
+      "title": "圣诞树亮灯仪式",
+      "description": "见证树上数百盏闪烁灯光同时点亮的时刻，感受节日灯光营造的梦幻氛围。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54792",
+      "title": "San Jose Barracuda 对阵 Stars",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Stars。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "cupertino-1a0af6fd47d1b6b0",
+      "title": "与 Santa 共进早餐",
+      "description": "Santa 的精灵们将准备一些……",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54793",
+      "title": "San Jose Barracuda 对阵 Stars",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Stars。本场主题活动为 CudaMania III；前 3,000 名观众可获 Wrestling belt cooler 赠品。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "cupertino-82bbe981a16bfbec",
+      "title": "与 Santa 共进早餐",
+      "description": "品尝 Santa 的精灵准备的 North Pole pancakes，与 Santa 合影，并探索为孩子准备了手工和活动的节日工作坊。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-e019a9aab7f63480",
+      "title": "圣诞前夜",
+      "description": "从一位“亲历者”的讲述中，看看那个著名的圣诞前夜究竟发生了什么。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "thetech-e991f30a407e2217",
+      "title": "女童军项目：机器人设计师",
+      "description": "在 The Tech Interactive 参加动手机器人体验，探索机器人如何工作，设计并制作自己的作品，同时学习传感器、问题解决和编程等 STEM 技能。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-043f5cb17a24b0fe",
+      "title": "Playhouse 系列：姜饼人",
+      "description": "The Gingerbread Man｜December 19-21, 2026，根据 1875 年的 St. Nicholas 民间故事改编，并有额外的 Monday Performances。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-7eeafd8bbf415386",
+      "title": "The San Jose Nutcracker – New Ballet & Symphony San Jose",
+      "description": "旋转的雪花、舞动的花朵与 The Sugarplum Fairy 共同呈现这场节日芭蕾，为全家带来经典的节日舞台体验。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-eb8890c25a444d09",
+      "title": "我的第一场胡桃夹子",
+      "description": "孩子们会看到历史悠久的 San Jose Electric Light Tower 仿佛魔法般升起在城市街道上，并为争夺魔法王冠的可爱老鼠和玩具士兵加油。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "nhl-2026020653",
+      "title": "San Jose Sharks 对阵 Philadelphia Flyers",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 Philadelphia Flyers。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54803",
+      "title": "San Jose Barracuda 对阵 Eagles",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Eagles。本场主题活动包括 Jurassic World 和 Frenzy's Birthday Celebration。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "nhl-2026020663",
+      "title": "San Jose Sharks 对阵 Toronto Maple Leafs",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 Toronto Maple Leafs。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "nhl-2026020680",
+      "title": "San Jose Sharks 对阵 New Jersey Devils",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 New Jersey Devils。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54804",
+      "title": "San Jose Barracuda 对阵 Eagles",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Eagles。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "nhl-2026020693",
+      "title": "San Jose Sharks 对阵 Dallas Stars",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 Dallas Stars。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "nhl-2026020708",
+      "title": "San Jose Sharks 对阵 Washington Capitals",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 Washington Capitals。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "nhl-2026020721",
+      "title": "San Jose Sharks 对阵 New York Rangers",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 New York Rangers。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "nhl-2026020781",
+      "title": "San Jose Sharks 对阵 Utah Mammoth",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 Utah Mammoth。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-41dc2cf6b61a0aa6",
+      "title": "Playhouse 系列：白雪公主",
+      "description": "Snow White｜January 23-24, 2027。根据 Brothers Grimm 的故事改编，以简单布景和服装、互动式讲故事剧场呈现，适合建议年龄 two to six years old 的儿童及其家庭。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54813",
+      "title": "San Jose Barracuda 对阵 Roadrunners",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Roadrunners。本场主题活动为 Margaritaville Night；前 2,500 名观众可获 Bucket hat 赠品。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54814",
+      "title": "San Jose Barracuda 对阵 Roadrunners",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Roadrunners。本场主题活动为 Hockey is for Everyone。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54816",
+      "title": "San Jose Barracuda 对阵 Reign",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Reign。本场主题活动为 First Responders Night。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-633367e7e4f22d17",
+      "title": "San Jose Sharks 对阵 Chicago Blackhawks",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 Chicago Blackhawks。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    }
+  ]
+}
