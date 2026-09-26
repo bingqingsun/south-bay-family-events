@@ -52,6 +52,316 @@
       "status": "approved",
       "translationSource": "editorial-reviewed",
       "reviewedAt": "2026-09-26T00:59:00Z"
+    },
+    {
+      "id": "rss-6a8375c9b2047800299389fc",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a8375c9b2047800299389fc",
+      "sourceFingerprint": "5181557cf69bb741ee29812b77d367cf1cc57c1d3055705b01bf5dd1e3872c06",
+      "title": "3D 打印开放时段",
+      "description": "所有打印均免费，但必须符合上方和下方列出的要求。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "midpen-cd8d65264147dcc1",
+      "sourceUrl": "https://www.openspace.org/events/guided-activities/skyline-serendipity-1",
+      "sourceFingerprint": "311e4d510f071314b1bf4409bb1b40541caa02b755405483fbccbabffc2aa84a",
+      "title": "Skyline 探索之旅",
+      "description": "沿着 Ipiwa 和 Sunny Jim 步道欣赏壮丽景色，探索四种截然不同的栖息地，认识植物及其适应方式，并寻找当地动物或它们留下的踪迹。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "rss-6946005fea69de6e001069c4",
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/6946005fea69de6e001069c4",
+      "sourceFingerprint": "3aafb6be032aeaf2dc0cf4a1737861622924af3325d535d341dac41f8ea831d8",
+      "title": "家庭故事时间",
+      "description": "一起来唱歌、念童谣、听故事吧！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "series-8a74b66df2221eea",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/695845d8e3e3999b5c057bd3",
+      "sourceFingerprint": "19039c77101e7b754cea87442a5b6c527a3efc21cccdd8fb7c28d638065cb8c3",
+      "title": "幼儿欢乐会",
+      "description": "家长和 1 到 2 岁的幼儿一起参加简短有趣的故事、童谣、手指游戏、活动和歌曲。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "series-c7f8c8b4df370840",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a5be2877b79214226a98591",
+      "sourceFingerprint": "976fbb7bd089121027cf164851ca6679cafeb4101149ba20e2026a958e6b3ed5",
+      "title": "0–5 岁 Stay & Play 亲子活动",
+      "description": "一起来听故事、唱歌并参与互动游戏！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "series-ca41eff744a0cfd1",
+      "sourceUrl": "https://www.cineluxtheatres.com/cinelux-almaden-cafe-lounge/tickets/154185000043",
+      "sourceFingerprint": "820e0739c467ddfb517d8f670e7f3e4906ad57e2b19df9c108980053d4d86028",
+      "title": "《FORGOTTEN ISLAND》电影放映",
+      "description": "在 CineLux Almaden 放映 PG 级电影。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "series-0532e88b4af486a0",
+      "sourceUrl": "https://www.cineluxtheatres.com/cinelux-tennant-station/tickets/273827000385",
+      "sourceFingerprint": "1f189d9e2b01967464474bcace1238ff45f5ddfe3554fe776d54a52b85c92573",
+      "title": "《COYOTE VS ACME》电影放映",
+      "description": "在 CineLux Morgan Hill 放映 PG 级电影。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "series-4734f1f2258dc905",
+      "sourceUrl": "https://www.cineluxtheatres.com/cinelux-tennant-station/tickets/273832000382",
+      "sourceFingerprint": "98e2b2e332cb58215e1bab301911cfb40cb53abec70256334673c106c87ea8de",
+      "title": "《SHAUN THE SHEEP: BEAST OF MOSSY BOTTOM》电影放映",
+      "description": "在 CineLux Morgan Hill 放映 PG 级电影。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "rss-6a208f54bd892a0672e78770",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a208f54bd892a0672e78770",
+      "sourceFingerprint": "ef8fb27459bfadda86886fe193d068f0da7624bfca0967eac1df54784bd3ff3e",
+      "title": "线下面试模拟",
+      "description": "参加一对一线上模拟面试，练习你的面试技巧。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "series-582ae5972e31cf1d",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/695846a7111b9da65caa32f4",
+      "sourceFingerprint": "c344a114ee050cef7355631d275d83e124d1be22ee47743a4e0aeb5fddf52f40",
+      "title": "婴儿欢乐会",
+      "description": "成人和 0 到 12 个月大的宝宝一起参加简短有趣的故事、童谣、手指游戏和歌曲。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "rss-6a8372a14cb69d003e216f63",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a8372a14cb69d003e216f63",
+      "sourceFingerprint": "9951b83a61b09f6c04e1edb99f188d3e8cdd3dfea211c01998a27dad1a616965",
+      "title": "咖啡与益智题（老年人）",
+      "description": "和邻里见面、社交，同时一起挑战一些脑筋急转弯！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "rss-6a2c60958d1b82ca9f799371",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a2c60958d1b82ca9f799371",
+      "sourceFingerprint": "8d2f9b15cb641e39fbb7c50305826b19e4683488eb351a4cb1fd18ea2581eb43",
+      "title": "线上｜职场客户服务",
+      "description": "在此注册。注册后，你会收到一封确认邮件，其中包含加入会议的信息。电子报订阅：获取 SJPL 商业与职业资源的最新资讯。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "series-07c7826e825637cd",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/69320e7e8d33cc4900c514b2",
+      "sourceFingerprint": "dd21d4260ce6701c4ff04fe3b8bb92cd453037f697140ef162d3a9f8037da031",
+      "title": "Milpitas 图书馆编织与钩针小组",
+      "description": "周五下午一起来参加我们的编织与钩针小组。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "rss-6a99d5583b6c71003e5d9743",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a99d5583b6c71003e5d9743",
+      "sourceFingerprint": "b91bc65f91bba9d4196e2ce2de215a14361b3af0b4b65e732e46a077b391ed91",
+      "title": "Joyce Ellington 分馆周五手工下午",
+      "description": "每周五都有新的手工活动，欢迎参加！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "rss-6a4c3cdfed35742f0000cbd3",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a4c3cdfed35742f0000cbd3",
+      "sourceFingerprint": "eac6c44be38f5df7039679a4fb3e8fadad4f5acbed6397925d881fb3cb1ed39c",
+      "title": "STEM 俱乐部",
+      "description": "7 月 31 日星期五——一起来做趣味橡皮泥！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "rss-694450b8ea69de6e0010485a",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/694450b8ea69de6e0010485a",
+      "sourceFingerprint": "a4b60e5f9b8320cc8180bcab24d4702fe693af5f3317f0a7c5e72b43001027de",
+      "title": "电子游戏专区",
+      "description": "在 Nintendo Switch 上玩多种热门游戏并和其他人比拼，包括 Mario Kart 8 Deluxe 和 Super Smash Bros.。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "rss-6aad76fdf9ed2e003851b270",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6aad76fdf9ed2e003851b270",
+      "sourceFingerprint": "ab0f31316613bb1664620a5684920d449693bdcd3a67e7f14a29faa529c90bf6",
+      "title": "周五家庭游戏区",
+      "description": "除了桌游和卡牌游戏，还会连接 Nintendo Switch，大家可以玩 Mario Kart、Super Smash Bros.、Super Mario Party 等游戏。免费。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "series-0a7ff8bb23a8d3e2",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a80b28c452bb101b5756939",
+      "sourceFingerprint": "0018a30f673bbfa4fbb579a410593180bc23d57352c6c39527eeca1db476650e",
+      "title": "游戏俱乐部（4–8 年级）",
+      "description": "参加游戏俱乐部，一起玩 Super Smash Bros.、Mario Kart 等电子游戏。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "rss-6a25aace2ea730c17ab5048c",
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/6a25aace2ea730c17ab5048c",
+      "sourceFingerprint": "269da052ede38fff6ba354a04e34a072cc7bece27d4901f6f71d10192fb44309",
+      "title": "LEGO 星期五",
+      "description": "发挥想象力，搭建有趣的作品！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "rss-6a6bd1c1c7e02e3d006cd3e7",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a6bd1c1c7e02e3d006cd3e7",
+      "sourceFingerprint": "2dad32d882de2fbdc7d8d1d18f1e9ee2555f43c0c3cb3392387002f00d8ca621",
+      "title": "Seven Trees 图书馆 Teens Reach 青少年委员会",
+      "description": "Teens Reach 是 San José Public Library 面向 13 到 18 岁青少年的青年委员会，年轻人可以通过策划和参与图书馆活动来培养领导力，并担任图书馆顾问和倡导者。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "rss-6a3d7ba06db61d280097f4b2",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a3d7ba06db61d280097f4b2",
+      "sourceFingerprint": "a659b0fb40ef46729503ce287838c0a01a40b3441ef04e4cee5ba2776a3db980",
+      "title": "STEAM 俱乐部",
+      "description": "每周都会有新的 STEAM 实践活动，把 STEAM 的不同领域结合起来，并展示这些概念如何应用在现实生活中（课程主题列表可在此查看）。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "rss-6a79d575e30fe48459684ff1",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a79d575e30fe48459684ff1",
+      "sourceFingerprint": "808568652a3b771315106d0434bb59246ad0446aba45eca6c4e8e855e42e1c1e",
+      "title": "职业舞者的平行职业路径",
+      "description": "参加关于平行职业路径的交流，由 PAMPA Dance Academy 知名编舞家 Nirmala Madhava 和湾区专业人士 Sowmya 分享经验与见解。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "rss-6a8f7acb1c197d11325b1b2a",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a8f7acb1c197d11325b1b2a",
+      "sourceFingerprint": "9dd578df8086f20be215b1dca31e71fbc76ef8123177ee69f4699e954e23c881",
+      "title": "经期用品关怀包活动",
+      "description": "Students Against Period Poverty（SAPP）的使命是让所有人都能获得经期用品、相关教育和资源。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "series-fcb85cfb2b61dc69",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a90cf21660e510bf44040b2",
+      "sourceFingerprint": "2d1eed0c709aaf47a9fd0ee5d422c61904f14efaaf259a231a708ff086befdcb",
+      "title": "Yarn Buddies / Pequeños Tejedores 编织伙伴",
+      "description": "完成这一系列课程后，你将能够编织一个基础作品。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "rss-6917c8b306078d360077f449",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6917c8b306078d360077f449",
+      "sourceFingerprint": "aa16176685d75183e6ce30f1f85455be58ab935149457f6b01259a5caf2e0693",
+      "title": "Safe Space 艺术下午：手工编织",
+      "description": "在讨论西班牙裔文化与身份认同的过程中，大家会一边分享故事和社区经历，一边练习手工编织。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "wix-074196f183eb1058",
+      "sourceUrl": "https://www.365nightmarket.com/event-details/365-night-market-at-grand-century-mall-san-jose-2026-09-25-16-00",
+      "sourceFingerprint": "a9fb05188e2fd36b46279e793556c7c117c1b14e59922f1af75a02c6f9ced9e1",
+      "title": "San Jose Grand Century Mall 365 夜市",
+      "description": "参加每月一次、为期两天的活动，现场有美食、购物、音乐和轻松氛围！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "series-c0b284a11bd328f7",
+      "sourceUrl": "https://www.cineluxtheatres.com/cinelux-tennant-station/tickets/273830000382",
+      "sourceFingerprint": "f5c8af9c3dbfcafa7180439443e2de961fbbe23b47966fcaffd877435b9a533e",
+      "title": "《SPIDER MAN BRAND NEW DAY》电影放映",
+      "description": "在 CineLux Morgan Hill 放映 PG13 级电影。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "paloalto-4e29b5bc87c4d4d2",
+      "sourceUrl": "https://www.paloalto.gov/Events-Directory/Community-Services/Bryant-Teen-Center-Grand-Opening-Event",
+      "sourceFingerprint": "34c54689b02bf566256d918a7d563bf3945f3aed98f9667131a18b0d4dd0ab6d",
+      "title": "Bryant Teen Center 重新开放庆祝活动",
+      "description": "一起庆祝重新开放：有免费食物和饮料、电子游戏、抽奖，还可以参观重新开放的青少年空间。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "series-a70663ff8066302b",
+      "sourceUrl": "https://www.gilroygardens.org/halloween/",
+      "sourceFingerprint": "f5130ff1c4e27653b87689f8ff1752c3b748ac706797dcc2d5b56d2d77878691",
+      "title": "The Great Big BOO! 万圣节活动",
+      "description": "10 月 9 日和 11 日，Christopher Ranch 的 Ken Christopher 会在 Lakeside Amphitheater 朗读他的书《Elephant Garlic Halloween》；10 月 30 日和 31 日还会赠送免费书籍、免费新鲜大蒜球茎和免费手提袋！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "paloalto-8bc26b4918e04b60",
+      "sourceUrl": "https://www.paloalto.gov/Events-Directory/Community-Services/Moonlight-Run-Walk-2026",
+      "sourceFingerprint": "87a659aa6e5d9c2336bbc2d84b90f0b5422c069329d428f38fee3e03cdd50b4d",
+      "title": "Moonlight Run & Walk 2026 月光跑走活动",
+      "description": "活动包括 5K 步行和跑步项目，以及 10K 跑步项目。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
+    },
+    {
+      "id": "rss-6aa35fbcf9ed2e00384fc227",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6aa35fbcf9ed2e00384fc227",
+      "sourceFingerprint": "034e0fd236f2bc918e7f3c612928815590180c739a35df1d5599432e2f33ccb1",
+      "title": "Cupertino 图书馆特别电影夜：《Nine to Five》9/25 放映",
+      "description": "为纪念 Dolly Parton，Cupertino Library 将在 9 月 25 日星期五 6:30pm 特别放映 Dolly 的电影处女作《Nine to Five》（1980）。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:10:00Z"
     }
   ]
 }
