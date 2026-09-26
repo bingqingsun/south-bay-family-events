@@ -373,9 +373,10 @@
 
   function buildHomeCard(viewModel, position) {
     const { config } = viewModel;
+    const localizedConfig = isZh ? { ...config, ...(config.translations?.zh || {}) } : config;
     const card = document.createElement('a');
     card.className = 'collection-home-card collection-home-card-featured';
-    card.href = config.landingPath;
+    card.href = isZh ? `collections/${config.slug}/` : config.landingPath;
     card.dataset.collectionSlug = config.slug;
     card.style.setProperty('--collection-cover', `url("${config.coverImage}")`);
 
@@ -389,19 +390,19 @@
     const label = document.createElement('span');
     label.className = 'collection-home-label';
     label.textContent = viewModel.collectionState === runtime.STATES.LAST_CHANCE
-      ? (config.homeLabelLastChance || 'Last chance')
-      : (config.homeLabelActive || 'Featured guide');
+      ? (localizedConfig.homeLabelLastChance || (isZh ? '最后机会' : 'Last chance'))
+      : (localizedConfig.homeLabelActive || (isZh ? '精选指南' : 'Featured guide'));
 
     const title = document.createElement('strong');
-    title.textContent = config.title;
+    title.textContent = localizedConfig.title;
 
     const description = document.createElement('span');
     description.className = 'collection-home-description';
-    description.textContent = config.homeDescription || '';
+    description.textContent = localizedConfig.homeDescription || '';
 
     const tags = document.createElement('span');
     tags.className = 'collection-home-tags';
-    (config.homeTags || []).forEach((tagText) => {
+    (localizedConfig.homeTags || config.homeTags || []).forEach((tagText) => {
       const tag = document.createElement('span');
       tag.textContent = tagText;
       tags.append(tag);
@@ -409,7 +410,7 @@
 
     const cta = document.createElement('span');
     cta.className = 'collection-home-cta';
-    cta.append(document.createTextNode(`${config.homeCta || 'Explore the guide'} `));
+    cta.append(document.createTextNode(`${localizedConfig.homeCta || (isZh ? '查看指南' : 'Explore the guide')} `));
     const arrow = document.createElement('b');
     arrow.setAttribute('aria-hidden', 'true');
     arrow.textContent = '→';
@@ -565,6 +566,10 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
+    renderCollectionHome();
+    renderCollectionLanding();
+  });
+  window.addEventListener('sbff:events-ready', () => {
     renderCollectionHome();
     renderCollectionLanding();
   });
