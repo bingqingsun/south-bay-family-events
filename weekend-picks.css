@@ -1,0 +1,45 @@
+.weekend-picks-entry,.weekend-picks-entry[hidden]{display:none!important}
+.weekend-picks-entry-card{display:flex;align-items:center;min-height:280px;padding:32px;border:0;border-radius:22px;background-color:#355a53;background-image:linear-gradient(90deg,rgba(24,52,46,.9) 0%,rgba(38,75,64,.76) 44%,rgba(57,98,84,.3) 74%,rgba(76,121,104,.08) 100%),url("https://images.pexels.com/photos/35005849/pexels-photo-35005849.jpeg?auto=compress&cs=tinysrgb&w=1800");background-position:center 48%;background-size:cover;box-shadow:0 14px 34px rgba(18,49,42,.14);text-decoration:none;color:#fff;overflow:hidden;transition:box-shadow .2s ease,transform .2s ease}
+.weekend-picks-entry-card:hover{box-shadow:0 20px 40px rgba(18,49,42,.22);transform:translateY(-3px)}
+.weekend-picks-entry-copy{max-width:660px;position:relative;z-index:1}
+.weekend-picks-entry-copy h2{margin:.25rem 0 .4rem;font-size:clamp(2rem,4.1vw,3rem);line-height:1.02;color:#fff;letter-spacing:-1.7px;text-shadow:0 2px 16px rgba(0,0,0,.18)}
+.weekend-picks-entry-copy p{margin:.35rem 0;color:#f5f7f2}
+.weekend-picks-entry-copy .eyebrow{color:#ffd56c}
+.weekend-picks-entry-date{font-weight:700;color:#fff1bf!important}
+.weekend-picks-entry-cta{display:inline-flex;margin-top:12px;font-weight:800;color:#fff}
+.weekend-picks-entry-cta::after{content:" →";color:#ffd56c}
+.weekend-picks-collage{display:none}
+
+/* Weekend Picks collection entrance gets its own green editorial identity. */
+.collection-home-card[data-collection-slug="weekend-picks"]{background-color:#355a53;background-image:linear-gradient(90deg,rgba(22,49,44,.92) 0%,rgba(35,71,60,.78) 43%,rgba(55,95,82,.32) 74%,rgba(73,117,101,.08) 100%),var(--collection-cover);box-shadow:0 14px 34px rgba(18,49,42,.14)}
+.collection-home-card[data-collection-slug="weekend-picks"]:hover{box-shadow:0 20px 40px rgba(18,49,42,.22)}
+.collection-home-card[data-collection-slug="weekend-picks"] .collection-home-overlay{background:linear-gradient(108deg,transparent 55%,rgba(73,117,101,.14) 100%)}
+.collection-home-card[data-collection-slug="weekend-picks"] .collection-home-label{background:#6f8f72}
+.collection-home-card[data-collection-slug="weekend-picks"] .collection-home-description{color:#f3f7f1}
+
+/* Match the active homepage Design System canvas (#f5f7fb), not the legacy cream token. */
+body.site-page.collection-page.weekend-picks-page,body.site-page.collection-page.weekend-picks-page main,body.site-page.collection-page.weekend-picks-page .collection-main,body.site-page.collection-page.weekend-picks-page .site-nav,body.site-page.collection-page.weekend-picks-page .collection-section,body.site-page.collection-page.weekend-picks-page .collection-breadcrumbs{background-color:var(--sbff-bg,#f5f7fb)!important;background-image:none!important}
+.weekend-picks-page .weekend-picks-collection-hero{background-color:#355a53!important;background-image:linear-gradient(90deg,rgba(22,49,44,.92) 0%,rgba(35,71,60,.78) 43%,rgba(55,95,82,.32) 74%,rgba(73,117,101,.08) 100%),url("https://images.pexels.com/photos/35005849/pexels-photo-35005849.jpeg?auto=compress&cs=tinysrgb&w=2000")!important;background-position:center 48%;background-size:cover;box-shadow:0 20px 46px rgba(73,71,40,.18)}
+.weekend-picks-page .weekend-picks-collection-hero .eyebrow{color:#ffd76d}
+.weekend-picks-page .collection-section-heading .eyebrow{color:#d16f33}
+.weekend-picks-page .collection-event-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.weekend-picks-page .event-card{height:100%;border-color:#eadfcd;box-shadow:0 8px 22px rgba(110,78,38,.08)}
+.weekend-picks-page .event-card .description{display:block}
+.weekend-picks-page .event-card .description-toggle{display:none!important}
+.weekend-picks-page .heart{cursor:pointer}
+.weekend-picks-page .heart.saved{color:#b54b54}
+.weekend-editorial{margin:10px 0 14px;padding:13px 14px;border-radius:16px;background:#fff0cf;border:1px solid rgba(209,111,51,.18)}
+.weekend-editorial strong{display:block;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:#a45a28;margin-bottom:5px}
+.weekend-editorial p{margin:0;color:#4b5148;line-height:1.5}
+.weekend-pick-label{display:inline-flex;align-items:center;padding:6px 9px;border-radius:999px;background:#eaf2df;color:#49634a;font-size:.75rem;font-weight:700;margin-bottom:8px}
+.weekend-picks-page .collection-state-panel{margin-top:34px}
+.weekend-picks-page .collection-state-panel a{font-weight:800}
+.weekend-picks-more{background:linear-gradient(110deg,#fff0d6 0%,#f4f7e8 72%);border:1px solid #ead9bd;border-radius:22px;display:flex;align-items:center;justify-content:space-between;gap:32px;margin-top:48px;padding:28px 34px}
+.weekend-picks-more h2{font-size:clamp(25px,3vw,34px);letter-spacing:-1.2px;line-height:1.08;margin:0 0 8px}
+.weekend-picks-more p:not(.eyebrow){color:#5d665d;font-size:13px;line-height:1.62;margin:0;max-width:620px}
+.weekend-picks-more-links{display:flex;flex-direction:column;align-items:flex-start;gap:8px;flex:0 0 auto}
+.weekend-picks-more-links a{color:#a85b2c;font-size:13px;font-weight:800;text-decoration:none}
+.weekend-picks-more-links a:hover{text-decoration:underline}
+
+@media(max-width:980px){.weekend-picks-page .collection-event-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.weekend-picks-entry-card{min-height:330px;padding:24px;align-items:flex-end;background-position:63% center;border-radius:20px}.weekend-picks-entry-copy h2{font-size:35px}.weekend-picks-page .weekend-picks-collection-hero{background-position:63% center}.weekend-picks-page .collection-event-grid{grid-template-columns:1fr}.weekend-picks-more{align-items:flex-start;flex-direction:column;margin-top:36px;padding:24px}.weekend-picks-more-links{gap:10px}}
