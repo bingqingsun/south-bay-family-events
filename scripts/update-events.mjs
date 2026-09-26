@@ -2334,7 +2334,7 @@ async function readCivic(source) {
     const explicitEndDateValue = plainText(block.match(/itemprop=["']endDate["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
     const blockText = plainText(block);
     const timeRange = blockText.match(/(\d{1,2}(?::\d{2})?\s*(?:AM|PM))\s*(?:-|–|—|to)\s*(\d{1,2}(?::\d{2})?\s*(?:AM|PM))/i);
-    const endDateValue = explicitEndDateValue || (() => {
+    const visibleEndDateValue = (() => {
       const day = String(dateValue || '').match(/(\d{4}-\d{2}-\d{2})/)?.[1];
       const time = String(timeRange?.[2] || '').match(/(\d{1,2})(?::(\d{2}))?\s*(AM|PM)/i);
       if (!day || !time) return '';
@@ -2342,6 +2342,7 @@ async function readCivic(source) {
       if (time[3].toUpperCase() === 'PM') hour += 12;
       return `${day}T${String(hour).padStart(2, '0')}:${time[2] || '00'}:00`;
     })();
+    const endDateValue = visibleEndDateValue || explicitEndDateValue;
     const place = plainText(block.match(/itemprop=["']location["'][\s\S]*?itemprop=["']name["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
     const street = plainText(block.match(/itemprop=["']streetAddress["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
     const city = canonicalCity(plainText(block.match(/itemprop=["']addressLocality["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || source.city || ''));
