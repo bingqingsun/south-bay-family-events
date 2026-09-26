@@ -46,6 +46,11 @@
   };
 
   let savedIds = JSON.parse(localStorage.getItem('southBaySaved') || '[]');
+  function syncHeaderSavedCount() {
+    document.querySelectorAll('.collection-saved-count').forEach((node) => {
+      node.textContent = String(savedIds.length);
+    });
+  }
   const seenCardImpressions = new Set();
   let cardImpressionObserver = null;
 
@@ -354,6 +359,7 @@
         ? savedIds.filter((id) => id !== event.id && !legacyIds.includes(id))
         : [...savedIds.filter((id) => !legacyIds.includes(id)), event.id];
       localStorage.setItem('southBaySaved', JSON.stringify(savedIds));
+      syncHeaderSavedCount();
       track(wasSaved ? 'unsave_event' : 'save_event', {
         ...analytics,
         ...collectionContextParameters(event)
@@ -566,6 +572,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
+    syncHeaderSavedCount();
     renderCollectionHome();
     renderCollectionLanding();
   });
