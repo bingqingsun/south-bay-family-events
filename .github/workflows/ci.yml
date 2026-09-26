@@ -65,6 +65,9 @@ jobs:
           node --check scripts/civicplus-description.test.mjs
           node --check scripts/event-translations.mjs
           node --check scripts/event-translations.test.mjs
+          node --check scripts/generate-event-translations.mjs
+          node --check scripts/apply-event-translations.mjs
+          node --check scripts/load-translation-catalogs.mjs
           node --check scripts/translation-qa.mjs
           node --check scripts/translation-coverage-report.mjs
           node --check scripts/cupertino-detail-date.mjs
