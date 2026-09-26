@@ -18,8 +18,7 @@
 .collection-home-card[data-collection-slug="weekend-picks"] .collection-home-description{color:#f3f7f1}
 
 /* Weekend Picks shares the homepage canvas while keeping its own editorial accents. */
-.weekend-picks-page{background:var(--cream,#fffdf7)}
-.weekend-picks-page .site-nav{background:var(--cream,#fffdf7)}
+.weekend-picks-page,.weekend-picks-page main,.weekend-picks-page .collection-main,.weekend-picks-page .site-nav{background:#fffdf7}
 .weekend-picks-page .weekend-picks-collection-hero{background-color:#355a53;background-image:linear-gradient(90deg,rgba(22,49,44,.92) 0%,rgba(35,71,60,.78) 43%,rgba(55,95,82,.32) 74%,rgba(73,117,101,.08) 100%),url("https://images.pexels.com/photos/35005849/pexels-photo-35005849.jpeg?auto=compress&cs=tinysrgb&w=2000");background-position:center 48%;background-size:cover;box-shadow:0 20px 46px rgba(73,71,40,.18)}
 .weekend-picks-page .weekend-picks-collection-hero .eyebrow{color:#ffd76d}
 .weekend-picks-page .collection-section-heading .eyebrow{color:#d16f33}
