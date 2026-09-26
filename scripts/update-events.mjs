@@ -80,6 +80,7 @@ function typeFor(text, title = '') {
 function formatFor(text) {
   const value = String(text || '').toLowerCase();
   if (/\b(?:vs\.?|versus|football|soccer|hockey|baseball|basketball|matchday|regular season|playoffs?)\b/.test(value)) return 'sports-game';
+  if (/\b(?:festival|celebration|fest|parade|fair)\b/.test(value)) return 'festival';
   if (/\b(?:museum|gallery|exhibit(?:ion)?|collection)\b/.test(value) && /\b(?:tour|family day|drawing|drop-in|workshop|program)\b/.test(value)) return 'museum-program';
   if (/\b(?:exhibit(?:ion)?|on view|gallery)\b/.test(value)) return 'museum-exhibition';
   if (/\b(?:show|theat(?:er|re)|concert|performance|musical|dance|magic|planetarium|laser|ice (?:show|skating))\b/.test(value)) return 'live-show';
@@ -2330,7 +2331,17 @@ async function readCivic(source) {
     const title = plainText(block.match(/id=["']eventTitle_\d+["'][^>]*>[\s\S]*?<span>([\s\S]*?)<\/span>/i)?.[1] || '');
     const href = htmlAttribute(block, /id=["']eventTitle_\d+["'][^>]*href=["']([^"']+)["']/i);
     const dateValue = plainText(block.match(/itemprop=["']startDate["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
-    const endDateValue = plainText(block.match(/itemprop=["']endDate["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
+    const explicitEndDateValue = plainText(block.match(/itemprop=["']endDate["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
+    const blockText = plainText(block);
+    const timeRange = blockText.match(/(\d{1,2}(?::\d{2})?\s*(?:AM|PM))\s*(?:-|–|—|to)\s*(\d{1,2}(?::\d{2})?\s*(?:AM|PM))/i);
+    const endDateValue = explicitEndDateValue || (() => {
+      const day = String(dateValue || '').match(/(\d{4}-\d{2}-\d{2})/)?.[1];
+      const time = String(timeRange?.[2] || '').match(/(\d{1,2})(?::(\d{2}))?\s*(AM|PM)/i);
+      if (!day || !time) return '';
+      let hour = Number(time[1]) % 12;
+      if (time[3].toUpperCase() === 'PM') hour += 12;
+      return `${day}T${String(hour).padStart(2, '0')}:${time[2] || '00'}:00`;
+    })();
     const place = plainText(block.match(/itemprop=["']location["'][\s\S]*?itemprop=["']name["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
     const street = plainText(block.match(/itemprop=["']streetAddress["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
     const city = canonicalCity(plainText(block.match(/itemprop=["']addressLocality["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || source.city || ''));
