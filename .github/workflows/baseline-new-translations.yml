@@ -9,6 +9,7 @@ on:
       - 'data/translations.zh*.json'
       - 'scripts/build-translation-overlay.mjs'
       - 'scripts/load-translation-catalogs.mjs'
+      - 'scripts/apply-event-translations.mjs'
       - '.github/workflows/baseline-new-translations.yml'
 
 permissions:
@@ -28,14 +29,22 @@ jobs:
         run: node scripts/build-translation-overlay.mjs
       - name: Verify runtime translation overlay
         run: node scripts/translation-overlay.test.mjs
-      - name: Commit baselined catalogs and runtime overlay
+      - name: Materialize approved translations into event data
+        run: node scripts/apply-event-translations.mjs
+      - name: Verify translation state
         run: |
-          if git diff --quiet -- 'data/translations.zh*.json' data/translations.zh.js; then
-            echo "Translation fingerprints and runtime overlay are current."
+          node scripts/translation-qa.mjs
+          node scripts/runtime-translation-fallback.test.mjs
+      - name: Commit baselined catalogs, runtime overlay, and materialized event data
+        run: |
+          if git diff --quiet -- 'data/translations.zh*.json' data/translations.zh.js data/events.json data/events.js; then
+            echo "Translation fingerprints, runtime overlay, and event materialization are current."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add 'data/translations.zh*.json' data/translations.zh.js
-          git commit -m "chore: sync Chinese translation runtime overlay"
-          git push origin HEAD:${GITHUB_REF_NAME}
+          git add 'data/translations.zh*.json' data/translations.zh.js data/events.json data/events.js
+          git commit -m "chore: sync Chinese translations"
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"

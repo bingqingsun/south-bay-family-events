@@ -64,13 +64,22 @@ jobs:
         run: |
           vercel project inspect "$VERCEL_PROJECT_ID" --scope="$VERCEL_ORG_ID" --token="$VERCEL_TOKEN"
 
-      - name: Generate SEO pages when the requested ref supports them
+      - name: Generate Preview data and SEO pages when supported
         run: |
           if [ -f scripts/generate-event-pages.mjs ]; then
             node scripts/generate-event-pages.mjs
           fi
+          if [ -f scripts/build-translation-overlay.mjs ]; then
+            node scripts/build-translation-overlay.mjs
+          fi
+          if [ -f scripts/translation-overlay.test.mjs ]; then
+            node scripts/translation-overlay.test.mjs
+          fi
           if [ -f scripts/apply-event-translations.mjs ]; then
             node scripts/apply-event-translations.mjs
+          fi
+          if [ -f scripts/translation-qa.mjs ]; then
+            node scripts/translation-qa.mjs
           fi
           if [ -f scripts/generate-sitemap.mjs ]; then
             node scripts/generate-sitemap.mjs
