@@ -550,4 +550,8 @@
     renderCollectionHome();
     renderCollectionLanding();
   });
+  window.addEventListener('sbff:events-ready', () => {
+    renderCollectionHome();
+    renderCollectionLanding();
+  });
 })();
