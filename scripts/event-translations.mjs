@@ -118,7 +118,7 @@ export function applyChineseTranslationCatalog(items, catalog, { generatedAt = n
         title: String(entry.title).trim(),
         description: String(entry.description || '').trim(),
         fingerprint,
-        translatedAt: entry.reviewedAt || generatedAt,
+        translatedAt: entry.reviewedAt || entry.generatedAt || generatedAt,
         translationSource: entry.translationSource || 'reviewed-sidecar',
         status: 'approved'
       }

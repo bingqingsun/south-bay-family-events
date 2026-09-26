@@ -115,8 +115,9 @@ for (const event of candidates) {
       description: await translateText(translator, event.description || ''),
       sourceFingerprint: translationFingerprint(event),
       status: 'approved',
-      translationSource: 'local-opus-mt-en-zh',
-      reviewedAt: new Date().toISOString()
+      translationSource: 'auto-local-opus-mt-en-zh',
+      qualityGate: 'automated-qa',
+      generatedAt: new Date().toISOString()
     };
     const audit = auditChineseTranslation(event, entry);
     if (!audit.ok) {
