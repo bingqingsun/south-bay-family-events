@@ -31,10 +31,10 @@
   }
 
   function browserPrefersChinese() {
-    const languages = Array.isArray(navigator.languages) && navigator.languages.length
-      ? navigator.languages
-      : [navigator.language || ''];
-    return languages.some(language => String(language).toLowerCase().startsWith('zh'));
+    const primaryLanguage = Array.isArray(navigator.languages) && navigator.languages.length
+      ? navigator.languages[0]
+      : navigator.language || '';
+    return String(primaryLanguage).toLowerCase().startsWith('zh');
   }
 
   function applyInitialLanguagePreference() {
