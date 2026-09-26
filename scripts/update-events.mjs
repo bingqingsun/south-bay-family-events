@@ -5,6 +5,7 @@
  */
 import { readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import { applyChineseTranslationCatalog } from './event-translations.mjs';
 import {
   cautiousMovieRating,
   isKidAppropriateMovie,
@@ -34,10 +35,9 @@ import {
 } from './lib/palo-alto-special-events.mjs';
 
 const key = process.env.SERPAPI_KEY;
-// Translation is intentionally paused: no third-party translation key is read
-// or called until the product is ready to offer this feature again.
-const translationEnabled = false;
-const translationKey = translationEnabled ? process.env.GOOGLE_TRANSLATE_API_KEY : '';
+// Chinese localization is merged from a reviewed sidecar catalog. The daily
+// refresh never calls a runtime translation API; organizer English remains
+// the canonical fact source.
 
 function typeFor(text, title = '') {
   const value = String(text || '').toLowerCase();
@@ -3216,7 +3216,8 @@ const browserTarget = new URL('../data/events.js', import.meta.url);
 const museumTarget = new URL('../data/museums.json', import.meta.url);
 const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
 const sourceHealthTarget = new URL('../data/source-health.json', import.meta.url);
-const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
+const existingEvents = JSON.parse(await readFile(target, 'utf8'));
+const translationCatalog = JSON.parse(await readFile(new URL('../data/translations.zh.json', import.meta.url), 'utf8'));
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const existingSourceHealth = await readFile(sourceHealthTarget, 'utf8').then(JSON.parse).catch(() => ({ sources: [] }));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
@@ -3855,64 +3856,14 @@ if ((linkHealthSummary['not-found'] || 0) + (linkHealthSummary['content-mismatch
   console.warn(`::warning::Link health downgraded ${(linkHealthSummary['not-found'] || 0) + (linkHealthSummary['content-mismatch'] || 0)} detail links to a verified official fallback.`);
 }
 
-function translationFingerprint(event) {
-  return createHash('sha256').update(String(event.title || '') + '\n' + String(event.description || '')).digest('hex');
+const { stats: translationStats } = applyChineseTranslationCatalog(events, translationCatalog, {
+  generatedAt,
+  strict: true
+});
+if (translationStats.stale) {
+  console.warn(`::warning::${translationStats.stale} Chinese translation(s) are stale and will fall back to organizer English until reviewed.`);
 }
 
-function needsChineseTranslation(text) {
-  const value = String(text || '').trim();
-  return /[A-Za-z]/.test(value) && !(/^[\u3400-\u9fff\s\p{P}\p{N}]+$/u.test(value));
-}
-
-async function translateToChinese(texts) {
-  const endpoint = 'https://translation.googleapis.com/language/translate/v2?key=' + encodeURIComponent(translationKey);
-  const response = await fetch(endpoint, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ q: texts, source: 'en', target: 'zh-CN', format: 'text' }),
-    signal: AbortSignal.timeout(30000)
-  });
-  const payload = await response.json().catch(() => ({}));
-  if (!response.ok || !Array.isArray(payload.data?.translations)) {
-    throw new Error('Google Translation failed: ' + response.status + (payload.error?.message ? ' — ' + payload.error.message : ''));
-  }
-  return payload.data.translations.map(item => decodeXml(item.translatedText || '').trim());
-}
-
-async function addChineseTranslations(items) {
-  if (!translationEnabled) return { cached: 0, translated: 0 };
-  const existingByUrl = new Map(existingEvents.filter(event => event.url).map(event => [event.url.toLowerCase(), event]));
-  const missing = [];
-  for (const event of items) {
-    const prior = existingByUrl.get(event.url.toLowerCase());
-    const fingerprint = translationFingerprint(event);
-    const cached = prior?.translations?.zh;
-    if (cached?.fingerprint === fingerprint && cached.title && cached.description) {
-      event.translations = { zh: cached };
-    } else if (needsChineseTranslation(event.title) || needsChineseTranslation(event.description)) {
-      missing.push({ event, fingerprint });
-    } else {
-      event.translations = { zh: { title: event.title, description: event.description, fingerprint, translatedAt: generatedAt } };
-    }
-  }
-  if (!missing.length) return { cached: items.length, translated: 0 };
-  if (!translationKey) {
-    console.warn('Google translation is not configured; ' + missing.length + ' new or changed cards remain in the organizer original language.');
-    return { cached: items.length - missing.length, translated: 0 };
-  }
-  // Batch title and short card summary. Only new or changed content consumes quota.
-  const texts = missing.flatMap(({ event }) => [event.title, event.description]);
-  const translated = [];
-  for (let index = 0; index < texts.length; index += 80) {
-    translated.push(...await translateToChinese(texts.slice(index, index + 80)));
-  }
-  missing.forEach(({ event, fingerprint }, index) => {
-    event.translations = { zh: { title: translated[index * 2], description: translated[index * 2 + 1], fingerprint, translatedAt: generatedAt } };
-  });
-  return { cached: items.length - missing.length, translated: missing.length };
-}
-
-const translationStats = await addChineseTranslations(events);
 
 await writeFile(target, `${JSON.stringify(events, null, 2)}\n`);
 // A same-origin script works both on GitHub Pages and when the user opens the
@@ -3926,5 +3877,5 @@ const summaryStatusCounts = events.reduce((counts, event) => {
   counts[status] = (counts[status] || 0) + 1;
   return counts;
 }, {});
-console.log(`Published ${events.length} verified activities from ${directSources.length} official calendars and ${searchSources.length} fallback sources; ${retainedSourceEvents.length} retained from last-known-good source data; ${translationStats.translated} translated and ${translationStats.cached} translation entries reused from cache.`);
+console.log(`Published ${events.length} verified activities from ${directSources.length} official calendars and ${searchSources.length} fallback sources; ${retainedSourceEvents.length} retained from last-known-good source data; Chinese translations: ${translationStats.current} current, ${translationStats.stale} stale, ${translationStats.missing} missing.`);
 console.log(`Event summary coverage: ${JSON.stringify(summaryStatusCounts)}`);
