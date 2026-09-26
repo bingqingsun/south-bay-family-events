@@ -2333,13 +2333,15 @@ async function readCivic(source) {
     const dateValue = plainText(block.match(/itemprop=["']startDate["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
     const explicitEndDateValue = plainText(block.match(/itemprop=["']endDate["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
     const blockText = plainText(block);
-    const timeRange = blockText.match(/(\d{1,2}(?::\d{2})?\s*(?:AM|PM))\s*(?:-|–|—|to)\s*(\d{1,2}(?::\d{2})?\s*(?:AM|PM))/i);
+    const timeRange = blockText.match(/(\d{1,2}(?::\d{2})?)\s*(?:(a\.?m\.?|p\.?m\.?|AM|PM)\s*)?(?:-|–|—|to)\s*(\d{1,2}(?::\d{2})?)\s*(a\.?m\.?|p\.?m\.?|AM|PM)/i);
     const visibleEndDateValue = (() => {
       const day = String(dateValue || '').match(/(\d{4}-\d{2}-\d{2})/)?.[1];
-      const time = String(timeRange?.[2] || '').match(/(\d{1,2})(?::(\d{2}))?\s*(AM|PM)/i);
-      if (!day || !time) return '';
+      const hourText = String(timeRange?.[3] || '');
+      const meridiem = String(timeRange?.[4] || timeRange?.[2] || '').replace(/\./g, '').toUpperCase();
+      const time = hourText.match(/(\d{1,2})(?::(\d{2}))?/);
+      if (!day || !time || !meridiem) return '';
       let hour = Number(time[1]) % 12;
-      if (time[3].toUpperCase() === 'PM') hour += 12;
+      if (meridiem === 'PM') hour += 12;
       return `${day}T${String(hour).padStart(2, '0')}:${time[2] || '00'}:00`;
     })();
     const endDateValue = visibleEndDateValue || explicitEndDateValue;
