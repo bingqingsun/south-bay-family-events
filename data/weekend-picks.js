@@ -4,26 +4,26 @@ window.SBFF_WEEKEND_PICKS = {
   weekendEnd: '2026-09-27',
   status: 'published',
   publishedAt: '2026-09-26T08:00:00-07:00',
-  updatedAt: '2026-09-26T08:00:00-07:00',
+  updatedAt: '2026-09-26T08:20:00-07:00',
   intro: 'Handpicked South Bay family activities worth considering this weekend, with verified event details and official sources.',
   picks: [
     {
-      eventRef: { title: '13th Annual Fall Bike Fest', url: 'https://www.cupertino.gov/bikefest' },
+      eventRef: { id: 'curated-b7185603c68c065f', title: 'Fall Bike Fest', aliases: ['13th Annual Fall Bike Fest'], url: 'https://www.cupertino.gov/bikefest' },
       label: 'Hands-on Pick',
       whyWePicked: 'Bike games, family rides, crafts, and a library story time make this more than a quick stop—it is an easy free morning outing families can build around.'
     },
     {
-      eventRef: { title: 'Nightfall', url: 'https://filoli.org/whats-on/events/nightfall/' },
+      eventRef: { id: 'filoli-546ede82db7e6eeb', title: 'Nightfall', url: 'https://filoli.org/whats-on/events/nightfall/' },
       label: 'Seasonal Pick',
       whyWePicked: 'Filoli turns an evening visit into an immersive Halloween story, moving families from a harvest party through the transformed house, glowing woodland, and Witches’ Village.'
     },
     {
-      eventRef: { title: 'Mid-Autumn Moon Festival', url: 'https://www.cdm.org/event/mid-autumn-moon-festival/' },
+      eventRef: { id: 'curated-f1d6a411a90a62b1', title: 'Mid-Autumn Moon Festival', url: 'https://www.cdm.org/event/mid-autumn-moon-festival/' },
       label: 'Cultural Pick',
       whyWePicked: 'A lion dance, mooncake-themed play, lantern making, and a family read-aloud give kids several different ways to experience Mid-Autumn traditions in one visit.'
     },
     {
-      eventRef: { title: 'The Great Big BOO!', url: 'https://www.gilroygardens.org/halloween/' },
+      eventRef: { id: 'series-e6ac1a91e28ab5eb', title: 'The Great Big BOO!', aliases: ['The Great Big BOO'], url: 'https://www.gilroygardens.org/halloween/' },
       label: 'Seasonal Pick',
       whyWePicked: 'Live musical shows, trick-or-treating, themed attractions, and a deliberately not-too-spooky tone make this a full Halloween outing designed for families.'
     },
@@ -38,7 +38,7 @@ window.SBFF_WEEKEND_PICKS = {
       whyWePicked: 'For families ready to go beyond a typical weekend activity, this planetarium show makes one of astronomy’s most mind-bending subjects the center of the outing.'
     },
     {
-      eventRef: { title: 'Mid-Autumn Festival Bay Area', url: 'https://www.sanjose.org/events/mid-autumn-festival-bay-area' },
+      eventRef: { id: 'curated-3dc3446a01d92775', title: 'Mid-Autumn Festival Bay Area', url: 'https://www.sanjose.org/events/mid-autumn-festival-bay-area' },
       label: 'Cultural Pick',
       whyWePicked: 'Lanterns, performances, games, food, and storytelling bring the festival’s family-and-community traditions together in a large San Jose celebration.'
     },
@@ -48,12 +48,12 @@ window.SBFF_WEEKEND_PICKS = {
       whyWePicked: 'Kids can make a bath bomb and a lavender heat pack while learning the science behind fizz and scent, combining a real take-home project with STEM.'
     },
     {
-      eventRef: { title: 'Laser K-POP Demon Hunters', url: 'https://daweb2.deanza.edu/events/event.html?id=191546764' },
+      eventRef: { id: 'deanza-44094221863c791b', title: 'Laser K-POP Demon Hunters', url: 'https://daweb2.deanza.edu/events/event.html?id=191546764' },
       label: 'Something Different',
       whyWePicked: 'A full-dome laser show built around songs from K-Pop Demon Hunters offers a high-energy option for families who want something very different from a daytime festival.'
     },
     {
-      eventRef: { title: 'Mid-Autumn Festival 2026', url: 'https://www.cpaasv.org/events/mid-autumn-festival-2026' },
+      eventRef: { id: 'squarespace-86e397631a011714', title: 'Mid-Autumn Festival 2026', url: 'https://www.cpaasv.org/events/mid-autumn-festival-2026' },
       label: 'Cultural Pick',
       whyWePicked: 'Live Chinese music and dance, hands-on crafts, mooncake tasting, and community vendors make this free celebration both cultural and easy for families to join.'
     },
