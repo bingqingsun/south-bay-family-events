@@ -6,8 +6,8 @@ concurrency:
 
 on:
   # A source or refresh-script change should immediately rebuild the published
-  # list without asking the maintainer to run
-  # Actions manually after pushing the configuration.
+  # list without asking the maintainer to run Actions manually after pushing
+  # the configuration.
   push:
     branches:
       - main
@@ -15,8 +15,12 @@ on:
       - 'scripts/update-events.mjs'
       - 'scripts/event-translations.mjs'
       - 'scripts/event-translations.test.mjs'
+      - 'scripts/generate-event-translations.mjs'
+      - 'scripts/apply-event-translations.mjs'
+      - 'scripts/load-translation-catalogs.mjs'
       - 'scripts/translation-qa.mjs'
-      - 'data/translations.zh.json'
+      - 'data/translations.zh*.json'
+      - 'data/translations.zh*.js'
       - 'scripts/event-summary-engine.mjs'
       - 'scripts/test-event-summary-engine.mjs'
       - 'scripts/test-summary-output.mjs'
@@ -57,6 +61,7 @@ jobs:
           node-version: 22
       - name: Test event-summary engine contracts
         run: |
+          node --check scripts/generate-event-translations.mjs
           node scripts/test-event-summary-engine.mjs
           node scripts/event-translations.test.mjs
           node scripts/translation-qa.mjs
@@ -66,7 +71,10 @@ jobs:
           node scripts/link-ui.test.cjs
           node scripts/cupertino-audience.test.mjs
           node scripts/age-policy.test.cjs
-      - run: node scripts/update-events.mjs
+      - name: Preserve pre-refresh translation source snapshot
+        run: cp data/events.json "$RUNNER_TEMP/events-before-refresh.json"
+      - name: Refresh canonical event data
+        run: node scripts/update-events.mjs
         env:
           SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
           # A configuration push refreshes the free direct sources only. A
@@ -76,13 +84,22 @@ jobs:
           # runs too, so relying on `inputs.include_serpapi` here would
           # silently disable the scheduled fallback.
           INCLUDE_SERPAPI: ${{ github.event_name == 'schedule' && 'auto' || github.event_name == 'push' && 'false' || inputs.include_serpapi }}
+      - name: Translate only newly added or changed event text
+        run: node scripts/generate-event-translations.mjs --previous "$RUNNER_TEMP/events-before-refresh.json"
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SBFF_TRANSLATION_MODEL: ${{ vars.SBFF_TRANSLATION_MODEL }}
+      - name: Re-apply all approved translation sidecars
+        run: node scripts/apply-event-translations.mjs
+      - name: Verify translation state after refresh
+        run: node scripts/translation-qa.mjs
       - name: Audit published summary provenance
         run: node scripts/test-summary-output.mjs
-      - name: Save refreshed event list
+      - name: Save refreshed event list and approved translation deltas
         run: |
           git config user.name "south-bay-events-bot"
           git config user.email "actions@github.com"
-          git add data/events.json data/events.js data/museums.json data/museums.js data/source-health.json
+          git add data/events.json data/events.js data/museums.json data/museums.js data/source-health.json 'data/translations.zh*.json'
           if git diff --staged --quiet; then
             exit 0
           fi
