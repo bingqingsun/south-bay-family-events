@@ -889,3 +889,35 @@
     padding: 0 8px;
   }
 }
+
+/* Header control conflict fixes */
+.home-page .nav > .nav-actions .language-switcher,
+.home-page .nav > .nav-actions .saved-button,
+.site-page .site-nav > .nav-actions .language-switcher,
+.site-page .site-nav > .nav-actions .collection-saved-button {
+  box-sizing: border-box;
+  min-height: 42px;
+  height: 42px;
+}
+
+.site-page .site-nav .language-button.active,
+.site-page .site-nav .language-button[aria-current="page"],
+.site-page .site-nav .language-button.active:hover,
+.site-page .site-nav .language-button[aria-current="page"]:hover {
+  background: var(--sbff-blue-600);
+  color: #fff;
+}
+
+.site-page .site-nav .language-button:not(.active):not([aria-current="page"]) {
+  color: var(--sbff-muted);
+}
+
+@media (max-width: 760px) {
+  .home-page .nav > .nav-actions .language-switcher,
+  .home-page .nav > .nav-actions .saved-button,
+  .site-page .site-nav > .nav-actions .language-switcher,
+  .site-page .site-nav > .nav-actions .collection-saved-button {
+    min-height: 39px;
+    height: 39px;
+  }
+}
