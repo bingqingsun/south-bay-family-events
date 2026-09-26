@@ -6,7 +6,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ORIGIN = 'https://southbayfamilyfinds.com';
 const OUTPUT = path.join(ROOT, 'sitemap.xml');
 const CORE_PAGES = ['', 'about.html', 'privacy.html', 'terms.html'];
-const CONTENT_ROOTS = ['collections', 'events', 'cities'];
+const CONTENT_ROOTS = ['collections', 'events', 'cities', 'zh'];
 
 function discoverIndexPages(rootName) {
   const root = path.join(ROOT, rootName);

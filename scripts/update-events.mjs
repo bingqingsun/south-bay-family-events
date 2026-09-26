@@ -5,6 +5,8 @@
  */
 import { readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import { applyChineseTranslationCatalog } from './event-translations.mjs';
+import { selectCivicPlusEventDescription } from './civicplus-description.mjs';
 import {
   cautiousMovieRating,
   isKidAppropriateMovie,
@@ -34,10 +36,9 @@ import {
 } from './lib/palo-alto-special-events.mjs';
 
 const key = process.env.SERPAPI_KEY;
-// Translation is intentionally paused: no third-party translation key is read
-// or called until the product is ready to offer this feature again.
-const translationEnabled = false;
-const translationKey = translationEnabled ? process.env.GOOGLE_TRANSLATE_API_KEY : '';
+// Chinese localization is merged from a reviewed sidecar catalog. The daily
+// refresh never calls a runtime translation API; organizer English remains
+// the canonical fact source.
 
 function typeFor(text, title = '') {
   const value = String(text || '').toLowerCase();
@@ -46,6 +47,7 @@ function typeFor(text, title = '') {
   // the organizer or a secondary activity mechanic. Subject learning and
   // making must outrank words such as “games” when both appear.
   if (/\b(?:vs\.?|versus|football|soccer|hockey|baseball|basketball|matchday|regular season|playoffs?)\b/.test(value)) return 'sports';
+  if (/\b(?:festival|celebration|fest|halloween|trick[- ]or[- ]treat|monster mash|tree lighting|holiday|santa)\b/.test(value)) return 'community';
   if (/\b(?:show|theat(?:er|re)|concert|performance|musical|dance recital|magic|planetarium|laser show|ice show)\b/.test(value)) return 'shows';
   if (/\b(?:museum|gallery|exhibit(?:ion)?|on view|collection)\b/.test(value)) return 'museums';
   if (/\b(?:hike|nature(?:\s+walk)?|trail|wildlife|marsh|forest|creek|pond|ranger|bird(?:s)?\b|habitat restoration|environmental education)\b/.test(value)) return 'outdoor';
@@ -78,6 +80,7 @@ function typeFor(text, title = '') {
 function formatFor(text) {
   const value = String(text || '').toLowerCase();
   if (/\b(?:vs\.?|versus|football|soccer|hockey|baseball|basketball|matchday|regular season|playoffs?)\b/.test(value)) return 'sports-game';
+  if (/\b(?:festival|celebration|fest|parade|fair)\b/.test(value)) return 'festival';
   if (/\b(?:museum|gallery|exhibit(?:ion)?|collection)\b/.test(value) && /\b(?:tour|family day|drawing|drop-in|workshop|program)\b/.test(value)) return 'museum-program';
   if (/\b(?:exhibit(?:ion)?|on view|gallery)\b/.test(value)) return 'museum-exhibition';
   if (/\b(?:show|theat(?:er|re)|concert|performance|musical|dance|magic|planetarium|laser|ice (?:show|skating))\b/.test(value)) return 'live-show';
@@ -2328,12 +2331,26 @@ async function readCivic(source) {
     const title = plainText(block.match(/id=["']eventTitle_\d+["'][^>]*>[\s\S]*?<span>([\s\S]*?)<\/span>/i)?.[1] || '');
     const href = htmlAttribute(block, /id=["']eventTitle_\d+["'][^>]*href=["']([^"']+)["']/i);
     const dateValue = plainText(block.match(/itemprop=["']startDate["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
+    const explicitEndDateValue = plainText(block.match(/itemprop=["']endDate["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
+    const blockText = plainText(block);
+    const timeRange = blockText.match(/(\d{1,2}(?::\d{2})?)\s*(?:(a\.?m\.?|p\.?m\.?|AM|PM)\s*)?(?:-|–|—|to)\s*(\d{1,2}(?::\d{2})?)\s*(a\.?m\.?|p\.?m\.?|AM|PM)/i);
+    const visibleEndDateValue = (() => {
+      const day = String(dateValue || '').match(/(\d{4}-\d{2}-\d{2})/)?.[1];
+      const hourText = String(timeRange?.[3] || '');
+      const meridiem = String(timeRange?.[4] || timeRange?.[2] || '').replace(/\./g, '').toUpperCase();
+      const time = hourText.match(/(\d{1,2})(?::(\d{2}))?/);
+      if (!day || !time || !meridiem) return '';
+      let hour = Number(time[1]) % 12;
+      if (meridiem === 'PM') hour += 12;
+      return `${day}T${String(hour).padStart(2, '0')}:${time[2] || '00'}:00`;
+    })();
+    const endDateValue = visibleEndDateValue || explicitEndDateValue;
     const place = plainText(block.match(/itemprop=["']location["'][\s\S]*?itemprop=["']name["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
     const street = plainText(block.match(/itemprop=["']streetAddress["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
     const city = canonicalCity(plainText(block.match(/itemprop=["']addressLocality["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || source.city || ''));
     const familySignal = /\b(?:family|families|kids?|children|youth|teen|toddler|movie|concert|music|festival|celebration|holiday|halloween|lantern|campout|egg hunt|art|craft|science|stem|nature|outdoor)\b/i.test(title);
     if (!title || !href || !isUpcoming(dateValue) || !familySignal) return [];
-    return [{ title, url: new URL(decodeXml(href), source.feedUrl).href, dateValue, place, street, city, monthIndex }];
+    return [{ title, url: new URL(decodeXml(href), source.feedUrl).href, dateValue, endDateValue, place, street, city, monthIndex }];
   }));
   const seen = new Set();
   const items = candidates.filter(item => {
@@ -2353,14 +2370,24 @@ async function readCivic(source) {
       const landingHtml = landingUrl === item.url ? detailHtml : await landingResponse.text();
       if (!landingResponse.ok) return null;
       const editorialBlocks = [...landingHtml.matchAll(/<div class=["'][^"']*\bfr-view\b[^"']*["'][^>]*>([\s\S]*?)<\/div>/gi)].map(match => match[1]);
-      const officialText = sourceDescriptionText(editorialBlocks.join(' ') || detailHtml);
+      const fallbackOfficialText = sourceDescriptionText(editorialBlocks.join(' ') || detailHtml);
+      const officialText = sourceDescriptionText(selectCivicPlusEventDescription(landingHtml, item.title, fallbackOfficialText));
       const description = officialText;
+      const landingTimeRange = officialText.match(/\b(\d{1,2})(?::(\d{2}))?\s*(?:-|–|—|to)\s*(\d{1,2})(?::(\d{2}))?\s*(a\.?m\.?|p\.?m\.?)\b/i);
+      const landingEndDateValue = (() => {
+        const day = String(item.dateValue || '').match(/(\d{4}-\d{2}-\d{2})/)?.[1];
+        if (!day || !landingTimeRange) return '';
+        let hour = Number(landingTimeRange[3]) % 12;
+        const meridiem = String(landingTimeRange[5] || '').replace(/\./g, '').toUpperCase();
+        if (meridiem === 'PM') hour += 12;
+        return `${day}T${String(hour).padStart(2, '0')}:${landingTimeRange[4] || '00'}:00`;
+      })();
       const audienceText = `${item.title} ${officialText} ${plainText(landingHtml.match(/<meta\s+name=["']description["']\s+content=["']([^"']*)/i)?.[1] || '')}`;
       if (!hasPublishableSummary(description, { title: item.title }) || isExplicitlyAdultOnly(audienceText)) return null;
       const image = htmlAttribute(landingHtml, /widget image[\s\S]{0,1600}?<img[^>]+src=["']([^"']+)["']/i);
       const event = directEvent({
         id: 'civic-' + createHash('sha256').update(`${landingUrl}|${item.dateValue}|${index}`).digest('hex').slice(0, 16),
-        title: item.title, dateValue: item.dateValue, description,
+        title: item.title, dateValue: item.dateValue, endDateValue: landingEndDateValue || item.endDateValue, description,
         image: image ? new URL(image, landingUrl).href : '', place: item.place || source.name,
         address: shortAddress(item.street, item.city), city: item.city || source.city || '', source: source.name, url: landingUrl,
         ageText: audienceText
@@ -3216,7 +3243,8 @@ const browserTarget = new URL('../data/events.js', import.meta.url);
 const museumTarget = new URL('../data/museums.json', import.meta.url);
 const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
 const sourceHealthTarget = new URL('../data/source-health.json', import.meta.url);
-const existingEvents = JSON.parse(await readFile(target, 'utf8')); // Preserve translations already verified for unchanged cards.
+const existingEvents = JSON.parse(await readFile(target, 'utf8'));
+const translationCatalog = JSON.parse(await readFile(new URL('../data/translations.zh.json', import.meta.url), 'utf8'));
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const existingSourceHealth = await readFile(sourceHealthTarget, 'utf8').then(JSON.parse).catch(() => ({ sources: [] }));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
@@ -3855,64 +3883,14 @@ if ((linkHealthSummary['not-found'] || 0) + (linkHealthSummary['content-mismatch
   console.warn(`::warning::Link health downgraded ${(linkHealthSummary['not-found'] || 0) + (linkHealthSummary['content-mismatch'] || 0)} detail links to a verified official fallback.`);
 }
 
-function translationFingerprint(event) {
-  return createHash('sha256').update(String(event.title || '') + '\n' + String(event.description || '')).digest('hex');
+const { stats: translationStats } = applyChineseTranslationCatalog(events, translationCatalog, {
+  generatedAt,
+  strict: true
+});
+if (translationStats.stale) {
+  console.warn(`::warning::${translationStats.stale} Chinese translation(s) are stale and will fall back to organizer English until reviewed.`);
 }
 
-function needsChineseTranslation(text) {
-  const value = String(text || '').trim();
-  return /[A-Za-z]/.test(value) && !(/^[\u3400-\u9fff\s\p{P}\p{N}]+$/u.test(value));
-}
-
-async function translateToChinese(texts) {
-  const endpoint = 'https://translation.googleapis.com/language/translate/v2?key=' + encodeURIComponent(translationKey);
-  const response = await fetch(endpoint, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ q: texts, source: 'en', target: 'zh-CN', format: 'text' }),
-    signal: AbortSignal.timeout(30000)
-  });
-  const payload = await response.json().catch(() => ({}));
-  if (!response.ok || !Array.isArray(payload.data?.translations)) {
-    throw new Error('Google Translation failed: ' + response.status + (payload.error?.message ? ' — ' + payload.error.message : ''));
-  }
-  return payload.data.translations.map(item => decodeXml(item.translatedText || '').trim());
-}
-
-async function addChineseTranslations(items) {
-  if (!translationEnabled) return { cached: 0, translated: 0 };
-  const existingByUrl = new Map(existingEvents.filter(event => event.url).map(event => [event.url.toLowerCase(), event]));
-  const missing = [];
-  for (const event of items) {
-    const prior = existingByUrl.get(event.url.toLowerCase());
-    const fingerprint = translationFingerprint(event);
-    const cached = prior?.translations?.zh;
-    if (cached?.fingerprint === fingerprint && cached.title && cached.description) {
-      event.translations = { zh: cached };
-    } else if (needsChineseTranslation(event.title) || needsChineseTranslation(event.description)) {
-      missing.push({ event, fingerprint });
-    } else {
-      event.translations = { zh: { title: event.title, description: event.description, fingerprint, translatedAt: generatedAt } };
-    }
-  }
-  if (!missing.length) return { cached: items.length, translated: 0 };
-  if (!translationKey) {
-    console.warn('Google translation is not configured; ' + missing.length + ' new or changed cards remain in the organizer original language.');
-    return { cached: items.length - missing.length, translated: 0 };
-  }
-  // Batch title and short card summary. Only new or changed content consumes quota.
-  const texts = missing.flatMap(({ event }) => [event.title, event.description]);
-  const translated = [];
-  for (let index = 0; index < texts.length; index += 80) {
-    translated.push(...await translateToChinese(texts.slice(index, index + 80)));
-  }
-  missing.forEach(({ event, fingerprint }, index) => {
-    event.translations = { zh: { title: translated[index * 2], description: translated[index * 2 + 1], fingerprint, translatedAt: generatedAt } };
-  });
-  return { cached: items.length - missing.length, translated: missing.length };
-}
-
-const translationStats = await addChineseTranslations(events);
 
 await writeFile(target, `${JSON.stringify(events, null, 2)}\n`);
 // A same-origin script works both on GitHub Pages and when the user opens the
@@ -3926,5 +3904,5 @@ const summaryStatusCounts = events.reduce((counts, event) => {
   counts[status] = (counts[status] || 0) + 1;
   return counts;
 }, {});
-console.log(`Published ${events.length} verified activities from ${directSources.length} official calendars and ${searchSources.length} fallback sources; ${retainedSourceEvents.length} retained from last-known-good source data; ${translationStats.translated} translated and ${translationStats.cached} translation entries reused from cache.`);
+console.log(`Published ${events.length} verified activities from ${directSources.length} official calendars and ${searchSources.length} fallback sources; ${retainedSourceEvents.length} retained from last-known-good source data; Chinese translations: ${translationStats.current} current, ${translationStats.stale} stale, ${translationStats.missing} missing.`);
 console.log(`Event summary coverage: ${JSON.stringify(summaryStatusCounts)}`);

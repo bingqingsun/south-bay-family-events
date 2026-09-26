@@ -19,6 +19,24 @@
       homeTags: ['Lanterns', 'Mooncakes', 'Lion dances'],
       homeCta: 'Explore the guide',
       landingDescription: 'Celebrate with lanterns, mooncakes, lion dances, cultural performances, crafts, and family activities across the South Bay.',
+      translations: Object.freeze({
+        zh: Object.freeze({
+          title: '2026 南湾中秋节亲子活动指南',
+          landingTitle: '南湾中秋节亲子活动指南',
+          homeLabelActive: '精选专题',
+          homeLabelLastChance: '即将结束',
+          homeDescription: '灯笼、月饼、舞狮和南湾各地的家庭庆祝活动',
+          homeTags: ['灯笼', '月饼', '舞狮'],
+          homeCta: '查看专题',
+          landingDescription: '在南湾寻找适合全家的中秋庆祝活动，包括灯笼、月饼、舞狮、文化表演、手工和亲子体验。',
+          archiveEyebrow: '2026 中秋活动已结束',
+          archiveTitle: '本季活动已结束',
+          archiveDescription: '2026 年中秋活动已经结束，你仍可以继续浏览南湾正在进行的亲子活动。',
+          unavailableEyebrow: '指南暂时不可用',
+          unavailableTitle: '该指南暂时不可用',
+          unavailableDescription: '我们正在更新这份指南的活动信息，你可以先浏览当前的南湾亲子活动。'
+        })
+      }),
       published: true,
       publishAt: '2026-09-01T00:00:00',
       lastChanceThreshold: 2,

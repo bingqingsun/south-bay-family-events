@@ -5,12 +5,9 @@ concurrency:
   cancel-in-progress: true
 
 on:
-  # A source or refresh-script change should immediately rebuild the published
-  # list without asking the maintainer to run
-  # Actions manually after pushing the configuration.
   push:
-    branches-ignore:
-      - 'preview-acceptance'
+    branches:
+      - main
     paths:
       - 'scripts/update-events.mjs'
       - 'scripts/event-summary-engine.mjs'
@@ -24,6 +21,11 @@ on:
       - 'scripts/detail-enrichment.test.mjs'
       - 'scripts/cupertino-audience.mjs'
       - 'scripts/cupertino-audience.test.mjs'
+      - 'scripts/event-translations.mjs'
+      - 'scripts/apply-event-translations.mjs'
+      - 'scripts/load-translation-catalogs.mjs'
+      - 'scripts/translation-qa.mjs'
+      - 'scripts/runtime-translation-fallback.test.mjs'
       - 'data/sources.json'
       - 'app.js'
       - 'collections.js'
@@ -60,16 +62,19 @@ jobs:
           node scripts/link-ui.test.cjs
           node scripts/cupertino-audience.test.mjs
           node scripts/age-policy.test.cjs
-      - run: node scripts/update-events.mjs
+          node scripts/event-translations.test.mjs
+          node scripts/runtime-translation-fallback.test.mjs
+      - name: Refresh canonical event data
+        run: node scripts/update-events.mjs
         env:
           SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
-          # A configuration push refreshes the free direct sources only. A
-          # scheduled run passes `auto`, allowing the script to use SerpApi
-          # only on Tuesday and Thursday; a manual run uses the checkbox above.
-          # GitHub exposes the manual input's default (`false`) on scheduled
-          # runs too, so relying on `inputs.include_serpapi` here would
-          # silently disable the scheduled fallback.
           INCLUDE_SERPAPI: ${{ github.event_name == 'schedule' && 'auto' || github.event_name == 'push' && 'false' || inputs.include_serpapi }}
+      - name: Re-apply reviewed Chinese translations
+        run: node scripts/apply-event-translations.mjs
+      - name: Verify translation state after refresh
+        run: |
+          node scripts/translation-qa.mjs
+          node scripts/runtime-translation-fallback.test.mjs
       - name: Audit published summary provenance
         run: node scripts/test-summary-output.mjs
       - name: Save refreshed event list
@@ -81,9 +86,6 @@ jobs:
             exit 0
           fi
           git commit -m "chore: refresh South Bay events"
-          # A maintainer may update docs/code while this refresh is running.
-          # Rebase the generated-data commit onto the latest branch head instead
-          # of failing a non-fast-forward push and losing an otherwise valid refresh.
           git fetch origin "$GITHUB_REF_NAME"
           git rebase "origin/$GITHUB_REF_NAME"
           git push origin "HEAD:$GITHUB_REF_NAME"

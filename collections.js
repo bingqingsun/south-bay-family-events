@@ -1,16 +1,39 @@
 (() => {
   const runtime = window.SBFFCollectionRuntime;
+  const language = window.SBFF_LOCALE === 'zh' || document.documentElement.lang.toLowerCase().startsWith('zh') ? 'zh' : 'en';
+  const isZh = language === 'zh';
+  const assetBase = String(window.SBFF_ASSET_BASE || '../..').replace(/\/$/, '');
+  const eventText = (event, field) => {
+    if (!isZh) return event[field];
+    const embedded = event.translations?.zh;
+    const overlay = window.SBFF_TRANSLATIONS_ZH?.[event.id];
+    const overlayIsCurrent = Boolean(overlay?.sourceFingerprint && embedded?.fingerprint && overlay.sourceFingerprint === embedded.fingerprint);
+    return (overlayIsCurrent ? overlay?.[field] : '') || embedded?.[field] || event[field];
+  };
+  const ui = {
+    showDescription: isZh ? '展开简介' : 'Show description',
+    hideDescription: isZh ? '收起简介' : 'Hide description',
+    directions: isZh ? '导航' : 'Directions',
+    hostedBy: isZh ? '主办方：' : 'Hosted by ',
+    registrationFull: isZh ? '报名已满 · 查看候补' : 'Registration full · Check waitlist',
+    registrationRequired: isZh ? '需要提前报名' : 'Registration required',
+    onViewNow: isZh ? '正在展出' : 'On view now',
+    timeUnavailable: isZh ? '请点击活动详情查看活动时间' : 'See organizer details for the event time',
+    viewDetails: isZh ? '查看活动详情 ' : 'View details ',
+    hideOtherSessions: isZh ? '收起其他场次' : 'Hide other sessions',
+    showOtherSessions: count => isZh ? `查看其他 ${count} 个场次` : `Show ${count} other session${count === 1 ? '' : 's'}`
+  };
   const categoryLabels = {
-    sports: 'Sports & games',
-    shows: 'Shows & performances',
-    movies: 'Movies & screenings',
-    museums: 'Museums & exhibits',
-    outdoor: 'Outdoors & nature',
-    arts: 'Arts & making',
-    learning: 'Learning & STEM',
-    play: 'Stories & play',
-    community: 'Community & family',
-    workshops: 'Classes & workshops'
+    sports: isZh ? '体育与比赛' : 'Sports & games',
+    shows: isZh ? '演出与表演' : 'Shows & performances',
+    movies: isZh ? '电影与放映' : 'Movies & screenings',
+    museums: isZh ? '博物馆与展览' : 'Museums & exhibits',
+    outdoor: isZh ? '户外自然' : 'Outdoors & nature',
+    arts: isZh ? '艺术与创作' : 'Arts & making',
+    learning: isZh ? '学习与 STEM' : 'Learning & STEM',
+    play: isZh ? '故事与玩乐' : 'Stories & play',
+    community: isZh ? '社区与家庭' : 'Community & family',
+    workshops: isZh ? '课程与工作坊' : 'Classes & workshops'
   };
   const fallbackImageType = {
     sports: 'sports',
@@ -21,14 +44,19 @@
     workshops: 'workshops'
   };
   const costLabels = {
-    '免费': 'Free',
-    '建议捐赠': 'Suggested donation',
-    '会员／非会员价格见详情': 'Member pricing available',
-    '需付费／价格见详情': 'Paid admission',
-    '需购票／价格见详情': 'Paid admission'
+    '免费': isZh ? '免费' : 'Free',
+    '建议捐赠': isZh ? '建议捐赠' : 'Suggested donation',
+    '会员／非会员价格见详情': isZh ? '会员价／普通票价' : 'Member pricing available',
+    '需付费／价格见详情': isZh ? '收费活动' : 'Paid admission',
+    '需购票／价格见详情': isZh ? '收费活动' : 'Paid admission'
   };
 
   let savedIds = JSON.parse(localStorage.getItem('southBaySaved') || '[]');
+  function syncHeaderSavedCount() {
+    document.querySelectorAll('.collection-saved-count').forEach((node) => {
+      node.textContent = String(savedIds.length);
+    });
+  }
   const seenCardImpressions = new Set();
   let cardImpressionObserver = null;
 
@@ -49,7 +77,7 @@
     const match = String(value || '').match(/^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}))?/);
     if (!match) return null;
     const date = new Date(`${match[1]}-${match[2]}-${match[3]}T12:00:00Z`);
-    const formatted = new Intl.DateTimeFormat('en-US', {
+    const formatted = new Intl.DateTimeFormat(isZh ? 'zh-CN' : 'en-US', {
       timeZone: 'UTC',
       month: 'short',
       day: 'numeric',
@@ -64,7 +92,7 @@
     const match = String(value).match(/^(\d{4})-(\d{2})-(\d{2})/);
     if (!match) return value;
     const date = new Date(`${match[1]}-${match[2]}-${match[3]}T12:00:00Z`);
-    return new Intl.DateTimeFormat('en-US', {
+    return new Intl.DateTimeFormat(isZh ? 'zh-CN' : 'en-US', {
       timeZone: 'UTC',
       month: 'short',
       day: 'numeric',
@@ -189,7 +217,7 @@
     const session = sessions[0] || event;
     const analytics = eventAnalytics(viewModel, event, rank, placement);
     const fallbackType = fallbackImageType[event.type] || event.type || 'community';
-    const fallbackImage = `../../assets/fallback/${fallbackType}.png?v=20260830-1`;
+    const fallbackImage = `${assetBase}/assets/fallback/${fallbackType}.png?v=20260830-1`;
     const officialImage = optimizedOfficialImageUrl(event.image, event.source);
     const imageArea = node.querySelector('.card-image');
     const setCardImage = (url) => {
@@ -206,7 +234,19 @@
 
     node.querySelector('.event-icon').textContent = event.icon || '✦';
     node.querySelector('.tag').textContent = categoryLabels[event.type] || event.tag || 'Family activity';
-    node.querySelector('h3').textContent = event.title;
+    const titleNode = node.querySelector('h3');
+    const localizedTitle = isZh ? eventText(event, 'title') : '';
+    titleNode.textContent = '';
+    const officialTitle = document.createElement('span');
+    officialTitle.className = 'event-title-official';
+    officialTitle.textContent = event.title;
+    titleNode.append(officialTitle);
+    if (isZh && localizedTitle && localizedTitle !== event.title) {
+      const zhTitle = document.createElement('span');
+      zhTitle.className = 'event-title-localized';
+      zhTitle.textContent = localizedTitle;
+      titleNode.append(zhTitle);
+    }
 
     const facts = node.querySelector('.card-facts');
     const ageFact = node.querySelector('.fact-age');
@@ -229,8 +269,8 @@
 
     const registrationFact = node.querySelector('.fact-registration');
     const registrationText = event.registrationStatus === 'full'
-      ? 'Registration full · Check waitlist'
-      : event.registrationStatus === 'required' ? 'Registration required' : '';
+      ? ui.registrationFull
+      : event.registrationStatus === 'required' ? ui.registrationRequired : '';
     registrationFact.textContent = registrationText;
     registrationFact.title = registrationText ? [event.registrationSource, event.registrationEvidence].filter(Boolean).join(': ') : '';
     if (!registrationText) registrationFact.remove();
@@ -241,22 +281,22 @@
 
     const description = node.querySelector('.description');
     const descriptionToggle = node.querySelector('.description-toggle');
-    description.textContent = event.description || '';
+    description.textContent = eventText(event, 'description') || '';
     description.hidden = !description.textContent.trim();
     description.id = `${entryPoint}-description-${event.id}`;
     descriptionToggle.dataset.eventId = event.id;
     descriptionToggle.setAttribute('aria-controls', description.id);
     descriptionToggle.setAttribute('aria-expanded', 'false');
-    descriptionToggle.textContent = 'Show description';
+    descriptionToggle.textContent = ui.showDescription;
     descriptionToggle.addEventListener('click', () => {
       const expanded = description.classList.toggle('is-expanded');
-      descriptionToggle.textContent = expanded ? 'Hide description' : 'Show description';
+      descriptionToggle.textContent = expanded ? ui.hideDescription : ui.showDescription;
       descriptionToggle.setAttribute('aria-expanded', String(expanded));
     });
 
     node.querySelector('.time .detail-text').textContent = event.ongoing
-      ? 'On view now'
-      : (dateLabel(session.dateValue) || session.date || 'See organizer details for the event time');
+      ? ui.onViewNow
+      : (dateLabel(session.dateValue) || session.date || ui.timeUnavailable);
     node.querySelector('.place .detail-text').textContent = session.place || event.place || event.city || 'South Bay';
 
     const address = node.querySelector('.address');
@@ -268,7 +308,7 @@
     address.hidden = !locationText;
     address.querySelector('.detail-text').textContent = locationText;
     addressLink.hidden = !mapTarget;
-    addressLink.querySelector('.directions').textContent = 'Directions';
+    addressLink.querySelector('.directions').textContent = ui.directions;
     addressLink.setAttribute('aria-label', `Directions: ${locationText}`);
     addressLink.addEventListener('click', () => window.SBFFMapNavigation?.openMapPicker({
       event,
@@ -281,7 +321,7 @@
     if (organizerName) {
       const organizer = document.createElement('p');
       organizer.className = 'organizer';
-      organizer.textContent = `Hosted by ${organizerName}`;
+      organizer.textContent = `${ui.hostedBy}${organizerName}`;
       node.querySelector('.details').append(organizer);
     }
 
@@ -292,7 +332,7 @@
     sessionList.id = `${entryPoint}-sessions-${event.id}`;
     sessionToggle.setAttribute('aria-controls', sessionList.id);
     sessionToggle.setAttribute('aria-expanded', 'false');
-    sessionToggle.textContent = `Show ${otherSessions.length} other session${otherSessions.length === 1 ? '' : 's'}`;
+    sessionToggle.textContent = ui.showOtherSessions(otherSessions.length);
     otherSessions.forEach((item) => {
       const row = document.createElement('li');
       const sessionUrl = safeOutboundUrl(item.url || event.url);
@@ -309,7 +349,7 @@
     sessionToggle.addEventListener('click', () => {
       const expanded = !sessionList.hidden;
       sessionList.hidden = expanded;
-      sessionToggle.textContent = expanded ? `Show ${otherSessions.length} other session${otherSessions.length === 1 ? '' : 's'}` : 'Hide other sessions';
+      sessionToggle.textContent = expanded ? ui.showOtherSessions(otherSessions.length) : ui.hideOtherSessions;
       sessionToggle.setAttribute('aria-expanded', String(!expanded));
     });
 
@@ -318,7 +358,7 @@
     link.hidden = !resolvedLink;
     if (resolvedLink) link.href = resolvedLink;
     else link.removeAttribute('href');
-    link.firstChild.textContent = 'View details ';
+    link.firstChild.textContent = ui.viewDetails;
     link.addEventListener('click', () => {
       if (!resolvedLink) return;
       track('view_event_details', {
@@ -337,6 +377,7 @@
         ? savedIds.filter((id) => id !== event.id && !legacyIds.includes(id))
         : [...savedIds.filter((id) => !legacyIds.includes(id)), event.id];
       localStorage.setItem('southBaySaved', JSON.stringify(savedIds));
+      syncHeaderSavedCount();
       track(wasSaved ? 'unsave_event' : 'save_event', {
         ...analytics,
         ...collectionContextParameters(event)
@@ -356,9 +397,10 @@
 
   function buildHomeCard(viewModel, position) {
     const { config } = viewModel;
+    const localizedConfig = isZh ? { ...config, ...(config.translations?.zh || {}) } : config;
     const card = document.createElement('a');
     card.className = 'collection-home-card collection-home-card-featured';
-    card.href = config.landingPath;
+    card.href = isZh ? `collections/${config.slug}/` : config.landingPath;
     card.dataset.collectionSlug = config.slug;
     card.style.setProperty('--collection-cover', `url("${config.coverImage}")`);
 
@@ -372,19 +414,19 @@
     const label = document.createElement('span');
     label.className = 'collection-home-label';
     label.textContent = viewModel.collectionState === runtime.STATES.LAST_CHANCE
-      ? (config.homeLabelLastChance || 'Last chance')
-      : (config.homeLabelActive || 'Featured guide');
+      ? (localizedConfig.homeLabelLastChance || (isZh ? '最后机会' : 'Last chance'))
+      : (localizedConfig.homeLabelActive || (isZh ? '精选指南' : 'Featured guide'));
 
     const title = document.createElement('strong');
-    title.textContent = config.title;
+    title.textContent = localizedConfig.title;
 
     const description = document.createElement('span');
     description.className = 'collection-home-description';
-    description.textContent = config.homeDescription || '';
+    description.textContent = localizedConfig.homeDescription || '';
 
     const tags = document.createElement('span');
     tags.className = 'collection-home-tags';
-    (config.homeTags || []).forEach((tagText) => {
+    (localizedConfig.homeTags || config.homeTags || []).forEach((tagText) => {
       const tag = document.createElement('span');
       tag.textContent = tagText;
       tags.append(tag);
@@ -392,7 +434,7 @@
 
     const cta = document.createElement('span');
     cta.className = 'collection-home-cta';
-    cta.append(document.createTextNode(`${config.homeCta || 'Explore the guide'} `));
+    cta.append(document.createTextNode(`${localizedConfig.homeCta || (isZh ? '查看指南' : 'Explore the guide')} `));
     const arrow = document.createElement('b');
     arrow.setAttribute('aria-hidden', 'true');
     arrow.textContent = '→';
@@ -475,9 +517,10 @@
     page.dataset.collectionState = runtime.analyticsState(viewModel.collectionState);
 
     const hero = document.getElementById('collectionHero');
-    if (hero) hero.style.setProperty('--collection-cover', `url("../../${config.coverImage}")`);
-    document.getElementById('collectionHeroTitle').textContent = config.landingTitle || config.title;
-    document.getElementById('collectionHeroDescription').textContent = config.landingDescription || config.homeDescription || '';
+    if (hero) hero.style.setProperty('--collection-cover', `url("${assetBase}/${config.coverImage}")`);
+    const localizedConfig = isZh ? { ...config, ...(config.translations?.zh || {}) } : config;
+    document.getElementById('collectionHeroTitle').textContent = localizedConfig.landingTitle || localizedConfig.title;
+    document.getElementById('collectionHeroDescription').textContent = localizedConfig.landingDescription || localizedConfig.homeDescription || '';
 
     const eyebrow = document.getElementById('collectionHeroEyebrow');
     const heroMeta = document.getElementById('collectionHeroMeta');
@@ -492,9 +535,9 @@
     allGrid.innerHTML = '';
 
     if ([runtime.STATES.FEATURED, runtime.STATES.LAST_CHANCE].includes(viewModel.collectionState)) {
-      eyebrow.textContent = `${config.year} FAMILY GUIDE`;
+      eyebrow.textContent = isZh ? `${config.year} 家庭指南` : `${config.year} FAMILY GUIDE`;
       heroMeta.hidden = false;
-      document.getElementById('collectionEventCount').textContent = `${viewModel.currentEventCount} upcoming celebration${viewModel.currentEventCount === 1 ? '' : 's'}`;
+      document.getElementById('collectionEventCount').textContent = isZh ? `${viewModel.currentEventCount} 个即将开始的活动` : `${viewModel.currentEventCount} upcoming celebration${viewModel.currentEventCount === 1 ? '' : 's'}`;
       const dateNode = document.getElementById('collectionDateRange');
       const dateText = dateRangeLabel(viewModel.currentDateRange);
       dateNode.textContent = dateText;
@@ -525,16 +568,16 @@
       heroMeta.hidden = true;
       hideLandingActivitySections();
       setLandingStatePanel({
-        title: config.archiveTitle || 'This season has ended',
-        body: config.archiveDescription || 'These events have passed, but there are plenty of family activities happening across the South Bay.'
+        title: localizedConfig.archiveTitle || (isZh ? '本季活动已结束' : 'This season has ended'),
+        body: localizedConfig.archiveDescription || (isZh ? '这些活动已经结束，你仍可以浏览南湾当前的亲子活动。' : 'These events have passed, but there are plenty of family activities happening across the South Bay.')
       });
     } else {
       eyebrow.textContent = config.unavailableEyebrow || 'GUIDE TEMPORARILY UNAVAILABLE';
       heroMeta.hidden = true;
       hideLandingActivitySections();
       setLandingStatePanel({
-        title: config.unavailableTitle || 'This guide is temporarily unavailable',
-        body: config.unavailableDescription || 'We are refreshing the event details for this guide. Explore current South Bay family activities in the meantime.'
+        title: localizedConfig.unavailableTitle || (isZh ? '该指南暂时不可用' : 'This guide is temporarily unavailable'),
+        body: localizedConfig.unavailableDescription || (isZh ? '我们正在更新活动信息，你可以先浏览当前的南湾亲子活动。' : 'We are refreshing the event details for this guide. Explore current South Bay family activities in the meantime.')
       });
     }
 
@@ -547,6 +590,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
+    syncHeaderSavedCount();
     renderCollectionHome();
     renderCollectionLanding();
   });

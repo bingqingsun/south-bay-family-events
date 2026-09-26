@@ -671,3 +671,266 @@
     grid-column: auto;
   }
 }
+
+/* Language switcher */
+.language-switcher {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--sbff-border);
+  border-radius: 999px;
+  background: var(--sbff-surface);
+  box-shadow: var(--sbff-shadow-1);
+}
+.language-button {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  min-width: 36px;
+  border-radius: 999px;
+  color: var(--sbff-muted);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 7px 9px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.language-button.active,
+.language-button[aria-current="page"] {
+  background: var(--sbff-blue-600);
+  color: #fff;
+}
+@media (max-width: 760px) {
+  .home-page .language-switcher {
+    margin-left: auto;
+    margin-right: 8px;
+    padding: 2px;
+  }
+  .home-page .language-button {
+    min-width: 34px;
+    padding: 6px 7px;
+    font-size: 11px;
+  }
+  .home-page .language-button[data-language="zh"] {
+    min-width: 42px;
+  }
+}
+
+/* Shared header actions across homepage and collection pages */
+.home-page .nav-actions,
+.site-page .nav-actions {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 8px;
+}
+.site-page .collection-saved-button {
+  align-items: center;
+  background: var(--sbff-surface);
+  border: 1px solid #cfd8e8;
+  border-radius: 14px;
+  color: var(--sbff-navy-900);
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 700;
+  height: 42px;
+  justify-content: center;
+  padding: 0 10px;
+  text-decoration: none;
+}
+.site-page .collection-saved-button b {
+  background: var(--sbff-yellow-400);
+  border-radius: 20px;
+  margin-left: 3px;
+  padding: 1px 5px;
+}
+@media (max-width: 760px) {
+  .site-page .site-nav > .nav-links { display: none; }
+  .site-page .site-nav > .nav-actions {
+    gap: 8px;
+    margin-left: auto;
+  }
+  .site-page .collection-saved-button {
+    height: 39px;
+    width: 53px;
+    padding: 0 8px;
+  }
+  .site-page .collection-saved-label { display: none; }
+  .site-page .language-switcher {
+    margin: 0;
+    padding: 2px;
+  }
+  .site-page .language-button {
+    min-width: 34px;
+    padding: 6px 7px;
+    font-size: 11px;
+  }
+  .site-page .language-button[data-language="zh"] { min-width: 42px; }
+}
+
+/* Header alignment v1.1 — one visual spec for home + collection */
+.home-page .nav > .brand,
+.site-page .site-nav > .brand {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 6px;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -.7px;
+  line-height: 1;
+}
+.home-page .nav > .brand .brand-mark,
+.site-page .site-nav > .brand .brand-mark {
+  height: 36px;
+  width: 36px;
+}
+.home-page .nav > .brand .brand-name,
+.site-page .site-nav > .brand .brand-name {
+  font-size: 20px;
+}
+
+.home-page .nav > .nav-actions,
+.site-page .site-nav > .nav-actions {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 8px;
+  margin-left: 8px;
+}
+.home-page .language-switcher,
+.site-page .language-switcher,
+.home-page .saved-button,
+.site-page .collection-saved-button {
+  height: 42px;
+  border: 1px solid #cfd8e8;
+  background: var(--sbff-surface);
+  box-shadow: var(--sbff-shadow-1);
+}
+.home-page .language-switcher,
+.site-page .language-switcher {
+  border-radius: 14px;
+  padding: 3px;
+}
+.home-page .language-button,
+.site-page .language-button {
+  height: 34px;
+  min-width: 38px;
+  border-radius: 10px;
+  padding: 0 9px;
+}
+.home-page .saved-button,
+.site-page .collection-saved-button {
+  border-radius: 14px;
+  min-width: 58px;
+  padding: 0 10px;
+}
+.home-page .saved-button {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+}
+.site-page .collection-saved-button {
+  min-width: 58px;
+}
+
+@media (max-width: 760px) {
+  .home-page .nav > .brand,
+  .site-page .site-nav > .brand {
+    font-size: 15px;
+    gap: 5px;
+    max-width: none;
+  }
+  .home-page .nav > .brand .brand-mark,
+  .site-page .site-nav > .brand .brand-mark {
+    height: 30px;
+    width: 30px;
+  }
+  .home-page .nav > .brand .brand-name,
+  .site-page .site-nav > .brand .brand-name {
+    font-size: 15px;
+  }
+  .home-page .nav > .nav-actions,
+  .site-page .site-nav > .nav-actions {
+    gap: 7px;
+    margin-left: auto;
+  }
+  .home-page .language-switcher,
+  .site-page .language-switcher,
+  .home-page .saved-button,
+  .site-page .collection-saved-button {
+    height: 39px;
+  }
+  .home-page .language-switcher,
+  .site-page .language-switcher {
+    border-radius: 13px;
+    padding: 2px;
+    margin: 0;
+  }
+  .home-page .language-button,
+  .site-page .language-button {
+    height: 33px;
+    min-width: 34px;
+    border-radius: 10px;
+    padding: 0 7px;
+    font-size: 11px;
+  }
+  .home-page .language-button[data-language="zh"],
+  .site-page .language-button[data-language="zh"] {
+    min-width: 42px;
+  }
+  .home-page .saved-button,
+  .site-page .collection-saved-button {
+    width: 53px;
+    min-width: 53px;
+    padding: 0 8px;
+  }
+}
+
+/* Header control conflict fixes */
+.home-page .nav > .nav-actions .language-switcher,
+.home-page .nav > .nav-actions .saved-button,
+.site-page .site-nav > .nav-actions .language-switcher,
+.site-page .site-nav > .nav-actions .collection-saved-button {
+  box-sizing: border-box;
+  min-height: 42px;
+  height: 42px;
+}
+
+.site-page .site-nav .language-button.active,
+.site-page .site-nav .language-button[aria-current="page"],
+.site-page .site-nav .language-button.active:hover,
+.site-page .site-nav .language-button[aria-current="page"]:hover {
+  background: var(--sbff-blue-600);
+  color: #fff;
+}
+
+.site-page .site-nav .language-button:not(.active):not([aria-current="page"]) {
+  color: var(--sbff-muted);
+}
+
+@media (max-width: 760px) {
+  .home-page .nav > .nav-actions .language-switcher,
+  .home-page .nav > .nav-actions .saved-button,
+  .site-page .site-nav > .nav-actions .language-switcher,
+  .site-page .site-nav > .nav-actions .collection-saved-button {
+    min-height: 39px;
+    height: 39px;
+  }
+}
+
+/* Localized event title pairing: official name stays visible for source matching. */
+.event-title-official,
+.event-title-localized {
+  display: block;
+}
+.event-title-localized {
+  color: var(--sbff-muted);
+  font-size: .86em;
+  font-weight: 600;
+  line-height: 1.45;
+  margin-top: 3px;
+}

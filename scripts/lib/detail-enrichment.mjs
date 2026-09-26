@@ -301,7 +301,10 @@ export function enrichEventFromDetail(event, {
   // summaries (movie ratings, sports matchups) and manual editorial evidence
   // are already stronger than a generic venue meta description and must not be
   // replaced by it.
-  const canonicalMayReplaceDescription = !['official_structured', 'manual_verified'].includes(event.summaryStatus);
+  const genericDescriptionIsWeakMeta = generic.descriptionMethod === 'meta-description';
+  const hasSourceSpecificDescription = String(event.description || '').trim().length >= 40;
+  const canonicalMayReplaceDescription = !['official_structured', 'manual_verified'].includes(event.summaryStatus)
+    && !(genericDescriptionIsWeakMeta && hasSourceSpecificDescription);
   if (canonicalMayReplaceDescription) set('description', generic.description, generic.descriptionMethod);
   const officialImage = specific.image || generic.image;
   const officialImageMethod = specific.image ? specific.imageMethod : generic.imageMethod;

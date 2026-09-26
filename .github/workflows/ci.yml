@@ -7,6 +7,8 @@ on:
     paths:
       - 'scripts/**'
       - 'data/sources.json'
+      - 'data/translations.zh*.json'
+      - 'data/translations.zh*.js'
       - 'analytics.js'
       - 'app.js'
       - 'collection-runtime.js'
@@ -27,6 +29,8 @@ on:
     paths:
       - 'scripts/**'
       - 'data/sources.json'
+      - 'data/translations.zh*.json'
+      - 'data/translations.zh*.js'
       - 'analytics.js'
       - 'app.js'
       - 'collection-runtime.js'
@@ -57,6 +61,17 @@ jobs:
       - name: Check refresh-script syntax
         run: |
           node --check scripts/update-events.mjs
+          node --check scripts/civicplus-description.mjs
+          node --check scripts/civicplus-description.test.mjs
+          node --check scripts/event-translations.mjs
+          node --check scripts/event-translations.test.mjs
+          node --check scripts/translation-text.mjs
+          node --check scripts/translation-text.test.mjs
+          node --check scripts/apply-event-translations.mjs
+          node --check scripts/load-translation-catalogs.mjs
+          node --check scripts/translation-qa.mjs
+          node --check scripts/translation-coverage-report.mjs
+          node --check scripts/runtime-translation-fallback.test.mjs
           node --check scripts/cupertino-detail-date.mjs
           node --check scripts/cupertino-audience.mjs
           node --check scripts/link-health.mjs
@@ -75,6 +90,13 @@ jobs:
       - name: Run policy and data-contract tests
         run: |
           node scripts/test-event-summary-engine.mjs
+          node scripts/civicplus-description.test.mjs
+          node scripts/event-translations.test.mjs
+          node scripts/translation-text.test.mjs
+          node scripts/translation-overlay.test.mjs
+          node scripts/runtime-translation-fallback.test.mjs
+          node scripts/translation-qa.mjs
+          node scripts/translation-coverage-report.mjs
           node scripts/cupertino-detail-date.test.mjs
           node scripts/cupertino-audience.test.mjs
           node scripts/age-policy.test.cjs && node scripts/update-events-age.test.mjs
