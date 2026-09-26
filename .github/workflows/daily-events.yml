@@ -58,6 +58,8 @@ jobs:
       - name: Test event-summary engine contracts
         run: |
           node scripts/test-event-summary-engine.mjs
+          node scripts/event-translations.test.mjs
+          node scripts/translation-qa.mjs
           node scripts/link-health.test.mjs
           node scripts/detail-enrichment.test.mjs
           node scripts/canonical-detail-pipeline.test.mjs
