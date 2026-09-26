@@ -87,14 +87,14 @@ jobs:
       - name: Cache local translation model
         uses: actions/cache@v4
         with:
-          path: ~/.cache/sbff-hf
+          path: /home/runner/.cache/sbff-hf
           key: sbff-opus-mt-en-zh-q8-v1
       - name: Install local translation runtime
         run: npm install --no-save --package-lock=false @huggingface/transformers@3.8.1
       - name: Translate only newly added or changed event text
         run: node scripts/generate-event-translations.mjs --previous "$RUNNER_TEMP/events-before-refresh.json"
         env:
-          HF_HOME: ~/.cache/sbff-hf
+          HF_HOME: /home/runner/.cache/sbff-hf
           SBFF_TRANSLATION_MODEL: Xenova/opus-mt-en-zh
           SBFF_TRANSLATION_MAX_DELTA: 20
       - name: Re-apply all approved translation sidecars
