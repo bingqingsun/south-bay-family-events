@@ -1,10 +1,9 @@
 import { readFile } from 'node:fs/promises';
+import { loadChineseTranslationCatalogs } from './load-translation-catalogs.mjs';
 
 const events = JSON.parse(await readFile(new URL('../data/events.json', import.meta.url), 'utf8'));
-const primary = JSON.parse(await readFile(new URL('../data/translations.zh.json', import.meta.url), 'utf8'));
-const h2 = await readFile(new URL('../data/translations.zh.2026-h2.json', import.meta.url), 'utf8').then(JSON.parse).catch(() => ({ entries: [] }));
-const entries = [...(primary.entries || []), ...(h2.entries || [])];
-const approvedIds = new Set(entries.filter(entry => entry.status === 'approved').map(entry => entry.id));
+const catalog = await loadChineseTranslationCatalogs();
+const approvedIds = new Set((catalog.entries || []).filter(entry => entry.status === 'approved').map(entry => entry.id));
 
 const today = '2026-09-25';
 const active = events
@@ -35,5 +34,6 @@ const byMonth = missing.reduce((counts, event) => {
   return counts;
 }, {});
 
+console.log(`translation catalogs: ${catalog.files.join(', ')}`);
 console.log(`translation coverage: ${JSON.stringify({ active: active.length, approvedIds: approvedIds.size, missing: missing.length, byMonth })}`);
 console.log(`TRANSLATION_MISSING_BATCH=${JSON.stringify(batch)}`);
