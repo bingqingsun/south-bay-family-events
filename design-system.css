@@ -770,3 +770,122 @@
   }
   .site-page .language-button[data-language="zh"] { min-width: 42px; }
 }
+
+/* Header alignment v1.1 — one visual spec for home + collection */
+.home-page .nav > .brand,
+.site-page .site-nav > .brand {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 6px;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -.7px;
+  line-height: 1;
+}
+.home-page .nav > .brand .brand-mark,
+.site-page .site-nav > .brand .brand-mark {
+  height: 36px;
+  width: 36px;
+}
+.home-page .nav > .brand .brand-name,
+.site-page .site-nav > .brand .brand-name {
+  font-size: 20px;
+}
+
+.home-page .nav > .nav-actions,
+.site-page .site-nav > .nav-actions {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 8px;
+  margin-left: 8px;
+}
+.home-page .language-switcher,
+.site-page .language-switcher,
+.home-page .saved-button,
+.site-page .collection-saved-button {
+  height: 42px;
+  border: 1px solid #cfd8e8;
+  background: var(--sbff-surface);
+  box-shadow: var(--sbff-shadow-1);
+}
+.home-page .language-switcher,
+.site-page .language-switcher {
+  border-radius: 14px;
+  padding: 3px;
+}
+.home-page .language-button,
+.site-page .language-button {
+  height: 34px;
+  min-width: 38px;
+  border-radius: 10px;
+  padding: 0 9px;
+}
+.home-page .saved-button,
+.site-page .collection-saved-button {
+  border-radius: 14px;
+  min-width: 58px;
+  padding: 0 10px;
+}
+.home-page .saved-button {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+}
+.site-page .collection-saved-button {
+  min-width: 58px;
+}
+
+@media (max-width: 760px) {
+  .home-page .nav > .brand,
+  .site-page .site-nav > .brand {
+    font-size: 15px;
+    gap: 5px;
+    max-width: none;
+  }
+  .home-page .nav > .brand .brand-mark,
+  .site-page .site-nav > .brand .brand-mark {
+    height: 30px;
+    width: 30px;
+  }
+  .home-page .nav > .brand .brand-name,
+  .site-page .site-nav > .brand .brand-name {
+    font-size: 15px;
+  }
+  .home-page .nav > .nav-actions,
+  .site-page .site-nav > .nav-actions {
+    gap: 7px;
+    margin-left: auto;
+  }
+  .home-page .language-switcher,
+  .site-page .language-switcher,
+  .home-page .saved-button,
+  .site-page .collection-saved-button {
+    height: 39px;
+  }
+  .home-page .language-switcher,
+  .site-page .language-switcher {
+    border-radius: 13px;
+    padding: 2px;
+    margin: 0;
+  }
+  .home-page .language-button,
+  .site-page .language-button {
+    height: 33px;
+    min-width: 34px;
+    border-radius: 10px;
+    padding: 0 7px;
+    font-size: 11px;
+  }
+  .home-page .language-button[data-language="zh"],
+  .site-page .language-button[data-language="zh"] {
+    min-width: 42px;
+  }
+  .home-page .saved-button,
+  .site-page .collection-saved-button {
+    width: 53px;
+    min-width: 53px;
+    padding: 0 8px;
+  }
+}
