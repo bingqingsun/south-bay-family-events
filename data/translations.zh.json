@@ -42,6 +42,16 @@
       "status": "approved",
       "translationSource": "editorial-reviewed",
       "reviewedAt": "2026-09-25T00:00:00Z"
+    },
+    {
+      "id": "civic-70e54d8492ed1a97",
+      "sourceUrl": "https://www.milpitas.gov/1132/Lantern-Festival",
+      "sourceFingerprint": "f03b51233266e776cf5be319ef73f1909b7503e2775e8056b46cfaf517f92afd",
+      "title": "灯笼节",
+      "description": "游客可以装饰灯笼，与社区分享，并欣赏色彩缤纷的舞蹈表演、热闹的音乐，还可以购买本地餐车提供的美食。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T00:59:00Z"
     }
   ]
 }
