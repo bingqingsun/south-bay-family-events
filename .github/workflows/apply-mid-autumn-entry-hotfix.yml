@@ -1,0 +1,49 @@
+name: Apply Mid-Autumn entry hotfix
+
+on:
+  push:
+    branches:
+      - hotfix/mid-autumn-entry
+    paths:
+      - '.github/workflows/apply-mid-autumn-entry-hotfix.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: hotfix/mid-autumn-entry
+      - name: Apply isolated async collection rerender fix
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          app = Path('app.js')
+          source = app.read_text()
+          old = "  events = data;\n  window.SOUTH_BAY_EVENTS = events;\n}).catch(error => {"
+          new = "  events = data;\n  window.SOUTH_BAY_EVENTS = events;\n  window.dispatchEvent(new CustomEvent('sbff:events-ready', { detail: { count: events.length } }));\n}).catch(error => {"
+          if source.count(old) != 1:
+              raise SystemExit(f'app.js expected exactly one event-feed insertion point, found {source.count(old)}')
+          app.write_text(source.replace(old, new, 1))
+
+          collections = Path('collections.js')
+          source = collections.read_text()
+          old = "  document.addEventListener('DOMContentLoaded', () => {\n    renderCollectionHome();\n    renderCollectionLanding();\n  });\n})();\n"
+          new = "  document.addEventListener('DOMContentLoaded', () => {\n    renderCollectionHome();\n    renderCollectionLanding();\n  });\n  window.addEventListener('sbff:events-ready', () => {\n    renderCollectionHome();\n    renderCollectionLanding();\n  });\n})();\n"
+          if source.count(old) != 1:
+              raise SystemExit(f'collections.js expected exactly one lifecycle insertion point, found {source.count(old)}')
+          collections.write_text(source.replace(old, new, 1))
+          PY
+      - name: Commit only the isolated hotfix
+        run: |
+          git config user.name "sbff-hotfix-bot"
+          git config user.email "actions@github.com"
+          git rm .github/workflows/apply-mid-autumn-entry-hotfix.yml
+          git add app.js collections.js
+          git diff --cached --check
+          git commit -m "fix: restore collection entry after async event load"
+          git push origin HEAD:hotfix/mid-autumn-entry
