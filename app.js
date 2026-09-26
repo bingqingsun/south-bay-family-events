@@ -331,7 +331,20 @@ function renderEventCard(event, eventIndex, generation) {
     setCardImage(image);
     if (officialImage) { const imageProbe = new Image(); imageProbe.onerror = () => setCardImage(fallbackImage); imageProbe.src = officialImage; }
   }
-  node.querySelector('.event-icon').textContent = event.icon; const tag = node.querySelector('.tag'); tag.textContent = categoryLabel(event); node.querySelector('h3').textContent = eventText(event, 'title');
+  node.querySelector('.event-icon').textContent = event.icon; const tag = node.querySelector('.tag'); tag.textContent = categoryLabel(event);
+  const titleNode = node.querySelector('h3');
+  const localizedTitle = state.language === 'zh' ? eventText(event, 'title') : '';
+  titleNode.textContent = '';
+  const officialTitle = document.createElement('span');
+  officialTitle.className = 'event-title-official';
+  officialTitle.textContent = event.title;
+  titleNode.append(officialTitle);
+  if (state.language === 'zh' && localizedTitle && localizedTitle !== event.title) {
+    const zhTitle = document.createElement('span');
+    zhTitle.className = 'event-title-localized';
+    zhTitle.textContent = localizedTitle;
+    titleNode.append(zhTitle);
+  }
   const description = node.querySelector('.description'); const descriptionToggle = node.querySelector('.description-toggle'); description.textContent = eventSummary(event); description.hidden = !description.textContent.trim(); description.id = `description-${event.id}`;
   descriptionToggle.dataset.eventId = event.id; descriptionToggle.setAttribute('aria-controls', description.id); descriptionToggle.setAttribute('aria-expanded', 'false'); descriptionToggle.textContent = t('expandDescription');
   const facts = node.querySelector('.card-facts');
