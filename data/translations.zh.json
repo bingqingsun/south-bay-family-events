@@ -962,6 +962,356 @@
       "status": "approved",
       "translationSource": "editorial-reviewed",
       "reviewedAt": "2026-09-26T01:25:00Z"
+    },
+    {
+      "id": "rss-6946001eea69de6e001069b1",
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/6946001eea69de6e001069b1",
+      "sourceFingerprint": "3ae5e9f8af4d81fb77af0bf3f4b47dba42436168e8607b1eacff9926bc03cd73",
+      "title": "幼儿家庭故事时间",
+      "description": "故事时间是适合全家参与的有趣互动体验，让各年龄段都能感受阅读和学习的乐趣。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "series-2022e9ec4348c705",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a9087d6be148200298a8502",
+      "sourceFingerprint": "19edf350f059560898ce6dcd8fd695f40ad641808a6da6b5eaeea5f3095844f6",
+      "title": "幼儿故事时间",
+      "description": "特别为幼儿设计，一起来听故事、唱歌，还有更多有趣活动！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "rss-6a87959557c264087ad2996f",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a87959557c264087ad2996f",
+      "sourceFingerprint": "6e6a1306f86a66b197a1b060d1fde639b1f212966bcebd63de8948dc56a37472",
+      "title": "Saratoga Library 钩针入门",
+      "description": "学习如何拿钩针和毛线，以及活结、锁针、短针、半长针、长针、长长针、魔术环和看图解。现场会提供毛线和钩针，也可以自带。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "series-9dfd55ee876d57bc",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a7e39424cb69d003e20ac5c",
+      "sourceFingerprint": "4661961b76e8e23b1a5d105083c52a294fdf53a1567c5c07f9316dd42021ea8a",
+      "title": "幼儿故事时间",
+      "description": "期待在活动中见到你！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "series-3ae418d1ffc29927",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/68aa476f4afabc39de51639f",
+      "sourceFingerprint": "5d9afbea8631c534f4479f935ec9880c4419e545c7c501416ccb2e74707cad28",
+      "title": "12 个月及以下宝宝故事时间",
+      "description": "12 个月及以下的宝宝可以一起来玩互动童谣、手指游戏、动作童谣和歌曲！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "series-e69cfc6d67993f20",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a68e77fcca66c2f00a6955d",
+      "sourceFingerprint": "917ddc6fb49e64a0a2fdd4c253b03ecb25b883b183686efb4a16a0360a9fe066",
+      "title": "宝宝故事时间与 Stay & Play",
+      "description": "欢迎 0–1 岁、还不会走路的宝宝和照护者参加 20 分钟互动活动，包括好听的歌曲和童谣、轻柔律动、宝宝手语以及适合小宝宝的短绘本。之后可以留下参加 Stay & Play，让宝宝玩适龄玩具，也方便家长和照护者交流。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "series-369acf1d849f65bf",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6954723d6724c63d00e96c72",
+      "sourceFingerprint": "622fa98f867a18be58a9a07b8851ec9972a74f1f88cfca15f091c08e14352d47",
+      "title": "儿童 LEGO 俱乐部",
+      "description": "孩子们可以发挥创造力和工程思维，自由搭建任何能想象出的作品。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "series-904342d27f96f67d",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a874ca736204e08fbb5e771",
+      "sourceFingerprint": "42b998d09172c5c6498112ce09b63a812e88b6afb74c39978f0c84c2c5ac08ed",
+      "title": "K–5 年级作业辅导",
+      "description": "周三和周四 3:30 p.m.–4:30 p.m. 有导师提供作业辅导。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "rss-6a887bfe4cb69d003e2251ad",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a887bfe4cb69d003e2251ad",
+      "sourceFingerprint": "80a3c9efb4ebc8c05d6dea78c135487fb400e9be4b3dc26c558c779c352b3e8e",
+      "title": "Piñata 制作工作坊",
+      "description": "参加动手活动，全家一起制作属于自己的彩色 piñata。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "series-5467ba38f5ad3daa",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a86810793b500003ff62e60",
+      "sourceFingerprint": "0df9cfbd38227f52a1a433b085c9d9b131d0ced8258125c66d426a2a966b1b8b",
+      "title": "Level Up Readers 阅读升级",
+      "description": "读者可以用阅读记录追踪自己的进度，同时享受阅读过程中的乐趣！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "rss-6aa5e036a29f1b002adc4959",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6aa5e036a29f1b002adc4959",
+      "sourceFingerprint": "7d9a45250db126157e12f310b1c4d889a98acc2dd7920178e320ee2817eaef40",
+      "title": "¡Bailemos Folklórico! 4–6 岁儿童舞蹈系列课",
+      "description": "孩子们会在学习新舞步的同时，探索传统音乐、动作和文化。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "rss-6aa5e08488820d00317064fc",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6aa5e08488820d00317064fc",
+      "sourceFingerprint": "76d1f253e3b820cf37a89dec2f3d80b27de5ec9ba1f9ad938c819404bd40193f",
+      "title": "¡Bailemos Folklórico! 7–10 岁儿童舞蹈系列课",
+      "description": "孩子们会在学习新舞步的同时，探索传统音乐、动作和文化。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "rss-6a91e49e1c197d11325b8621",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a91e49e1c197d11325b8621",
+      "sourceFingerprint": "af0daa62507d4a37c87b809e131ded9f9eb72d40071bb720da16728fb981a068",
+      "title": "跟台词一起看电影：《Clue》",
+      "description": "一起向 Tim Curry 致敬，在大银幕观看《Clue》（1985），并配有字幕，方便大家跟着喜欢的台词一起念。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "rss-6a3dbc0bfddb082f00fe149e",
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/6a3dbc0bfddb082f00fe149e",
+      "sourceFingerprint": "a21c5bac80a736ae7c174cbb7380d4cd6866c825b5f79a7aa373528b22f536f4",
+      "title": "音乐与律动",
+      "description": "活动会介绍乐器、歌曲和舞蹈动作，让每个人都能跟着音乐一起动起来。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "series-64e72c36c6ae64a7",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/69fa6349caf93436005a0354",
+      "sourceFingerprint": "7bf6f289452650cc2bd021999180563110a22d69b6647fe6ab0c57388e18f0d9",
+      "title": "Milpitas 儿童国际象棋俱乐部",
+      "description": "参加者需要了解国际象棋规则，并能够独立下棋。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "series-2f9bab32de08901a",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a86278146e4c80031cbc0f9",
+      "sourceFingerprint": "a81342a3b8f57e02bf57e0abe47c7d42bbf2b5061a05e1914ad0600510249f55",
+      "title": "睡前故事时间",
+      "description": "家长和孩子会一起听、一起学、一起唱。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "rss-6ab5b57b0c7bf418f4e3e627",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6ab5b57b0c7bf418f4e3e627",
+      "sourceFingerprint": "43f5d395e1b2b581ce6964131006a5fe44ab39a6b7fcaac61b16efff6712525e",
+      "title": "油画作品展",
+      "description": "展览汇集 Mamatha Induvadan 的原创油画作品，包括风景、花卉、海景，以及关于沉思与虔敬的场景。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "rss-69276b597eb3e430002638b3",
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/69276b597eb3e430002638b3",
+      "sourceFingerprint": "c2b26a394e2a5152844d5c627c51d67e90dd7efb2e4b224b07702a099a8123bf",
+      "title": "双语家庭故事时间",
+      "description": "一起来唱歌、念童谣、听故事吧！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "series-fdeb8614b3914d5e",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a53dbd2f213992f00c3bb11",
+      "sourceFingerprint": "43577d8365eb0739aeb1a3a28e608ba030b66be4ebbd89d026cdb393129ebfe5",
+      "title": "12–36 个月幼儿故事时间：故事与歌曲",
+      "description": "这场故事时间包含大量动作、唱歌和互动。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "series-f6623e87fdc44c88",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a8f57416383850d1b2440ca",
+      "sourceFingerprint": "5c8225de7f86714f2045a616ed11a772d0534a296be355eb81f342afbb2a1663",
+      "title": "0–18 个月宝宝膝上故事时间",
+      "description": "这场 15–20 分钟的故事时间适合 0–18 个月、还不会走路的宝宝和照护者一起学习和玩耍。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "series-a0d4c86269b797de",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a8627110c0e3a002aeadedb",
+      "sourceFingerprint": "0b38a395ddac61ab2aea8673e09e61f0dbb17e9e0b808d1a3e7a162cf6f0da52",
+      "title": "0–12 个月宝宝故事时间 + Stay & Play",
+      "description": "家长和宝宝会一起听、一起学、一起玩。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "rss-6aa30795a5dbde002aa39e8c",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6aa30795a5dbde002aa39e8c",
+      "sourceFingerprint": "3169db50a01f956eb7371c699de18efa062d98394825a89abdcc9d2098887e14",
+      "title": "Hispanic Heritage Month：Cascada de Flores",
+      "description": "和 Cascada de Flores 一起享受欢乐的双语音乐与律动时光！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "series-19c91b2baa05ccff",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a037111c7d3cd580058b58d",
+      "sourceFingerprint": "f580b45a15acf5788702e40a1db445197d4200803ca4d775125906caa889e27c",
+      "title": "家庭故事时间",
+      "description": "一起来听有趣的故事、玩手指游戏、做动作童谣并唱歌！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "series-fa3ae4b9bb998b62",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/694b71129e881bab98aec27a",
+      "sourceFingerprint": "956d5bf578a15f4e83b94fd3264af64adb6680e5d1c15c072b1af2909f0360c3",
+      "title": "每周编织与钩针聚会 / Tejido y crochet",
+      "description": "带上自己的作品来提问、寻求帮助、分享想法，并认识新朋友！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "series-08b7ed6a445db081",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/692f74b6d8681b290042079a",
+      "sourceFingerprint": "35c2811cd3bea4673ebcc3f9e516bf409778e2b212407bcfa35b4fafc49aaeaf",
+      "title": "ESL 英语会话俱乐部",
+      "description": "在轻松、支持性的环境里练习英语口语，同时认识新朋友！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "rss-6a861240feae96003806f128",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a861240feae96003806f128",
+      "sourceFingerprint": "58268b393c34741a6a4b535fb5a276400d217b803f0fab208d47c0e3bf8ea272",
+      "title": "线上作家讲座：Veronica Roth",
+      "description": "参加 Veronica Roth 的讲座，她会围绕《The Sixth Faction》重返畅销《Divergent》系列的世界，并分享新故事的精彩内容。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "nhl-2026020016",
+      "sourceUrl": "https://www.nhl.com/gamecenter/fla-vs-sjs/2026/10/01/2026020016",
+      "sourceFingerprint": "19a77c8f3306273be22c20e5d4eebbde31f25450bb153fac82b4bf2c48f29eb1",
+      "title": "San Jose Sharks 对阵 Florida Panthers",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 Florida Panthers 的官方比赛。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "santana-104fc08c96737ad5",
+      "sourceUrl": "https://santanarow.com/event/glass-pumpkin-festival/",
+      "sourceFingerprint": "fa32bfdbd50db97b80cc9e2fef69913b04945739fab037c0e35a3d7c2f7607f1",
+      "title": "玻璃南瓜节",
+      "description": "这场免费公众活动包括使用移动 hotshop 拖车进行的现场玻璃吹制演示，并有独特玻璃艺术品可购买。Santana Row Glass Pumpkin Festival 时间：星期五，十月 2 日 3 pm–9 pm；星期六，十月 3 日 10 am–9 pm；星期日，十月 4 日 10 am–5 pm。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "rss-6a874b5caafa6100295df054",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a874b5caafa6100295df054",
+      "sourceFingerprint": "318e6907bdfbbc7ae1948186e3e72088094cea70b8ff58827557d56b23a7a235",
+      "title": "Little Explorers：秋日乐趣",
+      "description": "制作不弄脏手的树叶艺术，把毛球蜘蛛弹到黏黏的蜘蛛网上，再享受一些不太吓人的秋日乐趣。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "google-visitor-d29c4b5537189c3c",
+      "sourceUrl": "https://rsvp.withgoogle.com/events/fall-planting-for-spring-blooms-with-my-california-garden",
+      "sourceFingerprint": "822cd785dcae0ebf8aa0399ae61965bb4fc72766396f2c9d79928c1e91a7143c",
+      "title": "My California Garden：秋季种植，迎接春日花开",
+      "description": "参加这场免费工作坊，欢迎所有年龄段的园艺爱好者！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "rss-6a236df83233d28b1b2d1d57",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a236df83233d28b1b2d1d57",
+      "sourceFingerprint": "48a883b7f7806a12e15a949dd54a82ab8a9394d2fd4de0375dfcd3b3d28efbfc",
+      "title": "5 岁及以上儿童 KEVA 俱乐部",
+      "description": "不用工具、胶水、钉子或胶带，只用木板练习艺术和建筑设计能力！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "rss-6aaaf9d8ca248a0029165332",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6aaaf9d8ca248a0029165332",
+      "sourceFingerprint": "2519d1ccb354d28b31d4357d9adcbda12f7eb887ceff964c654c9e06b24ae11d",
+      "title": "3–8 岁音乐与律动",
+      "description": "孩子和照护者可以一起探索音乐、跳舞，享受欢乐时光！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "series-96463bc14e0989b3",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a346ac016554cd59fc9cadb",
+      "sourceFingerprint": "2b72bd280a788c68b9e2fd0414ed04dc4b3a0e605e9a931be977f7dcc0bf2e61",
+      "title": "LGBTQ+ Safe Space 聚会（13–25 岁）/ Encuentro de espacio seguro para personas LGBTQ+（13–25 岁）",
+      "description": "由工作人员带领，为青少年和年轻人提供安全空间，可以一起玩游戏、参加小组活动与讨论，并建立社区连接。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "rss-6ab44b8a101eb7003f3277d2",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6ab44b8a101eb7003f3277d2",
+      "sourceFingerprint": "6a512d3e107fe93f0a8ee7ca0a2c099d1394c77d0b5c09ae84bb0f04b0b8089a",
+      "title": "青少年 Manga 读书会",
+      "description": "前 5 位报名者会获得本系列第一本书的专属副本并可以保留。读书会前 1 周会收到通知，之后可到楼下 Adult Reference desk 领取。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
+    },
+    {
+      "id": "series-7215c78aab30bc60",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6ab458ba0fe10113c003412c",
+      "sourceFingerprint": "afccc251f9a553cc997db14596001491b2f4cd419dc8ee58481aa2d44127cd87",
+      "title": "中英文双语家庭故事时间",
+      "description": "儿童图书馆员会用普通话和英语带大家听故事、唱歌、看绒布板故事、玩手指游戏并做手工。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:31:00Z"
     }
   ]
 }
