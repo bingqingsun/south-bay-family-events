@@ -2373,12 +2373,21 @@ async function readCivic(source) {
       const fallbackOfficialText = sourceDescriptionText(editorialBlocks.join(' ') || detailHtml);
       const officialText = sourceDescriptionText(selectCivicPlusEventDescription(landingHtml, item.title, fallbackOfficialText));
       const description = officialText;
+      const landingTimeRange = officialText.match(/\b(\d{1,2})(?::(\d{2}))?\s*(?:-|–|—|to)\s*(\d{1,2})(?::(\d{2}))?\s*(a\.?m\.?|p\.?m\.?)\b/i);
+      const landingEndDateValue = (() => {
+        const day = String(item.dateValue || '').match(/(\d{4}-\d{2}-\d{2})/)?.[1];
+        if (!day || !landingTimeRange) return '';
+        let hour = Number(landingTimeRange[3]) % 12;
+        const meridiem = String(landingTimeRange[5] || '').replace(/\./g, '').toUpperCase();
+        if (meridiem === 'PM') hour += 12;
+        return `${day}T${String(hour).padStart(2, '0')}:${landingTimeRange[4] || '00'}:00`;
+      })();
       const audienceText = `${item.title} ${officialText} ${plainText(landingHtml.match(/<meta\s+name=["']description["']\s+content=["']([^"']*)/i)?.[1] || '')}`;
       if (!hasPublishableSummary(description, { title: item.title }) || isExplicitlyAdultOnly(audienceText)) return null;
       const image = htmlAttribute(landingHtml, /widget image[\s\S]{0,1600}?<img[^>]+src=["']([^"']+)["']/i);
       const event = directEvent({
         id: 'civic-' + createHash('sha256').update(`${landingUrl}|${item.dateValue}|${index}`).digest('hex').slice(0, 16),
-        title: item.title, dateValue: item.dateValue, endDateValue: item.endDateValue, description,
+        title: item.title, dateValue: item.dateValue, endDateValue: landingEndDateValue || item.endDateValue, description,
         image: image ? new URL(image, landingUrl).href : '', place: item.place || source.name,
         address: shortAddress(item.street, item.city), city: item.city || source.city || '', source: source.name, url: landingUrl,
         ageText: audienceText
