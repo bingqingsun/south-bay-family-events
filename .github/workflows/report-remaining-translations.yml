@@ -1,5 +1,6 @@
 name: Report remaining Chinese translations
 
+# one-shot rerun after final-batch baseline
 on:
   push:
     branches:
