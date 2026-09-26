@@ -1,0 +1,37 @@
+name: Verify Chinese visible copy
+
+on:
+  push:
+    branches:
+      - feature/multilingual-v1
+    paths:
+      - '.github/workflows/verify-zh-copy.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/multilingual-v1
+      - name: Verify no known English visible-copy regressions
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s = Path('zh/index.html').read_text()
+          forbidden = ['FAMILY GUIDES','Explore Collections','Curated guides that make it easier to choose what to do together.','>Filter<','>Clear filters<','Reading the latest update…']
+          for text in forbidden:
+            if text in s:
+              raise SystemExit(f'English visible copy remains: {text}')
+          print('Chinese visible-copy check passed')
+          PY
+      - name: Remove helper workflow
+        run: |
+          git rm .github/workflows/verify-zh-copy.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: remove one-shot Chinese copy verifier"
+          git push origin HEAD:feature/multilingual-v1
