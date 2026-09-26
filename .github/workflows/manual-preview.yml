@@ -69,6 +69,9 @@ jobs:
           if [ -f scripts/generate-event-pages.mjs ]; then
             node scripts/generate-event-pages.mjs
           fi
+          if [ -f scripts/apply-event-translations.mjs ]; then
+            node scripts/apply-event-translations.mjs
+          fi
           if [ -f scripts/generate-sitemap.mjs ]; then
             node scripts/generate-sitemap.mjs
           fi
