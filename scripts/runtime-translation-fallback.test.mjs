@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 
+// Release guard: keep stale/missing Chinese translations on the safe English fallback path.
 for (const file of ['app.js', 'collections.js']) {
   const source = await readFile(new URL(`../${file}`, import.meta.url), 'utf8');
   // Runtime may use the sidecar overlay only when it matches the fingerprint
