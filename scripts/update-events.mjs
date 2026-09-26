@@ -6,6 +6,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { applyChineseTranslationCatalog } from './event-translations.mjs';
+import { selectCivicPlusEventDescription } from './civicplus-description.mjs';
 import {
   cautiousMovieRating,
   isKidAppropriateMovie,
@@ -2353,7 +2354,8 @@ async function readCivic(source) {
       const landingHtml = landingUrl === item.url ? detailHtml : await landingResponse.text();
       if (!landingResponse.ok) return null;
       const editorialBlocks = [...landingHtml.matchAll(/<div class=["'][^"']*\bfr-view\b[^"']*["'][^>]*>([\s\S]*?)<\/div>/gi)].map(match => match[1]);
-      const officialText = sourceDescriptionText(editorialBlocks.join(' ') || detailHtml);
+      const fallbackOfficialText = sourceDescriptionText(editorialBlocks.join(' ') || detailHtml);
+      const officialText = sourceDescriptionText(selectCivicPlusEventDescription(landingHtml, item.title, fallbackOfficialText));
       const description = officialText;
       const audienceText = `${item.title} ${officialText} ${plainText(landingHtml.match(/<meta\s+name=["']description["']\s+content=["']([^"']*)/i)?.[1] || '')}`;
       if (!hasPublishableSummary(description, { title: item.title }) || isExplicitlyAdultOnly(audienceText)) return null;
