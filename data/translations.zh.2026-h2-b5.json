@@ -1,5 +1,285 @@
 {
   "version": 1,
   "locale": "zh-CN",
-  "entries": []
+  "entries": [
+    {
+      "id": "barracuda-54817",
+      "title": "San Jose Barracuda 对阵 Reign",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Reign。本场主题活动为 Pop Punk Night。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54818",
+      "title": "San Jose Barracuda 对阵 Wolves",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Wolves。本场主题活动为 Lunar New Year。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54819",
+      "title": "San Jose Barracuda 对阵 Wolves",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Wolves。本场主题活动为 One More Chapter；前 3,000 名观众可获 Tote bag 赠品。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54820",
+      "title": "San Jose Barracuda 对阵 Silver Knights",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Silver Knights。本场主题活动为 Broadway Night。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "nhl-2026020914",
+      "title": "San Jose Sharks 对阵 Detroit Red Wings",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 Detroit Red Wings。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54821",
+      "title": "San Jose Barracuda 对阵 Silver Knights",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Silver Knights。本场主题活动为 Pink in the Rink。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "nhl-2026020935",
+      "title": "San Jose Sharks 对阵 Winnipeg Jets",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 Winnipeg Jets。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-5ad81011ddfa32e1",
+      "title": "San Jose Barracuda 对阵 Firebirds",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Firebirds。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-d9cb076135bd91f3",
+      "title": "Playhouse 系列：Rumpelstiltskin",
+      "description": "Rumpelstiltskin｜February 20-21, 2027。根据 Brothers Grimm 的故事改编，以简单布景和服装、互动式讲故事剧场呈现，适合建议年龄两岁至六岁的儿童及其家庭。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54825",
+      "title": "San Jose Barracuda 对阵 Eagles",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Eagles。本场主题活动为 Country Night。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54826",
+      "title": "San Jose Barracuda 对阵 Eagles",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Eagles。本场主题活动为 Pucks & Paws。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "nhl-2026021042",
+      "title": "San Jose Sharks 对阵 Montréal Canadiens",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 Montréal Canadiens。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "nhl-2026021055",
+      "title": "San Jose Sharks 对阵 Columbus Blue Jackets",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 Columbus Blue Jackets。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-e95185520ae35f26",
+      "title": "San Jose Sharks 对阵 Colorado Avalanche",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 Colorado Avalanche。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "nhl-2026021079",
+      "title": "San Jose Sharks 对阵 Tampa Bay Lightning",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 Tampa Bay Lightning。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "symphony-3-0",
+      "title": "我的第一场交响乐",
+      "description": "My Very First Symphony 是一场特别的一小时音乐会，将演奏 Britten 的 The Young Person’s Guide to the Orchestra。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54832",
+      "title": "San Jose Barracuda 对阵 Canucks",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Canucks。本场主题活动为 Renaissance Night。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54833",
+      "title": "San Jose Barracuda 对阵 Reign",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Reign。本场主题活动为 St. Patrick's Day Celebration。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "nhl-2026021185",
+      "title": "San Jose Sharks 对阵 Carolina Hurricanes",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 Carolina Hurricanes。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54835",
+      "title": "San Jose Barracuda 对阵 Firebirds",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Firebirds。本场主题活动为 Cuda Golf Classic。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54836",
+      "title": "San Jose Barracuda 对阵 Reign",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Reign。本场主题活动为 Cuda Classroom；赠品为 Workbooks。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-202e52947be6342e",
+      "title": "San Jose Sharks 对阵 Anaheim Ducks",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 Anaheim Ducks。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "showare-389",
+      "title": "Playhouse 系列：One Grain of Rice & Holi Festival of Colors Celebration",
+      "description": "One Grain of Rice｜March 27-28, 2027，由 Gary Wright 改编，灵感来自 Demi 的印度民间故事。演出采用简单布景和服装、互动式讲故事剧场形式，适合建议年龄两岁至六岁的儿童及其家庭。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "nhl-2026021295",
+      "title": "San Jose Sharks 对阵 St. Louis Blues",
+      "description": "San Jose Sharks 在 SAP Center at San Jose 主场迎战 St. Louis Blues。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54842",
+      "title": "San Jose Barracuda 对阵 Canucks",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Canucks。本场主题活动为 Affiliate Night。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "barracuda-54843",
+      "title": "San Jose Barracuda 对阵 Canucks",
+      "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Canucks。本场主题活动为 Fan Appreciation Night；前 1,000 名观众可获 Team photo 赠品。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "showare-394",
+      "title": "Playhouse 系列：The Princess & The Frog",
+      "description": "The Princess and the Frog｜April 24-25, 2027。根据 Brothers Grimm 的故事改编，以简单布景和服装、互动式讲故事剧场呈现，适合建议年龄两岁至六岁的儿童及其家庭。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-e05de83a8f920134",
+      "title": "主舞台演出：Seussical - The Musical",
+      "description": "SEUSSICAL - THE MUSICAL，由 Stephen Flaherty 作曲、Lynn Ahrens 作词；April 29 - May 16, 2027。剧本由 Lynn Ahrens 和 Stephen Flaherty 创作，Lynn Ahrens、Stephen Flaherty 与 Eric Idle 共同构思，根据 Dr. Seuss 的作品改编。April 29 – May 16, 2027。演出中将出现 Horton、The Cat in the Hat、Gertrude McFuzz 和 Lazy Mayzie 等角色。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-47401e1948501149",
+      "title": "Playhouse 系列：Jane & the Beanstalk",
+      "description": "Jane and the Beanstalk｜May 22-23, 2027。原创故事作者为 Marieke Gaboury，以简单布景和服装、互动式讲故事剧场呈现，适合建议年龄两岁至六岁的儿童及其家庭。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-4720d71c0909c26d",
+      "title": "我的第一场芭蕾",
+      "description": "这是一场特别的一小时 The Sleeping Beauty 演出，适合有幼儿、学龄前儿童和低龄儿童的家庭。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    },
+    {
+      "id": "series-4099b78b242b0ef0",
+      "title": "Disney's Dare to Dream Jr.",
+      "description": "学员们一起探索自己的梦想，并在合作过程中发现想象力与团队协作如何带来实现可能的力量。",
+      "sourceFingerprint": "AUTO",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26"
+    }
+  ]
 }
