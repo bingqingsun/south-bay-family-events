@@ -23,8 +23,11 @@
         zh: Object.freeze({
           title: '2026 南湾中秋节亲子活动指南',
           landingTitle: '南湾中秋节亲子活动指南',
+          homeLabelActive: '精选专题',
+          homeLabelLastChance: '即将结束',
           homeDescription: '灯笼、月饼、舞狮和南湾各地的家庭庆祝活动',
-          homeCta: '查看指南',
+          homeTags: ['灯笼', '月饼', '舞狮'],
+          homeCta: '查看专题',
           landingDescription: '在南湾寻找适合全家的中秋庆祝活动，包括灯笼、月饼、舞狮、文化表演、手工和亲子体验。',
           archiveEyebrow: '2026 中秋活动已结束',
           archiveTitle: '本季活动已结束',
