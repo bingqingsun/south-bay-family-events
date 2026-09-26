@@ -602,6 +602,106 @@
       "status": "approved",
       "translationSource": "editorial-reviewed",
       "reviewedAt": "2026-09-26T01:16:00Z"
+    },
+    {
+      "id": "filoli-2b3a695017be3e44",
+      "sourceUrl": "https://filoli.org/whats-on/events/upstairs-downstairs-tour/",
+      "sourceFingerprint": "e8c5eef59f23c1a68c6e106dddc41b12c3aa0fcdcf28a5aec8f41f641b5236d4",
+      "title": "Upstairs Downstairs 深度导览",
+      "description": "参加这场 90 分钟的导览，越过平时的参观边界，走进大多数游客看不到的空间，从阁楼一路探索到地下室。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:21:00Z"
+    },
+    {
+      "id": "rss-6a397278c7d3cd580062120e",
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/6a397278c7d3cd580062120e",
+      "sourceFingerprint": "dc05c41072bf8dbd0bd745628fd7f8e99ebb396a588a957b1174745beba58c26",
+      "title": "摄影交流会",
+      "description": "每次活动都会讨论摄影技巧、提升作品的方法以及摄影相关的其他主题。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:21:00Z"
+    },
+    {
+      "id": "rss-6948560c1e64afd01e50328a",
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/6948560c1e64afd01e50328a",
+      "sourceFingerprint": "30d440e6929130ce0200c594b78f8ebc61fae947b7064a04160ef2dec198f9ca",
+      "title": "Nelson Ng 太极课",
+      "description": "在这门每周课程中，参与者会学习太极的基本原则和理念，并通过缓慢、柔和的动作提升柔韧性与平衡感。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:21:00Z"
+    },
+    {
+      "id": "rss-6a8b7ddb69166f088b94528e",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a8b7ddb69166f088b94528e",
+      "sourceFingerprint": "e83d86378209c0b3e9eaca7cd36622c8896a39af04840774885b3055a5b5df29",
+      "title": "制作纸巾花",
+      "description": "为庆祝 Hispanic Heritage Month，欢迎到 Saratoga Library 儿童区一起制作纸巾花。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:21:00Z"
+    },
+    {
+      "id": "series-cc6be3f35dc80cb5",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a985d0e29a7dd0d67488843",
+      "sourceFingerprint": "89f71c0eab7e069a49434ab9beb4f72eea3b9be676fd755185dd2659891520a4",
+      "title": "背娃亲子舞蹈",
+      "description": "带上宝宝和婴儿背带，一起跟着流行音乐学习舞蹈。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:21:00Z"
+    },
+    {
+      "id": "rss-6a7a28def4e5db3d00c7c91a",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a7a28def4e5db3d00c7c91a",
+      "sourceFingerprint": "df897f8d7e55ba0cc1b77a3342e62e88454c47c7583a8045e1185dbca507bfa3",
+      "title": "Hispanic Heritage Month：Mariachi Estelar",
+      "description": "到 Saratoga Library 一起庆祝 Hispanic Heritage Month，欣赏 Mariachi Estelar 带来的一小时 mariachi 表演。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:21:00Z"
+    },
+    {
+      "id": "rss-6a7bb3cfb204780029924987",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a7bb3cfb204780029924987",
+      "sourceFingerprint": "b8e7ef04111703b09bfae972727d749eea6d5f200f041039de764404f5b67b69",
+      "title": "绘画日：Hispanic Heritage Month 家庭日",
+      "description": "和家人一起来学习并一起画画！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:21:00Z"
+    },
+    {
+      "id": "rss-6a8ca21369166f088b9488f9",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a8ca21369166f088b9488f9",
+      "sourceFingerprint": "3c52f0fe8b3bbcbaaaaf4fadf8011dedd74fe2b48c675a4722ec046d5f9b403d",
+      "title": "Cinema Sunday：《Selena》",
+      "description": "欢迎来度过一个有好电影和社区交流的下午！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:21:00Z"
+    },
+    {
+      "id": "bayfc-8609da81352bbd0f",
+      "sourceUrl": "https://bayfc.com/match/2026-match-26/",
+      "sourceFingerprint": "404c517704aa67147a3e95d4d76a6a07d9386d962126c8521e06a6ec345a0b62",
+      "title": "Bay FC 对阵 Orlando Pride",
+      "description": "Bay FC 在 PayPal Park 主场迎战 Orlando Pride 的官方比赛。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:21:00Z"
+    },
+    {
+      "id": "rss-6a8c7ba636204e08fbb6c7cf",
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/6a8c7ba636204e08fbb6c7cf",
+      "sourceFingerprint": "077280cdccb6dee38492ed9da8ab39756b9faafe40e583c051bb4d94fffab0c7",
+      "title": "青少年写作圈",
+      "description": "小组一直在不断发展，也欢迎大家提出想法，让活动变得更好！",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-09-26T01:21:00Z"
     }
   ]
 }
