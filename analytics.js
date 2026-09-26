@@ -91,6 +91,18 @@
   window.setSouthBayFamilyFindsAnalyticsConsent = setAnalyticsChoice;
 
   document.addEventListener('click', (event) => {
+    const weekendPicksCard = event.target.closest('.collection-home-card[data-collection-slug="weekend-picks"]');
+    if (weekendPicksCard) {
+      const edition = window.SBFF_WEEKEND_PICKS || {};
+      window.trackAnalyticsEvent?.('weekend_picks_card_click', {
+        edition_id: edition.id || '',
+        weekend_start: edition.weekendStart || '',
+        weekend_end: edition.weekendEnd || '',
+        pick_count: Array.isArray(edition.picks) ? edition.picks.length : 0,
+        entry_point: 'homepage'
+      });
+    }
+
     const link = event.target.closest('[data-language-switch]');
     if (!link) return;
     const preferredLanguage = link.dataset.languageSwitch === 'zh' ? 'zh' : 'en';
