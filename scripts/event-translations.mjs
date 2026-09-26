@@ -67,7 +67,6 @@ export function auditChineseTranslation(event, entry) {
 function buildCatalogIndexes(catalog) {
   const entries = Array.isArray(catalog?.entries) ? catalog.entries : [];
   const byId = new Map();
-  const byUrl = new Map();
   const duplicates = [];
 
   entries.forEach(entry => {
@@ -75,26 +74,22 @@ function buildCatalogIndexes(catalog) {
       if (byId.has(entry.id)) duplicates.push(`id:${entry.id}`);
       byId.set(entry.id, entry);
     }
-    if (entry?.sourceUrl) {
-      const key = String(entry.sourceUrl).toLowerCase();
-      if (byUrl.has(key)) duplicates.push(`url:${entry.sourceUrl}`);
-      byUrl.set(key, entry);
-    }
   });
-  return { entries, byId, byUrl, duplicates };
+  return { entries, byId, duplicates };
 }
 
 export function applyChineseTranslationCatalog(items, catalog, { generatedAt = new Date().toISOString(), strict = true } = {}) {
-  const { entries, byId, byUrl, duplicates } = buildCatalogIndexes(catalog);
+  const { entries, byId, duplicates } = buildCatalogIndexes(catalog);
   if (duplicates.length && strict) throw new Error(`Duplicate translation catalog keys: ${duplicates.join(', ')}`);
 
   const stats = { catalog: entries.length, current: 0, stale: 0, invalid: 0, missing: 0 };
   const problems = [];
 
   for (const event of items || []) {
-    const byStableId = event?.id ? byId.get(event.id) : null;
-    const byStableUrl = event?.url ? byUrl.get(String(event.url).toLowerCase()) : null;
-    const entry = byStableId || byStableUrl;
+    // Event ID is the only publish-time identity key. Organizer URLs are not
+    // unique enough for reuse: sports schedules and recurring series commonly
+    // share one landing URL across many distinct events.
+    const entry = event?.id ? byId.get(event.id) : null;
     if (!entry || entry.status !== 'approved') {
       event.translationStatus = entry?.status || 'missing';
       stats.missing += 1;
