@@ -79,7 +79,7 @@
             <input id="heroSearchInput" type="search" placeholder="搜索活动、地点或关键词" data-i18n-placeholder="searchPlaceholder" autocomplete="off" />
             <span class="hero-search-divider" aria-hidden="true"></span>
             <label class="hero-date-control" for="heroDateInput" role="button" tabindex="0">
-              <span class="hero-date-label" data-i18n="date">Date</span>
+              <span class="hero-date-label" data-i18n="date">日期</span>
               <span class="hero-date-display" id="heroDateDisplay" data-i18n="anyDate">任意日期</span>
               <input id="heroDateInput" type="date" aria-label="Choose an activity date" />
             </label>
@@ -88,23 +88,23 @@
           <div class="hero-quick-actions" aria-label="Quick activity searches">
             <button id="heroWeekendQuick" type="button" aria-pressed="false"><span aria-hidden="true">▣</span> <span data-i18n="weekend">本周末</span> <b aria-hidden="true">→</b></button>
             <button id="heroNearbyQuick" type="button" aria-pressed="false"><span aria-hidden="true">⌖</span> <span data-i18n="nearMe">附近活动</span> <b aria-hidden="true">→</b></button>
-            <div class="update-note"><span class="pulse"></span><span id="updateText">Reading the latest update…</span></div>
+            <div class="update-note"><span class="pulse"></span><span id="updateText">正在读取最新更新…</span></div>
           </div>
         </div>
         <div class="hero-art" aria-hidden="true">
           <div class="sun"></div><div class="cloud c1"></div><div class="cloud c2"></div>
           <div class="hill h1"></div><div class="hill h2"></div>
           <div class="kid kid-one">✦</div><div class="kid kid-two">●</div>
-          <div class="sticker s1">OUTDOOR<br />FINDS</div><div class="sticker s2">WEEKEND<br />JOY</div>
+          <div class="sticker s1">户外<br />发现</div><div class="sticker s2">周末<br />乐趣</div>
         </div>
       </section>
 
       <section class="collection-home wrap" aria-labelledby="collectionsHeading" hidden>
         <div class="collection-home-heading">
           <div>
-            <p class="eyebrow">FAMILY GUIDES</p>
-            <h2 id="collectionsHeading">Explore Collections</h2>
-            <p>Curated guides that make it easier to choose what to do together.</p>
+            <p class="eyebrow">家庭专题</p>
+            <h2 id="collectionsHeading">浏览专题</h2>
+            <p>精选主题活动指南，帮你更轻松决定一家人一起去哪儿。</p>
           </div>
         </div>
         <div class="collection-strip" id="collectionStrip"></div>
@@ -113,7 +113,7 @@
       <section class="filter-area wrap" id="events">
         <div class="section-heading"><div><p class="eyebrow">为你精选</p><h2 data-i18n="sectionTitle">今天想做点什么？</h2></div><p id="resultCount" class="result-count"></p></div>
         <div class="mobile-quick-filters" aria-label="Quick activity filters">
-          <button id="mobileWeekend" type="button" data-i18n="weekend">本周末</button><button id="mobileNearby" type="button" data-i18n="nearMe">附近活动</button><button id="mobileFilterToggle" type="button" aria-expanded="false" aria-controls="filtersPanel"><span data-i18n="filter">Filter</span> <span>☷</span></button>
+          <button id="mobileWeekend" type="button" data-i18n="weekend">本周末</button><button id="mobileNearby" type="button" data-i18n="nearMe">附近活动</button><button id="mobileFilterToggle" type="button" aria-expanded="false" aria-controls="filtersPanel"><span data-i18n="filter">筛选</span> <span>☷</span></button>
         </div>
         <div class="filters" id="filtersPanel" aria-label="Filter activities">
           <div class="select-wrap date-priority"><label for="dateFilter" data-i18n="date">日期</label><select id="dateFilter"><option value="all" data-i18n="anyTime">任意时间</option><option value="today" data-i18n="today">今天</option><option value="weekend" data-i18n="weekend">本周末</option><option value="month" data-i18n="month">本月</option></select></div>
@@ -124,7 +124,7 @@
         </div>
         <p class="location-status" id="locationStatus" aria-live="polite" hidden></p>
         <div class="cards" id="eventGrid" aria-live="polite"></div>
-        <div class="empty" id="emptyState" hidden><p id="emptyMessage"></p><button class="clear-filters" id="clearFilters" type="button" data-i18n="clearFilters">Clear filters</button></div>
+        <div class="empty" id="emptyState" hidden><p id="emptyMessage"></p><button class="clear-filters" id="clearFilters" type="button" data-i18n="clearFilters">清除筛选</button></div>
       </section>
 
       <section class="how wrap" id="how"><p class="eyebrow" data-i18n="tipsEyebrow">出发前看看</p><h2 data-i18n="howTitle">周末出发小提示</h2><div class="how-grid"><article><b>01</b><h3 data-i18n="how1Title">出门前确认</h3><p data-i18n="how1Body">活动时间、名额和费用可能变化；出发前请查看主办方页面。</p></article><article><b>02</b><h3 data-i18n="how2Title">提前安排</h3><p data-i18n="how2Body">热门活动建议提前预约；户外活动留意天气、停车和步行距离。</p></article><article><b>03</b><h3 data-i18n="how3Title">先收藏，再决定</h3><p data-i18n="how3Body">点击心形收藏感兴趣的活动，周末可以在“已收藏”中一起查看。</p></article></div></section>
