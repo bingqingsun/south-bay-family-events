@@ -9,10 +9,14 @@ on:
   # list without asking the maintainer to run
   # Actions manually after pushing the configuration.
   push:
-    branches-ignore:
-      - 'preview-acceptance'
+    branches:
+      - main
     paths:
       - 'scripts/update-events.mjs'
+      - 'scripts/event-translations.mjs'
+      - 'scripts/event-translations.test.mjs'
+      - 'scripts/translation-qa.mjs'
+      - 'data/translations.zh.json'
       - 'scripts/event-summary-engine.mjs'
       - 'scripts/test-event-summary-engine.mjs'
       - 'scripts/test-summary-output.mjs'
