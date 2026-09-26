@@ -7,6 +7,9 @@ on:
       - main
     paths:
       - 'data/translations.zh*.json'
+      - 'scripts/build-translation-overlay.mjs'
+      - 'scripts/load-translation-catalogs.mjs'
+      - '.github/workflows/baseline-new-translations.yml'
 
 permissions:
   contents: write
@@ -21,14 +24,18 @@ jobs:
           node-version: 22
       - name: Baseline AUTO fingerprints only
         run: node scripts/baseline-new-translations.mjs
-      - name: Commit baselined catalogs
+      - name: Build runtime translation overlay
+        run: node scripts/build-translation-overlay.mjs
+      - name: Verify runtime translation overlay
+        run: node scripts/translation-overlay.test.mjs
+      - name: Commit baselined catalogs and runtime overlay
         run: |
-          if git diff --quiet -- 'data/translations.zh*.json'; then
-            echo "No AUTO fingerprints to baseline."
+          if git diff --quiet -- 'data/translations.zh*.json' data/translations.zh.js; then
+            echo "Translation fingerprints and runtime overlay are current."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/translations.zh*.json
-          git commit -m "chore: baseline new Chinese translation fingerprints"
+          git add 'data/translations.zh*.json' data/translations.zh.js
+          git commit -m "chore: sync Chinese translation runtime overlay"
           git push origin HEAD:${GITHUB_REF_NAME}
