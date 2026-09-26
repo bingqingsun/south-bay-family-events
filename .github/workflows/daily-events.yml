@@ -19,6 +19,9 @@ on:
       - 'scripts/apply-event-translations.mjs'
       - 'scripts/load-translation-catalogs.mjs'
       - 'scripts/translation-qa.mjs'
+      - 'scripts/runtime-translation-fallback.test.mjs'
+      - 'scripts/build-translation-overlay.mjs'
+      - 'scripts/translation-overlay.test.mjs'
       - 'data/translations.zh*.json'
       - 'data/translations.zh*.js'
       - 'scripts/event-summary-engine.mjs'
@@ -64,6 +67,7 @@ jobs:
           node --check scripts/generate-event-translations.mjs
           node scripts/test-event-summary-engine.mjs
           node scripts/event-translations.test.mjs
+          node scripts/runtime-translation-fallback.test.mjs
           node scripts/translation-qa.mjs
           node scripts/link-health.test.mjs
           node scripts/detail-enrichment.test.mjs
@@ -97,17 +101,23 @@ jobs:
           HF_HOME: /home/runner/.cache/sbff-hf
           SBFF_TRANSLATION_MODEL: Xenova/opus-mt-en-zh
           SBFF_TRANSLATION_MAX_DELTA: 20
+      - name: Rebuild runtime Chinese translation overlay
+        run: |
+          node scripts/build-translation-overlay.mjs
+          node scripts/translation-overlay.test.mjs
       - name: Re-apply all approved translation sidecars
         run: node scripts/apply-event-translations.mjs
       - name: Verify translation state after refresh
-        run: node scripts/translation-qa.mjs
+        run: |
+          node scripts/translation-qa.mjs
+          node scripts/runtime-translation-fallback.test.mjs
       - name: Audit published summary provenance
         run: node scripts/test-summary-output.mjs
       - name: Save refreshed event list and approved translation deltas
         run: |
           git config user.name "south-bay-events-bot"
           git config user.email "actions@github.com"
-          git add data/events.json data/events.js data/museums.json data/museums.js data/source-health.json 'data/translations.zh*.json'
+          git add data/events.json data/events.js data/museums.json data/museums.js data/source-health.json 'data/translations.zh*.json' data/translations.zh.js
           if git diff --staged --quiet; then
             exit 0
           fi
