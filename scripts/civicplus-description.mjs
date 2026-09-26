@@ -38,6 +38,13 @@ export function selectCivicPlusEventDescription(html, title, fallback = '') {
     .map((text, index) => ({ text, index, score: candidateScore(text, title) }))
     .sort((a, b) => b.score - a.score || a.index - b.index);
 
-  if (ranked[0]?.score >= 5) return ranked[0].text;
+  if (ranked[0]?.score >= 5) {
+    const primary = ranked[0];
+    const next = paragraphs[primary.index + 1] || '';
+    const nextScore = next ? candidateScore(next, title) : 0;
+    const nextLooksRelated = nextScore >= 2
+      && !/movie nights? out|site footer|contact us|back to top/i.test(next);
+    return nextLooksRelated ? `${primary.text} ${next}` : primary.text;
+  }
   return plainText(fallback);
 }
