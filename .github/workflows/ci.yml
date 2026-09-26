@@ -7,6 +7,8 @@ on:
     paths:
       - 'scripts/**'
       - 'data/sources.json'
+      - 'data/translations.zh.json'
+      - 'data/translations.zh.json'
       - 'analytics.js'
       - 'app.js'
       - 'collection-runtime.js'
@@ -57,6 +59,9 @@ jobs:
       - name: Check refresh-script syntax
         run: |
           node --check scripts/update-events.mjs
+          node --check scripts/event-translations.mjs
+          node --check scripts/event-translations.test.mjs
+          node --check scripts/translation-qa.mjs
           node --check scripts/cupertino-detail-date.mjs
           node --check scripts/cupertino-audience.mjs
           node --check scripts/link-health.mjs
@@ -75,6 +80,8 @@ jobs:
       - name: Run policy and data-contract tests
         run: |
           node scripts/test-event-summary-engine.mjs
+          node scripts/event-translations.test.mjs
+          node scripts/translation-qa.mjs
           node scripts/cupertino-detail-date.test.mjs
           node scripts/cupertino-audience.test.mjs
           node scripts/age-policy.test.cjs && node scripts/update-events-age.test.mjs
