@@ -84,11 +84,19 @@ jobs:
           # runs too, so relying on `inputs.include_serpapi` here would
           # silently disable the scheduled fallback.
           INCLUDE_SERPAPI: ${{ github.event_name == 'schedule' && 'auto' || github.event_name == 'push' && 'false' || inputs.include_serpapi }}
+      - name: Cache local translation model
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/sbff-hf
+          key: sbff-opus-mt-en-zh-q8-v1
+      - name: Install local translation runtime
+        run: npm install --no-save --package-lock=false @huggingface/transformers@3.8.1
       - name: Translate only newly added or changed event text
         run: node scripts/generate-event-translations.mjs --previous "$RUNNER_TEMP/events-before-refresh.json"
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          SBFF_TRANSLATION_MODEL: ${{ vars.SBFF_TRANSLATION_MODEL }}
+          HF_HOME: ~/.cache/sbff-hf
+          SBFF_TRANSLATION_MODEL: Xenova/opus-mt-en-zh
+          SBFF_TRANSLATION_MAX_DELTA: 20
       - name: Re-apply all approved translation sidecars
         run: node scripts/apply-event-translations.mjs
       - name: Verify translation state after refresh
