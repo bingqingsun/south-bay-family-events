@@ -1,0 +1,40 @@
+name: Apply mid-autumn entry hotfix
+
+on:
+  push:
+    branches:
+      - hotfix/mid-autumn-entry
+    paths:
+      - scripts/hotfix-mid-autumn-entry.mjs
+      - .github/workflows/apply-mid-autumn-entry-hotfix.yml
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: hotfix/mid-autumn-entry
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Apply minimal runtime fix
+        run: node scripts/hotfix-mid-autumn-entry.mjs
+      - name: Verify syntax
+        run: |
+          node --check app.js
+          node --check collections.js
+      - name: Remove one-shot helper
+        run: git rm scripts/hotfix-mid-autumn-entry.mjs .github/workflows/apply-mid-autumn-entry-hotfix.yml
+      - name: Commit hotfix
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add app.js collections.js
+          git commit -m "fix: re-render seasonal collection after event load"
+          git push origin HEAD:hotfix/mid-autumn-entry
