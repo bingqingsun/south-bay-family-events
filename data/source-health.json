@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-26T13:30:09.381Z",
+  "generatedAt": "2026-09-28T14:33:40.705Z",
   "configuredSources": 82,
   "directSources": 77,
   "fallbackSourcesRun": 0,
@@ -10,7 +10,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 15,
+      "eventCount": 14,
       "failureStreak": 0,
       "error": ""
     },
@@ -20,7 +20,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 15,
+      "eventCount": 10,
       "failureStreak": 0,
       "error": ""
     },
@@ -57,7 +57,7 @@
       "method": "paloalto",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 1,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -67,7 +67,7 @@
       "method": "paloalto-special-events",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 2,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -118,7 +118,7 @@
       "method": "cupertino",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 6,
+      "eventCount": 5,
       "failureStreak": 0,
       "error": ""
     },
@@ -165,7 +165,7 @@
       "method": "gilroy",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 4,
+      "eventCount": 2,
       "failureStreak": 0,
       "error": ""
     },
@@ -185,7 +185,7 @@
       "method": "deanza",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 23,
+      "eventCount": 20,
       "failureStreak": 0,
       "error": ""
     },
@@ -225,7 +225,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 45,
+      "eventCount": 40,
       "failureStreak": 0,
       "error": ""
     },
@@ -235,7 +235,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 45,
+      "eventCount": 25,
       "failureStreak": 0,
       "error": ""
     },
@@ -255,7 +255,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 88,
+      "eventCount": 55,
       "failureStreak": 0,
       "error": ""
     },
@@ -265,7 +265,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 38,
+      "eventCount": 27,
       "failureStreak": 0,
       "error": ""
     },
@@ -276,7 +276,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 6,
+      "failureStreak": 7,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 6,
+      "failureStreak": 7,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 6,
+      "failureStreak": 7,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -325,7 +325,7 @@
       "method": "bayfc",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 3,
+      "eventCount": 2,
       "failureStreak": 0,
       "error": ""
     },
@@ -345,7 +345,7 @@
       "method": "mls",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 4,
+      "eventCount": 3,
       "failureStreak": 0,
       "error": ""
     },
@@ -376,7 +376,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 3,
+      "failureStreak": 4,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -406,7 +406,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 3,
+      "failureStreak": 4,
       "error": "Los Altos History Museum event list was not valid: 202"
     },
     {
@@ -495,7 +495,7 @@
       "method": "chcp",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 4,
+      "eventCount": 7,
       "failureStreak": 0,
       "error": ""
     },
@@ -545,7 +545,7 @@
       "method": "wix-events",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 0,
+      "eventCount": 1,
       "failureStreak": 0,
       "error": ""
     },
@@ -565,7 +565,7 @@
       "method": "squarespace-events",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 1,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -615,7 +615,7 @@
       "method": "curated",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 1,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -715,7 +715,7 @@
       "method": "curated",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 2,
+      "eventCount": 1,
       "failureStreak": 0,
       "error": ""
     },
@@ -813,47 +813,50 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 6,
+      "failureStreak": 7,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 6,
+      "failureStreak": 7,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 6,
+      "failureStreak": 7,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Peninsula Youth Theatre",
-      "failureStreak": 3,
+      "failureStreak": 4,
       "error": "PYT official show list was not valid: 200"
     },
     {
       "name": "Los Altos History Museum",
-      "failureStreak": 3,
+      "failureStreak": 4,
       "error": "Los Altos History Museum event list was not valid: 202"
     }
   ],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-09-26T13:30:09.381Z",
-    "enriched": 344,
-    "cached": 5,
-    "fetch-blocked": 18,
-    "identity-mismatch": 45,
+    "checkedAt": "2026-09-28T14:33:40.705Z",
+    "enriched": 331,
+    "identity-mismatch": 44,
+    "fetch-blocked": 17,
+    "cached": 2,
     "fieldUpdates": {
-      "description": 242,
-      "endDateValue": 3,
-      "image": 1
+      "description": 9,
+      "dateValue": 2,
+      "place": 2,
+      "address": 4,
+      "endDateValue": 6,
+      "image": 4
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-09-26T13:30:09.381Z",
-    "official": 249,
+    "checkedAt": "2026-09-28T14:33:40.705Z",
+    "official": 231,
     "unclassified": 159,
     "missing": 4,
     "failure:official_page_fetch_blocked": 3,
