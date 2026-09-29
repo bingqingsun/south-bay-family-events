@@ -67,20 +67,39 @@ function canonicalSupplement(item) {
   };
 }
 
+function mergeVerifiedReplacement(existing, supplement) {
+  const verified = canonicalSupplement({ ...supplement, id: existing.id || supplement.id });
+  return {
+    ...existing,
+    ...verified,
+    id: existing.id || supplement.id,
+    legacyIds: [...new Set([...(existing.legacyIds || []), supplement.id].filter(Boolean))],
+    sessions: Array.isArray(existing.sessions) && existing.sessions.length ? existing.sessions : verified.sessions,
+    image: supplement.image || existing.image || '',
+    imagePresentation: existing.imagePresentation || '',
+    imageBackground: existing.imageBackground || ''
+  };
+}
+
 export function mergeEventSupplements(events, supplements) {
   const output = Array.isArray(events) ? events.map((event) => ({ ...event })) : [];
   for (const item of supplements || []) {
     if (!item?.id || !item?.title || !item?.dateValue || !item?.url) continue;
     const targetTitle = normalizeTitle(item.title);
     const targetDate = dateKey(item.dateValue);
-    const existing = output.find((event) => {
+    const existingIndex = output.findIndex((event) => {
       const sameTitleAndDate = normalizeTitle(event.title) === targetTitle && dateKey(event.dateValue) === targetDate;
       const sameUrlAndDate = event.url === item.url && dateKey(event.dateValue) === targetDate;
       return sameTitleAndDate || sameUrlAndDate;
     });
-    if (existing) {
-      const legacyIds = new Set([...(existing.legacyIds || []), item.id]);
-      existing.legacyIds = [...legacyIds];
+    if (existingIndex >= 0) {
+      const existing = output[existingIndex];
+      if (item.replaceExisting === true) {
+        output[existingIndex] = mergeVerifiedReplacement(existing, item);
+      } else {
+        const legacyIds = new Set([...(existing.legacyIds || []), item.id]);
+        existing.legacyIds = [...legacyIds];
+      }
       continue;
     }
     output.push(canonicalSupplement(item));
