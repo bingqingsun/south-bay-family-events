@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-29T17:33:30.972Z",
+  "generatedAt": "2026-09-29T19:26:25.111Z",
   "configuredSources": 82,
   "directSources": 77,
-  "fallbackSourcesRun": 0,
+  "fallbackSourcesRun": 5,
   "sources": [
     {
       "key": "Palo Alto City Library|library.cityofpaloalto.org|https://gateway.bibliocommons.com/v2/libraries/paloalto/rss/events",
@@ -10,7 +10,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 14,
+      "eventCount": 15,
       "failureStreak": 0,
       "error": ""
     },
@@ -20,7 +20,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 10,
+      "eventCount": 7,
       "failureStreak": 0,
       "error": ""
     },
@@ -28,8 +28,11 @@
       "key": "Santa Clara County Parks|parks.santaclaracounty.gov|",
       "name": "Santa Clara County Parks",
       "method": "search-fallback",
-      "mode": "not-run",
-      "failureStreak": 0
+      "mode": "search-fallback",
+      "status": "failed",
+      "eventCount": 0,
+      "failureStreak": 1,
+      "error": "Search failed: 200 — Google hasn't returned any results for this query."
     },
     {
       "key": "Midpeninsula Regional Open Space District|openspace.org|https://www.openspace.org/get-involved/events-activities?f%5B0%5D=rating%3A146",
@@ -85,8 +88,11 @@
       "key": "City of San José|sanjoseca.gov|",
       "name": "City of San José",
       "method": "search-fallback",
-      "mode": "not-run",
-      "failureStreak": 0
+      "mode": "search-fallback",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Santa Clara County Library District|sccld.org|https://gateway.bibliocommons.com/v2/libraries/sccl/rss/events?audiences=5b28181c4727c7344c796675%2C5b28181c4727c7344c796676%2C5b28181c4727c7344c796677%2C5b28181c4727c7344c796678%2C5b28181c4727c7344c796679%2C5b28181c4727c7344c79667a%2C5b2a5dcb2c1d736b168c62ac",
@@ -102,15 +108,21 @@
       "key": "City of Sunnyvale|sunnyvale.ca.gov|",
       "name": "City of Sunnyvale",
       "method": "search-fallback",
-      "mode": "not-run",
-      "failureStreak": 0
+      "mode": "search-fallback",
+      "status": "ok",
+      "eventCount": 10,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "City of Mountain View|mountainview.gov|",
       "name": "City of Mountain View",
       "method": "search-fallback",
-      "mode": "not-run",
-      "failureStreak": 0
+      "mode": "search-fallback",
+      "status": "ok",
+      "eventCount": 10,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "City of Cupertino|cupertino.gov|https://www.cupertino.gov/Events-directory?dlv_OC+CL+City+Events+Listing=%28dd_OC+Event+Categories%3DMajor+events%29%28dd_OC+Composite+Date%3D0d%29",
@@ -126,8 +138,11 @@
       "key": "City of Santa Clara|santaclaraca.gov|",
       "name": "City of Santa Clara",
       "method": "search-fallback",
-      "mode": "not-run",
-      "failureStreak": 0
+      "mode": "search-fallback",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Computer History Museum|computerhistory.org|https://computerhistory.org/events/feed/",
@@ -225,7 +240,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 33,
+      "eventCount": 32,
       "failureStreak": 0,
       "error": ""
     },
@@ -235,7 +250,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 29,
+      "eventCount": 26,
       "failureStreak": 0,
       "error": ""
     },
@@ -255,7 +270,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 43,
+      "eventCount": 39,
       "failureStreak": 0,
       "error": ""
     },
@@ -276,7 +291,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 10,
+      "failureStreak": 11,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -286,7 +301,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 10,
+      "failureStreak": 11,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +311,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 10,
+      "failureStreak": 11,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -376,7 +391,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 7,
+      "failureStreak": 8,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -404,10 +419,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 1,
-      "error": "Los Altos History Museum event list was not valid: 202"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -813,41 +828,41 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 10,
+      "failureStreak": 11,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 10,
+      "failureStreak": 11,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 10,
+      "failureStreak": 11,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Peninsula Youth Theatre",
-      "failureStreak": 7,
+      "failureStreak": 8,
       "error": "PYT official show list was not valid: 200"
     }
   ],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-09-29T17:33:30.972Z",
-    "enriched": 331,
-    "identity-mismatch": 42,
+    "checkedAt": "2026-09-29T19:26:25.111Z",
+    "enriched": 330,
+    "identity-mismatch": 44,
     "cached": 4,
-    "fetch-blocked": 19,
+    "fetch-blocked": 17,
     "fieldUpdates": {
       "description": 11
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-09-29T17:33:30.972Z",
-    "official": 233,
-    "unclassified": 159,
+    "checkedAt": "2026-09-29T19:26:25.111Z",
+    "official": 231,
+    "unclassified": 160,
     "missing": 4,
     "failure:official_page_fetch_blocked": 3,
     "failure:no_verified_official_image_candidate": 1
