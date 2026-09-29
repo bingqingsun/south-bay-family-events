@@ -5,7 +5,7 @@ import { loadChineseTranslationCatalogs } from './load-translation-catalogs.mjs'
 const eventsUrl = new URL('../data/events.json', import.meta.url);
 const outputUrl = new URL('../data/translations.zh.autogen.json', import.meta.url);
 const apiKey = process.env.OPENAI_API_KEY || '';
-const model = process.env.TRANSLATION_MODEL || 'gpt-5.6-luna';
+const model = process.env.TRANSLATION_MODEL || 'gpt-6-luna';
 const batchSize = Math.max(1, Math.min(30, Number(process.env.TRANSLATION_BATCH_SIZE || 20)));
 
 function currentTranslationGaps(events, catalog) {
