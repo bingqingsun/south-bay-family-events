@@ -28,6 +28,16 @@ assert.equal(model.currentQuickPicks.length, 4, 'All four Halloween Quick Picks 
 assert.ok([runtime.STATES.FEATURED, runtime.STATES.LAST_CHANCE].includes(model.collectionState), 'Halloween should be visible while active');
 
 const afterSeason = runtime.buildCollectionViewModel(config, events, { now: '2026-12-01T12:00:00' });
+if (afterSeason.collectionState !== runtime.STATES.ENDED) {
+  console.error('HALLOWEEN_AFTER_SEASON_CURRENT=', JSON.stringify(afterSeason.currentEvents.map((event) => ({
+    id: event.id,
+    title: event.title,
+    dateValue: event.dateValue,
+    endDateValue: event.endDateValue,
+    ongoing: event.ongoing,
+    sessions: event.sessions
+  }))));
+}
 assert.equal(afterSeason.collectionState, runtime.STATES.ENDED, 'Halloween should archive after the final selected event ends');
 
 console.log(`Halloween collection test passed: ${model.resolvedEditorialCount} canonical events, ${model.currentQuickPicks.length} Quick Picks`);
