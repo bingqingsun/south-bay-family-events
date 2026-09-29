@@ -74,6 +74,11 @@ function mergeVerifiedReplacement(existing, supplement) {
     ...verified,
     id: existing.id || supplement.id,
     legacyIds: [...new Set([...(existing.legacyIds || []), supplement.id].filter(Boolean))],
+    // Preserve canonical recurrence/session timing gathered by the live source
+    // when replacing a recurring event whose supplement verification date may
+    // refer to a different occurrence of the same official series.
+    dateValue: existing.dateValue || verified.dateValue,
+    endDateValue: existing.endDateValue || verified.endDateValue,
     sessions: Array.isArray(existing.sessions) && existing.sessions.length ? existing.sessions : verified.sessions,
     image: supplement.image || existing.image || '',
     imagePresentation: existing.imagePresentation || '',
@@ -90,7 +95,8 @@ export function mergeEventSupplements(events, supplements) {
     const existingIndex = output.findIndex((event) => {
       const sameTitleAndDate = normalizeTitle(event.title) === targetTitle && dateKey(event.dateValue) === targetDate;
       const sameUrlAndDate = event.url === item.url && dateKey(event.dateValue) === targetDate;
-      return sameTitleAndDate || sameUrlAndDate;
+      const sameVerifiedCanonicalUrl = item.replaceExisting === true && event.url === item.url;
+      return sameTitleAndDate || sameUrlAndDate || sameVerifiedCanonicalUrl;
     });
     if (existingIndex >= 0) {
       const existing = output[existingIndex];
