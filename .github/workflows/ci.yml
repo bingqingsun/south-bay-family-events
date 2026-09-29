@@ -7,6 +7,7 @@ on:
     paths:
       - 'scripts/**'
       - 'data/sources.json'
+      - 'data/event-supplements.json'
       - 'data/translations.zh*.json'
       - 'data/translations.zh*.js'
       - 'data/weekend-picks.js'
@@ -35,6 +36,7 @@ on:
     paths:
       - 'scripts/**'
       - 'data/sources.json'
+      - 'data/event-supplements.json'
       - 'data/translations.zh*.json'
       - 'data/translations.zh*.js'
       - 'data/weekend-picks.js'
@@ -80,6 +82,7 @@ jobs:
           node --check scripts/translation-text.mjs
           node --check scripts/translation-text.test.mjs
           node --check scripts/apply-event-translations.mjs
+          node --check scripts/apply-event-supplements.mjs
           node --check scripts/load-translation-catalogs.mjs
           node --check scripts/translation-qa.mjs
           node --check scripts/translation-coverage-report.mjs
