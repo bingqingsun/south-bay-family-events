@@ -13,6 +13,8 @@ on:
       - 'scripts/event-summary-engine.mjs'
       - 'scripts/test-event-summary-engine.mjs'
       - 'scripts/test-summary-output.mjs'
+      - 'scripts/summary-quality-repair.mjs'
+      - 'scripts/summary-semantic-coverage.test.mjs'
       - 'scripts/link-health.mjs'
       - 'scripts/link-health.test.mjs'
       - 'scripts/canonical-detail-pipeline.mjs'
@@ -73,6 +75,8 @@ jobs:
           INCLUDE_SERPAPI: ${{ github.event_name == 'schedule' && 'auto' || github.event_name == 'push' && 'false' || inputs.include_serpapi }}
       - name: Apply manually verified canonical supplements
         run: node scripts/apply-event-supplements.mjs
+      - name: Repair grounded summary quality issues
+        run: node scripts/summary-quality-repair.mjs
       - name: Re-apply reviewed Chinese translations
         run: node scripts/apply-event-translations.mjs
       - name: Verify translation state after refresh
@@ -81,6 +85,8 @@ jobs:
           node scripts/runtime-translation-fallback.test.mjs
       - name: Audit published summary provenance
         run: node scripts/test-summary-output.mjs
+      - name: Audit summary semantic coverage
+        run: node scripts/summary-semantic-coverage.test.mjs
       - name: Save refreshed event list
         run: |
           git config user.name "south-bay-events-bot"

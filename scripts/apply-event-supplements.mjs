@@ -19,12 +19,51 @@ function dateKey(value) {
   return String(value || '').match(/^(\d{4}-\d{2}-\d{2})/)?.[1] || '';
 }
 
+function canonicalCost(item) {
+  const label = String(item.costLabel || '').trim();
+  const explicitStatus = String(item.costStatus || '').trim();
+  const allowed = new Set(['unknown', 'free', 'paid', 'donation', 'variable']);
+  let status = allowed.has(explicitStatus) ? explicitStatus : '';
+
+  if (!status) {
+    if (!label || label === '费用未注明') status = 'unknown';
+    else if (label === '免费') status = 'free';
+    else if (label === '建议捐赠') status = 'donation';
+    else if (label === '会员／非会员价格见详情') status = 'variable';
+    else if (label === '需付费／价格见详情' || /^\$\s*\d/.test(label) || /\$\s*\d/.test(label)) status = 'paid';
+    else status = 'unknown';
+  }
+
+  const resolvedLabel = label || (status === 'unknown' ? '费用未注明' : '');
+  const source = status === 'unknown'
+    ? ''
+    : String(item.costSource || 'Official organizer or ticketing source').trim();
+  const evidence = status === 'unknown' ? '' : String(item.costEvidence || '').trim();
+
+  return { costStatus: status, costLabel: resolvedLabel, costSource: source, costEvidence: evidence };
+}
+
+function canonicalRegistration(item, fallback = {}) {
+  const allowed = new Set(['unknown', 'required', 'recommended', 'not-required', 'walk-in', 'full']);
+  const requested = String(item.registrationStatus || fallback.registrationStatus || '').trim();
+  const status = allowed.has(requested) ? requested : 'unknown';
+  const source = status === 'unknown'
+    ? ''
+    : String(item.registrationSource || fallback.registrationSource || '').trim();
+  const evidence = status === 'unknown'
+    ? ''
+    : String(item.registrationEvidence || fallback.registrationEvidence || '').trim();
+  return { registrationStatus: status, registrationSource: source, registrationEvidence: evidence };
+}
+
 function canonicalSupplement(item) {
   const raw = String(item.sourceDescriptionRaw || item.description || '').replace(/\s+/g, ' ').trim();
   const description = String(item.description || '').replace(/\s+/g, ' ').trim();
   const type = item.type || 'community';
   const meta = CATEGORY_META[type] || CATEGORY_META.community;
   const verifiedAt = item.verifiedAt || new Date().toISOString();
+  const cost = canonicalCost(item);
+  const registration = canonicalRegistration(item);
   return {
     id: item.id,
     title: item.title,
@@ -52,8 +91,8 @@ function canonicalSupplement(item) {
     ageLabel: item.ageLabel || '',
     ageSource: item.ageSource || '',
     audienceStatus: item.ageSource ? 'organizer-confirmed' : 'not-confirmed',
-    costLabel: item.costLabel || '费用未注明',
-    costSource: item.costLabel ? 'Official organizer or ticketing source' : '',
+    ...cost,
+    ...registration,
     type,
     icon: meta.icon,
     color: meta.color,
@@ -67,20 +106,47 @@ function canonicalSupplement(item) {
   };
 }
 
+function mergeVerifiedReplacement(existing, supplement) {
+  const verified = canonicalSupplement({ ...supplement, id: existing.id || supplement.id });
+  const registration = canonicalRegistration(supplement, existing);
+  return {
+    ...existing,
+    ...verified,
+    ...registration,
+    id: existing.id || supplement.id,
+    legacyIds: [...new Set([...(existing.legacyIds || []), supplement.id].filter(Boolean))],
+    // Preserve canonical recurrence/session timing gathered by the live source
+    // when replacing a recurring event whose supplement verification date may
+    // refer to a different occurrence of the same official series.
+    dateValue: existing.dateValue || verified.dateValue,
+    endDateValue: existing.endDateValue || verified.endDateValue,
+    sessions: Array.isArray(existing.sessions) && existing.sessions.length ? existing.sessions : verified.sessions,
+    image: supplement.image || existing.image || '',
+    imagePresentation: existing.imagePresentation || '',
+    imageBackground: existing.imageBackground || ''
+  };
+}
+
 export function mergeEventSupplements(events, supplements) {
   const output = Array.isArray(events) ? events.map((event) => ({ ...event })) : [];
   for (const item of supplements || []) {
     if (!item?.id || !item?.title || !item?.dateValue || !item?.url) continue;
     const targetTitle = normalizeTitle(item.title);
     const targetDate = dateKey(item.dateValue);
-    const existing = output.find((event) => {
+    const existingIndex = output.findIndex((event) => {
       const sameTitleAndDate = normalizeTitle(event.title) === targetTitle && dateKey(event.dateValue) === targetDate;
       const sameUrlAndDate = event.url === item.url && dateKey(event.dateValue) === targetDate;
-      return sameTitleAndDate || sameUrlAndDate;
+      const sameVerifiedCanonicalUrl = item.replaceExisting === true && event.url === item.url;
+      return sameTitleAndDate || sameUrlAndDate || sameVerifiedCanonicalUrl;
     });
-    if (existing) {
-      const legacyIds = new Set([...(existing.legacyIds || []), item.id]);
-      existing.legacyIds = [...legacyIds];
+    if (existingIndex >= 0) {
+      const existing = output[existingIndex];
+      if (item.replaceExisting === true) {
+        output[existingIndex] = mergeVerifiedReplacement(existing, item);
+      } else {
+        const legacyIds = new Set([...(existing.legacyIds || []), item.id]);
+        existing.legacyIds = [...legacyIds];
+      }
       continue;
     }
     output.push(canonicalSupplement(item));
