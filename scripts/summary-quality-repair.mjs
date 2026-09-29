@@ -10,9 +10,23 @@ const PARTICIPATION = /\b(?:families|family|kids?|children|participants?|attende
 const OVERVIEW = /\b(?:event|festival|celebration|experience|program|storytime|concert|show|workshop|class)\b/i;
 const SECONDARY = /\b(?:after(?:ward)?|followed by|stay\s*(?:&|and)\s*play|all ages (?:are )?welcome|membership rates?|bookstore hours?)\b/i;
 const SECTION_HEADING = /\b(?:entertainment schedule|schedule|location|zoom information|registration|tickets?|admission|education goals|agenda)\s*:/ig;
+const PROFESSIONAL_ONLY = /\b(?:grand rounds|continuing medical education|continuing legal education|cme\b|ceu\b|cle\b|cme credits?|clinician training|physician training|healthcare professionals?|medical professionals?|provider training|professional development for (?:teachers|educators|clinicians|providers))\b/i;
+const CHILD_OR_FAMILY_AUDIENCE = /\b(?:famil(?:y|ies)|children|kids?|bab(?:y|ies)|infants?|toddlers?|preschool(?:ers?)?|school[- ]age|tweens?|teens?|all ages|grades?\s*(?:k|\d))\b/i;
 
 function normalize(value) {
   return String(value || '').replace(/\s+/g, ' ').trim();
+}
+
+export function isProfessionalOnlyEvent(event) {
+  const value = normalize([
+    event?.title,
+    event?.description,
+    event?.parentSummary,
+    event?.sourceDescriptionRaw,
+    event?.ageLabel,
+    event?.ageSource
+  ].filter(Boolean).join(' '));
+  return PROFESSIONAL_ONLY.test(value) && !CHILD_OR_FAMILY_AUDIENCE.test(value);
 }
 
 function titleTokens(title) {
@@ -92,7 +106,15 @@ export function repairEventSummaries(events) {
   let changed = 0;
   const repaired = [];
   const unresolved = [];
-  const output = (Array.isArray(events) ? events : []).map((event) => {
+  const excluded = [];
+  const output = [];
+
+  for (const event of (Array.isArray(events) ? events : [])) {
+    if (isProfessionalOnlyEvent(event)) {
+      excluded.push({ id: event.id, title: event.title, source: event.source, reason: 'professional_only' });
+      continue;
+    }
+
     const result = repairEventSummary(event);
     if (result.changed) {
       changed += 1;
@@ -100,19 +122,20 @@ export function repairEventSummaries(events) {
     } else if (result.issues.length) {
       unresolved.push({ id: event.id, title: event.title, issues: result.issues, summary: event.parentSummary || event.description });
     }
-    return result.event;
-  });
-  return { events: output, changed, repaired, unresolved };
+    output.push(result.event);
+  }
+  return { events: output, changed, repaired, unresolved, excluded };
 }
 
 async function run() {
   const events = JSON.parse(await readFile(eventsUrl, 'utf8'));
   const result = repairEventSummaries(events);
-  if (result.changed) {
+  if (result.changed || result.excluded.length) {
     await writeFile(eventsUrl, `${JSON.stringify(result.events, null, 2)}\n`);
   }
-  console.log(`summary-quality repair: ${result.changed} repaired, ${result.unresolved.length} unresolved`);
+  console.log(`summary-quality repair: ${result.changed} repaired, ${result.excluded.length} professional-only excluded, ${result.unresolved.length} unresolved`);
   if (result.repaired.length) console.log('SUMMARY_QUALITY_REPAIRED=' + JSON.stringify(result.repaired));
+  if (result.excluded.length) console.log('SUMMARY_QUALITY_EXCLUDED=' + JSON.stringify(result.excluded));
   if (result.unresolved.length) console.warn('SUMMARY_QUALITY_UNRESOLVED=' + JSON.stringify(result.unresolved));
 }
 
