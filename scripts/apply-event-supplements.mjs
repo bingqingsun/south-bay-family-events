@@ -43,6 +43,19 @@ function canonicalCost(item) {
   return { costStatus: status, costLabel: resolvedLabel, costSource: source, costEvidence: evidence };
 }
 
+function canonicalRegistration(item, fallback = {}) {
+  const allowed = new Set(['unknown', 'required', 'recommended', 'not-required', 'walk-in', 'full']);
+  const requested = String(item.registrationStatus || fallback.registrationStatus || '').trim();
+  const status = allowed.has(requested) ? requested : 'unknown';
+  const source = status === 'unknown'
+    ? ''
+    : String(item.registrationSource || fallback.registrationSource || '').trim();
+  const evidence = status === 'unknown'
+    ? ''
+    : String(item.registrationEvidence || fallback.registrationEvidence || '').trim();
+  return { registrationStatus: status, registrationSource: source, registrationEvidence: evidence };
+}
+
 function canonicalSupplement(item) {
   const raw = String(item.sourceDescriptionRaw || item.description || '').replace(/\s+/g, ' ').trim();
   const description = String(item.description || '').replace(/\s+/g, ' ').trim();
@@ -50,6 +63,7 @@ function canonicalSupplement(item) {
   const meta = CATEGORY_META[type] || CATEGORY_META.community;
   const verifiedAt = item.verifiedAt || new Date().toISOString();
   const cost = canonicalCost(item);
+  const registration = canonicalRegistration(item);
   return {
     id: item.id,
     title: item.title,
@@ -78,6 +92,7 @@ function canonicalSupplement(item) {
     ageSource: item.ageSource || '',
     audienceStatus: item.ageSource ? 'organizer-confirmed' : 'not-confirmed',
     ...cost,
+    ...registration,
     type,
     icon: meta.icon,
     color: meta.color,
@@ -93,9 +108,11 @@ function canonicalSupplement(item) {
 
 function mergeVerifiedReplacement(existing, supplement) {
   const verified = canonicalSupplement({ ...supplement, id: existing.id || supplement.id });
+  const registration = canonicalRegistration(supplement, existing);
   return {
     ...existing,
     ...verified,
+    ...registration,
     id: existing.id || supplement.id,
     legacyIds: [...new Set([...(existing.legacyIds || []), supplement.id].filter(Boolean))],
     // Preserve canonical recurrence/session timing gathered by the live source
