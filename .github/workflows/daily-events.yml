@@ -13,6 +13,7 @@ on:
       - 'scripts/event-summary-engine.mjs'
       - 'scripts/test-event-summary-engine.mjs'
       - 'scripts/test-summary-output.mjs'
+      - 'scripts/summary-quality-repair.mjs'
       - 'scripts/summary-semantic-coverage.test.mjs'
       - 'scripts/link-health.mjs'
       - 'scripts/link-health.test.mjs'
@@ -74,6 +75,8 @@ jobs:
           INCLUDE_SERPAPI: ${{ github.event_name == 'schedule' && 'auto' || github.event_name == 'push' && 'false' || inputs.include_serpapi }}
       - name: Apply manually verified canonical supplements
         run: node scripts/apply-event-supplements.mjs
+      - name: Repair grounded summary quality issues
+        run: node scripts/summary-quality-repair.mjs
       - name: Re-apply reviewed Chinese translations
         run: node scripts/apply-event-translations.mjs
       - name: Verify translation state after refresh
