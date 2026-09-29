@@ -66,6 +66,9 @@ jobs:
 
       - name: Generate Preview data and SEO pages when supported
         run: |
+          if [ -f scripts/apply-event-supplements.mjs ]; then
+            node scripts/apply-event-supplements.mjs
+          fi
           if [ -f scripts/generate-event-pages.mjs ]; then
             node scripts/generate-event-pages.mjs
           fi

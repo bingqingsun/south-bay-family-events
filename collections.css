@@ -67,6 +67,26 @@
   transition: box-shadow .2s ease, transform .2s ease;
 }
 
+.collection-home-card[data-collection-slug="halloween"] {
+  background-color: #2a102f;
+  background-image:
+    linear-gradient(96deg, rgba(32, 11, 38, .94) 0%, rgba(63, 22, 67, .84) 48%, rgba(176, 83, 38, .34) 100%),
+    var(--collection-cover);
+  box-shadow: 0 14px 34px rgba(67, 26, 73, .22);
+}
+
+.collection-home-card[data-collection-slug="halloween"] .collection-home-overlay {
+  background: linear-gradient(108deg, transparent 54%, rgba(242, 135, 69, .12) 100%);
+}
+
+.collection-home-card[data-collection-slug="halloween"] .collection-home-description {
+  color: #fff3e7;
+}
+
+.collection-home-card[data-collection-slug="halloween"] .collection-home-cta b {
+  color: #ffd29a;
+}
+
 .collection-home-card:hover {
   box-shadow: 0 20px 40px #1b427f34;
   transform: translateY(-3px);

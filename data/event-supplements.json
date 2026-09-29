@@ -1,0 +1,54 @@
+[
+  {
+    "id": "editorial-e7bdc3d695b22fe2",
+    "title": "Laser Halloween Spooktacular",
+    "dateValue": "2026-10-24T17:15",
+    "endDateValue": "2026-10-24T20:00:00",
+    "description": "Celebrate Halloween under the planetarium dome with laser-drawn images and a family-friendly soundtrack featuring Halloween favorites.",
+    "sourceDescriptionRaw": "Laser Halloween Spooktacular is listed by the De Anza College Planetarium for Saturday, October 24, 2026, with 5:15 PM and 7:00 PM performances. The program is a family Halloween laser show under the planetarium dome.",
+    "place": "Fujitsu Planetarium at De Anza College",
+    "address": "21250 Stevens Creek Blvd, Cupertino, CA 95014",
+    "city": "Cupertino",
+    "source": "De Anza College Planetarium",
+    "url": "https://deanzaplanetarium.ludus.com/index.php",
+    "ageMin": 5,
+    "ageLabel": "Ages 5+",
+    "ageSource": "De Anza College Planetarium program guidance",
+    "costLabel": "需购票／价格见详情",
+    "type": "shows",
+    "format": "live-show",
+    "seasonalTheme": "halloween",
+    "sessions": [
+      {
+        "dateValue": "2026-10-24T17:15",
+        "endDateValue": "2026-10-24T18:15:00",
+        "url": "https://deanzaplanetarium.ludus.com/index.php"
+      },
+      {
+        "dateValue": "2026-10-24T19:00",
+        "endDateValue": "2026-10-24T20:00:00",
+        "url": "https://deanzaplanetarium.ludus.com/index.php"
+      }
+    ],
+    "verifiedAt": "2026-09-29T13:45:00Z"
+  },
+  {
+    "id": "editorial-32d6b7102984722f",
+    "title": "Tech or Treat",
+    "dateValue": "2026-10-31",
+    "description": "Enjoy family-friendly science fun at The Tech Interactive with Halloween twists on favorite exhibits during the museum's annual Tech or Treat event.",
+    "sourceDescriptionRaw": "Join us for scientific chills and tech-tastic thrills at our annual Tech or Treat event on Saturday, Oct. 31. Enjoy family-friendly science fun at The Tech with Halloween twists on favorite exhibits. All ages are welcome.",
+    "place": "The Tech Interactive",
+    "address": "201 S Market St, San Jose, CA 95113",
+    "city": "San Jose",
+    "source": "The Tech Interactive",
+    "url": "https://www.thetech.org/upcomingevents",
+    "ageLabel": "All ages",
+    "ageSource": "The Tech Interactive official Upcoming Events listing",
+    "costLabel": "需付费／价格见详情",
+    "type": "learning",
+    "format": "festival",
+    "seasonalTheme": "halloween",
+    "verifiedAt": "2026-09-29T13:45:00Z"
+  }
+]

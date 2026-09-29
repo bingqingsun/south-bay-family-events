@@ -23,10 +23,12 @@ on:
       - 'scripts/cupertino-audience.test.mjs'
       - 'scripts/event-translations.mjs'
       - 'scripts/apply-event-translations.mjs'
+      - 'scripts/apply-event-supplements.mjs'
       - 'scripts/load-translation-catalogs.mjs'
       - 'scripts/translation-qa.mjs'
       - 'scripts/runtime-translation-fallback.test.mjs'
       - 'data/sources.json'
+      - 'data/event-supplements.json'
       - 'app.js'
       - 'collections.js'
       - '.github/workflows/daily-events.yml'
@@ -69,6 +71,8 @@ jobs:
         env:
           SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
           INCLUDE_SERPAPI: ${{ github.event_name == 'schedule' && 'auto' || github.event_name == 'push' && 'false' || inputs.include_serpapi }}
+      - name: Apply manually verified canonical supplements
+        run: node scripts/apply-event-supplements.mjs
       - name: Re-apply reviewed Chinese translations
         run: node scripts/apply-event-translations.mjs
       - name: Verify translation state after refresh

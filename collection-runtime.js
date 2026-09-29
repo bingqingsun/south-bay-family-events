@@ -70,6 +70,14 @@
     return Boolean(publishAt && publishAt > nowPacific);
   }
 
+  function activeUntilHasPassed(config, nowPacific) {
+    if (!config.activeUntil) return false;
+    const activeUntil = normalizePacificComparable(config.activeUntil, {
+      endOfDay: !/[T ]\d{2}:\d{2}/.test(String(config.activeUntil))
+    });
+    return Boolean(activeUntil && activeUntil < nowPacific);
+  }
+
   function standaloneEventIsCurrent(event, nowPacific) {
     if (!event) return false;
     if (event.ongoing === true && !event.endDateValue) return true;
@@ -172,6 +180,11 @@
   }) {
     if (config.published === false || publishAtIsFuture(config, nowPacific)) return STATES.DRAFT;
     if (selectedRefCount === 0 || resolvedEditorialCount === 0) return STATES.DATA_ERROR;
+    // Collection publication lifecycle is editorial metadata. An explicit
+    // cutoff protects seasonal guides from stale upstream records that may be
+    // incorrectly marked as indefinitely ongoing, without changing Event Card
+    // facts or duplicating event data in the collection itself.
+    if (activeUntilHasPassed(config, nowPacific)) return STATES.ENDED;
     if (currentEventCount === 0) return STATES.ENDED;
     const threshold = Number.isFinite(Number(config.lastChanceThreshold)) ? Number(config.lastChanceThreshold) : 2;
     if (expiredCount > 0 && resolvedEditorialCount > threshold && currentEventCount <= threshold) return STATES.LAST_CHANCE;
