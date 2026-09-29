@@ -38,8 +38,6 @@ on:
       - 'collections.js'
       - '.github/workflows/daily-events.yml'
   schedule:
-    # Weekdays at 06:20 PST / 07:20 PDT. RSS feeds refresh every weekday;
-    # SerpApi fallback runs only on Tuesday and Thursday.
     - cron: '20 14 * * 1-5'
   workflow_dispatch:
     inputs:
@@ -88,7 +86,7 @@ jobs:
         run: node scripts/generate-chinese-translations.mjs
       - name: Build runtime translation overlay
         run: node scripts/build-translation-overlay.mjs
-      - name: Apply approved Chinese translations
+      - name: Re-apply reviewed Chinese translations
         run: node scripts/apply-event-translations.mjs
       - name: Verify translation state after refresh
         run: |
