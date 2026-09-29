@@ -50,5 +50,27 @@
     "format": "festival",
     "seasonalTheme": "halloween",
     "verifiedAt": "2026-09-29T13:45:00Z"
+  },
+  {
+    "id": "editorial-great-big-boo-2026",
+    "title": "The Great Big BOO!",
+    "dateValue": "2026-09-25T17:00:00",
+    "description": "A family-friendly Halloween celebration at Gilroy Gardens with live musical shows, trick-or-treating along the BOO Trail, character encounters, and interactive Halloween experiences.",
+    "sourceDescriptionRaw": "The Great Big BOO is an immersive Halloween experience that’s full of fun for the whole family. Come in costume, enjoy the live musical shows, and discover new adventures as you explore the park after dark! Come in costume and follow the BOO Trail throughout the park to go trick-or-treating for candy. Help save Halloween with your Interactive Pumpkin Wand! Find all 8 BOO Zones to uncover the hidden message. Sing and dance along during The Great Big BOO live musical show—and then catch up with all your favorite BOO Alley friends at character encounters throughout the park.",
+    "place": "Gilroy Gardens",
+    "address": "3050 Hecker Pass Highway, Gilroy, CA 95020",
+    "city": "Gilroy",
+    "source": "Gilroy Gardens",
+    "url": "https://www.gilroygardens.org/halloween/",
+    "ageMin": 0,
+    "ageMax": 18,
+    "ageLabel": "All ages",
+    "ageSource": "Gilroy Gardens official Halloween event page",
+    "costLabel": "需付费／价格见详情",
+    "type": "shows",
+    "format": "festival",
+    "seasonalTheme": "halloween",
+    "replaceExisting": true,
+    "verifiedAt": "2026-09-29T15:30:00Z"
   }
 ]
