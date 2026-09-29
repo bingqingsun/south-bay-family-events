@@ -96,9 +96,8 @@
       publishAt: '2026-09-28T00:00:00',
       lastChanceThreshold: 3,
       selectedEventRefs: [
-        { id: 'series-e6ac1a91e28ab5eb', url: 'https://www.gilroygardens.org/halloween/' },
+        { id: 'series-bf2c8a59c45b87b2', url: 'https://www.gilroygardens.org/halloween/' },
         'rss-6a920fcf1c197d11325b93bd',
-        'series-99d71e777e184e68',
         'rss-6a9c66e53b6c71003e5e111d',
         'curated-4c0727d8deda8c4d',
         'rss-6a83576660ccaf01c01edcc9',
@@ -107,10 +106,10 @@
         'curated-f364c82c4ac30523',
         { id: 'calendar-24500', url: 'https://www.gamblegarden.org/event/halloween/' },
         'curated-89a240ca6e3b7fc7',
-        'curated-3868dabc95a0a9e1',
-        { id: 'curated-97048dfb3fbc5c99', url: 'https://www.cupertino.gov/Parks-Recreation/Events/Monster-Mash' },
-        'series-d0d66b8288b5a5f0',
+        { id: 'chcp-df1761c0a01542cf', url: 'https://www.chcp.org/event-6856658' },
+        { id: 'cupertino-f11efb5ab0b93776', url: 'https://www.cupertino.gov/Parks-Recreation/Events/Monster-Mash' },
         { id: 'santana-3e0678c8161a52e9', url: 'https://santanarow.com/event/trick-or-treat-the-row-halloween-family-festival/' },
+        { id: 'rss-6a9c6702aafa61002961d5e9', url: 'https://sccl.bibliocommons.com/events/6a9c6702aafa61002961d5e9' },
         { id: 'curated-d185004a710de571', url: 'https://www.menlopark.gov/Citywide-calendar/Community-events/20261028-Trunk-or-Treat' },
         { id: 'filoli-546ede82db7e6eeb', url: 'https://filoli.org/whats-on/events/nightfall/' },
         { id: 'santana-104fc08c96737ad5', url: 'https://santanarow.com/event/glass-pumpkin-festival/' },
@@ -118,7 +117,7 @@
         { id: 'santana-8e02371ec72aec44', url: 'https://santanarow.com/event/farmer-mike-pumpkin-carving/' }
       ],
       quickPickIds: [
-        'series-e6ac1a91e28ab5eb',
+        'series-bf2c8a59c45b87b2',
         'curated-f364c82c4ac30523',
         'curated-89a240ca6e3b7fc7',
         'filoli-546ede82db7e6eeb'
