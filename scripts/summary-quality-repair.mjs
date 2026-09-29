@@ -11,7 +11,7 @@ const OVERVIEW = /\b(?:event|festival|celebration|experience|program|storytime|c
 const SECONDARY = /\b(?:after(?:ward)?|followed by|stay\s*(?:&|and)\s*play|all ages (?:are )?welcome|membership rates?|bookstore hours?)\b/i;
 const SECTION_HEADING = /\b(?:entertainment schedule|schedule|location|zoom information|registration|tickets?|admission|education goals|agenda)\s*:/ig;
 const PROFESSIONAL_ONLY = /\b(?:grand rounds|continuing medical education|continuing legal education|cme\b|ceu\b|cle\b|cme credits?|clinician training|physician training|healthcare professionals?|medical professionals?|provider training|professional development for (?:teachers|educators|clinicians|providers))\b/i;
-const EXPLICIT_FAMILY_AUDIENCE = /\b(?:all ages(?:\s+are)?\s+(?:welcome|invited)|famil(?:y|ies)\s+(?:are\s+)?(?:welcome|invited|can|will)|(?:children|kids?|bab(?:y|ies)|infants?|toddlers?|preschoolers?|tweens?|teens?)\s+(?:are\s+)?(?:welcome|invited|can|will)|for\s+(?:families|children|kids|babies|infants|toddlers|preschoolers|tweens|teens)|grades?\s*(?:k|\d)|ages?\s*\d{1,2}\s*(?:[-–]\s*\d{1,2}|\+))\b/i;
+const EXPLICIT_FAMILY_AUDIENCE = /\b(?:all ages(?:\s+are)?\s+(?:welcome|invited)|famil(?:y|ies)\s+(?:are\s+)?(?:welcome|invited|can|will|may participate)|(?:children|kids?|bab(?:y|ies)|infants?|toddlers?|preschoolers?|tweens?|teens?)\s+(?:are\s+)?(?:welcome|invited|can|will|may participate)|grades?\s*(?:k|\d)|ages?\s*\d{1,2}\s*(?:[-–]\s*\d{1,2}|\+))\b/i;
 
 function normalize(value) {
   return String(value || '').replace(/\s+/g, ' ').trim();
