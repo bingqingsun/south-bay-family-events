@@ -82,7 +82,7 @@ jobs:
       - name: Fill missing or stale Chinese translations
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          TRANSLATION_MODEL: gpt-5.6-luna
+          TRANSLATION_MODEL: gpt-6-luna
         run: node scripts/generate-chinese-translations.mjs
       - name: Build runtime translation overlay
         run: node scripts/build-translation-overlay.mjs
