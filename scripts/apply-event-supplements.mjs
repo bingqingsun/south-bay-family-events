@@ -19,12 +19,37 @@ function dateKey(value) {
   return String(value || '').match(/^(\d{4}-\d{2}-\d{2})/)?.[1] || '';
 }
 
+function canonicalCost(item) {
+  const label = String(item.costLabel || '').trim();
+  const explicitStatus = String(item.costStatus || '').trim();
+  const allowed = new Set(['unknown', 'free', 'paid', 'donation', 'variable']);
+  let status = allowed.has(explicitStatus) ? explicitStatus : '';
+
+  if (!status) {
+    if (!label || label === '费用未注明') status = 'unknown';
+    else if (label === '免费') status = 'free';
+    else if (label === '建议捐赠') status = 'donation';
+    else if (label === '会员／非会员价格见详情') status = 'variable';
+    else if (label === '需付费／价格见详情' || /^\$\s*\d/.test(label) || /\$\s*\d/.test(label)) status = 'paid';
+    else status = 'unknown';
+  }
+
+  const resolvedLabel = label || (status === 'unknown' ? '费用未注明' : '');
+  const source = status === 'unknown'
+    ? ''
+    : String(item.costSource || 'Official organizer or ticketing source').trim();
+  const evidence = status === 'unknown' ? '' : String(item.costEvidence || '').trim();
+
+  return { costStatus: status, costLabel: resolvedLabel, costSource: source, costEvidence: evidence };
+}
+
 function canonicalSupplement(item) {
   const raw = String(item.sourceDescriptionRaw || item.description || '').replace(/\s+/g, ' ').trim();
   const description = String(item.description || '').replace(/\s+/g, ' ').trim();
   const type = item.type || 'community';
   const meta = CATEGORY_META[type] || CATEGORY_META.community;
   const verifiedAt = item.verifiedAt || new Date().toISOString();
+  const cost = canonicalCost(item);
   return {
     id: item.id,
     title: item.title,
@@ -52,8 +77,7 @@ function canonicalSupplement(item) {
     ageLabel: item.ageLabel || '',
     ageSource: item.ageSource || '',
     audienceStatus: item.ageSource ? 'organizer-confirmed' : 'not-confirmed',
-    costLabel: item.costLabel || '费用未注明',
-    costSource: item.costLabel ? 'Official organizer or ticketing source' : '',
+    ...cost,
     type,
     icon: meta.icon,
     color: meta.color,
