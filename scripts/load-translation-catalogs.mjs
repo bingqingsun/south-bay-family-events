@@ -23,8 +23,14 @@ export async function loadChineseTranslationCatalogs() {
         entries.push(entry);
         continue;
       }
+
+      const index = indexById.get(id);
+      const existing = entries[index];
       if (entry.override === true) {
-        entries[indexById.get(id)] = entry;
+        entries[index] = entry;
+        continue;
+      }
+      if (existing?.override === true) {
         continue;
       }
       conflicts.push(`${id}@${catalog.name}`);
