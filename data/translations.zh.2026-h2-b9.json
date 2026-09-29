@@ -2,10 +2,50 @@
   "version": 1,
   "locale": "zh-Hans",
   "entries": [
-    {"id":"rss-6946001eea69de6e001069b1","title":"Little Ones 幼儿故事时间","description":"故事时间包含多种早期读写活动，例如故事、歌曲、童谣和律动活动。","sourceFingerprint":"AUTO","status":"approved","override":true,"translationSource":"reviewed-batch"},
-    {"id":"series-34d0b34c56f66607","title":"睡衣故事时间 [Hora de Cuentos en Pijama]","description":"在轻松有趣的活动中学习。","sourceFingerprint":"AUTO","status":"approved","override":true,"translationSource":"reviewed-batch"},
-    {"id":"jmz-family-9e10bcb96952915e","title":"Super Family Sunday 家庭星期日","description":"近距离认识动物园里的动物。","sourceFingerprint":"AUTO","status":"approved","override":true,"translationSource":"reviewed-batch"},
-    {"id":"thetech-6687b96444113eae","title":"Tech or Treat 万圣节科技活动","description":"在 The Tech 参加适合家庭的科学活动，并体验带有万圣节元素的热门展项。","sourceFingerprint":"AUTO","status":"approved","override":true,"translationSource":"reviewed-batch"},
-    {"id":"santana-6666c41d4ab6fbfc","title":"Día de Los Muertos 亡灵节庆典","description":"Santana Row 将在 Sunday, November 1st 举办 Día de Los Muertos 特别庆典，纪念逝去的亲人并延续彼此的连结。这是免费社区活动，包括脸部彩绘、Catrina 和 Catrin 角色互动、mariachi 音乐、手工和快闪市集。","sourceFingerprint":"AUTO","status":"approved","override":true,"translationSource":"reviewed-batch"}
+    {
+      "id": "rss-6946001eea69de6e001069b1",
+      "title": "Little Ones 幼儿故事时间",
+      "description": "故事时间包含多种早期读写活动，例如故事、歌曲、童谣和律动活动。",
+      "sourceFingerprint": "6ace22fef4fb8042506f81c8b7c2f93837f8af40b875ce35d349e173e3665ee4",
+      "status": "approved",
+      "override": true,
+      "translationSource": "reviewed-batch"
+    },
+    {
+      "id": "series-34d0b34c56f66607",
+      "title": "睡衣故事时间 [Hora de Cuentos en Pijama]",
+      "description": "在轻松有趣的活动中学习。",
+      "sourceFingerprint": "dcb0d34a721267c1cfa1cfc3787835f39e17e83a67a05e31877a8253f46ea490",
+      "status": "approved",
+      "override": true,
+      "translationSource": "reviewed-batch"
+    },
+    {
+      "id": "jmz-family-9e10bcb96952915e",
+      "title": "Super Family Sunday 家庭星期日",
+      "description": "近距离认识动物园里的动物。",
+      "sourceFingerprint": "76b85dd4113d5b315914e2e92a84394b591146c4fc457a42fea6b8ec0870de95",
+      "status": "approved",
+      "override": true,
+      "translationSource": "reviewed-batch"
+    },
+    {
+      "id": "thetech-6687b96444113eae",
+      "title": "Tech or Treat 万圣节科技活动",
+      "description": "在 The Tech 参加适合家庭的科学活动，并体验带有万圣节元素的热门展项。",
+      "sourceFingerprint": "8387b5d2282b236f73daa196f7b24612e0f0888aea789c822d21f2eafb2d5430",
+      "status": "approved",
+      "override": true,
+      "translationSource": "reviewed-batch"
+    },
+    {
+      "id": "santana-6666c41d4ab6fbfc",
+      "title": "Día de Los Muertos 亡灵节庆典",
+      "description": "Santana Row 将在 Sunday, November 1st 举办 Día de Los Muertos 特别庆典，纪念逝去的亲人并延续彼此的连结。这是免费社区活动，包括脸部彩绘、Catrina 和 Catrin 角色互动、mariachi 音乐、手工和快闪市集。",
+      "sourceFingerprint": "ff5ff35e93efb4312617636c6be4a1a48881f79a3709a13016217180500061b5",
+      "status": "approved",
+      "override": true,
+      "translationSource": "reviewed-batch"
+    }
   ]
 }

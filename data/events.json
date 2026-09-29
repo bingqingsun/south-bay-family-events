@@ -111,7 +111,7 @@
         "linkResolution": "session-canonical"
       }
     ],
-    "translationStatus": "missing",
+    "translationStatus": "current",
     "translationSourceFingerprint": "b4ddfc4f95b008a9d21354acd1a5b7d9b2825f779c27c42967d6ab4089c4f54b",
     "refreshStatus": "revalidated-missing",
     "refreshVerifiedAt": "2026-09-29T16:37:01.170Z",
@@ -121,7 +121,17 @@
     "legacyIds": [
       "series-071d2ac380b76392",
       "chm-museum-f26c4c52f7e5588c"
-    ]
+    ],
+    "translations": {
+      "zh": {
+        "title": "聊天机器人解密：探索人工智能",
+        "description": "与由聊天机器人驱动的机器人对话，并听专家介绍人工智能的未来。",
+        "fingerprint": "b4ddfc4f95b008a9d21354acd1a5b7d9b2825f779c27c42967d6ab4089c4f54b",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-fe202121e1e5bbc4",
@@ -235,7 +245,7 @@
         "linkResolution": "session-canonical"
       }
     ],
-    "translationStatus": "missing",
+    "translationStatus": "current",
     "translationSourceFingerprint": "a09a107c611f324f46dc5968d3f1429b395b63f5f01eb4ffce68e1db0de515fc",
     "refreshStatus": "revalidated-missing",
     "refreshVerifiedAt": "2026-09-29T16:37:01.170Z",
@@ -245,7 +255,17 @@
     "legacyIds": [
       "series-fe202121e1e5bbc4",
       "chm-museum-45b8705bb38bdfa6"
-    ]
+    ],
+    "translations": {
+      "zh": {
+        "title": "软件如何改变世界！",
+        "description": "展览介绍 MP3、Photoshop、MRI、汽车碰撞模拟、Wikipedia、短信和 World of Warcraft 这七项重要应用背后的历史、影响与技术。",
+        "fingerprint": "a09a107c611f324f46dc5968d3f1429b395b63f5f01eb4ffce68e1db0de515fc",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "filoli-546ede82db7e6eeb",
@@ -575,8 +595,18 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing",
-    "summaryQualityRepairVersion": "summary-quality-repair-v1"
+    "translationStatus": "current",
+    "summaryQualityRepairVersion": "summary-quality-repair-v1",
+    "translations": {
+      "zh": {
+        "title": "音乐与律动",
+        "description": "活动适合不同年龄的家庭成员参加，通过歌曲、童谣、手指游戏和律动活动开展早期读写启蒙。",
+        "fingerprint": "b4e7d5e40f8242bba9f4850156c4dbffd810dcb423c29c6e7c6f60895f1d346e",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-45f793e28c6d5f23",
@@ -1014,7 +1044,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "Rose Garden 婴儿亲子故事时间",
+        "description": "新生儿、婴儿和照护者可通过故事、歌曲、弹跳互动、挠痒游戏、童谣、图书和玩耍一起学习并增进亲子关系。",
+        "fingerprint": "e6132a89c8a7e785d11eb1821a2547952e02e6849b65db41caf4a86a7e09beda",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-692e108051da852800c4590f",
@@ -1113,7 +1153,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "钩针与编织俱乐部",
+        "description": "可以看看大家正在制作什么、提升技巧、交流毛线相关话题，或学习钩针和编织。",
+        "fingerprint": "a381445d6ff08a23c27e430a9196ecfa004edcb9aef0b05af5790ca63b7ce1b3",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-68cdb1eb62a8786065c374d5",
@@ -1216,8 +1266,18 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing",
-    "summaryQualityRepairVersion": "summary-quality-repair-v1"
+    "translationStatus": "current",
+    "summaryQualityRepairVersion": "summary-quality-repair-v1",
+    "translations": {
+      "zh": {
+        "title": "家庭故事时间 + Stay & Play",
+        "description": "故事时间适合不同年龄的家庭成员参加，包括故事、歌曲、童谣、手指游戏和律动等早期读写活动。",
+        "fingerprint": "551b535f6407d746ae6fcd6c579aaa130b5725d7fad57d173019e0857efe30d6",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-694451baea69de6e00104924",
@@ -1316,8 +1376,18 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing",
-    "summaryQualityRepairVersion": "summary-quality-repair-v1"
+    "translationStatus": "current",
+    "summaryQualityRepairVersion": "summary-quality-repair-v1",
+    "translations": {
+      "zh": {
+        "title": "家庭故事时间与 Stay & Play",
+        "description": "故事时间适合不同年龄的家庭成员参加，包括故事、歌曲、童谣、手指游戏和律动等早期读写活动。",
+        "fingerprint": "c7478f8231ddceaf8845ae9507b21fd6a89b5ea7f7714c09e81a3b3d0b555620",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-693330536724c63d00e572bd",
@@ -1416,8 +1486,18 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing",
-    "summaryQualityRepairVersion": "summary-quality-repair-v1"
+    "translationStatus": "current",
+    "summaryQualityRepairVersion": "summary-quality-repair-v1",
+    "translations": {
+      "zh": {
+        "title": "室内家庭故事时间与 Stay & Play",
+        "description": "故事时间适合不同年龄的家庭成员参加，包括故事、歌曲、童谣、手指游戏和律动等早期读写活动。",
+        "fingerprint": "29dbe3dd869b28a1c996d6ae07cf7afaf41d89328ecafdebdfcd9017d2661a3b",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-677c54effea9b97171fe8f91",
@@ -1516,7 +1596,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "Seven Trees 婴幼儿故事时间",
+        "description": "婴儿和照护者可通过故事、歌曲、弹跳互动、挠痒游戏、童谣、图书和玩耍一起学习并增进亲子关系。",
+        "fingerprint": "a8a633542bdbeeffe24a1d9beff38344c0d04af4ce85dc39d22eb0e87d0e14d5",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a84a5761401fd00606cd222",
@@ -1615,7 +1705,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "周二钩针聚会",
+        "description": "参与者可以带上自己的钩针项目，与其他爱好者一起开始或完成作品并交流。",
+        "fingerprint": "209f2a2c6eec8e02ac9431daeb0f7c97b57decaff7c71c539b256dd6e7b88cbf",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-cdbb8e3f153e3051",
@@ -2247,8 +2347,18 @@
     "redirectTarget": "https://www.cineluxtheatres.com/cinelux-plaza-cafe-lounge/tickets/112655000047",
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "601eee456a2d36c2ed7191362018a9128d78a250ca354467b081bd7278c20e80"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "601eee456a2d36c2ed7191362018a9128d78a250ca354467b081bd7278c20e80",
+    "translations": {
+      "zh": {
+        "title": "《FORGOTTEN ISLAND》",
+        "description": "在 CineLux Plaza 放映的 PG 级电影。",
+        "fingerprint": "601eee456a2d36c2ed7191362018a9128d78a250ca354467b081bd7278c20e80",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-0532e88b4af486a0",
@@ -3221,8 +3331,18 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "c43704ef875571d53eed623b4efcd62498a5e0ed61fdfc0f0ddb0a9ad9a103fe"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "c43704ef875571d53eed623b4efcd62498a5e0ed61fdfc0f0ddb0a9ad9a103fe",
+    "translations": {
+      "zh": {
+        "title": "Bookcrocs 读书会（4–5 年级）",
+        "description": "本月阅读 E.B. White 的《Stuart Little》。讨论时间为 2026 年九月 29 日星期二下午 4–5 点；如能参加，可到 Children's Reference Desk 报名并领取图书，请在活动前读完。",
+        "fingerprint": "c43704ef875571d53eed623b4efcd62498a5e0ed61fdfc0f0ddb0a9ad9a103fe",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-a4b2721439034315",
@@ -4515,8 +4635,18 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "4b97fed4d27d087988212f2a3275f336e19749515fb005c2f0149f3cdc71572c"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "4b97fed4d27d087988212f2a3275f336e19749515fb005c2f0149f3cdc71572c",
+    "translations": {
+      "zh": {
+        "title": "Saratoga Library 钩针入门",
+        "description": "将学习如何握钩针和毛线、打活结、锁针、短针、中长针、长针、三卷长针、魔术环，以及如何阅读图样。现场提供毛线和钩针，也可自带。",
+        "fingerprint": "4b97fed4d27d087988212f2a3275f336e19749515fb005c2f0149f3cdc71572c",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6946001eea69de6e001069b1",
@@ -4617,15 +4747,15 @@
     "sessions": [],
     "translations": {
       "zh": {
-        "title": "幼儿家庭故事时间",
-        "description": "故事时间是适合全家参与的有趣互动体验，让各年龄段都能感受阅读和学习的乐趣。",
-        "fingerprint": "3ae5e9f8af4d81fb77af0bf3f4b47dba42436168e8607b1eacff9926bc03cd73",
-        "translatedAt": "2026-09-26T01:31:00Z",
-        "translationSource": "editorial-reviewed",
+        "title": "Little Ones 幼儿故事时间",
+        "description": "故事时间包含多种早期读写活动，例如故事、歌曲、童谣和律动活动。",
+        "fingerprint": "6ace22fef4fb8042506f81c8b7c2f93837f8af40b875ce35d349e173e3665ee4",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
         "status": "approved"
       }
     },
-    "translationStatus": "stale",
+    "translationStatus": "current",
     "summaryQualityRepairVersion": "summary-quality-repair-v1",
     "translationSourceFingerprint": "6ace22fef4fb8042506f81c8b7c2f93837f8af40b875ce35d349e173e3665ee4"
   },
@@ -5178,7 +5308,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "国际配偶咖啡聚会 ☕️",
+        "description": "这是结识新朋友，并了解 Bechtel 的项目、课程、工作坊、Stanford 校园及周边社区资源的机会。",
+        "fingerprint": "888eba42c7f8f32f3da9c43a0ed99bbb5f8cecdb4e0eea7cbc4b9462c53cb74b",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-3ae418d1ffc29927",
@@ -8095,8 +8235,18 @@
     "redirectTarget": "https://sccl.bibliocommons.com/events/6ab82b138cf597003f96b0c4",
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
-    "translationStatus": "missing",
-    "summaryQualityRepairVersion": "summary-quality-repair-v1"
+    "translationStatus": "current",
+    "summaryQualityRepairVersion": "summary-quality-repair-v1",
+    "translations": {
+      "zh": {
+        "title": "故事与律动 / Hora de cuentos",
+        "description": "孩子和照护者可一起听故事、念童谣、做手指游戏，并参加音乐和律动活动，培养早期读写能力。",
+        "fingerprint": "d6b33e0aebd10cd7cacfa4589360c37bda26467f0d3eb4d43d996d829cc76b42",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6aa30795a5dbde002aa39e8c",
@@ -8645,7 +8795,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "健康储蓄账户",
+        "description": "活动还将介绍 HSA 余额的投资策略，帮助为退休后的医疗支出建立免税储备。",
+        "fingerprint": "cf02f619865ee2b313a668e77da1e7c3e36c52f4f250ad8642a886b2a0817192",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-fa3ae4b9bb998b62",
@@ -9781,11 +9941,11 @@
     "summaryQualityRepairVersion": "summary-quality-repair-v1",
     "translations": {
       "zh": {
-        "title": "幼儿欢乐会",
-        "description": "家长和 1 到 2 岁的幼儿一起参加简短有趣的故事、童谣、手指游戏、活动和歌曲。",
+        "title": "Tiny Tot Jamboree 幼儿欢乐会",
+        "description": "家长和 1–2 岁幼儿一起参加短小有趣的故事、童谣、手指游戏、活动和歌曲。",
         "fingerprint": "19039c77101e7b754cea87442a5b6c527a3efc21cccdd8fb7c28d638065cb8c3",
-        "translatedAt": "2026-09-26T01:10:00Z",
-        "translationSource": "editorial-reviewed",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
         "status": "approved"
       }
     }
@@ -10063,11 +10223,11 @@
     "summaryQualityRepairVersion": "summary-quality-repair-v1",
     "translations": {
       "zh": {
-        "title": "婴儿欢乐会",
-        "description": "成人和 0 到 12 个月大的宝宝一起参加简短有趣的故事、童谣、手指游戏和歌曲。",
+        "title": "Itty Bitty Jamboree 婴儿欢乐会",
+        "description": "成人和 0–12 个月婴儿一起参加短小有趣的故事、童谣、手指游戏和歌曲。",
         "fingerprint": "c344a114ee050cef7355631d275d83e124d1be22ee47743a4e0aeb5fddf52f40",
-        "translatedAt": "2026-09-26T01:10:00Z",
-        "translationSource": "editorial-reviewed",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
         "status": "approved"
       }
     }
@@ -10224,8 +10384,18 @@
     "redirectTarget": "https://sccl.bibliocommons.com/events/69320e7e8d33cc4900c514b3",
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "a7bedaa494e00a7d332d52049cf52dde4fd25457af8884e805058dcdd1c7939c"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "a7bedaa494e00a7d332d52049cf52dde4fd25457af8884e805058dcdd1c7939c",
+    "translations": {
+      "zh": {
+        "title": "Milpitas Library 编织与钩针交流圈",
+        "description": "一边制作自己的毛线项目，一边认识其他爱好者；遇到困难时可以互相帮助，也可以分享想法。",
+        "fingerprint": "a7bedaa494e00a7d332d52049cf52dde4fd25457af8884e805058dcdd1c7939c",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a236df83233d28b1b2d1d57",
@@ -10324,8 +10494,18 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "8d30ce9375be97ea1dfeb2af1d6502c647ac3f3a96442eaf0f00266f350d2dde"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "8d30ce9375be97ea1dfeb2af1d6502c647ac3f3a96442eaf0f00266f350d2dde",
+    "translations": {
+      "zh": {
+        "title": "Kids Keva Club（5 岁及以上）",
+        "description": "喜欢 LEGO 的孩子可以自由发挥进行搭建。",
+        "fingerprint": "8d30ce9375be97ea1dfeb2af1d6502c647ac3f3a96442eaf0f00266f350d2dde",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6aaaf9d8ca248a0029165332",
@@ -10518,7 +10698,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "LEGO 星期五！",
+        "description": "带上想象力，来搭建有趣的作品。",
+        "fingerprint": "269da052ede38fff6ba354a04e34a072cc7bece27d4901f6f71d10192fb44309",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-96463bc14e0989b3",
@@ -11121,10 +11311,20 @@
     "redirectTarget": "https://www.gilroygardens.org/halloween/",
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
-    "translationStatus": "missing",
+    "translationStatus": "current",
     "time": "",
     "refreshStatus": "verified-supplement",
-    "linkSource": "manual_verified"
+    "linkSource": "manual_verified",
+    "translations": {
+      "zh": {
+        "title": "The Great Big BOO! 万圣节庆典",
+        "description": "Gilroy Gardens 的家庭友好型万圣节庆典，包括现场音乐表演、沿 BOO Trail 讨糖、角色互动和互动式万圣节体验。",
+        "fingerprint": "ea7cd8ab1f0f6e04bd7a50e1d4f4ed27bbca800efb033ea546970b04e5a57aae",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-7215c78aab30bc60",
@@ -11366,7 +11566,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "中秋节庆典",
+        "description": "在花园里与本地合作伙伴互动，并参加适合家庭的节庆活动，一起庆祝中秋节。",
+        "fingerprint": "dbda1a3e22e8200511556aa50149c0b5e98d353c07f878abb4c8316970db1eba",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-c51cf4cd238a88c7",
@@ -11713,7 +11923,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "周六桌游日",
+        "description": "可以自带桌游，也可以加入其他人的游戏。",
+        "fingerprint": "2d9393ba5f2bbd5d12d898c7c7ba16d43f3cc6dff3624c4640e233799fac1103",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "cupertino-6793c86aca20e47d",
@@ -11840,7 +12060,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "Na Leo Mokupuni in Cupertino 夏威夷文化活动",
+        "description": "在 Cupertino Community Hall（10350 Torre Avenue, Cupertino）体验夏威夷的音乐、舞蹈和传统文化。",
+        "fingerprint": "3b36ea906eb6186d3c25c5c951657a277606583280ca0193a0a321c02ffbe1ae",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-689fbe369fd3e1d82154c4d0",
@@ -11939,7 +12169,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "Sara 带领的冥想",
+        "description": "参加由 Sara 带领的冥想体验。",
+        "fingerprint": "2a4c844f4da2669e84efca69fbcdd09c2869ceb92f5f3bf0f99b5d5b307db4ed",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-696191ef992fc18a86dc9a3e",
@@ -12129,8 +12369,18 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "2a93de5707c557d4c97f544ddabccbba3a085c19cfb4474ac8bb8211191e952e"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "2a93de5707c557d4c97f544ddabccbba3a085c19cfb4474ac8bb8211191e952e",
+    "translations": {
+      "zh": {
+        "title": "儿童服装交换活动",
+        "description": "带一套状态良好的旧服装来交换，留下给其他孩子使用，同时为自己挑一套“新”服装。",
+        "fingerprint": "2a93de5707c557d4c97f544ddabccbba3a085c19cfb4474ac8bb8211191e952e",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-698e125a2a787a47a5e73be4",
@@ -12229,7 +12479,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "家庭故事时间",
+        "description": "一起来唱歌、念童谣和听故事。",
+        "fingerprint": "3aafb6be032aeaf2dc0cf4a1737861622924af3325d535d341dac41f8ea831d8",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-f0b2f5b067344607",
@@ -12357,8 +12617,18 @@
     "redirectTarget": "https://sccl.bibliocommons.com/events/6a08e108e13d3b4603b486ea",
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "d58a348f638b2fec42abe38f9562035740dfc045068e52a29c135a895955461e"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "d58a348f638b2fec42abe38f9562035740dfc045068e52a29c135a895955461e",
+    "translations": {
+      "zh": {
+        "title": "Cupertino Library 家庭故事时间",
+        "description": "家长和孩子会一起听、一起学习、一起唱歌。",
+        "fingerprint": "d58a348f638b2fec42abe38f9562035740dfc045068e52a29c135a895955461e",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-709d004ca729ab93",
@@ -12788,7 +13058,17 @@
     "redirectTarget": "https://www.cineluxtheatres.com/cinelux-plaza-cafe-lounge/tickets/112292000049",
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "感官友好场《FORGOTTEN ISLAND》",
+        "description": "在 CineLux Plaza 放映的 PG 级电影。",
+        "fingerprint": "a349011d8779d40f99611ef43703c0cc0731e7eb0df4c63bba94ce9c7b4dcf8b",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "chcp-1ae49a6f165fb083",
@@ -12878,7 +13158,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "华美历史博物馆开放日",
+        "description": "华美历史博物馆位于 San Jose History Park 的 Ng Shing Gung 建筑内。本次开放时间为 October 03, 2026，12:00–3:45，地址 635 Phelan Ave, San Jose, CA 95112。",
+        "fingerprint": "f4621980fe719041b9948cc4f1825eb043e187a2befd6fd90bf3602d1f43db4b",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6aa0c842ac72f22c5568c42a",
@@ -12977,7 +13267,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "2026 选举：爆米花与提案说明",
+        "description": "可以边享用爆米花和茶点、认识邻里，边按自己的节奏了解复杂的投票提案并提问。",
+        "fingerprint": "b46281cb7f2c86206c9683a7682ea4a7ef2e73cdafdd26a7d05fadd83478b613",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-68faeb383cbc052f008160ff",
@@ -13076,7 +13376,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "正念冥想",
+        "description": "每次活动包括 30 分钟静坐冥想、15 分钟释放冥想，以及之后 15 分钟的小组分享和问答。活动对各种经验水平开放，无需报名。",
+        "fingerprint": "00ef130608221b0a59f14a4be4a21fed702dbb82555d236450c3740326770a83",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6aa9d31b6059b704112ab713",
@@ -13716,8 +14026,18 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "1578938681d287064270ce9fea5401413f4bc90303c1ad1b96367713f2a7ccfb"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "1578938681d287064270ce9fea5401413f4bc90303c1ad1b96367713f2a7ccfb",
+    "translations": {
+      "zh": {
+        "title": "Rachel-Anne Palacios 墨西哥锡艺手工",
+        "description": "活动以传统 repujado（也称 hojalata）工艺为灵感，参与者将学习工匠如何通过在金属片上压印图案制作装饰设计。",
+        "fingerprint": "1578938681d287064270ce9fea5401413f4bc90303c1ad1b96367713f2a7ccfb",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "barracuda-54769",
@@ -13922,7 +14242,17 @@
     "redirectTarget": "https://sccl.bibliocommons.com/events/6ab8645c65abe8002a7c60ac",
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "橡皮鸭手工工作坊",
+        "description": "工作坊安排：Saturday, October 3, 3:30–5:00pm 为家庭场；Saturday, October 17, 2:30–3:30pm 为成人场；Saturday, October 17, 4:00–5:00pm 为青少年场。可在 October 27 至 November 7 领取橡皮鸭。",
+        "fingerprint": "bdc8f817bfb5e3c46aecf8288d2eaf234b8bda7480a3499b450d615b044a6868",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a4434cfdd4fa0c68b5e535d",
@@ -14717,8 +15047,18 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "e040929c3a59098a19329666aba390db544493ca0166c0fab90c7354d58c9b8a"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "e040929c3a59098a19329666aba390db544493ca0166c0fab90c7354d58c9b8a",
+    "translations": {
+      "zh": {
+        "title": "西语裔传统月家庭电影双场：《Coco》",
+        "description": "Sunday October 4 @1pm 放映《Coco》，Sunday October 4 @3pm 放映《Encanto》。活动面向家庭，照护者必须全程陪同孩子。",
+        "fingerprint": "e040929c3a59098a19329666aba390db544493ca0166c0fab90c7354d58c9b8a",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6ab3252c129d8e0031f46013",
@@ -14911,8 +15251,18 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "a4156158440867bc0428e3d1b1f8caf9152c5330e476a926af7c648b371d4852"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "a4156158440867bc0428e3d1b1f8caf9152c5330e476a926af7c648b371d4852",
+    "translations": {
+      "zh": {
+        "title": "周日午后电影：《Spy Kids》",
+        "description": "两个孩子为了从邪恶主谋手中救出曾是间谍的父母，自己也成为了间谍。",
+        "fingerprint": "a4156158440867bc0428e3d1b1f8caf9152c5330e476a926af7c648b371d4852",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6aac674ff5c6780c70490d4c",
@@ -15493,7 +15843,17 @@
     "redirectTarget": "https://sccl.bibliocommons.com/events/6a962ae1660e510bf440ac02",
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "自然之歌：艺术展",
+        "description": "创作者们后来开始在每周四一起进行水彩画创作。",
+        "fingerprint": "af627a1a7b2daf671e2acf88dedfbc68f219a1ce3d2474cd6ee3a6942f772d0c",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-b5868ea0b99fee4b",
@@ -16252,8 +16612,18 @@
     "redirectTarget": "https://sccl.bibliocommons.com/events/6a7fafcfaafa6100295cbd52",
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "dcb0d34a721267c1cfa1cfc3787835f39e17e83a67a05e31877a8253f46ea490"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "dcb0d34a721267c1cfa1cfc3787835f39e17e83a67a05e31877a8253f46ea490",
+    "translations": {
+      "zh": {
+        "title": "睡衣故事时间 [Hora de Cuentos en Pijama]",
+        "description": "在轻松有趣的活动中学习。",
+        "fingerprint": "dcb0d34a721267c1cfa1cfc3787835f39e17e83a67a05e31877a8253f46ea490",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-fc6e89ea9b041ed3",
@@ -18034,8 +18404,18 @@
     "redirectTarget": "https://sccl.bibliocommons.com/events/6a77a9a6a5e5f025a9ced0c6",
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "69d32e4300d755c4c1b8fcfd283289fab7e4ab643ac7848d76e18c13852c6fb9"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "69d32e4300d755c4c1b8fcfd283289fab7e4ab643ac7848d76e18c13852c6fb9",
+    "translations": {
+      "zh": {
+        "title": "Tween Dungeons & Dragons",
+        "description": "如果孩子预计会缺席超过一次活动，请考虑之后的 Winter 或 Spring Session，把 Fall Session 的名额留给其他玩家。",
+        "fingerprint": "69d32e4300d755c4c1b8fcfd283289fab7e4ab643ac7848d76e18c13852c6fb9",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6aa5e0ce6059b704112a5ae9",
@@ -18612,7 +18992,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "History San José 筹款活动：Valley of Heart's Delight",
+        "description": "活动为 History San José 的教育项目、与本地艺术文化社区的合作，以及博物馆藏品保存工作提供支持。",
+        "fingerprint": "d96f79cac754590b045fc13ac48ea8dedda0065ef55f1eb811340055f1c4125d",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6aa0ac53648f481be43af11f",
@@ -19284,9 +19674,19 @@
     "redirectTarget": "https://sccl.bibliocommons.com/events/6ab6c5f8a5dbde002aa73111",
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
-    "translationStatus": "stale",
+    "translationStatus": "current",
     "summaryQualityRepairVersion": "summary-quality-repair-v1",
-    "translationSourceFingerprint": "128dec1695b7e79ddb4726eee871fd7ae143f6c73720f71a43ec22925d18395e"
+    "translationSourceFingerprint": "128dec1695b7e79ddb4726eee871fd7ae143f6c73720f71a43ec22925d18395e",
+    "translations": {
+      "zh": {
+        "title": "Baby Sign 手语故事时间",
+        "description": "从 Friday, October 9th at 10:30 开始，这个 20 分钟的故事时间包括婴儿美式手语、短故事、歌曲和童谣。",
+        "fingerprint": "128dec1695b7e79ddb4726eee871fd7ae143f6c73720f71a43ec22925d18395e",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a7e720bbe1482002987441f",
@@ -20237,7 +20637,7 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
+    "translationStatus": "current",
     "time": "",
     "refreshStatus": "verified-supplement",
     "linkSource": "manual_verified",
@@ -20246,7 +20646,17 @@
     ],
     "imagePresentation": "",
     "imageBackground": "",
-    "translationSourceFingerprint": "a89e252b9e53e4707c72bac271947cbfe4a7c74b72895e8874a13e4026dfadb4"
+    "translationSourceFingerprint": "a89e252b9e53e4707c72bac271947cbfe4a7c74b72895e8874a13e4026dfadb4",
+    "translations": {
+      "zh": {
+        "title": "Gilroy Library Friends 大型图书特卖",
+        "description": "Friends of the Gilroy Library 每月第二个星期六举办大型图书特卖，各年龄访客都可以来浏览和选购图书。",
+        "fingerprint": "a89e252b9e53e4707c72bac271947cbfe4a7c74b72895e8874a13e4026dfadb4",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "chcp-3d7bdcf81e68afd8",
@@ -20351,7 +20761,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "CHCP SDCAP 介绍会",
+        "description": "午餐后将提供 docent 培训手册，并安排华美历史博物馆特别导览，以及 2026–2027 年 SDCAP 活动和项目说明。",
+        "fingerprint": "09402e0e0c47296a040749ccd1f5b5d0251a0a2e09deab80c18f4a58150a28d0",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a4ec01688e9bf28002f80dc",
@@ -21120,7 +21540,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "华美历史博物馆开放日",
+        "description": "华美历史博物馆位于 San Jose History Park 的 Ng Shing Gung 建筑内。本次开放时间为 October 10, 2026，12:00–3:45，地址 635 Phelan Ave, San Jose, CA 95112。",
+        "fingerprint": "dee4dee3a903d61def708b6f9cf138c184fff0604fe3cb08bc0a4118928e8c18",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-6b9a1692676e3d91",
@@ -23445,8 +23875,18 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "dd283e159b02cbf79e427a0279bfbdae37b1fc76e5382ca7c062fd8f0eec0d80"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "dd283e159b02cbf79e427a0279bfbdae37b1fc76e5382ca7c062fd8f0eec0d80",
+    "translations": {
+      "zh": {
+        "title": "CNPS 讲座 #2：用原生植物改造 HOA 景观与 AB 1572",
+        "description": "讲者 Shelkie 是景观设计师，也是 WaterEfficientGardens.com 的创始人，业务专注于低耗水和加州原生植物花园设计。",
+        "fingerprint": "dd283e159b02cbf79e427a0279bfbdae37b1fc76e5382ca7c062fd8f0eec0d80",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "nhl-2026020105",
@@ -23869,8 +24309,18 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "11dc8d9712b700fd20c6a53c8d8c5938aa0930ebf62ce4401dfe20c045e000f7"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "11dc8d9712b700fd20c6a53c8d8c5938aa0930ebf62ce4401dfe20c045e000f7",
+    "translations": {
+      "zh": {
+        "title": "¡Bailemos Folklórico! 民俗舞蹈展示",
+        "description": "孩子们在学习新舞步的同时，探索了传统音乐、动作和文化。",
+        "fingerprint": "11dc8d9712b700fd20c6a53c8d8c5938aa0930ebf62ce4401dfe20c045e000f7",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a99f67ad94765189bb98574",
@@ -24524,8 +24974,18 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "48a40c8d977b3d79cbc6fc95d01b90bc597a4f6cd79647b5e558259cde55ea55"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "48a40c8d977b3d79cbc6fc95d01b90bc597a4f6cd79647b5e558259cde55ea55",
+    "translations": {
+      "zh": {
+        "title": "为什么系外行星系统与太阳系不同？",
+        "description": "讲座将探讨行星形成理论的预期以及现有观测带来的限制，以理解类地世界有多常见，并寻找这样的宇宙邻居。",
+        "fingerprint": "48a40c8d977b3d79cbc6fc95d01b90bc597a4f6cd79647b5e558259cde55ea55",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6ab457d40c7bf418f4e3c352",
@@ -25837,7 +26297,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "华美历史博物馆开放日",
+        "description": "华美历史博物馆位于 San Jose History Park 的 Ng Shing Gung 建筑内。本次开放时间为 October 17, 2026，12:00–3:45，地址 635 Phelan Ave, San Jose, CA 95112。",
+        "fingerprint": "f1588101c72b81ef7d4b8ae8c7e7abcebfad88103fb8a4498c10b9baa3a56b38",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "midpen-ccb67cfd55692e59",
@@ -26126,8 +26596,18 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "bda1e84edc8b7bdd9bbcdf082baf1a4c135a4e685beee44817b468e2a053d893"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "bda1e84edc8b7bdd9bbcdf082baf1a4c135a4e685beee44817b468e2a053d893",
+    "translations": {
+      "zh": {
+        "title": "Vampire Ball 吸血鬼舞会",
+        "description": "参加活动的“吸血鬼”都有机会跟专业老师学习传统华尔兹舞步。",
+        "fingerprint": "bda1e84edc8b7bdd9bbcdf082baf1a4c135a4e685beee44817b468e2a053d893",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6937540c8b29ea2800c33d40",
@@ -27281,8 +27761,18 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "76b85dd4113d5b315914e2e92a84394b591146c4fc457a42fea6b8ec0870de95"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "76b85dd4113d5b315914e2e92a84394b591146c4fc457a42fea6b8ec0870de95",
+    "translations": {
+      "zh": {
+        "title": "Super Family Sunday 家庭星期日",
+        "description": "近距离认识动物园里的动物。",
+        "fingerprint": "76b85dd4113d5b315914e2e92a84394b591146c4fc457a42fea6b8ec0870de95",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-694338456724c63d00e77926",
@@ -30377,8 +30867,18 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "240cbfaa9a8f03428824be09e01c1c442d5420374c818b3c9cda81f1e5711afe"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "240cbfaa9a8f03428824be09e01c1c442d5420374c818b3c9cda81f1e5711afe",
+    "translations": {
+      "zh": {
+        "title": "Halloween Magic 万圣节魔法活动",
+        "description": "从小朋友、大孩子到成人，都能找到适合自己的活动内容。",
+        "fingerprint": "240cbfaa9a8f03428824be09e01c1c442d5420374c818b3c9cda81f1e5711afe",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "curated-fd7d4676fae949fe",
@@ -30578,7 +31078,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "DIY 相框装饰",
+        "description": "可以为 Día de los Muertos 装饰相框，也可以创作自己的独特设计。",
+        "fingerprint": "53d8a5afcb998071ad9024b24f998d19b29546b3b5c9bdd78bf4d0ffdf1b4300",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a809fc4ccedcb07ae1f357e",
@@ -30984,7 +31494,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "CHCP 儿童万圣节活动",
+        "description": "家庭可以在历史建筑中参加手工、活动和 trick-or-treat 讨糖。",
+        "fingerprint": "efa61608edcf0e3eaf67c58097a0ce12c393d8abd8438159332fb7eacd00c89f",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6aa5b40b7825b4006406a139",
@@ -31177,7 +31697,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "阅读伙伴（K–5 年级）",
+        "description": "孩子可以和毛茸茸的动物伙伴一对一阅读自己喜欢的书。",
+        "fingerprint": "0296154c4dc057f9a3b2631d40d8d8b2bda84a926295bbdc1aa019e4ea71ca11",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "deanza-26070cc24e41d3f8",
@@ -31715,7 +32245,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "Monster Mash 万圣节家庭派对",
+        "description": "家庭可以一起玩游戏、trick-or-treat 讨糖、做万圣节手工并装饰自己的南瓜。",
+        "fingerprint": "8b69ac8c32823fb8df4b9d7897f9d1ff2f59b440f3e7d191f240fe872024de3a",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "editorial-e7bdc3d695b22fe2",
@@ -31772,7 +32312,17 @@
     "verification": "manual-verified",
     "refreshStatus": "verified-supplement",
     "linkSource": "manual_verified",
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "Laser Halloween Spooktacular 万圣节激光秀",
+        "description": "在天文馆穹顶下欣赏激光绘制的图像，并配以适合家庭观看的万圣节主题音乐。",
+        "fingerprint": "6b7fb25b6bf00bd6d84d4aae0e1c5bb46914943d84bbaed8c518ddc0a2569b06",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-83c1d125bf40ee84",
@@ -32036,9 +32586,19 @@
     "redirectTarget": "https://www.symphonysanjose.org/attend/2026-2027-season/concerts/symphonic-spooktacular/",
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
-    "translationStatus": "stale",
+    "translationStatus": "current",
     "summaryQualityRepairVersion": "summary-quality-repair-v1",
-    "translationSourceFingerprint": "4135f251b1ac23367a21b752254cac086805eea47c8d0969454440bbdd472bda"
+    "translationSourceFingerprint": "4135f251b1ac23367a21b752254cac086805eea47c8d0969454440bbdd472bda",
+    "translations": {
+      "zh": {
+        "title": "Symphonic Spooktacular 万圣节交响音乐会",
+        "description": "这场万圣节音乐会以英雄、反派和经典影视音乐为主题，由 Symphony San Jose 演出。",
+        "fingerprint": "4135f251b1ac23367a21b752254cac086805eea47c8d0969454440bbdd472bda",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "filoli-7e4830eaace5eac0",
@@ -32157,7 +32717,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "Día de Los Muertos 亡灵节庆典",
+        "description": "与合作伙伴一起通过互动展示、家庭活动和表演庆祝 Día de Los Muertos。",
+        "fingerprint": "1ecc6e30fd65fb070f091c0e928ba4efbf3320e1b5c51ee67b82484244499a11",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6aa2fd73129d8e0031f12c2b",
@@ -32946,7 +33516,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "Bookcaterpillars 读书会（K–1 年级）",
+        "description": "读书会现场会一起阅读，也可以提前阅读本月书目。",
+        "fingerprint": "791b9c9f90cbf1a4a75eadff02c65cf4488eb6bc95e4ddb6ce3ca8553e741f7b",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a7fb7c9d4b10d00300695c0",
@@ -33045,7 +33625,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "Bookworms 读书会（2–3 年级）",
+        "description": "读书会现场会一起阅读，也可以提前阅读本月书目。",
+        "fingerprint": "e1027f326cae41769eca5236429dd91e5a7c035ae36cb71de223dd8813b502a1",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6ab70960d6cf1f1a037de276",
@@ -33872,7 +34462,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "Itty-Bitty Halloween S'Booktacular（0–6 岁）",
+        "description": "穿上最有万圣节气氛的服装，一起来参加活动。",
+        "fingerprint": "67c271d0bba663489b1af489d23ebdc1d669566c0273f0261959a35f99338072",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6ab457c5ed69cc15475c4345",
@@ -33956,7 +34556,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "Mini Makers 小小创客",
+        "description": "现场设有三个不同的活动站，帮助孩子练习并了解更多精细动作技能。",
+        "fingerprint": "4a4d57939ea1f68f90205745687f957618b56adf09bc626bfc049f5cc74a3c74",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6aad5ae2ab7a8e0037c2bba1",
@@ -34055,7 +34665,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "Story Explorers：TK–1 年级读书会",
+        "description": "大家会一起阅读、简短讨论每本书、跟着音乐活动，最后完成一个有趣的手工。",
+        "fingerprint": "91dada2f12b3c54f15ddd8df74fcff8a0ca1523d01b87f4dd5443a77c85817c3",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "curated-d185004a710de571",
@@ -34269,7 +34889,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "Lotería 之夜 / Noche de Lotería",
+        "description": "带上亲友来参加友好比赛，看看谁能先喊出“¡Lotería!”。",
+        "fingerprint": "483e84939d013e26d3cb6d83bc028ee945626ca1c30118599517857ca67b52bf",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a877377db86e4004d8688fa",
@@ -34350,7 +34980,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "四季有景的加州原生植物园艺",
+        "description": "了解如何在自家庭院加入加州原生植物，为城市栖息地带回重要的传粉昆虫，同时增加庭院美感。",
+        "fingerprint": "b7c8ac1c01bdd05f18404f3b7b8cfdd78587819cc9d09dc8f3a3045760242686",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6aa33d01129d8e0031f14578",
@@ -34449,7 +35089,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "Wednesday Travel Nights：柬埔寨——当代复兴",
+        "description": "通过故事和图片认识一些从过去创伤中走出、并在美食、时尚、珠宝、丝绸、表演等领域创造非凡生活的人。",
+        "fingerprint": "85ecdeae40fa8f5c5671db38612280cdd8a98d86ffb8a3c292e28c79b1092ffb",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "barracuda-54777",
@@ -34912,7 +35562,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "San Jose Grand Century Mall 365 夜市",
+        "description": "每月举办的两日活动，包括美食、购物、音乐等内容。",
+        "fingerprint": "a9fb05188e2fd36b46279e793556c7c117c1b14e59922f1af75a02c6f9ced9e1",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-3d159faa1666f21f",
@@ -35119,12 +35779,22 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
+    "translationStatus": "current",
     "legacyIds": [
       "editorial-32d6b7102984722f"
     ],
     "summaryQualityRepairVersion": "summary-quality-repair-v1",
-    "translationSourceFingerprint": "8387b5d2282b236f73daa196f7b24612e0f0888aea789c822d21f2eafb2d5430"
+    "translationSourceFingerprint": "8387b5d2282b236f73daa196f7b24612e0f0888aea789c822d21f2eafb2d5430",
+    "translations": {
+      "zh": {
+        "title": "Tech or Treat 万圣节科技活动",
+        "description": "在 The Tech 参加适合家庭的科学活动，并体验带有万圣节元素的热门展项。",
+        "fingerprint": "8387b5d2282b236f73daa196f7b24612e0f0888aea789c822d21f2eafb2d5430",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-1e43f9ee03fd42af",
@@ -35451,7 +36121,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "华美历史博物馆开放日",
+        "description": "华美历史博物馆位于 San Jose History Park 的 Ng Shing Gung 建筑内。本次开放时间为 October 31, 2026，12:00–3:45，地址 635 Phelan Ave, San Jose, CA 95112。",
+        "fingerprint": "849c31330af9c2c2234e54724929b34893619bcf990dfa5bcd9552d2f13adc7e",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "nhl-2026020222",
@@ -35757,9 +36437,19 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
+    "translationStatus": "current",
     "summaryQualityRepairVersion": "summary-quality-repair-v1",
-    "translationSourceFingerprint": "ff5ff35e93efb4312617636c6be4a1a48881f79a3709a13016217180500061b5"
+    "translationSourceFingerprint": "ff5ff35e93efb4312617636c6be4a1a48881f79a3709a13016217180500061b5",
+    "translations": {
+      "zh": {
+        "title": "Día de Los Muertos 亡灵节庆典",
+        "description": "Santana Row 将在 Sunday, November 1st 举办 Día de Los Muertos 特别庆典，纪念逝去的亲人并延续彼此的连结。这是免费社区活动，包括脸部彩绘、Catrina 和 Catrin 角色互动、mariachi 音乐、手工和快闪市集。",
+        "fingerprint": "ff5ff35e93efb4312617636c6be4a1a48881f79a3709a13016217180500061b5",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "curated-7a8b718d2671e135",
@@ -35845,7 +36535,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "Día de los Muertos 亡灵节",
+        "description": "家庭可以在博物馆通过为儿童设计的动手文化活动和传统体验来纪念 Día de los Muertos。",
+        "fingerprint": "15ae702683195979db411fc539eb9ad403b8162d806c5972ab48994f6a6f2ad8",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "thetech-1151b63cc7937126",
@@ -36562,8 +37262,18 @@
     "redirectTarget": "https://www.cmtsj.org/how-to-train-your-dragon/",
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "a47fb1b5bb710d00c68ab658f236818eb5e0c858e272fee5d5831e0512d19b1f"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "a47fb1b5bb710d00c68ab658f236818eb5e0c858e272fee5d5831e0512d19b1f",
+    "translations": {
+      "zh": {
+        "title": "《How to Train Your Dragon》",
+        "description": "跟随不太像传统维京英雄的 Hiccup，与被误解的 Night Fury Toothless 成为朋友，并学会勇气也意味着用不同的方式看世界。",
+        "fingerprint": "a47fb1b5bb710d00c68ab658f236818eb5e0c858e272fee5d5831e0512d19b1f",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-af1d4c2921ba70b7",
@@ -37825,8 +38535,18 @@
     "redirectTarget": "https://www.cmtsj.org/matilda-the-musical/",
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "c28f15878095e2adac2b2cac63a5c48ddc4f43925316ef6257a5f90a09388e19"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "c28f15878095e2adac2b2cac63a5c48ddc4f43925316ef6257a5f90a09388e19",
+    "translations": {
+      "zh": {
+        "title": "《Matilda The Musical》",
+        "description": "聪明勇敢的 Matilda Wormwood 运用自己的机智和一点魔法，对抗专横的 Miss Trunchbull，并寻找属于自己的位置。",
+        "fingerprint": "c28f15878095e2adac2b2cac63a5c48ddc4f43925316ef6257a5f90a09388e19",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "midpen-c20df77ae679a18f",
@@ -40872,7 +41592,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "圣诞树亮灯仪式",
+        "description": "观看圣诞树点亮数百盏闪烁灯饰的时刻，感受充满节日气氛的灯光。",
+        "fingerprint": "0cc0cf98a8e9c5ae75a6e830c437c72c2b9f594e32afdc47814515ad5de27f89",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "barracuda-54792",
@@ -41076,7 +41806,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "与 Santa 共进早餐",
+        "description": "现场会提供 North Pole Pancakes，Santa 也会和大家合影。",
+        "fingerprint": "01a002b4339a174bdeb2e56f49abb6517622dc7b71704f74995db46cb4c6c35b",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "barracuda-54793",
@@ -45666,8 +46406,18 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "45a968a584b6ba8ad42d8da975d29b66137e82cc657989c5a01690b2f1cd3461"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "45a968a584b6ba8ad42d8da975d29b66137e82cc657989c5a01690b2f1cd3461",
+    "translations": {
+      "zh": {
+        "title": "My Very First Symphony 我的第一场交响乐",
+        "description": "活动中的乐器体验区让小朋友可以近距离接触并探索真正的管弦乐器。",
+        "fingerprint": "45a968a584b6ba8ad42d8da975d29b66137e82cc657989c5a01690b2f1cd3461",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "barracuda-54832",
@@ -47854,8 +48604,18 @@
     "redirectTarget": "https://www.symphonysanjose.org/attend/2026-2027-season/concerts/my-very-first-ballet/",
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "27ca0206faab1efce5bd291009e6d8df6563de85e355f44584a44de238c7113e"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "27ca0206faab1efce5bd291009e6d8df6563de85e355f44584a44de238c7113e",
+    "translations": {
+      "zh": {
+        "title": "My Very First Ballet 我的第一场芭蕾",
+        "description": "演出包括《Aurora's Wedding》，其中会出现 Little Red Riding Hood、Tom Thumb、Puss in Boots 和 Bluebird 等童话角色。",
+        "fingerprint": "27ca0206faab1efce5bd291009e6d8df6563de85e355f44584a44de238c7113e",
+        "translatedAt": "2026-09-29T17:02:14.839Z",
+        "translationSource": "reviewed-batch",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-4099b78b242b0ef0",

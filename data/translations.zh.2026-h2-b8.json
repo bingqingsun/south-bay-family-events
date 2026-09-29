@@ -2,14 +2,86 @@
   "version": 1,
   "locale": "zh-Hans",
   "entries": [
-    {"id":"rss-6a8775f9392e9c02993bf166","title":"Bookcrocs 读书会（4–5 年级）","description":"本月阅读 E.B. White 的《Stuart Little》。讨论时间为 2026 年九月 29 日星期二下午 4–5 点；如能参加，可到 Children's Reference Desk 报名并领取图书，请在活动前读完。","sourceFingerprint":"AUTO","status":"approved","override":true,"translationSource":"reviewed-batch"},
-    {"id":"cupertino-6793c86aca20e47d","title":"Na Leo Mokupuni in Cupertino 夏威夷文化活动","description":"在 Cupertino Community Hall（10350 Torre Avenue, Cupertino）体验夏威夷的音乐、舞蹈和传统文化。","sourceFingerprint":"AUTO","status":"approved","override":true,"translationSource":"reviewed-batch"},
-    {"id":"chcp-1ae49a6f165fb083","title":"华美历史博物馆开放日","description":"华美历史博物馆位于 San Jose History Park 的 Ng Shing Gung 建筑内。本次开放时间为 October 03, 2026，12:00–3:45，地址 635 Phelan Ave, San Jose, CA 95112。","sourceFingerprint":"AUTO","status":"approved","override":true,"translationSource":"reviewed-batch"},
-    {"id":"series-b9ef470468d0878e","title":"橡皮鸭手工工作坊","description":"工作坊安排：Saturday, October 3, 3:30–5:00pm 为家庭场；Saturday, October 17, 2:30–3:30pm 为成人场；Saturday, October 17, 4:00–5:00pm 为青少年场。可在 October 27 至 November 7 领取橡皮鸭。","sourceFingerprint":"AUTO","status":"approved","override":true,"translationSource":"reviewed-batch"},
-    {"id":"rss-6a95cbcf29a7dd0d674802ec","title":"西语裔传统月家庭电影双场：《Coco》","description":"Sunday October 4 @1pm 放映《Coco》，Sunday October 4 @3pm 放映《Encanto》。活动面向家庭，照护者必须全程陪同孩子。","sourceFingerprint":"AUTO","status":"approved","override":true,"translationSource":"reviewed-batch"},
-    {"id":"series-d54ef38283bc7e87","title":"Baby Sign 手语故事时间","description":"从 Friday, October 9th at 10:30 开始，这个 20 分钟的故事时间包括婴儿美式手语、短故事、歌曲和童谣。","sourceFingerprint":"AUTO","status":"approved","override":true,"translationSource":"reviewed-batch"},
-    {"id":"chcp-06d58fdf2196fd6e","title":"华美历史博物馆开放日","description":"华美历史博物馆位于 San Jose History Park 的 Ng Shing Gung 建筑内。本次开放时间为 October 10, 2026，12:00–3:45，地址 635 Phelan Ave, San Jose, CA 95112。","sourceFingerprint":"AUTO","status":"approved","override":true,"translationSource":"reviewed-batch"},
-    {"id":"chcp-fdc7b0f719f1d8ef","title":"华美历史博物馆开放日","description":"华美历史博物馆位于 San Jose History Park 的 Ng Shing Gung 建筑内。本次开放时间为 October 17, 2026，12:00–3:45，地址 635 Phelan Ave, San Jose, CA 95112。","sourceFingerprint":"AUTO","status":"approved","override":true,"translationSource":"reviewed-batch"},
-    {"id":"chcp-e04926c0406baef1","title":"华美历史博物馆开放日","description":"华美历史博物馆位于 San Jose History Park 的 Ng Shing Gung 建筑内。本次开放时间为 October 31, 2026，12:00–3:45，地址 635 Phelan Ave, San Jose, CA 95112。","sourceFingerprint":"AUTO","status":"approved","override":true,"translationSource":"reviewed-batch"}
+    {
+      "id": "rss-6a8775f9392e9c02993bf166",
+      "title": "Bookcrocs 读书会（4–5 年级）",
+      "description": "本月阅读 E.B. White 的《Stuart Little》。讨论时间为 2026 年九月 29 日星期二下午 4–5 点；如能参加，可到 Children's Reference Desk 报名并领取图书，请在活动前读完。",
+      "sourceFingerprint": "c43704ef875571d53eed623b4efcd62498a5e0ed61fdfc0f0ddb0a9ad9a103fe",
+      "status": "approved",
+      "override": true,
+      "translationSource": "reviewed-batch"
+    },
+    {
+      "id": "cupertino-6793c86aca20e47d",
+      "title": "Na Leo Mokupuni in Cupertino 夏威夷文化活动",
+      "description": "在 Cupertino Community Hall（10350 Torre Avenue, Cupertino）体验夏威夷的音乐、舞蹈和传统文化。",
+      "sourceFingerprint": "3b36ea906eb6186d3c25c5c951657a277606583280ca0193a0a321c02ffbe1ae",
+      "status": "approved",
+      "override": true,
+      "translationSource": "reviewed-batch"
+    },
+    {
+      "id": "chcp-1ae49a6f165fb083",
+      "title": "华美历史博物馆开放日",
+      "description": "华美历史博物馆位于 San Jose History Park 的 Ng Shing Gung 建筑内。本次开放时间为 October 03, 2026，12:00–3:45，地址 635 Phelan Ave, San Jose, CA 95112。",
+      "sourceFingerprint": "f4621980fe719041b9948cc4f1825eb043e187a2befd6fd90bf3602d1f43db4b",
+      "status": "approved",
+      "override": true,
+      "translationSource": "reviewed-batch"
+    },
+    {
+      "id": "series-b9ef470468d0878e",
+      "title": "橡皮鸭手工工作坊",
+      "description": "工作坊安排：Saturday, October 3, 3:30–5:00pm 为家庭场；Saturday, October 17, 2:30–3:30pm 为成人场；Saturday, October 17, 4:00–5:00pm 为青少年场。可在 October 27 至 November 7 领取橡皮鸭。",
+      "sourceFingerprint": "bdc8f817bfb5e3c46aecf8288d2eaf234b8bda7480a3499b450d615b044a6868",
+      "status": "approved",
+      "override": true,
+      "translationSource": "reviewed-batch"
+    },
+    {
+      "id": "rss-6a95cbcf29a7dd0d674802ec",
+      "title": "西语裔传统月家庭电影双场：《Coco》",
+      "description": "Sunday October 4 @1pm 放映《Coco》，Sunday October 4 @3pm 放映《Encanto》。活动面向家庭，照护者必须全程陪同孩子。",
+      "sourceFingerprint": "e040929c3a59098a19329666aba390db544493ca0166c0fab90c7354d58c9b8a",
+      "status": "approved",
+      "override": true,
+      "translationSource": "reviewed-batch"
+    },
+    {
+      "id": "series-d54ef38283bc7e87",
+      "title": "Baby Sign 手语故事时间",
+      "description": "从 Friday, October 9th at 10:30 开始，这个 20 分钟的故事时间包括婴儿美式手语、短故事、歌曲和童谣。",
+      "sourceFingerprint": "128dec1695b7e79ddb4726eee871fd7ae143f6c73720f71a43ec22925d18395e",
+      "status": "approved",
+      "override": true,
+      "translationSource": "reviewed-batch"
+    },
+    {
+      "id": "chcp-06d58fdf2196fd6e",
+      "title": "华美历史博物馆开放日",
+      "description": "华美历史博物馆位于 San Jose History Park 的 Ng Shing Gung 建筑内。本次开放时间为 October 10, 2026，12:00–3:45，地址 635 Phelan Ave, San Jose, CA 95112。",
+      "sourceFingerprint": "dee4dee3a903d61def708b6f9cf138c184fff0604fe3cb08bc0a4118928e8c18",
+      "status": "approved",
+      "override": true,
+      "translationSource": "reviewed-batch"
+    },
+    {
+      "id": "chcp-fdc7b0f719f1d8ef",
+      "title": "华美历史博物馆开放日",
+      "description": "华美历史博物馆位于 San Jose History Park 的 Ng Shing Gung 建筑内。本次开放时间为 October 17, 2026，12:00–3:45，地址 635 Phelan Ave, San Jose, CA 95112。",
+      "sourceFingerprint": "f1588101c72b81ef7d4b8ae8c7e7abcebfad88103fb8a4498c10b9baa3a56b38",
+      "status": "approved",
+      "override": true,
+      "translationSource": "reviewed-batch"
+    },
+    {
+      "id": "chcp-e04926c0406baef1",
+      "title": "华美历史博物馆开放日",
+      "description": "华美历史博物馆位于 San Jose History Park 的 Ng Shing Gung 建筑内。本次开放时间为 October 31, 2026，12:00–3:45，地址 635 Phelan Ave, San Jose, CA 95112。",
+      "sourceFingerprint": "849c31330af9c2c2234e54724929b34893619bcf990dfa5bcd9552d2f13adc7e",
+      "status": "approved",
+      "override": true,
+      "translationSource": "reviewed-batch"
+    }
   ]
 }
