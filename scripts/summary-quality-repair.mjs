@@ -11,22 +11,23 @@ const OVERVIEW = /\b(?:event|festival|celebration|experience|program|storytime|c
 const SECONDARY = /\b(?:after(?:ward)?|followed by|stay\s*(?:&|and)\s*play|all ages (?:are )?welcome|membership rates?|bookstore hours?)\b/i;
 const SECTION_HEADING = /\b(?:entertainment schedule|schedule|location|zoom information|registration|tickets?|admission|education goals|agenda)\s*:/ig;
 const PROFESSIONAL_ONLY = /\b(?:grand rounds|continuing medical education|continuing legal education|cme\b|ceu\b|cle\b|cme credits?|clinician training|physician training|healthcare professionals?|medical professionals?|provider training|professional development for (?:teachers|educators|clinicians|providers))\b/i;
-const CHILD_OR_FAMILY_AUDIENCE = /\b(?:famil(?:y|ies)|children|kids?|bab(?:y|ies)|infants?|toddlers?|preschool(?:ers?)?|school[- ]age|tweens?|teens?|all ages|grades?\s*(?:k|\d))\b/i;
+const EXPLICIT_FAMILY_AUDIENCE = /\b(?:all ages(?:\s+are)?\s+(?:welcome|invited)|famil(?:y|ies)\s+(?:are\s+)?(?:welcome|invited|can|will)|(?:children|kids?|bab(?:y|ies)|infants?|toddlers?|preschoolers?|tweens?|teens?)\s+(?:are\s+)?(?:welcome|invited|can|will)|for\s+(?:families|children|kids|babies|infants|toddlers|preschoolers|tweens|teens)|grades?\s*(?:k|\d)|ages?\s*\d{1,2}\s*(?:[-–]\s*\d{1,2}|\+))\b/i;
 
 function normalize(value) {
   return String(value || '').replace(/\s+/g, ' ').trim();
 }
 
 export function isProfessionalOnlyEvent(event) {
-  const value = normalize([
+  const content = normalize([
     event?.title,
     event?.description,
     event?.parentSummary,
-    event?.sourceDescriptionRaw,
-    event?.ageLabel,
-    event?.ageSource
+    event?.sourceDescriptionRaw
   ].filter(Boolean).join(' '));
-  return PROFESSIONAL_ONLY.test(value) && !CHILD_OR_FAMILY_AUDIENCE.test(value);
+  const declaredAudience = normalize([event?.ageLabel, event?.ageSource].filter(Boolean).join(' '));
+  return PROFESSIONAL_ONLY.test(content)
+    && !EXPLICIT_FAMILY_AUDIENCE.test(content)
+    && !EXPLICIT_FAMILY_AUDIENCE.test(declaredAudience);
 }
 
 function titleTokens(title) {
