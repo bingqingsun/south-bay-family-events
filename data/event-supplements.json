@@ -72,5 +72,25 @@
     "seasonalTheme": "halloween",
     "replaceExisting": true,
     "verifiedAt": "2026-09-29T15:30:00Z"
+  },
+  {
+    "id": "editorial-gilroy-big-book-sale-2026-10",
+    "title": "Big Book Sale (Gran venta de libros) of the Friends of the Gilroy Library",
+    "dateValue": "2026-10-10T10:00",
+    "endDateValue": "2026-10-10T13:00",
+    "description": "The Friends of the Gilroy Library host a monthly big book sale on the second Saturday of each month, with books to browse and buy for visitors of all ages.",
+    "sourceDescriptionRaw": "The Friends of the Gilroy Library invite eveyone to our monthly big book sale! This special sale is held on the second Saturday of every month. All ages are welcome to browse and find a great deal!",
+    "place": "Gilroy Library",
+    "address": "350 W Sixth St, Gilroy, CA 95020",
+    "city": "Gilroy",
+    "source": "Santa Clara County Library District",
+    "url": "https://sccl.bibliocommons.com/events/694b56f47f0b8a3e004e22f8",
+    "ageLabel": "All ages",
+    "ageSource": "Santa Clara County Library District official event listing",
+    "costLabel": "费用未注明",
+    "type": "community",
+    "format": "program",
+    "replaceExisting": true,
+    "verifiedAt": "2026-09-29T16:10:00Z"
   }
 ]
