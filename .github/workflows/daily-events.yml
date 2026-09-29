@@ -24,6 +24,8 @@ on:
       - 'scripts/cupertino-audience.mjs'
       - 'scripts/cupertino-audience.test.mjs'
       - 'scripts/event-translations.mjs'
+      - 'scripts/generate-chinese-translations.mjs'
+      - 'scripts/build-translation-overlay.mjs'
       - 'scripts/apply-event-translations.mjs'
       - 'scripts/apply-event-supplements.mjs'
       - 'scripts/load-translation-catalogs.mjs'
@@ -31,12 +33,11 @@ on:
       - 'scripts/runtime-translation-fallback.test.mjs'
       - 'data/sources.json'
       - 'data/event-supplements.json'
+      - 'data/translations.zh*.json'
       - 'app.js'
       - 'collections.js'
       - '.github/workflows/daily-events.yml'
   schedule:
-    # Weekdays at 06:20 PST / 07:20 PDT. RSS feeds refresh every weekday;
-    # SerpApi fallback runs only on Tuesday and Thursday.
     - cron: '20 14 * * 1-5'
   workflow_dispatch:
     inputs:
@@ -68,6 +69,7 @@ jobs:
           node scripts/age-policy.test.cjs
           node scripts/event-translations.test.mjs
           node scripts/runtime-translation-fallback.test.mjs
+          node --check scripts/generate-chinese-translations.mjs
       - name: Refresh canonical event data
         run: node scripts/update-events.mjs
         env:
@@ -77,25 +79,33 @@ jobs:
         run: node scripts/apply-event-supplements.mjs
       - name: Repair grounded summary quality issues
         run: node scripts/summary-quality-repair.mjs
+      - name: Fill missing or stale Chinese translations
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          TRANSLATION_MODEL: gpt-5.6-luna
+        run: node scripts/generate-chinese-translations.mjs
+      - name: Build runtime translation overlay
+        run: node scripts/build-translation-overlay.mjs
       - name: Re-apply reviewed Chinese translations
         run: node scripts/apply-event-translations.mjs
       - name: Verify translation state after refresh
         run: |
           node scripts/translation-qa.mjs
           node scripts/runtime-translation-fallback.test.mjs
+          node scripts/translation-coverage-report.mjs
       - name: Audit published summary provenance
         run: node scripts/test-summary-output.mjs
       - name: Audit summary semantic coverage
         run: node scripts/summary-semantic-coverage.test.mjs
-      - name: Save refreshed event list
+      - name: Save refreshed event list and approved translations
         run: |
           git config user.name "south-bay-events-bot"
           git config user.email "actions@github.com"
-          git add data/events.json data/events.js data/museums.json data/museums.js data/source-health.json
+          git add data/events.json data/events.js data/museums.json data/museums.js data/source-health.json data/translations.zh.js data/translations.zh*.json
           if git diff --staged --quiet; then
             exit 0
           fi
-          git commit -m "chore: refresh South Bay events"
+          git commit -m "chore: refresh South Bay events and translations"
           git fetch origin "$GITHUB_REF_NAME"
           git rebase "origin/$GITHUB_REF_NAME"
           git push origin "HEAD:$GITHUB_REF_NAME"

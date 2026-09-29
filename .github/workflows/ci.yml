@@ -79,6 +79,7 @@ jobs:
           node --check scripts/civicplus-description.test.mjs
           node --check scripts/event-translations.mjs
           node --check scripts/event-translations.test.mjs
+          node --check scripts/generate-chinese-translations.mjs
           node --check scripts/translation-text.mjs
           node --check scripts/translation-text.test.mjs
           node --check scripts/apply-event-translations.mjs
@@ -109,6 +110,11 @@ jobs:
           node --check scripts/halloween-collection.test.mjs
           node --check scripts/generate-sitemap.mjs
           node --check scripts/seo-foundation.test.mjs
+      - name: Materialize translation catalog for CI
+        run: |
+          node scripts/baseline-new-translations.mjs
+          node scripts/build-translation-overlay.mjs
+          node scripts/apply-event-translations.mjs
       - name: Run policy and data-contract tests
         run: |
           node scripts/test-event-summary-engine.mjs
