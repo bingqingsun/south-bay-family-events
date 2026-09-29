@@ -119,6 +119,7 @@ jobs:
           node scripts/runtime-translation-fallback.test.mjs
           node scripts/translation-qa.mjs
           node scripts/translation-coverage-report.mjs
+          node scripts/apply-event-supplements.mjs
           node scripts/summary-quality-repair.mjs
           node scripts/summary-semantic-coverage.test.mjs
           node scripts/cupertino-detail-date.test.mjs
