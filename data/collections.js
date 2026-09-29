@@ -94,6 +94,7 @@
       }),
       published: true,
       publishAt: '2026-09-28T00:00:00',
+      activeUntil: '2026-11-02T00:00:00',
       lastChanceThreshold: 3,
       selectedEventRefs: [
         { id: 'series-bf2c8a59c45b87b2', url: 'https://www.gilroygardens.org/halloween/' },
