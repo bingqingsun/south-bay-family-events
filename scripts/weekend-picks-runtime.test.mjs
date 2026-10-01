@@ -37,19 +37,19 @@ const resolverFixtures = [
     legacyIds: ['curated-b7185603c68c065f'],
     title: '13th Annual Fall Bike Fest',
     url: 'https://www.cupertino.gov/bikefest',
-    dateValue: '2026-09-26T10:00',
-    endDateValue: '2026-09-26T14:00'
+    dateValue: '2026-10-03T10:00',
+    endDateValue: '2026-10-03T14:00'
   },
   {
     id: 'url-fallback-id',
     title: 'Black Holes — The Other Side of Infinity',
     url: 'https://daweb2.deanza.edu/events/event.html?id=191545133&utm_source=calendar',
-    dateValue: '2026-09-26T19:00'
+    dateValue: '2026-10-03T19:00'
   },
   {
     id: 'title-fallback-id',
     title: 'Great Glass Pumpkin Patch',
-    dateValue: '2026-09-27T10:00'
+    dateValue: '2026-10-04T10:00'
   }
 ];
 
