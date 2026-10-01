@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "entries": [
+    {
+      "id": "series-ca41eff744a0cfd1",
+      "title": "FORGOTTEN ISLAND 电影放映",
+      "description": "在 CineLux Gilroy 放映的 PG 级电影。",
+      "sourceFingerprint": "7c4f0d8cb696108624ebe3247ade76a28ed9a50458646326ef6096f3deabe52d",
+      "status": "approved",
+      "override": true,
+      "translationSource": "reviewed-batch"
+    },
+    {
+      "id": "series-34d0b34c56f66607",
+      "title": "睡衣故事时间 [Hora de Cuentos en Pijama]",
+      "description": "在轻松有趣的活动中学习。每周一 6:30pm，在 Burrow 举行——欢迎参加 Gilroy 图书馆的睡衣故事时间，我们会阅读故事、唱歌，并与图书管理员 Cameron 一起玩耍。",
+      "sourceFingerprint": "fe22617d23c90636b5938e72943fe941bcc5ff532bd03518f9ce41ebc44601a9",
+      "status": "approved",
+      "override": true,
+      "translationSource": "reviewed-batch"
+    },
+    {
+      "id": "jmz-family-9e10bcb96952915e",
+      "title": "Super Family Sunday 家庭星期日",
+      "description": "Junior Museum & Zoo 致力于提供包容且无障碍的参观体验。",
+      "sourceFingerprint": "17b2e6936bed7b50b626aa82feeaae42ee35eeb7249dd9141553acea295b2a8e",
+      "status": "approved",
+      "override": true,
+      "translationSource": "reviewed-batch"
+    }
+  ]
+}
