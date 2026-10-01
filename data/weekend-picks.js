@@ -20,9 +20,10 @@ window.SBFF_WEEKEND_PICKS = {
     },
     {
       eventRef: {
-        title: 'Santa Clara Parade of Champions',
-        aliases: ['57th Santa Clara Parade of Champions', '57th Annual Parade of Champions'],
-        url: 'https://www.santaclaraca.gov/Home/Components/Calendar/Event/114463/41?curm=10&cury=2026&recordid=17374'
+        id: 'curated-f75ccb9c95d69610',
+        title: 'Santa Clara Parade of Champions & Festival',
+        aliases: ['Santa Clara Parade of Champions', '57th Santa Clara Parade of Champions', '57th Annual Parade of Champions'],
+        url: 'https://www.scparadeofchampions.org/parade-schedule'
       },
       label: 'Big Community Pick', labelZh: '社区大活动',
       whyWePicked: 'The free all-day festival combines the parade with a Sports Fan Zone, community booths, street food, live entertainment, and kids activities, so families can make a full day of it.',
