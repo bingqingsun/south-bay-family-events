@@ -1,13 +1,33 @@
 window.SBFF_WEEKEND_PICKS = {
   id: '2026-10-03',
-  weekendStart: '2026-10-03',
+  weekendStart: '2026-10-02',
   weekendEnd: '2026-10-04',
   status: 'published',
   publishedAt: '2026-09-30T21:36:00-07:00',
-  updatedAt: '2026-09-30T21:36:00-07:00',
-  intro: 'Handpicked South Bay family activities for Oct 3–4, from seasonal celebrations and live performances to cultural programs, movies, and hands-on family fun.',
-  introZh: '精选 10月3日周六–10月4日周日南湾亲子活动，包括节庆、现场演出、文化体验、电影和适合全家参与的周末活动。',
+  updatedAt: '2026-09-30T22:00:00-07:00',
+  intro: 'Handpicked South Bay family activities for Oct 2–4, from Friday-night art and community celebrations to seasonal outings, cultural programs, movies, and hands-on family fun.',
+  introZh: '精选 10月2日周五–10月4日周日南湾亲子活动，包括周五夜间艺术活动、社区庆典、季节限定体验、文化活动、电影和亲子手作。',
   picks: [
+    {
+      eventRef: {
+        title: 'South FIRST FRIDAYS ArtWalk SJ + STREET MRKT',
+        aliases: ['South FIRST FRIDAYS ArtWalk SJ + Street', 'South FIRST FRIDAYS #ArtwalkSJ + STREET MRKT indie urban art faire'],
+        url: 'https://www.southfirstfridays.com/2026/09/october-2nd-2026-south-first-fridays-artwalksj-street-mrkt-indie-urban-art-faire/'
+      },
+      label: 'Friday Night Pick', labelZh: '周五夜场',
+      whyWePicked: 'Free late-night gallery and museum hours, the final Street MRKT of the season, local artists, and food trucks make this an easy Friday-night kickoff for families who enjoy art and downtown energy.',
+      whyWePickedZh: '画廊和博物馆延长开放、当季最后一场 Street MRKT、本地艺术家和餐车集中在一起，很适合喜欢艺术和市中心氛围的家庭作为周末开场。'
+    },
+    {
+      eventRef: {
+        title: 'Santa Clara Parade of Champions',
+        aliases: ['57th Santa Clara Parade of Champions', '57th Annual Parade of Champions'],
+        url: 'https://www.santaclaraca.gov/Home/Components/Calendar/Event/114463/41?curm=10&cury=2026&recordid=17374'
+      },
+      label: 'Big Community Pick', labelZh: '社区大活动',
+      whyWePicked: 'The free all-day festival combines the parade with a Sports Fan Zone, community booths, street food, live entertainment, and kids activities, so families can make a full day of it.',
+      whyWePickedZh: '这场免费全天社区活动把游行、Sports Fan Zone、社区摊位、街头美食、现场表演和儿童活动放在一起，很适合安排成完整的一日家庭活动。'
+    },
     {
       eventRef: { title: 'The Great Big BOO!', aliases: ['The Great Big BOO'], url: 'https://www.gilroygardens.org/halloween/' },
       label: 'Seasonal Pick', labelZh: '季节限定',
@@ -39,12 +59,6 @@ window.SBFF_WEEKEND_PICKS = {
       whyWePickedZh: '可以带来闲置万圣节服装交换，也可以挑选一套“新对你而言”的装扮，是准备十月活动很实用、也更环保的一站。'
     },
     {
-      eventRef: { title: 'Indian Classical Dance Program' },
-      label: 'Performance Pick', labelZh: '演出精选',
-      whyWePicked: 'A pair of Bharatanatyam performances gives families a focused introduction to classical Indian dance without needing to commit to a full evening show.',
-      whyWePickedZh: '两场 Bharatanatyam 印度古典舞表演，让家庭可以在不需要安排整晚演出的情况下，集中感受印度古典舞。'
-    },
-    {
       eventRef: { title: 'Folklórico Performances by Raíces de México' },
       label: 'Cultural Pick', labelZh: '文化体验',
       whyWePicked: 'Student performances share the color, movement, and traditions of ballet folklórico while connecting the outing to Latine and Hispanic Heritage Month.',
@@ -67,6 +81,12 @@ window.SBFF_WEEKEND_PICKS = {
       label: 'Little Kids Pick', labelZh: '低龄友好',
       whyWePicked: 'A short monster-themed storytime with stories, songs, and fingerplays is an easy seasonal outing for children ages zero to five and their families.',
       whyWePickedZh: '怪兽主题故事、歌曲和手指游戏组成一场短小轻松的故事时间，很适合 0–5 岁孩子和家长一起参加。'
+    },
+    {
+      eventRef: { title: 'Spirit Board Makers', url: 'https://sccl.bibliocommons.com/events/6ab3252c129d8e0031f46013' },
+      label: 'Teen Pick', labelZh: '青少年精选',
+      whyWePicked: 'Teens can design and decorate a one-of-a-kind spirit board with materials provided, making this a focused Halloween-season maker activity for families with older kids.',
+      whyWePickedZh: '青少年可以使用现场提供的材料设计并装饰自己的 spirit board，是很适合大孩子家庭的万圣节季手作活动。'
     },
     {
       eventRef: { id: 'filoli-546ede82db7e6eeb', title: 'Nightfall', url: 'https://filoli.org/whats-on/events/nightfall/' },
