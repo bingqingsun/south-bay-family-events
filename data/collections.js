@@ -48,7 +48,7 @@
         { title: 'Playhouse Series: Jack and the Beanstalk', url: 'https://www.paloalto.gov/Events-Directory/Community-Services/Playhouse-Series-Jack-and-the-Beanstalk' },
         { title: 'Na Leo Mokupuni ma Cupertino', url: 'https://www.cupertino.gov/Parks-Recreation/Events/Na-Leo-Mokupuni-ma-Cupertino' },
         { id: 'rss-6a920fcf1c197d11325b93bd', title: "Children's Costume Swap", url: 'https://sccl.bibliocommons.com/events/6a920fcf1c197d11325b93bd' },
-        { title: 'Folklórico Performances by Raíces de México' },
+        { id: 'rss-6aa84e0c129d8e0031f22fa5', title: 'Folklórico Performances by Raíces de México', url: 'https://paloalto.bibliocommons.com/events/6aa84e0c129d8e0031f22fa5' },
         { title: 'Learning Chinese language and Culture For Kids Ages 8-13 years old', url: 'https://sccl.bibliocommons.com/events/6a85032760ccaf01c01f3bdb' },
         { title: 'Hispanic Heritage Month Family Movie Double Feature - Coco', url: 'https://sccl.bibliocommons.com/events/6a95cbcf29a7dd0d674802ec' },
         { title: 'Monster Midday Munch', url: 'https://sccl.bibliocommons.com/events/6aa1d5c8d6577100383c671a' },
