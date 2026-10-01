@@ -42,7 +42,7 @@
       lastChanceThreshold: 0,
       selectedEventRefs: [
         { title: 'South FIRST FRIDAYS ArtWalk SJ + STREET MRKT', url: 'https://www.southfirstfridays.com/2026/09/october-2nd-2026-south-first-fridays-artwalksj-street-mrkt-indie-urban-art-faire/' },
-        { title: 'Santa Clara Parade of Champions', url: 'https://www.santaclaraca.gov/Home/Components/Calendar/Event/114463/41?curm=10&cury=2026&recordid=17374' },
+        { id: 'curated-f75ccb9c95d69610', title: 'Santa Clara Parade of Champions & Festival', url: 'https://www.scparadeofchampions.org/parade-schedule' },
         { title: 'The Great Big BOO!', url: 'https://www.gilroygardens.org/halloween/' },
         { title: 'Mid-Autumn Festival', url: 'https://filoli.org/whats-on/events/mid-autumn-festival/' },
         { title: 'Playhouse Series: Jack and the Beanstalk', url: 'https://www.paloalto.gov/Events-Directory/Community-Services/Playhouse-Series-Jack-and-the-Beanstalk' },
