@@ -4,7 +4,7 @@ window.SBFF_WEEKEND_PICKS = {
   weekendEnd: '2026-10-04',
   status: 'published',
   publishedAt: '2026-09-30T21:36:00-07:00',
-  updatedAt: '2026-09-30T22:00:00-07:00',
+  updatedAt: '2026-09-30T22:20:00-07:00',
   intro: 'Handpicked South Bay family activities for Oct 2–4, from Friday-night art and community celebrations to seasonal outings, cultural programs, movies, and hands-on family fun.',
   introZh: '精选 10月2日周五–10月4日周日南湾亲子活动，包括周五夜间艺术活动、社区庆典、季节限定体验、文化活动、电影和亲子手作。',
   picks: [
@@ -65,22 +65,10 @@ window.SBFF_WEEKEND_PICKS = {
       whyWePickedZh: '学生表演通过色彩、舞步和传统展现 Ballet Folklórico，也让孩子在现场体验中认识拉丁裔与西班牙裔文化传统。'
     },
     {
-      eventRef: { title: 'Learning Chinese language and Culture For Kids Ages 8-13 years old', aliases: ['Learning Chinese Language and Culture for Kids'] },
-      label: 'Learning Pick', labelZh: '学习体验',
-      whyWePicked: 'Kids practice basic Chinese while learning about culture through interactive activities, giving ages 8–13 a more active alternative to a standard language lesson.',
-      whyWePickedZh: '8–13 岁孩子通过互动活动练习基础中文并了解文化，比单纯坐着上语言课更有参与感。'
-    },
-    {
       eventRef: { title: 'Hispanic Heritage Month Family Movie Double Feature - Coco', aliases: ['Family Movie Double Feature: Coco & Encanto'] },
       label: 'Easy Sunday Pick', labelZh: '轻松周日',
       whyWePicked: 'Campbell Library turns Sunday afternoon into an easy family movie plan with Coco followed by Encanto, both tied to Hispanic Heritage Month.',
       whyWePickedZh: 'Campbell Library 把周日下午直接变成轻松的家庭电影计划：先看 Coco，再看 Encanto，同时呼应 Hispanic Heritage Month。'
-    },
-    {
-      eventRef: { title: 'Monster Midday Munch' },
-      label: 'Little Kids Pick', labelZh: '低龄友好',
-      whyWePicked: 'A short monster-themed storytime with stories, songs, and fingerplays is an easy seasonal outing for children ages zero to five and their families.',
-      whyWePickedZh: '怪兽主题故事、歌曲和手指游戏组成一场短小轻松的故事时间，很适合 0–5 岁孩子和家长一起参加。'
     },
     {
       eventRef: { title: 'Spirit Board Makers', url: 'https://sccl.bibliocommons.com/events/6ab3252c129d8e0031f46013' },
