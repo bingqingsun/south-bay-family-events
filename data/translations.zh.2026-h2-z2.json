@@ -3,6 +3,6 @@
   "locale": "zh-Hans",
   "entries": [
     {"id":"series-ca41eff744a0cfd1","title":"FORGOTTEN ISLAND 电影放映","description":"在 CineLux Almaden 放映的 PG 级电影。","sourceFingerprint":"820e0739c467ddfb517d8f670e7f3e4906ad57e2b19df9c108980053d4d86028","status":"approved","override":true,"translationSource":"reviewed-batch"},
-    {"id":"thetech-6687b96444113eae","title":"National STEM Day 全国 STEM 日","description":"11 月 8 日星期日到访 The Tech Interactive，可免费参观。","sourceFingerprint":"b4593279940f6aad4243e696731e05f8e4004cf0c97a2e54671c2a3ccd29c208","status":"approved","override":true,"translationSource":"reviewed-batch"}
+    {"id":"thetech-6687b96444113eae","title":"National STEM Day 全国 STEM 日","description":"十一月 8 日星期日到访 The Tech Interactive，可免费参观。","sourceFingerprint":"b4593279940f6aad4243e696731e05f8e4004cf0c97a2e54671c2a3ccd29c208","status":"approved","override":true,"translationSource":"reviewed-batch"}
   ]
 }
