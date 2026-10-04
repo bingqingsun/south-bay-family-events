@@ -61,7 +61,7 @@
       slug: 'halloween',
       year: 2026,
       title: '2026 South Bay Halloween',
-      landingTitle: '2026 South Bay Halloween Family Guide',
+      landingTitle: '2026 Halloween Family Guide',
       landingPath: 'collections/halloween/',
       coverImage: 'https://santanarow.com/wp-content/uploads/2025/08/Trick-Or-treat-The-Row-Website-Pic-Copy-scaled.jpg',
       homeLabelActive: 'Halloween Guide',
