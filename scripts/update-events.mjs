@@ -2195,15 +2195,27 @@ async function readIcs(source) {
     const field = name => decodeXml(block.match(new RegExp(`^${name}(?:;[^:]*)?:(.*)$`, 'mi'))?.[1] || '').replace(/\\n/g, ' ').replace(/\\,/g, ',').trim();
     const title = field('SUMMARY');
     const start = field('DTSTART');
+    const end = field('DTEND');
     const description = field('DESCRIPTION');
     const location = field('LOCATION').replace(/^[-\s]+/, '').trim();
     const detailUrl = description.match(/https?:\/\/\S+/)?.[0] || (field('URL') ? new URL(field('URL'), source.feedUrl).href : source.feedUrl);
-    const dateValue = start.match(/^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2}))?/) ? `${start.slice(0, 4)}-${start.slice(4, 6)}-${start.slice(6, 8)}${start[8] === 'T' ? `T${start.slice(9, 11)}:${start.slice(11, 13)}` : ''}` : '';
+    const parseIcsDateValue = value => value.match(/^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2}))?/)
+      ? `${value.slice(0, 4)}-${value.slice(4, 6)}-${value.slice(6, 8)}${value[8] === 'T' ? `T${value.slice(9, 11)}:${value.slice(11, 13)}` : ''}`
+      : '';
+    const dateValue = parseIcsDateValue(start);
+    let endDateValue = parseIcsDateValue(end);
+    // RFC 5545 all-day DTEND is exclusive. Convert it to SBFF's inclusive
+    // local end-date contract so a Fri–Sun event remains active through Sunday.
+    if (dateValue && endDateValue && !start.includes('T') && !end.includes('T') && endDateValue > dateValue) {
+      const instant = new Date(`${endDateValue}T12:00:00Z`);
+      instant.setUTCDate(instant.getUTCDate() - 1);
+      endDateValue = instant.toISOString().slice(0, 10);
+    }
     const activityText = `${title} ${description}`;
     const familySignal = /famil(?:y|ies)|kids?|children|youth|teen|toddler|concert|movie|music|craft|art|game|egg hunt|festival|celebration|holiday/i.test(activityText);
-    if (!title || !dateValue || !isUpcoming(dateValue) || !familySignal || !hasUsableSourceContent(description)) return [];
+    if (!title || !dateValue || !isUpcoming(dateValue, endDateValue) || !familySignal || !hasUsableSourceContent(description)) return [];
     return [directEvent({
-      id: 'ics-' + createHash('sha256').update(`${detailUrl}|${dateValue}`).digest('hex').slice(0, 16), title, dateValue, description,
+      id: 'ics-' + createHash('sha256').update(`${detailUrl}|${dateValue}`).digest('hex').slice(0, 16), title, dateValue, endDateValue, description,
       place: location || source.name, address: '', city: source.city || '', source: source.name, url: detailUrl, ageText: activityText
     })];
   });
