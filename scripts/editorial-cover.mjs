@@ -68,7 +68,7 @@ export function editorialCoverReason(event, imageUsage = new Map()) {
   if (!event.image) return event.imageFailureReason || 'missing_image';
   if (event.imageStatus === 'missing' || event.imageStatus === 'rejected') return event.imageFailureReason || event.imageStatus;
   if (isLegacyWeakImage(event)) return 'weak_or_unverifiable_official_image';
-  const hasStrongProvenance = ['schema.org', 'event-image', 'card-dom-bound', 'manual_verified']
+  const hasStrongProvenance = ['schema.org', 'event-image', 'card-dom-bound', 'og:image', 'manual_verified']
     .includes(event.imageProvenance?.method);
   if (!hasStrongProvenance && isGenericBibliocommonsImage(event, imageUsage)) return 'generic_source_placeholder';
   return '';
