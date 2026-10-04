@@ -41,6 +41,17 @@ import {
   linkedOfficialPageMatches
 } from './lib/linked-official-detail.mjs';
 import { eventDetailSlugCandidates } from './lib/detail-url.mjs';
+import {
+  addMinutesToLocalDateTime,
+  effectiveEndDateValue,
+  fallbackDurationMinutes,
+  isStillActive,
+  isUpcomingByEventWindow,
+  normalizedDateTime,
+  officialDateWindowFromText,
+  pacificNowValue,
+  withEffectiveEndTime
+} from './lib/event-lifecycle.mjs';
 
 const key = process.env.SERPAPI_KEY;
 // Chinese localization is merged from a reviewed sidecar catalog. The daily
@@ -212,58 +223,8 @@ function isSameEvent(resultTitle, eventTitle) {
   return shared >= Math.min(2, result.size, event.size);
 }
 
-function isUpcoming(value) {
-  const match = String(value || '').match(/\d{4}-\d{2}-\d{2}/);
-  if (!match) return false;
-  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
-  return match[0] >= today;
-}
-
-function pacificNowValue() {
-  const parts = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit',
-    hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23'
-  }).formatToParts(new Date()).reduce((result, part) => ({ ...result, [part.type]: part.value }), {});
-  return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}:${parts.second}`;
-}
-
-function normalizedDateTime(value, { endOfDay = false } = {}) {
-  const match = String(value || '').match(/^(\d{4}-\d{2}-\d{2})(?:[T ](\d{2}):(\d{2})(?::(\d{2}))?)?/);
-  if (!match) return '';
-  return `${match[1]}T${match[2] || (endOfDay ? '23' : '00')}:${match[3] || (endOfDay ? '59' : '00')}:${match[4] || (endOfDay ? '59' : '00')}`;
-}
-
-function addMinutesToLocalDateTime(value, minutes) {
-  const match = normalizedDateTime(value).match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):/);
-  if (!match) return '';
-  const instant = new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3]), Number(match[4]), Number(match[5]) + minutes));
-  return `${instant.getUTCFullYear()}-${String(instant.getUTCMonth() + 1).padStart(2, '0')}-${String(instant.getUTCDate()).padStart(2, '0')}T${String(instant.getUTCHours()).padStart(2, '0')}:${String(instant.getUTCMinutes()).padStart(2, '0')}:00`;
-}
-
-function fallbackDurationMinutes(event) {
-  const text = `${event.title || ''} ${event.description || ''}`.toLowerCase();
-  if (event.format === 'movie-screening') return 200;
-  if (event.format === 'sports-game') return 240;
-  if (event.format === 'live-show') return 210;
-  if (/\b(?:story ?time|tiny tot|baby bounce|stay (?:&|and) play)\b/.test(text)) return 90;
-  if (/\b(?:festival|celebration|carnival|parade|fair|art walk)\b/.test(text)) return 480;
-  return 240;
-}
-
-function effectiveEndDateValue(event) {
-  if (event.ongoing) return '';
-  const explicit = event.endDateValue;
-  if (explicit) return normalizedDateTime(explicit, { endOfDay: !String(explicit).includes('T') && !String(explicit).includes(' ') });
-  if (!String(event.dateValue || '').includes('T') && !String(event.dateValue || '').includes(' ')) return normalizedDateTime(event.dateValue, { endOfDay: true });
-  return addMinutesToLocalDateTime(event.dateValue, fallbackDurationMinutes(event));
-}
-
-function withEffectiveEndTime(event) {
-  return { ...event, endDateValue: effectiveEndDateValue(event) };
-}
-
-function isStillActive(event, now = pacificNowValue()) {
-  return Boolean(event.ongoing || (event.endDateValue && event.endDateValue > now));
+function isUpcoming(value, endDateValue = '') {
+  return isUpcomingByEventWindow({ dateValue: value, endDateValue });
 }
 
 function decodeXml(value) {
