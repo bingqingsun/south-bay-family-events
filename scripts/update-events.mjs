@@ -2863,7 +2863,7 @@ async function readPaloAlto(source) {
       if (detailResponse.ok) detailHtml = await detailResponse.text();
     } catch {}
     const detailText = plainText(detailHtml);
-    const detailDescription = officialParagraphText(detailHtml, { minLength: 20 });
+    const detailDescription = selectCivicPlusEventDescription(detailHtml, candidate.title, candidate.description);
     const dateMatch = detailText.match(/Next date:\s*((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\s*\|\s*(\d{1,2}:\d{2}\s*(?:AM|PM))/i);
     const dateValue = dateMatch ? isoDateFromOfficialText(dateMatch[1], dateMatch[2]) : candidate.dateValue;
     const description = detailDescription || candidate.description;

@@ -36,7 +36,7 @@ Source adapters must not:
 
 - sentence segmentation, abbreviation handling, and punctuation-bearing event-title protection;
 - fragment detection;
-- fragment, logistics / accessibility / legal-policy / biography / promotional-copy filtering;
+- fragment, logistics / accessibility / legal-policy / biography / promotional-copy / CMS page-chrome filtering;
 - concrete-activity ranking;
 - multi-activity bundle extraction;
 - readability validation;
@@ -123,4 +123,4 @@ A new adapter is acceptable only when:
 
 ## Current engine version
 
-`event-summary-v2-p4`
+`event-summary-v2-p5`

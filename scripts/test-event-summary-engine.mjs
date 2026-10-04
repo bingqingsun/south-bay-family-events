@@ -118,6 +118,18 @@ assert.equal(
   'legal and policy copy must never become an activity description'
 );
 
+const paloAltoChrome = "Find details at Fairmeadow Elementary School, 500 E. Meadow Drive, Palo Alto, CA, View Map 500 E. Meadow Drive, Palo Alto, CA Fields marked as 'Required' must be completed Email Address * (Required) Enter your email address or your friend's email addresses all separated by commas.";
+assert.equal(
+  buildExtractiveSummary(paloAltoChrome, { title: 'Bike Palo Alto' }).summary,
+  '',
+  'CMS map/share-form chrome must never become an activity description'
+);
+const paloAltoMixedSource = `${paloAltoChrome} Explore Palo Alto’s parks, open spaces and other fun destinations using route maps to find little known bike bridges, off-road trails and less traveled streets that make bicycling Palo Alto easy and fun.`;
+const paloAltoSummary = buildExtractiveSummary(paloAltoMixedSource, { title: 'Bike Palo Alto' });
+assert.match(paloAltoSummary.summary, /Explore Palo Alto’s parks/i,
+  'a clean activity sentence must beat adjacent CMS page chrome');
+assert.doesNotMatch(paloAltoSummary.summary, /Email Address|View Map|Fields marked/i);
+
 assert.equal(
   buildExtractiveSummary('Bright colors and lots of little friends may make the area visually busy. Texture: Different stations may include sticky tape and other unusual textures.').summary,
   '',
@@ -251,7 +263,7 @@ const summaryRecord = buildSummaryRecord({
   status: 'extractive',
   verifiedAt: '2026-09-19T00:00:00.000Z'
 });
-assert.equal(summaryRecord.summaryVersion, 'event-summary-v2-p4');
+assert.equal(summaryRecord.summaryVersion, 'event-summary-v2-p5');
 assert.equal(summaryRecord.parentSummary, timeSegments[0]);
 assert.equal(summaryRecord.summaryEvidence, summaryRecord.parentSummary);
 assert.ok(summaryRecord.sourceDescriptionHash, 'engine owns source hash and provenance');
