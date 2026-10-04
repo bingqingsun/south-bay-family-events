@@ -423,20 +423,40 @@ function feedSnapshot(list) {
 
 function captureFeedViewport() {
   if (!renderedCount) return null;
-  const anchor = [...grid.querySelectorAll('.event-card')].find(card => card.getBoundingClientRect().bottom > 0);
-  if (!anchor) return null;
+  const cards = [...grid.querySelectorAll('.event-card')];
+  const firstVisibleIndex = cards.findIndex(card => card.getBoundingClientRect().bottom > 0);
+  if (firstVisibleIndex < 0) return null;
+
+  // Keep the current card plus the cards after it as ordered fallback anchors.
+  // If the current activity expires during a background refresh, the next
+  // surviving activity stays at the same place on screen instead of jumping.
+  const candidates = cards.slice(firstVisibleIndex).map(card => ({
+    eventId: card.dataset.eventId || '',
+    top: card.getBoundingClientRect().top
+  })).filter(candidate => candidate.eventId);
+
   return {
-    eventId: anchor.dataset.eventId || '',
-    top: anchor.getBoundingClientRect().top,
-    renderedCount
+    candidates,
+    renderedCount,
+    scrollY: window.scrollY
   };
 }
 
 function restoreFeedViewport(anchor) {
-  if (!anchor?.eventId) return;
-  const target = [...grid.querySelectorAll('.event-card')].find(card => card.dataset.eventId === anchor.eventId);
-  if (!target) return;
-  const delta = target.getBoundingClientRect().top - anchor.top;
+  if (!anchor?.candidates?.length) {
+    if (Number.isFinite(anchor?.scrollY)) window.scrollTo(0, anchor.scrollY);
+    return;
+  }
+
+  const cardsById = new Map([...grid.querySelectorAll('.event-card')].map(card => [card.dataset.eventId, card]));
+  const survivingAnchor = anchor.candidates.find(candidate => cardsById.has(candidate.eventId));
+  if (!survivingAnchor) {
+    if (Number.isFinite(anchor.scrollY)) window.scrollTo(0, anchor.scrollY);
+    return;
+  }
+
+  const target = cardsById.get(survivingAnchor.eventId);
+  const delta = target.getBoundingClientRect().top - survivingAnchor.top;
   if (Math.abs(delta) > 1) window.scrollBy(0, delta);
 }
 
