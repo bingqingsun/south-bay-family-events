@@ -53,6 +53,7 @@ function reuseCanonicalEvidence(event, previous) {
   const strongerSummaryEvidence = ['official_structured', 'manual_verified'].includes(event.summaryStatus);
   Object.entries(provenance).forEach(([field, evidence]) => {
     if (evidence?.source !== 'canonical-detail' || previous[field] === undefined) return;
+    if (field === 'image' && evidence?.method === 'detail-main-hero') return;
     if (strongerSummaryEvidence && ['description', 'sourceDescriptionRaw'].includes(field)) return;
     if (['description', 'sourceDescriptionRaw'].includes(field)
       && evidence?.method === 'meta-description'
@@ -75,7 +76,9 @@ function reuseCanonicalEvidence(event, previous) {
   if (previous.canonicalDetail) merged.canonicalDetail = previous.canonicalDetail;
   // A transient fetch/parser failure must never erase a previously verified
   // official image. Carry its evidence forward until stronger evidence exists.
-  if (previous.imageStatus === 'official' && previous.image && !previousImageIsPageUrl && previous.imageProvenance?.source === 'canonical-detail') {
+  if (previous.imageStatus === 'official' && previous.image && !previousImageIsPageUrl
+      && previous.imageProvenance?.source === 'canonical-detail'
+      && previous.imageProvenance?.method !== 'detail-main-hero') {
     merged.image = previous.image;
     merged.imageStatus = 'official';
     merged.imageProvenance = previous.imageProvenance;
