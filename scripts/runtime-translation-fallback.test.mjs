@@ -27,7 +27,9 @@ assert.match(updateEvents, /applyChineseTranslationCatalog\(events, translationC
 assert.doesNotMatch(updateEvents, /OPENAI_API_KEY|generate-chinese-translations\.mjs/);
 
 const dailyWorkflow = await readFile(new URL('../.github/workflows/daily-events.yml', import.meta.url), 'utf8');
-assert.doesNotMatch(dailyWorkflow, /OPENAI_API_KEY|generate-chinese-translations\.mjs|Build runtime translation overlay|Apply approved Chinese translations|Re-apply reviewed Chinese translations/);
+assert.match(dailyWorkflow, /Re-apply approved Chinese translations/);
+assert.match(dailyWorkflow, /apply-event-translations\.mjs/);
+assert.doesNotMatch(dailyWorkflow, /OPENAI_API_KEY|generate-chinese-translations\.mjs|Build runtime translation overlay/);
 assert.match(dailyWorkflow, /github\.event\.schedule/);
 assert.match(dailyWorkflow, /nominal_utc/);
 assert.doesNotMatch(dailyWorkflow, /TZ=America\/Los_Angeles date \+%H/);
