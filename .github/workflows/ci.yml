@@ -98,6 +98,10 @@ jobs:
           node --check scripts/lib/detail-extractors/generic.mjs
           node --check scripts/lib/detail-enrichment.mjs
           node --check scripts/lib/linked-official-detail.mjs
+          node --check scripts/lib/detail-url.mjs
+          node --check scripts/detail-url.test.mjs
+          node --check scripts/lib/event-lifecycle.mjs
+          node --check scripts/event-lifecycle.test.mjs
           node --check scripts/linked-official-detail.test.mjs
           node --check map-navigation.js
           node --check app.js
@@ -143,6 +147,8 @@ jobs:
           node scripts/halloween-collection.test.mjs
           node scripts/weekend-picks-runtime.test.mjs
           node scripts/link-health.test.mjs
+          node scripts/detail-url.test.mjs
+          node scripts/event-lifecycle.test.mjs
           node scripts/detail-enrichment.test.mjs
           node scripts/canonical-detail-pipeline.test.mjs
           node scripts/special-event-pages.test.mjs

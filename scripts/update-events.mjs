@@ -40,6 +40,18 @@ import {
   linkedOfficialDescription,
   linkedOfficialPageMatches
 } from './lib/linked-official-detail.mjs';
+import { eventDetailSlugCandidates } from './lib/detail-url.mjs';
+import {
+  addMinutesToLocalDateTime,
+  effectiveEndDateValue,
+  fallbackDurationMinutes,
+  isStillActive,
+  isUpcomingByEventWindow,
+  normalizedDateTime,
+  officialDateWindowFromText,
+  pacificNowValue,
+  withEffectiveEndTime
+} from './lib/event-lifecycle.mjs';
 
 const key = process.env.SERPAPI_KEY;
 // Chinese localization is merged from a reviewed sidecar catalog. The daily
@@ -211,58 +223,8 @@ function isSameEvent(resultTitle, eventTitle) {
   return shared >= Math.min(2, result.size, event.size);
 }
 
-function isUpcoming(value) {
-  const match = String(value || '').match(/\d{4}-\d{2}-\d{2}/);
-  if (!match) return false;
-  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
-  return match[0] >= today;
-}
-
-function pacificNowValue() {
-  const parts = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit',
-    hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23'
-  }).formatToParts(new Date()).reduce((result, part) => ({ ...result, [part.type]: part.value }), {});
-  return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}:${parts.second}`;
-}
-
-function normalizedDateTime(value, { endOfDay = false } = {}) {
-  const match = String(value || '').match(/^(\d{4}-\d{2}-\d{2})(?:[T ](\d{2}):(\d{2})(?::(\d{2}))?)?/);
-  if (!match) return '';
-  return `${match[1]}T${match[2] || (endOfDay ? '23' : '00')}:${match[3] || (endOfDay ? '59' : '00')}:${match[4] || (endOfDay ? '59' : '00')}`;
-}
-
-function addMinutesToLocalDateTime(value, minutes) {
-  const match = normalizedDateTime(value).match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):/);
-  if (!match) return '';
-  const instant = new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3]), Number(match[4]), Number(match[5]) + minutes));
-  return `${instant.getUTCFullYear()}-${String(instant.getUTCMonth() + 1).padStart(2, '0')}-${String(instant.getUTCDate()).padStart(2, '0')}T${String(instant.getUTCHours()).padStart(2, '0')}:${String(instant.getUTCMinutes()).padStart(2, '0')}:00`;
-}
-
-function fallbackDurationMinutes(event) {
-  const text = `${event.title || ''} ${event.description || ''}`.toLowerCase();
-  if (event.format === 'movie-screening') return 200;
-  if (event.format === 'sports-game') return 240;
-  if (event.format === 'live-show') return 210;
-  if (/\b(?:story ?time|tiny tot|baby bounce|stay (?:&|and) play)\b/.test(text)) return 90;
-  if (/\b(?:festival|celebration|carnival|parade|fair|art walk)\b/.test(text)) return 480;
-  return 240;
-}
-
-function effectiveEndDateValue(event) {
-  if (event.ongoing) return '';
-  const explicit = event.endDateValue;
-  if (explicit) return normalizedDateTime(explicit, { endOfDay: !String(explicit).includes('T') && !String(explicit).includes(' ') });
-  if (!String(event.dateValue || '').includes('T') && !String(event.dateValue || '').includes(' ')) return normalizedDateTime(event.dateValue, { endOfDay: true });
-  return addMinutesToLocalDateTime(event.dateValue, fallbackDurationMinutes(event));
-}
-
-function withEffectiveEndTime(event) {
-  return { ...event, endDateValue: effectiveEndDateValue(event) };
-}
-
-function isStillActive(event, now = pacificNowValue()) {
-  return Boolean(event.ongoing || (event.endDateValue && event.endDateValue > now));
+function isUpcoming(value, endDateValue = '') {
+  return isUpcomingByEventWindow({ dateValue: value, endDateValue });
 }
 
 function decodeXml(value) {
@@ -607,7 +569,7 @@ async function readRss(source) {
     const description = xmlText(item, 'description');
     const summary = buildSummaryRecord({ sourceText: sourceDescriptionText(description), title, verifiedAt: generatedAt });
     const eventKey = `${xmlText(item, 'guid') || link}|${startDate}`;
-    if (!title || !link || seen.has(eventKey) || !isUpcoming(startDate) || !familyAudience
+    if (!title || !link || seen.has(eventKey) || !isUpcoming(startDate, endDate) || !familyAudience
       || xmlText(item, 'is_cancelled') === 'true'
       || isClosureNotice(title, description)) return [];
     seen.add(eventKey);
@@ -665,7 +627,7 @@ async function readTribe(source) {
     const categories = (item.categories || []).map(category => decodeXml(category.name || '')).join(' ').toLowerCase();
     const audienceText = `${title} ${item.description || ''} ${item.excerpt || ''} ${categories}`;
     const sourceFamilyPattern = source.familyPattern ? new RegExp(source.familyPattern, 'i') : null;
-    if (!title || !item.url || !isUpcoming(startDate) || (sourceFamilyPattern && !sourceFamilyPattern.test(audienceText))) return [];
+    if (!title || !item.url || !isUpcoming(startDate, endDate) || (sourceFamilyPattern && !sourceFamilyPattern.test(audienceText))) return [];
     const type = typeFor(title + ' ' + categories, title);
     // Do not infer a family age label from the calendar platform itself. The
     // card only shows an age range when the organizer actually supplied one.
@@ -750,7 +712,7 @@ async function readHistorySanJose(source) {
     // The listing also contains fundraisers, private rentals, and adult-only
     // programs. Publish only when the official title has an explicit family
     // signal and it yields a parent-facing explanation of the activity.
-    if (!title || !isUpcoming(dateValue) || !familySignal || !hasPublishableSummary(description, { title }) || isExplicitlyAdultOnly(`${title} ${locationText}`)) return [];
+    if (!title || !isUpcoming(dateValue, endDateValue) || !familySignal || !hasPublishableSummary(description, { title }) || isExplicitlyAdultOnly(`${title} ${locationText}`)) return [];
     const event = directEvent({
       id: 'history-' + createHash('sha256').update(`${url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
       title, dateValue, endDateValue, description,
@@ -1024,7 +986,7 @@ async function readGoogleVisitorEvents(source) {
     const endDateValue = String(event.end_time || '').replace(' ', 'T').slice(0, 19);
     const url = event.rsvp_link?.button_link_url || source.feedUrl;
     const activityText = `${title} ${description}`;
-    if (!title || !dateValue || !isUpcoming(dateValue) || !familyPattern.test(activityText) || isExplicitlyAdultOnly(activityText)) return [];
+    if (!title || !dateValue || !isUpcoming(dateValue, endDateValue) || !familyPattern.test(activityText) || isExplicitlyAdultOnly(activityText)) return [];
     return [{ title, description, dateValue, endDateValue, url, event }];
   });
   // The Google feed can contain duplicate sessions when an event RSVP page is
@@ -1092,7 +1054,7 @@ async function readWixEvents(source) {
     const key = `${title}|${start}`;
     const dateValue = isoDateFromOfficialText(startDateText, startTimeText) || start;
     const endDateValue = isoDateFromOfficialText(endDateText, endTimeText);
-    if (!title || !description || !isUpcoming(dateValue) || seen.has(key)) return [];
+    if (!title || !description || !isUpcoming(dateValue, endDateValue) || seen.has(key)) return [];
     seen.add(key);
     return [directEvent({
       id: 'wix-' + createHash('sha256').update(`${source.feedUrl}|${key}|${index}`).digest('hex').slice(0, 16),
@@ -1120,7 +1082,7 @@ async function readSquarespaceEvents(source) {
     const image = htmlAttribute(block, /<img[^>]+(?:data-image|src)=["']([^"']+)/i);
     const place = htmlAttribute(block, /eventlist-meta-address-line["'][^>]*>([\s\S]*?)<\/span>/i) || source.name;
     const text = `${title} ${description}`;
-    if (!title || !href || !isUpcoming(dateValue) || !familyPattern.test(text) || !hasUsableSourceContent(description)) return [];
+    if (!title || !href || !isUpcoming(dateValue, endDateValue) || !familyPattern.test(text) || !hasUsableSourceContent(description)) return [];
     const event = directEvent({
       id: 'squarespace-' + createHash('sha256').update(`${href}|${dateValue}|${index}`).digest('hex').slice(0, 16),
       title, dateValue, endDateValue, description, image, place, address: source.address || '', city: source.city || '',
@@ -1148,7 +1110,7 @@ async function readSantanaRow(source) {
     const image = htmlAttribute(block, /<img\b[^>]*(?:data-src|src)=["']([^"']+)["']/i);
     const dateValue = isoDateFromOfficialText(dateText, dateText);
     return { index, title, href: href ? new URL(href, source.feedUrl).href : '', dateText, dateValue, description, image };
-  }).filter(card => card.title && card.href && card.dateValue && isUpcoming(card.dateValue)
+  }).filter(card => card.title && card.href && card.dateValue
     && familyPattern.test(`${card.title} ${card.description}`));
 
   const details = await Promise.all(cards.map(async card => {
@@ -1159,21 +1121,33 @@ async function readSantanaRow(source) {
       const detailText = plainText(detailHtml);
       const metaDescription = decodeXml(detailHtml.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)/i)?.[1] || '');
       const description = sourceDescriptionText(metaDescription || card.description);
+      const window = officialDateWindowFromText(`${card.dateText} ${detailText}`, {
+        referenceDateValue: card.dateValue,
+        maxSpanDays: 14
+      });
       return {
         ...card,
+        listingDateValue: card.dateValue,
+        dateValue: window.startDateValue || card.dateValue,
+        endDateValue: window.endDateValue || card.dateValue,
         description,
         image: officialPageOgImage(detailHtml) || card.image,
         audienceText: detailText,
         availabilityStatus: /\b(?:sold out|registration (?:is )?full|fully booked)\b/i.test(detailText) ? 'sold out' : ''
       };
-    } catch { return card; }
+    } catch {
+      return { ...card, listingDateValue: card.dateValue, endDateValue: card.dateValue };
+    }
   }));
 
   return details.flatMap(card => {
-    if (!hasUsableSourceContent(card.description)) return [];
+    if (!hasUsableSourceContent(card.description) || !isUpcoming(card.dateValue, card.endDateValue)) return [];
     const event = directEvent({
-      id: 'santana-' + createHash('sha256').update(`${card.href}|${card.dateValue}`).digest('hex').slice(0, 16),
-      title: card.title, dateValue: card.dateValue, description: card.description, image: card.image,
+      // Keep the historical identity based on the listing date. Correcting an
+      // organizer's multi-day start boundary must not break saved/editorial refs.
+      id: 'santana-' + createHash('sha256').update(`${card.href}|${card.listingDateValue || card.dateValue}`).digest('hex').slice(0, 16),
+      title: card.title, dateValue: card.dateValue, endDateValue: card.endDateValue,
+      description: card.description, image: card.image,
       place: source.place || source.name, address: source.address || '', city: source.city || '',
       source: source.name, url: card.href, ageText: `${card.title} ${card.description} ${card.audienceText || ''}`,
       format: /festival|celebration|trick-or-treat/i.test(card.title) ? 'festival' : '',
@@ -2075,17 +2049,14 @@ async function readFiloli(source) {
     const natureExperience = /\b(?:garden|nest|nature|outdoor|redwood|woodland|trail)\b/i.test(`${candidate.title} ${description}`);
     const event = directEvent({
       id: 'filoli-' + createHash('sha256').update(candidate.url).digest('hex').slice(0, 16),
-      title: candidate.title, dateValue: candidate.dateValue, description,
+      title: candidate.title, dateValue: candidate.dateValue, endDateValue: candidate.endValue, description,
       image: image ? new URL(image, source.feedUrl).href : '', place: 'Filoli Historic House & Garden',
       address: source.address || '', city: source.city || '', source: source.name, url: candidate.url,
       ageText: `${candidate.tags} ${description}`, format
     });
-    const classified = exhibition ? { ...event, type: 'museums', icon: icons.museums, color: colors.museums, tag: labels.museums }
+    return exhibition ? { ...event, type: 'museums', icon: icons.museums, color: colors.museums, tag: labels.museums }
       : natureExperience ? { ...event, type: 'outdoor', icon: icons.outdoor, color: colors.outdoor, tag: labels.outdoor }
       : event;
-    return candidate.range && candidate.dateValue < today
-      ? { ...classified, date: 'On view now', dateValue: '', ongoing: true }
-      : classified;
   }));
   return events.filter(Boolean);
 }
@@ -2140,11 +2111,10 @@ async function readLahm(source) {
       const ageText = exhibition ? '' : /\ball ages\b/i.test(detailBody) ? 'all ages' : /\bfamil(?:y|ies)\b/i.test(detailBody) ? 'family' : '';
       const event = directEvent({
         id: 'lahm-' + createHash('sha256').update(url).digest('hex').slice(0, 16), title,
-        dateValue, description, image, place: source.name, address: source.address || '', city: source.city || '',
+        dateValue, endDateValue: endValue, description, image, place: source.name, address: source.address || '', city: source.city || '',
         source: source.name, url, ageText, format: exhibition ? 'museum-exhibition' : ''
       });
-      const classified = exhibition ? { ...event, type: 'museums', icon: icons.museums, color: colors.museums, tag: labels.museums } : event;
-      return rangeParts.length > 1 && dateValue < today ? { ...classified, date: 'On view now', dateValue: '', ongoing: true } : classified;
+      return exhibition ? { ...event, type: 'museums', icon: icons.museums, color: colors.museums, tag: labels.museums } : event;
     } catch { return null; }
   }));
   return events.filter(Boolean);
@@ -2201,7 +2171,8 @@ async function readMontalvo(source) {
     const title = decodeXml(item.name || '');
     const url = item.url || '';
     const dateValue = item.startDate || '';
-    if (!title || !url || !isUpcoming(dateValue)) return null;
+    const endDateValue = item.endDate || '';
+    if (!title || !url || !isUpcoming(dateValue, endDateValue)) return null;
     try {
       const detailResponse = await fetch(url, { headers, signal: AbortSignal.timeout(15000) });
       const detail = await detailResponse.text();
@@ -2212,7 +2183,7 @@ async function readMontalvo(source) {
       if (!hasUsableSourceContent(description)) return null;
       const image = decodeXml(detail.match(/tn-production-season-detail-page__image[^>]+src=["']([^"']+)/i)?.[1] || item.image || '');
       return directEvent({
-        id: 'montalvo-' + createHash('sha256').update(`${url}|${dateValue}`).digest('hex').slice(0, 16), title, dateValue,
+        id: 'montalvo-' + createHash('sha256').update(`${url}|${dateValue}`).digest('hex').slice(0, 16), title, dateValue, endDateValue,
         description, image, place: 'Montalvo Arts Center', address: source.address || '', city: source.city || '',
         source: source.name, url, ageText: `${title} ${detailText}`, format: 'live-show'
       });
@@ -2233,15 +2204,27 @@ async function readIcs(source) {
     const field = name => decodeXml(block.match(new RegExp(`^${name}(?:;[^:]*)?:(.*)$`, 'mi'))?.[1] || '').replace(/\\n/g, ' ').replace(/\\,/g, ',').trim();
     const title = field('SUMMARY');
     const start = field('DTSTART');
+    const end = field('DTEND');
     const description = field('DESCRIPTION');
     const location = field('LOCATION').replace(/^[-\s]+/, '').trim();
     const detailUrl = description.match(/https?:\/\/\S+/)?.[0] || (field('URL') ? new URL(field('URL'), source.feedUrl).href : source.feedUrl);
-    const dateValue = start.match(/^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2}))?/) ? `${start.slice(0, 4)}-${start.slice(4, 6)}-${start.slice(6, 8)}${start[8] === 'T' ? `T${start.slice(9, 11)}:${start.slice(11, 13)}` : ''}` : '';
+    const parseIcsDateValue = value => value.match(/^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2}))?/)
+      ? `${value.slice(0, 4)}-${value.slice(4, 6)}-${value.slice(6, 8)}${value[8] === 'T' ? `T${value.slice(9, 11)}:${value.slice(11, 13)}` : ''}`
+      : '';
+    const dateValue = parseIcsDateValue(start);
+    let endDateValue = parseIcsDateValue(end);
+    // RFC 5545 all-day DTEND is exclusive. Convert it to SBFF's inclusive
+    // local end-date contract so a Fri–Sun event remains active through Sunday.
+    if (dateValue && endDateValue && !start.includes('T') && !end.includes('T') && endDateValue > dateValue) {
+      const instant = new Date(`${endDateValue}T12:00:00Z`);
+      instant.setUTCDate(instant.getUTCDate() - 1);
+      endDateValue = instant.toISOString().slice(0, 10);
+    }
     const activityText = `${title} ${description}`;
     const familySignal = /famil(?:y|ies)|kids?|children|youth|teen|toddler|concert|movie|music|craft|art|game|egg hunt|festival|celebration|holiday/i.test(activityText);
-    if (!title || !dateValue || !isUpcoming(dateValue) || !familySignal || !hasUsableSourceContent(description)) return [];
+    if (!title || !dateValue || !isUpcoming(dateValue, endDateValue) || !familySignal || !hasUsableSourceContent(description)) return [];
     return [directEvent({
-      id: 'ics-' + createHash('sha256').update(`${detailUrl}|${dateValue}`).digest('hex').slice(0, 16), title, dateValue, description,
+      id: 'ics-' + createHash('sha256').update(`${detailUrl}|${dateValue}`).digest('hex').slice(0, 16), title, dateValue, endDateValue, description,
       place: location || source.name, address: '', city: source.city || '', source: source.name, url: detailUrl, ageText: activityText
     })];
   });
@@ -2355,7 +2338,7 @@ async function readCivic(source) {
     const street = plainText(block.match(/itemprop=["']streetAddress["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
     const city = canonicalCity(plainText(block.match(/itemprop=["']addressLocality["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || source.city || ''));
     const familySignal = /\b(?:family|families|kids?|children|youth|teen|toddler|movie|concert|music|festival|celebration|holiday|halloween|lantern|campout|egg hunt|art|craft|science|stem|nature|outdoor)\b/i.test(title);
-    if (!title || !href || !isUpcoming(dateValue) || !familySignal) return [];
+    if (!title || !href || !isUpcoming(dateValue, endDateValue) || !familySignal) return [];
     return [{ title, url: new URL(decodeXml(href), source.feedUrl).href, dateValue, endDateValue, place, street, city, monthIndex }];
   }));
   const seen = new Set();
@@ -2961,7 +2944,7 @@ async function readPaloAltoSpecialEvents(source) {
       return paloAltoSpecialEventOccurrences(calendarHtml).flatMap(occurrence => {
         const dateValue = isoDateFromOfficialText(occurrence.dateText, occurrence.startTime);
         const endDateValue = isoDateFromOfficialText(occurrence.dateText, occurrence.endTime);
-        if (!dateValue || !isUpcoming(dateValue) || seen.has(dateValue)) return [];
+        if (!dateValue || !isUpcoming(dateValue, endDateValue) || seen.has(dateValue)) return [];
         seen.add(dateValue);
         const event = directEvent({
           id: 'paloalto-special-' + createHash('sha256').update(`${candidate.url}|${dateValue}`).digest('hex').slice(0, 16),
@@ -2990,11 +2973,12 @@ async function readHappyHollow(source) {
     const title = plainText(block.match(/class=["'][^"']*simcal-event-title[^"']*["'][^>]*>([\s\S]*?)<\//i)?.[1] || '');
     const description = plainText(block.match(/class=["'][^"']*simcal-event-description[^"']*["'][^>]*>([\s\S]*?)<\/div>/i)?.[1] || '');
     const dateValue = htmlAttribute(block, /itemprop=["']startDate["']\s+content=["']([^"']+)["']/i);
+    const endDateValue = htmlAttribute(block, /itemprop=["']endDate["']\s+content=["']([^"']+)["']/i);
     const image = htmlAttribute(block, /<img[^>]+src=["']([^"']+)["']/i);
     const text = `${title} ${description}`;
-    if (!title || !isUpcoming(dateValue) || /^today'?s hours/i.test(title) || /\bhours?\b/i.test(title) || !youthSignal.test(text) || /\b(?:gala|fundraiser|senior)\b/i.test(text)) return [];
+    if (!title || !isUpcoming(dateValue, endDateValue) || /^today'?s hours/i.test(title) || /\bhours?\b/i.test(title) || !youthSignal.test(text) || /\b(?:gala|fundraiser|senior)\b/i.test(text)) return [];
     const event = directEvent({
-      id: 'happyhollow-' + createHash('sha256').update(`${title}|${dateValue}|${index}`).digest('hex').slice(0, 16), title, dateValue, description,
+      id: 'happyhollow-' + createHash('sha256').update(`${title}|${dateValue}|${index}`).digest('hex').slice(0, 16), title, dateValue, endDateValue, description,
       image: image ? new URL(image, source.feedUrl).href : '', place: source.name, address: source.address || '', city: source.city || '',
       source: source.name, url: source.feedUrl, ageText: text
     });
@@ -3018,8 +3002,9 @@ async function readGilroyGardens(source) {
   const seeds = [...new Map(schemaEvents.flatMap(item => {
     const title = decodeXml(item.name || '').trim();
     const dateValue = String(item.startDate || '');
-    if (!title || !isUpcoming(dateValue) || /^(?:regular )?park hours$/i.test(title)) return [];
-    return [[`${title}|${dateValue}`, { title, dateValue }]];
+    const endDateValue = String(item.endDate || '');
+    if (!title || !isUpcoming(dateValue, endDateValue) || /^(?:regular )?park hours$/i.test(title)) return [];
+    return [[`${title}|${dateValue}`, { title, dateValue, endDateValue }]];
   })).values()];
   const detailsByTitle = new Map();
   await Promise.all([...new Set(seeds.map(seed => seed.title.toLowerCase()))].map(async normalizedTitle => {
@@ -3053,7 +3038,7 @@ async function readGilroyGardens(source) {
     if (!detail) return [];
     const event = directEvent({
       id: 'gilroy-' + createHash('sha256').update(`${seed.title}|${seed.dateValue}`).digest('hex').slice(0, 16),
-      title: seed.title, dateValue: seed.dateValue, description: detail.description, image: detail.image,
+      title: seed.title, dateValue: seed.dateValue, endDateValue: seed.endDateValue, description: detail.description, image: detail.image,
       place: source.name, address: source.address || '', city: source.city || '', source: source.name, url: detail.url,
       ageText: `${seed.title} ${detail.description} ${detail.detailText}`
     });
@@ -3175,22 +3160,15 @@ async function readSymphony(source) {
   });
 }
 
-function eventDetailSlug(title) {
-  return plainText(title).toLowerCase()
-    .replace(/[’']/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '');
-}
-
 async function resolveConfiguredFirstPartyDetail(source, title, dateValue) {
   if (!source.canonicalEventBase || !title) return '';
-  const slug = eventDetailSlug(title);
+  const slugs = eventDetailSlugCandidates(title);
   const year = String(dateValue || '').match(/^(20\d{2})/)?.[1] || '';
   const base = String(source.canonicalEventBase).replace(/\/+$/, '') + '/';
-  const candidates = [...new Set([
+  const candidates = [...new Set(slugs.flatMap(slug => [
     new URL(slug + '/', base).href,
     year ? new URL(slug + '-' + year + '/', base).href : ''
-  ].filter(Boolean))];
+  ]).filter(Boolean))];
 
   for (const candidate of candidates) {
     try {
@@ -3214,8 +3192,9 @@ async function resolveConfiguredFirstPartyDetail(source, title, dateValue) {
 }
 
 // San Jose Theaters exposes discovery data through Timely, but the public CTA
-// belongs on SanJoseTheaters.org. The resolver above deterministically checks
-// the first-party event slug (plus a year variant) and verifies title/year.
+// belongs on the current Visit San Jose theater event detail page. The resolver
+// tries deterministic title-slug variants because the CMS removes short words
+// from some paths, then verifies the event title/year before publishing a URL.
 // Timely remains discovery infrastructure, never the long-lived user canonical.
 async function readTimely(source) {
   const headers = { 'x-api-key': 'c6e5e0363b5925b28552de8805464c66f25ba0ce', 'user-agent': 'SouthBayFamilyEventsBot/1.0' };
@@ -3274,7 +3253,7 @@ async function readTimely(source) {
         id: `timely-${detailIndex}-${sessionIndex}`, title: detail.title, dateValue,
         description: sourceDescriptionText(description), image: detail.images?.[0]?.full?.url || detail.images?.[0]?.medium?.url || '',
         place: plainText(venue.title || 'San Jose Theaters'), address, city,
-        source: source.name, url: detail.firstPartyUrl || source.landingUrl || source.feedUrl,
+        source: source.name, url: detail.firstPartyUrl || '',
         ageText: description, format: 'live-show'
       });
       // Timely returns a platform default of "0" even for external ticketed

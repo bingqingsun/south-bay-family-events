@@ -31,6 +31,31 @@ const fallback = resolvePublishedLink(
 );
 assert.equal(fallback.url, source.landingUrl);
 
+
+const strictDetailSource = {
+  id: 'strict-detail',
+  name: 'Strict Detail Source',
+  domain: 'example.org',
+  landingUrl: 'https://example.org/events',
+  linkPolicy: 'first_party_detail'
+};
+const strictMissing = staticLinkResult(
+  { title: 'Family Show', url: 'https://example.org/events/family-show' },
+  strictDetailSource
+);
+assert.equal(strictMissing.fallbackUrl, '');
+
+const listingFallbackSource = {
+  ...strictDetailSource,
+  id: 'listing-fallback',
+  linkPolicy: 'first_party_detail_with_listing_fallback'
+};
+const listingFallback = staticLinkResult(
+  { title: 'Family Show', url: 'https://example.org/events/family-show' },
+  listingFallbackSource
+);
+assert.equal(listingFallback.fallbackUrl, listingFallbackSource.landingUrl);
+
 const result = await auditLinks(
   [{ title: 'Book Club', source: 'Library', url: 'https://events.platform.org/events/1' }],
   [source],

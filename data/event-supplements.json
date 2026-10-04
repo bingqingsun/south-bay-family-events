@@ -93,5 +93,27 @@
     "format": "program",
     "replaceExisting": true,
     "verifiedAt": "2026-09-29T16:05:00Z"
+  },
+  {
+    "id": "santana-104fc08c96737ad5",
+    "title": "Glass Pumpkin Festival",
+    "dateValue": "2026-10-02",
+    "endDateValue": "2026-10-04",
+    "description": "Stroll through thousands of hand-blown glass pumpkins, watch live glassblowing demonstrations, and browse unique glass art from Bay Area and visiting artisans.",
+    "sourceDescriptionRaw": "Stroll through thousands of hand-blown glass pumpkins crafted by artists from the Bay Area Glass Institute and renowned glass artisans from around the country. The free public event includes live glassblowing demonstrations using a mobile hotshop trailer, with unique glass art available for purchase. Schedule: Friday, October 2 from 3 pm–9 pm; Saturday, October 3 from 10 am–9 pm; Sunday, October 4 from 10 am–5 pm.",
+    "place": "Santana Row",
+    "address": "377 Santana Row, San Jose, CA 95128",
+    "city": "San Jose",
+    "source": "Santana Row",
+    "url": "https://santanarow.com/event/glass-pumpkin-festival/",
+    "costStatus": "free",
+    "costLabel": "免费",
+    "costSource": "Santana Row official event page",
+    "costEvidence": "The organizer describes this as a free public event.",
+    "type": "community",
+    "format": "festival",
+    "seasonalTheme": "halloween",
+    "replaceExisting": true,
+    "verifiedAt": "2026-10-04T03:00:00Z"
   }
 ]

@@ -185,6 +185,16 @@ function vm(config, events, now = '2026-09-21T12:00:00') {
   assert.deepEqual(model.currentCities, ['San Jose', 'Cupertino']);
 }
 
+// A finite multi-day event remains current after its start date and expires
+// only after its explicit end date.
+{
+  const events = [event('range0', '2026-09-19', { endDateValue: '2026-09-23' })];
+  const during = vm(configFor(events), events, '2026-09-21T12:00:00');
+  const after = vm(configFor(events), events, '2026-09-24T00:00:00');
+  assert.equal(during.currentEventCount, 1);
+  assert.equal(after.currentEventCount, 0);
+}
+
 // Explicit ongoing content with no end date remains current.
 {
   const events = [event('o0', '2026-01-01', { ongoing: true })];

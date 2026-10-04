@@ -206,10 +206,30 @@ function dateLabel(value) {
   return `${match[1] === currentYear ? '' : `${match[1]}年`}${Number(match[2])}月${Number(match[3])}日（${weekday}）${match[4] ? ` ${match[4]}:${match[5]}` : ''}`;
 }
 function dateMatches(event, filter) {
-  if (filter === 'all') return true; const date = dateKey(event.dateValue); if (!date) return false; const todayKey = localToday();
-  if (filter === 'today') return date === todayKey; if (filter === 'month') return date.slice(0, 7) === todayKey.slice(0, 7);
-  if (filter === 'weekend') { const todayDate = new Date(`${todayKey}T12:00:00`); const untilSaturday = todayDate.getDay() === 0 ? -1 : 6 - todayDate.getDay(); const start = new Date(todayDate); start.setDate(todayDate.getDate() + untilSaturday); const end = new Date(start); end.setDate(start.getDate() + 1); const eventDate = new Date(`${date}T12:00:00`); return eventDate >= start && eventDate <= end; }
-  if (/^\d{4}-\d{2}-\d{2}$/.test(filter)) return date === filter;
+  if (filter === 'all') return true;
+  const startDate = dateKey(event.dateValue);
+  const endDate = dateKey(event.endDateValue || event.dateValue);
+  if (!startDate || !endDate) return false;
+  const overlaps = (rangeStart, rangeEnd = rangeStart) => startDate <= rangeEnd && endDate >= rangeStart;
+  const todayKey = localToday();
+
+  if (filter === 'today') return overlaps(todayKey);
+  if (filter === 'month') {
+    const [year, month] = todayKey.split('-').map(Number);
+    const monthStart = `${year}-${String(month).padStart(2, '0')}-01`;
+    const monthEnd = new Date(Date.UTC(year, month, 0)).toISOString().slice(0, 10);
+    return overlaps(monthStart, monthEnd);
+  }
+  if (filter === 'weekend') {
+    const todayDate = new Date(`${todayKey}T12:00:00Z`);
+    const untilSaturday = todayDate.getUTCDay() === 0 ? -1 : 6 - todayDate.getUTCDay();
+    const weekendStart = new Date(todayDate);
+    weekendStart.setUTCDate(todayDate.getUTCDate() + untilSaturday);
+    const weekendEnd = new Date(weekendStart);
+    weekendEnd.setUTCDate(weekendStart.getUTCDate() + 1);
+    return overlaps(weekendStart.toISOString().slice(0, 10), weekendEnd.toISOString().slice(0, 10));
+  }
+  if (/^\d{4}-\d{2}-\d{2}$/.test(filter)) return overlaps(filter);
   return false;
 }
 function ageMatches(event, age) {
