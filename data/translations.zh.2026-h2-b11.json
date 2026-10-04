@@ -109,8 +109,8 @@
     {
       "id": "paloalto-2c4eef10ad333c68",
       "title": "Bike Palo Alto 骑行活动",
-      "description": "活动地点为 Fairmeadow Elementary School，500 E. Meadow Drive, Palo Alto, CA。查看地图：500 E. Meadow Drive, Palo Alto, CA。标记为“Required”的字段必须填写；Email Address 为必填项，可输入你的邮箱地址或朋友的邮箱地址，多个地址之间用逗号分隔。",
-      "sourceFingerprint": "d832fdcbf57ab27bffa2f156e8b6f04116669a41fa76059ad0404bc9caca6124",
+      "description": "今年的活动包括路线地图与路线选择、头盔适配、Safe Routes to School 安全上学路线信息、SRP Go、路线指引、自行车简单调修、免费自行车登记等。",
+      "sourceFingerprint": "b3ce7f103026f904bbb388127d1cacc3494b1682dd014b03d64c47e15f1b6c0a",
       "status": "approved",
       "translationSource": "reviewed-batch"
     },
