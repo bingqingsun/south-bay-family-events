@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-04T13:51:42.340Z",
+  "generatedAt": "2026-10-04T14:01:14.825Z",
   "configuredSources": 82,
   "directSources": 77,
   "fallbackSourcesRun": 0,
@@ -276,7 +276,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 23,
+      "failureStreak": 24,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 23,
+      "failureStreak": 24,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 23,
+      "failureStreak": 24,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -376,7 +376,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 20,
+      "failureStreak": 21,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -813,40 +813,40 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 23,
+      "failureStreak": 24,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 23,
+      "failureStreak": 24,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 23,
+      "failureStreak": 24,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Peninsula Youth Theatre",
-      "failureStreak": 20,
+      "failureStreak": 21,
       "error": "PYT official show list was not valid: 200"
     }
   ],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-10-04T13:51:42.340Z",
+    "checkedAt": "2026-10-04T14:01:14.825Z",
     "enriched": 326,
     "cached": 5,
     "identity-mismatch": 38,
     "fetch-blocked": 16,
     "fieldUpdates": {
-      "description": 11,
+      "description": 12,
       "place": 1
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-10-04T13:51:42.340Z",
+    "checkedAt": "2026-10-04T14:01:14.825Z",
     "official": 232,
     "unclassified": 149,
     "missing": 4,
