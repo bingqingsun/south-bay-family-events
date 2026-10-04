@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { assessSummaryReadability } from './event-summary-engine.mjs';
+import { assessSummaryReadability, EVENT_SUMMARY_VERSION } from './event-summary-engine.mjs';
 
 const events = JSON.parse(await readFile(new URL('../data/events.json', import.meta.url), 'utf8'));
 assert.ok(Array.isArray(events) && events.length > 0, 'events.json must contain published activities');
@@ -16,7 +16,7 @@ for (const event of events) {
   const evidence = String(event.summaryEvidence || '').replace(/\s+/g, ' ').trim();
 
   if (!allowedStatuses.has(event.summaryStatus)) violations.push(`${id}: invalid summaryStatus=${event.summaryStatus || 'missing'}`);
-  if (event.summaryVersion !== 'event-summary-v2-p4') violations.push(`${id}: summaryVersion must be event-summary-v2-p4`);
+  if (event.summaryVersion !== EVENT_SUMMARY_VERSION) violations.push(`${id}: summaryVersion must be ${EVENT_SUMMARY_VERSION}`);
   if (!event.summaryVerifiedAt) violations.push(`${id}: missing summaryVerifiedAt`);
   if (!summary) violations.push(`${id}: missing parentSummary`);
   if (event.description !== event.parentSummary) violations.push(`${id}: description must mirror parentSummary during v2 migration`);
