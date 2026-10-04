@@ -38,4 +38,14 @@ assert.ok(paloAltoVerified);
 assert.match(paloAltoVerified.description, /activities include maps and route selection/i);
 assert.match(paloAltoVerified.description, /bike mini tune-ups/i);
 
+const entityAndChromeVerified = verifySpecialEventPage(paloAltoEvent, paloAltoCandidate, `
+  <h1>Bike Palo Alto 2026</h1>
+  <p>Sunday, October 4, 2026</p>
+  <p>This year&#8217;s activities include helmet fitting, route maps, bike mini tune-ups, and free bike registration for families.</p>
+  <p>Create a website or blog at WordPress.com Subscribe Manage subscriptions Copy shortlink View post in Reader.</p>
+`);
+assert.ok(entityAndChromeVerified);
+assert.match(entityAndChromeVerified.description, /This year’s activities include/i);
+assert.doesNotMatch(entityAndChromeVerified.description, /WordPress|Manage subscriptions|Copy shortlink/i);
+
 console.log('special event page tests passed');

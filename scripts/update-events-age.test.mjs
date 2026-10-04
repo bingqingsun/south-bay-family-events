@@ -26,4 +26,10 @@ assert.equal(result.ageMin, 0);
 assert.equal(result.ageMax, 18);
 assert.equal(result.ageLabel, 'All ages');
 
+result = context.ageInfo('Teens. Everyone, young and old, novice or expert!');
+assert.deepEqual(rangesOf(result), [[0, 18]], 'explicit young-and-old wording must override broad Teen taxonomy');
+assert.equal(result.ageMin, 0);
+assert.equal(result.ageMax, 18);
+assert.equal(result.ageLabel, 'All ages');
+
 console.log('Update-events age tests passed.');

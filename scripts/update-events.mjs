@@ -391,7 +391,7 @@ function ageInfo(categories) {
   // A sentence such as “All ages are welcome” is a direct organizer audience
   // statement, not a broad category. It must take precedence over narrower
   // taxonomy chips that can appear alongside it (for example Babies/Teens).
-  const explicitUniversalAudience = /\ball[-\s]ages?\s+(?:are\s+)?(?:welcome|invited|admitted)\b|\b(?:everyone|people)\s+of\s+all\s+ages\s+(?:is|are)\s+(?:welcome|invited)\b/.test(lower);
+  const explicitUniversalAudience = /\ball[-\s]ages?\s+(?:are\s+)?(?:welcome|invited|admitted)\b|\b(?:everyone|people)\s+of\s+all\s+ages\s+(?:is|are)\s+(?:welcome|invited)\b|\beveryone\s*,?\s*young\s+and\s+old\b|\byoung\s+and\s+old\s+(?:are\s+)?(?:welcome|invited)\b/.test(lower);
   if (explicitUniversalAudience) {
     return { ageBands: ['all-ages'], ageRanges: [[0, 18]], ageMin: 0, ageMax: 18, ageLabel: 'All ages', ageSource: 'Official audience information', familyFriendly: true };
   }
