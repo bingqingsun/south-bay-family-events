@@ -101,6 +101,9 @@ jobs:
       - name: Repair grounded summary quality issues
         if: ${{ env.SKIP_REFRESH != 'true' }}
         run: node scripts/summary-quality-repair.mjs
+      - name: Re-apply approved Chinese translations
+        if: ${{ env.SKIP_REFRESH != 'true' }}
+        run: node scripts/apply-event-translations.mjs
       - name: Audit published summary provenance
         if: ${{ env.SKIP_REFRESH != 'true' }}
         env:
