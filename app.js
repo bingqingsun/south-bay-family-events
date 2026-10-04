@@ -302,6 +302,7 @@ let renderedCount = 0;
 let feedObserver = null;
 let feedGeneration = 0;
 let isAppendingBatch = false;
+let renderedFeedSnapshot = '';
 const feedSentinel = document.createElement('div');
 feedSentinel.id = 'eventFeedSentinel';
 feedSentinel.className = 'event-feed-sentinel';
@@ -409,8 +410,61 @@ function appendNextBatch(generation = feedGeneration, { observe = true } = {}) {
   requestAnimationFrame(updateMobileQuickFilterMode);
 }
 
-function render() {
-  visibleEvents = sortEvents(events.filter(event => searchMatches(event, state.query) && (state.type === 'all' || event.type === state.type) && (state.city === 'all' || event.city === state.city) && ageMatches(event, state.age) && matchingSessions(event).length && (!state.onlySaved || isSaved(event))));
+function filteredVisibleEvents() {
+  return sortEvents(events.filter(event => searchMatches(event, state.query) && (state.type === 'all' || event.type === state.type) && (state.city === 'all' || event.city === state.city) && ageMatches(event, state.age) && matchingSessions(event).length && (!state.onlySaved || isSaved(event))));
+}
+
+function feedSnapshot(list) {
+  return JSON.stringify(list.map(event => [
+    event.id,
+    matchingSessions(event).map(session => session.id || session.dateValue || session.date || session.url || '')
+  ]));
+}
+
+function captureFeedViewport() {
+  if (!renderedCount) return null;
+  const cards = [...grid.querySelectorAll('.event-card')];
+  const firstVisibleIndex = cards.findIndex(card => card.getBoundingClientRect().bottom > 0);
+  if (firstVisibleIndex < 0) return null;
+
+  // Keep the current card plus the cards after it as ordered fallback anchors.
+  // If the current activity expires during a background refresh, the next
+  // surviving activity stays at the same place on screen instead of jumping.
+  const candidates = cards.slice(firstVisibleIndex).map(card => ({
+    eventId: card.dataset.eventId || '',
+    top: card.getBoundingClientRect().top
+  })).filter(candidate => candidate.eventId);
+
+  return {
+    candidates,
+    renderedCount,
+    scrollY: window.scrollY
+  };
+}
+
+function restoreFeedViewport(anchor) {
+  if (!anchor?.candidates?.length) {
+    if (Number.isFinite(anchor?.scrollY)) window.scrollTo(0, anchor.scrollY);
+    return;
+  }
+
+  const cardsById = new Map([...grid.querySelectorAll('.event-card')].map(card => [card.dataset.eventId, card]));
+  const survivingAnchor = anchor.candidates.find(candidate => cardsById.has(candidate.eventId));
+  if (!survivingAnchor) {
+    if (Number.isFinite(anchor.scrollY)) window.scrollTo(0, anchor.scrollY);
+    return;
+  }
+
+  const target = cardsById.get(survivingAnchor.eventId);
+  const delta = target.getBoundingClientRect().top - survivingAnchor.top;
+  if (Math.abs(delta) > 1) window.scrollBy(0, delta);
+}
+
+function render({ preserveViewport = false } = {}) {
+  const viewportAnchor = preserveViewport ? captureFeedViewport() : null;
+  const previousRenderedCount = viewportAnchor?.renderedCount || 0;
+  visibleEvents = filteredVisibleEvents();
+  renderedFeedSnapshot = feedSnapshot(visibleEvents);
   feedGeneration += 1;
   const generation = feedGeneration;
   feedObserver?.disconnect();
@@ -419,11 +473,22 @@ function render() {
   grid.innerHTML = '';
   renderedCount = 0;
   feedSentinel.hidden = true;
-  if (visibleEvents.length) appendNextBatch(generation);
+
+  if (visibleEvents.length) {
+    const targetCount = preserveViewport
+      ? Math.min(visibleEvents.length, Math.max(BATCH_SIZE, previousRenderedCount))
+      : Math.min(visibleEvents.length, BATCH_SIZE);
+    while (renderedCount < targetCount) appendNextBatch(generation, { observe: false });
+    setupFeedObserver(generation);
+  }
 
   document.querySelector('#emptyState').hidden = visibleEvents.length !== 0; const active = state.query !== '' || state.type !== 'all' || state.age !== 'all' || state.city !== 'all' || state.date !== 'all' || state.onlySaved;
   document.querySelector('#emptyMessage').textContent = active ? t('emptyFiltered') : t('emptyAll'); document.querySelector('#clearFilters').hidden = !active; document.querySelector('#resultCount').textContent = state.onlySaved ? t('savedResults')(visibleEvents.length) : t('results')(visibleEvents.length); document.querySelector('#savedCount').textContent = state.saved.length;
-  const savedButton = document.querySelector('#savedButton'); savedButton.setAttribute('aria-pressed', String(state.onlySaved)); savedButton.setAttribute('aria-label', state.onlySaved ? t('showAll') : t('showSaved')); syncDateControls(); syncMobileQuickFilters(); requestAnimationFrame(updateMobileQuickFilterMode);
+  const savedButton = document.querySelector('#savedButton'); savedButton.setAttribute('aria-pressed', String(state.onlySaved)); savedButton.setAttribute('aria-label', state.onlySaved ? t('showAll') : t('showSaved')); syncDateControls(); syncMobileQuickFilters();
+  requestAnimationFrame(() => {
+    restoreFeedViewport(viewportAnchor);
+    updateMobileQuickFilterMode();
+  });
 }
 function setActiveType(type) { document.querySelectorAll('.chip').forEach(chip => { const active = chip.dataset.type === type; chip.classList.toggle('active', active); chip.setAttribute('aria-pressed', String(active)); }); }
 function syncDatePriority() { document.querySelector('.date-priority').classList.toggle('is-active', state.date !== 'all'); }
@@ -578,7 +643,11 @@ window.addEventListener('resize', scheduleMobileQuickFilterMode);
 grid.addEventListener('click', e => { const sessionToggle = e.target.closest('.sessions-inline-toggle'); if (sessionToggle) { const list = document.querySelector(`#sessions-${sessionToggle.dataset.eventId}`); const isExpanded = !list.hidden; list.hidden = isExpanded; sessionToggle.textContent = isExpanded ? t('showOtherSessions')(list.children.length) : t('hideOtherSessions'); sessionToggle.setAttribute('aria-expanded', String(!isExpanded)); return; } const toggle = e.target.closest('.description-toggle'); if (toggle) { const description = document.querySelector(`#description-${toggle.dataset.eventId}`); const isExpanded = description.classList.toggle('is-expanded'); toggle.textContent = isExpanded ? t('collapseDescription') : t('expandDescription'); toggle.setAttribute('aria-expanded', String(isExpanded)); return; } const button = e.target.closest('.heart'); if (!button) return; const id = button.dataset.id; const legacyIds = JSON.parse(button.dataset.legacyIds || '[]'); const saved = state.saved.includes(id) || legacyIds.some(legacyId => state.saved.includes(legacyId)); const saveAnalytics = JSON.parse(button.dataset.analytics || '{}'); track(saved ? 'unsave_event' : 'save_event', { ...saveAnalytics, ...selectedFilterParameters() }); state.saved = saved ? state.saved.filter(item => item !== id && !legacyIds.includes(item)) : [...state.saved.filter(item => !legacyIds.includes(item)), id]; localStorage.setItem('southBaySaved', JSON.stringify(state.saved)); render(); });
 document.querySelector('#savedButton').addEventListener('click', () => { state.onlySaved = !state.onlySaved; document.querySelector('#savedButton').classList.toggle('active', state.onlySaved); render(); document.querySelector('#events').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
 applyStaticCopy();
-function refreshExpiredEvents() { populateCityFilter(); render(); }
+function refreshExpiredEvents() {
+  populateCityFilter();
+  const nextVisibleEvents = filteredVisibleEvents();
+  if (feedSnapshot(nextVisibleEvents) !== renderedFeedSnapshot) render({ preserveViewport: true });
+}
 fetch(`${assetBase}/data/events.json`).then(response => {
   if (!response.ok) throw new Error(`Unable to load events.json: ${response.status}`);
   const lastModified = response.headers.get('last-modified');
@@ -596,8 +665,8 @@ fetch(`${assetBase}/data/events.json`).then(response => {
 }).finally(() => {
   renderUpdateTime();
   migrateSavedSeries(); populateAgeFilter(); refreshExpiredEvents();
-  // A page can remain open while a session ends. Re-evaluate in Pacific time
-  // so cards, saved results, and counts do not wait for a full browser reload.
-  window.setInterval(refreshExpiredEvents, 60 * 1000);
+  // Check once on initial load, whenever the user returns from the background,
+  // and at most hourly while the page stays continuously open.
+  window.setInterval(refreshExpiredEvents, 60 * 60 * 1000);
   document.addEventListener('visibilitychange', () => { if (!document.hidden) refreshExpiredEvents(); });
 });
