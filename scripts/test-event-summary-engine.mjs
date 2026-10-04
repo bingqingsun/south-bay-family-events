@@ -131,6 +131,13 @@ assert.match(paloAltoSummary.summary, /Explore Palo Alto’s parks/i,
   'a clean activity sentence must beat adjacent CMS page chrome');
 assert.doesNotMatch(paloAltoSummary.summary, /Email Address|View Map|Fields marked/i);
 
+const bikePaloAltoOfficial = "Enjoy the Fairmeadow event fair. This year’s activities include maps and route selection, Helmet fitting, Safe Routes to School information, SRP Go, Wayfinding, Bike Mini Tune-ups, free bike registration, and more. Palo Alto is a bike-friendly place, especially when you know the best bicycle routes to get around. Join us for a happy afternoon of discovery and fun on bikes. Though riding a bike is surprisingly cool, we recommend preparing for warm weather. Bring a water bottle, a hat, sunscreen, a bike lock, and a bike helmet. Register online to save time or at the event. Select a route map and ride! All rides are self-guided.";
+const bikePaloAltoSummary = buildExtractiveSummary(bikePaloAltoOfficial, { title: 'Bike Palo Alto' });
+assert.match(bikePaloAltoSummary.summary, /activities include maps and route selection/i,
+  'concrete event-content lists must outrank preparation and weather guidance');
+assert.match(bikePaloAltoSummary.summary, /Helmet fitting|Bike Mini Tune-ups/i);
+assert.doesNotMatch(bikePaloAltoSummary.summary, /warm weather|water bottle|sunscreen/i);
+
 assert.equal(
   buildExtractiveSummary('Bright colors and lots of little friends may make the area visually busy. Texture: Different stations may include sticky tape and other unusual textures.').summary,
   '',
@@ -264,7 +271,7 @@ const summaryRecord = buildSummaryRecord({
   status: 'extractive',
   verifiedAt: '2026-09-19T00:00:00.000Z'
 });
-assert.equal(summaryRecord.summaryVersion, 'event-summary-v2-p5');
+assert.equal(summaryRecord.summaryVersion, 'event-summary-v2-p6');
 assert.equal(summaryRecord.parentSummary, timeSegments[0]);
 
 const retainedLegacyExtractive = upgradeSummaryRecordVersion({
@@ -277,7 +284,7 @@ const retainedLegacyExtractive = upgradeSummaryRecordVersion({
   summaryVersion: 'event-summary-v2-p4',
   summaryVerifiedAt: '2026-10-01T00:00:00.000Z'
 }, { verifiedAt: '2026-10-04T00:00:00.000Z' });
-assert.equal(retainedLegacyExtractive.summaryVersion, 'event-summary-v2-p5');
+assert.equal(retainedLegacyExtractive.summaryVersion, 'event-summary-v2-p6');
 assert.match(retainedLegacyExtractive.parentSummary, /Explore Palo Alto’s parks/i);
 assert.doesNotMatch(retainedLegacyExtractive.parentSummary, /Email Address|View Map|Fields marked/i);
 
@@ -290,7 +297,7 @@ const retainedManual = upgradeSummaryRecordVersion({
   summaryVersion: 'event-summary-v2-p4',
   summaryVerifiedAt: '2026-10-01T00:00:00.000Z'
 }, { verifiedAt: '2026-10-04T00:00:00.000Z' });
-assert.equal(retainedManual.summaryVersion, 'event-summary-v2-p5');
+assert.equal(retainedManual.summaryVersion, 'event-summary-v2-p6');
 assert.equal(retainedManual.parentSummary, 'A verified family performance.');
 assert.equal(summaryRecord.parentSummary, timeSegments[0]);
 assert.equal(summaryRecord.summaryEvidence, summaryRecord.parentSummary);
