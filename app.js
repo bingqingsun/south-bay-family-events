@@ -55,7 +55,10 @@ const categoryLabels = { sports: ['体育与比赛', 'Sports & games'], shows: [
 // artwork always wins; these are used only when a verified source has none.
 const fallbackImageType = { sports: 'sports', shows: 'shows', movies: 'shows', museums: 'museums', play: 'play', workshops: 'workshops' };
 function optimizedOfficialImageUrl(value, source = '') {
-  if (!value || !/^https?:\/\//i.test(value)) return value || '';
+  if (!value) return '';
+  if (/^\/assets\//i.test(value)) return value;
+  if (/^assets\//i.test(value)) return `${assetBase}/${value}`;
+  if (!/^https?:\/\//i.test(value)) return value;
   try {
     const url = new URL(value);
     // Cupertino's calendar card exposes a 100px thumbnail even though the
