@@ -19,8 +19,10 @@
     return `${assetBase}/assets/fallback/${fallbackType[event.type] || event.type || 'community'}.png?v=20260830-1`;
   }
   function officialImage(event) {
-    if (event.imageStatus === 'generated-editorial' && /^\/assets\/generated\//.test(event.image || '')) return event.image;
-    if (!event.image || !/^https?:\/\//i.test(event.image)) return '';
+    if (!event.image) return '';
+    if (/^\/assets\//i.test(event.image)) return event.image;
+    if (/^assets\//i.test(event.image)) return `${assetBase}/${event.image}`;
+    if (!/^https?:\/\//i.test(event.image)) return '';
     try {
       const url = new URL(event.image);
       if (url.hostname.endsWith('cupertino.gov') && (url.searchParams.get('dimension') === 'smallthumbnail' || Number(url.searchParams.get('w')) <= 100)) url.search = '';
