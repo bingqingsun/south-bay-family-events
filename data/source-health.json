@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-04T06:00:44.043Z",
+  "generatedAt": "2026-10-04T13:51:42.340Z",
   "configuredSources": 82,
   "directSources": 77,
   "fallbackSourcesRun": 0,
@@ -165,7 +165,7 @@
       "method": "gilroy",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 12,
+      "eventCount": 11,
       "failureStreak": 0,
       "error": ""
     },
@@ -185,7 +185,7 @@
       "method": "deanza",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 31,
+      "eventCount": 29,
       "failureStreak": 0,
       "error": ""
     },
@@ -205,7 +205,7 @@
       "method": "stanford",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 1,
+      "eventCount": 2,
       "failureStreak": 0,
       "error": ""
     },
@@ -215,7 +215,7 @@
       "method": "nhl",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 41,
+      "eventCount": 40,
       "failureStreak": 0,
       "error": ""
     },
@@ -255,7 +255,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 22,
+      "eventCount": 17,
       "failureStreak": 0,
       "error": ""
     },
@@ -276,7 +276,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 22,
+      "failureStreak": 23,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 22,
+      "failureStreak": 23,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 22,
+      "failureStreak": 23,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -305,7 +305,7 @@
       "method": "southfirstfridays",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 1,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -376,7 +376,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 19,
+      "failureStreak": 20,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -385,7 +385,7 @@
       "method": "barracuda",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 36,
+      "eventCount": 35,
       "failureStreak": 0,
       "error": ""
     },
@@ -635,7 +635,7 @@
       "method": "curated",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 1,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -813,42 +813,41 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 22,
+      "failureStreak": 23,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 22,
+      "failureStreak": 23,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 22,
+      "failureStreak": 23,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Peninsula Youth Theatre",
-      "failureStreak": 19,
+      "failureStreak": 20,
       "error": "PYT official show list was not valid: 200"
     }
   ],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-10-04T06:00:44.043Z",
-    "enriched": 324,
+    "checkedAt": "2026-10-04T13:51:42.340Z",
+    "enriched": 326,
     "cached": 5,
     "identity-mismatch": 38,
     "fetch-blocked": 16,
     "fieldUpdates": {
       "description": 11,
-      "image": 7,
       "place": 1
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-10-04T06:00:44.043Z",
-    "official": 230,
+    "checkedAt": "2026-10-04T13:51:42.340Z",
+    "official": 232,
     "unclassified": 149,
     "missing": 4,
     "failure:official_page_fetch_blocked": 3,
