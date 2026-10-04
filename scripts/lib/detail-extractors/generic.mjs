@@ -28,6 +28,22 @@ export function htmlAttribute(html, pattern) {
   return decodeHtml(match?.[1] || '').trim();
 }
 
+function pairedAttribute(tag, name) {
+  const pattern = new RegExp('\\b' + name + '\\s*=\\s*(["\\\'])([\\s\\S]*?)\\1', 'i');
+  const match = String(tag || '').match(pattern);
+  return decodeHtml(match?.[2] || '').trim();
+}
+
+function metaContent(html, propertyPattern) {
+  for (const match of String(html || '').matchAll(/<meta\b[^>]*>/gi)) {
+    const tag = match[0];
+    const key = pairedAttribute(tag, 'property') || pairedAttribute(tag, 'name');
+    if (!propertyPattern.test(key)) continue;
+    return pairedAttribute(tag, 'content');
+  }
+  return '';
+}
+
 function eventNodes(value) {
   if (Array.isArray(value)) return value.flatMap(eventNodes);
   if (!value || typeof value !== 'object') return [];
@@ -163,8 +179,7 @@ export function extractDescription({ html, schema }) {
   };
   const schemaDescription = useful(schema?.description || '');
   if (schemaDescription) return { value: schemaDescription, method: 'schema.org' };
-  const meta = htmlAttribute(html, /<meta\s+(?:name|property)=["'](?:description|og:description)["']\s+content=["']([^"']+)/i)
-    || htmlAttribute(html, /<meta\s+content=["']([^"']+)["']\s+(?:name|property)=["'](?:description|og:description)["']/i);
+  const meta = metaContent(html, /^(?:description|og:description)$/i);
   const value = useful(meta);
   return { value, method: value ? 'meta-description' : '' };
 }
@@ -203,10 +218,12 @@ export function extractImageCandidates({ html, schema, baseUrl, title = '', allo
   // Strong body evidence: an image whose alt text identifies the event.
   for (const match of String(html || '').matchAll(/<img\b[^>]*>/gi)) {
     const tag = match[0];
-    const alt = decodeHtml(tag.match(/\balt=["']([^"']*)["']/i)?.[1] || '');
+    const alt = pairedAttribute(tag, 'alt');
     if (!title || !alt || !sameEventIdentity(title, alt)) continue;
-    const raw = tag.match(/\b(?:src|data-src|data-lazy-src)=["']([^"']+)["']/i)?.[1]
-      || tag.match(/\bsrcset=["']([^"']+)["']/i)?.[1]?.split(',').at(-1)?.trim().split(/\s+/)[0]
+    const raw = pairedAttribute(tag, 'src')
+      || pairedAttribute(tag, 'data-src')
+      || pairedAttribute(tag, 'data-lazy-src')
+      || pairedAttribute(tag, 'srcset')?.split(',').at(-1)?.trim().split(/\s+/)[0]
       || '';
     add(raw, 'event-image', 85, 'image-alt-matches-event');
   }
@@ -223,17 +240,17 @@ export function extractImageCandidates({ html, schema, baseUrl, title = '', allo
     const images = [...container.matchAll(/<img\b[^>]*>/gi)];
     if (images.length !== 1) continue;
     const tag = images[0][0];
-    const raw = tag.match(/\b(?:src|data-src|data-lazy-src)=["']([^"']+)["']/i)?.[1]
-      || tag.match(/\bsrcset=["']([^"']+)["']/i)?.[1]?.split(',').at(-1)?.trim().split(/\s+/)[0]
+    const raw = pairedAttribute(tag, 'src')
+      || pairedAttribute(tag, 'data-src')
+      || pairedAttribute(tag, 'data-lazy-src')
+      || pairedAttribute(tag, 'srcset')?.split(',').at(-1)?.trim().split(/\s+/)[0]
       || '';
     add(raw, 'card-dom-bound', 85, 'same-card-title-link-image');
   }
 
-  const rawOg = htmlAttribute(html, /<meta\s+(?:property|name)=["'](?:og:image|twitter:image)["']\s+content=["']([^"']+)/i)
-    || htmlAttribute(html, /<meta\s+content=["']([^"']+)["']\s+(?:property|name)=["'](?:og:image|twitter:image)["']/i);
-  const ogAlt = htmlAttribute(html, /<meta\s+(?:property|name)=["'](?:og:image:alt|twitter:image:alt)["']\s+content=["']([^"']+)/i);
-  const ogTitle = htmlAttribute(html, /<meta\s+(?:property|name)=["']og:title["']\s+content=["']([^"']+)/i)
-    || htmlAttribute(html, /<meta\s+content=["']([^"']+)["']\s+(?:property|name)=["']og:title["']/i);
+  const rawOg = metaContent(html, /^(?:og:image|twitter:image)$/i);
+  const ogAlt = metaContent(html, /^(?:og:image:alt|twitter:image:alt)$/i);
+  const ogTitle = metaContent(html, /^og:title$/i);
   const og = asUrl(rawOg);
   const pathText = (() => { try { return decodeURIComponent(new URL(og).pathname).replace(/[-_]+/g, ' '); } catch { return ''; } })();
   if (og && (allowGenericOgWhenMissing || (title && (sameEventIdentity(title, ogAlt) || sameEventIdentity(title, pathText) || sameEventIdentity(title, ogTitle))))) {
