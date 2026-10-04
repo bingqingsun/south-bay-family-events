@@ -5,6 +5,7 @@ import { EVENT_SUMMARY_VERSION } from './event-summary-engine.mjs';
 
 const eventsUrl = new URL('../data/events.json', import.meta.url);
 const supplementsUrl = new URL('../data/event-supplements.json', import.meta.url);
+const sourcesUrl = new URL('../data/sources.json', import.meta.url);
 
 const CATEGORY_META = Object.freeze({
   shows: { icon: '🎭', color: '#f0def2', tag: '演出与表演' },
@@ -128,6 +129,47 @@ function mergeVerifiedReplacement(existing, supplement) {
   };
 }
 
+
+export function applyCuratedImageOverrides(events, sources) {
+  const output = Array.isArray(events) ? events.map((event) => ({ ...event })) : [];
+  let applied = 0;
+
+  for (const source of sources || []) {
+    for (const item of source.events || []) {
+      if (!item?.image || !item?.imageOverride) continue;
+      const targetTitle = normalizeTitle(item.title);
+      const targetDate = dateKey(item.dateValue);
+      const targetSource = String(source.name || '').trim();
+
+      for (let index = 0; index < output.length; index += 1) {
+        const event = output[index];
+        if (normalizeTitle(event.title) !== targetTitle) continue;
+        if (targetDate && dateKey(event.dateValue) !== targetDate) continue;
+        if (targetSource && String(event.source || '').trim() !== targetSource) continue;
+
+        const override = typeof item.imageOverride === 'object' ? item.imageOverride : {};
+        output[index] = {
+          ...event,
+          image: item.image,
+          imageStatus: 'official',
+          imageFailureReason: '',
+          imageProvenance: {
+            source: 'curated-manual',
+            method: 'manual_verified',
+            sourceUrl: override.sourceUrl || source.feedUrl || event.url || '',
+            verifiedAt: override.verifiedAt || new Date().toISOString(),
+            score: 100,
+            evidence: override.evidence || 'first-party-curated-official-image'
+          }
+        };
+        applied += 1;
+      }
+    }
+  }
+
+  return { events: output, applied };
+}
+
 export function mergeEventSupplements(events, supplements) {
   const output = Array.isArray(events) ? events.map((event) => ({ ...event })) : [];
   for (const item of supplements || []) {
@@ -159,9 +201,12 @@ export function mergeEventSupplements(events, supplements) {
 async function run() {
   const events = JSON.parse(await readFile(eventsUrl, 'utf8'));
   const supplements = JSON.parse(await readFile(supplementsUrl, 'utf8'));
+  const sources = JSON.parse(await readFile(sourcesUrl, 'utf8'));
   const merged = mergeEventSupplements(events, supplements);
-  await writeFile(eventsUrl, `${JSON.stringify(merged, null, 2)}\n`);
-  console.log(`Applied ${supplements.length} verified event supplement(s); canonical count ${events.length} -> ${merged.length}`);
+  const overridden = applyCuratedImageOverrides(merged, sources);
+  await writeFile(eventsUrl, `${JSON.stringify(overridden.events, null, 2)}\n`);
+  console.log(`Applied ${supplements.length} verified event supplement(s); canonical count ${events.length} -> ${overridden.events.length}`);
+  console.log(`Applied ${overridden.applied} curated official image override(s)`);
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
