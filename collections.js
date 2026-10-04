@@ -239,10 +239,6 @@
     const generatedEditorial = event.imageStatus === 'generated-editorial';
     imageBadge.hidden = !generatedEditorial;
     imageBadge.textContent = generatedEditorial ? (isZh ? '主题插画' : 'Illustration') : '';
-    if (generatedEditorial) {
-      imageArea.setAttribute('role', 'img');
-      imageArea.setAttribute('aria-label', isZh ? `${eventText(event, 'title') || event.title} 的主题插画` : `Illustration for ${event.title}`);
-    }
 
     node.querySelector('.event-icon').textContent = event.icon || '✦';
     node.querySelector('.tag').textContent = categoryLabels[event.type] || event.tag || 'Family activity';
