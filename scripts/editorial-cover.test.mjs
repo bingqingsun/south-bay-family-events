@@ -22,6 +22,10 @@ const events = [
 const usage = buildImageUsage(events);
 assert.equal(editorialCoverReason(events[0], usage), 'generic_source_placeholder');
 assert.equal(editorialCoverReason(events[3], usage), '');
+assert.equal(editorialCoverReason({
+  id:'og', title:'Official repeated event art', image:generic, imageStatus:'official',
+  imageProvenance:{source:'canonical-detail',method:'og:image',evidence:'og-title-matches-event'}
+}, usage), '');
 assert.equal(editorialCoverReason({ id:'x', title:'No image', image:'', imageStatus:'missing' }, usage), 'missing_image');
 assert.equal(editorialCoverReason({
   id:'legacy', title:'Legacy', image:'https://example.org/hero.jpg', imageStatus:'official',
