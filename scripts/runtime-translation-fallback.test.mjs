@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 
 // Release guard: keep stale/missing Chinese translations on the safe English fallback path.
 for (const file of ['app.js', 'collections.js']) {
@@ -17,10 +17,10 @@ assert.match(translationPipeline, /entry\.sourceFingerprint !== fingerprint/);
 assert.match(translationPipeline, /event\.translationStatus = 'stale'/);
 assert.match(translationPipeline, /translationSource: entry\.translationSource \|\| 'reviewed-sidecar'/);
 
-// Event refresh and translation review are intentionally separate pipelines.
-// The 10 PM event refresh must not invoke translation generation or require
-// an OpenAI key. Missing/stale Chinese safely falls back to English until
-// the 10:30 PM translation workflow updates the reviewed sidecars.
+// Event refresh and translation review are intentionally separate. The 10 PM
+// GitHub refresh may re-apply already approved local translations, but must not
+// generate translations or require any OpenAI API key. New/stale translations
+// are reviewed and written by the assistant-managed nightly task.
 const updateEvents = await readFile(new URL('./update-events.mjs', import.meta.url), 'utf8');
 assert.match(updateEvents, /loadChineseTranslationCatalogs/);
 assert.match(updateEvents, /applyChineseTranslationCatalog\(events, translationCatalog/);
@@ -34,20 +34,12 @@ assert.match(dailyWorkflow, /github\.event\.schedule/);
 assert.match(dailyWorkflow, /nominal_utc/);
 assert.doesNotMatch(dailyWorkflow, /TZ=America\/Los_Angeles date \+%H/);
 
-const nightlyTranslationWorkflow = await readFile(new URL('../.github/workflows/nightly-translations.yml', import.meta.url), 'utf8');
-assert.match(nightlyTranslationWorkflow, /Refresh Chinese translations/);
-assert.match(nightlyTranslationWorkflow, /cron: '30 5 \* \* \*'/);
-assert.match(nightlyTranslationWorkflow, /cron: '30 6 \* \* \*'/);
-assert.match(nightlyTranslationWorkflow, /OPENAI_API_KEY/);
-assert.match(nightlyTranslationWorkflow, /automatic Chinese translation cannot run/);
-assert.match(nightlyTranslationWorkflow, /\.github\/workflows\/nightly-translations\.yml/);
-assert.match(nightlyTranslationWorkflow, /generate-chinese-translations\.mjs/);
-assert.match(nightlyTranslationWorkflow, /build-translation-overlay\.mjs/);
-assert.match(nightlyTranslationWorkflow, /apply-event-translations\.mjs/);
-assert.match(nightlyTranslationWorkflow, /translation-qa\.mjs/);
-assert.match(nightlyTranslationWorkflow, /github\.event\.schedule/);
-assert.match(nightlyTranslationWorkflow, /nominal_utc/);
-assert.doesNotMatch(nightlyTranslationWorkflow, /TZ=America\/Los_Angeles date \+%H/);
-assert.doesNotMatch(nightlyTranslationWorkflow, /Xenova\/opus-mt-en-zh|@huggingface\/transformers|generate-event-translations\.mjs/);
+const workflowDir = new URL('../.github/workflows/', import.meta.url);
+const workflowNames = (await readdir(workflowDir)).filter(name => /\.ya?ml$/i.test(name));
+for (const name of workflowNames) {
+  const workflow = await readFile(new URL(name, workflowDir), 'utf8');
+  assert.doesNotMatch(workflow, /OPENAI_API_KEY/);
+}
+assert.ok(!workflowNames.includes('nightly-translations.yml'));
 
 console.log('runtime translation fallback safety passed');
