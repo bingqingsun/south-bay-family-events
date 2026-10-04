@@ -4,6 +4,8 @@ import { eventDetailSlugCandidates } from './lib/detail-url.mjs';
 const cases = [
   ['Nutcracker! Magical Christmas Ballet', 'nutcracker-magical-christmas-ballet'],
   ['The San Jose Nutcracker', 'san-jose-nutcracker'],
+  ['The San Jose Nutcracker – New Ballet & Symphony San Jose', 'san-jose-nutcracker'],
+  ['Family Magic Show | Hammer Theatre', 'family-magic-show'],
   ['The Original San Jose Nutcracker', 'original-san-jose-nutcracker'],
   ['A Magical Cirque Christmas', 'magical-cirque-christmas'],
   ['Derek Hough Dance For The Holidays', 'derek-hough-dance-holidays'],
