@@ -1,6 +1,7 @@
-// Resolve a calendar listing to a richer, same-domain official event page.
-// This deliberately does not use web search: a candidate must be discoverable
-// from the organizer's own sitemap and independently match the listing.
+// Resolve a calendar listing to a richer verified event page. A source may
+// use its own domain or explicitly allow an organizer-owned companion domain.
+// This deliberately does not use web search: every configured or sitemap
+// candidate must independently match the listing by title, date, and content.
 const STOP_WORDS = new Set(['annual', 'city', 'community', 'cupertino', 'event', 'events', 'fall', 'the']);
 const NON_SPECIAL_PATH = /\/(?:events?-directory|news-articles|home\/featured-content)(?:\/|$)/i;
 
@@ -23,6 +24,18 @@ function sharedCount(left, right) {
 
 function locsFromSitemap(xml) {
   return [...String(xml || '').matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)].map(match => match[1].trim());
+}
+
+export function approvedSpecialEventUrl(value, domains = []) {
+  try {
+    const hostname = new URL(value).hostname.toLowerCase().replace(/^www\./, '');
+    return (domains || []).some(domain => {
+      const allowed = String(domain || '').toLowerCase().replace(/^www\./, '');
+      return allowed && (hostname === allowed || hostname.endsWith(`.${allowed}`));
+    });
+  } catch {
+    return false;
+  }
 }
 
 export function sitemapCandidates(xml, event, { domain, maxCandidates = 4 } = {}) {
@@ -67,11 +80,11 @@ function pageTitle(html) {
 }
 
 function pageDescription(html) {
-  const paragraphs = [...String(html || '').matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)]
+  const blocks = [...String(html || '').matchAll(/<(?:p|li|td|dd)\b[^>]*>([\s\S]*?)<\/(?:p|li|td|dd)>/gi)]
     .map(match => plainText(match[1]))
-    .filter(text => text.length >= 50)
-    .filter(text => !/^(?:schedule|participant registration|volunteers|getting to)\b/i.test(text));
-  return paragraphs.join(' ').slice(0, 4000).trim();
+    .filter(text => text.length >= 35)
+    .filter(text => !/^(?:schedule|participant registration|volunteers|getting to|privacy|terms|contact us)\b/i.test(text));
+  return blocks.join(' ').slice(0, 5000).trim();
 }
 
 export function verifySpecialEventPage(event, candidate, html) {
