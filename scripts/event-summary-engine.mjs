@@ -39,6 +39,8 @@ const ACTIVITY_CONTENT_NOUN = /\b(?:yoga|music|movement|food|shopping|storytelli
 const ABSTRACT_ACTIVITY_COPY = /\b(?:explore new ways to play and learn|engaging and fun activities|variety of activities|nurture curiosity and discover new things|designed to engage children through)\b/i;
 const DIRECT_PARTICIPATION_ACTION = /(?:^(?:come\b[^.!?]{0,80}\band\s+)?(?:follow|find|collect|trick[- ]or[- ]treat(?:ing)?)\b|\b(?:you|families|kids|children|visitors|participants|attendees|guests?)\b[^.!?]{0,100}\b(?:can|will|are invited to|are welcome to)?\s*(?:follow|find|collect|trick[- ]or[- ]treat(?:ing)?)\b)/i;
 const SUPPORT_ACTIVITY = /\b(?:homework help|tutoring|tutors?|study help|academic support)\b/i;
+const CONTENT_LIST_SIGNAL = /\b(?:activities?|program(?:ming)?|event)\s+(?:include|includes|feature|features|offer|offers)\b/i;
+const PREPARATION_LOGISTICS = /\b(?:recommend(?:ed|ing)?|prepare|preparing|bring|wear|remember to bring)\b[^.!?]{0,180}\b(?:water bottle|sunscreen|sunblock|hat|helmet|bike lock|layers?|jacket|weather|closed[- ]toe shoes?|comfortable shoes?)\b/i;
 
 const CONTINUATION_START = /^(?:and|or|but|because|which|that|who|whose|where|when|while|until|with|without|from|by|including|such as)\b/i;
 const DANGLING_INFINITIVE = /^to\s+[a-z]+\b/i;
@@ -119,6 +121,7 @@ export function isLogisticsOnly(text) {
     || SENSORY_OR_ACCESSIBILITY_DETAIL.test(value)
     || ADMINISTRATIVE_COPY.test(value)
     || PAGE_CHROME_COPY.test(value)
+    || PREPARATION_LOGISTICS.test(value)
     || (LOGISTICS.test(value) && !CONCRETE_ACTION.test(value));
 }
 
@@ -148,6 +151,7 @@ export function hasActivitySignal(text) {
     || CONCRETE_ACTION.test(value)
     || DIRECT_PARTICIPATION_ACTION.test(value)
     || SUPPORT_ACTIVITY.test(value)
+    || CONTENT_LIST_SIGNAL.test(value)
     || (EVENT_NOUN.test(value) && EXPERIENCE_STRUCTURE.test(value));
 }
 
@@ -241,6 +245,7 @@ function scoreSentence(sentence, index) {
   if (CONCRETE_ACTION.test(sentence)) score += 22;
   if (DIRECT_PARTICIPATION_ACTION.test(sentence)) score += 32;
   if (SUPPORT_ACTIVITY.test(sentence)) score += 14;
+  if (CONTENT_LIST_SIGNAL.test(sentence)) score += 28;
   if (PARTICIPATION_SIGNAL.test(sentence)) score += 8;
   if (SPECIFIC_OBJECT.test(sentence)) score += 8;
   if (/\b(?:by|while|then|and)\b/i.test(sentence) && CONCRETE_ACTION.test(sentence)) score += 3;
