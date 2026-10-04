@@ -155,6 +155,7 @@ jobs:
           node scripts/detail-enrichment.test.mjs
           node scripts/canonical-detail-pipeline.test.mjs
           node scripts/editorial-cover.test.mjs
+          node scripts/curated-image-contract.test.mjs
           node scripts/curated-image-integrity.test.mjs
           node scripts/special-event-pages.test.mjs
           node scripts/linked-official-detail.test.mjs
