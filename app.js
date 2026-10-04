@@ -361,7 +361,7 @@ function renderEventCard(event, eventIndex, generation) {
     setCardImage(image);
     if (officialImage) { const imageProbe = new Image(); imageProbe.onerror = () => setCardImage(fallbackImage); imageProbe.src = officialImage; }
   }
-  const imageBadge = node.querySelector('.image-provenance-badge'); const generatedEditorial = event.imageStatus === 'generated-editorial'; imageBadge.hidden = !generatedEditorial; imageBadge.textContent = generatedEditorial ? (state.language === 'zh' ? '主题插画' : 'Illustration') : ''; if (generatedEditorial) { imageArea.setAttribute('role', 'img'); imageArea.setAttribute('aria-label', state.language === 'zh' ? `${eventText(event, 'title') || event.title} 的主题插画` : `Illustration for ${event.title}`); }
+  const imageBadge = node.querySelector('.image-provenance-badge'); const generatedEditorial = event.imageStatus === 'generated-editorial'; imageBadge.hidden = !generatedEditorial; imageBadge.textContent = generatedEditorial ? (state.language === 'zh' ? '主题插画' : 'Illustration') : '';
   node.querySelector('.event-icon').textContent = event.icon; const tag = node.querySelector('.tag'); tag.textContent = categoryLabel(event);
   const titleNode = node.querySelector('h3');
   const localizedTitle = state.language === 'zh' ? eventText(event, 'title') : '';
