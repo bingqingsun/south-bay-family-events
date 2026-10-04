@@ -2170,7 +2170,8 @@ async function readMontalvo(source) {
     const title = decodeXml(item.name || '');
     const url = item.url || '';
     const dateValue = item.startDate || '';
-    if (!title || !url || !isUpcoming(dateValue)) return null;
+    const endDateValue = item.endDate || '';
+    if (!title || !url || !isUpcoming(dateValue, endDateValue)) return null;
     try {
       const detailResponse = await fetch(url, { headers, signal: AbortSignal.timeout(15000) });
       const detail = await detailResponse.text();
@@ -2181,7 +2182,7 @@ async function readMontalvo(source) {
       if (!hasUsableSourceContent(description)) return null;
       const image = decodeXml(detail.match(/tn-production-season-detail-page__image[^>]+src=["']([^"']+)/i)?.[1] || item.image || '');
       return directEvent({
-        id: 'montalvo-' + createHash('sha256').update(`${url}|${dateValue}`).digest('hex').slice(0, 16), title, dateValue,
+        id: 'montalvo-' + createHash('sha256').update(`${url}|${dateValue}`).digest('hex').slice(0, 16), title, dateValue, endDateValue,
         description, image, place: 'Montalvo Arts Center', address: source.address || '', city: source.city || '',
         source: source.name, url, ageText: `${title} ${detailText}`, format: 'live-show'
       });
@@ -2971,11 +2972,12 @@ async function readHappyHollow(source) {
     const title = plainText(block.match(/class=["'][^"']*simcal-event-title[^"']*["'][^>]*>([\s\S]*?)<\//i)?.[1] || '');
     const description = plainText(block.match(/class=["'][^"']*simcal-event-description[^"']*["'][^>]*>([\s\S]*?)<\/div>/i)?.[1] || '');
     const dateValue = htmlAttribute(block, /itemprop=["']startDate["']\s+content=["']([^"']+)["']/i);
+    const endDateValue = htmlAttribute(block, /itemprop=["']endDate["']\s+content=["']([^"']+)["']/i);
     const image = htmlAttribute(block, /<img[^>]+src=["']([^"']+)["']/i);
     const text = `${title} ${description}`;
-    if (!title || !isUpcoming(dateValue) || /^today'?s hours/i.test(title) || /\bhours?\b/i.test(title) || !youthSignal.test(text) || /\b(?:gala|fundraiser|senior)\b/i.test(text)) return [];
+    if (!title || !isUpcoming(dateValue, endDateValue) || /^today'?s hours/i.test(title) || /\bhours?\b/i.test(title) || !youthSignal.test(text) || /\b(?:gala|fundraiser|senior)\b/i.test(text)) return [];
     const event = directEvent({
-      id: 'happyhollow-' + createHash('sha256').update(`${title}|${dateValue}|${index}`).digest('hex').slice(0, 16), title, dateValue, description,
+      id: 'happyhollow-' + createHash('sha256').update(`${title}|${dateValue}|${index}`).digest('hex').slice(0, 16), title, dateValue, endDateValue, description,
       image: image ? new URL(image, source.feedUrl).href : '', place: source.name, address: source.address || '', city: source.city || '',
       source: source.name, url: source.feedUrl, ageText: text
     });
@@ -2999,8 +3001,9 @@ async function readGilroyGardens(source) {
   const seeds = [...new Map(schemaEvents.flatMap(item => {
     const title = decodeXml(item.name || '').trim();
     const dateValue = String(item.startDate || '');
-    if (!title || !isUpcoming(dateValue) || /^(?:regular )?park hours$/i.test(title)) return [];
-    return [[`${title}|${dateValue}`, { title, dateValue }]];
+    const endDateValue = String(item.endDate || '');
+    if (!title || !isUpcoming(dateValue, endDateValue) || /^(?:regular )?park hours$/i.test(title)) return [];
+    return [[`${title}|${dateValue}`, { title, dateValue, endDateValue }]];
   })).values()];
   const detailsByTitle = new Map();
   await Promise.all([...new Set(seeds.map(seed => seed.title.toLowerCase()))].map(async normalizedTitle => {
@@ -3034,7 +3037,7 @@ async function readGilroyGardens(source) {
     if (!detail) return [];
     const event = directEvent({
       id: 'gilroy-' + createHash('sha256').update(`${seed.title}|${seed.dateValue}`).digest('hex').slice(0, 16),
-      title: seed.title, dateValue: seed.dateValue, description: detail.description, image: detail.image,
+      title: seed.title, dateValue: seed.dateValue, endDateValue: seed.endDateValue, description: detail.description, image: detail.image,
       place: source.name, address: source.address || '', city: source.city || '', source: source.name, url: detail.url,
       ageText: `${seed.title} ${detail.description} ${detail.detailText}`
     });
