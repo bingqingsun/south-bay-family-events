@@ -11,6 +11,7 @@ const CORE_ACTIVITY = /\b(?:make|build|create|paint|decorate|craft|play|watch|re
 const GENERIC_EXPERIENCE = /\b(?:family[- ]friendly|interactive|immersive|magical|special|fun)\b[^.!?]{0,100}\bexperience\b/i;
 const SECONDARY_ONLY = /^(?:there (?:will|is|are) (?:be )?.*\b(?:after|following)\b|after\s+(?:storytime|the\s+program|the\s+event|the\s+show|the\s+class)\b|following\s+(?:storytime|the\s+program|the\s+event|the\s+show|the\s+class)\b)|\b\d+\s+minutes?\s+followed by\b/i;
 const ADMINISTRATIVE_MEMBERSHIP = /\b(?:annual membership rates?|membership rates?|join or renew membership|ongoing bookstore hours?|regular bookstore hours?|proceeds help fund)\b/i;
+const PAGE_CHROME_COPY = /(?:^|\b)(?:find (?:more )?details?\s+(?:at|here|on)\b|view map\b|email address\b|fields marked as ['’\"]?required['’\"]?\b|enter your email address\b|share this page\b|send this page\b|back to top\b|site footer\b)/i;
 const LIMITED_DETAIL = /\b(?:giveaway|giving away|special guest|guest appearance|free (?:books?|tote bags?|bulbs?|souvenirs?|gifts?))\b/i;
 const DATE_DETAIL = /\b(?:on\s+)?(?:january|february|march|april|may|june|july|august|september|october|november|december)\s+\d{1,2}\b|\b(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday),?\s+(?:january|february|march|april|may|june|july|august|september|october|november|december)\b/i;
 const OVERVIEW_SIGNAL = /\b(?:event|festival|celebration|experience)\b/i;
@@ -42,6 +43,7 @@ export function semanticSummaryIssues(event) {
   if (GENERIC_EXPERIENCE.test(text) && !CORE_ACTIVITY.test(text)) issues.push('generic_experience_without_activity');
   if (SECONDARY_ONLY.test(text)) issues.push('secondary_followup_only');
   if (ADMINISTRATIVE_MEMBERSHIP.test(text)) issues.push('administrative_membership_copy');
+  if (PAGE_CHROME_COPY.test(text)) issues.push('page_chrome_copy');
   if (text.length > 520) issues.push('overlong_card_summary');
   if (DATE_DETAIL.test(text) && LIMITED_DETAIL.test(text) && hasBroaderOverview(event, text)) {
     issues.push('limited_subevent_over_parent_overview');
