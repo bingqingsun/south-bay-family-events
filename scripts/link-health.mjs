@@ -24,8 +24,11 @@ export function normalizeOfficialUrl(value) {
 }
 
 export function allowedHostsFor(source = {}) {
-  return [...new Set([source.domain, ...(source.linkHosts || [])]
-    .map(host => String(host || '').toLowerCase()).filter(Boolean))];
+  return [...new Set([
+    source.domain,
+    ...(source.linkHosts || []),
+    ...(source.specialEventPageDiscovery?.allowedDomains || [])
+  ].map(host => String(host || '').toLowerCase()).filter(Boolean))];
 }
 
 export function isAllowedOfficialUrl(value, source = {}) {

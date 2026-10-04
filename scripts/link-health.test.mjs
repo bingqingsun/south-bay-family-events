@@ -11,6 +11,19 @@ const source = {
 assert.equal(normalizeOfficialUrl('http://events.platform.org/a?utm_source=x#top'), 'https://events.platform.org/a');
 assert.equal(staticLinkResult({ url: 'https://gateway.platform.org/rss/events' }, source).linkStatus, 'invalid');
 
+const cityWithOrganizerCompanion = {
+  id: 'palo-alto',
+  name: 'City of Palo Alto',
+  domain: 'paloalto.gov',
+  specialEventPageDiscovery: { allowedDomains: ['bikepaloalto.org'] }
+};
+const organizerCompanion = staticLinkResult({
+  title: 'Bike Palo Alto',
+  canonicalUrl: 'https://bikepaloalto.org/'
+}, cityWithOrganizerCompanion);
+assert.equal(organizerCompanion.linkStatus, 'unknown');
+assert.equal(organizerCompanion.canonicalUrl, 'https://bikepaloalto.org/');
+
 const fallback = resolvePublishedLink(
   { title: 'Book club', source: 'Library' },
   { canonicalUrl: 'https://events.platform.org/events/1', fallbackUrl: source.landingUrl, linkStatus: 'not-found', linkCheckedAt: 'now', linkCheckMethod: 'machine', linkEvidence: '404' },
