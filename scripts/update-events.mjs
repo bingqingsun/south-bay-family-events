@@ -1345,7 +1345,13 @@ async function readMidpen(source) {
   });
   return Promise.all(seeds.map(async seed => {
     const details = await midpenPageDetails(seed.url, seed.title);
-    const event = directEvent({ ...seed, ...details, source: source.name, ageText: 'family' });
+    const event = directEvent({
+      ...seed,
+      ...details,
+      image: details.image || source.officialProgramImage || '',
+      source: source.name,
+      ageText: 'family'
+    });
     event.ageSource = '官方 Family-Friendly 分类';
     return event;
   }));
