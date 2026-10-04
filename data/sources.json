@@ -51,7 +51,18 @@
     "domain": "paloalto.gov",
     "method": "paloalto",
     "feedUrl": "https://www.paloalto.gov/Events-Directory",
-    "familyPattern": "children|kids?|famil(?:y|ies)|youth|teen|toddler|preschool|elementary|middle school|high school|all ages|parent(?:s)?\\s*(?:and|&)\\s*(?:child|kid)|palo alto airport day"
+    "familyPattern": "children|kids?|famil(?:y|ies)|youth|teen|toddler|preschool|elementary|middle school|high school|all ages|parent(?:s)?\\s*(?:and|&)\\s*(?:child|kid)|palo alto airport day",
+    "specialEventPageDiscovery": {
+      "allowedDomains": [
+        "bikepaloalto.org"
+      ],
+      "preferredPages": [
+        {
+          "titlePattern": "\\bbike\\s+palo\\s+alto\\b",
+          "url": "https://bikepaloalto.org/"
+        }
+      ]
+    }
   },
   {
     "id": "palo-alto-art-center-special-events",
