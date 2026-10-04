@@ -397,6 +397,32 @@ export function buildSummaryRecord({
   };
 }
 
+export function upgradeSummaryRecordVersion(event, { verifiedAt = '' } = {}) {
+  if (!event || typeof event !== 'object' || event.summaryVersion === EVENT_SUMMARY_VERSION) return event;
+
+  if (event.summaryStatus === 'extractive') {
+    const normalized = buildSummaryRecord({
+      sourceText: event.sourceDescriptionRaw || event.description || '',
+      title: event.title || '',
+      format: event.format || '',
+      status: 'extractive',
+      verifiedAt: verifiedAt || event.summaryVerifiedAt || ''
+    });
+    if (normalized.summaryStatus === 'needs_review') return event;
+    return { ...event, ...normalized };
+  }
+
+  if (event.summaryStatus === 'manual_verified' || event.summaryStatus === 'official_structured') {
+    return {
+      ...event,
+      summaryVersion: EVENT_SUMMARY_VERSION,
+      summaryVerifiedAt: verifiedAt || event.summaryVerifiedAt || ''
+    };
+  }
+
+  return event;
+}
+
 export function assessSummaryReadability(text) {
   const value = normalizeText(text);
   const issues = [];
