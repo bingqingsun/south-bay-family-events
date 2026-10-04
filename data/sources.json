@@ -30,7 +30,8 @@
     "name": "Midpeninsula Regional Open Space District",
     "domain": "openspace.org",
     "method": "midpen",
-    "feedUrl": "https://www.openspace.org/get-involved/events-activities?f%5B0%5D=rating%3A146"
+    "feedUrl": "https://www.openspace.org/get-involved/events-activities?f%5B0%5D=rating%3A146",
+    "officialProgramImage": "https://s3.us-east-1.amazonaws.com/files.galaxydigital.com/5677/agency/121115.jpg?20230808183157"
   },
   {
     "name": "The Tech Interactive",
