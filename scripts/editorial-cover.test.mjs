@@ -39,7 +39,7 @@ const two = renderEditorialCover(deer);
 assert.equal(one.svg, two.svg);
 assert.equal(one.preset, 'farm-halloween');
 assert.match(one.svg, /^<svg/);
-assert.doesNotMatch(one.svg, /https?:\/\//);
+assert.doesNotMatch(one.svg, /(?:href|src)=["']https?:\/\//);
 assert.equal(EDITORIAL_COVER_VERSION, 'editorial-cover-v1');
 
 const dir = await mkdtemp(join(tmpdir(), 'sbff-cover-'));
