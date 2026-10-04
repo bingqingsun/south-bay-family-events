@@ -40,6 +40,7 @@ import {
   linkedOfficialDescription,
   linkedOfficialPageMatches
 } from './lib/linked-official-detail.mjs';
+import { eventDetailSlugCandidates } from './lib/detail-url.mjs';
 
 const key = process.env.SERPAPI_KEY;
 // Chinese localization is merged from a reviewed sidecar catalog. The daily
@@ -3175,22 +3176,15 @@ async function readSymphony(source) {
   });
 }
 
-function eventDetailSlug(title) {
-  return plainText(title).toLowerCase()
-    .replace(/[’']/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '');
-}
-
 async function resolveConfiguredFirstPartyDetail(source, title, dateValue) {
   if (!source.canonicalEventBase || !title) return '';
-  const slug = eventDetailSlug(title);
+  const slugs = eventDetailSlugCandidates(title);
   const year = String(dateValue || '').match(/^(20\d{2})/)?.[1] || '';
   const base = String(source.canonicalEventBase).replace(/\/+$/, '') + '/';
-  const candidates = [...new Set([
+  const candidates = [...new Set(slugs.flatMap(slug => [
     new URL(slug + '/', base).href,
     year ? new URL(slug + '-' + year + '/', base).href : ''
-  ].filter(Boolean))];
+  ]).filter(Boolean))];
 
   for (const candidate of candidates) {
     try {
@@ -3214,8 +3208,9 @@ async function resolveConfiguredFirstPartyDetail(source, title, dateValue) {
 }
 
 // San Jose Theaters exposes discovery data through Timely, but the public CTA
-// belongs on SanJoseTheaters.org. The resolver above deterministically checks
-// the first-party event slug (plus a year variant) and verifies title/year.
+// belongs on the current Visit San Jose theater event detail page. The resolver
+// tries deterministic title-slug variants because the CMS removes short words
+// from some paths, then verifies the event title/year before publishing a URL.
 // Timely remains discovery infrastructure, never the long-lived user canonical.
 async function readTimely(source) {
   const headers = { 'x-api-key': 'c6e5e0363b5925b28552de8805464c66f25ba0ce', 'user-agent': 'SouthBayFamilyEventsBot/1.0' };
@@ -3274,7 +3269,7 @@ async function readTimely(source) {
         id: `timely-${detailIndex}-${sessionIndex}`, title: detail.title, dateValue,
         description: sourceDescriptionText(description), image: detail.images?.[0]?.full?.url || detail.images?.[0]?.medium?.url || '',
         place: plainText(venue.title || 'San Jose Theaters'), address, city,
-        source: source.name, url: detail.firstPartyUrl || source.landingUrl || source.feedUrl,
+        source: source.name, url: detail.firstPartyUrl || '',
         ageText: description, format: 'live-show'
       });
       // Timely returns a platform default of "0" even for external ticketed
