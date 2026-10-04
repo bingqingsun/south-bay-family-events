@@ -8,7 +8,7 @@ assert.ok(Array.isArray(events) && events.length > 0, 'events.json must contain 
 const allowedStatuses = new Set(['extractive', 'official_structured', 'manual_verified']);
 const allowedQualities = new Set(['strong', 'acceptable', 'structured', 'manual_verified']);
 const requireCurrentSummaryVersion = process.env.REQUIRE_CURRENT_SUMMARY_VERSION === '1';
-const compatibleSummaryVersions = new Set([EVENT_SUMMARY_VERSION, 'event-summary-v2-p4']);
+const compatibleSummaryVersions = new Set([EVENT_SUMMARY_VERSION, 'event-summary-v2-p5', 'event-summary-v2-p4']);
 const violations = [];
 
 for (const event of events) {
@@ -32,8 +32,14 @@ for (const event of events) {
   if (!allowedQualities.has(event.summaryQuality)) violations.push(`${id}: invalid summaryQuality=${event.summaryQuality || 'missing'}`);
   if (!evidence) violations.push(`${id}: missing summaryEvidence`);
 
-  const readability = assessSummaryReadability(summary);
-  if (!readability.ok) violations.push(`${id}: unreadable summary [${readability.issues.join(', ')}] | summary="${summary.slice(0, 240)}"`);
+  // A PR can contain the last published engine version before the refresh
+  // migration runs. Apply the current readability contract only to records
+  // already produced by the current engine, or during the strict release
+  // audit after refresh.
+  if (requireCurrentSummaryVersion || event.summaryVersion === EVENT_SUMMARY_VERSION) {
+    const readability = assessSummaryReadability(summary);
+    if (!readability.ok) violations.push(`${id}: unreadable summary [${readability.issues.join(', ')}] | summary="${summary.slice(0, 240)}"`);
+  }
 
   // Extractive summaries must remain an exact official-source excerpt. No
   // generated truncation, rewritten clause, or inferred activity can pass.
