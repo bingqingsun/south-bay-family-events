@@ -25,6 +25,7 @@ import {
 } from './event-summary-engine.mjs';
 import { auditLinks, releaseBlockingLinks } from './link-health.mjs';
 import { enrichCanonicalEvents } from './canonical-detail-pipeline.mjs';
+import { applyEditorialCovers } from './editorial-cover.mjs';
 import { selectPublishableOfficialDescription } from './official-description.mjs';
 import { approvedSpecialEventUrl, configuredCandidates, sitemapCandidates, verifySpecialEventPage } from './special-event-pages.mjs';
 import { selectCupertinoDetailDates } from './cupertino-detail-date.mjs';
@@ -3875,6 +3876,15 @@ sourceHealth.officialImageEnrichment = {
   ...imageQualityCounts
 };
 console.log(`Official image summary: ${JSON.stringify(sourceHealth.officialImageEnrichment)}`);
+
+const editorialCoverResult = await applyEditorialCovers(events, {
+  outputDir: new URL('../assets/generated/event-covers/', import.meta.url),
+  publicBase: '/assets/generated/event-covers',
+  generatedAt
+});
+events = editorialCoverResult.events;
+sourceHealth.editorialCoverGeneration = editorialCoverResult.stats;
+console.log(`Editorial cover summary: ${JSON.stringify(editorialCoverResult.stats)}`);
 
 // Link health is a release-quality stage. A known-bad detail URL is replaced
 // only with an explicitly configured, user-facing official landing page.
