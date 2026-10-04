@@ -153,6 +153,32 @@ const source = { name: 'City Test', method: 'civic', domain: 'example.gov', city
   );
 }
 
+// A manually verified source image outranks a lower-confidence canonical
+// OG image. This prevents later refreshes from undoing an earlier verified fix.
+{
+  const event = {
+    ...baseEvent,
+    image: 'https://example.gov/images/pinned-official.jpg',
+    imageStatus: 'official',
+    imageProvenance: {
+      source: 'curated-manual',
+      method: 'manual_verified',
+      sourceUrl: baseEvent.url,
+      verifiedAt: '2026-10-04T00:00:00Z',
+      score: 100,
+      evidence: 'first-party-curated-official-image'
+    }
+  };
+  const html = `<html><head>
+    <meta property="og:title" content="Family Lantern Night">
+    <meta property="og:image" content="/images/lower-confidence-og.jpg">
+  </head><body><h1>Family Lantern Night</h1></body></html>`;
+  const result = enrichEventFromDetail(event, { source, html, finalUrl:event.url });
+  assert.equal(result.event.image, 'https://example.gov/images/pinned-official.jpg');
+  assert.equal(result.event.imageProvenance.method, 'manual_verified');
+  assert.equal(result.event.imageProvenance.score, 100);
+}
+
 // Official page with no price must not invent a price.
 {
   const html = `<html><body><h1>Family Lantern Night</h1><p>Bring your family for crafts and music.</p></body></html>`;
