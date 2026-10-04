@@ -123,4 +123,4 @@ A new adapter is acceptable only when:
 
 ## Current engine version
 
-`event-summary-v2-p5`
+`event-summary-v2-p6`
