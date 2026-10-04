@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 
-export const EVENT_SUMMARY_VERSION = 'event-summary-v2-p4';
+export const EVENT_SUMMARY_VERSION = 'event-summary-v2-p5';
 
 // South Bay Family Finds event-summary engine.
 //
@@ -33,6 +33,7 @@ const GENERIC_EXPERIENCE = /\b(?:family[- ]friendly|fun|exciting|interactive|imm
 const PROMOTIONAL_FLUFF = /\b(?:cherished|treasured|beloved|community favorite|unforgettable experience|something for everyone|perfect way to|experience the magic|make memories|memories that last|never forget|must[- ]see|can't miss|cannot miss|not to be missed)\b/i;
 const SENSORY_OR_ACCESSIBILITY_DETAIL = /\b(?:visually busy|visual stimulation|sensory (?:need|needs|difference|differences|processing)|different textures?|unusual textures?|noise level|may become noisy|bright lights?|flashing lights?|loud sounds?|accessibility accommodations?)\b/i;
 const ADMINISTRATIVE_COPY = /\b(?:confirm your membership|membership in a follow-up email|stops? to be announced|details? to be announced|schedule subject to change|regular library hours|library hours|organization is one of|one of the region'?s premier|now in its \d+(?:st|nd|rd|th) season|offering training and performance opportunities|experience this exhibit online or in person)\b/i;
+const PAGE_CHROME_COPY = /(?:^|\b)(?:find (?:more )?details?\s+(?:at|here|on)\b|view map\b|email address\b|fields marked as ['’\"]?required['’\"]?\b|enter your email address\b|share this page\b|send this page\b|back to top\b|site footer\b)/i;
 const GENERIC_JOIN_INTRO = /^join\s+[^.!?]{1,80}\s+for\s+[^.!?]{3,140}[.!?]?$/i;
 const ACTIVITY_CONTENT_NOUN = /\b(?:yoga|music|movement|food|shopping|storytelling|rhythms?|dance|dancing|stories|songs|rhymes|fingerplays?|crafts?|games?|movies?|films?|screenings?|trick[- ]or[- ]treat(?:ing)?|pumpkin decorating|face painting|magic show)\b/i;
 const ABSTRACT_ACTIVITY_COPY = /\b(?:explore new ways to play and learn|engaging and fun activities|variety of activities|nurture curiosity and discover new things|designed to engage children through)\b/i;
@@ -117,6 +118,7 @@ export function isLogisticsOnly(text) {
     || /ada accommodation|for more information|please (?:call|email|visit)|click here|all minors under|parent\/guardian approval|release of liability|difficulty rating|terms (?:&|and) conditions|terms of use|privacy policy|refund policy|all rights reserved|rules (?:&|and) regulations|reserves the right to (?:cancel|refuse)|printable if|load and save|file format/i.test(value)
     || SENSORY_OR_ACCESSIBILITY_DETAIL.test(value)
     || ADMINISTRATIVE_COPY.test(value)
+    || PAGE_CHROME_COPY.test(value)
     || (LOGISTICS.test(value) && !CONCRETE_ACTION.test(value));
 }
 
