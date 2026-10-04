@@ -537,7 +537,7 @@
     "summaryEvidenceData": null,
     "summaryVersion": "event-summary-v2-p6",
     "summaryVerifiedAt": "2026-10-04T14:01:14.825Z",
-    "image": "https://sccl.bibliocommons.com/events/uploads/images/full/ffc4685348a88f3def27102adfa301c8/Mamatha",
+    "image": "https://sccl.bibliocommons.com/events/uploads/images/full/ffc4685348a88f3def27102adfa301c8/Mamatha'sOilonCanvas.png",
     "place": "Los Altos Library · Art Wall",
     "address": "13 S. San Antonio Road, Los Altos",
     "city": "Los Altos",
@@ -18387,7 +18387,7 @@
     "summaryEvidenceData": null,
     "summaryVersion": "event-summary-v2-p6",
     "summaryVerifiedAt": "2026-10-04T14:01:14.825Z",
-    "image": "https://sccl.bibliocommons.com/events/uploads/images/full/ffc4685348a88f3def27102adfa301c8/Mamatha",
+    "image": "https://sccl.bibliocommons.com/events/uploads/images/full/ffc4685348a88f3def27102adfa301c8/Mamatha'sOilonCanvas.png",
     "place": "Los Altos Library · Orchard Room",
     "address": "13 S. San Antonio Road, Los Altos",
     "city": "Los Altos",
@@ -24490,7 +24490,7 @@
     "summaryEvidenceData": null,
     "summaryVersion": "event-summary-v2-p6",
     "summaryVerifiedAt": "2026-10-04T14:01:14.825Z",
-    "image": "https://sccl.bibliocommons.com/events/uploads/images/full/989cd1cf5755790b71d857bc76919eaa/Books&BricksTemplateReader",
+    "image": "https://sccl.bibliocommons.com/events/uploads/images/full/989cd1cf5755790b71d857bc76919eaa/Books&BricksTemplateReader'sChoice.png",
     "place": "Milpitas Library · Program Room",
     "address": "160 North Main Street, Milpitas",
     "city": "Milpitas",
@@ -33024,7 +33024,7 @@
     "summaryEvidenceData": null,
     "summaryVersion": "event-summary-v2-p6",
     "summaryVerifiedAt": "2026-10-04T14:01:14.825Z",
-    "image": "",
+    "image": "https://s3.us-east-1.amazonaws.com/files.galaxydigital.com/5677/agency/121115.jpg?20230808183157",
     "imagePresentation": "",
     "imageBackground": "",
     "place": "Bear Creek Redwoods Preserve",
@@ -33068,8 +33068,7 @@
         "linkResolution": "session-canonical"
       }
     ],
-    "imageStatus": "missing",
-    "imageFailureReason": "no_verified_official_image_candidate",
+    "imageStatus": "official",
     "fieldProvenance": {},
     "detailVerifiedAt": "2026-10-04T14:01:14.825Z",
     "detailStatus": "enriched",
@@ -33102,7 +33101,15 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "imageProvenance": {
+      "source": "source-program",
+      "method": "source-program-image",
+      "sourceUrl": "https://volunteer.openspace.org/need/detail/?need_id=1306653",
+      "verifiedAt": "2026-10-04T22:45:00Z",
+      "score": 70,
+      "evidence": "organizer-provided-Land-Steward-program-image"
+    }
   },
   {
     "id": "calendar-25497",
