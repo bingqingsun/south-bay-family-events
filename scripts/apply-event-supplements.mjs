@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { readFile, writeFile } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
+import { EVENT_SUMMARY_VERSION } from './event-summary-engine.mjs';
 
 const eventsUrl = new URL('../data/events.json', import.meta.url);
 const supplementsUrl = new URL('../data/event-supplements.json', import.meta.url);
@@ -75,7 +76,7 @@ function canonicalSupplement(item) {
     sourceDescriptionRaw: raw,
     sourceDescriptionHash: createHash('sha256').update(raw).digest('hex'),
     summaryStatus: 'manual_verified',
-    summaryVersion: 'event-summary-v2-p4',
+    summaryVersion: EVENT_SUMMARY_VERSION,
     summaryVerifiedAt: verifiedAt,
     summaryMethod: 'manual_verified',
     summaryQuality: 'manual_verified',

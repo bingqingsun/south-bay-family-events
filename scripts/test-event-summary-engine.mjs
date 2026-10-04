@@ -11,7 +11,8 @@ import {
   isLikelyFragment,
   selectConcreteSourceSentence,
   selectLabeledActivityBundle,
-  splitSourceSentences
+  splitSourceSentences,
+  upgradeSummaryRecordVersion
 } from './event-summary-engine.mjs';
 import { selectPublishableOfficialDescription } from './official-description.mjs';
 
@@ -264,6 +265,33 @@ const summaryRecord = buildSummaryRecord({
   verifiedAt: '2026-09-19T00:00:00.000Z'
 });
 assert.equal(summaryRecord.summaryVersion, 'event-summary-v2-p5');
+assert.equal(summaryRecord.parentSummary, timeSegments[0]);
+
+const retainedLegacyExtractive = upgradeSummaryRecordVersion({
+  title: 'Bike Palo Alto',
+  format: 'program',
+  description: paloAltoChrome,
+  parentSummary: paloAltoChrome,
+  sourceDescriptionRaw: `${paloAltoChrome} Explore Palo Alto’s parks and bike-friendly routes with maps and riding resources.`,
+  summaryStatus: 'extractive',
+  summaryVersion: 'event-summary-v2-p4',
+  summaryVerifiedAt: '2026-10-01T00:00:00.000Z'
+}, { verifiedAt: '2026-10-04T00:00:00.000Z' });
+assert.equal(retainedLegacyExtractive.summaryVersion, 'event-summary-v2-p5');
+assert.match(retainedLegacyExtractive.parentSummary, /Explore Palo Alto’s parks/i);
+assert.doesNotMatch(retainedLegacyExtractive.parentSummary, /Email Address|View Map|Fields marked/i);
+
+const retainedManual = upgradeSummaryRecordVersion({
+  title: 'Verified Show',
+  description: 'A verified family performance.',
+  parentSummary: 'A verified family performance.',
+  sourceDescriptionRaw: 'Official organizer evidence for a verified family performance.',
+  summaryStatus: 'manual_verified',
+  summaryVersion: 'event-summary-v2-p4',
+  summaryVerifiedAt: '2026-10-01T00:00:00.000Z'
+}, { verifiedAt: '2026-10-04T00:00:00.000Z' });
+assert.equal(retainedManual.summaryVersion, 'event-summary-v2-p5');
+assert.equal(retainedManual.parentSummary, 'A verified family performance.');
 assert.equal(summaryRecord.parentSummary, timeSegments[0]);
 assert.equal(summaryRecord.summaryEvidence, summaryRecord.parentSummary);
 assert.ok(summaryRecord.sourceDescriptionHash, 'engine owns source hash and provenance');
