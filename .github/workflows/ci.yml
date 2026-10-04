@@ -97,6 +97,8 @@ jobs:
           node --check scripts/lib/detail-fetch.mjs
           node --check scripts/lib/detail-extractors/generic.mjs
           node --check scripts/lib/detail-enrichment.mjs
+          node --check scripts/lib/linked-official-detail.mjs
+          node --check scripts/linked-official-detail.test.mjs
           node --check map-navigation.js
           node --check app.js
           node --check age-policy.js
@@ -143,6 +145,7 @@ jobs:
           node scripts/link-health.test.mjs
           node scripts/detail-enrichment.test.mjs
           node scripts/canonical-detail-pipeline.test.mjs
+          node scripts/linked-official-detail.test.mjs
           node scripts/link-ui.test.cjs
           node scripts/palo-alto-special-events.test.mjs
           node scripts/generate-sitemap.mjs --check

@@ -18,7 +18,7 @@ const config = context.window.SBFF_WEEKEND_PICKS;
 const events = JSON.parse(fs.readFileSync(new URL('../data/events.json', import.meta.url), 'utf8'));
 
 assert.ok(runtime, 'Weekend Picks runtime should load');
-assert.equal(config.picks.length, 11, 'Pilot should contain the 11 editor-selected activities');
+assert.equal(config.picks.length, 7, 'Live Weekend Picks should contain the seven remaining editor-selected activities after Saturday events end');
 
 // Resolver contracts are tested against stable fixtures instead of today's
 // active event database. The production database intentionally drops expired

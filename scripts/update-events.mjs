@@ -35,6 +35,11 @@ import {
   paloAltoSpecialEventLinks,
   paloAltoSpecialEventOccurrences
 } from './lib/palo-alto-special-events.mjs';
+import {
+  linkedOfficialDetailCandidates,
+  linkedOfficialDescription,
+  linkedOfficialPageMatches
+} from './lib/linked-official-detail.mjs';
 
 const key = process.env.SERPAPI_KEY;
 // Chinese localization is merged from a reviewed sidecar catalog. The daily
@@ -2865,17 +2870,45 @@ async function readPaloAlto(source) {
     } catch {}
     const detailText = plainText(detailHtml);
     const detailDescription = selectCivicPlusEventDescription(detailHtml, candidate.title, candidate.description);
+    let linkedDescription = '';
+    let linkedDescriptionSourceUrl = '';
+    if (!hasPublishableSummary(detailDescription, { title: candidate.title })) {
+      const linkedCandidates = linkedOfficialDetailCandidates(detailHtml, {
+        pageUrl: candidate.url,
+        title: candidate.title
+      });
+      for (const linked of linkedCandidates) {
+        try {
+          const linkedResponse = await fetch(linked.url, {
+            headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' },
+            signal: AbortSignal.timeout(12000)
+          });
+          if (!linkedResponse.ok) continue;
+          const linkedHtml = await linkedResponse.text();
+          if (!linkedOfficialPageMatches(linkedHtml, candidate.title)) continue;
+          const extracted = linkedOfficialDescription(linkedHtml);
+          if (!hasPublishableSummary(extracted, { title: candidate.title })) continue;
+          linkedDescription = extracted;
+          linkedDescriptionSourceUrl = linked.url;
+          break;
+        } catch {}
+      }
+    }
     const dateMatch = detailText.match(/Next date:\s*((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\s*\|\s*(\d{1,2}:\d{2}\s*(?:AM|PM))/i);
     const dateValue = dateMatch ? isoDateFromOfficialText(dateMatch[1], dateMatch[2]) : candidate.dateValue;
-    const description = detailDescription || candidate.description;
+    const description = linkedDescription || detailDescription || candidate.description;
     const event = directEvent({
       id: 'paloalto-' + createHash('sha256').update(`${candidate.url}|${dateValue}`).digest('hex').slice(0, 16),
       title: candidate.title, dateValue, description,
       image: officialPageOgImage(detailHtml) || (candidate.image ? new URL(candidate.image, source.feedUrl).href : ''),
       place: candidate.place, address: shortAddress(candidate.street, 'Palo Alto'), city: 'Palo Alto',
-      source: source.name, url: candidate.url, ageText: `${candidate.audienceText} ${detailText.slice(0, 3500)}`
+      source: source.name, url: candidate.url, ageText: `${candidate.audienceText} ${detailText.slice(0, 3500)} ${linkedDescription.slice(0, 2200)}`
     });
-    return hasUsableSourceContent(event.description) ? { ...event, ...costInfo('', detailDescription || detailText || description) } : null;
+    return hasUsableSourceContent(event.description) ? {
+      ...event,
+      ...(linkedDescriptionSourceUrl ? { descriptionSourceUrl: linkedDescriptionSourceUrl } : {}),
+      ...costInfo('', linkedDescription || detailDescription || detailText || description)
+    } : null;
   }));
   return events.filter(Boolean);
 }

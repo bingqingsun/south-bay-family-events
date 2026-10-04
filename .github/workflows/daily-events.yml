@@ -81,6 +81,7 @@ jobs:
           node scripts/link-health.test.mjs
           node scripts/detail-enrichment.test.mjs
           node scripts/canonical-detail-pipeline.test.mjs
+          node scripts/linked-official-detail.test.mjs
           node scripts/link-ui.test.cjs
           node scripts/cupertino-audience.test.mjs
           node scripts/age-policy.test.cjs
