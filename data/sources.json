@@ -670,7 +670,12 @@
         "address": "550 E Remington Dr, Sunnyvale",
         "ageText": "All ages Children Family-friendly",
         "cost": "Free",
-        "format": "arts"
+        "format": "arts",
+        "imageOverride": {
+          "verifiedAt": "2026-10-04T23:50:00Z",
+          "sourceUrl": "https://content.govdelivery.com/accounts/CASUNNYVALE/bulletins/42b4291",
+          "evidence": "first-party-current-event-image"
+        }
       }
     ]
   },
@@ -714,7 +719,12 @@
         "address": "E Campbell Ave and N 1st St, Campbell",
         "ageText": "All ages Families Children",
         "cost": "Free",
-        "format": "festival"
+        "format": "festival",
+        "imageOverride": {
+          "verifiedAt": "2026-10-04T23:50:00Z",
+          "sourceUrl": "https://www.downtowncampbell.com/event/31st-annual-campbell-oktoberfest",
+          "evidence": "first-party-current-event-image"
+        }
       },
       {
         "title": "Campbell Oktoberfest",
@@ -725,7 +735,12 @@
         "address": "E Campbell Ave and N 1st St, Campbell",
         "ageText": "All ages Families Children",
         "cost": "Free",
-        "format": "festival"
+        "format": "festival",
+        "imageOverride": {
+          "verifiedAt": "2026-10-04T23:50:00Z",
+          "sourceUrl": "https://www.downtowncampbell.com/event/31st-annual-campbell-oktoberfest",
+          "evidence": "first-party-current-event-image"
+        }
       }
     ]
   },
