@@ -25,7 +25,7 @@ import {
 import { auditLinks, releaseBlockingLinks } from './link-health.mjs';
 import { enrichCanonicalEvents } from './canonical-detail-pipeline.mjs';
 import { selectPublishableOfficialDescription } from './official-description.mjs';
-import { configuredCandidates, sitemapCandidates, verifySpecialEventPage } from './special-event-pages.mjs';
+import { approvedSpecialEventUrl, configuredCandidates, sitemapCandidates, verifySpecialEventPage } from './special-event-pages.mjs';
 import { selectCupertinoDetailDates } from './cupertino-detail-date.mjs';
 import { cupertinoAudienceEvidence } from './cupertino-audience.mjs';
 import {
@@ -2539,28 +2539,32 @@ function cupertinoDetailEnrichment(event, html, source) {
 }
 
 // Some organizers publish a terse calendar entry and a richer evergreen
-// event page on the same official domain. Sources opt in with their sitemap;
-// a page is used only after title, date, and content all agree with the
-// calendar listing. This keeps discovery general while preserving the
-// calendar page whenever a specialty-page match is uncertain.
+// event page. Sources may use their own domain or explicitly approve a
+// companion organizer-owned domain. Every candidate still has to match the
+// calendar listing by title, date, and substantive content before it can
+// replace the terse calendar copy.
 async function enrichWithSpecialEventPage(event, source) {
   const config = source.specialEventPageDiscovery;
-  if (!config?.sitemapUrl || !event.url || !event.dateValue) return event;
+  const preferredPages = Array.isArray(config?.preferredPages) ? config.preferredPages : [];
+  if (!config || (!config.sitemapUrl && !preferredPages.length) || !event.url || !event.dateValue) return event;
   try {
     let sitemap = '';
-    try {
-      const sitemapResponse = await fetch(config.sitemapUrl, {
-        headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000)
-      });
-      if (sitemapResponse.ok) sitemap = await sitemapResponse.text();
-    } catch { /* Configured aliases remain independently verifiable. */ }
+    if (config.sitemapUrl) {
+      try {
+        const sitemapResponse = await fetch(config.sitemapUrl, {
+          headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000)
+        });
+        if (sitemapResponse.ok) sitemap = await sitemapResponse.text();
+      } catch { /* Configured aliases remain independently verifiable. */ }
+    }
+    const approvedDomains = [source.domain, ...(config.allowedDomains || [])].filter(Boolean);
     const candidates = [
-      ...configuredCandidates(event, config.preferredPages),
+      ...configuredCandidates(event, preferredPages),
       ...sitemapCandidates(sitemap, event, {
         domain: source.domain,
         maxCandidates: config.maxCandidates || 4
       })
-    ].filter(candidate => isOfficialUrl(candidate.url, source.domain))
+    ].filter(candidate => approvedSpecialEventUrl(candidate.url, approvedDomains))
       .filter((candidate, index, list) => list.findIndex(other => other.url === candidate.url) === index);
     for (const candidate of candidates) {
       const response = await fetch(candidate.url, {
@@ -2584,15 +2588,22 @@ async function enrichWithSpecialEventPage(event, source) {
           return url.href;
         });
       const officialImage = officialImages[0] || '';
+      const verifiedSummary = buildSummaryRecord({
+        sourceText: verified.description,
+        title: event.title,
+        format: event.format,
+        status: 'extractive',
+        verifiedAt: generatedAt
+      });
+      if (verifiedSummary.summaryStatus === 'needs_review') continue;
       return {
         ...pageEnriched,
+        ...verifiedSummary,
         // Keep the calendar title, but make the verified specialty page the
         // parent-facing destination and evidence for the generated summary.
         title: event.title,
         url: verified.url,
         canonicalUrl: verified.url,
-        description: verified.description,
-        sourceDescriptionRaw: verified.description,
         image: officialImage || pageEnriched.image || event.image || '',
         ...(officialImage ? {
           imageStatus: 'official',
@@ -2904,10 +2915,11 @@ async function readPaloAlto(source) {
       place: candidate.place, address: shortAddress(candidate.street, 'Palo Alto'), city: 'Palo Alto',
       source: source.name, url: candidate.url, ageText: `${candidate.audienceText} ${detailText.slice(0, 3500)} ${linkedDescription.slice(0, 2200)}`
     });
-    return hasUsableSourceContent(event.description) ? {
-      ...event,
+    const rescued = await enrichWithSpecialEventPage(event, source);
+    return hasUsableSourceContent(rescued.description) ? {
+      ...rescued,
       ...(linkedDescriptionSourceUrl ? { descriptionSourceUrl: linkedDescriptionSourceUrl } : {}),
-      ...costInfo('', linkedDescription || detailDescription || detailText || description)
+      ...costInfo('', rescued.sourceDescriptionRaw || linkedDescription || detailDescription || detailText || description)
     } : null;
   }));
   return events.filter(Boolean);
