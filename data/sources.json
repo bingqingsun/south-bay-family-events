@@ -437,13 +437,13 @@
   },
   {
     "name": "San Jose Theaters",
-    "domain": "sanjosetheaters.org",
+    "domain": "sanjose.org",
     "method": "timely",
     "feedUrl": "https://events.timely.fun/jc0x91t0/stream?tags=677512582",
     "calendarId": 54710614,
     "id": "san-jose-theaters",
-    "landingUrl": "https://sanjosetheaters.org/calendar-condensed/",
-    "canonicalEventBase": "https://sanjosetheaters.org/event/",
+    "landingUrl": "https://www.sanjose.org/theaters",
+    "canonicalEventBase": "https://www.sanjose.org/theaters/events/",
     "linkPolicy": "first_party_detail"
   },
   {
