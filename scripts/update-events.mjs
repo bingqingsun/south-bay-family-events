@@ -1110,7 +1110,7 @@ async function readSantanaRow(source) {
     const image = htmlAttribute(block, /<img\b[^>]*(?:data-src|src)=["']([^"']+)["']/i);
     const dateValue = isoDateFromOfficialText(dateText, dateText);
     return { index, title, href: href ? new URL(href, source.feedUrl).href : '', dateText, dateValue, description, image };
-  }).filter(card => card.title && card.href && card.dateValue && isUpcoming(card.dateValue)
+  }).filter(card => card.title && card.href && card.dateValue
     && familyPattern.test(`${card.title} ${card.description}`));
 
   const details = await Promise.all(cards.map(async card => {
@@ -1121,21 +1121,32 @@ async function readSantanaRow(source) {
       const detailText = plainText(detailHtml);
       const metaDescription = decodeXml(detailHtml.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)/i)?.[1] || '');
       const description = sourceDescriptionText(metaDescription || card.description);
+      const window = officialDateWindowFromText(`${card.dateText} ${detailText}`, {
+        referenceDateValue: card.dateValue
+      });
       return {
         ...card,
+        listingDateValue: card.dateValue,
+        dateValue: window.startDateValue || card.dateValue,
+        endDateValue: window.endDateValue || card.dateValue,
         description,
         image: officialPageOgImage(detailHtml) || card.image,
         audienceText: detailText,
         availabilityStatus: /\b(?:sold out|registration (?:is )?full|fully booked)\b/i.test(detailText) ? 'sold out' : ''
       };
-    } catch { return card; }
+    } catch {
+      return { ...card, listingDateValue: card.dateValue, endDateValue: card.dateValue };
+    }
   }));
 
   return details.flatMap(card => {
-    if (!hasUsableSourceContent(card.description)) return [];
+    if (!hasUsableSourceContent(card.description) || !isUpcoming(card.dateValue, card.endDateValue)) return [];
     const event = directEvent({
-      id: 'santana-' + createHash('sha256').update(`${card.href}|${card.dateValue}`).digest('hex').slice(0, 16),
-      title: card.title, dateValue: card.dateValue, description: card.description, image: card.image,
+      // Keep the historical identity based on the listing date. Correcting an
+      // organizer's multi-day start boundary must not break saved/editorial refs.
+      id: 'santana-' + createHash('sha256').update(`${card.href}|${card.listingDateValue || card.dateValue}`).digest('hex').slice(0, 16),
+      title: card.title, dateValue: card.dateValue, endDateValue: card.endDateValue,
+      description: card.description, image: card.image,
       place: source.place || source.name, address: source.address || '', city: source.city || '',
       source: source.name, url: card.href, ageText: `${card.title} ${card.description} ${card.audienceText || ''}`,
       format: /festival|celebration|trick-or-treat/i.test(card.title) ? 'festival' : '',
