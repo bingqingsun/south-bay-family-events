@@ -1122,7 +1122,8 @@ async function readSantanaRow(source) {
       const metaDescription = decodeXml(detailHtml.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)/i)?.[1] || '');
       const description = sourceDescriptionText(metaDescription || card.description);
       const window = officialDateWindowFromText(`${card.dateText} ${detailText}`, {
-        referenceDateValue: card.dateValue
+        referenceDateValue: card.dateValue,
+        maxSpanDays: 14
       });
       return {
         ...card,
