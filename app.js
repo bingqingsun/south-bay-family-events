@@ -645,8 +645,8 @@ fetch(`${assetBase}/data/events.json`).then(response => {
 }).finally(() => {
   renderUpdateTime();
   migrateSavedSeries(); populateAgeFilter(); refreshExpiredEvents();
-  // A page can remain open while a session ends. Re-evaluate in Pacific time
-  // so cards, saved results, and counts do not wait for a full browser reload.
-  window.setInterval(refreshExpiredEvents, 60 * 1000);
+  // Check once on initial load, whenever the user returns from the background,
+  // and at most hourly while the page stays continuously open.
+  window.setInterval(refreshExpiredEvents, 60 * 60 * 1000);
   document.addEventListener('visibilitychange', () => { if (!document.hidden) refreshExpiredEvents(); });
 });
