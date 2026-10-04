@@ -60,7 +60,12 @@ export function landingUrlFor(source = {}) {
 
 export function staticLinkResult(event, source) {
   const canonicalUrl = normalizeOfficialUrl(event.canonicalUrl || event.url || '');
-  const fallbackUrl = normalizeOfficialUrl(event.fallbackUrl || landingUrlFor(source));
+  // A source that promises a first-party detail page must never silently
+  // degrade to a generic calendar/listing page. Sources that explicitly opt
+  // into listing fallback keep the existing behavior.
+  const fallbackUrl = source.linkPolicy === 'first_party_detail'
+    ? ''
+    : normalizeOfficialUrl(event.fallbackUrl || landingUrlFor(source));
   if (!canonicalUrl || !isAllowedOfficialUrl(canonicalUrl, source) || !isUserFacingUrl(canonicalUrl)) {
     return {
       canonicalUrl,
