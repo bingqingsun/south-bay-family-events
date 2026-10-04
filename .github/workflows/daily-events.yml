@@ -119,6 +119,8 @@ jobs:
           node scripts/translation-coverage-report.mjs
       - name: Audit published summary provenance
         if: ${{ env.SKIP_REFRESH != 'true' }}
+        env:
+          REQUIRE_CURRENT_SUMMARY_VERSION: '1'
         run: node scripts/test-summary-output.mjs
       - name: Audit summary semantic coverage
         if: ${{ env.SKIP_REFRESH != 'true' }}
