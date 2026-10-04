@@ -19,7 +19,8 @@ import {
   buildOfficialSportsSummary,
   buildSummaryRecord,
   hasPublishableSummary,
-  hasUsableSourceContent
+  hasUsableSourceContent,
+  upgradeSummaryRecordVersion
 } from './event-summary-engine.mjs';
 import { auditLinks, releaseBlockingLinks } from './link-health.mjs';
 import { enrichCanonicalEvents } from './canonical-detail-pipeline.mjs';
@@ -3882,6 +3883,12 @@ if (releaseBlocking.length) {
 if ((linkHealthSummary['not-found'] || 0) + (linkHealthSummary['content-mismatch'] || 0) > 0) {
   console.warn(`::warning::Link health downgraded ${(linkHealthSummary['not-found'] || 0) + (linkHealthSummary['content-mismatch'] || 0)} detail links to a verified official fallback.`);
 }
+
+// Last-known-good retention can carry a summary record produced by the
+// previous engine version. Re-run extractive records through the current
+// engine before publication; structured/manual records keep their verified
+// wording while adopting the current contract version.
+events = events.map(event => upgradeSummaryRecordVersion(event, { verifiedAt: generatedAt }));
 
 const { stats: translationStats } = applyChineseTranslationCatalog(events, translationCatalog, {
   generatedAt,
