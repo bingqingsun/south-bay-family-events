@@ -5,6 +5,11 @@ concurrency:
   cancel-in-progress: true
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/nightly-translations.yml'
   schedule:
     # GitHub cron is UTC. Run daily at 10:30 PM Pacific:
     # 05:30 UTC = 10:30 PM PDT; 06:30 UTC = 10:30 PM PST.
@@ -46,6 +51,15 @@ jobs:
         if: ${{ env.SKIP_TRANSLATION != 'true' }}
         with:
           node-version: 22
+      - name: Require translation API key
+        if: ${{ env.SKIP_TRANSLATION != 'true' }}
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo "::error::OPENAI_API_KEY is not configured; automatic Chinese translation cannot run."
+            exit 1
+          fi
       - name: Verify translation pipeline contracts
         if: ${{ env.SKIP_TRANSLATION != 'true' }}
         run: |

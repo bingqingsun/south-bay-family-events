@@ -26,7 +26,7 @@ window.SBFF_WEEKEND_PICKS = {
       whyWePickedZh: '现场音乐剧、讨糖、装扮和刻意控制在“不太吓人”的万圣节氛围，很适合安排成一次完整的家庭季节限定出游。'
     },
     {
-      eventRef: { title: 'Mid-Autumn Festival', aliases: ['Mid-Autumn Festival at Filoli'], url: 'https://filoli.org/whats-on/events/mid-autumn-festival/' },
+      eventRef: { title: 'Mid-Autumn Festival', aliases: ['Mid-Autumn Festival at Filoli'], url: 'https://filoli.org/whats-on/events/mid-autumn-festival/', dateValue: '2026-10-03T10:00' },
       label: 'Cultural Pick', labelZh: '文化体验',
       whyWePicked: 'Filoli pairs festive Mid-Autumn family activities with a fall garden visit, so families can make the celebration part of a bigger day outdoors.',
       whyWePickedZh: 'Filoli 把中秋家庭活动和秋日花园游览放在一起，既能过节，也能顺便安排一次更完整的户外家庭出游。'

@@ -37,6 +37,8 @@ assert.match(nightlyTranslationWorkflow, /Refresh Chinese translations/);
 assert.match(nightlyTranslationWorkflow, /cron: '30 5 \* \* \*'/);
 assert.match(nightlyTranslationWorkflow, /cron: '30 6 \* \* \*'/);
 assert.match(nightlyTranslationWorkflow, /OPENAI_API_KEY/);
+assert.match(nightlyTranslationWorkflow, /automatic Chinese translation cannot run/);
+assert.match(nightlyTranslationWorkflow, /\.github\/workflows\/nightly-translations\.yml/);
 assert.match(nightlyTranslationWorkflow, /generate-chinese-translations\.mjs/);
 assert.match(nightlyTranslationWorkflow, /build-translation-overlay\.mjs/);
 assert.match(nightlyTranslationWorkflow, /apply-event-translations\.mjs/);
