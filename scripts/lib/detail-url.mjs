@@ -8,7 +8,7 @@ export function eventDetailSlug(title) {
     .replace(/^-|-$/g, '');
 }
 
-export function eventDetailSlugCandidates(title) {
+function slugCandidatesForTitle(title) {
   const slug = eventDetailSlug(title);
   if (!slug) return [];
 
@@ -23,5 +23,19 @@ export function eventDetailSlugCandidates(title) {
   const compact = words.filter(word => !removable.has(word)).join('-');
   if (compact) candidates.push(compact);
 
-  return [...new Set(candidates.filter(Boolean))];
+  return candidates.filter(Boolean);
+}
+
+export function eventDetailSlugCandidates(title) {
+  const value = String(title || '').trim();
+  if (!value) return [];
+
+  // Discovery feeds often append organizer/venue metadata after a spaced
+  // dash or pipe, while the first-party CMS slug uses only the event name.
+  // Keep the full title first, then try the main-title prefix generically.
+  const titleVariants = [value];
+  const mainTitle = value.split(/\s+(?:[–—-]|\|)\s+/)[0]?.trim();
+  if (mainTitle && mainTitle !== value) titleVariants.push(mainTitle);
+
+  return [...new Set(titleVariants.flatMap(slugCandidatesForTitle))];
 }
