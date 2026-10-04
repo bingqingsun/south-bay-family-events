@@ -9,7 +9,9 @@ export function plainText(value) {
   return String(value || '')
     .replace(/<script\b[^>]*>[\s\S]*?<\/script>|<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
     .replace(/<[^>]*>/g, ' ')
-    .replace(/&nbsp;/gi, ' ').replace(/&(?:amp|quot|#39|apos);/gi, ' ')
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex) => String.fromCodePoint(parseInt(hex, 16)))
+    .replace(/&#(\d+);/g, (_, dec) => String.fromCodePoint(Number(dec)))
+    .replace(/&nbsp;/gi, ' ').replace(/&amp;/gi, '&').replace(/&quot;/gi, '"').replace(/&(?:#39|apos);/gi, "'")
     .replace(/\s+/g, ' ').trim();
 }
 
@@ -83,7 +85,8 @@ function pageDescription(html) {
   const blocks = [...String(html || '').matchAll(/<(?:p|li|td|dd)\b[^>]*>([\s\S]*?)<\/(?:p|li|td|dd)>/gi)]
     .map(match => plainText(match[1]))
     .filter(text => text.length >= 35)
-    .filter(text => !/^(?:schedule|participant registration|volunteers|getting to|privacy|terms|contact us)\b/i.test(text));
+    .filter(text => !/^(?:schedule|participant registration|volunteers|getting to|privacy|terms|contact us)\b/i.test(text))
+    .filter(text => !/\b(?:create a website or blog|subscribe|manage subscriptions|copy shortlink|view post in reader|report this content|collapse this bar|have a wordpress\.com account|log in now)\b/i.test(text));
   return blocks.join(' ').slice(0, 5000).trim();
 }
 
