@@ -271,7 +271,7 @@ const summaryRecord = buildSummaryRecord({
   status: 'extractive',
   verifiedAt: '2026-09-19T00:00:00.000Z'
 });
-assert.equal(summaryRecord.summaryVersion, 'event-summary-v2-p5');
+assert.equal(summaryRecord.summaryVersion, 'event-summary-v2-p6');
 assert.equal(summaryRecord.parentSummary, timeSegments[0]);
 
 const retainedLegacyExtractive = upgradeSummaryRecordVersion({
@@ -284,7 +284,7 @@ const retainedLegacyExtractive = upgradeSummaryRecordVersion({
   summaryVersion: 'event-summary-v2-p4',
   summaryVerifiedAt: '2026-10-01T00:00:00.000Z'
 }, { verifiedAt: '2026-10-04T00:00:00.000Z' });
-assert.equal(retainedLegacyExtractive.summaryVersion, 'event-summary-v2-p5');
+assert.equal(retainedLegacyExtractive.summaryVersion, 'event-summary-v2-p6');
 assert.match(retainedLegacyExtractive.parentSummary, /Explore Palo Alto’s parks/i);
 assert.doesNotMatch(retainedLegacyExtractive.parentSummary, /Email Address|View Map|Fields marked/i);
 
@@ -297,7 +297,7 @@ const retainedManual = upgradeSummaryRecordVersion({
   summaryVersion: 'event-summary-v2-p4',
   summaryVerifiedAt: '2026-10-01T00:00:00.000Z'
 }, { verifiedAt: '2026-10-04T00:00:00.000Z' });
-assert.equal(retainedManual.summaryVersion, 'event-summary-v2-p5');
+assert.equal(retainedManual.summaryVersion, 'event-summary-v2-p6');
 assert.equal(retainedManual.parentSummary, 'A verified family performance.');
 assert.equal(summaryRecord.parentSummary, timeSegments[0]);
 assert.equal(summaryRecord.summaryEvidence, summaryRecord.parentSummary);
