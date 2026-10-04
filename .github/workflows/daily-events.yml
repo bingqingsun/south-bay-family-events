@@ -23,25 +23,17 @@ on:
       - 'scripts/detail-enrichment.test.mjs'
       - 'scripts/cupertino-audience.mjs'
       - 'scripts/cupertino-audience.test.mjs'
-      - 'scripts/event-translations.mjs'
-      - 'scripts/generate-chinese-translations.mjs'
-      - 'scripts/build-translation-overlay.mjs'
-      - 'scripts/apply-event-translations.mjs'
       - 'scripts/apply-event-supplements.mjs'
-      - 'scripts/load-translation-catalogs.mjs'
-      - 'scripts/translation-qa.mjs'
-      - 'scripts/runtime-translation-fallback.test.mjs'
       - 'data/sources.json'
       - 'data/event-supplements.json'
-      - 'data/translations.zh*.json'
       - 'app.js'
       - 'collections.js'
       - '.github/workflows/daily-events.yml'
   schedule:
-    # GitHub cron is UTC. Run daily near 10 PM Pacific:
+    # GitHub cron is UTC. Run daily at 10 PM Pacific:
     # 05:00 UTC = 10 PM PDT; 06:00 UTC = 10 PM PST.
-    # Both schedules fire year-round; gate the job below so only the
-    # occurrence whose Los Angeles local hour is 22 actually refreshes.
+    # Both schedules fire year-round; the first step gates execution to
+    # the occurrence whose America/Los_Angeles local hour is 22.
     - cron: '0 5 * * *'
     - cron: '0 6 * * *'
   workflow_dispatch:
@@ -57,7 +49,6 @@ permissions:
 
 jobs:
   refresh:
-    if: ${{ github.event_name != 'schedule' || format('{0:HH}', fromJSON(format('{0}', toJSON(github.event.repository.updated_at)))) == 'never' || true }}
     runs-on: ubuntu-latest
     steps:
       - name: Gate scheduled run to 10 PM Pacific
@@ -74,7 +65,7 @@ jobs:
         if: ${{ env.SKIP_REFRESH != 'true' }}
         with:
           node-version: 22
-      - name: Test event-summary engine contracts
+      - name: Test event data contracts
         if: ${{ env.SKIP_REFRESH != 'true' }}
         run: |
           node scripts/test-event-summary-engine.mjs
@@ -87,9 +78,6 @@ jobs:
           node scripts/link-ui.test.cjs
           node scripts/cupertino-audience.test.mjs
           node scripts/age-policy.test.cjs
-          node scripts/event-translations.test.mjs
-          node scripts/runtime-translation-fallback.test.mjs
-          node --check scripts/generate-chinese-translations.mjs
       - name: Refresh canonical event data
         if: ${{ env.SKIP_REFRESH != 'true' }}
         run: node scripts/update-events.mjs
@@ -102,24 +90,6 @@ jobs:
       - name: Repair grounded summary quality issues
         if: ${{ env.SKIP_REFRESH != 'true' }}
         run: node scripts/summary-quality-repair.mjs
-      - name: Fill missing or stale Chinese translations
-        if: ${{ env.SKIP_REFRESH != 'true' }}
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          TRANSLATION_MODEL: gpt-6-luna
-        run: node scripts/generate-chinese-translations.mjs
-      - name: Build runtime translation overlay
-        if: ${{ env.SKIP_REFRESH != 'true' }}
-        run: node scripts/build-translation-overlay.mjs
-      - name: Re-apply reviewed Chinese translations
-        if: ${{ env.SKIP_REFRESH != 'true' }}
-        run: node scripts/apply-event-translations.mjs
-      - name: Verify translation state after refresh
-        if: ${{ env.SKIP_REFRESH != 'true' }}
-        run: |
-          node scripts/translation-qa.mjs
-          node scripts/runtime-translation-fallback.test.mjs
-          node scripts/translation-coverage-report.mjs
       - name: Audit published summary provenance
         if: ${{ env.SKIP_REFRESH != 'true' }}
         env:
@@ -128,16 +98,16 @@ jobs:
       - name: Audit summary semantic coverage
         if: ${{ env.SKIP_REFRESH != 'true' }}
         run: node scripts/summary-semantic-coverage.test.mjs
-      - name: Save refreshed event list and approved translations
+      - name: Save refreshed event list
         if: ${{ env.SKIP_REFRESH != 'true' }}
         run: |
           git config user.name "south-bay-events-bot"
           git config user.email "actions@github.com"
-          git add data/events.json data/events.js data/museums.json data/museums.js data/source-health.json data/translations.zh.js data/translations.zh*.json
+          git add data/events.json data/events.js data/museums.json data/museums.js data/source-health.json
           if git diff --staged --quiet; then
             exit 0
           fi
-          git commit -m "chore: refresh South Bay events and translations"
+          git commit -m "chore: refresh South Bay events"
           git fetch origin "$GITHUB_REF_NAME"
           git rebase "origin/$GITHUB_REF_NAME"
           git push origin "HEAD:$GITHUB_REF_NAME"
