@@ -19,17 +19,6 @@ window.SBFF_WEEKEND_PICKS = {
       whyWePickedZh: '画廊和博物馆延长开放、当季最后一场 Street MRKT、本地艺术家和餐车集中在一起，很适合喜欢艺术和市中心氛围的家庭作为周末开场。'
     },
     {
-      eventRef: {
-        id: 'curated-f75ccb9c95d69610',
-        title: 'Santa Clara Parade of Champions & Festival',
-        aliases: ['Santa Clara Parade of Champions', '57th Santa Clara Parade of Champions', '57th Annual Parade of Champions'],
-        url: 'https://www.scparadeofchampions.org/parade-schedule'
-      },
-      label: 'Big Community Pick', labelZh: '社区大活动',
-      whyWePicked: 'The free all-day festival combines the parade with a Sports Fan Zone, community booths, street food, live entertainment, and kids activities, so families can make a full day of it.',
-      whyWePickedZh: '这场免费全天社区活动把游行、Sports Fan Zone、社区摊位、街头美食、现场表演和儿童活动放在一起，很适合安排成完整的一日家庭活动。'
-    },
-    {
       eventRef: { title: 'The Great Big BOO!', aliases: ['The Great Big BOO'], url: 'https://www.gilroygardens.org/halloween/' },
       label: 'Seasonal Pick', labelZh: '季节限定',
       whyWePicked: 'Live musical shows, trick-or-treating, costumes, and deliberately not-too-spooky Halloween fun make this an easy full-family seasonal outing.',
@@ -46,24 +35,6 @@ window.SBFF_WEEKEND_PICKS = {
       label: 'Little Kids Pick', labelZh: '低龄友好',
       whyWePicked: 'Simple sets, a storyteller-style format, and chances for kids to get up and wiggle make this theatre experience especially approachable for ages two to six.',
       whyWePickedZh: '简单布景、故事讲述式演出和可以起身互动的设计，让这场儿童剧对 2–6 岁孩子尤其友好。'
-    },
-    {
-      eventRef: { title: 'Na Leo Mokupuni ma Cupertino', aliases: ['Na Leo Mokupuni'], url: 'https://www.cupertino.gov/Parks-Recreation/Events/Na-Leo-Mokupuni-ma-Cupertino' },
-      label: 'Cultural Pick', labelZh: '文化体验',
-      whyWePicked: 'Live hula, ukulele, island music, and performers of all ages turn a low-cost ticket into a full day of Hawaiian music and culture.',
-      whyWePickedZh: '现场草裙舞、尤克里里、夏威夷音乐和不同年龄的表演者，让一张低价门票就能体验一整天的夏威夷音乐与文化。'
-    },
-    {
-      eventRef: { title: "Children's Costume Swap" },
-      label: 'Seasonal Pick', labelZh: '季节限定',
-      whyWePicked: 'Families can trade a gently used Halloween costume or choose a new-to-you option, making this a practical and low-waste way to get ready for October.',
-      whyWePickedZh: '可以带来闲置万圣节服装交换，也可以挑选一套“新对你而言”的装扮，是准备十月活动很实用、也更环保的一站。'
-    },
-    {
-      eventRef: { title: 'Folklórico Performances by Raíces de México' },
-      label: 'Cultural Pick', labelZh: '文化体验',
-      whyWePicked: 'Student performances share the color, movement, and traditions of ballet folklórico while connecting the outing to Latine and Hispanic Heritage Month.',
-      whyWePickedZh: '学生表演通过色彩、舞步和传统展现 Ballet Folklórico，也让孩子在现场体验中认识拉丁裔与西班牙裔文化传统。'
     },
     {
       eventRef: { title: 'Hispanic Heritage Month Family Movie Double Feature - Coco', aliases: ['Family Movie Double Feature: Coco & Encanto'] },
