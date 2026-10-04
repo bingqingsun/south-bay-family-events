@@ -19,6 +19,7 @@
     return `${assetBase}/assets/fallback/${fallbackType[event.type] || event.type || 'community'}.png?v=20260830-1`;
   }
   function officialImage(event) {
+    if (event.imageStatus === 'generated-editorial' && /^\/assets\/generated\//.test(event.image || '')) return event.image;
     if (!event.image || !/^https?:\/\//i.test(event.image)) return '';
     try {
       const url = new URL(event.image);
@@ -78,6 +79,14 @@
     imageArea.classList.add('has-image');
     imageArea.style.backgroundColor = event.imageBackground || event.color || '#d8eee0';
     imageArea.style.backgroundImage = `linear-gradient(0deg, rgba(18,49,42,.08), rgba(18,49,42,.08)), url(${JSON.stringify(image)})`;
+    const imageBadge = node.querySelector('.image-provenance-badge');
+    const generatedEditorial = event.imageStatus === 'generated-editorial';
+    imageBadge.hidden = !generatedEditorial;
+    imageBadge.textContent = generatedEditorial ? (isZh ? '主题插画' : 'Illustration') : '';
+    if (generatedEditorial) {
+      imageArea.setAttribute('role', 'img');
+      imageArea.setAttribute('aria-label', isZh ? `${localized.title} 的主题插画` : `Illustration for ${event.title}`);
+    }
     node.querySelector('.event-icon').textContent = event.icon || '✦';
     node.querySelector('.tag').textContent = categoryLabels[event.type] || event.tag || (isZh ? '亲子活动' : 'Family activity');
     node.querySelector('h3').textContent = localized.title;
