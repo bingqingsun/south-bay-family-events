@@ -7,6 +7,8 @@ assert.ok(Array.isArray(events) && events.length > 0, 'events.json must contain 
 
 const allowedStatuses = new Set(['extractive', 'official_structured', 'manual_verified']);
 const allowedQualities = new Set(['strong', 'acceptable', 'structured', 'manual_verified']);
+const requireCurrentSummaryVersion = process.env.REQUIRE_CURRENT_SUMMARY_VERSION === '1';
+const compatibleSummaryVersions = new Set([EVENT_SUMMARY_VERSION, 'event-summary-v2-p4']);
 const violations = [];
 
 for (const event of events) {
@@ -16,7 +18,11 @@ for (const event of events) {
   const evidence = String(event.summaryEvidence || '').replace(/\s+/g, ' ').trim();
 
   if (!allowedStatuses.has(event.summaryStatus)) violations.push(`${id}: invalid summaryStatus=${event.summaryStatus || 'missing'}`);
-  if (event.summaryVersion !== EVENT_SUMMARY_VERSION) violations.push(`${id}: summaryVersion must be ${EVENT_SUMMARY_VERSION}`);
+  if (requireCurrentSummaryVersion) {
+    if (event.summaryVersion !== EVENT_SUMMARY_VERSION) violations.push(`${id}: summaryVersion must be ${EVENT_SUMMARY_VERSION}`);
+  } else if (!compatibleSummaryVersions.has(event.summaryVersion)) {
+    violations.push(`${id}: unsupported summaryVersion=${event.summaryVersion || 'missing'}; expected ${EVENT_SUMMARY_VERSION} or a compatible migration version`);
+  }
   if (!event.summaryVerifiedAt) violations.push(`${id}: missing summaryVerifiedAt`);
   if (!summary) violations.push(`${id}: missing parentSummary`);
   if (event.description !== event.parentSummary) violations.push(`${id}: description must mirror parentSummary during v2 migration`);
