@@ -20,7 +20,7 @@ const events = [
   { id:'d', title:'Official Art Event', image:'https://example.org/event.jpg', imageStatus:'official', imageProvenance:{method:'schema.org'}, type:'arts' }
 ];
 const usage = buildImageUsage(events);
-assert.equal(editorialCoverReason(events[0], usage), 'generic_source_placeholder');
+assert.equal(editorialCoverReason(events[0], usage), '');
 assert.equal(editorialCoverReason(events[3], usage), '');
 assert.equal(editorialCoverReason({
   id:'og', title:'Official repeated event art', image:generic, imageStatus:'official',
