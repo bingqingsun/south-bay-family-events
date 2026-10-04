@@ -569,7 +569,7 @@ async function readRss(source) {
     const description = xmlText(item, 'description');
     const summary = buildSummaryRecord({ sourceText: sourceDescriptionText(description), title, verifiedAt: generatedAt });
     const eventKey = `${xmlText(item, 'guid') || link}|${startDate}`;
-    if (!title || !link || seen.has(eventKey) || !isUpcoming(startDate) || !familyAudience
+    if (!title || !link || seen.has(eventKey) || !isUpcoming(startDate, endDate) || !familyAudience
       || xmlText(item, 'is_cancelled') === 'true'
       || isClosureNotice(title, description)) return [];
     seen.add(eventKey);
@@ -627,7 +627,7 @@ async function readTribe(source) {
     const categories = (item.categories || []).map(category => decodeXml(category.name || '')).join(' ').toLowerCase();
     const audienceText = `${title} ${item.description || ''} ${item.excerpt || ''} ${categories}`;
     const sourceFamilyPattern = source.familyPattern ? new RegExp(source.familyPattern, 'i') : null;
-    if (!title || !item.url || !isUpcoming(startDate) || (sourceFamilyPattern && !sourceFamilyPattern.test(audienceText))) return [];
+    if (!title || !item.url || !isUpcoming(startDate, endDate) || (sourceFamilyPattern && !sourceFamilyPattern.test(audienceText))) return [];
     const type = typeFor(title + ' ' + categories, title);
     // Do not infer a family age label from the calendar platform itself. The
     // card only shows an age range when the organizer actually supplied one.
@@ -712,7 +712,7 @@ async function readHistorySanJose(source) {
     // The listing also contains fundraisers, private rentals, and adult-only
     // programs. Publish only when the official title has an explicit family
     // signal and it yields a parent-facing explanation of the activity.
-    if (!title || !isUpcoming(dateValue) || !familySignal || !hasPublishableSummary(description, { title }) || isExplicitlyAdultOnly(`${title} ${locationText}`)) return [];
+    if (!title || !isUpcoming(dateValue, endDateValue) || !familySignal || !hasPublishableSummary(description, { title }) || isExplicitlyAdultOnly(`${title} ${locationText}`)) return [];
     const event = directEvent({
       id: 'history-' + createHash('sha256').update(`${url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
       title, dateValue, endDateValue, description,
@@ -986,7 +986,7 @@ async function readGoogleVisitorEvents(source) {
     const endDateValue = String(event.end_time || '').replace(' ', 'T').slice(0, 19);
     const url = event.rsvp_link?.button_link_url || source.feedUrl;
     const activityText = `${title} ${description}`;
-    if (!title || !dateValue || !isUpcoming(dateValue) || !familyPattern.test(activityText) || isExplicitlyAdultOnly(activityText)) return [];
+    if (!title || !dateValue || !isUpcoming(dateValue, endDateValue) || !familyPattern.test(activityText) || isExplicitlyAdultOnly(activityText)) return [];
     return [{ title, description, dateValue, endDateValue, url, event }];
   });
   // The Google feed can contain duplicate sessions when an event RSVP page is
@@ -1054,7 +1054,7 @@ async function readWixEvents(source) {
     const key = `${title}|${start}`;
     const dateValue = isoDateFromOfficialText(startDateText, startTimeText) || start;
     const endDateValue = isoDateFromOfficialText(endDateText, endTimeText);
-    if (!title || !description || !isUpcoming(dateValue) || seen.has(key)) return [];
+    if (!title || !description || !isUpcoming(dateValue, endDateValue) || seen.has(key)) return [];
     seen.add(key);
     return [directEvent({
       id: 'wix-' + createHash('sha256').update(`${source.feedUrl}|${key}|${index}`).digest('hex').slice(0, 16),
@@ -1082,7 +1082,7 @@ async function readSquarespaceEvents(source) {
     const image = htmlAttribute(block, /<img[^>]+(?:data-image|src)=["']([^"']+)/i);
     const place = htmlAttribute(block, /eventlist-meta-address-line["'][^>]*>([\s\S]*?)<\/span>/i) || source.name;
     const text = `${title} ${description}`;
-    if (!title || !href || !isUpcoming(dateValue) || !familyPattern.test(text) || !hasUsableSourceContent(description)) return [];
+    if (!title || !href || !isUpcoming(dateValue, endDateValue) || !familyPattern.test(text) || !hasUsableSourceContent(description)) return [];
     const event = directEvent({
       id: 'squarespace-' + createHash('sha256').update(`${href}|${dateValue}|${index}`).digest('hex').slice(0, 16),
       title, dateValue, endDateValue, description, image, place, address: source.address || '', city: source.city || '',
@@ -2317,7 +2317,7 @@ async function readCivic(source) {
     const street = plainText(block.match(/itemprop=["']streetAddress["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
     const city = canonicalCity(plainText(block.match(/itemprop=["']addressLocality["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || source.city || ''));
     const familySignal = /\b(?:family|families|kids?|children|youth|teen|toddler|movie|concert|music|festival|celebration|holiday|halloween|lantern|campout|egg hunt|art|craft|science|stem|nature|outdoor)\b/i.test(title);
-    if (!title || !href || !isUpcoming(dateValue) || !familySignal) return [];
+    if (!title || !href || !isUpcoming(dateValue, endDateValue) || !familySignal) return [];
     return [{ title, url: new URL(decodeXml(href), source.feedUrl).href, dateValue, endDateValue, place, street, city, monthIndex }];
   }));
   const seen = new Set();
@@ -2923,7 +2923,7 @@ async function readPaloAltoSpecialEvents(source) {
       return paloAltoSpecialEventOccurrences(calendarHtml).flatMap(occurrence => {
         const dateValue = isoDateFromOfficialText(occurrence.dateText, occurrence.startTime);
         const endDateValue = isoDateFromOfficialText(occurrence.dateText, occurrence.endTime);
-        if (!dateValue || !isUpcoming(dateValue) || seen.has(dateValue)) return [];
+        if (!dateValue || !isUpcoming(dateValue, endDateValue) || seen.has(dateValue)) return [];
         seen.add(dateValue);
         const event = directEvent({
           id: 'paloalto-special-' + createHash('sha256').update(`${candidate.url}|${dateValue}`).digest('hex').slice(0, 16),
