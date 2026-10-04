@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-04T01:31:21.324Z",
+  "generatedAt": "2026-10-04T01:42:01.175Z",
   "configuredSources": 82,
   "directSources": 77,
   "fallbackSourcesRun": 0,
@@ -57,7 +57,7 @@
       "method": "paloalto",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 0,
+      "eventCount": 1,
       "failureStreak": 0,
       "error": ""
     },
@@ -204,10 +204,10 @@
       "name": "Stanford Events",
       "method": "stanford",
       "mode": "direct",
-      "status": "ok",
-      "eventCount": 1,
-      "failureStreak": 0,
-      "error": ""
+      "status": "failed",
+      "eventCount": 0,
+      "failureStreak": 1,
+      "error": "The operation was aborted due to timeout"
     },
     {
       "key": "San Jose Sharks|nhl.com|https://api-web.nhle.com/v1/club-schedule-season/SJS/",
@@ -276,7 +276,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 16,
+      "failureStreak": 17,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 16,
+      "failureStreak": 17,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 16,
+      "failureStreak": 17,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -376,7 +376,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 13,
+      "failureStreak": 14,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -813,44 +813,40 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 16,
+      "failureStreak": 17,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 16,
+      "failureStreak": 17,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 16,
+      "failureStreak": 17,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Peninsula Youth Theatre",
-      "failureStreak": 13,
+      "failureStreak": 14,
       "error": "PYT official show list was not valid: 200"
     }
   ],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-10-04T01:31:21.324Z",
-    "enriched": 321,
-    "identity-mismatch": 41,
-    "fetch-blocked": 18,
-    "cached": 2,
+    "checkedAt": "2026-10-04T01:42:01.175Z",
+    "enriched": 317,
+    "identity-mismatch": 43,
+    "cached": 5,
+    "fetch-blocked": 17,
     "fieldUpdates": {
-      "description": 11,
-      "place": 2,
-      "endDateValue": 4,
-      "image": 4,
-      "address": 2,
-      "dateValue": 1
+      "image": 1,
+      "description": 9
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-10-04T01:31:21.324Z",
+    "checkedAt": "2026-10-04T01:42:01.175Z",
     "official": 223,
     "unclassified": 155,
     "missing": 4,
