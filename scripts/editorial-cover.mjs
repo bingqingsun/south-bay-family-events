@@ -40,19 +40,6 @@ export function buildImageUsage(events = []) {
   return usage;
 }
 
-function decodedUrl(value = '') {
-  try { return decodeURIComponent(String(value)); } catch { return String(value); }
-}
-
-function isGenericBibliocommonsImage(event, imageUsage) {
-  const image = String(event?.image || '');
-  if (!/bibliocommons\.com\/events\/uploads\/images/i.test(image)) return false;
-  const decoded = decodedUrl(image);
-  const genericLabel = /(?:Early Learning\s*&\s*Storytime|Entertainment\s*&\s*Recreation|Crafts?,?\s*Maker,?\s*&\s*DIY|Arts?\s*(?:and|&)\s*Culture|Learn to Read|Homework Help|Health\s*(?:and|&)\s*Fitness|Author Visits?\s*(?:and|&)\s*Book Clubs?|Other Great Events|Used Book Sales|Event Types?\s*-\s*Arts?\s*&\s*Crafts)/i.test(decoded);
-  const distinctTitles = imageUsage.get(image)?.size || 0;
-  return genericLabel || distinctTitles >= 3;
-}
-
 function isLegacyWeakImage(event) {
   if (event?.imageProvenance?.method === 'detail-main-hero') return true;
   const image = String(event?.image || '');
@@ -68,9 +55,6 @@ export function editorialCoverReason(event, imageUsage = new Map()) {
   if (!event.image) return event.imageFailureReason || 'missing_image';
   if (event.imageStatus === 'missing' || event.imageStatus === 'rejected') return event.imageFailureReason || event.imageStatus;
   if (isLegacyWeakImage(event)) return 'weak_or_unverifiable_official_image';
-  const hasStrongProvenance = ['schema.org', 'event-image', 'card-dom-bound', 'og:image', 'manual_verified']
-    .includes(event.imageProvenance?.method);
-  if (!hasStrongProvenance && isGenericBibliocommonsImage(event, imageUsage)) return 'generic_source_placeholder';
   return '';
 }
 
