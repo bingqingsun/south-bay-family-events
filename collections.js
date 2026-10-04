@@ -124,7 +124,10 @@
   }
 
   function optimizedOfficialImageUrl(value, source = '') {
-    if (!value || !/^https?:\/\//i.test(value)) return value || '';
+    if (!value) return '';
+    if (/^\/assets\//i.test(value)) return value;
+    if (/^assets\//i.test(value)) return `${assetBase}/${value}`;
+    if (!/^https?:\/\//i.test(value)) return value;
     try {
       const url = new URL(value);
       if (url.hostname.endsWith('cupertino.gov') && (url.searchParams.get('dimension') === 'smallthumbnail' || (url.searchParams.has('w') && Number(url.searchParams.get('w')) <= 100))) url.search = '';
