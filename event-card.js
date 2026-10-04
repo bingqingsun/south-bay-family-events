@@ -11,6 +11,7 @@
       <div class="card-image">
         <span class="event-icon"></span>
         <span class="tag"></span>
+        <span class="image-provenance-badge" hidden></span>
         <button class="heart" type="button" aria-label="Save activity">♡</button>
       </div>
       <div class="card-content">
