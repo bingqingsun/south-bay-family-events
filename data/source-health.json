@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-04T02:33:40.928Z",
+  "generatedAt": "2026-10-04T06:00:44.043Z",
   "configuredSources": 82,
   "directSources": 77,
   "fallbackSourcesRun": 0,
@@ -20,7 +20,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 17,
+      "eventCount": 18,
       "failureStreak": 0,
       "error": ""
     },
@@ -94,7 +94,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 495,
+      "eventCount": 497,
       "failureStreak": 0,
       "error": ""
     },
@@ -225,7 +225,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 18,
+      "eventCount": 24,
       "failureStreak": 0,
       "error": ""
     },
@@ -235,7 +235,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 14,
+      "eventCount": 18,
       "failureStreak": 0,
       "error": ""
     },
@@ -255,7 +255,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 18,
+      "eventCount": 22,
       "failureStreak": 0,
       "error": ""
     },
@@ -265,7 +265,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 18,
+      "eventCount": 24,
       "failureStreak": 0,
       "error": ""
     },
@@ -276,7 +276,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 21,
+      "failureStreak": 22,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 21,
+      "failureStreak": 22,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 21,
+      "failureStreak": 22,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -315,7 +315,7 @@
       "method": "sapcenter",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 7,
+      "eventCount": 1,
       "failureStreak": 0,
       "error": ""
     },
@@ -376,7 +376,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 18,
+      "failureStreak": 19,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -460,7 +460,7 @@
       "error": ""
     },
     {
-      "key": "San Jose Theaters|sanjosetheaters.org|https://events.timely.fun/jc0x91t0/stream?tags=677512582",
+      "key": "San Jose Theaters|sanjose.org|https://events.timely.fun/jc0x91t0/stream?tags=677512582",
       "name": "San Jose Theaters",
       "method": "timely",
       "mode": "direct",
@@ -804,52 +804,52 @@
       "name": "Santana Row",
       "method": "santana-row",
       "mode": "direct",
-      "status": "failed",
-      "eventCount": 0,
-      "failureStreak": 1,
-      "error": "fetch failed"
+      "status": "ok",
+      "eventCount": 5,
+      "failureStreak": 0,
+      "error": ""
     }
   ],
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 21,
+      "failureStreak": 22,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 21,
+      "failureStreak": 22,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 21,
+      "failureStreak": 22,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Peninsula Youth Theatre",
-      "failureStreak": 18,
+      "failureStreak": 19,
       "error": "PYT official show list was not valid: 200"
     }
   ],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-10-04T02:33:40.928Z",
-    "enriched": 314,
-    "fetch-failed": 5,
+    "checkedAt": "2026-10-04T06:00:44.043Z",
+    "enriched": 324,
     "cached": 5,
     "identity-mismatch": 38,
-    "fetch-blocked": 21,
+    "fetch-blocked": 16,
     "fieldUpdates": {
-      "place": 1,
-      "description": 10
+      "description": 11,
+      "image": 7,
+      "place": 1
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-10-04T02:33:40.928Z",
-    "official": 225,
-    "unclassified": 154,
+    "checkedAt": "2026-10-04T06:00:44.043Z",
+    "official": 230,
+    "unclassified": 149,
     "missing": 4,
     "failure:official_page_fetch_blocked": 3,
     "failure:no_verified_official_image_candidate": 1
