@@ -22056,7 +22056,7 @@
     "summaryEvidenceData": null,
     "summaryVersion": "event-summary-v2-p6",
     "summaryVerifiedAt": "2026-10-04T14:01:14.825Z",
-    "image": "https://www.downtowncampbell.com/sites/default/files/uploads/users/1/images/downtowncampbell-campbelloktoberfest-feb26-5219.jpg",
+    "image": "https://www.downtowncampbell.com/sites/default/files/styles/social_media_preview/public/uploads/users/1/images/downtowncampbell-campbelloktoberfest-feb26-5219.jpg?itok=UwrgFTHC",
     "imagePresentation": "",
     "imageBackground": "",
     "place": "Downtown Campbell",
@@ -22071,12 +22071,12 @@
     "availabilityStatus": "",
     "imageStatus": "official",
     "imageProvenance": {
-      "source": "canonical-detail",
-      "method": "og:image",
+      "source": "curated-manual",
+      "method": "manual_verified",
       "sourceUrl": "https://www.downtowncampbell.com/event/31st-annual-campbell-oktoberfest",
-      "verifiedAt": "2026-10-04T01:55:11.156Z",
-      "score": 70,
-      "evidence": "og-title-matches-event"
+      "verifiedAt": "2026-10-04T23:05:00Z",
+      "score": 100,
+      "evidence": "first-party-curated-official-image"
     },
     "linkSource": "curated_verified",
     "audienceStatus": "organizer-confirmed",
@@ -22201,7 +22201,7 @@
     "summaryEvidenceData": null,
     "summaryVersion": "event-summary-v2-p6",
     "summaryVerifiedAt": "2026-10-04T14:01:14.825Z",
-    "image": "assets/official/hands-on-the-arts-festival-2026.png",
+    "image": "/assets/official/hands-on-the-arts-festival-2026.png",
     "imagePresentation": "",
     "imageBackground": "",
     "place": "Sunnyvale Community Center",
@@ -22219,7 +22219,7 @@
       "source": "curated-manual",
       "method": "manual_verified",
       "sourceUrl": "https://www.sunnyvale.ca.gov/recreation-and-community/special-events/hands-on-the-arts",
-      "verifiedAt": "2026-10-04T14:01:14.825Z",
+      "verifiedAt": "2026-10-04T23:05:00Z",
       "score": 100,
       "evidence": "first-party-curated-official-image"
     },
@@ -26964,7 +26964,7 @@
     "summaryEvidenceData": null,
     "summaryVersion": "event-summary-v2-p6",
     "summaryVerifiedAt": "2026-10-04T14:01:14.825Z",
-    "image": "",
+    "image": "https://www.fremont.gov/home/showpublishedimage/12597/639246516544470000",
     "imagePresentation": "",
     "imageBackground": "",
     "place": "Downtown Event Center & Plaza",
@@ -26988,8 +26988,7 @@
       "httpStatus": 403,
       "error": "HTTP 403"
     },
-    "imageStatus": "missing",
-    "imageFailureReason": "official_page_fetch_blocked",
+    "imageStatus": "official",
     "sourceId": "city-of-fremont-seasonal-events",
     "canonicalUrl": "https://www.fremont.gov/government/departments/parks-recreation/events/trick-or-treat-event",
     "sourceLandingUrl": "https://www.fremont.gov/government/departments/parks-recreation/events",
@@ -27011,7 +27010,15 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "imageProvenance": {
+      "source": "curated-manual",
+      "method": "manual_verified",
+      "sourceUrl": "https://www.fremont.gov/government/departments/parks-recreation/events/trick-or-treat-event",
+      "verifiedAt": "2026-10-04T23:05:00Z",
+      "score": 100,
+      "evidence": "first-party-curated-official-image"
+    }
   },
   {
     "id": "rss-6aadb2684b3b06003084c688",
@@ -28068,7 +28075,7 @@
     "summaryEvidenceData": null,
     "summaryVersion": "event-summary-v2-p6",
     "summaryVerifiedAt": "2026-10-04T14:01:14.825Z",
-    "image": "",
+    "image": "https://www.santaclaraca.gov/home/showpublishedimage/81421/638974267888570000",
     "imagePresentation": "",
     "imageBackground": "",
     "place": "Central Park",
@@ -28092,8 +28099,7 @@
       "httpStatus": 403,
       "error": "HTTP 403"
     },
-    "imageStatus": "missing",
-    "imageFailureReason": "official_page_fetch_blocked",
+    "imageStatus": "official",
     "sourceId": "city-of-santa-clara-seasonal-events",
     "canonicalUrl": "https://www.santaclaraca.gov/our-city/departments-g-z/parks-recreation/special-events/children-s-halloween-party",
     "sourceLandingUrl": "https://www.santaclaraca.gov/Home/Components/Calendar/Event/111000/41",
@@ -28115,7 +28121,15 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "imageProvenance": {
+      "source": "curated-manual",
+      "method": "manual_verified",
+      "sourceUrl": "https://www.santaclaraca.gov/our-city/departments-g-z/parks-recreation/special-events/children-s-halloween-party",
+      "verifiedAt": "2026-10-04T23:05:00Z",
+      "score": 100,
+      "evidence": "first-party-curated-official-image"
+    }
   },
   {
     "id": "chcp-c505df3b72a3814d",
@@ -31558,7 +31572,7 @@
     "summaryEvidenceData": null,
     "summaryVersion": "event-summary-v2-p6",
     "summaryVerifiedAt": "2026-10-04T14:01:14.825Z",
-    "image": "https://www.menlopark.gov/files/sharedassets/public/v/2/library-and-community-services/images/events/trunkortreat.png?w=1200",
+    "image": "https://www.menlopark.gov/files/sharedassets/public/v/2/library-and-community-services/images/events/trunkortreat.png?dimension=pageimagefullwidth&w=1140",
     "imagePresentation": "",
     "imageBackground": "",
     "place": "Belle Haven Community Campus",
@@ -31573,12 +31587,12 @@
     "availabilityStatus": "",
     "imageStatus": "official",
     "imageProvenance": {
-      "source": "canonical-detail",
-      "method": "og:image",
+      "source": "curated-manual",
+      "method": "manual_verified",
       "sourceUrl": "https://www.menlopark.gov/Citywide-calendar/Community-events/20261028-Trunk-or-Treat",
-      "verifiedAt": "2026-10-04T14:01:14.825Z",
-      "score": 70,
-      "evidence": "og-title-matches-event"
+      "verifiedAt": "2026-10-04T23:05:00Z",
+      "score": 100,
+      "evidence": "first-party-curated-official-image"
     },
     "linkSource": "curated_verified",
     "audienceStatus": "organizer-confirmed",
