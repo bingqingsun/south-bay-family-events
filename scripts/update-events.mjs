@@ -2048,17 +2048,14 @@ async function readFiloli(source) {
     const natureExperience = /\b(?:garden|nest|nature|outdoor|redwood|woodland|trail)\b/i.test(`${candidate.title} ${description}`);
     const event = directEvent({
       id: 'filoli-' + createHash('sha256').update(candidate.url).digest('hex').slice(0, 16),
-      title: candidate.title, dateValue: candidate.dateValue, description,
+      title: candidate.title, dateValue: candidate.dateValue, endDateValue: candidate.endValue, description,
       image: image ? new URL(image, source.feedUrl).href : '', place: 'Filoli Historic House & Garden',
       address: source.address || '', city: source.city || '', source: source.name, url: candidate.url,
       ageText: `${candidate.tags} ${description}`, format
     });
-    const classified = exhibition ? { ...event, type: 'museums', icon: icons.museums, color: colors.museums, tag: labels.museums }
+    return exhibition ? { ...event, type: 'museums', icon: icons.museums, color: colors.museums, tag: labels.museums }
       : natureExperience ? { ...event, type: 'outdoor', icon: icons.outdoor, color: colors.outdoor, tag: labels.outdoor }
       : event;
-    return candidate.range && candidate.dateValue < today
-      ? { ...classified, date: 'On view now', dateValue: '', ongoing: true }
-      : classified;
   }));
   return events.filter(Boolean);
 }
@@ -2113,11 +2110,10 @@ async function readLahm(source) {
       const ageText = exhibition ? '' : /\ball ages\b/i.test(detailBody) ? 'all ages' : /\bfamil(?:y|ies)\b/i.test(detailBody) ? 'family' : '';
       const event = directEvent({
         id: 'lahm-' + createHash('sha256').update(url).digest('hex').slice(0, 16), title,
-        dateValue, description, image, place: source.name, address: source.address || '', city: source.city || '',
+        dateValue, endDateValue: endValue, description, image, place: source.name, address: source.address || '', city: source.city || '',
         source: source.name, url, ageText, format: exhibition ? 'museum-exhibition' : ''
       });
-      const classified = exhibition ? { ...event, type: 'museums', icon: icons.museums, color: colors.museums, tag: labels.museums } : event;
-      return rangeParts.length > 1 && dateValue < today ? { ...classified, date: 'On view now', dateValue: '', ongoing: true } : classified;
+      return exhibition ? { ...event, type: 'museums', icon: icons.museums, color: colors.museums, tag: labels.museums } : event;
     } catch { return null; }
   }));
   return events.filter(Boolean);
