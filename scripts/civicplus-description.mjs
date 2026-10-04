@@ -10,6 +10,8 @@ function plainText(value) {
     .trim();
 }
 
+const PAGE_CHROME_COPY = /(?:^|\b)(?:find (?:more )?details?\s+(?:at|here|on)\b|view map\b|email address\b|fields marked as ['’\"]?required['’\"]?\b|enter your email address\b|share this page\b|send this page\b|back to top\b|site footer\b)/i;
+
 function titleTokens(title) {
   const stop = new Set(['the','and','for','with','from','festival','event','annual']);
   return plainText(title).toLowerCase().split(/[^a-z0-9]+/)
@@ -32,7 +34,8 @@ export function selectCivicPlusEventDescription(html, title, fallback = '') {
   const paragraphs = [...String(html || '').matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)]
     .map(match => plainText(match[1]))
     .filter(text => text.length >= 35 && text.length <= 1600)
-    .filter(text => !/^(?:contact us|back to top|site footer|copyright|privacy|accessibility)/i.test(text));
+    .filter(text => !/^(?:contact us|back to top|site footer|copyright|privacy|accessibility)/i.test(text))
+    .filter(text => !PAGE_CHROME_COPY.test(text));
 
   const ranked = paragraphs
     .map((text, index) => ({ text, index, score: candidateScore(text, title) }))
