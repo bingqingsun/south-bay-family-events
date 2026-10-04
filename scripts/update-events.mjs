@@ -6,6 +6,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { applyChineseTranslationCatalog } from './event-translations.mjs';
+import { loadChineseTranslationCatalogs } from './load-translation-catalogs.mjs';
 import { selectCivicPlusEventDescription } from './civicplus-description.mjs';
 import {
   cautiousMovieRating,
@@ -3269,7 +3270,7 @@ const museumTarget = new URL('../data/museums.json', import.meta.url);
 const museumBrowserTarget = new URL('../data/museums.js', import.meta.url);
 const sourceHealthTarget = new URL('../data/source-health.json', import.meta.url);
 const existingEvents = JSON.parse(await readFile(target, 'utf8'));
-const translationCatalog = JSON.parse(await readFile(new URL('../data/translations.zh.json', import.meta.url), 'utf8'));
+const translationCatalog = await loadChineseTranslationCatalogs();
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const existingSourceHealth = await readFile(sourceHealthTarget, 'utf8').then(JSON.parse).catch(() => ({ sources: [] }));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));

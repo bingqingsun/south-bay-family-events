@@ -53,10 +53,21 @@ jobs:
     steps:
       - name: Gate scheduled run to 10 PM Pacific
         if: ${{ github.event_name == 'schedule' }}
+        env:
+          SCHEDULE: ${{ github.event.schedule }}
         run: |
-          hour=$(TZ=America/Los_Angeles date +%H)
-          if [ "$hour" != "22" ]; then
-            echo "Scheduled duplicate is not 10 PM Pacific; stopping successfully."
+          utc_date=$(date -u +%F)
+          case "$SCHEDULE" in
+            "0 5 * * *") nominal_utc="$utc_date 05:00 UTC" ;;
+            "0 6 * * *") nominal_utc="$utc_date 06:00 UTC" ;;
+            *)
+              echo "Unexpected schedule: $SCHEDULE"
+              exit 1
+              ;;
+          esac
+          local_time=$(TZ=America/Los_Angeles date -d "$nominal_utc" +%H:%M)
+          if [ "$local_time" != "22:00" ]; then
+            echo "Scheduled duplicate maps to $local_time Pacific instead of 22:00; stopping successfully."
             echo "SKIP_REFRESH=true" >> "$GITHUB_ENV"
           fi
       - uses: actions/checkout@v4

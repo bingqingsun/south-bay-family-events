@@ -10,9 +10,10 @@ window.SBFF_WEEKEND_PICKS = {
   picks: [
     {
       eventRef: {
-        title: 'South FIRST FRIDAYS ArtWalk SJ + STREET MRKT',
-        aliases: ['South FIRST FRIDAYS ArtWalk SJ + Street', 'South FIRST FRIDAYS #ArtwalkSJ + STREET MRKT indie urban art faire'],
-        url: 'https://www.southfirstfridays.com/2026/09/october-2nd-2026-south-first-fridays-artwalksj-street-mrkt-indie-urban-art-faire/'
+        title: 'South FIRST FRIDAYS ArtWalk SJ + Street Mrkt',
+        aliases: ['South FIRST FRIDAYS ArtWalk SJ + STREET MRKT', 'South FIRST FRIDAYS ArtWalk SJ + Street', 'South FIRST FRIDAYS #ArtwalkSJ + STREET MRKT indie urban art faire'],
+        url: 'https://www.southfirstfridays.com/2026/09/october-2nd-2026-south-first-fridays-artwalksj-street-mrkt-indie-urban-art-faire/',
+        dateValue: '2026-10-02T17:00'
       },
       label: 'Friday Night Pick', labelZh: '周五夜场',
       whyWePicked: 'Free late-night gallery and museum hours, the final Street MRKT of the season, local artists, and food trucks make this an easy Friday-night kickoff for families who enjoy art and downtown energy.',
