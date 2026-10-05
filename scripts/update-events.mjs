@@ -43,6 +43,7 @@ import {
   linkedOfficialPageMatches
 } from './lib/linked-official-detail.mjs';
 import { eventDetailSlugCandidates } from './lib/detail-url.mjs';
+import { enrichPaloAltoChildrensTheatreEvents } from './enrich-palo-alto-childrens-theatre.mjs';
 import { fetchPaloAltoChildrensTheatreDetail } from './lib/palo-alto-childrens-theatre.mjs';
 import {
   addMinutesToLocalDateTime,
@@ -3883,6 +3884,22 @@ events = canonicalDetail.events
     return restored;
   })
   .map(event => ({ ...event, image: optimizedOfficialImageUrl(event.image, event.source) }));
+
+const paloAltoTheatreSource = sources.find(source => source.name === "Palo Alto Children's Theatre");
+if (paloAltoTheatreSource) {
+  const paloAltoTheatreEnrichment = await enrichPaloAltoChildrensTheatreEvents(
+    events,
+    paloAltoTheatreSource,
+    undefined,
+    { verifiedAt: generatedAt }
+  );
+  events = paloAltoTheatreEnrichment.events;
+  sourceHealth.paloAltoChildrensTheatreEnrichment = {
+    checkedAt: generatedAt,
+    enriched: paloAltoTheatreEnrichment.enriched
+  };
+  console.log(`Palo Alto Children's Theatre final enrichment: ${paloAltoTheatreEnrichment.enriched} event card(s)`);
+}
 
 function withImageQualityState(event) {
   if (event.image) {
