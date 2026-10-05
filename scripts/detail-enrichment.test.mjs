@@ -133,6 +133,22 @@ const source = { name: 'City Test', method: 'civic', domain: 'example.gov', city
   assert.equal(result.event.image, 'https://example.gov/uploads/2026/09/hero-18492.jpg');
 }
 
+// Placeholder assets such as ShoWare Blank.gif must never become official
+// event artwork even when the alt text happens to match the event title.
+{
+  const event = { ...baseEvent, title: 'Playhouse Series: Sleeping Beauty', image: '' };
+  const html = `<html><body><h1>Playhouse Series: Sleeping Beauty</h1>
+    <img alt="Playhouse Series: Sleeping Beauty" src="https://pact.showare.com/uplimage/Blank.gif">
+  </body></html>`;
+  const result = enrichEventFromDetail(event, {
+    source: { name:"Palo Alto Children's Theatre", method:'showare', domain:'pact.showare.com', city:'Palo Alto' },
+    html,
+    finalUrl:'https://pact.showare.com/eventperformances.asp?evt=5'
+  });
+  assert.equal(result.event.image, '');
+  assert.equal(result.event.imageStatus, 'missing');
+}
+
 // BiblioCommons event artwork can contain apostrophes inside a double-quoted
 // OG image URL. Preserve the full paired attribute value instead of truncating
 // at the apostrophe and falling back at render time.
