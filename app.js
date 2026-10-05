@@ -61,6 +61,7 @@ function optimizedOfficialImageUrl(value, source = '') {
   if (!/^https?:\/\//i.test(value)) return value;
   try {
     const url = new URL(value);
+    if (/\/blank\.gif$/i.test(url.pathname)) return '';
     // Cupertino's calendar card exposes a 100px thumbnail even though the
     // same official asset is available at its original multi-megapixel URL.
     if (url.hostname.endsWith('cupertino.gov') && (url.searchParams.get('dimension') === 'smallthumbnail' || (url.searchParams.has('w') && Number(url.searchParams.get('w')) <= 100))) {
