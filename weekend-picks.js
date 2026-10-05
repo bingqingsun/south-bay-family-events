@@ -77,10 +77,26 @@
     card.dataset.analytics = JSON.stringify(analytics);
 
     const imageArea = node.querySelector('.card-image');
-    const image = officialImage(event) || fallbackImage(event);
+    const eventImage = officialImage(event);
+    const fallback = fallbackImage(event);
     imageArea.classList.add('has-image');
     imageArea.style.backgroundColor = event.imageBackground || event.color || '#d8eee0';
-    imageArea.style.backgroundImage = `linear-gradient(0deg, rgba(18,49,42,.08), rgba(18,49,42,.08)), url(${JSON.stringify(image)})`;
+    if (eventImage) {
+      imageArea.style.backgroundImage = 'none';
+      const cardImage = new Image();
+      cardImage.className = 'card-media-image';
+      cardImage.alt = '';
+      cardImage.referrerPolicy = 'no-referrer';
+      cardImage.decoding = 'async';
+      cardImage.onerror = () => {
+        cardImage.remove();
+        imageArea.style.backgroundImage = `linear-gradient(0deg, rgba(18,49,42,.08), rgba(18,49,42,.08)), url(${JSON.stringify(fallback)})`;
+      };
+      cardImage.src = eventImage;
+      imageArea.prepend(cardImage);
+    } else {
+      imageArea.style.backgroundImage = `linear-gradient(0deg, rgba(18,49,42,.08), rgba(18,49,42,.08)), url(${JSON.stringify(fallback)})`;
+    }
     const imageBadge = node.querySelector('.image-provenance-badge');
     const generatedEditorial = event.imageStatus === 'generated-editorial';
     imageBadge.hidden = !generatedEditorial;
@@ -186,7 +202,23 @@
     collage.className = 'weekend-picks-collage';
     vm.validPicks.slice(0,3).forEach(pick => {
       const tile = document.createElement('span');
-      tile.style.backgroundImage = `url(${JSON.stringify(officialImage(pick.event) || fallbackImage(pick.event))})`;
+      const image = officialImage(pick.event);
+      const fallback = fallbackImage(pick.event);
+      if (image) {
+        const img = new Image();
+        img.className = 'weekend-picks-collage-image';
+        img.alt = '';
+        img.referrerPolicy = 'no-referrer';
+        img.decoding = 'async';
+        img.onerror = () => {
+          img.remove();
+          tile.style.backgroundImage = `url(${JSON.stringify(fallback)})`;
+        };
+        img.src = image;
+        tile.append(img);
+      } else {
+        tile.style.backgroundImage = `url(${JSON.stringify(fallback)})`;
+      }
       collage.append(tile);
     });
     link.append(copy, collage);
