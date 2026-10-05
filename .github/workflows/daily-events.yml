@@ -90,6 +90,7 @@ jobs:
           node scripts/linked-official-detail.test.mjs
           node scripts/link-ui.test.cjs
           node scripts/cupertino-audience.test.mjs
+          node scripts/palo-alto-childrens-theatre.test.mjs
           node scripts/age-policy.test.cjs
       - name: Refresh canonical event data
         if: ${{ env.SKIP_REFRESH != 'true' }}
