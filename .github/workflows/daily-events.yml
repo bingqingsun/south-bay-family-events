@@ -10,6 +10,7 @@ on:
       - main
     paths:
       - 'scripts/update-events.mjs'
+      - 'scripts/enrich-palo-alto-childrens-theatre.mjs'
       - 'scripts/mirror-official-images.mjs'
       - 'scripts/event-summary-engine.mjs'
       - 'scripts/test-event-summary-engine.mjs'
