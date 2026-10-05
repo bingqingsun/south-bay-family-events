@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-05T05:16:29.000Z",
+  "generatedAt": "2026-10-05T05:18:02.615Z",
   "configuredSources": 82,
   "directSources": 77,
   "fallbackSourcesRun": 0,
@@ -276,7 +276,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 28,
+      "failureStreak": 29,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 28,
+      "failureStreak": 29,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 28,
+      "failureStreak": 29,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -376,7 +376,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 25,
+      "failureStreak": 26,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -813,53 +813,53 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 28,
+      "failureStreak": 29,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 28,
+      "failureStreak": 29,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 28,
+      "failureStreak": 29,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Peninsula Youth Theatre",
-      "failureStreak": 25,
+      "failureStreak": 26,
       "error": "PYT official show list was not valid: 200"
     }
   ],
   "paloAltoChildrensTheatreEnrichment": {
-    "checkedAt": "2026-10-05T05:16:29.000Z",
-    "enriched": 2
+    "checkedAt": "2026-10-05T05:18:02.615Z",
+    "enriched": 5
   },
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-10-05T05:16:29.000Z",
+    "checkedAt": "2026-10-05T05:18:02.615Z",
     "enriched": 302,
     "identity-mismatch": 38,
-    "fetch-blocked": 16,
+    "fetch-blocked": 15,
     "cached": 4,
     "fieldUpdates": {
-      "description": 12,
+      "description": 11,
       "place": 1,
       "image": 1
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-10-05T05:16:29.000Z",
-    "official": 211,
+    "checkedAt": "2026-10-05T05:18:02.615Z",
+    "official": 210,
     "unclassified": 147,
     "missing": 2,
     "failure:official_page_fetch_blocked": 2
   },
   "editorialCoverGeneration": {
     "frameworkVersion": "editorial-cover-v1",
-    "checkedAt": "2026-10-05T05:16:29.000Z",
+    "checkedAt": "2026-10-05T05:18:02.615Z",
     "generated": 2,
     "byReason": {
       "official_page_fetch_blocked": 2
