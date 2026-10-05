@@ -26,6 +26,18 @@ export function paloAltoTheatreTitlesMatch(left, right) {
   return Boolean(a && b && a === b);
 }
 
+export function paloAltoTheatreDetailTitleCandidates(title = '') {
+  const value = decodeHtml(title).trim();
+  const candidates = [value];
+  if (/^Main Stage Production:/i.test(value)) {
+    candidates.push(value.replace(/^Main Stage Production:/i, 'Main Stage:'));
+  }
+  if (/^Playhouse Series:\s*One Grain of Rice\b/i.test(value)) {
+    candidates.push('Playhouse Series: One Grain of Rice');
+  }
+  return [...new Set(candidates.filter(Boolean))];
+}
+
 export function paloAltoChildrensTheatreDetailUrl(title, baseUrl = DEFAULT_BASE_URL) {
   const slug = decodeHtml(title)
     .replace(/&/g, ' and ')
@@ -70,17 +82,19 @@ export async function fetchPaloAltoChildrensTheatreDetail(title, options = {}) {
   const baseUrl = options.baseUrl || DEFAULT_BASE_URL;
   const fetchImpl = options.fetchImpl || fetch;
   const timeoutMs = options.timeoutMs || 12000;
-  const url = paloAltoChildrensTheatreDetailUrl(title, baseUrl);
-  if (!url) return null;
-  try {
-    const response = await fetchImpl(url, {
-      headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' },
-      signal: AbortSignal.timeout(timeoutMs)
-    });
-    if (!response.ok) return null;
-    const html = await response.text();
-    return parsePaloAltoChildrensTheatreDetail(html, title, url);
-  } catch {
-    return null;
+  for (const candidateTitle of paloAltoTheatreDetailTitleCandidates(title)) {
+    const url = paloAltoChildrensTheatreDetailUrl(candidateTitle, baseUrl);
+    if (!url) continue;
+    try {
+      const response = await fetchImpl(url, {
+        headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' },
+        signal: AbortSignal.timeout(timeoutMs)
+      });
+      if (!response.ok) continue;
+      const html = await response.text();
+      const parsed = parsePaloAltoChildrensTheatreDetail(html, candidateTitle, response.url || url);
+      if (parsed) return parsed;
+    } catch {}
   }
+  return null;
 }
