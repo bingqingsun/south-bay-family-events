@@ -348,7 +348,8 @@
     "method": "showare",
     "feedUrl": "https://pact.showare.com/include/widgets/events/performancelist.asp?action=perf&page=1&listPageSize=100&showPackages=1",
     "address": "1305 Middlefield Rd, Palo Alto",
-    "city": "Palo Alto"
+    "city": "Palo Alto",
+    "officialDetailBaseUrl": "https://www.paloalto.gov/Events-Directory/Community-Services/"
   },
   {
     "name": "CMT San Jose",
