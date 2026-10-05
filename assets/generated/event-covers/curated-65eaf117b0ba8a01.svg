@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title">
+  <title id="title">SBFF editorial illustration for Almaden Fall Harvest &amp; 20th Anniversary</title>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f2140"/><stop offset="1" stop-color="#72436e"/></linearGradient></defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <circle cx="394" cy="541" r="22" fill="#f49a45" opacity=".22"/><circle cx="368" cy="550" r="16" fill="#ffd58f" opacity=".22"/><circle cx="260" cy="568" r="13" fill="#f4e5d6" opacity=".22"/><circle cx="980" cy="448" r="23" fill="#2f2140" opacity=".22"/><circle cx="675" cy="538" r="28" fill="#72436e" opacity=".22"/><circle cx="924" cy="462" r="19" fill="#f49a45" opacity=".22"/><circle cx="1004" cy="85" r="14" fill="#ffd58f" opacity=".22"/>
+  
+    <circle cx="930" cy="132" r="82" fill="#ffd58f"/>
+    <path d="M0 520 Q250 420 500 520 T1000 520 T1200 520 V675 H0Z" fill="#72436e"/>
+    <g transform="translate(510 405)"><ellipse cx="0" cy="50" rx="95" ry="72" fill="#f49a45"/><ellipse cx="-48" cy="50" rx="60" ry="74" fill="#f49a45" opacity=".9"/><ellipse cx="48" cy="50" rx="60" ry="74" fill="#f49a45" opacity=".9"/><path d="M0-25 C10-50 25-62 42-70" stroke="#2f2140" stroke-width="16" fill="none" stroke-linecap="round"/></g>
+    <path d="M260 450 C220 390 235 300 310 280 C385 300 400 390 360 450 L335 420 L310 450 L285 420 Z" fill="#f4e5d6"/>
+    <circle cx="288" cy="350" r="9" fill="#2f2140"/><circle cx="332" cy="350" r="9" fill="#2f2140"/>
+  
+  <rect x="20" y="20" width="1160" height="635" rx="38" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="3"/>
+</svg>

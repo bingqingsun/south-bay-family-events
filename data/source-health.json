@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-04T14:01:14.825Z",
+  "generatedAt": "2026-10-05T00:26:54.504Z",
   "configuredSources": 82,
   "directSources": 77,
   "fallbackSourcesRun": 0,
@@ -10,7 +10,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 12,
+      "eventCount": 13,
       "failureStreak": 0,
       "error": ""
     },
@@ -20,7 +20,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 18,
+      "eventCount": 13,
       "failureStreak": 0,
       "error": ""
     },
@@ -57,7 +57,7 @@
       "method": "paloalto",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 1,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -185,7 +185,7 @@
       "method": "deanza",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 29,
+      "eventCount": 28,
       "failureStreak": 0,
       "error": ""
     },
@@ -225,7 +225,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 24,
+      "eventCount": 15,
       "failureStreak": 0,
       "error": ""
     },
@@ -235,7 +235,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 18,
+      "eventCount": 12,
       "failureStreak": 0,
       "error": ""
     },
@@ -255,7 +255,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 17,
+      "eventCount": 13,
       "failureStreak": 0,
       "error": ""
     },
@@ -265,7 +265,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 24,
+      "eventCount": 15,
       "failureStreak": 0,
       "error": ""
     },
@@ -276,7 +276,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 24,
+      "failureStreak": 25,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 24,
+      "failureStreak": 25,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 24,
+      "failureStreak": 25,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -355,7 +355,7 @@
       "method": "showare",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 97,
+      "eventCount": 94,
       "failureStreak": 0,
       "error": ""
     },
@@ -376,7 +376,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 21,
+      "failureStreak": 22,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -404,10 +404,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "ok",
+      "status": "failed",
       "eventCount": 0,
-      "failureStreak": 0,
-      "error": ""
+      "failureStreak": 1,
+      "error": "Los Altos History Museum event list was not valid: 202"
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -805,7 +805,7 @@
       "method": "santana-row",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 5,
+      "eventCount": 4,
       "failureStreak": 0,
       "error": ""
     }
@@ -813,44 +813,55 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 24,
+      "failureStreak": 25,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 24,
+      "failureStreak": 25,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 24,
+      "failureStreak": 25,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Peninsula Youth Theatre",
-      "failureStreak": 21,
+      "failureStreak": 22,
       "error": "PYT official show list was not valid: 200"
     }
   ],
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-10-04T14:01:14.825Z",
-    "enriched": 326,
-    "cached": 5,
+    "checkedAt": "2026-10-05T00:26:54.504Z",
+    "enriched": 309,
     "identity-mismatch": 38,
     "fetch-blocked": 16,
+    "cached": 3,
     "fieldUpdates": {
-      "description": 12,
+      "description": 10,
       "place": 1
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-10-04T14:01:14.825Z",
-    "official": 232,
-    "unclassified": 149,
-    "missing": 4,
-    "failure:official_page_fetch_blocked": 3,
-    "failure:no_verified_official_image_candidate": 1
+    "checkedAt": "2026-10-05T00:26:54.504Z",
+    "official": 217,
+    "unclassified": 147,
+    "missing": 2,
+    "failure:official_page_fetch_blocked": 2
+  },
+  "editorialCoverGeneration": {
+    "frameworkVersion": "editorial-cover-v1",
+    "checkedAt": "2026-10-05T00:26:54.504Z",
+    "generated": 2,
+    "byReason": {
+      "official_page_fetch_blocked": 2
+    },
+    "byPreset": {
+      "farm-halloween": 1,
+      "halloween": 1
+    }
   }
 }
