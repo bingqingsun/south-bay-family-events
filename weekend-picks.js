@@ -25,6 +25,7 @@
     if (!/^https?:\/\//i.test(event.image)) return '';
     try {
       const url = new URL(event.image);
+      if (/\/blank\.gif$/i.test(url.pathname)) return '';
       if (url.hostname.endsWith('cupertino.gov') && (url.searchParams.get('dimension') === 'smallthumbnail' || Number(url.searchParams.get('w')) <= 100)) url.search = '';
       if (url.hostname === 'filoli.org' && /\/media\//.test(url.pathname) && Number(url.searchParams.get('width')) <= 320) url.search = '';
       return url.href;
