@@ -185,7 +185,7 @@ export function extractDescription({ html, schema }) {
 }
 
 export function extractImageCandidates({ html, schema, baseUrl, title = '', allowGenericOgWhenMissing = false }) {
-  const genericAsset = /(?:logo|favicon|site[-_ ]?icon|avatar|placeholder|default[-_ ]?(?:image|share|social)|sponsor|branding)/i;
+  const genericAsset = /(?:logo|favicon|site[-_ ]?icon|avatar|placeholder|(?:^|[\\/_-])blank(?:[._-]|$)|default[-_ ]?(?:image|share|social)|sponsor|branding)/i;
   const asUrl = raw => {
     if (!raw) return '';
     try {
