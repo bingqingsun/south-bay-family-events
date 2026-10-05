@@ -72,6 +72,9 @@ jobs:
           if [ -f scripts/enrich-palo-alto-childrens-theatre.mjs ]; then
             node scripts/enrich-palo-alto-childrens-theatre.mjs
           fi
+          if [ -f scripts/mirror-official-images.mjs ]; then
+            node scripts/mirror-official-images.mjs
+          fi
           if [ -f scripts/backfill-editorial-covers.mjs ]; then
             node scripts/backfill-editorial-covers.mjs
           fi
