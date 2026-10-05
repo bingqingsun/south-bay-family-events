@@ -352,6 +352,33 @@
     "officialDetailBaseUrl": "https://www.paloalto.gov/Events-Directory/Community-Services/",
     "linkHosts": [
       "paloalto.gov"
+    ],
+    "officialImageFallbacks": [
+      {
+        "titlePrefix": "Playhouse Series:",
+        "image": "https://www.paloalto.gov/files/assets/public/v/1/community-services/childrens-theatre/production-pictures/111playhouse-web-poster.png",
+        "sourceUrl": "https://www.paloalto.gov/Departments/Community-Services/Arts-Sciences/Palo-Alto-Childrens-Theatre",
+        "evidence": "official-theatre-page-playhouse-season-poster"
+      },
+      {
+        "titleIncludes": "A Year with Frog and Toad",
+        "image": "https://www.paloalto.gov/files/assets/public/v/1/community-services/childrens-theatre/production-pictures/frog-and-toad-web-poster.png",
+        "sourceUrl": "https://www.paloalto.gov/Events-Directory/Community-Services/Main-Stage-A-Year-with-Frog-and-Toad",
+        "canonicalUrl": "https://www.paloalto.gov/Events-Directory/Community-Services/Main-Stage-A-Year-with-Frog-and-Toad",
+        "evidence": "official-main-stage-event-poster"
+      },
+      {
+        "titleIncludes": "Seussical",
+        "image": "https://www.paloalto.gov/files/assets/public/v/1/community-services/childrens-theatre/production-pictures/seussical-web-poster.jpg",
+        "sourceUrl": "https://www.paloalto.gov/Departments/Community-Services/Arts-Sciences/Palo-Alto-Childrens-Theatre/Productions/Main-Stage-Productions",
+        "evidence": "official-main-stage-program-poster"
+      },
+      {
+        "titlePrefix": "PAUSD Outreach Production:",
+        "image": "https://www.paloalto.gov/files/assets/public/v/2/community-services/childrens-theatre/043016-barron-park-alladin-9909.jpg?w=3000&h=1996",
+        "sourceUrl": "https://www.paloalto.gov/Departments/Community-Services/Arts-Sciences/Palo-Alto-Childrens-Theatre/Productions/Outreach-Productions",
+        "evidence": "official-outreach-program-image"
+      }
     ]
   },
   {
