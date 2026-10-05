@@ -102,6 +102,9 @@ jobs:
           node --check scripts/lib/detail-enrichment.mjs
           node --check scripts/lib/linked-official-detail.mjs
           node --check scripts/lib/detail-url.mjs
+          node --check scripts/lib/palo-alto-childrens-theatre.mjs
+          node --check scripts/enrich-palo-alto-childrens-theatre.mjs
+          node --check scripts/palo-alto-childrens-theatre.test.mjs
           node --check scripts/detail-url.test.mjs
           node --check scripts/lib/event-lifecycle.mjs
           node --check scripts/event-lifecycle.test.mjs
@@ -161,5 +164,6 @@ jobs:
           node scripts/linked-official-detail.test.mjs
           node scripts/link-ui.test.cjs
           node scripts/palo-alto-special-events.test.mjs
+          node scripts/palo-alto-childrens-theatre.test.mjs
           node scripts/generate-sitemap.mjs --check
           node scripts/seo-foundation.test.mjs
