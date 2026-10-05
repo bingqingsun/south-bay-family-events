@@ -5,6 +5,7 @@ import {
   paloAltoTheatreTitlesMatch,
   parsePaloAltoChildrensTheatreDetail
 } from './lib/palo-alto-childrens-theatre.mjs';
+import { enrichPaloAltoChildrensTheatreEvents } from './enrich-palo-alto-childrens-theatre.mjs';
 
 assert.equal(
   paloAltoChildrensTheatreDetailUrl('Playhouse Series: Jack & the Beanstalk'),
@@ -38,5 +39,34 @@ assert.deepEqual(
   }
 );
 assert.equal(parsePaloAltoChildrensTheatreDetail(html, 'Different Show', 'https://example.test/jack'), null);
+
+
+const previewResult = await enrichPaloAltoChildrensTheatreEvents(
+  [{
+    id: 'showare-1',
+    title: 'Playhouse Series: Jack & the Beanstalk',
+    source: "Palo Alto Children's Theatre",
+    url: 'https://pact.showare.com/eventperformances.asp?evt=1',
+    image: '',
+    imageStatus: 'missing'
+  }],
+  {
+    name: "Palo Alto Children's Theatre",
+    officialDetailBaseUrl: 'https://www.paloalto.gov/Events-Directory/Community-Services/'
+  },
+  async title => ({
+    title: 'Playhouse Series: Jack and the Beanstalk',
+    url: paloAltoChildrensTheatreDetailUrl(title),
+    image: 'https://www.paloalto.gov/files/jack.png',
+    description: 'Official description',
+    text: 'Official description $20'
+  })
+);
+assert.equal(previewResult.enriched, 1);
+assert.equal(previewResult.events[0].image, 'https://www.paloalto.gov/files/jack.png');
+assert.equal(previewResult.events[0].url, 'https://www.paloalto.gov/Events-Directory/Community-Services/Playhouse-Series-Jack-and-the-Beanstalk');
+assert.equal(previewResult.events[0].ticketUrl, 'https://pact.showare.com/eventperformances.asp?evt=1');
+assert.equal(previewResult.events[0].imageStatus, 'official');
+
 
 console.log("Palo Alto Children's Theatre detail enrichment tests passed.");
