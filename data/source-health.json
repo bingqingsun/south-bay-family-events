@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-05T05:24:28.006Z",
+  "generatedAt": "2026-10-05T05:51:13.448Z",
   "configuredSources": 82,
   "directSources": 77,
   "fallbackSourcesRun": 0,
@@ -276,7 +276,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 30,
+      "failureStreak": 31,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 30,
+      "failureStreak": 31,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 30,
+      "failureStreak": 31,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -304,10 +304,10 @@
       "name": "South FIRST FRIDAYS / ArtWalkSJ",
       "method": "southfirstfridays",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 1,
-      "error": "The operation was aborted due to timeout"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "SAP Center|sapcenter.com|https://www.sapcenter.com/events/all",
@@ -376,7 +376,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 27,
+      "failureStreak": 28,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -404,10 +404,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "ok",
+      "status": "failed",
       "eventCount": 0,
-      "failureStreak": 0,
-      "error": ""
+      "failureStreak": 1,
+      "error": "Los Altos History Museum event list was not valid: 202"
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -813,45 +813,45 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 30,
+      "failureStreak": 31,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 30,
+      "failureStreak": 31,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 30,
+      "failureStreak": 31,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Peninsula Youth Theatre",
-      "failureStreak": 27,
+      "failureStreak": 28,
       "error": "PYT official show list was not valid: 200"
     }
   ],
   "paloAltoChildrensTheatreEnrichment": {
-    "checkedAt": "2026-10-05T05:24:28.006Z",
+    "checkedAt": "2026-10-05T05:51:13.448Z",
     "enriched": 5
   },
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-10-05T05:24:28.006Z",
+    "checkedAt": "2026-10-05T05:51:13.448Z",
     "enriched": 301,
     "identity-mismatch": 38,
     "fetch-blocked": 16,
     "cached": 4,
     "fieldUpdates": {
-      "description": 12,
+      "description": 10,
       "place": 1,
       "image": 1
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-10-05T05:24:28.006Z",
+    "checkedAt": "2026-10-05T05:51:13.448Z",
     "official": 210,
     "unclassified": 147,
     "missing": 2,
@@ -859,7 +859,7 @@
   },
   "editorialCoverGeneration": {
     "frameworkVersion": "editorial-cover-v1",
-    "checkedAt": "2026-10-05T05:24:28.006Z",
+    "checkedAt": "2026-10-05T05:51:13.448Z",
     "generated": 2,
     "byReason": {
       "official_page_fetch_blocked": 2
@@ -871,7 +871,7 @@
   },
   "officialImageMirror": {
     "frameworkVersion": "official-image-mirror-v1",
-    "checkedAt": "2026-10-05T05:25:09.469Z",
+    "checkedAt": "2026-10-05T05:51:56.720Z",
     "configuredSources": 1,
     "mirroredEvents": 5,
     "mirroredAssets": 4,
