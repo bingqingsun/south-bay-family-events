@@ -92,6 +92,7 @@ jobs:
           node scripts/cupertino-audience.test.mjs
           node scripts/palo-alto-childrens-theatre.test.mjs
           node scripts/age-policy.test.cjs
+          node scripts/apply-event-supplements.test.mjs
       - name: Refresh canonical event data
         if: ${{ env.SKIP_REFRESH != 'true' }}
         run: node scripts/update-events.mjs
