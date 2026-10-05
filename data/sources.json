@@ -365,7 +365,8 @@
         "image": "https://www.paloalto.gov/files/assets/public/v/1/community-services/childrens-theatre/production-pictures/frog-and-toad-web-poster.png",
         "sourceUrl": "https://www.paloalto.gov/Events-Directory/Community-Services/Main-Stage-A-Year-with-Frog-and-Toad",
         "canonicalUrl": "https://www.paloalto.gov/Events-Directory/Community-Services/Main-Stage-A-Year-with-Frog-and-Toad",
-        "evidence": "official-main-stage-event-poster"
+        "evidence": "official-event-body-production-poster",
+        "preferFallbackImage": true
       },
       {
         "titleIncludes": "Seussical",
