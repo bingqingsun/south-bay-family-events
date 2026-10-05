@@ -379,7 +379,10 @@
         "sourceUrl": "https://www.paloalto.gov/Departments/Community-Services/Arts-Sciences/Palo-Alto-Childrens-Theatre/Productions/Outreach-Productions",
         "evidence": "official-outreach-program-image"
       }
-    ]
+    ],
+    "mirrorOfficialImages": true,
+    "mirrorRequired": true,
+    "mirrorDir": "assets/official/palo-alto-childrens-theatre"
   },
   {
     "name": "CMT San Jose",
