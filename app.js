@@ -354,12 +354,21 @@ function renderEventCard(event, eventIndex, generation) {
   imageArea.style.backgroundColor = event.imageBackground || event.color; imageArea.classList.add('has-image'); imageArea.classList.toggle('team-mark', event.imagePresentation === 'team-mark');
   if (event.imagePresentation === 'team-mark' && officialImage) {
     imageArea.style.backgroundImage = 'none';
-    const teamMark = new Image(); teamMark.className = 'team-mark-image'; teamMark.alt = ''; teamMark.src = event.image;
+    const teamMark = new Image(); teamMark.className = 'team-mark-image'; teamMark.alt = ''; teamMark.referrerPolicy = 'no-referrer'; teamMark.src = event.image;
     teamMark.onerror = () => { teamMark.remove(); imageArea.classList.remove('team-mark'); imageArea.style.backgroundColor = event.color; setCardImage(fallbackImage); };
     imageArea.append(teamMark);
+  } else if (officialImage) {
+    imageArea.style.backgroundImage = 'none';
+    const cardImage = new Image();
+    cardImage.className = 'card-media-image';
+    cardImage.alt = '';
+    cardImage.referrerPolicy = 'no-referrer';
+    cardImage.decoding = 'async';
+    cardImage.onerror = () => { cardImage.remove(); setCardImage(fallbackImage); };
+    cardImage.src = officialImage;
+    imageArea.prepend(cardImage);
   } else {
-    setCardImage(image);
-    if (officialImage) { const imageProbe = new Image(); imageProbe.onerror = () => setCardImage(fallbackImage); imageProbe.src = officialImage; }
+    setCardImage(fallbackImage);
   }
   const imageBadge = node.querySelector('.image-provenance-badge'); const generatedEditorial = event.imageStatus === 'generated-editorial'; imageBadge.hidden = !generatedEditorial; imageBadge.textContent = generatedEditorial ? (state.language === 'zh' ? '主题插画' : 'Illustration') : '';
   node.querySelector('.event-icon').textContent = event.icon; const tag = node.querySelector('.tag'); tag.textContent = categoryLabel(event);
