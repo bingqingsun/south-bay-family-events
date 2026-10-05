@@ -109,5 +109,45 @@ assert.equal(fallbackResult.events[0].imageProvenance.method, 'program-page');
 assert.equal(fallbackResult.events[0].refreshStatus, 'official-program-image');
 assert.equal(fallbackResult.events[0].url, 'https://pact.showare.com/eventperformances.asp?evt=7');
 
+const frogResult = await enrichPaloAltoChildrensTheatreEvents(
+  [{
+    id: 'showare-frog',
+    title: 'Main Stage Production: A Year with Frog and Toad',
+    source: "Palo Alto Children's Theatre",
+    url: 'https://pact.showare.com/eventperformances.asp?evt=49',
+    image: 'https://pact.showare.com/uplimage/Blank.gif',
+    imageStatus: 'official'
+  }],
+  {
+    name: "Palo Alto Children's Theatre",
+    officialDetailBaseUrl: 'https://www.paloalto.gov/Events-Directory/Community-Services/',
+    officialImageFallbacks: [{
+      titleIncludes: 'A Year with Frog and Toad',
+      image: 'https://www.paloalto.gov/files/assets/public/v/1/community-services/childrens-theatre/production-pictures/frog-and-toad-web-poster.png',
+      sourceUrl: 'https://www.paloalto.gov/Events-Directory/Community-Services/Main-Stage-A-Year-with-Frog-and-Toad',
+      canonicalUrl: 'https://www.paloalto.gov/Events-Directory/Community-Services/Main-Stage-A-Year-with-Frog-and-Toad',
+      evidence: 'official-event-body-production-poster',
+      preferFallbackImage: true
+    }]
+  },
+  async () => ({
+    title: 'Main Stage: A Year with Frog and Toad',
+    url: 'https://www.paloalto.gov/Events-Directory/Community-Services/Main-Stage-A-Year-with-Frog-and-Toad',
+    image: 'https://www.paloalto.gov/files/ocwebsite/Public/HeroImage/City%20of%20Palo%20Alto%20Logo%201152x260%20for%20Loom.png?w=1200',
+    description: 'Official description',
+    text: 'Official description'
+  }),
+  { verifiedAt: '2026-10-05T00:00:00Z' }
+);
+assert.equal(
+  frogResult.events[0].image,
+  'https://www.paloalto.gov/files/assets/public/v/1/community-services/childrens-theatre/production-pictures/frog-and-toad-web-poster.png'
+);
+assert.equal(
+  frogResult.events[0].url,
+  'https://www.paloalto.gov/Events-Directory/Community-Services/Main-Stage-A-Year-with-Frog-and-Toad'
+);
+assert.equal(frogResult.events[0].imageProvenance.evidence, 'official-event-body-production-poster');
+
 
 console.log("Palo Alto Children's Theatre detail enrichment tests passed.");
