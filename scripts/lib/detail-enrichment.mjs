@@ -310,8 +310,13 @@ export function enrichEventFromDetail(event, {
   const officialImageMethod = specific.image ? specific.imageMethod : generic.imageMethod;
   const officialImageScore = specific.image ? specific.imageScore : generic.imageScore;
   const officialImageEvidence = specific.image ? specific.imageEvidence : generic.imageEvidence;
-  set('image', officialImage, officialImageMethod);
-  if (officialImage) {
+  // A manually verified source image is an explicit editorial/source decision.
+  // Canonical-page enrichment may fill missing imagery or strengthen weaker
+  // automated evidence, but must never silently replace that pinned image.
+  const currentImageIsPinned = fieldExists(merged.image)
+    && merged.imageProvenance?.method === 'manual_verified';
+  if (officialImage && !currentImageIsPinned) {
+    set('image', officialImage, officialImageMethod);
     merged.imageProvenance = {
       source: 'canonical-detail',
       method: officialImageMethod || 'detail-page',
@@ -320,6 +325,9 @@ export function enrichEventFromDetail(event, {
       score: officialImageScore || 0,
       evidence: officialImageEvidence || ''
     };
+    merged.imageStatus = 'official';
+    delete merged.imageFailureReason;
+  } else if (currentImageIsPinned) {
     merged.imageStatus = 'official';
     delete merged.imageFailureReason;
   } else if (!fieldExists(merged.image)) {

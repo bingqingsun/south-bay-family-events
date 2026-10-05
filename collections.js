@@ -124,7 +124,10 @@
   }
 
   function optimizedOfficialImageUrl(value, source = '') {
-    if (!value || !/^https?:\/\//i.test(value)) return value || '';
+    if (!value) return '';
+    if (/^\/assets\//i.test(value)) return value;
+    if (/^assets\//i.test(value)) return `${assetBase}/${value}`;
+    if (!/^https?:\/\//i.test(value)) return value;
     try {
       const url = new URL(value);
       if (url.hostname.endsWith('cupertino.gov') && (url.searchParams.get('dimension') === 'smallthumbnail' || (url.searchParams.has('w') && Number(url.searchParams.get('w')) <= 100))) url.search = '';
@@ -231,6 +234,11 @@
       probe.onerror = () => setCardImage(fallbackImage);
       probe.src = officialImage;
     }
+
+    const imageBadge = node.querySelector('.image-provenance-badge');
+    const generatedEditorial = event.imageStatus === 'generated-editorial';
+    imageBadge.hidden = !generatedEditorial;
+    imageBadge.textContent = generatedEditorial ? (isZh ? '主题插画' : 'Illustration') : '';
 
     node.querySelector('.event-icon').textContent = event.icon || '✦';
     node.querySelector('.tag').textContent = categoryLabels[event.type] || event.tag || 'Family activity';

@@ -11,10 +11,22 @@ require('../data/collections.js');
 
 const baseEvents = JSON.parse(fs.readFileSync(new URL('../data/events.json', import.meta.url), 'utf8'));
 const supplements = JSON.parse(fs.readFileSync(new URL('../data/event-supplements.json', import.meta.url), 'utf8'));
+const sources = JSON.parse(fs.readFileSync(new URL('../data/sources.json', import.meta.url), 'utf8'));
 const events = mergeEventSupplements(baseEvents, supplements);
 const config = window.SBFF_COLLECTIONS.find((item) => item.slug === 'halloween');
 
 assert.ok(config, 'Halloween collection config must exist');
+const configuredEvent = (sourceName, title) => sources.find(source => source.name === sourceName)?.events?.find(event => event.title === title);
+assert.equal(
+  configuredEvent('City of Fremont · Seasonal Events', 'Fremont Trick-or-Treat Event')?.image,
+  'https://www.fremont.gov/home/showpublishedimage/12597/639246516544470000',
+  'Fremont Trick-or-Treat must keep the organizer-provided 2026 banner'
+);
+assert.equal(
+  configuredEvent('City of Santa Clara · Seasonal Events', 'Children’s SpooktaClara')?.image,
+  'https://www.santaclaraca.gov/home/showpublishedimage/81421/638974267888570000',
+  'Children’s SpooktaClara must keep its official event hero image'
+);
 assert.equal(config.lastChanceThreshold, 3, 'Halloween must use the approved Last Chance threshold');
 assert.ok(config.selectedEventRefs.length > 0, 'Halloween must contain curated canonical event references');
 assert.equal(config.quickPickIds.length, 4, 'Halloween should configure four Quick Picks');

@@ -30,7 +30,8 @@
     "name": "Midpeninsula Regional Open Space District",
     "domain": "openspace.org",
     "method": "midpen",
-    "feedUrl": "https://www.openspace.org/get-involved/events-activities?f%5B0%5D=rating%3A146"
+    "feedUrl": "https://www.openspace.org/get-involved/events-activities?f%5B0%5D=rating%3A146",
+    "officialProgramImage": "https://s3.us-east-1.amazonaws.com/files.galaxydigital.com/5677/agency/121115.jpg?20230808183157"
   },
   {
     "name": "The Tech Interactive",
@@ -347,7 +348,8 @@
     "method": "showare",
     "feedUrl": "https://pact.showare.com/include/widgets/events/performancelist.asp?action=perf&page=1&listPageSize=100&showPackages=1",
     "address": "1305 Middlefield Rd, Palo Alto",
-    "city": "Palo Alto"
+    "city": "Palo Alto",
+    "officialDetailBaseUrl": "https://www.paloalto.gov/Events-Directory/Community-Services/"
   },
   {
     "name": "CMT San Jose",
@@ -664,12 +666,17 @@
         "title": "Hands on the Arts Festival",
         "dateValue": "2026-10-17T10:00",
         "description": "A free children's arts festival with hands-on visual and performing arts workshops, family-friendly entertainment, and food vendors.",
-        "image": "assets/official/hands-on-the-arts-festival-2026.png",
+        "image": "https://content.govdelivery.com/attachments/fancy_images/CASUNNYVALE/2026/09/14375851/7130528/fk1-5057_crop.jpg",
         "place": "Sunnyvale Community Center",
         "address": "550 E Remington Dr, Sunnyvale",
         "ageText": "All ages Children Family-friendly",
         "cost": "Free",
-        "format": "arts"
+        "format": "arts",
+        "imageOverride": {
+          "verifiedAt": "2026-10-04T23:50:00Z",
+          "sourceUrl": "https://content.govdelivery.com/accounts/CASUNNYVALE/bulletins/42b4291",
+          "evidence": "first-party-current-event-image"
+        }
       }
     ]
   },
@@ -708,23 +715,33 @@
         "title": "Campbell Oktoberfest",
         "dateValue": "2026-10-17T10:00",
         "description": "A free downtown festival with a Kids Zone, arts and crafts booths, German food, music, dancing, and family entertainment.",
-        "image": "https://www.downtowncampbell.com/sites/default/files/styles/social_media_preview/public/uploads/users/1/images/downtowncampbell-campbelloktoberfest-feb26-5219.jpg?itok=UwrgFTHC",
+        "image": "https://www.downtowncampbell.com/sites/default/files/styles/header_landscape/public/uploads/users/1/images/downtowncampbell-campbelloktoberfest-feb26-5219.jpg.webp?itok=LB7cS9Kf",
         "place": "Downtown Campbell",
         "address": "E Campbell Ave and N 1st St, Campbell",
         "ageText": "All ages Families Children",
         "cost": "Free",
-        "format": "festival"
+        "format": "festival",
+        "imageOverride": {
+          "verifiedAt": "2026-10-04T23:50:00Z",
+          "sourceUrl": "https://www.downtowncampbell.com/event/31st-annual-campbell-oktoberfest",
+          "evidence": "first-party-current-event-image"
+        }
       },
       {
         "title": "Campbell Oktoberfest",
         "dateValue": "2026-10-18T10:00",
         "description": "A free downtown festival with a Kids Zone, arts and crafts booths, German food, music, dancing, and family entertainment.",
-        "image": "https://www.downtowncampbell.com/sites/default/files/styles/social_media_preview/public/uploads/users/1/images/downtowncampbell-campbelloktoberfest-feb26-5219.jpg?itok=UwrgFTHC",
+        "image": "https://www.downtowncampbell.com/sites/default/files/styles/header_landscape/public/uploads/users/1/images/downtowncampbell-campbelloktoberfest-feb26-5219.jpg.webp?itok=LB7cS9Kf",
         "place": "Downtown Campbell",
         "address": "E Campbell Ave and N 1st St, Campbell",
         "ageText": "All ages Families Children",
         "cost": "Free",
-        "format": "festival"
+        "format": "festival",
+        "imageOverride": {
+          "verifiedAt": "2026-10-04T23:50:00Z",
+          "sourceUrl": "https://www.downtowncampbell.com/event/31st-annual-campbell-oktoberfest",
+          "evidence": "first-party-current-event-image"
+        }
       }
     ]
   },
@@ -943,7 +960,6 @@
         "dateValue": "2026-10-17T10:00",
         "endDateValue": "2026-10-17T15:00:00",
         "description": "A family Halloween day at Deer Hollow Farm with haunted barns, children’s crafts, farm animals, and seasonal activities.",
-        "image": "https://www.mountainview.gov/home/showpublishedimage/3194/638168292830000000",
         "place": "Deer Hollow Farm",
         "address": "22500 Cristo Rey Dr, Cupertino",
         "ageText": "Family-friendly Children",
@@ -1022,6 +1038,7 @@
         "dateValue": "2026-10-23T17:00",
         "endDateValue": "2026-10-23T21:00:00",
         "description": "Families can enjoy trick-or-treating, carnival-style games, and activities for preschool and school-age children at this Halloween evening event.",
+        "image": "https://www.fremont.gov/home/showpublishedimage/12597/639246516544470000",
         "place": "Downtown Event Center & Plaza",
         "address": "3500 Capitol Ave, Fremont",
         "ageText": "Family-friendly",
@@ -1043,6 +1060,7 @@
         "dateValue": "2026-10-24T12:00",
         "endDateValue": "2026-10-24T16:00:00",
         "description": "Children can enjoy a free Halloween celebration in Central Park with activities designed especially for age 10 and younger.",
+        "image": "https://www.santaclaraca.gov/home/showpublishedimage/81421/638974267888570000",
         "place": "Central Park",
         "address": "909 Kiely Blvd, Santa Clara",
         "ageText": "Ages 0–10",

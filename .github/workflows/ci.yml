@@ -84,6 +84,7 @@ jobs:
           node --check scripts/translation-text.test.mjs
           node --check scripts/apply-event-translations.mjs
           node --check scripts/apply-event-supplements.mjs
+          node --check scripts/apply-event-supplements.test.mjs
           node --check scripts/load-translation-catalogs.mjs
           node --check scripts/translation-qa.mjs
           node --check scripts/translation-coverage-report.mjs
@@ -94,11 +95,17 @@ jobs:
           node --check scripts/cupertino-audience.mjs
           node --check scripts/link-health.mjs
           node --check scripts/canonical-detail-pipeline.mjs
+          node --check scripts/editorial-cover.mjs
+          node --check scripts/backfill-editorial-covers.mjs
+          node --check scripts/audit-editorial-covers.mjs
           node --check scripts/lib/detail-fetch.mjs
           node --check scripts/lib/detail-extractors/generic.mjs
           node --check scripts/lib/detail-enrichment.mjs
           node --check scripts/lib/linked-official-detail.mjs
           node --check scripts/lib/detail-url.mjs
+          node --check scripts/lib/palo-alto-childrens-theatre.mjs
+          node --check scripts/enrich-palo-alto-childrens-theatre.mjs
+          node --check scripts/palo-alto-childrens-theatre.test.mjs
           node --check scripts/detail-url.test.mjs
           node --check scripts/lib/event-lifecycle.mjs
           node --check scripts/event-lifecycle.test.mjs
@@ -132,6 +139,7 @@ jobs:
           node scripts/translation-qa.mjs
           node scripts/translation-coverage-report.mjs
           node scripts/apply-event-supplements.mjs
+          node scripts/apply-event-supplements.test.mjs
           node scripts/summary-quality-repair.mjs
           node scripts/summary-semantic-coverage.test.mjs
           node scripts/cupertino-detail-date.test.mjs
@@ -151,9 +159,13 @@ jobs:
           node scripts/event-lifecycle.test.mjs
           node scripts/detail-enrichment.test.mjs
           node scripts/canonical-detail-pipeline.test.mjs
+          node scripts/editorial-cover.test.mjs
+          node scripts/curated-image-contract.test.mjs
+          node scripts/curated-image-integrity.test.mjs
           node scripts/special-event-pages.test.mjs
           node scripts/linked-official-detail.test.mjs
           node scripts/link-ui.test.cjs
           node scripts/palo-alto-special-events.test.mjs
+          node scripts/palo-alto-childrens-theatre.test.mjs
           node scripts/generate-sitemap.mjs --check
           node scripts/seo-foundation.test.mjs

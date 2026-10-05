@@ -84,11 +84,15 @@ jobs:
           node scripts/event-lifecycle.test.mjs
           node scripts/detail-enrichment.test.mjs
           node scripts/canonical-detail-pipeline.test.mjs
+          node scripts/editorial-cover.test.mjs
+          node scripts/curated-image-integrity.test.mjs
           node scripts/special-event-pages.test.mjs
           node scripts/linked-official-detail.test.mjs
           node scripts/link-ui.test.cjs
           node scripts/cupertino-audience.test.mjs
+          node scripts/palo-alto-childrens-theatre.test.mjs
           node scripts/age-policy.test.cjs
+          node scripts/apply-event-supplements.test.mjs
       - name: Refresh canonical event data
         if: ${{ env.SKIP_REFRESH != 'true' }}
         run: node scripts/update-events.mjs
@@ -117,7 +121,7 @@ jobs:
         run: |
           git config user.name "south-bay-events-bot"
           git config user.email "actions@github.com"
-          git add data/events.json data/events.js data/museums.json data/museums.js data/source-health.json
+          git add data/events.json data/events.js data/museums.json data/museums.js data/source-health.json assets/generated/event-covers
           if git diff --staged --quiet; then
             exit 0
           fi

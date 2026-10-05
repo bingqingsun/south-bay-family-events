@@ -25,6 +25,7 @@ import {
 } from './event-summary-engine.mjs';
 import { auditLinks, releaseBlockingLinks } from './link-health.mjs';
 import { enrichCanonicalEvents } from './canonical-detail-pipeline.mjs';
+import { applyEditorialCovers } from './editorial-cover.mjs';
 import { selectPublishableOfficialDescription } from './official-description.mjs';
 import { approvedSpecialEventUrl, configuredCandidates, sitemapCandidates, verifySpecialEventPage } from './special-event-pages.mjs';
 import { selectCupertinoDetailDates } from './cupertino-detail-date.mjs';
@@ -42,6 +43,7 @@ import {
   linkedOfficialPageMatches
 } from './lib/linked-official-detail.mjs';
 import { eventDetailSlugCandidates } from './lib/detail-url.mjs';
+import { fetchPaloAltoChildrensTheatreDetail } from './lib/palo-alto-childrens-theatre.mjs';
 import {
   addMinutesToLocalDateTime,
   effectiveEndDateValue,
@@ -1344,7 +1346,13 @@ async function readMidpen(source) {
   });
   return Promise.all(seeds.map(async seed => {
     const details = await midpenPageDetails(seed.url, seed.title);
-    const event = directEvent({ ...seed, ...details, source: source.name, ageText: 'family' });
+    const event = directEvent({
+      ...seed,
+      ...details,
+      image: details.image || source.officialProgramImage || '',
+      source: source.name,
+      ageText: 'family'
+    });
     event.ageSource = '官方 Family-Friendly 分类';
     return event;
   }));
@@ -1808,21 +1816,69 @@ async function readShoware(source) {
   const response = await fetch(source.feedUrl, { headers: { accept: 'application/json', 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
   const payload = await response.json();
   if (!response.ok || !Array.isArray(payload.performance)) throw new Error('ShoWare official performance list was not valid: ' + response.status);
-  return payload.performance.flatMap(item => {
+
+  // ShoWare is the authoritative source for performance times and ticket
+  // availability, but Palo Alto's ShoWare feed intentionally publishes
+  // Blank.gif for production artwork. Resolve the matching City of Palo Alto
+  // event detail by title, verify its title, then use that first-party page
+  // for the card image, description and parent-facing detail URL.
+  const detailCache = new Map();
+  const officialDetailFor = title => {
+    if (!source.officialDetailBaseUrl) return Promise.resolve(null);
+    const key = String(title || '').toLowerCase();
+    if (!detailCache.has(key)) {
+      detailCache.set(key, fetchPaloAltoChildrensTheatreDetail(title, {
+        baseUrl: source.officialDetailBaseUrl
+      }));
+    }
+    return detailCache.get(key);
+  };
+
+  const events = await Promise.all(payload.performance.map(async item => {
     const dateValue = isoDateFromOfficialText(item.PerformanceDateTime || '');
-    const description = plainText(item.Description || '');
+    const showareDescription = plainText(item.Description || '');
     const title = plainText(item.Event || '').replace(/^\s*\([^)]*\)\s*/i, '').replace(/\s*-\s*go to\b.*$/i, '').trim();
-    if (!title || !dateValue || !isUpcoming(dateValue) || !hasUsableSourceContent(description)) return [];
+    if (!title || !dateValue || !isUpcoming(dateValue) || !hasUsableSourceContent(showareDescription)) return null;
+
     const eventId = item.EventID || item.PerformanceID;
-    const url = new URL(`eventperformances.asp?evt=${encodeURIComponent(eventId)}`, 'https://pact.showare.com/');
-    url.hash = `performance-${item.PerformanceID}`;
-    const ageText = `${description} ${item.PerformanceName || ''}`;
-    return [directEvent({
-      id: `showare-${item.PerformanceID}`, title, dateValue, description, image: '',
-      place: item.Venue || source.name, address: String(item.VenueAddress || source.address || '').replace(/\s*1305 Middlefield Rd\s*$/i, '').trim() || source.address || '', city: item.VenueCity || source.city || '',
-      source: source.name, url: url.href, ageText, format: 'live-show'
-    })];
-  });
+    const ticketUrl = new URL(`eventperformances.asp?evt=${encodeURIComponent(eventId)}`, 'https://pact.showare.com/');
+    ticketUrl.hash = `performance-${item.PerformanceID}`;
+
+    const officialDetail = await officialDetailFor(title);
+    const officialDescription = plainText(officialDetail?.description || '');
+    const description = hasUsableSourceContent(officialDescription) ? officialDescription : showareDescription;
+    const ageText = `${description} ${showareDescription} ${officialDetail?.text || ''} ${item.PerformanceName || ''}`;
+    const event = directEvent({
+      id: `showare-${item.PerformanceID}`, title, dateValue, description,
+      image: officialDetail?.image || '',
+      place: item.Venue || source.name,
+      address: String(item.VenueAddress || source.address || '').replace(/\s*1305 Middlefield Rd\s*$/i, '').trim() || source.address || '',
+      city: item.VenueCity || source.city || '',
+      source: source.name,
+      url: officialDetail?.url || ticketUrl.href,
+      ageText,
+      format: 'live-show'
+    });
+
+    return {
+      ...event,
+      ...costInfo('', officialDetail?.text || showareDescription),
+      ticketUrl: ticketUrl.href,
+      ...(officialDetail?.image ? {
+        imageStatus: 'official',
+        imageProvenance: {
+          source: 'canonical-detail',
+          method: 'og:image',
+          sourceUrl: officialDetail.url,
+          verifiedAt: generatedAt,
+          score: 100,
+          evidence: 'palo-alto-city-title-matches-showare-event'
+        }
+      } : {})
+    };
+  }));
+
+  return events.filter(Boolean);
 }
 
 // CMT publishes its season and each production as public WordPress pages.
@@ -3875,6 +3931,15 @@ sourceHealth.officialImageEnrichment = {
   ...imageQualityCounts
 };
 console.log(`Official image summary: ${JSON.stringify(sourceHealth.officialImageEnrichment)}`);
+
+const editorialCoverResult = await applyEditorialCovers(events, {
+  outputDir: new URL('../assets/generated/event-covers/', import.meta.url),
+  publicBase: '/assets/generated/event-covers',
+  generatedAt
+});
+events = editorialCoverResult.events;
+sourceHealth.editorialCoverGeneration = editorialCoverResult.stats;
+console.log(`Editorial cover summary: ${JSON.stringify(editorialCoverResult.stats)}`);
 
 // Link health is a release-quality stage. A known-bad detail URL is replaced
 // only with an explicitly configured, user-facing official landing page.

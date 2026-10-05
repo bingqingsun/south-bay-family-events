@@ -133,6 +133,52 @@ const source = { name: 'City Test', method: 'civic', domain: 'example.gov', city
   assert.equal(result.event.image, 'https://example.gov/uploads/2026/09/hero-18492.jpg');
 }
 
+// BiblioCommons event artwork can contain apostrophes inside a double-quoted
+// OG image URL. Preserve the full paired attribute value instead of truncating
+// at the apostrophe and falling back at render time.
+{
+  const event = { ...baseEvent, title: 'Artist Reception', image: '' };
+  const html = `<html><head>
+    <meta property="og:title" content="Artist Reception">
+    <meta property="og:image" content="https://sccl.bibliocommons.com/events/uploads/images/full/ffc4685348a88f3def27102adfa301c8/Mamatha'sOilonCanvas.png">
+  </head><body><h1>Artist Reception</h1></body></html>`;
+  const result = enrichEventFromDetail(event, {
+    source: { name:'Santa Clara County Library District', method:'rss', domain:'sccl.bibliocommons.com', city:'Los Altos' },
+    html,
+    finalUrl:'https://sccl.bibliocommons.com/events/example'
+  });
+  assert.equal(
+    result.event.image,
+    "https://sccl.bibliocommons.com/events/uploads/images/full/ffc4685348a88f3def27102adfa301c8/Mamatha'sOilonCanvas.png"
+  );
+}
+
+// A manually verified source image outranks a lower-confidence canonical
+// OG image. This prevents later refreshes from undoing an earlier verified fix.
+{
+  const event = {
+    ...baseEvent,
+    image: 'https://example.gov/images/pinned-official.jpg',
+    imageStatus: 'official',
+    imageProvenance: {
+      source: 'curated-manual',
+      method: 'manual_verified',
+      sourceUrl: baseEvent.url,
+      verifiedAt: '2026-10-04T00:00:00Z',
+      score: 100,
+      evidence: 'first-party-curated-official-image'
+    }
+  };
+  const html = `<html><head>
+    <meta property="og:title" content="Family Lantern Night">
+    <meta property="og:image" content="/images/lower-confidence-og.jpg">
+  </head><body><h1>Family Lantern Night</h1></body></html>`;
+  const result = enrichEventFromDetail(event, { source, html, finalUrl:event.url });
+  assert.equal(result.event.image, 'https://example.gov/images/pinned-official.jpg');
+  assert.equal(result.event.imageProvenance.method, 'manual_verified');
+  assert.equal(result.event.imageProvenance.score, 100);
+}
+
 // Official page with no price must not invent a price.
 {
   const html = `<html><body><h1>Family Lantern Night</h1><p>Bring your family for crafts and music.</p></body></html>`;
