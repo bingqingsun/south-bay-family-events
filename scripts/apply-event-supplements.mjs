@@ -17,6 +17,10 @@ function normalizeTitle(value) {
   return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 }
 
+function titleWordSignature(value) {
+  return normalizeTitle(value).split(/\s+/).filter(Boolean).sort().join(' ');
+}
+
 function dateKey(value) {
   return String(value || '').match(/^(\d{4}-\d{2}-\d{2})/)?.[1] || '';
 }
@@ -175,7 +179,25 @@ export function mergeEventSupplements(events, supplements) {
   for (const item of supplements || []) {
     if (!item?.id || !item?.title || !item?.dateValue || !item?.url) continue;
     const targetTitle = normalizeTitle(item.title);
+    const targetTitleWords = titleWordSignature(item.title);
     const targetDate = dateKey(item.dateValue);
+
+    // A manual supplement can outlive the gap it was created to cover.
+    // If the live official source later publishes the same activity with the
+    // same title words in a different order, keep the live canonical record
+    // instead of creating/replacing it with a second manually named card.
+    const reorderedTitleIndex = output.findIndex((event) =>
+      String(event.source || '') === String(item.source || '')
+      && dateKey(event.dateValue) === targetDate
+      && normalizeTitle(event.title) !== targetTitle
+      && titleWordSignature(event.title) === targetTitleWords
+    );
+    if (reorderedTitleIndex >= 0) {
+      const existing = output[reorderedTitleIndex];
+      existing.legacyIds = [...new Set([...(existing.legacyIds || []), item.id].filter(Boolean))];
+      continue;
+    }
+
     const existingIndex = output.findIndex((event) => {
       const sameTitleAndDate = normalizeTitle(event.title) === targetTitle && dateKey(event.dateValue) === targetDate;
       const sameUrlAndDate = event.url === item.url && dateKey(event.dateValue) === targetDate;
