@@ -42,10 +42,11 @@ export async function enrichPaloAltoChildrensTheatreEvents(events, source, fetch
 
     const previousUrl = event.url || '';
     const previousCanonical = event.canonicalUrl || previousUrl;
-    const useDetail = Boolean(detail?.image && detail?.url);
+    const preferFallbackImage = Boolean(fallback?.preferFallbackImage);
+    const useDetail = Boolean(detail?.image && detail?.url && !preferFallbackImage);
     const image = useDetail ? detail.image : fallback.image;
     const sourceUrl = useDetail ? detail.url : fallback.sourceUrl;
-    const canonicalUrl = useDetail ? detail.url : (fallback.canonicalUrl || previousCanonical);
+    const canonicalUrl = detail?.url || fallback?.canonicalUrl || previousCanonical;
     const method = useDetail ? 'og:image' : 'program-page';
     const evidence = useDetail
       ? 'palo-alto-city-title-matches-showare-event'
