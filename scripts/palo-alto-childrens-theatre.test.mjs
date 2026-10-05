@@ -65,6 +65,9 @@ const previewResult = await enrichPaloAltoChildrensTheatreEvents(
 assert.equal(previewResult.enriched, 1);
 assert.equal(previewResult.events[0].image, 'https://www.paloalto.gov/files/jack.png');
 assert.equal(previewResult.events[0].url, 'https://www.paloalto.gov/Events-Directory/Community-Services/Playhouse-Series-Jack-and-the-Beanstalk');
+assert.equal(previewResult.events[0].canonicalUrl, 'https://www.paloalto.gov/Events-Directory/Community-Services/Playhouse-Series-Jack-and-the-Beanstalk');
+assert.equal(previewResult.events[0].canonicalDetail.sourceUrl, 'https://www.paloalto.gov/Events-Directory/Community-Services/Playhouse-Series-Jack-and-the-Beanstalk');
+assert.equal(previewResult.events[0].fieldProvenance.image.method, 'og:image');
 assert.equal(previewResult.events[0].ticketUrl, 'https://pact.showare.com/eventperformances.asp?evt=1');
 assert.equal(previewResult.events[0].imageStatus, 'official');
 
