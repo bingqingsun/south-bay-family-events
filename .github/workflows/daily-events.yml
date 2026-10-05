@@ -10,6 +10,7 @@ on:
       - main
     paths:
       - 'scripts/update-events.mjs'
+      - 'scripts/mirror-official-images.mjs'
       - 'scripts/event-summary-engine.mjs'
       - 'scripts/test-event-summary-engine.mjs'
       - 'scripts/test-summary-output.mjs'
@@ -98,6 +99,9 @@ jobs:
         env:
           SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
           INCLUDE_SERPAPI: ${{ github.event_name == 'schedule' && 'auto' || github.event_name == 'push' && 'false' || inputs.include_serpapi }}
+      - name: Mirror configured official images
+        if: ${{ env.SKIP_REFRESH != 'true' }}
+        run: node scripts/mirror-official-images.mjs
       - name: Apply manually verified canonical supplements
         if: ${{ env.SKIP_REFRESH != 'true' }}
         run: node scripts/apply-event-supplements.mjs
@@ -123,7 +127,7 @@ jobs:
         run: |
           git config user.name "south-bay-events-bot"
           git config user.email "actions@github.com"
-          git add data/events.json data/events.js data/museums.json data/museums.js data/source-health.json assets/generated/event-covers
+          git add data/events.json data/events.js data/museums.json data/museums.js data/source-health.json assets/generated/event-covers assets/official
           if git diff --staged --quiet; then
             exit 0
           fi
