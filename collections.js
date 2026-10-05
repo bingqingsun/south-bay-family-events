@@ -228,11 +228,18 @@
     };
     imageArea.style.backgroundColor = event.imageBackground || event.color || '#d8eee0';
     imageArea.classList.add('has-image');
-    setCardImage(officialImage || fallbackImage);
     if (officialImage) {
-      const probe = new Image();
-      probe.onerror = () => setCardImage(fallbackImage);
-      probe.src = officialImage;
+      imageArea.style.backgroundImage = 'none';
+      const cardImage = new Image();
+      cardImage.className = 'card-media-image';
+      cardImage.alt = '';
+      cardImage.referrerPolicy = 'no-referrer';
+      cardImage.decoding = 'async';
+      cardImage.onerror = () => { cardImage.remove(); setCardImage(fallbackImage); };
+      cardImage.src = officialImage;
+      imageArea.prepend(cardImage);
+    } else {
+      setCardImage(fallbackImage);
     }
 
     const imageBadge = node.querySelector('.image-provenance-badge');
