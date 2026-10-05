@@ -8,8 +8,9 @@ import {
 const eventsUrl = new URL('../data/events.json', import.meta.url);
 const sourcesUrl = new URL('../data/sources.json', import.meta.url);
 
-export async function enrichPaloAltoChildrensTheatreEvents(events, source, fetchDetail = fetchPaloAltoChildrensTheatreDetail) {
+export async function enrichPaloAltoChildrensTheatreEvents(events, source, fetchDetail = fetchPaloAltoChildrensTheatreDetail, options = {}) {
   if (!source?.officialDetailBaseUrl) return { events, enriched: 0 };
+  const verifiedAt = options.verifiedAt || new Date().toISOString();
   const output = Array.isArray(events) ? events.map(event => ({ ...event })) : [];
   const titleDetails = new Map();
   const titles = [...new Set(output
@@ -28,22 +29,49 @@ export async function enrichPaloAltoChildrensTheatreEvents(events, source, fetch
     const detail = titleDetails.get(normalizePaloAltoTheatreTitle(event.title));
     if (!detail?.image || !detail?.url) continue;
     const previousUrl = event.url || '';
+    const previousCanonical = event.canonicalUrl || previousUrl;
+    const fieldProvenance = {
+      ...(event.fieldProvenance || {}),
+      image: {
+        source: 'canonical-detail',
+        method: 'og:image',
+        sourceUrl: detail.url,
+        verifiedAt
+      }
+    };
+    const canonicalDetail = {
+      ...(event.canonicalDetail || {}),
+      status: 'enriched',
+      sourceUrl: detail.url,
+      verifiedAt,
+      fieldsUpdated: [...new Set([...(event.canonicalDetail?.fieldsUpdated || []), 'image', 'canonicalUrl'])],
+      reason: 'palo-alto-city-title-match',
+      canonicalChanged: previousCanonical !== detail.url
+    };
     output[index] = {
       ...event,
       image: detail.image,
       imageStatus: 'official',
-      imageFailureReason: '',
       imageProvenance: {
         source: 'canonical-detail',
         method: 'og:image',
         sourceUrl: detail.url,
-        verifiedAt: new Date().toISOString(),
+        verifiedAt,
         score: 100,
         evidence: 'palo-alto-city-title-matches-showare-event'
       },
+      fieldProvenance,
+      canonicalDetail,
+      detailVerifiedAt: verifiedAt,
+      detailStatus: 'enriched',
+      detailFailureCount: 0,
       url: detail.url,
-      ticketUrl: event.ticketUrl || previousUrl
+      canonicalUrl: detail.url,
+      ticketUrl: event.ticketUrl || previousUrl,
+      refreshStatus: 'official-detail-enriched',
+      refreshVerifiedAt: verifiedAt
     };
+    delete output[index].imageFailureReason;
     enriched += 1;
   }
   return { events: output, enriched };
