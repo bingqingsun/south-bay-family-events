@@ -792,6 +792,7 @@ function optimizedOfficialImageUrl(value, source = '') {
   if (!value || !/^https?:\/\//i.test(value)) return value || '';
   try {
     const url = new URL(value);
+    if (/\/blank\.gif$/i.test(url.pathname)) return '';
     if (url.hostname.endsWith('cupertino.gov') && (url.searchParams.get('dimension') === 'smallthumbnail' || (url.searchParams.has('w') && Number(url.searchParams.get('w')) <= 100))) url.search = '';
     if (url.hostname === 'filoli.org' && /\/media\//.test(url.pathname) && url.searchParams.has('width') && Number(url.searchParams.get('width')) <= 320) url.search = '';
     // Preserve organizer-provided event artwork even when the upstream CMS uses
