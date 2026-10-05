@@ -84,6 +84,7 @@ jobs:
           node --check scripts/translation-text.test.mjs
           node --check scripts/apply-event-translations.mjs
           node --check scripts/apply-event-supplements.mjs
+          node --check scripts/apply-event-supplements.test.mjs
           node --check scripts/load-translation-catalogs.mjs
           node --check scripts/translation-qa.mjs
           node --check scripts/translation-coverage-report.mjs
@@ -138,6 +139,7 @@ jobs:
           node scripts/translation-qa.mjs
           node scripts/translation-coverage-report.mjs
           node scripts/apply-event-supplements.mjs
+          node scripts/apply-event-supplements.test.mjs
           node scripts/summary-quality-repair.mjs
           node scripts/summary-semantic-coverage.test.mjs
           node scripts/cupertino-detail-date.test.mjs
