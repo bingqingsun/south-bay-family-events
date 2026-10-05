@@ -85,7 +85,6 @@ jobs:
           node scripts/detail-enrichment.test.mjs
           node scripts/canonical-detail-pipeline.test.mjs
           node scripts/editorial-cover.test.mjs
-          node scripts/curated-image-integrity.test.mjs
           node scripts/special-event-pages.test.mjs
           node scripts/linked-official-detail.test.mjs
           node scripts/link-ui.test.cjs
@@ -102,6 +101,9 @@ jobs:
       - name: Apply manually verified canonical supplements
         if: ${{ env.SKIP_REFRESH != 'true' }}
         run: node scripts/apply-event-supplements.mjs
+      - name: Audit curated official images after refresh
+        if: ${{ env.SKIP_REFRESH != 'true' }}
+        run: node scripts/curated-image-integrity.test.mjs
       - name: Repair grounded summary quality issues
         if: ${{ env.SKIP_REFRESH != 'true' }}
         run: node scripts/summary-quality-repair.mjs
