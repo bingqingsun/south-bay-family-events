@@ -1,4 +1,20 @@
 let events = [];
+
+// A hard reload of the homepage happens before the async event feed has
+// rebuilt the document's full height. Mobile browsers can otherwise restore
+// the previous scroll offset against the short shell and pin the viewport to
+// the footer. Disable native restoration only for reloads; normal navigation
+// and back/forward keep the browser's expected scroll restoration behavior.
+const navigationEntry = typeof performance !== 'undefined' && performance.getEntriesByType
+  ? performance.getEntriesByType('navigation')[0]
+  : null;
+const isReloadNavigation = navigationEntry
+  ? navigationEntry.type === 'reload'
+  : typeof performance !== 'undefined' && performance.navigation
+    ? performance.navigation.type === 1
+    : false;
+if ('scrollRestoration' in history) history.scrollRestoration = isReloadNavigation ? 'manual' : 'auto';
+if (isReloadNavigation) window.scrollTo(0, 0);
 // Kept as a single switch so bilingual presentation can be restored later
 // without changing the canonical, organizer-supplied event data.
 const translationEnabled = true;
@@ -703,4 +719,11 @@ fetch(`${assetBase}/data/events.json`).then(response => {
   // and at most hourly while the page stays continuously open.
   window.setInterval(refreshExpiredEvents, 60 * 60 * 1000);
   document.addEventListener('visibilitychange', () => { if (!document.hidden) refreshExpiredEvents(); });
+
+  // Re-assert the top position after the first event batch has changed the
+  // page height. Two animation frames let layout and scroll anchoring settle,
+  // which is especially important on iOS browsers.
+  if (isReloadNavigation) {
+    requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo(0, 0)));
+  }
 });
