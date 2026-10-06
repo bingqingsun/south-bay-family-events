@@ -127,7 +127,7 @@
         "title": "聊天机器人解密：探索人工智能",
         "description": "与由聊天机器人驱动的机器人对话，并听专家介绍人工智能的未来。",
         "fingerprint": "b4ddfc4f95b008a9d21354acd1a5b7d9b2825f779c27c42967d6ab4089c4f54b",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -261,7 +261,7 @@
         "title": "软件如何改变世界！",
         "description": "展览介绍 MP3、Photoshop、MRI、汽车碰撞模拟、Wikipedia、短信和 World of Warcraft 这七项重要应用背后的历史、影响与技术。",
         "fingerprint": "a09a107c611f324f46dc5968d3f1429b395b63f5f01eb4ffce68e1db0de515fc",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -379,7 +379,7 @@
         "title": "Nightfall 夜幕奇境",
         "description": "沿着线索穿过被自然重新占据的房屋，进入发光的林地，一路来到女巫隐藏的村庄；在那里，一道延续百年的魔法正在逐渐解除。",
         "fingerprint": "4473c50a44e7ec301639e7d9af86eab8ea7190bb63f3495eba09cbeb6f8fee44",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -648,8 +648,18 @@
     "verification": "manual-verified",
     "refreshStatus": "verified-supplement",
     "linkSource": "manual_verified",
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "094c119634f942d9474967148622db93fe433494ef5af764455cd67755c550bc"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "094c119634f942d9474967148622db93fe433494ef5af764455cd67755c550bc",
+    "translations": {
+      "zh": {
+        "title": "玻璃南瓜节",
+        "description": "漫步欣赏数千个手工吹制的玻璃南瓜，观看现场玻璃吹制演示，并选购湾区及外地艺术家带来的独特玻璃艺术品。",
+        "fingerprint": "094c119634f942d9474967148622db93fe433494ef5af764455cd67755c550bc",
+        "translatedAt": "2026-10-05T05:34:00Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6ab40c86da318a10e636365e",
@@ -752,7 +762,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "阅读自由：寻宝游戏",
+        "description": "孩子们可以在儿童阅览室里寻找线索，认识曾受到质疑的热门书籍；青少年和成人则可以参加禁书主题挑战，测试自己的相关知识。",
+        "fingerprint": "76f63a60dd8325530eaad90c10375b53f5f0d1a1cf5c16c8610578538030bbd1",
+        "translatedAt": "2026-10-06T00:27:00Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6aa42fb44ea230006f33acc4",
@@ -856,7 +876,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "阅读自由：寻宝游戏",
+        "description": "孩子们可以在儿童阅览室里寻找线索，认识曾受到质疑的热门书籍；青少年和成人则可以参加禁书主题挑战，测试自己的相关知识。",
+        "fingerprint": "76f63a60dd8325530eaad90c10375b53f5f0d1a1cf5c16c8610578538030bbd1",
+        "translatedAt": "2026-10-06T00:27:00Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a7b5706b204780029922c3a",
@@ -957,7 +987,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "随取随走：STEM 工具包",
+        "description": "这些 STEM 工具包与 STEM Club 类似，主要面向 K-3 年级；只要还有材料，其他年龄的孩子也欢迎尝试。",
+        "fingerprint": "bae9cfcf3a5e65391d54599e454a83aa11b2be6580aa84b751d1a370d42121b5",
+        "translatedAt": "2026-10-05T05:34:00Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6aa42fe556fe62004a2f6ba5",
@@ -1056,7 +1096,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "万圣节季寻宝游戏",
+        "description": "书架之间会藏着一批万圣节主题、但不会太吓人的纸艺作品，看看你能不能把它们全找出来！",
+        "fingerprint": "ff8bf5c5316a5cd83f2600694135ebf9a1275f3e404dfa8c94f6c145c92d9d9f",
+        "translatedAt": "2026-10-06T00:27:00Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-c9e1632e621ee3d1",
@@ -1215,7 +1265,7 @@
         "title": "自然之歌：艺术展",
         "description": "创作者们后来开始在每周四一起进行水彩画创作。",
         "fingerprint": "af627a1a7b2daf671e2acf88dedfbc68f219a1ce3d2474cd6ee3a6942f772d0c",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -1468,8 +1518,18 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing",
-    "summaryQualityRepairVersion": "summary-quality-repair-v1"
+    "translationStatus": "current",
+    "summaryQualityRepairVersion": "summary-quality-repair-v1",
+    "translations": {
+      "zh": {
+        "title": "阅读自由：故事时间",
+        "description": "参加这场特别故事时间，一起庆祝阅读的乐趣！",
+        "fingerprint": "ff71a2ba4c5032cdf472758917cbcd1bdd6478d4cdc7edef5bc60261b35cc61a",
+        "translatedAt": "2026-10-05T05:34:00Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-ca41eff744a0cfd1",
@@ -2369,7 +2429,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "阅读伙伴",
+        "description": "Reading Buddies 为刚开始阅读和正在提升阅读能力的孩子营造积极的阅读体验，帮助他们建立阅读自信。",
+        "fingerprint": "9cfcc00020a9aca71092739b358818ac26ffc535b5d51964911a148b015d6086",
+        "translatedAt": "2026-10-05T05:34:00Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-69e7a8c91e64afd01e6aad52",
@@ -2468,7 +2538,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "Aysha 儿童阅读时间",
+        "description": "儿童阅读活动将在儿童区进行。",
+        "fingerprint": "726b7790342899620d4e1ede5ac2424c2e41eecec9bf0927090eb548b29be5fa",
+        "translatedAt": "2026-10-05T05:34:00Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a67cb469943bdf31ea202f5",
@@ -2567,7 +2647,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "游戏专区",
+        "description": "想展示一下自己的游戏技巧，或者只是想学学基础玩法？都欢迎参加。",
+        "fingerprint": "b1a6fc907c7b811be72b8b1234da0ce30eecdb2fe003683394df1ccb47b84f98",
+        "translatedAt": "2026-10-06T00:27:00Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-5df26bd9a83bbd56",
@@ -2700,7 +2790,7 @@
         "title": "K-8 年级 LEGO Club 乐高俱乐部",
         "description": "孩子们可以发挥创造力和工程技能，自由搭建任何他们能想象出来的作品。",
         "fingerprint": "a85f305cfeb9f3cfbf0790197ec9704c328328b070a0a1c55c6e8f710c45cccf",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -2789,7 +2879,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "Village Square 作业俱乐部",
+        "description": "欢迎参加 Village Square Homework Club。",
+        "fingerprint": "8500149ec244c620e0e0b8ec921d8cfe30d23f4a5662665d76cd4999d8a2c572",
+        "translatedAt": "2026-10-06T00:27:00Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6931d4246f92613600093951",
@@ -2888,7 +2988,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "儿童国际象棋俱乐部",
+        "description": "来学习下国际象棋，或者直接来下一盘棋！",
+        "fingerprint": "6f57e45e62e9de04a92fa0f45318df440450252f9b07f41d3709335a4c70f22b",
+        "translatedAt": "2026-10-06T00:27:00Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-a4b2721439034315",
@@ -4184,11 +4294,11 @@
     "linkResolution": "canonical",
     "translations": {
       "zh": {
-        "title": "睡衣故事时间 [Hora de Cuentos en Pijama]",
-        "description": "在轻松有趣的活动中学习。每周一 6:30pm，在 Burrow 举行——欢迎参加 Gilroy 图书馆的睡衣故事时间，我们会阅读故事、唱歌，并与图书管理员 Cameron 一起玩耍。",
+        "title": "睡衣故事时间",
+        "description": "在欢乐中学习。每周一晚上 6:30，在 Gilroy Library 的 Burrow 举行睡衣故事时间，由图书管理员 Cameron 和大家一起读故事、唱歌和互动。",
         "fingerprint": "fe22617d23c90636b5938e72943fe941bcc5ff532bd03518f9ce41ebc44601a9",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
-        "translationSource": "reviewed-batch",
+        "translatedAt": "2026-10-06T00:27:00Z",
+        "translationSource": "chatgpt-reviewed",
         "status": "approved"
       }
     },
@@ -4296,7 +4406,7 @@
         "title": "K-6 年级 Reading Buddies 阅读伙伴",
         "description": "和友善的狗狗一对一朗读，练习阅读技巧！",
         "fingerprint": "79b058b503a7b71acb323c4b4414be151046841a676f5f4b2042b33679ffa833",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -4868,7 +4978,7 @@
         "title": "家庭故事时间 Family Storytime",
         "description": "一起来唱歌、念童谣并听故事！",
         "fingerprint": "3aafb6be032aeaf2dc0cf4a1737861622924af3325d535d341dac41f8ea831d8",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -5655,7 +5765,7 @@
         "title": "San Francisco Opera Guild：《Manon》演出预览",
         "description": "参加 Rebecca Plack 带来的预览与介绍，了解 San Francisco Opera 即将上演的 Jules Massenet 歌剧《Manon》。",
         "fingerprint": "b755a1ef27cc258e6af57ad1b9b911d23bda07dec4288d91fe2190e0590008df",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -5778,7 +5888,7 @@
         "title": "LEGO Club 乐高俱乐部",
         "description": "幼儿园至 8 年级学生可在每月第一个星期二用 LEGO 玩耍和创作。",
         "fingerprint": "d5c82e54cf4c22c3a1abaa2b83eb9dde5f4859a2fdeae5641d0bfffe0fde5164",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -6129,7 +6239,7 @@
         "title": "LEGO Tuesdays! 周二乐高时间",
         "description": "带上你的想象力，搭建有趣的作品！",
         "fingerprint": "4e8abafbde74407026ad10354f573464225e0c657d06d396d9ca3f7902f0e2b2",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -6437,7 +6547,7 @@
         "title": "ArtSEE Expression：“Glow Globe Art” 发泡颜料创作",
         "description": "参加由 ArtSEE Expression 的 Sharvi 带领、由青少年主导的趣味动手发泡颜料工作坊！",
         "fingerprint": "b41ecb9e1587248cf9263226d572230a8df679f164cd2711e1ad336f1da7e742",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -6541,8 +6651,18 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "6345bd6b56020fd73d0c2e369fef592f1ab69981188a4c233cd4e07532058450"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "6345bd6b56020fd73d0c2e369fef592f1ab69981188a4c233cd4e07532058450",
+    "translations": {
+      "zh": {
+        "title": "阅读伙伴",
+        "description": "Gilroy Library 的 Reading Buddies 将从 September 开始，于每月第 1 个星期二举行。",
+        "fingerprint": "6345bd6b56020fd73d0c2e369fef592f1ab69981188a4c233cd4e07532058450",
+        "translatedAt": "2026-10-05T05:34:00Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-e739c48212431bf5",
@@ -7383,7 +7503,7 @@
         "title": "Little Ones Storytime 幼儿故事时间",
         "description": "故事时间包含多种早期读写活动，如故事、歌曲、童谣和律动活动。",
         "fingerprint": "6ace22fef4fb8042506f81c8b7c2f93837f8af40b875ce35d349e173e3665ee4",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -8954,7 +9074,7 @@
         "title": "Tween Dungeons & Dragons",
         "description": "如果孩子预计会缺席超过一次活动，请考虑之后的 Winter 或 Spring Session，把 Fall Session 的名额留给其他玩家。",
         "fingerprint": "69d32e4300d755c4c1b8fcfd283289fab7e4ab643ac7848d76e18c13852c6fb9",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -9083,7 +9203,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "培养孩子的韧性",
+        "description": "了解帮助孩子在面对挑战后恢复状态的关键方法，并学习如何建立支持性的关系，帮助他们维持健康、平衡的校园与生活状态。",
+        "fingerprint": "de48c8534d561bd1101ec6fa925caaf9f48472d3442728414deff89775d35e1b",
+        "translatedAt": "2026-10-06T00:27:00Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-68f909ed3cbc052f008115b5",
@@ -10726,7 +10856,7 @@
         "title": "故事与律动 / Hora de cuentos",
         "description": "孩子和照护者可一起听故事、念童谣、做手指游戏，并参加音乐和律动活动，培养早期读写能力。",
         "fingerprint": "d6b33e0aebd10cd7cacfa4589360c37bda26467f0d3eb4d43d996d829cc76b42",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -12354,7 +12484,7 @@
         "title": "Baby Sign 手语故事时间",
         "description": "从 Friday, October 9th at 10:30 开始，这个 20 分钟的故事时间包括婴儿美式手语、短故事、歌曲和童谣。",
         "fingerprint": "128dec1695b7e79ddb4726eee871fd7ae143f6c73720f71a43ec22925d18395e",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -12725,7 +12855,7 @@
         "title": "Tiny Tot Jamboree 幼儿欢乐会",
         "description": "家长和 1–2 岁幼儿一起参加短小有趣的故事、童谣、手指游戏、活动和歌曲。",
         "fingerprint": "19039c77101e7b754cea87442a5b6c527a3efc21cccdd8fb7c28d638065cb8c3",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -12891,7 +13021,7 @@
         "title": "Itty Bitty Jamboree 婴儿欢乐会",
         "description": "成人和 0–12 个月婴儿一起参加短小有趣的故事、童谣、手指游戏和歌曲。",
         "fingerprint": "c344a114ee050cef7355631d275d83e124d1be22ee47743a4e0aeb5fddf52f40",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -13163,7 +13293,7 @@
         "title": "Milpitas Library 编织与钩针交流圈",
         "description": "一边制作自己的毛线项目，一边认识其他爱好者；遇到困难时可以互相帮助，也可以分享想法。",
         "fingerprint": "a7bedaa494e00a7d332d52049cf52dde4fd25457af8884e805058dcdd1c7939c",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -13378,7 +13508,7 @@
         "title": "图书馆家庭电影之夜",
         "description": "本场将观看 BoxTrolls，并提供野餐毯和爆米花！",
         "fingerprint": "8b2f7b9a4bd186bb4dd21b6519d0d208036120aa6c51cf84e2b54b2a374731dc",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -13836,7 +13966,7 @@
         "title": "The Great Big BOO! 万圣节庆典",
         "description": "Gilroy Gardens 的家庭友好型万圣节庆典，包括现场音乐表演、沿 BOO Trail 讨糖、角色互动和互动式万圣节体验。",
         "fingerprint": "ea7cd8ab1f0f6e04bd7a50e1d4f4ed27bbca800efb033ea546970b04e5a57aae",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -14400,7 +14530,7 @@
         "title": "Gilroy Library Friends 大型图书特卖",
         "description": "Friends of the Gilroy Library 每月第二个星期六举办大型图书特卖，各年龄访客都可以来浏览和选购图书。",
         "fingerprint": "a89e252b9e53e4707c72bac271947cbfe4a7c74b72895e8874a13e4026dfadb4",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -14712,7 +14842,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "The Rhinoceros Project 社区缝纫活动",
+        "description": "加入艺术家 Michelle Wilson 和 Anne Beck 发起的 The Rhinoceros Project 社区缝纫活动，一起制作刺绣地图，将 Palo Alto 与 California 和 Mexico 的历史路线连接起来。",
+        "fingerprint": "77e840b4062972918758eb3e40f6a8c7985bb4106633d3378b31e500d8ee3cc0",
+        "translatedAt": "2026-10-05T05:34:00Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "calendar-22757",
@@ -14962,7 +15102,7 @@
         "title": "Cupertino Library 家庭故事时间",
         "description": "家长和孩子会一起听、一起学习、一起唱歌。",
         "fingerprint": "d58a348f638b2fec42abe38f9562035740dfc045068e52a29c135a895955461e",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -18350,7 +18490,7 @@
         "title": "CNPS 讲座 #2：用原生植物改造 HOA 景观与 AB 1572",
         "description": "讲者 Shelkie 是景观设计师，也是 WaterEfficientGardens.com 的创始人，业务专注于低耗水和加州原生植物花园设计。",
         "fingerprint": "dd283e159b02cbf79e427a0279bfbdae37b1fc76e5382ca7c062fd8f0eec0d80",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -18783,7 +18923,7 @@
         "title": "¡Bailemos Folklórico! 民俗舞蹈展示",
         "description": "孩子们在学习新舞步的同时，探索了传统音乐、动作和文化。",
         "fingerprint": "11dc8d9712b700fd20c6a53c8d8c5938aa0930ebf62ce4401dfe20c045e000f7",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -19582,7 +19722,7 @@
         "title": "为什么系外行星系统与太阳系不同？",
         "description": "讲座将探讨行星形成理论的预期以及现有观测带来的限制，以理解类地世界有多常见，并寻找这样的宇宙邻居。",
         "fingerprint": "48a40c8d977b3d79cbc6fc95d01b90bc597a4f6cd79647b5e558259cde55ea55",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -19827,7 +19967,7 @@
         "title": "Freaky Friday Night Flicks 万圣节周五电影夜",
         "description": "来图书馆观看一些万圣节经典影片！",
         "fingerprint": "b0e9a963791dd014c2b75ae6dacd70ff49e1d9356f17916142718f1264d1bcbd",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -21538,7 +21678,7 @@
         "title": "Vampire Ball 吸血鬼舞会",
         "description": "参加活动的“吸血鬼”都有机会跟专业老师学习传统华尔兹舞步。",
         "fingerprint": "bda1e84edc8b7bdd9bbcdf082baf1a4c135a4e685beee44817b468e2a053d893",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -22801,11 +22941,11 @@
     "sessions": [],
     "translations": {
       "zh": {
-        "title": "Super Family Sunday 家庭星期日",
-        "description": "Junior Museum & Zoo 致力于提供包容且无障碍的参观体验。",
+        "title": "超级家庭星期日",
+        "description": "Junior Museum & Zoo 致力于为所有访客提供包容且无障碍的参观体验。",
         "fingerprint": "17b2e6936bed7b50b626aa82feeaae42ee35eeb7249dd9141553acea295b2a8e",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
-        "translationSource": "reviewed-batch",
+        "translatedAt": "2026-10-06T00:27:00Z",
+        "translationSource": "chatgpt-reviewed",
         "status": "approved"
       }
     },
@@ -23024,7 +23164,7 @@
         "title": "Fratello Marionettes: Spooktacular 万圣节木偶秀",
         "description": "这场演出特别注意营造适合孩子观看的体验。",
         "fingerprint": "dfe53cd2380578f634d197bbeab2698c2f1187925b5ef2c4d9049ed6ad557a46",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -24707,7 +24847,7 @@
         "title": "Find Your Creative Spark：Risa Williams 与 Mike Sonksen 家庭创意工作坊",
         "description": "参加这个适合家庭、分为两部分的启发式工作坊（适合 5 岁以上），帮助你放松下来、摆脱卡顿，并重新连接自己的创造力。",
         "fingerprint": "13ac12d00468888b805e565291bf2ae2158e72fdda80e7be972ab2598df8fa5c",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -25782,7 +25922,7 @@
         "title": "Halloween Magic 万圣节魔法活动",
         "description": "从小朋友、大孩子到成人，都能找到适合自己的活动内容。",
         "fingerprint": "240cbfaa9a8f03428824be09e01c1c442d5420374c818b3c9cda81f1e5711afe",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -25992,7 +26132,7 @@
         "title": "DIY 相框装饰",
         "description": "可以为 Día de los Muertos 装饰相框，也可以创作自己的独特设计。",
         "fingerprint": "53d8a5afcb998071ad9024b24f998d19b29546b3b5c9bdd78bf4d0ffdf1b4300",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -26130,7 +26270,7 @@
         "title": "吉他初学者课程",
         "description": "这一系列共 4 节课，将涵盖节奏与节拍的理解、吉他调音、指板上的手指位置、如何识读和弹奏和弦，以及指弹演奏方式。",
         "fingerprint": "54b0a20503db8eb214014ebfd0da518fe6b2163c680ae4bd7419dfb80153bb15",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -26647,7 +26787,7 @@
         "title": "阅读伙伴（K–5 年级）",
         "description": "孩子可以和毛茸茸的动物伙伴一对一阅读自己喜欢的书。",
         "fingerprint": "0296154c4dc057f9a3b2631d40d8d8b2bda84a926295bbdc1aa019e4ea71ca11",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -27581,7 +27721,7 @@
         "title": "Symphonic Spooktacular 万圣节交响音乐会",
         "description": "这场万圣节音乐会以英雄、反派和经典影视音乐为主题，由 Symphony San Jose 演出。",
         "fingerprint": "4135f251b1ac23367a21b752254cac086805eea47c8d0969454440bbdd472bda",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -27709,7 +27849,7 @@
         "title": "Día de Los Muertos 亡灵节庆典",
         "description": "与合作伙伴一起通过互动展示、家庭活动和表演庆祝 Día de Los Muertos。",
         "fingerprint": "1ecc6e30fd65fb070f091c0e928ba4efbf3320e1b5c51ee67b82484244499a11",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -28523,7 +28663,7 @@
         "title": "Bookcaterpillars 读书会（K–1 年级）",
         "description": "读书会现场会一起阅读，也可以提前阅读本月书目。",
         "fingerprint": "791b9c9f90cbf1a4a75eadff02c65cf4488eb6bc95e4ddb6ce3ca8553e741f7b",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -28632,7 +28772,7 @@
         "title": "Bookworms 读书会（2–3 年级）",
         "description": "读书会现场会一起阅读，也可以提前阅读本月书目。",
         "fingerprint": "e1027f326cae41769eca5236429dd91e5a7c035ae36cb71de223dd8813b502a1",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -29469,7 +29609,7 @@
         "title": "Itty-Bitty Halloween S'Booktacular（0–6 岁）",
         "description": "穿上最有万圣节气氛的服装，一起来参加活动。",
         "fingerprint": "67c271d0bba663489b1af489d23ebdc1d669566c0273f0261959a35f99338072",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -29563,7 +29703,7 @@
         "title": "Mini Makers 小小创客",
         "description": "现场设有三个不同的活动站，帮助孩子练习并了解更多精细动作技能。",
         "fingerprint": "4a4d57939ea1f68f90205745687f957618b56adf09bc626bfc049f5cc74a3c74",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -29672,7 +29812,7 @@
         "title": "Story Explorers：TK–1 年级读书会",
         "description": "大家会一起阅读、简短讨论每本书、跟着音乐活动，最后完成一个有趣的手工。",
         "fingerprint": "91dada2f12b3c54f15ddd8df74fcff8a0ca1523d01b87f4dd5443a77c85817c3",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -29896,7 +30036,7 @@
         "title": "Lotería 之夜 / Noche de Lotería",
         "description": "带上亲友来参加友好比赛，看看谁能先喊出“¡Lotería!”。",
         "fingerprint": "483e84939d013e26d3cb6d83bc028ee945626ca1c30118599517857ca67b52bf",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -29987,7 +30127,7 @@
         "title": "四季有景的加州原生植物园艺",
         "description": "了解如何在自家庭院加入加州原生植物，为城市栖息地带回重要的传粉昆虫，同时增加庭院美感。",
         "fingerprint": "b7c8ac1c01bdd05f18404f3b7b8cfdd78587819cc9d09dc8f3a3045760242686",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -30284,7 +30424,7 @@
         "title": "K-8 年级儿童糖骷髅装饰活动",
         "description": "现场提供预先制作好的糖骷髅，以及织物颜料、亮片和羽毛。",
         "fingerprint": "42ed19c2d6c455c69d716b651bef7f86b9412f795700d917bc5981af7350048e",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -30393,7 +30533,7 @@
         "title": "油画棒南瓜绘画与上色",
         "description": "和我们一起用油画棒画一个南瓜并为它上色！",
         "fingerprint": "614e652ccdca3d86b773e5c1e4274bcbb578943707958082f5327a70a25fb06e",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -30639,7 +30779,7 @@
         "title": "K-5 年级 Spooky Crafts 万圣节手工",
         "description": "K 至 5 年级儿童可在 Milpitas Library 一起制作万圣节和亡灵节主题的趣味手工。",
         "fingerprint": "f8886e35b95559e4976970c7140091d25e549624ce9a9d7bf02e8f30fdd9f610",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -30772,7 +30912,7 @@
         "title": "San Jose Grand Century Mall 365 夜市",
         "description": "每月举办的两日活动，包括美食、购物、音乐等内容。",
         "fingerprint": "a9fb05188e2fd36b46279e793556c7c117c1b14e59922f1af75a02c6f9ced9e1",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -30881,7 +31021,7 @@
         "title": "Halloween Trivia Contest 万圣节知识竞赛",
         "description": "竞赛主题包括万圣节本身的习俗与起源，以及电影、电视节目、书籍等；共同主题都是 Halloween。",
         "fingerprint": "bd310350823c0d60180be3dfd703378c2fc9ff3252ea04de1407798adfcd99a1",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -31139,7 +31279,7 @@
         "title": "Tech or Treat 万圣节科技活动",
         "description": "在 The Tech 参加适合家庭的科学活动，并体验带有万圣节元素的热门展项。",
         "fingerprint": "8387b5d2282b236f73daa196f7b24612e0f0888aea789c822d21f2eafb2d5430",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -31690,7 +31830,7 @@
         "title": "青少年 Spooky Dungeons and Dragons 万圣节 D&D 单次冒险！",
         "description": "现场设有五张游戏桌，欢迎各种技能和经验水平的玩家参加。",
         "fingerprint": "632775e8687150f62244684ac67eb08c9e37efb558e4cd47bc83778df65f3f70",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -31883,7 +32023,7 @@
         "title": "青少年拼图拉力赛与服装比赛",
         "description": "现场将进行计时拼图挑战，每队 3-4 人，比一比哪一队能最快完成拼图！",
         "fingerprint": "e46be32e72a3b937f984a86ea97ba03b710abba9e308238076108031f13be51d",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -31992,7 +32132,7 @@
         "title": "Classic Horror Movie Night 经典恐怖电影之夜",
         "description": "来图书馆观看经典恐怖电影《Poltergeist》(1982)。",
         "fingerprint": "b0c1875af08c566f25be816c5bb2b579587990728118338bf2282b900af0f3e6",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -32098,7 +32238,7 @@
         "title": "图书馆 Trick-or-Treat 万圣节要糖",
         "description": "穿上你的服装，到儿童服务台、成人服务台和账户服务台参加 Trick-or-Treat 要糖。",
         "fingerprint": "3a714f75a872d0ac910da750ef779ba1235862455cfa65d796652af9c28ef8ea",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -32195,7 +32335,7 @@
         "title": "Día de Los Muertos 亡灵节庆典",
         "description": "Santana Row 将在 Sunday, November 1st 举办 Día de Los Muertos 特别庆典，纪念逝去的亲人并延续彼此的连结。这是免费社区活动，包括脸部彩绘、Catrina 和 Catrin 角色互动、mariachi 音乐、手工和快闪市集。",
         "fingerprint": "ff5ff35e93efb4312617636c6be4a1a48881f79a3709a13016217180500061b5",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -32290,7 +32430,7 @@
         "title": "Día de los Muertos 亡灵节",
         "description": "家庭可以在博物馆通过为儿童设计的动手文化活动和传统体验来纪念 Día de los Muertos。",
         "fingerprint": "15ae702683195979db411fc539eb9ad403b8162d806c5972ab48994f6a6f2ad8",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -32478,7 +32618,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "宝宝手语与歌唱",
+        "description": "成人照护者将学习与宝宝沟通所需的基础手语。",
+        "fingerprint": "86ca7be35cccb6e563ebe84725b1c529696a8399e12155b8397aa85fc9548149",
+        "translatedAt": "2026-10-05T05:34:00Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "bayfc-44057bc336846e65",
@@ -32883,11 +33033,11 @@
     "sessions": [],
     "translations": {
       "zh": {
-        "title": "K-2 年级 Science Sundays 周日科学实验",
-        "description": "每个星期日进行一个新的实验！",
+        "title": "K-2 年级科学星期日",
+        "description": "每个星期日都会进行一个新的实验！",
         "fingerprint": "56afe420a5dcc246eeff3e46c6b7c261043a1fd2531ed94a48dc576d9bfb7e15",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
-        "translationSource": "reviewed-batch",
+        "translatedAt": "2026-10-06T00:27:00Z",
+        "translationSource": "chatgpt-reviewed",
         "status": "approved"
       }
     },
@@ -33251,7 +33401,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "阅读伙伴",
+        "description": "来练习阅读技巧，与毛茸茸的动物伙伴进行一对一朗读！",
+        "fingerprint": "3f1f7fe73ff4364d36ce4eb632c873d0c3db48435260b1db4163e49c903bab84",
+        "translatedAt": "2026-10-05T05:34:00Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a8e25d11c197d11325add77",
@@ -33335,7 +33495,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "成长中的读者：帮助有写作兴趣的孩子",
+        "description": "这是一场面向家长和照护者的免费工作坊，由 Santa Clara County Office of Education 与 Santa Clara County Library District 的 The Reading Program 联合举办。",
+        "fingerprint": "ccb3b6c326e8c88451f52166aef3e965d7402770327708633eef885b744b1c65",
+        "translatedAt": "2026-10-05T05:34:00Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-1b377c8bcc2b2f50",
@@ -33523,7 +33693,7 @@
         "title": "《How to Train Your Dragon》",
         "description": "跟随不太像传统维京英雄的 Hiccup，与被误解的 Night Fury Toothless 成为朋友，并学会勇气也意味着用不同的方式看世界。",
         "fingerprint": "a47fb1b5bb710d00c68ab658f236818eb5e0c858e272fee5d5831e0512d19b1f",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -34445,7 +34615,7 @@
         "title": "National STEM Day 全国 STEM 日",
         "description": "十一月 8 日星期日到访 The Tech Interactive，可免费参观。",
         "fingerprint": "b4593279940f6aad4243e696731e05f8e4004cf0c97a2e54671c2a3ccd29c208",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -34910,7 +35080,7 @@
         "title": "《Matilda The Musical》",
         "description": "聪明勇敢的 Matilda Wormwood 运用自己的机智和一点魔法，对抗专横的 Miss Trunchbull，并寻找属于自己的位置。",
         "fingerprint": "c28f15878095e2adac2b2cac63a5c48ddc4f43925316ef6257a5f90a09388e19",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -35525,7 +35695,7 @@
         "title": "Big Bird's Adventure | One World, One Sky 大鸟的太空冒险",
         "description": "旅途中，角色会邀请观众一起唱关于太空的歌曲，并共同感受属于所有人的同一片天空。",
         "fingerprint": "63f3d20e74eb9cc70989b5c47ff5fe2bc6cb3adaf7864c46d9dbb11095917ff4",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -37582,7 +37752,7 @@
     "redirectTarget": "https://www.paloalto.gov/Events-Directory/Community-Services/Main-Stage-A-Year-with-Frog-and-Toad",
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
-    "translationStatus": "missing",
+    "translationStatus": "current",
     "imageOriginalUrl": "https://www.paloalto.gov/files/assets/public/v/1/community-services/childrens-theatre/production-pictures/frog-and-toad-web-poster.png",
     "imageMirror": {
       "status": "mirrored",
@@ -37592,6 +37762,16 @@
       "contentType": "image/png",
       "bytes": 591403,
       "mirroredAt": "2026-10-05T12:05:14.150Z"
+    },
+    "translations": {
+      "zh": {
+        "title": "主舞台演出：《A Year with Frog and Toad》",
+        "description": "欢迎观看 Children's Theatre 主舞台制作《A Year with Frog and Toad》！",
+        "fingerprint": "49032d33de25ace508f9e09c5b7f599aeeb496c6c4e90df3aaa728c017ee0aff",
+        "translatedAt": "2026-10-05T05:34:00Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
     }
   },
   {
@@ -38044,7 +38224,7 @@
         "title": "Black Holes: The Other Side of Infinity 黑洞：无限的另一面",
         "description": "在这场节目中，你将穿越奇异的虫洞，体验银河系的形成，见证恒星猛烈死亡以及随后黑洞的诞生。",
         "fingerprint": "2dd57744a2a6c6f708b4c8867ec6e1d9ef8061df36b06f50907680bf27a53003",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -38252,7 +38432,7 @@
         "title": "Laser Journey 激光音乐秀",
         "description": "无论你是在 80 年代滑旱冰时第一次爱上 Journey 的歌曲，还是通过 American Idol 或 Glee 接触到这些音乐，Laser Journey 都是一场适合各年龄观众的趣味演出。",
         "fingerprint": "0e912b10734904838e9461f07bd2764727a6cb5a8ae198fa2f904d23c55ae37e",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -38788,7 +38968,7 @@
         "title": "Legends of the Night Sky | Orion 夜空传说：猎户座",
         "description": "加入我们，以充满想象力的方式了解冬季天空中的伟大猎人 Orion 猎户座的故事与传说。",
         "fingerprint": "db10cc0837492a21326507443b5cbbaade5c7ef201492fea106b91519d46674f",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -38899,7 +39079,7 @@
         "title": "Earth, Moon & Sun 地球、月球与太阳",
         "description": "在一个改编自 Native American 口述传统、对我们的家园星球及其最熟悉邻居存在许多误解的幽默角色帮助下，探索地球、月球与太阳之间的关系。",
         "fingerprint": "28a46fb93fce150d9775b8bf731703e7d15d5cd35328155d4e30aabd9fafb852",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -38998,7 +39178,7 @@
         "title": "Explore Live: Tour of the Universe 现场探索：宇宙之旅",
         "description": "Explore Live: Tour of the Universe——从你一贯开始的地方出发：抬头仰望，然后离开夜空，继续探索。",
         "fingerprint": "68491a1654413dc30fb811396809ff4af9f4aa00eaaaa281f771c7e328d841f8",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -39151,7 +39331,7 @@
         "title": "Laser Holiday Magic 节日魔法激光秀",
         "description": "这场激光灯光秀包含多首节日音乐，如 Joy to the World、Jingle Bell Rock、Let it Snow、Rockin' Round the Christmas Tree 等！",
         "fingerprint": "058efd6d135f1bfe6e392614e8894c674d11b5c466b0ca1084cf51b94e0c4ca2",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -40237,7 +40417,7 @@
         "title": "San Jose Barracuda vs Eagles 冰球比赛",
         "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Eagles。特别活动包括 Jurassic World、Frenzy 的生日庆祝，以及向前 2,000 名球迷赠送 Frenzy 毛绒玩偶。",
         "fingerprint": "46f1cbf520789c315450e366f51b7c35dd161fbd1f57209e93dd1ab555f05a19",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -43121,7 +43301,7 @@
         "title": "My Very First Symphony 我的第一场交响乐",
         "description": "活动中的乐器体验区让小朋友可以近距离接触并探索真正的管弦乐器。",
         "fingerprint": "45a968a584b6ba8ad42d8da975d29b66137e82cc657989c5a01690b2f1cd3461",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -43205,7 +43385,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "San Jose Barracuda 对阵 Gulls",
+        "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Gulls 的官方比赛。",
+        "fingerprint": "5373381e29d6e798f1dd38fa34bf633ad467c7d51d59d1924549bcaf253379c0",
+        "translatedAt": "2026-10-06T00:27:00Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "barracuda-54832",
@@ -44054,7 +44244,7 @@
         "title": "San Jose Barracuda vs Canucks 冰球比赛",
         "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Canucks。特别主题活动为 Turn It All Teal Night。",
         "fingerprint": "7c0bf1b24d5daed8388ce67b71cb49f79d9834a9976cb9e7343b2f66756affd3",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -44588,7 +44778,7 @@
         "title": "My Very First Ballet 我的第一场芭蕾",
         "description": "演出包括《Aurora's Wedding》，其中会出现 Little Red Riding Hood、Tom Thumb、Puss in Boots 和 Bluebird 等童话角色。",
         "fingerprint": "27ca0206faab1efce5bd291009e6d8df6563de85e355f44584a44de238c7113e",
-        "translatedAt": "2026-10-05T12:05:14.868Z",
+        "translatedAt": "2026-10-06T00:27:50.875Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
