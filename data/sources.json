@@ -1261,5 +1261,144 @@
     "landingUrl": "https://santanarow.com/events/",
     "linkPolicy": "first_party_detail_with_listing_fallback",
     "runnerAccessPolicy": "transient-fetch-failures-observed"
+  },
+  {
+    "id": "guadalupe-river-park-pumpkins",
+    "name": "Guadalupe River Park Conservancy · Pumpkins in the Park",
+    "domain": "grpg.org",
+    "method": "curated",
+    "feedUrl": "https://grpg.org/pumpkins-in-the-park/",
+    "city": "San Jose",
+    "linkHosts": [
+      "grpg.org",
+      "www.grpg.org"
+    ],
+    "events": [
+      {
+        "title": "Pumpkins in the Park",
+        "dateValue": "2026-10-10T10:00",
+        "endDateValue": "2026-10-10T16:00:00",
+        "description": "Downtown San Jose’s annual harvest festival with free pumpkins, cultural performances, crafts, inflatables, food trucks, community booths, and family activities.",
+        "image": "https://grpg.org/wp-content/uploads/2025/10/pumpkininthepark-179-770x515.jpg",
+        "place": "Discovery Meadow",
+        "address": "180 Woz Way, San Jose, CA 95110",
+        "ageText": "All ages Families Children",
+        "cost": "Free",
+        "format": "festival",
+        "url": "https://grpg.org/pumpkins-in-the-park/"
+      }
+    ]
+  },
+  {
+    "id": "sjsu-hammer-echoes-silk-road",
+    "name": "Hammer Theatre / SJSU · Echoes of the Silk Road",
+    "domain": "events.sjsu.edu",
+    "method": "curated",
+    "feedUrl": "https://events.sjsu.edu/event/silkroad-art-preservation-collective-presents-echoes-of-the-silk-road-5th-year-gala",
+    "city": "San Jose",
+    "linkHosts": [
+      "events.sjsu.edu",
+      "hammertheatre.vbotickets.com",
+      "echoesofsilkroad.carrd.co"
+    ],
+    "events": [
+      {
+        "title": "Echoes of the Silk Road",
+        "dateValue": "2026-10-10T19:00",
+        "endDateValue": "2026-10-10T21:00:00",
+        "description": "A cultural dance performance featuring more than twenty original works inspired by Mongolian, Tibetan, Uyghur, and other Silk Road traditions, with original choreography, costumes, music, and lighting.",
+        "image": "https://localist-images.azureedge.net/photos/53826115592812/huge/d41ed278e8160468490c4d9e3d17c049a86cda63.jpg",
+        "place": "Hammer Theatre Center · Sobrato Auditorium",
+        "address": "101 Paseo De San Antonio, San Jose, CA 95113",
+        "ageText": "General public Students",
+        "cost": "Tickets from $40",
+        "format": "live-show",
+        "url": "https://events.sjsu.edu/event/silkroad-art-preservation-collective-presents-echoes-of-the-silk-road-5th-year-gala"
+      }
+    ]
+  },
+  {
+    "id": "ebparks-ardenwood-harvest-festival",
+    "name": "East Bay Regional Park District · Ardenwood Harvest Festival",
+    "domain": "ebparks.org",
+    "method": "curated",
+    "feedUrl": "https://www.ebparks.org/calendar?terms=Ardenwood+Harvest+Festival",
+    "city": "Fremont",
+    "linkHosts": [
+      "ebparks.org",
+      "www.ebparks.org",
+      "apm.activecommunities.com",
+      "anc.apm.activecommunities.com"
+    ],
+    "events": [
+      {
+        "title": "Ardenwood Harvest Festival",
+        "dateValue": "2026-10-10T10:00",
+        "endDateValue": "2026-10-10T16:00:00",
+        "description": "Old-time country harvest fun at Ardenwood Historic Farm with corn harvesting, cider pressing, live music, historic crafts, farm demonstrations, and seasonal activities.",
+        "image": "https://www.ebparks.org/sites/default/files/16x9_Ardenwood_Deane%20Little.jpg",
+        "place": "Ardenwood Historic Farm",
+        "address": "34600 Ardenwood Blvd, Fremont, CA 94555",
+        "ageText": "All ages Families Children",
+        "cost": "Advance tickets required",
+        "format": "festival",
+        "url": "https://apm.activecommunities.com/ebparks/Activity_Search/60196"
+      },
+      {
+        "title": "Ardenwood Harvest Festival",
+        "dateValue": "2026-10-11T10:00",
+        "endDateValue": "2026-10-11T16:00:00",
+        "description": "Old-time country harvest fun at Ardenwood Historic Farm with corn harvesting, cider pressing, live music, historic crafts, farm demonstrations, and seasonal activities.",
+        "image": "https://www.ebparks.org/sites/default/files/16x9_Ardenwood_Deane%20Little.jpg",
+        "place": "Ardenwood Historic Farm",
+        "address": "34600 Ardenwood Blvd, Fremont, CA 94555",
+        "ageText": "All ages Families Children",
+        "cost": "Advance tickets required",
+        "format": "festival",
+        "url": "https://apm.activecommunities.com/ebparks/Activity_Search/60197"
+      }
+    ]
+  },
+  {
+    "id": "scc-fairgrounds-bay-area-card-show",
+    "name": "Santa Clara County Fairgrounds · Bay Area Card Show",
+    "domain": "thefairgrounds.org",
+    "method": "curated",
+    "feedUrl": "https://www.thefairgrounds.org/events/bay-area-card-show/",
+    "city": "San Jose",
+    "linkHosts": [
+      "thefairgrounds.org",
+      "www.thefairgrounds.org",
+      "sfbayareacardshow.com",
+      "www.sfbayareacardshow.com"
+    ],
+    "events": [
+      {
+        "title": "Bay Area Card Show",
+        "dateValue": "2026-10-10T10:00",
+        "endDateValue": "2026-10-10T17:00:00",
+        "description": "A family-friendly sports and trading card show with hundreds of tables, buying, selling and trading, interactive activities, giveaways, prizes, and collectibles for all ages.",
+        "image": "https://www.thefairgrounds.org/wp-content/uploads/2026/09/area-card-show-1024x576.jpeg",
+        "place": "Santa Clara County Fairgrounds · Expo Hall",
+        "address": "344 Tully Rd, San Jose, CA 95111",
+        "ageText": "All ages Family-friendly",
+        "cost": "Tickets required",
+        "format": "festival",
+        "url": "https://www.thefairgrounds.org/events/bay-area-card-show/"
+      },
+      {
+        "title": "Bay Area Card Show",
+        "dateValue": "2026-10-11T10:00",
+        "endDateValue": "2026-10-11T17:00:00",
+        "description": "A family-friendly sports and trading card show with hundreds of tables, buying, selling and trading, interactive activities, giveaways, prizes, and collectibles for all ages.",
+        "image": "https://www.thefairgrounds.org/wp-content/uploads/2026/09/area-card-show-1024x576.jpeg",
+        "place": "Santa Clara County Fairgrounds · Expo Hall",
+        "address": "344 Tully Rd, San Jose, CA 95111",
+        "ageText": "All ages Family-friendly",
+        "cost": "Tickets required",
+        "format": "festival",
+        "url": "https://www.thefairgrounds.org/events/bay-area-card-show/"
+      }
+    ]
   }
 ]
