@@ -81,5 +81,26 @@
     "seasonalTheme": "halloween",
     "replaceExisting": true,
     "verifiedAt": "2026-10-04T03:00:00Z"
+  },
+  {
+    "id": "filoli-546ede82db7e6eeb",
+    "title": "Nightfall",
+    "dateValue": "2026-09-26",
+    "endDateValue": "2026-11-01T23:59:59",
+    "description": "Follow the trail of clues through a house reclaimed by nature, into a glowing woodland, and all the way to a witch's hidden village, where a century-old enchantment is finally coming undone.",
+    "sourceDescriptionRaw": "By day, Filoli is breathtaking. By night, the mystery begins. Start your evening at a lively harvest celebration filled with pumpkins, live music, seasonal food and drinks, festive games, and autumn charm. Then venture into the Historic House, where nature has slowly reclaimed every room and a century-old mystery waits to be uncovered. Follow the story beyond the mansion onto a glowing woodland trail lined with illuminated jack-o'-lanterns, towering scarecrows, giant glowing slugs, and artistic woodland installations before arriving at the Witches' Village hidden beneath the redwoods.",
+    "place": "Filoli Historic House & Garden",
+    "address": "86 Cañada Rd, Woodside, CA",
+    "city": "Woodside, CA",
+    "source": "Filoli Historic House & Garden",
+    "url": "https://filoli.org/whats-on/events/nightfall/",
+    "ageLabel": "Family-friendly",
+    "ageSource": "Filoli official Nightfall event page",
+    "costLabel": "费用未注明",
+    "type": "outdoor",
+    "format": "festival",
+    "seasonalTheme": "halloween",
+    "replaceExisting": true,
+    "verifiedAt": "2026-10-07T23:30:00Z"
   }
 ]
