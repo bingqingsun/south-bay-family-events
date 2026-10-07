@@ -1,0 +1,426 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "entries": [
+    {
+      "id": "rss-6ac02ed829c3d600332d4810",
+      "title": "阅读自由：寻宝游戏",
+      "description": "孩子们可以在儿童阅览室里寻找线索，了解那些曾受到质疑的热门书籍。",
+      "sourceFingerprint": "6bdf660fea278c9da30bdf4206782436f0aeb555ed9905045256380fefb70ac9",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-6abbdaf89abb62002c6af3f7",
+      "title": "电脑组装工作坊（需预约）",
+      "description": "建议 10 岁以上参加。使用本地社区捐赠的实验室电脑，学习组装一台可工作的电脑所需的组件、如何规划并选购全新或二手电脑配件，以及如何在不损坏部件的情况下拆装 PC。课堂中，学生会拿到一台可工作的电脑，连接各个组件并启动电脑。",
+      "sourceFingerprint": "15a1d7c3ab4c1fb7957ad5fe25df15b388b700fca8d28ea96ac3f451c00a72b6",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-6aa42fb44ea230006f33acc6",
+      "title": "阅读自由：寻宝游戏",
+      "description": "孩子们可以在儿童阅览室里寻找线索，认识曾受到质疑的热门书籍；青少年和成人则可以参加禁书主题挑战，测试自己的相关知识。",
+      "sourceFingerprint": "76f63a60dd8325530eaad90c10375b53f5f0d1a1cf5c16c8610578538030bbd1",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-6aa42fe556fe62004a2f6ba7",
+      "title": "万圣节季寻宝游戏",
+      "description": "书架之间会藏着一批万圣节主题、但不会太吓人的纸艺作品，看看你能不能把它们全找出来！",
+      "sourceFingerprint": "ff8bf5c5316a5cd83f2600694135ebf9a1275f3e404dfa8c94f6c145c92d9d9f",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-6a94597f36204e08fbb85097",
+      "title": "游戏时间！",
+      "description": "青少年放学后可以使用馆内的 Nintendo Switch 主机玩游戏。",
+      "sourceFingerprint": "ba38fe88bdaf90848c95776a32fc4ff7448cfac375e8e1fe9dfd4f7b17b17038",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-693df9b31e64afd01e4ef59c",
+      "title": "创客实验室",
+      "description": "现场会为这些设备提供少量材料，也欢迎自带材料和数字设计文件。",
+      "sourceFingerprint": "6de6c005fa62710d0c7d02765fc4033b1a5a2171a67b61319fe6d3675afd718c",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-69fa551ff56bd86e00adbf68",
+      "title": "LEGO 工程",
+      "description": "用 LEGO 搭建、学习并发挥想象力！",
+      "sourceFingerprint": "594a6bbfd41a7835e4a98a4332a581c4e8bf6a53491e74bd8ebfee9ee2b5ce63",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-6a5280af489285b703d87854",
+      "title": "音乐与律动",
+      "description": "“音乐与律动”是一项适合全家参与的趣味互动活动，让各个年龄段都能在快乐中体验学习。",
+      "sourceFingerprint": "30178f2658f5671268883b212851b2e8b9be777acb1071a6a7ec646b9ad086f6",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-69fb8a1af56bd86e00adf8cb",
+      "title": "志愿服务抵扣罚款",
+      "description": "加入社区志愿服务，一起美化 Pearl Avenue Branch Library！",
+      "sourceFingerprint": "857c00eaa457aae28bc704c098d50ef6ff5acaa497b86966034b57c7134cc141",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-6a5e83e10e562e28009b301f",
+      "title": "钩针编织俱乐部",
+      "description": "每周内容都会在上一周的基础上继续推进，参与者将逐步完成自己的作品。",
+      "sourceFingerprint": "f805264055985a84994137ec9eee6bfc7b6c2453af6fc2ce96f6b556de311564",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-6a2b3d5ac7d3cd58005fc0ef",
+      "title": "英西双语阅读伙伴",
+      "description": "欢迎幼儿园至 3 年级儿童用英语或西班牙语朗读给受过培训的青少年志愿者；需要时，志愿者会给予鼓励并帮助纠正发音。",
+      "sourceFingerprint": "29994e6adde4ea1112a0bc0dbc9dc211293e51eb668ae90e52b5d07e98f1e5c1",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-6a7b5896a821f90037ed21bb",
+      "title": "Reading Partners 一对一阅读辅导",
+      "description": "Reading Partners 由受过培训的志愿者提供免费的一对一阅读辅导。",
+      "sourceFingerprint": "bf49752c5bb373da5c964ca29d42914e624d1bf448c8910eb373c3bd5e71a6a5",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-69fa1d503f8e7924031e613e",
+      "title": "给毛茸茸的朋友读书",
+      "description": "欢迎孩子们练习朗读给温顺、受过训练、喜欢听故事的辅助犬听！",
+      "sourceFingerprint": "f0a45751bf5deb332584d560034a24be1aa6ac3fff184b14eedc684d38280bb7",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-6a67d37df213992f00c7862d",
+      "title": "STEM 星期三：漂浮指南针",
+      "description": "用水、针等简单材料制作一个指南针，观察磁力如何发挥作用！",
+      "sourceFingerprint": "4e4c4beacf7082d4e1837ad09c90dafa85ff91a892dd049a39782ab5929422ee",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-6927797a0886c5530056c258",
+      "title": "TeenHQ 创客空间工作室",
+      "description": "创客空间每次最多可供 5 名青少年使用，可操作 3D 打印机、海报打印机、GlowForge、缝纫机和包缝机、Cricut、徽章机，以及各种手工材料。",
+      "sourceFingerprint": "2f48ec9a7d13d93df14654c78b08ae2fa6decb667ad01c45d051b01ab0a1ae26",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "series-ca41eff744a0cfd1",
+      "title": "《FORGOTTEN ISLAND》电影放映",
+      "description": "在 CineLux Morgan Hill 放映的 PG 级电影。",
+      "sourceFingerprint": "62d4df695f22c033d8c1da278b4d4519c0c005e28482f63aae75fc8840bb5f11",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "series-fa91b5c1b92ad279",
+      "title": "Ardenwood 丰收节",
+      "description": "在 Ardenwood Historic Farm 体验传统乡村丰收乐趣，包括收玉米、压苹果汁、现场音乐、传统手工艺、农场演示和季节活动。",
+      "sourceFingerprint": "9c69d7f0456b7a5d9308dc51a7582c413649f33e57d67a31dcc366ff0d580b36",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "series-f56a3276be64e36c",
+      "title": "湾区卡牌展",
+      "description": "一场适合全家的卡牌展，带来免费活动、精彩奖品、互动体验，以及适合各年龄收藏爱好者的内容。",
+      "sourceFingerprint": "f50861b73703a73ac55b196cba64282ba54ebb5c9bbc1ca8a948e576110a72cc",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "curated-781a33c73d1cc21e",
+      "title": "公园南瓜节",
+      "description": "圣何塞市中心一年一度的秋收节，有免费南瓜、文化表演、手工活动、充气游乐设施、美食餐车、社区摊位和家庭活动。",
+      "sourceFingerprint": "9bd5e19d819b553cd7736de313918eccb69348a51005c4d86356d0e40691a235",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-689fbe369fd3e1d82154c4d1",
+      "title": "地点变更：Sara 冥想课",
+      "description": "和 Sara 一起参加引导式冥想体验。",
+      "sourceFingerprint": "f0609b354f3a37ea73c89382bc5d4c17419d2134695317b4305c8c76b44450cc",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-698e125a2a787a47a5e73be5",
+      "title": "家庭故事时间",
+      "description": "一起来唱歌、念童谣、听故事吧！",
+      "sourceFingerprint": "3aafb6be032aeaf2dc0cf4a1737861622924af3325d535d341dac41f8ea831d8",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-691e6de89be7c6685c28fa89",
+      "title": "Community Threads：布艺南瓜",
+      "description": "这个项目会结合手缝和少量机器缝纫，制作布艺南瓜。",
+      "sourceFingerprint": "715bb21d28dc6bdbcfb2bcdff5d7b2e26da150701273fc9e6290f3392c413c77",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "curated-a689f28e5831fe8b",
+      "title": "《丝路回响》",
+      "description": "节目取材于蒙古族、藏族、维吾尔族及其他传统，通过当代舞台呈现这些文化，让观众近距离感受丝路文化之美。",
+      "sourceFingerprint": "136ee91e980149e51be41328c2c971d08ba7e3788fd514c69eeecb2f8c869185",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-6948560c1e64afd01e50328c",
+      "title": "跟 Nelson Ng 学太极",
+      "description": "在每周课程中，参与者将学习太极的基本原则和背后理念，并通过缓慢、柔和的动作提升柔韧性和平衡感。",
+      "sourceFingerprint": "30d440e6929130ce0200c594b78f8ebc61fae947b7064a04160ef2dec198f9ca",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-699f624cb0595799c09f6051",
+      "title": "家庭故事时间",
+      "description": "一起来唱歌、念童谣、听故事吧！",
+      "sourceFingerprint": "3aafb6be032aeaf2dc0cf4a1737861622924af3325d535d341dac41f8ea831d8",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "series-34d0b34c56f66607",
+      "title": "睡衣故事时间",
+      "description": "在欢乐中学习。",
+      "sourceFingerprint": "dcb0d34a721267c1cfa1cfc3787835f39e17e83a67a05e31877a8253f46ea490",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "series-a82c183a4fa1c304",
+      "title": "交响万圣夜",
+      "description": "无论你为光明阵营欢呼，还是暗暗支持黑暗一方，这场音乐会都会让所有人尽兴而归。",
+      "sourceFingerprint": "4135f251b1ac23367a21b752254cac086805eea47c8d0969454440bbdd472bda",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-6ac42007901b02002cc0556b",
+      "title": "亡灵节糖骷髅手工",
+      "description": "一起庆祝 Día de los Muertos（亡灵节），动手制作纸质骷髅手工！",
+      "sourceFingerprint": "3892933eb72597702d5c76de41d50fd0d3044167e789707299f0fa2f4a9640da",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-69433e6f8b29ea2800c4c58e",
+      "title": "K-8 年级 LEGO 俱乐部",
+      "description": "孩子们可以发挥创造力和工程思维，自由搭建任何他们能想象出的作品。",
+      "sourceFingerprint": "a85f305cfeb9f3cfbf0790197ec9704c328328b070a0a1c55c6e8f710c45cccf",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-69713c291e64afd01e55c816",
+      "title": "LEGO 俱乐部",
+      "description": "每月第一个星期二，欢迎幼儿园至 8 年级学生一起玩 LEGO、自由创作。",
+      "sourceFingerprint": "d5c82e54cf4c22c3a1abaa2b83eb9dde5f4859a2fdeae5641d0bfffe0fde5164",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-69bf12a7bfe6da104224d4a7",
+      "title": "Saratoga Library 编织与钩针交流圈",
+      "description": "带上自己的作品和毛线来参加，可以提问、互相帮助、分享想法，也能认识新朋友。",
+      "sourceFingerprint": "2eff6533577a8e7e5b3e185fcf7eabd731c775c4c6da1338597a6a0f5b59ea4c",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-69d6e5f3f29b90618efdcdc5",
+      "title": "Poponta 日语故事时间",
+      "description": "这场日语故事活动将包含传统纸芝居、木偶和图书！",
+      "sourceFingerprint": "5ba304038efcdde9ccc730df16a8d96a6a5de1a5819c656941807567a0d3e202",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-6abc4b9ee06996003a8027f3",
+      "title": "线上作家讲座：E. Lockhart",
+      "description": "欢迎参加与《纽约时报》畅销榜第 1 名作家 E. Lockhart 的精彩线上交流。",
+      "sourceFingerprint": "7ec5b4f17c19b6d9cfda8ca376790e4357577c6aaf19901553a6443889eb810c",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-6ab48db5a472a016061f4871",
+      "title": "小小探索家：DiNovember！",
+      "description": "感官提示——声音：Little Explorers 活动中，玩耍声和背景音乐可能会让现场比较热闹、嘈杂。",
+      "sourceFingerprint": "4caf3c8c919c5abf573c255a089e147fa3b2062bdc8564ce6d5abd0d15b4cf4f",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-6a236df83233d28b1b2d1d58",
+      "title": "5 岁以上儿童 KEVA 俱乐部",
+      "description": "喜欢 LEGO 的孩子可以自由发挥、尽情搭建。",
+      "sourceFingerprint": "8d30ce9375be97ea1dfeb2af1d6502c647ac3f3a96442eaf0f00266f350d2dde",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-6ab44b8a101eb7003f3277d3",
+      "title": "青少年漫画读书会",
+      "description": "前 5 位报名者将获得本系列第 1 本书并可带回家；读书会前会通知领取，可到楼下 Adult Reference desk 取书。",
+      "sourceFingerprint": "6a512d3e107fe93f0a8ee7ca0a2c099d1394c77d0b5c09ae84bb0f04b0b8089a",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-696191ef992fc18a86dc9a3f",
+      "title": "宝宝手语与 Stay & Play",
+      "description": "宝宝和照护者可以一起社交互动。10:30-11:00am 为故事时间，11:00-12:00pm 为 Stay & Play。感谢 Los Altos Friends of the Library 对本活动的支持。",
+      "sourceFingerprint": "1dbd74bf7791898e57f301021a082dcd4ead53fe20c90655bd9723686d20ac9e",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-6a839c3660ccaf01c01ef377",
+      "title": "魔术师 Mike Della Penna",
+      "description": "和魔术师 Mike Della Penna 一起庆祝阅读的魔力，观看一场有趣、幽默、互动性很强、适合各年龄观众的魔术表演。",
+      "sourceFingerprint": "f9f73c6fe0790f1747eefe07d162a11bd3708b04c734b44ed2563375d9ff741b",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-6abd93ddebad2200454222f6",
+      "title": "排灯节 Diya 彩绘",
+      "description": "你可以亲手给自己的 diya 小油灯上色并进行装饰！",
+      "sourceFingerprint": "ac96915971cdef290e8b88ddc993a63f20fca4b649724ed4723fd31f5e57038e",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-6abd9419ebad2200454222fb",
+      "title": "排灯节海娜彩绘",
+      "description": "由 ShilpaKala Arts 的海娜艺术家为你的手绘制简洁图案；先到先得，材料用完为止。",
+      "sourceFingerprint": "7eb86f4ec3b32c982fe797d77c9b75f334ffc01186833d8d7a2e3d292ca9cf46",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "rss-6abd4430295b3b0033ca1d52",
+      "title": "排灯节庆祝：家庭宝莱坞舞蹈",
+      "description": "参加欢乐的家庭宝莱坞舞会，学习简单又有活力的宝莱坞舞步、玩舞蹈游戏，并享受一起活动的亲子时光。",
+      "sourceFingerprint": "d7bb5354d58ab0f6bbf6ade3ed006e23bb2bd7adead078c7824421582d6c29f6",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "calendar-25684",
+      "title": "Once Upon a Garden（家庭之夜）",
+      "description": "漫步 Faerie Village，与圣诞老人和雪橇、故事书角色以及踩高跷的节日仙子合影；参加儿童手工和节日购物，到 Gnome Nom Cafe 喝热巧克力、吃饼干。成人可获赠一杯香槟。花园已挂满节日灯饰，欢迎来逛、购物并享受节庆氛围！",
+      "sourceFingerprint": "94c137cf561ca913894f276583a7fd5781ee54379de23d3ac1868c4a66dd4564",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:45:00Z"
+    }
+  ]
+}
