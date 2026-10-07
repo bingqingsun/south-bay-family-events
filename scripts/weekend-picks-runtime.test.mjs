@@ -18,7 +18,7 @@ const config = context.window.SBFF_WEEKEND_PICKS;
 const events = JSON.parse(fs.readFileSync(new URL('../data/events.json', import.meta.url), 'utf8'));
 
 assert.ok(runtime, 'Weekend Picks runtime should load');
-assert.equal(config.picks.length, 7, 'Live Weekend Picks should contain the seven remaining editor-selected activities after Saturday events end');
+assert.equal(config.picks.length, 7, 'Published Weekend Picks should contain seven editor-selected activities');
 
 // Resolver contracts are tested against stable fixtures instead of today's
 // active event database. The production database intentionally drops expired
@@ -37,19 +37,19 @@ const resolverFixtures = [
     legacyIds: ['curated-b7185603c68c065f'],
     title: '13th Annual Fall Bike Fest',
     url: 'https://www.cupertino.gov/bikefest',
-    dateValue: '2026-10-03T10:00',
-    endDateValue: '2026-10-03T14:00'
+    dateValue: `${config.weekendStart}T10:00`,
+    endDateValue: `${config.weekendStart}T14:00`
   },
   {
     id: 'url-fallback-id',
     title: 'Black Holes — The Other Side of Infinity',
     url: 'https://daweb2.deanza.edu/events/event.html?id=191545133&utm_source=calendar',
-    dateValue: '2026-10-03T19:00'
+    dateValue: `${config.weekendStart}T19:00`
   },
   {
     id: 'title-fallback-id',
     title: 'Great Glass Pumpkin Patch',
-    dateValue: '2026-10-04T10:00'
+    dateValue: `${config.weekendEnd}T10:00`
   }
 ];
 
