@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-07T11:33:28.720Z",
-  "configuredSources": 82,
-  "directSources": 77,
+  "generatedAt": "2026-10-07T23:27:52.693Z",
+  "configuredSources": 86,
+  "directSources": 81,
   "fallbackSourcesRun": 0,
   "sources": [
     {
@@ -20,7 +20,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 13,
+      "eventCount": 20,
       "failureStreak": 0,
       "error": ""
     },
@@ -225,7 +225,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 27,
+      "eventCount": 25,
       "failureStreak": 0,
       "error": ""
     },
@@ -235,7 +235,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 20,
+      "eventCount": 19,
       "failureStreak": 0,
       "error": ""
     },
@@ -255,7 +255,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 19,
+      "eventCount": 17,
       "failureStreak": 0,
       "error": ""
     },
@@ -265,7 +265,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 24,
+      "eventCount": 22,
       "failureStreak": 0,
       "error": ""
     },
@@ -276,7 +276,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 35,
+      "failureStreak": 36,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 35,
+      "failureStreak": 36,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 35,
+      "failureStreak": 36,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -376,7 +376,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 32,
+      "failureStreak": 33,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -436,7 +436,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 3,
+      "failureStreak": 4,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -445,7 +445,7 @@
       "method": "tribe",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 4,
+      "eventCount": 5,
       "failureStreak": 0,
       "error": ""
     },
@@ -526,7 +526,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 3,
+      "failureStreak": 4,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -536,7 +536,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 3,
+      "failureStreak": 4,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -808,72 +808,114 @@
       "eventCount": 4,
       "failureStreak": 0,
       "error": ""
+    },
+    {
+      "key": "Guadalupe River Park Conservancy · Pumpkins in the Park|grpg.org|https://grpg.org/pumpkins-in-the-park/",
+      "name": "Guadalupe River Park Conservancy · Pumpkins in the Park",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "key": "Hammer Theatre / SJSU · Echoes of the Silk Road|events.sjsu.edu|https://events.sjsu.edu/event/silkroad-art-preservation-collective-presents-echoes-of-the-silk-road-5th-year-gala",
+      "name": "Hammer Theatre / SJSU · Echoes of the Silk Road",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "key": "East Bay Regional Park District · Ardenwood Harvest Festival|ebparks.org|https://www.ebparks.org/calendar?terms=Ardenwood+Harvest+Festival",
+      "name": "East Bay Regional Park District · Ardenwood Harvest Festival",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 2,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "key": "Santa Clara County Fairgrounds · Bay Area Card Show|thefairgrounds.org|https://www.thefairgrounds.org/events/bay-area-card-show/",
+      "name": "Santa Clara County Fairgrounds · Bay Area Card Show",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 2,
+      "failureStreak": 0,
+      "error": ""
     }
   ],
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 35,
+      "failureStreak": 36,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 35,
+      "failureStreak": 36,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 35,
+      "failureStreak": 36,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Peninsula Youth Theatre",
-      "failureStreak": 32,
+      "failureStreak": 33,
       "error": "PYT official show list was not valid: 200"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 3,
+      "failureStreak": 4,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
       "name": "The Village at San Antonio Center",
-      "failureStreak": 3,
+      "failureStreak": 4,
       "error": "Eventbrite organizer payload was not found"
     },
     {
       "name": "CalColor Academy",
-      "failureStreak": 3,
+      "failureStreak": 4,
       "error": "Eventbrite organizer payload was not found"
     }
   ],
   "paloAltoChildrensTheatreEnrichment": {
-    "checkedAt": "2026-10-07T11:33:28.720Z",
+    "checkedAt": "2026-10-07T23:27:52.693Z",
     "enriched": 5
   },
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-10-07T11:33:28.720Z",
-    "enriched": 309,
-    "identity-mismatch": 38,
+    "checkedAt": "2026-10-07T23:27:52.693Z",
+    "enriched": 320,
+    "identity-mismatch": 39,
     "fetch-blocked": 16,
     "cached": 4,
     "fieldUpdates": {
       "description": 12,
-      "image": 1
+      "place": 2,
+      "address": 2,
+      "image": 6
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-10-07T11:33:28.720Z",
-    "official": 216,
-    "unclassified": 149,
+    "checkedAt": "2026-10-07T23:27:52.693Z",
+    "official": 224,
+    "unclassified": 153,
     "missing": 2,
     "failure:official_page_fetch_blocked": 2
   },
   "editorialCoverGeneration": {
     "frameworkVersion": "editorial-cover-v1",
-    "checkedAt": "2026-10-07T11:33:28.720Z",
+    "checkedAt": "2026-10-07T23:27:52.693Z",
     "generated": 2,
     "byReason": {
       "official_page_fetch_blocked": 2
@@ -885,7 +927,7 @@
   },
   "officialImageMirror": {
     "frameworkVersion": "official-image-mirror-v1",
-    "checkedAt": "2026-10-07T11:34:19.006Z",
+    "checkedAt": "2026-10-07T23:28:30.331Z",
     "configuredSources": 1,
     "mirroredEvents": 5,
     "mirroredAssets": 4,
