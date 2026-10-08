@@ -1327,39 +1327,57 @@ async function readPaloAltoMuseum(source) {
   const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(20000) });
   const html = await response.text();
   if (!response.ok) throw new Error('Palo Alto Museum events page was not valid: ' + response.status);
-  const pageText = plainText(html);
+  const pageText = plainText(html).replace(/\s+/g, ' ').trim();
   const season = pageText.match(/([A-Za-z]+)\s+(20\d{2})\s*(?:-|–|—)\s*([A-Za-z]+)\s+(20\d{2})/i);
   const startYear = Number(season?.[2] || new Date().getFullYear());
   const endYear = Number(season?.[4] || startYear + 1);
   const familyPattern = new RegExp(source.familyPattern || 'family|families|children|kids?|hands-on|activities|all ages', 'i');
 
-  const blocks = [...html.matchAll(/<h[2-4][^>]*>\s*Chapter[^<]*?(?:—|&mdash;)\s*([\s\S]*?)<\/h[2-4]>([\s\S]*?)(?=<h[2-4][^>]*>\s*(?:Chapter|Our next events|Past Events)|$)/gi)];
-  return blocks.flatMap((match, index) => {
-    const title = plainText(match[1]);
-    const block = match[2];
-    const text = plainText(block);
-    if (!title || !familyPattern.test(`${title} ${text}`) || isExplicitlyAdultOnly(text)) return [];
-    const dateMatch = text.match(/\b(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2})(?:\s*(?:-|–|—)\s*(\d{1,2}))?\s*\|\s*(\d{1,2}(?::\d{2})?\s*(?:AM|PM)?)\s*(?:-|–|—|to)\s*(\d{1,2}(?::\d{2})?\s*(?:AM|PM))/i);
+  const chapterMarkers = [...pageText.matchAll(/Chapter\s+(?:One|Two|Three|Four|Five|Six)\s*(?:—|–|-)\s*/gi)];
+  return chapterMarkers.flatMap((marker, index) => {
+    const chunkStart = Number(marker.index || 0) + marker[0].length;
+    const nextStart = chapterMarkers[index + 1]?.index;
+    const futureBoundary = pageText.indexOf('Our next events', chunkStart);
+    const pastBoundary = pageText.indexOf('Past Events', chunkStart);
+    const candidateEnds = [nextStart, futureBoundary, pastBoundary].filter(value => Number.isInteger(value) && value > chunkStart);
+    const chunkEnd = candidateEnds.length ? Math.min(...candidateEnds) : pageText.length;
+    const chunk = pageText.slice(chunkStart, chunkEnd).trim();
+
+    const dateMatch = chunk.match(/(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)?(?:\s*(?:-|–|—)\s*(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday))?,?\s*(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2})(?:\s*(?:-|–|—)\s*(\d{1,2}))?\s*\|\s*(\d{1,2}(?::\d{2})?\s*(?:AM|PM)?)\s*(?:-|–|—|to)\s*(\d{1,2}(?::\d{2})?\s*(?:AM|PM))/i);
     if (!dateMatch) return [];
+
+    const title = plainText(chunk.slice(0, dateMatch.index)).replace(/^Image:\s*\S+\s*/i, '').trim();
+    if (!title) return [];
     const year = museumSeasonYear(dateMatch[1], startYear, endYear);
     const startMeridiem = /(?:AM|PM)/i.test(dateMatch[4]) ? '' : (dateMatch[5].match(/(?:AM|PM)/i)?.[0] || '');
     const dateValue = isoDateFromOfficialText(`${dateMatch[1]} ${dateMatch[2]}, ${year}`, `${dateMatch[4]} ${startMeridiem}`.trim());
     const endDay = dateMatch[3] || dateMatch[2];
     const endDateValue = isoDateFromOfficialText(`${dateMatch[1]} ${endDay}, ${year}`, dateMatch[5]);
     if (!dateValue || !isUpcoming(dateValue, endDateValue)) return [];
-    const paragraphs = [...block.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)].map(item => plainText(item[1])).filter(Boolean);
-    const description = paragraphs.find(value => value.length >= 80 && !/Founding Members|Become a member|Reserve your/i.test(value))
-      || sourceDescriptionText(text);
+
+    const bodyText = chunk.slice((dateMatch.index || 0) + dateMatch[0].length).trim();
+    const audienceText = `${title} ${bodyText}`;
+    if (!familyPattern.test(audienceText) || isExplicitlyAdultOnly(audienceText)) return [];
+
+    const sentences = bodyText.split(/(?<=[.!?])\s+/).map(value => value.trim()).filter(Boolean);
+    const usefulSentences = sentences.filter(value =>
+      value.length >= 45
+      && /family|families|hands-on|live music|activities|children|kids?|free afternoon|explore|stories|exhibits?|special guests|ice cream|trivia/i.test(value)
+      && !/Founding Members|Become a member|Reserve your/i.test(value)
+    );
+    const description = sourceDescriptionText(usefulSentences.slice(0, 2).join(' ') || bodyText);
     if (!hasUsableSourceContent(description)) return [];
+
+    const isHeritagePark = /Heritage Park/i.test(bodyText);
     const event = directEvent({
       id: 'paloaltomuseum-' + createHash('sha256').update(`${title}|${dateValue}|${index}`).digest('hex').slice(0, 16),
       title, dateValue, endDateValue, description,
-      image: htmlAttribute(block, /<img[^>]+src=["']([^"']+)["']/i) || officialPageOgImage(html),
-      place: /Heritage Park/i.test(text) ? 'Heritage Park' : source.name,
+      image: officialPageOgImage(html),
+      place: isHeritagePark ? 'Heritage Park' : source.name,
       address: source.address || '', city: source.city || 'Palo Alto', source: source.name, url: source.feedUrl,
-      ageText: `${title} ${text}`, format: source.format || 'museum-program'
+      ageText: audienceText, format: source.format || 'museum-program'
     });
-    return [{ ...event, ...costInfo(/\bFREE\b/i.test(text) ? 'Free' : '', text) }];
+    return [{ ...event, ...costInfo(/\bFREE\b/i.test(bodyText) ? 'Free' : '', bodyText) }];
   });
 }
 
@@ -3580,7 +3598,7 @@ const translationCatalog = await loadChineseTranslationCatalogs();
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const existingSourceHealth = await readFile(sourceHealthTarget, 'utf8').then(JSON.parse).catch(() => ({ sources: [] }));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['jmz-family', 'stanford-venue-family', 'rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'paloalto-special-events', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'santana-row', 'annual-festival', 'withapps', 'chamber-seasonal', 'palo-alto-museum', 'senate-events', 'curated', 'google-visitor-events', 'eventbrite-organizer'];
+const directMethods = ['jmz-family', 'stanford-venue-family', 'rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'paloalto-special-events', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'santana-row', 'annual-festival', 'chamber-seasonal', 'palo-alto-museum', 'senate-events', 'curated', 'google-visitor-events', 'eventbrite-organizer'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
@@ -3602,7 +3620,6 @@ const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'squarespace-events') return readSquarespaceEvents(source);
   if (source.method === 'santana-row') return readSantanaRow(source);
   if (source.method === 'annual-festival') return readAnnualFestival(source);
-  if (source.method === 'withapps') return readWithApps(source);
   if (source.method === 'chamber-seasonal') return readChamberSeasonal(source);
   if (source.method === 'palo-alto-museum') return readPaloAltoMuseum(source);
   if (source.method === 'senate-events') return readSenateEvents(source);
@@ -3782,24 +3799,68 @@ searchSources.forEach(source => {
   console.log(`SerpApi validation queue · ${source.name}: ${Math.min(discovered, 3)} of ${discovered} official candidates.`);
 });
 const candidateResults = await Promise.all(sourceLimited.map(async item => {
-  const source = `${item.title} ${item.snippet || item.description || ''}`;
-  const type = typeFor(source, item.title);
-  const dateValue = await officialStartDate(item);
+  const sourceConfig = searchSources.find(source => source.name === item.source) || {};
+  const searchText = `${item.title} ${item.snippet || item.description || ''}`;
+  const type = typeFor(searchText, item.title);
+  let dateValue = await officialStartDate(item);
+  let endDateValue = '';
+  let description = '';
+  let image = '';
+  let place = item.source || '南湾地区';
+  let address = '';
+  let city = sourceConfig.city || '';
+  let ageText = searchText;
+  let cost = { costStatus: 'unknown', costLabel: '费用未注明', costSource: '', costEvidence: '' };
+
+  if (sourceConfig.searchDetailEnrichment === true) {
+    try {
+      const detailResponse = await fetch(item.link, {
+        headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' },
+        signal: AbortSignal.timeout(15000)
+      });
+      const detailHtml = await detailResponse.text();
+      if (detailResponse.ok) {
+        const schema = firstOfficialEventSchema(detailHtml) || {};
+        const detailText = plainText(detailHtml);
+        const familyPattern = new RegExp(sourceConfig.familyPattern || 'family|families|children|kids?|all ages|youth|teen', 'i');
+        if (!familyPattern.test(`${item.title} ${detailText}`) || isExplicitlyAdultOnly(detailText)) {
+          return { sourceName: item.source, event: null };
+        }
+        dateValue = String(schema.startDate || '').slice(0, 19) || dateValue;
+        endDateValue = String(schema.endDate || '').slice(0, 19);
+        description = officialDetailDescription(detailHtml, schema, item.title)
+          || sourceDescriptionText(schema.description || '');
+        image = schemaImageUrl(schema.image) || officialPageOgImage(detailHtml);
+        const location = schemaLocationInfo(schema.location, { name: item.source, city: sourceConfig.city || '' });
+        place = location.place || place;
+        address = location.address || '';
+        city = location.city || city;
+        ageText = `${item.title} ${detailText.slice(0, 6000)}`;
+        cost = costInfo('', detailText);
+      }
+    } catch {
+      // Search fallback remains best-effort. If first-party detail enrichment
+      // fails, the candidate still has to pass the normal publishability gates.
+    }
+  }
+
+  const summary = buildSummaryRecord({ sourceText: description, title: item.title, verifiedAt: generatedAt });
   return {
     sourceName: item.source,
     event: {
-    id: 'search-' + createHash('sha256').update(item.link.toLowerCase()).digest('hex').slice(0, 16), title: item.title, date: displayEventDate(dateValue) || fallbackTime, dateValue,
-    ageBands: [], ageRanges: [], ageMin: null, ageMax: null, ageLabel: '', ageSource: '',
-    costStatus: 'unknown', costLabel: '费用未注明', costSource: '', costEvidence: '',
-    registrationStatus: 'unknown', registrationSource: '', registrationEvidence: '',
-    lastVerifiedAt: generatedAt, type, icon: icons[type], color: colors[type], tag: labels[type],
-    ...buildSummaryRecord({ sourceText: '', title: item.title, verifiedAt: generatedAt }),
-    image: '',
-    place: item.source || '南湾地区', source: item.source || '', verification: 'search-verified', url: item.link
+      id: 'search-' + createHash('sha256').update(item.link.toLowerCase()).digest('hex').slice(0, 16),
+      title: item.title, date: displayEventDate(dateValue) || fallbackTime, dateValue, endDateValue,
+      ageBands: [], ageRanges: [], ageMin: null, ageMax: null, ageLabel: '', ageSource: '',
+      ...cost,
+      registrationStatus: 'unknown', registrationSource: '', registrationEvidence: '',
+      lastVerifiedAt: generatedAt, type, icon: icons[type], color: colors[type], tag: labels[type],
+      ...summary,
+      image, place, address, city,
+      ageText, source: item.source || '', verification: 'search-verified', url: item.link
     }
   };
 }));
-const candidates = candidateResults.filter(result => result.event.date !== fallbackTime).map(result => result.event);
+const candidates = candidateResults.filter(result => result.event && result.event.date !== fallbackTime).map(result => result.event);
 searchSources.forEach(source => {
   const attempted = candidateResults.filter(result => result.sourceName === source.name).length;
   const accepted = candidates.filter(event => event.source === source.name).length;
