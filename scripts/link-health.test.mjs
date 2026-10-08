@@ -122,7 +122,7 @@ const montalvoSource = {
   domain: 'montalvoarts.org', linkPolicy: 'first_party_detail',
   landingUrl: 'https://montalvoarts.org/experience/events-calendar/',
   detailUrlOverrides: [
-    { title: 'Goblins in the Garden', date: '2026-10-25', url: 'https://montalvoarts.org/experience/goblins-in-the-garden/' }
+    { title: 'Goblins in the Garden', date: '2026-10-25', url: 'https://my.montalvoarts.org/3257/3258' }
   ]
 };
 const goblins = {
@@ -130,18 +130,18 @@ const goblins = {
   canonicalUrl: 'https://my.montalvoarts.org/3257/3258', source: montalvoSource.name
 };
 assert.equal(staticLinkResult(goblins, montalvoSource).canonicalUrl,
-  'https://montalvoarts.org/experience/goblins-in-the-garden/');
+  'https://my.montalvoarts.org/3257/3258');
 assert.equal(staticLinkResult(goblins, montalvoSource).fallbackUrl, '');
 const checkedGoblins = await auditLinks([goblins], [montalvoSource], {
   concurrency: 1,
   fetchImpl: async url => ({
     ok: true, status: 200, url,
-    text: async () => '<h1>Goblins in the Garden</h1>'
+    text: async () => '<h1>Seat selection</h1>'
   })
 });
 assert.equal(checkedGoblins.events[0].linkResolution, 'canonical');
 assert.equal(checkedGoblins.events[0].url,
-  'https://montalvoarts.org/experience/goblins-in-the-garden/');
+  'https://my.montalvoarts.org/3257/3258');
 
 // A verified ActiveCommunities per-activity link often redirects from its
 // legacy route to a new SPA route. The numeric ID must survive unchanged.
