@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-08T02:02:15.548Z",
+  "generatedAt": "2026-10-08T02:16:25.008Z",
   "configuredSources": 95,
   "directSources": 89,
   "fallbackSourcesRun": 0,
@@ -10,7 +10,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 15,
+      "eventCount": 14,
       "failureStreak": 0,
       "error": ""
     },
@@ -56,10 +56,10 @@
       "name": "City of Palo Alto",
       "method": "paloalto",
       "mode": "direct",
-      "status": "ok",
-      "eventCount": 6,
-      "failureStreak": 0,
-      "error": ""
+      "status": "failed",
+      "eventCount": 0,
+      "failureStreak": 1,
+      "error": "fetch failed"
     },
     {
       "key": "Palo Alto Art Center · Special Events|paloalto.gov|https://www.paloalto.gov/Departments/Community-Services/Arts-Sciences/Palo-Alto-Art-Center/Special-Events",
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 39,
+      "failureStreak": 40,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 39,
+      "failureStreak": 40,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -306,7 +306,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 39,
+      "failureStreak": 40,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -386,7 +386,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 36,
+      "failureStreak": 37,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -414,10 +414,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "ok",
+      "status": "failed",
       "eventCount": 0,
-      "failureStreak": 0,
-      "error": ""
+      "failureStreak": 1,
+      "error": "Los Altos History Museum event list was not valid: 202"
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -446,7 +446,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 7,
+      "failureStreak": 8,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -536,7 +536,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 7,
+      "failureStreak": 8,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -546,7 +546,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 7,
+      "failureStreak": 8,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -871,158 +871,149 @@
       "name": "Fremont Parents' Nursery School",
       "method": "squarespace-events",
       "mode": "direct",
-      "status": "ok",
-      "eventCount": 1,
-      "failureStreak": 0,
-      "error": ""
+      "status": "failed",
+      "eventCount": 0,
+      "failureStreak": 1,
+      "error": "fetch failed"
     },
     {
       "key": "Mountain View Chamber · Seasonal Events|chambermv.org|https://chambermv.org/seasonal-events/",
       "name": "Mountain View Chamber · Seasonal Events",
       "method": "chamber-seasonal",
       "mode": "direct",
-      "status": "ok",
+      "status": "failed",
       "eventCount": 0,
-      "failureStreak": 0,
-      "error": ""
+      "failureStreak": 1,
+      "error": "fetch failed"
     },
     {
       "key": "Palo Alto Museum|paloaltomuseum.org|https://paloaltomuseum.org/events/",
       "name": "Palo Alto Museum",
       "method": "palo-alto-museum",
       "mode": "direct",
-      "status": "ok",
-      "eventCount": 2,
-      "failureStreak": 0,
-      "error": ""
+      "status": "failed",
+      "eventCount": 0,
+      "failureStreak": 1,
+      "error": "fetch failed"
     },
     {
       "key": "California State Senate District 15 · Family Events|sd15.senate.ca.gov|https://sd15.senate.ca.gov/events",
       "name": "California State Senate District 15 · Family Events",
       "method": "senate-events",
       "mode": "direct",
-      "status": "ok",
-      "eventCount": 1,
-      "failureStreak": 0,
-      "error": ""
+      "status": "failed",
+      "eventCount": 0,
+      "failureStreak": 1,
+      "error": "fetch failed"
     },
     {
       "key": "Magical Glass Pumpkin Patch|magicalglasspumpkinpatch.com|https://magicalglasspumpkinpatch.com/wp-json/wp/v2/pages?slug=home",
       "name": "Magical Glass Pumpkin Patch",
       "method": "annual-festival",
       "mode": "direct",
-      "status": "ok",
-      "eventCount": 1,
-      "failureStreak": 0,
-      "error": ""
+      "status": "failed",
+      "eventCount": 0,
+      "failureStreak": 1,
+      "error": "fetch failed"
     },
     {
       "key": "Mountain View Oktoberfest|mvoktoberfest.com|https://www.mvoktoberfest.com/",
       "name": "Mountain View Oktoberfest",
       "method": "annual-festival",
       "mode": "direct",
-      "status": "ok",
-      "eventCount": 1,
-      "failureStreak": 0,
-      "error": ""
+      "status": "failed",
+      "eventCount": 0,
+      "failureStreak": 1,
+      "error": "fetch failed"
     },
     {
       "key": "St. Lucy Fun Fest|stlucyschool.org|https://www.stlucyschool.org/funfest/",
       "name": "St. Lucy Fun Fest",
       "method": "annual-festival",
       "mode": "direct",
-      "status": "ok",
-      "eventCount": 1,
-      "failureStreak": 0,
-      "error": ""
+      "status": "failed",
+      "eventCount": 0,
+      "failureStreak": 1,
+      "error": "fetch failed"
     }
   ],
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 39,
+      "failureStreak": 40,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 39,
+      "failureStreak": 40,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 39,
+      "failureStreak": 40,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Peninsula Youth Theatre",
-      "failureStreak": 36,
+      "failureStreak": 37,
       "error": "PYT official show list was not valid: 200"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 7,
+      "failureStreak": 8,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
       "name": "The Village at San Antonio Center",
-      "failureStreak": 7,
+      "failureStreak": 8,
       "error": "Eventbrite organizer payload was not found"
     },
     {
       "name": "CalColor Academy",
-      "failureStreak": 7,
+      "failureStreak": 8,
       "error": "Eventbrite organizer payload was not found"
     }
   ],
   "paloAltoChildrensTheatreEnrichment": {
-    "checkedAt": "2026-10-08T02:02:15.548Z",
+    "checkedAt": "2026-10-08T02:16:25.008Z",
     "enriched": 5
   },
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-10-08T02:02:15.548Z",
-    "enriched": 328,
+    "checkedAt": "2026-10-08T02:16:25.008Z",
+    "enriched": 318,
     "identity-mismatch": 40,
     "fetch-blocked": 16,
-    "cached": 4,
+    "cached": 5,
     "fieldUpdates": {
-      "description": 13,
-      "dateValue": 4,
-      "endDateValue": 5,
-      "address": 2,
-      "image": 11,
-      "costStatus": 1,
-      "costLabel": 1,
-      "costSource": 1,
-      "costEvidence": 1
+      "description": 10,
+      "image": 3,
+      "address": 1
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-10-08T02:02:15.548Z",
-    "official": 230,
-    "unclassified": 155,
-    "missing": 3,
-    "failure:no_verified_official_image_candidate": 1,
+    "checkedAt": "2026-10-08T02:16:25.008Z",
+    "official": 228,
+    "unclassified": 149,
+    "missing": 2,
     "failure:official_page_fetch_blocked": 2
   },
   "editorialCoverGeneration": {
     "frameworkVersion": "editorial-cover-v1",
-    "checkedAt": "2026-10-08T02:02:15.548Z",
-    "generated": 3,
+    "checkedAt": "2026-10-08T02:16:25.008Z",
+    "generated": 2,
     "byReason": {
-      "no_verified_official_image_candidate": 1,
       "official_page_fetch_blocked": 2
     },
     "byPreset": {
-      "community": 1,
       "farm-halloween": 1,
       "halloween": 1
     }
   },
   "officialImageMirror": {
     "frameworkVersion": "official-image-mirror-v1",
-    "checkedAt": "2026-10-08T02:03:03.594Z",
+    "checkedAt": "2026-10-08T02:17:19.243Z",
     "configuredSources": 1,
     "mirroredEvents": 5,
     "mirroredAssets": 4,
