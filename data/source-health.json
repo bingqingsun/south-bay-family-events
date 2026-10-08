@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-08T00:07:35.108Z",
-  "configuredSources": 86,
-  "directSources": 81,
+  "generatedAt": "2026-10-08T02:02:15.548Z",
+  "configuredSources": 95,
+  "directSources": 89,
   "fallbackSourcesRun": 0,
   "sources": [
     {
@@ -20,7 +20,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 19,
+      "eventCount": 15,
       "failureStreak": 0,
       "error": ""
     },
@@ -57,7 +57,7 @@
       "method": "paloalto",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 0,
+      "eventCount": 6,
       "failureStreak": 0,
       "error": ""
     },
@@ -150,6 +150,16 @@
       "error": ""
     },
     {
+      "key": "Stanford · Bing Nursery School|events.stanford.edu|https://events.stanford.edu",
+      "name": "Stanford · Bing Nursery School",
+      "method": "stanford-venue-family",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
       "key": "Happy Hollow Park & Zoo|happyhollow.org|https://happyhollow.org/events/",
       "name": "Happy Hollow Park & Zoo",
       "method": "happyhollow",
@@ -205,7 +215,7 @@
       "method": "stanford",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 3,
+      "eventCount": 2,
       "failureStreak": 0,
       "error": ""
     },
@@ -225,7 +235,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 25,
+      "eventCount": 24,
       "failureStreak": 0,
       "error": ""
     },
@@ -235,7 +245,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 19,
+      "eventCount": 18,
       "failureStreak": 0,
       "error": ""
     },
@@ -255,7 +265,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 17,
+      "eventCount": 16,
       "failureStreak": 0,
       "error": ""
     },
@@ -265,7 +275,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 22,
+      "eventCount": 21,
       "failureStreak": 0,
       "error": ""
     },
@@ -276,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 38,
+      "failureStreak": 39,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -286,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 38,
+      "failureStreak": 39,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +306,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 38,
+      "failureStreak": 39,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -376,7 +386,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 35,
+      "failureStreak": 36,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -436,7 +446,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 6,
+      "failureStreak": 7,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -505,7 +515,7 @@
       "method": "civic",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 0,
+      "eventCount": 1,
       "failureStreak": 0,
       "error": ""
     },
@@ -526,7 +536,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 6,
+      "failureStreak": 7,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -536,7 +546,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 6,
+      "failureStreak": 7,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -848,85 +858,171 @@
       "eventCount": 2,
       "failureStreak": 0,
       "error": ""
+    },
+    {
+      "key": "Santa Clara Community Calendar|calendar.santaclaraca.gov|",
+      "name": "Santa Clara Community Calendar",
+      "method": "search-fallback",
+      "mode": "not-run",
+      "failureStreak": 0
+    },
+    {
+      "key": "Fremont Parents' Nursery School|gopher-chinchilla-xn32.squarespace.com|https://gopher-chinchilla-xn32.squarespace.com/events",
+      "name": "Fremont Parents' Nursery School",
+      "method": "squarespace-events",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "key": "Mountain View Chamber · Seasonal Events|chambermv.org|https://chambermv.org/seasonal-events/",
+      "name": "Mountain View Chamber · Seasonal Events",
+      "method": "chamber-seasonal",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "key": "Palo Alto Museum|paloaltomuseum.org|https://paloaltomuseum.org/events/",
+      "name": "Palo Alto Museum",
+      "method": "palo-alto-museum",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 2,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "key": "California State Senate District 15 · Family Events|sd15.senate.ca.gov|https://sd15.senate.ca.gov/events",
+      "name": "California State Senate District 15 · Family Events",
+      "method": "senate-events",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "key": "Magical Glass Pumpkin Patch|magicalglasspumpkinpatch.com|https://magicalglasspumpkinpatch.com/wp-json/wp/v2/pages?slug=home",
+      "name": "Magical Glass Pumpkin Patch",
+      "method": "annual-festival",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "key": "Mountain View Oktoberfest|mvoktoberfest.com|https://www.mvoktoberfest.com/",
+      "name": "Mountain View Oktoberfest",
+      "method": "annual-festival",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "key": "St. Lucy Fun Fest|stlucyschool.org|https://www.stlucyschool.org/funfest/",
+      "name": "St. Lucy Fun Fest",
+      "method": "annual-festival",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
     }
   ],
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 38,
+      "failureStreak": 39,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 38,
+      "failureStreak": 39,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 38,
+      "failureStreak": 39,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Peninsula Youth Theatre",
-      "failureStreak": 35,
+      "failureStreak": 36,
       "error": "PYT official show list was not valid: 200"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 6,
+      "failureStreak": 7,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
       "name": "The Village at San Antonio Center",
-      "failureStreak": 6,
+      "failureStreak": 7,
       "error": "Eventbrite organizer payload was not found"
     },
     {
       "name": "CalColor Academy",
-      "failureStreak": 6,
+      "failureStreak": 7,
       "error": "Eventbrite organizer payload was not found"
     }
   ],
   "paloAltoChildrensTheatreEnrichment": {
-    "checkedAt": "2026-10-08T00:07:35.108Z",
+    "checkedAt": "2026-10-08T02:02:15.548Z",
     "enriched": 5
   },
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-10-08T00:07:35.108Z",
-    "enriched": 321,
+    "checkedAt": "2026-10-08T02:02:15.548Z",
+    "enriched": 328,
     "identity-mismatch": 40,
     "fetch-blocked": 16,
     "cached": 4,
-    "fetch-failed": 1,
     "fieldUpdates": {
-      "description": 11,
-      "image": 1
+      "description": 13,
+      "dateValue": 4,
+      "endDateValue": 5,
+      "address": 2,
+      "image": 11,
+      "costStatus": 1,
+      "costLabel": 1,
+      "costSource": 1,
+      "costEvidence": 1
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-10-08T00:07:35.108Z",
-    "official": 226,
-    "unclassified": 154,
-    "missing": 2,
+    "checkedAt": "2026-10-08T02:02:15.548Z",
+    "official": 230,
+    "unclassified": 155,
+    "missing": 3,
+    "failure:no_verified_official_image_candidate": 1,
     "failure:official_page_fetch_blocked": 2
   },
   "editorialCoverGeneration": {
     "frameworkVersion": "editorial-cover-v1",
-    "checkedAt": "2026-10-08T00:07:35.108Z",
-    "generated": 2,
+    "checkedAt": "2026-10-08T02:02:15.548Z",
+    "generated": 3,
     "byReason": {
+      "no_verified_official_image_candidate": 1,
       "official_page_fetch_blocked": 2
     },
     "byPreset": {
+      "community": 1,
       "farm-halloween": 1,
       "halloween": 1
     }
   },
   "officialImageMirror": {
     "frameworkVersion": "official-image-mirror-v1",
-    "checkedAt": "2026-10-08T00:08:16.769Z",
+    "checkedAt": "2026-10-08T02:03:03.594Z",
     "configuredSources": 1,
     "mirroredEvents": 5,
     "mirroredAssets": 4,
