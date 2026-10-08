@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "entries": [
+    {
+      "id": "paloalto-f13aaeb34a8eb3c0",
+      "title": "Cal Ave. 周四现场活动",
+      "description": "主办方鼓励大家在活动前后留下来，在 Cal Ave. 用餐、购物和逛逛周边。",
+      "sourceFingerprint": "749743e4c5bedb9c3a0eebb64f559f93030964f4f305497528cbc4c7a3224345",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-08T05:34:15Z"
+    },
+    {
+      "id": "paloaltomuseum-f687f4787c3e824b",
+      "title": "Palo Alto 故事：抢先看博物馆两大开馆展览",
+      "description": "走进 Palo Alto Museum 主展厅，抢先欣赏两场开馆展览：《Doña Juana Briones》和《I AM PALO ALTO》。",
+      "sourceFingerprint": "567a92b46ad2c5318ff6414ae465d1a56f8d2e2387b9a96ba920a845d0f62186",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-08T05:34:15Z"
+    }
+  ]
+}
