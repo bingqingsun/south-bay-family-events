@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "entries": [
+    {
+      "id": "rss-6ab6f04f31e9a41a0fbc92cf",
+      "title": "《The AI Doc: Or How I Became An Apocaloptimist》活动",
+      "description": "享用小点心，并通过便利贴分享你使用人工智能（AI）的经历、对未来的担忧，以及你希望 Cupertino Library 今后举办哪些 AI 主题活动。",
+      "sourceFingerprint": "7cfa20c74ffca1accea05832038aed2a10d49ecd51d3287976df78d89c01fb52",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-08T05:34:15Z"
+    },
+    {
+      "id": "rss-6a8e25dc3b6c71003e5b60bd",
+      "title": "成长中的读者：支持热爱写作的孩子",
+      "description": "这是一场面向家长和照护者的免费工作坊，由 Santa Clara County Office of Education 和 Santa Clara County Library District 的 The Reading Program 共同举办。",
+      "sourceFingerprint": "8fea1e657fb7abd8e4c0a2924e336fd81f5c53929ba0e54c2d905ba0d566a5d7",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-08T05:34:15Z"
+    }
+  ]
+}
