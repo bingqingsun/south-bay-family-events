@@ -3175,8 +3175,8 @@ async function readPaloAlto(source) {
     : [];
   const listingPages = [firstHtml, ...remaining];
   const monthNumbers = { jan: '01', feb: '02', mar: '03', apr: '04', may: '05', jun: '06', jul: '07', aug: '08', sep: '09', oct: '10', nov: '11', dec: '12' };
-  const youthSignal = new RegExp(source.familyPattern
-    || 'children|kids?|famil(?:y|ies)|youth|teen|toddler|preschool|elementary|middle school|high school|all ages|parent(?:s)?\\s*(?:and|&)\\s*(?:child|kid)', 'i');
+  const youthSignal = /family day|family-friendly|family friendly|for families|families welcome|bring the whole family|whole family|all ages|children|kids?|youth|teens?|tweens?|toddler|preschool|elementary|middle school|high school|school[- ]age|grades?\\s*[K0-9]|parent(?:s)?\\s*(?:and|&)\\s*(?:child|kid)|caregivers?\\s*(?:and|with)\\s*(?:children|kids?)/i;
+  const adultProgramSignal = /\\bfor adults\\b|\\bamong adults\\b|\\badult(?:s|'s)?\\s+(?:training|workshop|class|program|mental health|education)\\b|\\btraining\\b[\\s\\S]{0,120}\\badults\\b/i;
   const discoverySignal = new RegExp(source.discoveryPattern || source.familyPattern
     || 'children|kids?|famil(?:y|ies)|youth|teen|toddler|preschool|elementary|middle school|high school|all ages', 'i');
   const excluded = /\b(?:committee|commission|council|board|meeting|recruitment|hearing|work session)\b/i;
@@ -3243,8 +3243,11 @@ async function readPaloAlto(source) {
     const dateMatch = detailText.match(/Next date:\s*((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\s*\|\s*(\d{1,2}:\d{2}\s*(?:AM|PM))/i);
     const dateValue = dateMatch ? isoDateFromOfficialText(dateMatch[1], dateMatch[2]) : candidate.dateValue;
     const description = linkedDescription || detailDescription || candidate.description;
-    const fullAudienceText = `${candidate.audienceText} ${detailText.slice(0, 5000)} ${linkedDescription.slice(0, 2200)}`;
-    if (!youthSignal.test(fullAudienceText) || isExplicitlyAdultOnly(fullAudienceText)) return null;
+    // Audience checks must use the current event's own listing/description.
+    // The municipal detail template contains sidebars for unrelated events;
+    // scanning the full page can make an adult workshop look family-oriented.
+    const fullAudienceText = `${candidate.title} ${candidate.description} ${description} ${linkedDescription.slice(0, 2200)}`;
+    if (!youthSignal.test(fullAudienceText) || adultProgramSignal.test(fullAudienceText) || isExplicitlyAdultOnly(fullAudienceText)) return null;
     const event = directEvent({
       id: 'paloalto-' + createHash('sha256').update(`${candidate.url}|${dateValue}`).digest('hex').slice(0, 16),
       title: candidate.title, dateValue, description,
