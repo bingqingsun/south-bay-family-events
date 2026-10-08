@@ -3195,10 +3195,12 @@ async function readPaloAlto(source) {
     const dateValue = year && monthNumbers[month] && day ? `${year}-${monthNumbers[month]}-${String(Number(day)).padStart(2, '0')}` : '';
     const audienceText = `${title} ${description} ${tags}`;
     const url = href ? new URL(href, source.feedUrl).href : '';
-    const approvedDomains = [source.domain, ...(source.specialEventPageDiscovery?.allowedDomains || [])].filter(Boolean);
-    const approvedUrl = url && approvedSpecialEventUrl(url, approvedDomains);
     const key = `${url}|${dateValue}`;
-    if (!title || !url || !approvedUrl || !dateValue || seen.has(key) || !isUpcoming(dateValue) || !discoverySignal.test(audienceText) || excluded.test(title)) return [];
+    // Keep base city-directory discovery on City of Palo Alto pages. Some
+    // listings expose partner-owned deep links that can become stale; approved
+    // partner pages are allowed only later through specialEventPageDiscovery,
+    // where title/date/content identity is verified first.
+    if (!title || !url || !isOfficialUrl(url, source.domain) || !dateValue || seen.has(key) || !isUpcoming(dateValue) || !discoverySignal.test(audienceText) || excluded.test(title)) return [];
     seen.add(key);
     const parts = venue.split(',').map(value => value.trim()).filter(Boolean);
     const place = parts.shift() || source.name;
