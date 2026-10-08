@@ -1,8 +1,10 @@
 name: Refresh South Bay events
 
 concurrency:
-  group: refresh-south-bay-events-${{ github.ref }}
-  cancel-in-progress: true
+  # Share a repository-wide data-write lock with translation materialization.
+  # Both workflows can modify data/events.json and data/events.js.
+  group: south-bay-data-write-${{ github.ref }}
+  cancel-in-progress: false
 
 on:
   push:
@@ -74,6 +76,10 @@ jobs:
           fi
       - uses: actions/checkout@v4
         if: ${{ env.SKIP_REFRESH != 'true' }}
+        with:
+          # A queued writer must start from the latest branch tip, not the SHA
+          # that originally triggered the workflow.
+          ref: ${{ github.ref }}
       - uses: actions/setup-node@v4
         if: ${{ env.SKIP_REFRESH != 'true' }}
         with:
