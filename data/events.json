@@ -28403,7 +28403,7 @@
     "meetingPoint": "",
     "mapUrl": "",
     "source": "Montalvo Arts Center",
-    "url": "https://my.montalvoarts.org/3257/3258",
+    "url": "https://montalvoarts.org/experience/goblins-in-the-garden/",
     "movieRating": "",
     "seasonalTheme": "halloween",
     "availabilityStatus": "",
@@ -28413,14 +28413,14 @@
     ],
     "fieldProvenance": {},
     "sourceId": "montalvo-arts-center",
-    "canonicalUrl": "https://my.montalvoarts.org/3257/3258",
+    "canonicalUrl": "https://montalvoarts.org/experience/goblins-in-the-garden/",
     "sourceLandingUrl": "",
     "fallbackUrl": "",
     "linkStatus": "ok",
     "linkCheckedAt": "2026-10-08T11:50:48.619Z",
     "linkCheckMethod": "manual-official-source",
-    "redirectTarget": "https://my.montalvoarts.org/3257/3258",
-    "linkEvidence": "User-submitted per-event Montalvo ticket page verified against official date and title.",
+    "redirectTarget": "https://montalvoarts.org/experience/goblins-in-the-garden/",
+    "linkEvidence": "Verified first-party Montalvo event detail page contains event information and links to the dedicated ticket page.",
     "linkResolution": "canonical",
     "sessions": [],
     "translationStatus": "current",
@@ -28434,7 +28434,8 @@
         "status": "approved"
       }
     },
-    "linkSource": "curated_verified"
+    "linkSource": "curated_verified",
+    "ticketUrl": "https://my.montalvoarts.org/3257/3258"
   },
   {
     "id": "rss-6aa97ca786d8450031164ecb",
