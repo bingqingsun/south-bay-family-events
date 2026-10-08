@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-08T00:04:53.831Z",
+  "generatedAt": "2026-10-08T00:07:35.108Z",
   "configuredSources": 86,
   "directSources": 81,
   "fallbackSourcesRun": 0,
@@ -276,7 +276,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 37,
+      "failureStreak": 38,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 37,
+      "failureStreak": 38,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 37,
+      "failureStreak": 38,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -376,7 +376,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 34,
+      "failureStreak": 35,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -436,7 +436,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 5,
+      "failureStreak": 6,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -526,7 +526,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 5,
+      "failureStreak": 6,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -536,7 +536,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 5,
+      "failureStreak": 6,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -853,67 +853,68 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 37,
+      "failureStreak": 38,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 37,
+      "failureStreak": 38,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 37,
+      "failureStreak": 38,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Peninsula Youth Theatre",
-      "failureStreak": 34,
+      "failureStreak": 35,
       "error": "PYT official show list was not valid: 200"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 5,
+      "failureStreak": 6,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
       "name": "The Village at San Antonio Center",
-      "failureStreak": 5,
+      "failureStreak": 6,
       "error": "Eventbrite organizer payload was not found"
     },
     {
       "name": "CalColor Academy",
-      "failureStreak": 5,
+      "failureStreak": 6,
       "error": "Eventbrite organizer payload was not found"
     }
   ],
   "paloAltoChildrensTheatreEnrichment": {
-    "checkedAt": "2026-10-08T00:04:53.831Z",
+    "checkedAt": "2026-10-08T00:07:35.108Z",
     "enriched": 5
   },
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-10-08T00:04:53.831Z",
+    "checkedAt": "2026-10-08T00:07:35.108Z",
     "enriched": 321,
     "identity-mismatch": 40,
     "fetch-blocked": 16,
     "cached": 4,
+    "fetch-failed": 1,
     "fieldUpdates": {
-      "description": 12,
+      "description": 11,
       "image": 1
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-10-08T00:04:53.831Z",
-    "official": 225,
+    "checkedAt": "2026-10-08T00:07:35.108Z",
+    "official": 226,
     "unclassified": 154,
     "missing": 2,
     "failure:official_page_fetch_blocked": 2
   },
   "editorialCoverGeneration": {
     "frameworkVersion": "editorial-cover-v1",
-    "checkedAt": "2026-10-08T00:04:53.831Z",
+    "checkedAt": "2026-10-08T00:07:35.108Z",
     "generated": 2,
     "byReason": {
       "official_page_fetch_blocked": 2
@@ -925,7 +926,7 @@
   },
   "officialImageMirror": {
     "frameworkVersion": "official-image-mirror-v1",
-    "checkedAt": "2026-10-08T00:05:38.409Z",
+    "checkedAt": "2026-10-08T00:08:16.769Z",
     "configuredSources": 1,
     "mirroredEvents": 5,
     "mirroredAssets": 4,
