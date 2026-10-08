@@ -1,5 +1,10 @@
 name: Baseline new Chinese translations
 
+concurrency:
+  # Serialize with the event refresh because both workflows write event data.
+  group: south-bay-data-write-${{ github.ref }}
+  cancel-in-progress: false
+
 on:
   push:
     branches:
@@ -20,6 +25,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # If this job waited behind another data writer, start from the
+          # current branch tip instead of the original triggering SHA.
+          ref: ${{ github.ref }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22
