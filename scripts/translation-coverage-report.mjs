@@ -5,7 +5,12 @@ const events = JSON.parse(await readFile(new URL('../data/events.json', import.m
 const catalog = await loadChineseTranslationCatalogs();
 const approvedIds = new Set((catalog.entries || []).filter(entry => entry.status === 'approved').map(entry => entry.id));
 
-const today = '2026-09-25';
+const today = new Intl.DateTimeFormat('en-CA', {
+  timeZone: 'America/Los_Angeles',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit'
+}).format(new Date());
 const active = events
   .filter(event => {
     const end = String(event.endDateValue || event.dateValue || '').slice(0, 10);
