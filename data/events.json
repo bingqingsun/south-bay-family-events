@@ -1726,7 +1726,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "按需 3D 打印",
+        "description": "所有打印均免费，但必须符合上文和下文列出的要求。",
+        "fingerprint": "ddaf08b0d2e89761f80f0e9364dea01376364e2ccad24ebd48616e1942697684",
+        "translatedAt": "2026-10-08T05:34:15Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-68d6c3c797cf5a912eb0d218",
@@ -1825,7 +1835,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "INSIDERS：Village Square 分馆活动",
+        "description": "欢迎来这里社交、结识新朋友、交流互动、讲笑话、学习《龙与地下城》（Dungeons & Dragons）的玩法，并参与艺术创作，享受欢乐时光！",
+        "fingerprint": "025057cc060286870aeaa299459c740dae5aa1e99ce4f5af185d2dd33de842e5",
+        "translatedAt": "2026-10-08T05:34:15Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-f6623e87fdc44c88",
@@ -3626,8 +3646,18 @@
     "redirectTarget": "https://www.cineluxtheatres.com/cinelux-plaza-cafe-lounge/tickets/112946000047",
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "601eee456a2d36c2ed7191362018a9128d78a250ca354467b081bd7278c20e80"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "601eee456a2d36c2ed7191362018a9128d78a250ca354467b081bd7278c20e80",
+    "translations": {
+      "zh": {
+        "title": "《FORGOTTEN ISLAND》电影放映",
+        "description": "在 CineLux Plaza 放映的 PG 级电影。",
+        "fingerprint": "601eee456a2d36c2ed7191362018a9128d78a250ca354467b081bd7278c20e80",
+        "translatedAt": "2026-10-08T05:34:15Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-fa3ae4b9bb998b62",
@@ -8321,7 +8351,17 @@
     "redirectTarget": "https://www.thefairgrounds.org/events/bay-area-card-show/",
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "Bay Area Card Show（湾区卡牌展）",
+        "description": "这是一场适合全家参与的体育卡及集换式卡牌展，有数百张展桌，可买卖和交换卡牌、参与互动活动，并有赠品、奖品及适合各年龄段的收藏品。",
+        "fingerprint": "4ea3f813de98f01125c14454f76884adb900887c834034493bc22c07041d533e",
+        "translatedAt": "2026-10-08T05:34:15Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-694b56f47f0b8a3e004e22f8",
@@ -13448,9 +13488,19 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing",
+    "translationStatus": "current",
     "refreshStatus": "stale-source",
-    "refreshErrorAt": "2026-10-08T02:16:25.008Z"
+    "refreshErrorAt": "2026-10-08T02:16:25.008Z",
+    "translations": {
+      "zh": {
+        "title": "社区影响力展：认识、学习与志愿服务",
+        "description": "这场开放式活动邀请你认识支持本地社区的非营利组织，了解它们在当地带来的影响，并探索你和家人可以参与的志愿服务机会。",
+        "fingerprint": "677a7555b3a8b85d59c9ca3c8f3115b08680a1e0655eba430af808e44e8be4e1",
+        "translatedAt": "2026-10-08T05:34:15Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-7e08b22b4ac0828c",
@@ -15459,7 +15509,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "星期二 LEGO 拼搭活动",
+        "description": "发挥想象力，动手搭建有趣的 LEGO 作品！",
+        "fingerprint": "4e8abafbde74407026ad10354f573464225e0c657d06d396d9ca3f7902f0e2b2",
+        "translatedAt": "2026-10-08T05:34:15Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6ac58c9c29c3d600332e2e0d",
@@ -15543,7 +15603,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "【改期】ArtSEE Expression：“发光球”立体颜料创作",
+        "description": "参加由 ArtSEE Expression 的 Sharvi 带领的青少年主导动手工作坊，体验立体颜料（puffy paint）创作！",
+        "fingerprint": "4bc9ea263b0769a0d0db0a6d7dcda392f2be04ff0d75a6b088ca73b5cb3bcf2a",
+        "translatedAt": "2026-10-08T05:34:15Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-e739c48212431bf5",
@@ -18275,7 +18345,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "LEGO 拼搭俱乐部",
+        "description": "欢迎 5 岁及以上的孩子发挥搭建技巧和想象力，用 LEGO 拼出有趣作品！",
+        "fingerprint": "0f64887630175dda17c84e1a8ca5fe65fd74a2bc114000dca1b141b524357427",
+        "translatedAt": "2026-10-08T05:34:15Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6aa9a4d96059b704112aae85",
@@ -21225,9 +21305,19 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing",
+    "translationStatus": "current",
     "refreshStatus": "stale-source",
-    "refreshErrorAt": "2026-10-08T02:16:25.008Z"
+    "refreshErrorAt": "2026-10-08T02:16:25.008Z",
+    "translations": {
+      "zh": {
+        "title": "2026 秋季家庭日",
+        "description": "带上全家人参加这场适合不同世代共同参与的趣味活动，记得留到最后欣赏演出！",
+        "fingerprint": "4456371e44511443f4eada52292852abb60ac06b0b042937841e189f6bec8d82",
+        "translatedAt": "2026-10-08T05:34:15Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "bayfc-02168620458f2221",
@@ -26615,9 +26705,19 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing",
+    "translationStatus": "current",
     "refreshStatus": "stale-source",
-    "refreshErrorAt": "2026-10-08T02:16:25.008Z"
+    "refreshErrorAt": "2026-10-08T02:16:25.008Z",
+    "translations": {
+      "zh": {
+        "title": "青少年万圣节轮滑德比",
+        "description": "与图书馆一起在 Mitchell Park Bowl 度过一个下午，参加面向青少年的轮滑和手工活动。",
+        "fingerprint": "53725d979275d8e5707f0621e90fb9d8c9a04e9786869bb0beb9a4047b840dce",
+        "translatedAt": "2026-10-08T05:34:15Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "deanza-26070cc24e41d3f8",
@@ -27882,7 +27982,17 @@
     "linkEvidence": "Page did not contain enough event identity signals.",
     "linkResolution": "fallback",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "花园里的小妖怪",
+        "description": "参与动手艺术活动、史莱姆和魔法药水制作、粉笔画、面部彩绘、服装比赛，享受餐车美食，还能观看 Fratello Marionettes 带来的两场“Spooktacular”木偶表演。带上野餐毯，一起感受万圣节气氛！",
+        "fingerprint": "4897774bd3bc506868e53104acad4b59fe43e254c2bfef9b17032b753888b97b",
+        "translatedAt": "2026-10-08T05:34:15Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6aa97ca786d8450031164ecb",
@@ -31669,9 +31779,19 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing",
+    "translationStatus": "current",
     "refreshStatus": "stale-source",
-    "refreshErrorAt": "2026-10-08T02:16:25.008Z"
+    "refreshErrorAt": "2026-10-08T02:16:25.008Z",
+    "translations": {
+      "zh": {
+        "title": "Cal Ave. 周四现场活动",
+        "description": "主办方鼓励大家在活动前后留下来，在 Cal Ave. 用餐、购物和逛逛周边。",
+        "fingerprint": "749743e4c5bedb9c3a0eebb64f559f93030964f4f305497528cbc4c7a3224345",
+        "translatedAt": "2026-10-08T05:34:15Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "chcp-e04926c0406baef1",
@@ -35386,9 +35506,19 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing",
+    "translationStatus": "current",
     "refreshStatus": "stale-source",
-    "refreshErrorAt": "2026-10-08T02:16:25.008Z"
+    "refreshErrorAt": "2026-10-08T02:16:25.008Z",
+    "translations": {
+      "zh": {
+        "title": "Palo Alto 故事：抢先看博物馆两大开馆展览",
+        "description": "走进 Palo Alto Museum 主展厅，抢先欣赏两场开馆展览：《Doña Juana Briones》和《I AM PALO ALTO》。",
+        "fingerprint": "567a92b46ad2c5318ff6414ae465d1a56f8d2e2387b9a96ba920a845d0f62186",
+        "translatedAt": "2026-10-08T05:34:15Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6abd93ddebad2200454222f6",
@@ -36060,7 +36190,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "青少年魔方俱乐部",
+        "description": "认识其他魔方爱好者，学习新技巧，一起玩得开心！",
+        "fingerprint": "955f0ea3035cd22580c7d367156f404779f441d21ea8ec9cc1e850d6b14c3025",
+        "translatedAt": "2026-10-08T05:34:15Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6ab6f04f31e9a41a0fbc92cf",
@@ -36144,7 +36284,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "《The AI Doc: Or How I Became An Apocaloptimist》活动",
+        "description": "享用小点心，并通过便利贴分享你使用人工智能（AI）的经历、对未来的担忧，以及你希望 Cupertino Library 今后举办哪些 AI 主题活动。",
+        "fingerprint": "7cfa20c74ffca1accea05832038aed2a10d49ecd51d3287976df78d89c01fb52",
+        "translatedAt": "2026-10-08T05:34:15Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "deanza-054cc15826bef8eb",
@@ -36504,7 +36654,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "成长中的读者：支持热爱写作的孩子",
+        "description": "这是一场面向家长和照护者的免费工作坊，由 Santa Clara County Office of Education 和 Santa Clara County Library District 的 The Reading Program 共同举办。",
+        "fingerprint": "8fea1e657fb7abd8e4c0a2924e336fd81f5c53929ba0e54c2d905ba0d566a5d7",
+        "translatedAt": "2026-10-08T05:34:15Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6aa98379a5dbde002aa4ba14",
@@ -36588,7 +36748,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "学生主导的 AI 素养与错误信息辨识工作坊",
+        "description": "活动最多可容纳 30 位参与者，建议准时到场以争取名额并提出问题。",
+        "fingerprint": "cec21d93782d0025a787bd13e556c9a1c932c082444a759a58f7463512739c79",
+        "translatedAt": "2026-10-08T05:34:15Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "nhl-2026020285",
@@ -38415,9 +38585,19 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing",
+    "translationStatus": "current",
     "refreshStatus": "stale-source",
-    "refreshErrorAt": "2026-10-08T02:16:25.008Z"
+    "refreshErrorAt": "2026-10-08T02:16:25.008Z",
+    "translations": {
+      "zh": {
+        "title": "灯光节：排灯节庆祝活动",
+        "description": "活动为各年龄段提供有趣体验，包括 Noorani Dance 于下午 2:30–3:30 在 El Palo Alto Room 带来的演出。",
+        "fingerprint": "e78a64547f77c344722dcda0e342ac029a953b7850ecdf19bd41bb49d6ae3474",
+        "translatedAt": "2026-10-08T05:34:15Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-e5134358de8f1496",
@@ -39263,9 +39443,19 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing",
+    "translationStatus": "current",
     "refreshStatus": "stale-source",
-    "refreshErrorAt": "2026-10-08T02:16:25.008Z"
+    "refreshErrorAt": "2026-10-08T02:16:25.008Z",
+    "translations": {
+      "zh": {
+        "title": "主舞台：《A Year with Frog and Toad》",
+        "description": "改编自 Arnold Lobel 的童书，这部音乐剧讲述乐观开朗的青蛙 Frog 与有些脾气的蟾蜍 Toad 这对好友一起经历四季的故事。",
+        "fingerprint": "66e7105331837a9a2d1444c57d0e42a43aedee4d21df77d6e1f5cae181c9fab1",
+        "translatedAt": "2026-10-08T05:34:15Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-715a585e14c4f964",
