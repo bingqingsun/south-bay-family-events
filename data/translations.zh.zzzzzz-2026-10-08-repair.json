@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "entries": [
+    {
+      "id": "rss-6abbdaf89abb62002c6af3f8",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6abbdaf89abb62002c6af3f8",
+      "title": "预约制电脑组装工作坊",
+      "description": "建议 10 岁及以上参加。使用本地社区捐赠的实验室电脑，学习组装可正常运行电脑所需的组件、如何规划并选购新的或二手电脑配件，以及如何在不损坏组件的情况下拆卸和组装电脑。课堂中，学生会拿到一台可运行的电脑，连接各个组件并启动电脑。",
+      "sourceFingerprint": "15a1d7c3ab4c1fb7957ad5fe25df15b388b700fca8d28ea96ac3f451c00a72b6",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-08T15:50:00Z"
+    },
+    {
+      "id": "rss-6aa42fb44ea230006f33acc7",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6aa42fb44ea230006f33acc7",
+      "title": "阅读自由：寻宝游戏",
+      "description": "孩子们可以在儿童阅览室里寻找线索，认识曾受到质疑的热门书籍；青少年和成人则可以参加禁书主题挑战，测试自己的相关知识。",
+      "sourceFingerprint": "76f63a60dd8325530eaad90c10375b53f5f0d1a1cf5c16c8610578538030bbd1",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-08T15:50:00Z"
+    },
+    {
+      "id": "rss-6aa42fe556fe62004a2f6ba8",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6aa42fe556fe62004a2f6ba8",
+      "title": "万圣节季寻宝游戏",
+      "description": "书架之间会藏着一批万圣节主题、但不会太吓人的纸艺作品，看看你能不能把它们全找出来！",
+      "sourceFingerprint": "ff8bf5c5316a5cd83f2600694135ebf9a1275f3e404dfa8c94f6c145c92d9d9f",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-08T15:50:00Z"
+    },
+    {
+      "id": "rss-6933313904caba2f00d3710b",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6933313904caba2f00d3710b",
+      "title": "家庭故事时间",
+      "description": "故事时间适合不同年龄的孩子，欢迎全家一起参加早期读写活动，包括听故事、唱歌、念童谣、手指游戏和肢体活动。",
+      "sourceFingerprint": "ddbc75db51bf33f42d384da9e9ca9e786851a2de1c31ec36c4fbe84a76cd205a",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-08T15:50:00Z"
+    },
+    {
+      "id": "rss-6941d7666f926136000b4821",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6941d7666f926136000b4821",
+      "title": "婴幼儿故事时间",
+      "description": "婴幼儿故事时间邀请孩子和照护者一起活动身体、念童谣和唱歌，并通过多样的图书、歌曲和手指游戏鼓励语言发展、游戏与探索。",
+      "sourceFingerprint": "70bbde940db90e8c8e7156bcc60945dcd4254986c10e001a1e33214a34b1b872",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-08T15:50:00Z"
+    },
+    {
+      "id": "jmz-family-9e10bcb96952915e",
+      "sourceUrl": "https://www.paloaltozoo.org/Visit/Accessibility",
+      "title": "超级家庭星期日",
+      "description": "来近距离认识动物园里的动物。",
+      "sourceFingerprint": "76b85dd4113d5b315914e2e92a84394b591146c4fc457a42fea6b8ec0870de95",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-08T15:50:00Z"
+    },
+    {
+      "id": "series-34d0b34c56f66607",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a7fafcfaafa6100295cbd53",
+      "title": "睡衣故事时间 [Hora de Cuentos en Pijama]",
+      "description": "边玩边学。每周一晚上 6:30，在 Gilroy Library 的 Burrow 举行睡衣故事时间；大家会和图书管理员 Cameron 一起读故事、唱歌和做互动游戏。",
+      "sourceFingerprint": "fe22617d23c90636b5938e72943fe941bcc5ff532bd03518f9ce41ebc44601a9",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-08T15:50:00Z"
+    },
+    {
+      "id": "series-8591fc4cbaa997e0",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a876f9229a7dd0d67456656",
+      "title": "K-2 年级科学星期日",
+      "description": "随行成人需要协助孩子完成实验和活动。每个星期日都会进行一个新的实验！",
+      "sourceFingerprint": "5489f4dfa70decb52a6c9fbfe26e989dce236f75d788c914de65bb4b4fe1af82",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-08T15:50:00Z"
+    }
+  ]
+}
