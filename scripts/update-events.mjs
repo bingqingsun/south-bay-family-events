@@ -3144,11 +3144,23 @@ async function readDeAnza(source) {
 // keeps entries whose official title, summary, or tags explicitly identify a
 // child, teen, or family audience.
 async function readPaloAlto(source) {
-  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
-  const html = await response.text();
-  if (!response.ok || !/list-container events-list-container/i.test(html)) {
-    throw new Error('Palo Alto official calendar was not valid: ' + response.status);
-  }
+  const fetchListingPage = async page => {
+    const url = new URL(source.feedUrl);
+    if (page > 1) url.searchParams.set('dlv_OC CL Public Events Listing', `(pageindex=${page})`);
+    const response = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+    const html = await response.text();
+    if (!response.ok || !/list-container events-list-container/i.test(html)) {
+      throw new Error('Palo Alto official calendar was not valid: ' + response.status);
+    }
+    return html;
+  };
+  const firstHtml = await fetchListingPage(1);
+  const advertisedPages = Number(firstHtml.match(/Page\s+1\s+of\s+(\d+)/i)?.[1] || 1);
+  const pagesToRead = Math.max(1, Math.min(Number(source.maxPages) || 4, advertisedPages || 1, 10));
+  const remaining = pagesToRead > 1
+    ? await Promise.all(Array.from({ length: pagesToRead - 1 }, (_, index) => fetchListingPage(index + 2)))
+    : [];
+  const listingPages = [firstHtml, ...remaining];
   const monthNumbers = { jan: '01', feb: '02', mar: '03', apr: '04', may: '05', jun: '06', jul: '07', aug: '08', sep: '09', oct: '10', nov: '11', dec: '12' };
   const youthSignal = new RegExp(source.familyPattern
     || 'children|kids?|famil(?:y|ies)|youth|teen|toddler|preschool|elementary|middle school|high school|all ages|parent(?:s)?\\s*(?:and|&)\\s*(?:child|kid)', 'i');
@@ -3156,7 +3168,7 @@ async function readPaloAlto(source) {
     || 'children|kids?|famil(?:y|ies)|youth|teen|toddler|preschool|elementary|middle school|high school|all ages', 'i');
   const excluded = /\b(?:committee|commission|council|board|meeting|recruitment|hearing|work session)\b/i;
   const seen = new Set();
-  const candidates = [...html.matchAll(/<div class=["']list-item-container[\s\S]*?<\/article>/gi)].flatMap(blockMatch => {
+  const candidates = listingPages.flatMap(html => [...html.matchAll(/<div class=["']list-item-container[\s\S]*?<\/article>/gi)]).flatMap(blockMatch => {
     const block = blockMatch[0];
     const href = htmlAttribute(block, /<a[^>]+href=["']([^"']+)["']/i);
     const title = plainText(block.match(/list-item-title[^>]*>([\s\S]*?)<\/h2>/i)?.[1] || '');
