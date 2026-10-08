@@ -86,10 +86,15 @@ export function applyChineseTranslationCatalog(items, catalog, { generatedAt = n
   const problems = [];
 
   for (const event of items || []) {
-    // Event ID is the only publish-time identity key. Organizer URLs are not
-    // unique enough for reuse: sports schedules and recurring series commonly
-    // share one landing URL across many distinct events.
-    const entry = event?.id ? byId.get(event.id) : null;
+    // Prefer the current canonical event ID, then fall back to known legacy IDs.
+    // This preserves approved translations when dedupe/canonicalization merges an
+    // editorial event into a durable source event with a different canonical ID.
+    // Organizer URLs are intentionally not used as identity keys because recurring
+    // series and sports schedules can share one landing URL across many events.
+    const legacyIds = Array.isArray(event?.legacyIds) ? event.legacyIds : [];
+    const entry = event?.id
+      ? (byId.get(event.id) || legacyIds.map(id => byId.get(id)).find(Boolean) || null)
+      : null;
     if (!entry || entry.status !== 'approved') {
       event.translationStatus = entry?.status || 'missing';
       stats.missing += 1;

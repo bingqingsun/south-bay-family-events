@@ -521,6 +521,16 @@
       "override": true,
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-10-07T23:55:00Z"
+    },
+    {
+      "id": "editorial-spirit-of-freedom-2026",
+      "title": "乌克兰文化节：自由精神",
+      "description": "在 Saratoga 的免费亲子文化节中，通过乌克兰音乐、美食、传统艺术、服饰、历史与文化展览，了解乌克兰文化与传统。",
+      "sourceFingerprint": "fbfcc42c3205ceae1467f4df83a938e36d946da159b1d9520cb919b37ab0adbb",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-08T02:20:00Z"
     }
   ]
 }

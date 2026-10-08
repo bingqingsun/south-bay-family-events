@@ -49,3 +49,26 @@ assert.equal(unsupportedFree.ok, false);
 assert.ok(unsupportedFree.issues.includes('unsupported-claim:free'));
 
 console.log('event translation contracts passed');
+
+
+const canonicalized = {
+  id: 'canonical-1',
+  legacyIds: ['legacy-1'],
+  title: 'Merged Family Event',
+  description: 'Enjoy music and crafts.'
+};
+const canonicalizedCatalog = {
+  entries: [{
+    id: 'legacy-1',
+    sourceFingerprint: translationFingerprint(canonicalized),
+    title: '合并后的家庭活动',
+    description: '参加音乐和手工活动。',
+    status: 'approved',
+    translationSource: 'test',
+    reviewedAt: '2026-10-07T00:00:00Z'
+  }]
+};
+const canonicalizedResult = applyChineseTranslationCatalog([canonicalized], canonicalizedCatalog);
+assert.equal(canonicalizedResult.stats.current, 1);
+assert.equal(canonicalized.translationStatus, 'current');
+assert.equal(canonicalized.translations.zh.title, '合并后的家庭活动');
