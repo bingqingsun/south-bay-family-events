@@ -64,7 +64,7 @@
         }
       ]
     },
-    "discoveryPattern": "children|kids?|famil(?:y|ies)|youth|teen|toddler|preschool|elementary|middle school|high school|all ages|halloween|costume|trick-or-treat|festival|fair|faire|parade|craft|art|music|movie|celebration"
+    "discoveryPattern": "children|kids?|famil(?:y|ies)|youth|teen|toddler|preschool|elementary|middle school|high school|all ages|halloween|costume|trick-or-treat|festival|fair|faire|parade"
   },
   {
     "id": "palo-alto-art-center-special-events",
@@ -206,7 +206,8 @@
     "name": "Stanford Events",
     "domain": "events.stanford.edu",
     "method": "stanford",
-    "feedUrl": "https://events.stanford.edu/api/2/events?pp=100&days=120"
+    "feedUrl": "https://events.stanford.edu/api/2/events?pp=100&days=120",
+    "maxPages": 5
   },
   {
     "name": "San Jose Sharks",
@@ -1408,29 +1409,15 @@
     "id": "santa-clara-community-calendar",
     "name": "Santa Clara Community Calendar",
     "domain": "calendar.santaclaraca.gov",
-    "method": "withapps",
-    "feedUrl": "https://main.withapps.io/event-grid?communityId=275&isApprovedOnly=0&isPrivate=0&isRestrictedView=0&organizationId=59&view=calendar",
-    "detailBaseUrl": "https://calendar.santaclaraca.gov/santaclaraca/",
+    "query": "family kids children teens festival library community event Santa Clara",
     "city": "Santa Clara",
-    "familyPattern": "Family & Kids Activities|Children|Families|Teens|all ages|family|kids?|children|youth|teen",
+    "searchDetailEnrichment": true,
+    "familyPattern": "Family & Kids Activities|Children|Families|Teens|all ages|family|kids?|children|youth|teen|halloween|costume|movie|festival",
     "linkHosts": [
       "calendar.santaclaraca.gov",
       "sclibrary.org",
       "eventbrite.com"
-    ],
-    "landingUrl": "https://calendar.santaclaraca.gov/santaclaraca/calendar",
-    "linkPolicy": "first_party_detail"
-  },
-  {
-    "id": "stanford-bing-nursery-school",
-    "name": "Stanford · Bing Nursery School",
-    "domain": "events.stanford.edu",
-    "method": "stanford-venue-family",
-    "feedUrl": "https://events.stanford.edu",
-    "city": "Stanford",
-    "departmentSearch": "Bing Nursery School",
-    "venuePattern": "Bing Nursery School",
-    "days": 365
+    ]
   },
   {
     "id": "fremont-parents-nursery-school",
@@ -1480,7 +1467,7 @@
     "domain": "magicalglasspumpkinpatch.com",
     "method": "annual-festival",
     "feedUrl": "https://magicalglasspumpkinpatch.com/",
-    "datePattern": "(?:Saturday\\s+)?October\\s+\\d{1,2},\\s+20\\d{2}",
+    "datePattern": "October\\s+\\d{1,2},\\s+20\\d{2}",
     "title": "Magical Glass Pumpkin Patch",
     "place": "Los Gatos High School",
     "address": "20 High School Ct, Los Gatos, CA 95030",
