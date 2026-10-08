@@ -18,7 +18,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   validate-and-publish:
@@ -111,28 +110,16 @@ jobs:
           REQUIRE_CURRENT_SUMMARY_VERSION=1 node scripts/test-summary-output.mjs
           node scripts/summary-semantic-coverage.test.mjs
 
-      - name: Create or reuse pull request
-        id: pr
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Publish validated translations to main
         run: |
-          pr_url=$(gh pr list             --repo "$GITHUB_REPOSITORY"             --head "$GITHUB_REF_NAME"             --base main             --state open             --json url             --jq '.[0].url')
+          git fetch origin main
+          current_main=$(git rev-parse origin/main)
+          validated_base=$(git merge-base HEAD origin/main)
 
-          if [ -z "$pr_url" ]; then
-            pr_url=$(gh pr create               --repo "$GITHUB_REPOSITORY"               --base main               --head "$GITHUB_REF_NAME"               --title "chore: publish reviewed Chinese translations"               --body "Automated publication of ChatGPT-reviewed Chinese translations. The branch was rebased onto the latest main and passed translation QA, zero-gap coverage, and the repository data CI before this PR was created.")
+          if [ "$validated_base" != "$current_main" ]; then
+            echo "::error::main advanced during validation; refusing to publish an unvalidated rebase."
+            exit 1
           fi
 
-          echo "url=$pr_url" >> "$GITHUB_OUTPUT"
-          echo "Pull request: $pr_url"
-
-      - name: Merge validated translation pull request
-        env:
-          GH_TOKEN: ${{ github.token }}
-          PR_URL: ${{ steps.pr.outputs.url }}
-        run: |
-          if gh pr merge "$PR_URL"             --repo "$GITHUB_REPOSITORY"             --squash             --delete-branch; then
-            exit 0
-          fi
-
-          echo "Immediate merge was blocked. Requesting auto-merge without bypassing branch protections."
-          gh pr merge "$PR_URL"             --repo "$GITHUB_REPOSITORY"             --auto             --squash             --delete-branch
+          git push origin "HEAD:main"
+          git push origin --delete "$GITHUB_REF_NAME" || true

@@ -47,8 +47,9 @@ assert.match(publishWorkflow, /Publish reviewed Chinese translations/);
 assert.match(publishWorkflow, /chore\/fill-zh-translations-\*/);
 assert.match(publishWorkflow, /translation-qa\.mjs/);
 assert.match(publishWorkflow, /translation-coverage-report\.mjs/);
-assert.match(publishWorkflow, /gh pr create/);
-assert.match(publishWorkflow, /gh pr merge/);
+assert.match(publishWorkflow, /git merge-base HEAD origin\/main/);
+assert.match(publishWorkflow, /git push origin \"HEAD:main\"/);
+assert.doesNotMatch(publishWorkflow, /gh pr create|gh pr merge/);
 assert.doesNotMatch(publishWorkflow, /generate-chinese-translations\.mjs/);
 
 console.log('runtime translation fallback safety passed');
