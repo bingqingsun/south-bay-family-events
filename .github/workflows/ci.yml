@@ -123,6 +123,10 @@ jobs:
           node --check scripts/halloween-collection.test.mjs
           node --check scripts/generate-sitemap.mjs
           node --check scripts/seo-foundation.test.mjs
+      - name: Smoke-test live official source refresh
+        run: node scripts/update-events.mjs
+        env:
+          INCLUDE_SERPAPI: 'false'
       - name: Materialize translation catalog for CI
         run: |
           node scripts/baseline-new-translations.mjs
