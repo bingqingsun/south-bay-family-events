@@ -1656,10 +1656,15 @@ async function readStanfordVenueFamily(source) {
   let filterKey = '';
   let filterId = '';
 
+  if (source.departmentId) {
+    filterKey = 'group_id';
+    filterId = String(source.departmentId);
+  }
+
   // A department-specific source should resolve the department first. The old
   // fallback always searched for Cantor Arts Center before checking departments,
   // which could silently bind a Bing Nursery School source to the wrong venue.
-  if (source.departmentSearch) {
+  if (!filterId && source.departmentSearch) {
     const departmentUrl = new URL('/api/2/departments/search', base);
     departmentUrl.searchParams.set('search', source.departmentSearch);
     departmentUrl.searchParams.set('pp', '50');
@@ -3236,8 +3241,19 @@ async function readPaloAlto(source) {
       source: source.name, url: candidate.url, ageText: fullAudienceText
     });
     const rescued = await enrichWithSpecialEventPage(event, source);
+    const allowedExternalDomains = new Set(source.specialEventPageDiscovery?.allowedDomains || []);
+    let safeUrl = rescued.url || candidate.url;
+    try {
+      const host = new URL(safeUrl).hostname.replace(/^www\./, '');
+      const isPrimaryCityHost = host === String(source.domain || '').replace(/^www\./, '') || host.endsWith('.' + String(source.domain || '').replace(/^www\./, ''));
+      const isAllowedExternal = [...allowedExternalDomains].some(domain => host === domain || host.endsWith('.' + domain));
+      if (!isPrimaryCityHost && !isAllowedExternal) safeUrl = candidate.url;
+    } catch {
+      safeUrl = candidate.url;
+    }
     return hasUsableSourceContent(rescued.description) ? {
       ...rescued,
+      url: safeUrl,
       ...(linkedDescriptionSourceUrl ? { descriptionSourceUrl: linkedDescriptionSourceUrl } : {}),
       ...costInfo('', rescued.sourceDescriptionRaw || linkedDescription || detailDescription || detailText || description)
     } : null;
