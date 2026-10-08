@@ -45,6 +45,7 @@ assert.ok(!workflowNames.includes('nightly-translations.yml'));
 const publishWorkflow = await readFile(new URL('../.github/workflows/publish-reviewed-translations.yml', import.meta.url), 'utf8');
 assert.match(publishWorkflow, /Publish reviewed Chinese translations/);
 assert.match(publishWorkflow, /chore\/fill-zh-translations-\*/);
+assert.match(publishWorkflow, /cancel-in-progress: true/);
 assert.match(publishWorkflow, /translation-qa\.mjs/);
 assert.match(publishWorkflow, /translation-coverage-report\.mjs/);
 assert.match(publishWorkflow, /git merge-base HEAD origin\/main/);
