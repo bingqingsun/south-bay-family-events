@@ -1200,7 +1200,7 @@ async function readAnnualFestival(source) {
     id: 'annual-' + createHash('sha256').update(`${source.feedUrl}|${dateValue}`).digest('hex').slice(0, 16),
     title: source.title || source.name, dateValue, endDateValue, description: officialDescription, image: officialPageOgImage(html),
     place: source.place || source.name, address: source.address || '', city: source.city || '', source: source.name,
-    url: source.feedUrl, ageText: source.ageText || '', format: source.format || 'festival',
+    url: source.landingUrl || source.feedUrl, ageText: source.ageText || '', format: source.format || 'festival',
     summaryStatus: metaDescription ? 'extractive' : 'manual_verified'
   });
   return hasUsableSourceContent(event.description) ? [event] : [];
@@ -3254,6 +3254,7 @@ async function readPaloAlto(source) {
     return hasUsableSourceContent(rescued.description) ? {
       ...rescued,
       url: safeUrl,
+      canonicalUrl: safeUrl,
       ...(linkedDescriptionSourceUrl ? { descriptionSourceUrl: linkedDescriptionSourceUrl } : {}),
       ...costInfo('', rescued.sourceDescriptionRaw || linkedDescription || detailDescription || detailText || description)
     } : null;
