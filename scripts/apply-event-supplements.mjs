@@ -7,6 +7,8 @@ const eventsUrl = new URL('../data/events.json', import.meta.url);
 const supplementsUrl = new URL('../data/event-supplements.json', import.meta.url);
 const sourcesUrl = new URL('../data/sources.json', import.meta.url);
 
+// Manual supplements are intentionally reapplied after every canonical refresh so verified one-off events persist.
+
 const CATEGORY_META = Object.freeze({
   shows: { icon: '🎭', color: '#f0def2', tag: '演出与表演' },
   learning: { icon: '🔭', color: '#dce7fa', tag: '学习与 STEM' },
