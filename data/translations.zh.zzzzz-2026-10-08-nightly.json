@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "entries": [
+    {
+      "id": "rss-69d98596b6c4ac1fedcb975d",
+      "title": "按需 3D 打印",
+      "description": "所有打印均免费，但必须符合上文和下文列出的要求。",
+      "sourceFingerprint": "0",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-08T05:34:15Z"
+    }
+  ]
+}
