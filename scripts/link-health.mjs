@@ -207,7 +207,7 @@ export async function checkLink(event, source, { fetchImpl = fetch, timeoutMs = 
       // A curated_verified URL is human-configured first-party evidence. When
       // the URL itself remains stable, allow an inconclusive machine parser to
       // defer to that evidence; a redirect or soft error still fails above.
-      if (event.linkSource === 'curated_verified'
+      if ((event.linkSource === 'curated_verified' || verifiedDetailOverride(event, source))
         && (redirectTarget === result.canonicalUrl
           || sameTicketDetailAfterRedirect(result.canonicalUrl, redirectTarget))) {
         return {
