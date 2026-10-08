@@ -6,7 +6,35 @@
       "id": "rss-69d98596b6c4ac1fedcb975d",
       "title": "按需 3D 打印",
       "description": "所有打印均免费，但必须符合上文和下文列出的要求。",
-      "sourceFingerprint": "0",
+      "sourceFingerprint": "ddaf08b0d2e89761f80f0e9364dea01376364e2ccad24ebd48616e1942697684",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-08T05:34:15Z"
+    },
+    {
+      "id": "rss-68d6c3c797cf5a912eb0d218",
+      "title": "INSIDERS：Village Square 分馆活动",
+      "description": "欢迎来这里社交、结识新朋友、交流互动、讲笑话、学习《龙与地下城》（Dungeons & Dragons）的玩法，并参与艺术创作，享受欢乐时光！",
+      "sourceFingerprint": "025057cc060286870aeaa299459c740dae5aa1e99ce4f5af185d2dd33de842e5",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-08T05:34:15Z"
+    },
+    {
+      "id": "series-ca41eff744a0cfd1",
+      "title": "《FORGOTTEN ISLAND》电影放映",
+      "description": "在 CineLux Plaza 放映的 PG 级电影。",
+      "sourceFingerprint": "601eee456a2d36c2ed7191362018a9128d78a250ca354467b081bd7278c20e80",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-08T05:34:15Z"
+    },
+    {
+      "id": "series-4e057650fab34d2b",
+      "title": "Bay Area Card Show（湾区卡牌展）",
+      "description": "这是一场适合全家参与的体育卡及集换式卡牌展，有数百张展桌，可买卖和交换卡牌、参与互动活动，并有赠品、奖品及适合各年龄段的收藏品。",
+      "sourceFingerprint": "4ea3f813de98f01125c14454f76884adb900887c834034493bc22c07041d533e",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-10-08T05:34:15Z"
