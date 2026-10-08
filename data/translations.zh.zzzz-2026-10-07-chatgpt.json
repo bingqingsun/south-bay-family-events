@@ -421,6 +421,106 @@
       "override": true,
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-10-07T23:45:00Z"
+    },
+    {
+      "id": "editorial-santa-clara-library-comic-con-2026",
+      "title": "Santa Clara 市图书馆 Comic Con",
+      "description": "全家可以在 Central Park Library 逛 Artist Alley、认识漫画创作者、玩桌游、看动漫放映、拍照互动并制作极客主题手工，一起参加这场适合全年龄的 Comic Con。",
+      "sourceFingerprint": "ec023244d0a8df96c5e353d93ca3c93155d364ef5695d497b8a9b468e901b97a",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-08T00:02:00Z"
+    },
+    {
+      "id": "editorial-magical-glass-pumpkin-patch-2026",
+      "title": "魔法玻璃南瓜展",
+      "description": "在 Los Gatos High School 的草坪上欣赏数千个独一无二的手工玻璃南瓜，认识创作者、逛秋日艺术展售，同时为学校项目提供支持。",
+      "sourceFingerprint": "95eed34a33d41f46f0115fe386231a732da0e36fe75b32243434db3754836fcd",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:55:00Z"
+    },
+    {
+      "id": "editorial-picnic-by-the-lake-2026",
+      "title": "湖畔野餐多元文化节与资源展",
+      "description": "在 Hellyer County Park 参加全部免费的多元文化节，有儿童游乐区、充气设施、面部彩绘、泡泡、攀岩墙、社区摊位和文化表演；食物与南瓜送完为止。",
+      "sourceFingerprint": "06fa0781b43f405cace421fc3eb53a6e2fddbd17af44c677e159a5a3290d196b",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:55:00Z"
+    },
+    {
+      "id": "editorial-charlie-and-the-tropicales-2026",
+      "title": "Charlie and the Tropicales 亲子音乐会",
+      "description": "Bing Nursery School 在 Stanford 的 Dinkelspiel Auditorium 带来互动亲子音乐会，由新奥尔良加勒比风格乐队 Charlie and the Tropicales 演出，适合各年龄儿童。",
+      "sourceFingerprint": "c8ecdd8a9c86be000a1940eed1c20444f5ea87dfb5ac91ad98684c39c7fc000c",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:55:00Z"
+    },
+    {
+      "id": "editorial-messy-fun-fair-2026",
+      "title": "Messy Fun Fair 脏玩嘉年华",
+      "description": "孩子们可以在 Fremont Parents' Nursery School 尽情玩泡泡、沙坑寻宝、Oobleck、泥巴厨房等充满感官体验的“脏玩”活动。",
+      "sourceFingerprint": "d35af747c1474be5579da0f47c34a7ff68aea0cb342bf5bb2622a99ef31dbfd0",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:55:00Z"
+    },
+    {
+      "id": "editorial-mountain-view-oktoberfest-2026",
+      "title": "Mountain View Oktoberfest 德式秋季节",
+      "description": "Downtown Mountain View 的亲子友好周末节庆，有德国音乐、舞蹈、趣味比赛、传统美食和热闹的巴伐利亚节日氛围。",
+      "sourceFingerprint": "1e7b0310dfeb85170630d8d2ff3a412adeb1c2bc86e78625f17556bdf04e6697",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:55:00Z"
+    },
+    {
+      "id": "editorial-milpitas-fiesta-2026",
+      "title": "Milpitas Fiesta 菲律宾文化节",
+      "description": "在 Delano Manongs Park 庆祝菲律宾裔美国人历史月，欣赏现场乐队、文化舞蹈，逛手工艺摊位并品尝美食。",
+      "sourceFingerprint": "cb649b1a5c25b566c9ac4e96891ac7be385e4fd22e239d38a6dd19eeb354fa1a",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:55:00Z"
+    },
+    {
+      "id": "editorial-halloween-scare-faire-costume-swap-2026",
+      "title": "万圣节 Scare Faire 与服装交换",
+      "description": "全家可以交换保存良好的万圣节服装和装饰，做手工、体验临时纹身或面部彩绘，并欣赏现场音乐；活动在 Palo Alto 免费举行。",
+      "sourceFingerprint": "7f0ef4b9941569f766e92788fd55b2256d9099140f296936e7f77a1818e6af71",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-08T00:02:00Z"
+    },
+    {
+      "id": "editorial-palo-alto-rocks-2026",
+      "title": "Palo Alto Rocks! 公园音乐派对",
+      "description": "在 Heritage Park 用一场免费的户外音乐派对迎接 Palo Alto Museum 开馆季，还有本地音乐知识问答、冰淇淋、奖品，并可以认识博物馆团队。",
+      "sourceFingerprint": "5e5140de674fb1ed060048feee5e3b437e50629594e68e804a9f1cd7948dfc43",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:55:00Z"
+    },
+    {
+      "id": "editorial-st-lucy-fun-fest-2026",
+      "title": "St. Lucy Fun Fest 校园嘉年华",
+      "description": "St. Lucy Parish School 的 Fun Fest 连续三天举行，有现场乐队、学校合唱团、现场拍卖和社区庆祝活动。",
+      "sourceFingerprint": "5b87a1fa128fa1f04bd30594a713f8c92754d38a76ebd630ec4dd5b4dde8c83f",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-07T23:55:00Z"
     }
   ]
 }
