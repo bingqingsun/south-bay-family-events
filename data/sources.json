@@ -63,7 +63,8 @@
           "url": "https://bikepaloalto.org/"
         }
       ]
-    }
+    },
+    "discoveryPattern": "children|kids?|famil(?:y|ies)|youth|teen|toddler|preschool|elementary|middle school|high school|all ages|halloween|costume|trick-or-treat|festival|fair|faire|parade|craft|art|music|movie|celebration"
   },
   {
     "id": "palo-alto-art-center-special-events",
@@ -509,7 +510,9 @@
     "domain": "milpitas.gov",
     "method": "civic",
     "feedUrl": "https://www.milpitas.gov/calendar.aspx?CID=0&view=list",
-    "city": "Milpitas"
+    "city": "Milpitas",
+    "discoveryPattern": "family|families|kids?|children|youth|teen|toddler|movie|concert|music|festival|celebration|fiesta|fair|faire|carnival|parade|holiday|halloween|lantern|campout|egg hunt|art|craft|science|stem|nature|outdoor",
+    "detailFamilyPattern": "family|families|children|kids?|youth|teen|toddler|all ages|community"
   },
   {
     "name": "Google Visitor Experience",
@@ -1499,7 +1502,8 @@
     "city": "Mountain View",
     "description": "A family-friendly two-day Oktoberfest in Downtown Mountain View with live entertainment, contests, dancing, German food, and community festivities.",
     "ageText": "Family-friendly",
-    "format": "festival"
+    "format": "festival",
+    "yearPattern": "©\\s*(20\\d{2})\\s+MOUNTAIN VIEW OKTOBERFEST"
   },
   {
     "id": "st-lucy-fun-fest",
