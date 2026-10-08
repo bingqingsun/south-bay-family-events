@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "entries": [
+    {
+      "id": "paloalto-d8931a472de590fc",
+      "title": "灯光节：排灯节庆祝活动",
+      "description": "活动为各年龄段提供有趣体验，包括 Noorani Dance 于下午 2:30–3:30 在 El Palo Alto Room 带来的演出。",
+      "sourceFingerprint": "e78a64547f77c344722dcda0e342ac029a953b7850ecdf19bd41bb49d6ae3474",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-08T05:34:15Z"
+    }
+  ]
+}
