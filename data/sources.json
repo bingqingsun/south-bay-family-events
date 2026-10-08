@@ -163,6 +163,17 @@
     "days": 365
   },
   {
+    "id": "stanford-bing-nursery-school",
+    "name": "Stanford · Bing Nursery School",
+    "domain": "events.stanford.edu",
+    "method": "stanford-venue-family",
+    "feedUrl": "https://events.stanford.edu",
+    "city": "Stanford",
+    "departmentSearch": "Bing Nursery School",
+    "venuePattern": "Bing Nursery School",
+    "days": 365
+  },
+  {
     "name": "Happy Hollow Park & Zoo",
     "domain": "happyhollow.org",
     "method": "happyhollow",
@@ -207,7 +218,7 @@
     "domain": "events.stanford.edu",
     "method": "stanford",
     "feedUrl": "https://events.stanford.edu/api/2/events?pp=100&days=120",
-    "maxPages": 5
+    "maxPages": 1
   },
   {
     "name": "San Jose Sharks",
