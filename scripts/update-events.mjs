@@ -1603,7 +1603,7 @@ async function readMidpen(source) {
 function stanfordEventsFromPayloads(payloads, source) {
   // “Everyone” in Stanford's calendar includes adult lectures. We only accept
   // entries with an explicit youth/family signal in the organizer's own copy.
-  const youthSignal = /family day|family-friendly|families welcome|for families|family program|family event|family workshop|family activit(?:y|ies)|\b(?:kids?|children|teens?|tweens?)\b|youth (?:program|workshop|activit(?:y|ies)|camp)|for youth|K[-– ]?12|elementary|middle school|high school|school[- ]age|girl scout|summer camp|homeschool|storytime/i;
+  const youthSignal = /family day|family-friendly|families welcome|for families|family program|family event|family workshop|family activit(?:y|ies)|appropriate for children|for children|children (?:of all ages|ages?\s*\d|and (?:their )?(?:parents|caregivers|families))|for kids?|kids? ages?\s*\d|for teens?|teen (?:program|workshop|activit(?:y|ies))|youth (?:program|workshop|activit(?:y|ies)|camp)|for youth|K[-– ]?12|elementary|middle school|high school|school[- ]age|girl scout|summer camp|homeschool|storytime/i;
   const titlePattern = source.titlePattern ? new RegExp(source.titlePattern, 'i') : null;
   const seen = new Set();
   return payloads.flatMap(payload => payload.events || []).flatMap(wrapper => {
