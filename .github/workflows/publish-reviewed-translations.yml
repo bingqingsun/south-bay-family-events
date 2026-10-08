@@ -1,0 +1,128 @@
+name: Publish reviewed Chinese translations
+
+concurrency:
+  group: publish-reviewed-translations-${{ github.ref }}
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - 'chore/fill-zh-translations-*'
+      - 'fix/complete-zh-translations-*'
+    paths:
+      - 'data/translations.zh*.json'
+      - 'data/translations.zh.js'
+      - 'data/events.json'
+      - 'data/events.js'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  validate-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Rebase translation branch onto latest main
+        run: |
+          git config user.name "south-bay-events-bot"
+          git config user.email "actions@github.com"
+          git fetch origin main
+          if ! git merge-base --is-ancestor origin/main HEAD; then
+            git rebase origin/main
+            git push --force-with-lease origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+      - name: Rebuild translation overlay
+        run: node scripts/build-translation-overlay.mjs
+
+      - name: Apply approved Chinese translations
+        run: node scripts/apply-event-translations.mjs
+
+      - name: Commit deterministic materialization if needed
+        run: |
+          git add 'data/translations.zh*.json' data/translations.zh.js data/events.json data/events.js
+          if git diff --staged --quiet; then
+            echo "Translation materialization already matches the reviewed sidecars."
+          else
+            git commit -m "chore: materialize reviewed Chinese translations"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+      - name: Run translation QA and coverage
+        run: |
+          node scripts/event-translations.test.mjs
+          node scripts/translation-text.test.mjs
+          node scripts/translation-overlay.test.mjs
+          node scripts/runtime-translation-fallback.test.mjs
+          node scripts/translation-qa.mjs
+          node scripts/translation-coverage-report.mjs
+          node --input-type=module <<'NODE'
+          import { readFile } from 'node:fs/promises';
+          import { auditTranslationCatalog } from './scripts/event-translations.mjs';
+          import { loadChineseTranslationCatalogs } from './scripts/load-translation-catalogs.mjs';
+
+          const events = JSON.parse(await readFile(new URL('./data/events.json', import.meta.url), 'utf8'));
+          const catalog = await loadChineseTranslationCatalogs();
+          const { stats, problems, duplicates } = auditTranslationCatalog(events, catalog);
+          const unresolved = stats.missing + stats.stale + stats.invalid;
+          console.log('translation publish gate:', JSON.stringify({ stats, duplicates, problems: problems.length }));
+          if (duplicates.length || problems.length || unresolved !== 0) {
+            process.exit(1);
+          }
+          NODE
+
+      - name: Run repository data CI
+        run: |
+          node scripts/test-event-summary-engine.mjs
+          node scripts/link-health.test.mjs
+          node scripts/event-lifecycle.test.mjs
+          node scripts/detail-enrichment.test.mjs
+          node scripts/canonical-detail-pipeline.test.mjs
+          node scripts/editorial-cover.test.mjs
+          node scripts/special-event-pages.test.mjs
+          node scripts/linked-official-detail.test.mjs
+          node scripts/link-ui.test.cjs
+          node scripts/cupertino-audience.test.mjs
+          node scripts/palo-alto-childrens-theatre.test.mjs
+          node scripts/age-policy.test.cjs
+          node scripts/apply-event-supplements.test.mjs
+          node scripts/curated-image-integrity.test.mjs
+          REQUIRE_CURRENT_SUMMARY_VERSION=1 node scripts/test-summary-output.mjs
+          node scripts/summary-semantic-coverage.test.mjs
+
+      - name: Create or reuse pull request
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          pr_url=$(gh pr list             --repo "$GITHUB_REPOSITORY"             --head "$GITHUB_REF_NAME"             --base main             --state open             --json url             --jq '.[0].url')
+
+          if [ -z "$pr_url" ]; then
+            pr_url=$(gh pr create               --repo "$GITHUB_REPOSITORY"               --base main               --head "$GITHUB_REF_NAME"               --title "chore: publish reviewed Chinese translations"               --body "Automated publication of ChatGPT-reviewed Chinese translations. The branch was rebased onto the latest main and passed translation QA, zero-gap coverage, and the repository data CI before this PR was created.")
+          fi
+
+          echo "url=$pr_url" >> "$GITHUB_OUTPUT"
+          echo "Pull request: $pr_url"
+
+      - name: Merge validated translation pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_URL: ${{ steps.pr.outputs.url }}
+        run: |
+          if gh pr merge "$PR_URL"             --repo "$GITHUB_REPOSITORY"             --squash             --delete-branch; then
+            exit 0
+          fi
+
+          echo "Immediate merge was blocked. Requesting auto-merge without bypassing branch protections."
+          gh pr merge "$PR_URL"             --repo "$GITHUB_REPOSITORY"             --auto             --squash             --delete-branch
