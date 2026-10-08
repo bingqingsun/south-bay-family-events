@@ -1400,5 +1400,120 @@
         "url": "https://www.thefairgrounds.org/events/bay-area-card-show/"
       }
     ]
+  },
+  {
+    "id": "santa-clara-community-calendar",
+    "name": "Santa Clara Community Calendar",
+    "domain": "calendar.santaclaraca.gov",
+    "method": "withapps",
+    "feedUrl": "https://main.withapps.io/event-grid?communityId=275&isApprovedOnly=0&isPrivate=0&isRestrictedView=0&organizationId=59&view=calendar",
+    "detailBaseUrl": "https://calendar.santaclaraca.gov/santaclaraca/",
+    "city": "Santa Clara",
+    "familyPattern": "Family & Kids Activities|Children|Families|Teens|all ages|family|kids?|children|youth|teen",
+    "linkHosts": [
+      "calendar.santaclaraca.gov",
+      "sclibrary.org",
+      "eventbrite.com"
+    ],
+    "landingUrl": "https://calendar.santaclaraca.gov/santaclaraca/calendar",
+    "linkPolicy": "first_party_detail"
+  },
+  {
+    "id": "stanford-bing-nursery-school",
+    "name": "Stanford · Bing Nursery School",
+    "domain": "events.stanford.edu",
+    "method": "stanford-venue-family",
+    "feedUrl": "https://events.stanford.edu",
+    "city": "Stanford",
+    "departmentSearch": "Bing Nursery School",
+    "venuePattern": "Bing Nursery School",
+    "days": 365
+  },
+  {
+    "id": "fremont-parents-nursery-school",
+    "name": "Fremont Parents' Nursery School",
+    "domain": "gopher-chinchilla-xn32.squarespace.com",
+    "method": "squarespace-events",
+    "feedUrl": "https://gopher-chinchilla-xn32.squarespace.com/events",
+    "address": "4200 Alder Avenue, Fremont, CA 94536",
+    "city": "Fremont",
+    "familyPattern": "family|families|children|kids?|all ages|storytime|messy|play|nursery|toddler|preschool",
+    "format": "family-program"
+  },
+  {
+    "id": "mountain-view-chamber-seasonal",
+    "name": "Mountain View Chamber · Seasonal Events",
+    "domain": "chambermv.org",
+    "method": "chamber-seasonal",
+    "feedUrl": "https://chambermv.org/seasonal-events/",
+    "city": "Mountain View",
+    "familyPattern": "family|families|children|kids?|all ages|scavenger hunt|bunny hop|mini golf|trick or treat|elf hunt|seasonal",
+    "format": "festival"
+  },
+  {
+    "id": "palo-alto-museum-events",
+    "name": "Palo Alto Museum",
+    "domain": "paloaltomuseum.org",
+    "method": "palo-alto-museum",
+    "feedUrl": "https://paloaltomuseum.org/events/",
+    "address": "300 Homer Ave, Palo Alto, CA 94301",
+    "city": "Palo Alto",
+    "familyPattern": "family|families|children|kids?|hands-on|music|activities|all ages",
+    "format": "museum-program"
+  },
+  {
+    "id": "sd15-family-events",
+    "name": "California State Senate District 15 · Family Events",
+    "domain": "sd15.senate.ca.gov",
+    "method": "senate-events",
+    "feedUrl": "https://sd15.senate.ca.gov/events",
+    "city": "San Jose",
+    "familyPattern": "family|families|children|kids?|multicultural|festival|picnic|community|resource fair",
+    "format": "festival"
+  },
+  {
+    "id": "magical-glass-pumpkin-patch",
+    "name": "Magical Glass Pumpkin Patch",
+    "domain": "magicalglasspumpkinpatch.com",
+    "method": "annual-festival",
+    "feedUrl": "https://magicalglasspumpkinpatch.com/",
+    "datePattern": "(?:Saturday\\s+)?October\\s+\\d{1,2},\\s+20\\d{2}",
+    "title": "Magical Glass Pumpkin Patch",
+    "place": "Los Gatos High School",
+    "address": "20 High School Ct, Los Gatos, CA 95030",
+    "city": "Los Gatos",
+    "description": "A long-running Los Gatos fall tradition featuring thousands of one-of-a-kind handmade glass pumpkins and opportunities to meet the artists.",
+    "ageText": "Family-friendly",
+    "format": "festival"
+  },
+  {
+    "id": "mountain-view-oktoberfest",
+    "name": "Mountain View Oktoberfest",
+    "domain": "mvoktoberfest.com",
+    "method": "annual-festival",
+    "feedUrl": "https://www.mvoktoberfest.com/",
+    "datePattern": "October\\s+\\d{1,2}\\s*(?:&|and)\\s*\\d{1,2}(?:,\\s*20\\d{2})?",
+    "title": "Mountain View Oktoberfest",
+    "place": "Downtown Mountain View",
+    "address": "Castro Street, Mountain View, CA",
+    "city": "Mountain View",
+    "description": "A family-friendly two-day Oktoberfest in Downtown Mountain View with live entertainment, contests, dancing, German food, and community festivities.",
+    "ageText": "Family-friendly",
+    "format": "festival"
+  },
+  {
+    "id": "st-lucy-fun-fest",
+    "name": "St. Lucy Fun Fest",
+    "domain": "stlucyschool.org",
+    "method": "annual-festival",
+    "feedUrl": "https://www.stlucyschool.org/funfest/",
+    "datePattern": "October\\s+\\d{1,2}\\s*[–-]\\s*\\d{1,2},\\s+20\\d{2}",
+    "title": "St. Lucy Fun Fest",
+    "place": "St. Lucy Parish School",
+    "address": "76 Kennedy Ave, Campbell, CA 95008",
+    "city": "Campbell",
+    "description": "St. Lucy Parish School's annual community Fun Fest with live entertainment, school performances, food, games, and family activities.",
+    "ageText": "Family-friendly",
+    "format": "festival"
   }
 ]
