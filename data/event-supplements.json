@@ -384,5 +384,29 @@
     ],
     "verifiedAt": "2026-10-07T23:55:00Z",
     "replaceExisting": true
+  },
+  {
+    "id": "editorial-spirit-of-freedom-2026",
+    "title": "Ukrainian Cultural Festival: The Spirit of Freedom",
+    "dateValue": "2026-10-10T11:00:00",
+    "endDateValue": "2026-10-10T17:00:00",
+    "description": "Experience Ukrainian culture, history, traditions, music, food, clothing, and heritage exhibits at this free family-friendly festival in Saratoga.",
+    "sourceDescriptionRaw": "The Ukrainian Cultural Festival: The Spirit of Freedom invites families to experience Ukrainian culture, history and traditions through authentic clothing and cultural exhibits, traditional arts and heritage, Ukrainian music, food, and community programming. Admission is free and the event is family-friendly.",
+    "place": "Immanuel Lutheran Church of Saratoga",
+    "address": "14103 Saratoga Ave, Saratoga, CA 95070",
+    "city": "Saratoga",
+    "source": "Ukrainian National Women's League of America Branch 107",
+    "url": "https://www.eventbrite.com/e/ukrainian-cultural-festival-the-spirit-of-freedom-tickets-2002350327732",
+    "ageLabel": "Family-friendly",
+    "ageSource": "Official Eventbrite listing by UNWLA Branch 107",
+    "costStatus": "free",
+    "costLabel": "免费",
+    "costSource": "Official Eventbrite listing by UNWLA Branch 107",
+    "costEvidence": "The organizer states FREE ADMISSION.",
+    "registrationStatus": "unknown",
+    "type": "community",
+    "format": "festival",
+    "verifiedAt": "2026-10-08T02:10:00Z",
+    "replaceExisting": true
   }
 ]
