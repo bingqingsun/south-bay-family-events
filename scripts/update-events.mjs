@@ -1193,15 +1193,23 @@ async function readAnnualFestival(source) {
   const dateValue = window.startDateValue;
   const endDateValue = window.endDateValue;
   if (!dateValue || !isUpcoming(dateValue, endDateValue) || !isWithinPublishingHorizon(dateValue)) return [];
+  const title = source.title || source.name;
+  const format = source.format || 'festival';
   const metaDescription = decodeXml(html.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)/i)?.[1]
     || html.match(/<meta\s+property=["']og:description["']\s+content=["']([^"']+)/i)?.[1] || '');
-  const officialDescription = sourceDescriptionText(metaDescription || source.description || '');
+  const bodyDescription = sourceDescriptionText(pageText);
+  const metaUsable = hasPublishableSummary(metaDescription, { title, format });
+  const bodyUsable = hasPublishableSummary(bodyDescription, { title, format });
+  const officialDescription = sourceDescriptionText(
+    metaUsable ? metaDescription : bodyUsable ? bodyDescription : source.description || ''
+  );
+  const summaryStatus = metaUsable || bodyUsable ? 'extractive' : 'manual_verified';
   const event = directEvent({
     id: 'annual-' + createHash('sha256').update(`${source.feedUrl}|${dateValue}`).digest('hex').slice(0, 16),
-    title: source.title || source.name, dateValue, endDateValue, description: officialDescription, image: officialPageOgImage(html),
+    title, dateValue, endDateValue, description: officialDescription, image: officialPageOgImage(html),
     place: source.place || source.name, address: source.address || '', city: source.city || '', source: source.name,
-    url: source.landingUrl || source.feedUrl, ageText: source.ageText || '', format: source.format || 'festival',
-    summaryStatus: metaDescription ? 'extractive' : 'manual_verified'
+    url: source.landingUrl || source.feedUrl, ageText: source.ageText || '', format,
+    summaryStatus
   });
   return hasUsableSourceContent(event.description) ? [event] : [];
 }
@@ -3187,8 +3195,10 @@ async function readPaloAlto(source) {
     const dateValue = year && monthNumbers[month] && day ? `${year}-${monthNumbers[month]}-${String(Number(day)).padStart(2, '0')}` : '';
     const audienceText = `${title} ${description} ${tags}`;
     const url = href ? new URL(href, source.feedUrl).href : '';
+    const approvedDomains = [source.domain, ...(source.specialEventPageDiscovery?.allowedDomains || [])].filter(Boolean);
+    const approvedUrl = url && approvedSpecialEventUrl(url, approvedDomains);
     const key = `${url}|${dateValue}`;
-    if (!title || !url || !dateValue || seen.has(key) || !isUpcoming(dateValue) || !discoverySignal.test(audienceText) || excluded.test(title)) return [];
+    if (!title || !url || !approvedUrl || !dateValue || seen.has(key) || !isUpcoming(dateValue) || !discoverySignal.test(audienceText) || excluded.test(title)) return [];
     seen.add(key);
     const parts = venue.split(',').map(value => value.trim()).filter(Boolean);
     const place = parts.shift() || source.name;
