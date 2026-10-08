@@ -1162,6 +1162,18 @@ async function readSantanaRow(source) {
   });
 }
 
+function annualFestivalDateWindow(dateText) {
+  const text = String(dateText || '').replace(/\s+/g, ' ').trim();
+  const range = text.match(/\b(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2})\s*(?:-|–|—|&|and|to)\s*(\d{1,2}),?\s+(20\d{2})\b/i);
+  if (range) {
+    const startDateValue = isoDateFromOfficialText(`${range[1]} ${range[2]}, ${range[4]}`);
+    const endDateValue = isoDateFromOfficialText(`${range[1]} ${range[3]}, ${range[4]}`);
+    return { startDateValue, endDateValue };
+  }
+  const startDateValue = isoDateFromOfficialText(text);
+  return { startDateValue, endDateValue: '' };
+}
+
 // Some annual organizers publish a single landing page rather than a real
 // calendar. A source-owned date pattern lets us pick up their next season once
 // announced, while keeping far-future cards out of the live discovery feed.
@@ -1169,21 +1181,231 @@ async function readAnnualFestival(source) {
   const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(20000) });
   const html = await response.text();
   if (!response.ok) throw new Error('Annual festival official page was not valid: ' + response.status);
+  const pageText = plainText(html);
   const pattern = new RegExp(source.datePattern || '', 'i');
-  const dateText = pattern.exec(plainText(html))?.[0] || '';
-  const dateValue = isoDateFromOfficialText(dateText);
-  if (!dateValue || !isUpcoming(dateValue) || !isWithinPublishingHorizon(dateValue)) return [];
+  let dateText = pattern.exec(pageText)?.[0] || '';
+  if (dateText && !/20\d{2}/.test(dateText) && source.yearPattern) {
+    const yearMatch = new RegExp(source.yearPattern, 'i').exec(pageText);
+    const year = yearMatch?.[1] || yearMatch?.[0]?.match(/20\d{2}/)?.[0] || '';
+    if (year) dateText = `${dateText}, ${year}`;
+  }
+  const window = annualFestivalDateWindow(dateText);
+  const dateValue = window.startDateValue;
+  const endDateValue = window.endDateValue;
+  if (!dateValue || !isUpcoming(dateValue, endDateValue) || !isWithinPublishingHorizon(dateValue)) return [];
   const metaDescription = decodeXml(html.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)/i)?.[1]
     || html.match(/<meta\s+property=["']og:description["']\s+content=["']([^"']+)/i)?.[1] || '');
   const officialDescription = sourceDescriptionText(metaDescription || source.description || '');
   const event = directEvent({
     id: 'annual-' + createHash('sha256').update(`${source.feedUrl}|${dateValue}`).digest('hex').slice(0, 16),
-    title: source.title || source.name, dateValue, description: officialDescription, image: officialPageOgImage(html),
+    title: source.title || source.name, dateValue, endDateValue, description: officialDescription, image: officialPageOgImage(html),
     place: source.place || source.name, address: source.address || '', city: source.city || '', source: source.name,
     url: source.feedUrl, ageText: source.ageText || '', format: source.format || 'festival',
     summaryStatus: metaDescription ? 'extractive' : 'manual_verified'
   });
   return hasUsableSourceContent(event.description) ? [event] : [];
+}
+
+function schemaImageUrl(value) {
+  if (Array.isArray(value)) return schemaImageUrl(value[0]);
+  if (typeof value === 'string') return value;
+  if (value && typeof value === 'object') return String(value.url || value.contentUrl || '');
+  return '';
+}
+
+function schemaLocationInfo(location, fallback = {}) {
+  const value = Array.isArray(location) ? location[0] : location || {};
+  const address = value.address || {};
+  const city = canonicalCity(address.addressLocality || fallback.city || '');
+  const street = address.streetAddress || fallback.address || '';
+  return {
+    place: plainText(value.name || fallback.place || fallback.name || ''),
+    address: shortAddress(street, city),
+    city
+  };
+}
+
+// Santa Clara's new community calendar uses the BeWith/WithApps platform.
+// The embedded grid owns discovery; first-party Santa Clara detail pages own
+// audience, description, date, location, image and cost evidence.
+async function readWithApps(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(20000) });
+  const html = await response.text();
+  if (!response.ok) throw new Error('WithApps event grid was not valid: ' + response.status);
+  const normalized = html.replace(/\\\//g, '/');
+  const ids = [...new Set([...normalized.matchAll(/calendar\.santaclaraca\.gov\/santaclaraca\/(\d{6,})/gi)].map(match => match[1]))];
+  if (!ids.length) throw new Error('WithApps event grid did not expose Santa Clara event links');
+  const familyPattern = new RegExp(source.familyPattern || 'Family & Kids Activities|Children|Families|Teens|all ages|family|kids?|children|youth', 'i');
+
+  const events = await Promise.all(ids.map(async id => {
+    const url = new URL(id, source.detailBaseUrl || 'https://calendar.santaclaraca.gov/santaclaraca/').href;
+    try {
+      const detailResponse = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+      const detailHtml = await detailResponse.text();
+      if (!detailResponse.ok) return null;
+      const schema = firstOfficialEventSchema(detailHtml) || {};
+      const detailText = plainText(detailHtml);
+      const title = plainText(schema.name || detailHtml.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)?.[1] || '');
+      if (!title || !familyPattern.test(detailText) || isExplicitlyAdultOnly(detailText)) return null;
+
+      const dateText = detailText.match(/Event Date\s*((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})/i)?.[1] || '';
+      const timeRange = detailText.match(/Event Time\s*(\d{1,2}(?::\d{2})?\s*(?:AM|PM))\s*(?:-|–|—|to)\s*(\d{1,2}(?::\d{2})?\s*(?:AM|PM))/i);
+      const dateValue = String(schema.startDate || '').slice(0, 19) || isoDateFromOfficialText(dateText, timeRange?.[1] || '');
+      const endDateValue = String(schema.endDate || '').slice(0, 19) || isoDateFromOfficialText(dateText, timeRange?.[2] || '');
+      if (!dateValue || !isUpcoming(dateValue, endDateValue)) return null;
+
+      const descriptionBlock = detailHtml.match(/<h2[^>]*>\s*Event description\s*<\/h2>([\s\S]*?)(?=<\/section>|<h2[^>]*>\s*You might also like)/i)?.[1] || '';
+      const description = sourceDescriptionText(schema.description || descriptionBlock);
+      if (!hasUsableSourceContent(description)) return null;
+      const location = schemaLocationInfo(schema.location, { name: source.name, city: source.city || 'Santa Clara' });
+      const event = directEvent({
+        id: 'withapps-' + id,
+        title, dateValue, endDateValue, description,
+        image: schemaImageUrl(schema.image) || officialPageOgImage(detailHtml),
+        place: location.place || source.name, address: location.address, city: location.city || source.city || 'Santa Clara',
+        source: source.name, url, ageText: detailText, format: /comic con|festival|celebration|cinema/i.test(title) ? 'festival' : 'program'
+      });
+      return { ...event, ...costInfo('', detailText) };
+    } catch { return null; }
+  }));
+  return events.filter(Boolean);
+}
+
+// Mountain View Chamber's seasonal page links only the family/community items
+// it is actively promoting. Follow those links and use Event schema from the
+// registration/detail page so dates remain automatic instead of hard-coded.
+async function readChamberSeasonal(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(20000) });
+  const html = await response.text();
+  if (!response.ok) throw new Error('Mountain View Chamber seasonal page was not valid: ' + response.status);
+  const familyPattern = new RegExp(source.familyPattern || 'family|families|children|kids?|all ages|seasonal', 'i');
+  const section = html.match(/Upcoming Events([\s\S]*?)(?=<footer|<\/main>|$)/i)?.[1] || html;
+  const links = [...new Map([...section.matchAll(/<h[2-4][^>]*>[\s\S]*?<a[^>]+href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>[\s\S]*?<\/h[2-4]>/gi)]
+    .map(match => {
+      const href = decodeXml(match[1]).trim();
+      const title = plainText(match[2]);
+      return [href, { href, title }];
+    })).values()];
+
+  const events = await Promise.all(links.map(async ({ href, title: listingTitle }, index) => {
+    if (!/^https?:/i.test(href)) return null;
+    try {
+      const detailResponse = await fetch(href, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(20000) });
+      const detailHtml = await detailResponse.text();
+      if (!detailResponse.ok) return null;
+      const schema = firstOfficialEventSchema(detailHtml) || {};
+      const title = plainText(schema.name || listingTitle);
+      const description = sourceDescriptionText(schema.description || '');
+      const audienceText = `${title} ${description} ${plainText(detailHtml).slice(0, 3500)}`;
+      if (!title || !familyPattern.test(audienceText) || isExplicitlyAdultOnly(audienceText)) return null;
+      const dateValue = String(schema.startDate || '').slice(0, 19);
+      const endDateValue = String(schema.endDate || '').slice(0, 19);
+      if (!dateValue || !isUpcoming(dateValue, endDateValue) || !hasUsableSourceContent(description)) return null;
+      const location = schemaLocationInfo(schema.location, { name: source.name, city: source.city || 'Mountain View' });
+      const event = directEvent({
+        id: 'mvchamber-' + createHash('sha256').update(`${href}|${dateValue}|${index}`).digest('hex').slice(0, 16),
+        title, dateValue, endDateValue, description, image: schemaImageUrl(schema.image) || officialPageOgImage(detailHtml),
+        place: location.place || source.name, address: location.address, city: location.city || source.city || 'Mountain View',
+        source: source.name, url: href, ageText: audienceText, format: source.format || 'festival'
+      });
+      return { ...event, ...costInfo('', audienceText) };
+    } catch { return null; }
+  }));
+  return events.filter(Boolean);
+}
+
+function museumSeasonYear(monthName, seasonStartYear, seasonEndYear) {
+  const month = months[String(monthName || '').slice(0, 3).toLowerCase()];
+  if (!month) return seasonStartYear;
+  return month >= 10 ? seasonStartYear : seasonEndYear;
+}
+
+// Palo Alto Museum publishes several family-friendly pop-ups on one official
+// page. Parse every announced "Chapter" so future chapters are picked up
+// automatically without creating a new curated event for each one.
+async function readPaloAltoMuseum(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(20000) });
+  const html = await response.text();
+  if (!response.ok) throw new Error('Palo Alto Museum events page was not valid: ' + response.status);
+  const pageText = plainText(html);
+  const season = pageText.match(/([A-Za-z]+)\s+(20\d{2})\s*(?:-|–|—)\s*([A-Za-z]+)\s+(20\d{2})/i);
+  const startYear = Number(season?.[2] || new Date().getFullYear());
+  const endYear = Number(season?.[4] || startYear + 1);
+  const familyPattern = new RegExp(source.familyPattern || 'family|families|children|kids?|hands-on|activities|all ages', 'i');
+
+  const blocks = [...html.matchAll(/<h[2-4][^>]*>\s*Chapter[^<]*?(?:—|&mdash;)\s*([\s\S]*?)<\/h[2-4]>([\s\S]*?)(?=<h[2-4][^>]*>\s*(?:Chapter|Our next events|Past Events)|$)/gi)];
+  return blocks.flatMap((match, index) => {
+    const title = plainText(match[1]);
+    const block = match[2];
+    const text = plainText(block);
+    if (!title || !familyPattern.test(`${title} ${text}`) || isExplicitlyAdultOnly(text)) return [];
+    const dateMatch = text.match(/\b(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2})(?:\s*(?:-|–|—)\s*(\d{1,2}))?\s*\|\s*(\d{1,2}(?::\d{2})?\s*(?:AM|PM)?)\s*(?:-|–|—|to)\s*(\d{1,2}(?::\d{2})?\s*(?:AM|PM))/i);
+    if (!dateMatch) return [];
+    const year = museumSeasonYear(dateMatch[1], startYear, endYear);
+    const startMeridiem = /(?:AM|PM)/i.test(dateMatch[4]) ? '' : (dateMatch[5].match(/(?:AM|PM)/i)?.[0] || '');
+    const dateValue = isoDateFromOfficialText(`${dateMatch[1]} ${dateMatch[2]}, ${year}`, `${dateMatch[4]} ${startMeridiem}`.trim());
+    const endDay = dateMatch[3] || dateMatch[2];
+    const endDateValue = isoDateFromOfficialText(`${dateMatch[1]} ${endDay}, ${year}`, dateMatch[5]);
+    if (!dateValue || !isUpcoming(dateValue, endDateValue)) return [];
+    const paragraphs = [...block.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)].map(item => plainText(item[1])).filter(Boolean);
+    const description = paragraphs.find(value => value.length >= 80 && !/Founding Members|Become a member|Reserve your/i.test(value))
+      || sourceDescriptionText(text);
+    if (!hasUsableSourceContent(description)) return [];
+    const event = directEvent({
+      id: 'paloaltomuseum-' + createHash('sha256').update(`${title}|${dateValue}|${index}`).digest('hex').slice(0, 16),
+      title, dateValue, endDateValue, description,
+      image: htmlAttribute(block, /<img[^>]+src=["']([^"']+)["']/i) || officialPageOgImage(html),
+      place: /Heritage Park/i.test(text) ? 'Heritage Park' : source.name,
+      address: source.address || '', city: source.city || 'Palo Alto', source: source.name, url: source.feedUrl,
+      ageText: `${title} ${text}`, format: source.format || 'museum-program'
+    });
+    return [{ ...event, ...costInfo(/\bFREE\b/i.test(text) ? 'Free' : '', text) }];
+  });
+}
+
+// California Senate district pages publish a small first-party "Upcoming
+// Events" list. Filter that list to family/community entries, then enrich each
+// accepted card from its official detail page.
+async function readSenateEvents(source) {
+  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(20000) });
+  const html = await response.text();
+  if (!response.ok) throw new Error('Senate district events page was not valid: ' + response.status);
+  const familyPattern = new RegExp(source.familyPattern || 'family|families|children|kids?|festival|picnic|community', 'i');
+  const blocks = [...html.matchAll(/<h3[^>]*>\s*<a[^>]+href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>\s*<\/h3>([\s\S]*?)(?=<h3|<hr|$)/gi)];
+  const events = await Promise.all(blocks.map(async (match, index) => {
+    const href = new URL(decodeXml(match[1]), source.feedUrl).href;
+    const title = plainText(match[2]);
+    const block = match[3];
+    const blockText = plainText(block);
+    if (!title || !familyPattern.test(`${title} ${blockText}`) || isExplicitlyAdultOnly(blockText)) return null;
+    const dateMatch = blockText.match(/\b(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s+(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+(\d{1,2})\s+(20\d{2}),?\s+(\d{1,2}(?::\d{2})?\s*(?:am|pm))\s*(?:-|–|—|to)\s*(\d{1,2}(?::\d{2})?\s*(?:am|pm))/i);
+    if (!dateMatch) return null;
+    const dateText = `${dateMatch[1]} ${dateMatch[2]}, ${dateMatch[3]}`;
+    const dateValue = isoDateFromOfficialText(dateText, dateMatch[4]);
+    const endDateValue = isoDateFromOfficialText(dateText, dateMatch[5]);
+    if (!dateValue || !isUpcoming(dateValue, endDateValue)) return null;
+    let detailHtml = '';
+    try {
+      const detailResponse = await fetch(href, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+      if (detailResponse.ok) detailHtml = await detailResponse.text();
+    } catch {}
+    const schema = firstOfficialEventSchema(detailHtml) || {};
+    const paragraphs = [...block.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)].map(item => plainText(item[1])).filter(Boolean);
+    const description = sourceDescriptionText(schema.description || paragraphs.find(value => value.length >= 80) || blockText);
+    if (!hasUsableSourceContent(description)) return null;
+    const location = schemaLocationInfo(schema.location, { name: source.name, city: source.city || 'San Jose' });
+    const event = directEvent({
+      id: 'senate-' + createHash('sha256').update(`${href}|${dateValue}|${index}`).digest('hex').slice(0, 16),
+      title: plainText(schema.name || title), dateValue: String(schema.startDate || '').slice(0, 19) || dateValue,
+      endDateValue: String(schema.endDate || '').slice(0, 19) || endDateValue,
+      description, image: schemaImageUrl(schema.image) || officialPageOgImage(detailHtml),
+      place: location.place || source.name, address: location.address, city: location.city || source.city || 'San Jose',
+      source: source.name, url: href, ageText: `${title} ${blockText} ${plainText(detailHtml).slice(0, 3000)}`,
+      format: source.format || 'festival'
+    });
+    return { ...event, ...costInfo('', `${blockText} ${plainText(detailHtml)}`) };
+  }));
+  return events.filter(Boolean);
 }
 
 function htmlAttribute(block, pattern) {
@@ -1416,23 +1638,44 @@ async function readStanfordVenueFamily(source) {
   let filterKey = '';
   let filterId = '';
 
-  const placeUrl = new URL('/api/2/places/search', base);
-  placeUrl.searchParams.set('search', source.venueSearch || 'Cantor Arts Center');
-  placeUrl.searchParams.set('pp', '50');
-  const placeResponse = await fetch(placeUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
-  if (placeResponse.ok) {
-    const placePayload = await placeResponse.json();
-    const place = (placePayload.places || []).map(wrapper => wrapper.place || wrapper)
-      .find(item => matchPattern.test(String(item?.name || item?.title || item?.location || '')));
-    if (place?.id) {
-      filterKey = 'venue_id';
-      filterId = String(place.id);
+  // A department-specific source should resolve the department first. The old
+  // fallback always searched for Cantor Arts Center before checking departments,
+  // which could silently bind a Bing Nursery School source to the wrong venue.
+  if (source.departmentSearch) {
+    const departmentUrl = new URL('/api/2/departments/search', base);
+    departmentUrl.searchParams.set('search', source.departmentSearch);
+    departmentUrl.searchParams.set('pp', '50');
+    const departmentResponse = await fetch(departmentUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+    if (departmentResponse.ok) {
+      const departmentPayload = await departmentResponse.json();
+      const department = (departmentPayload.departments || []).map(wrapper => wrapper.department || wrapper)
+        .find(item => matchPattern.test(String(item?.name || item?.title || '')));
+      if (department?.id) {
+        filterKey = 'group_id';
+        filterId = String(department.id);
+      }
     }
   }
 
-  if (!filterId) {
+  if (!filterId && source.venueSearch) {
+    const placeUrl = new URL('/api/2/places/search', base);
+    placeUrl.searchParams.set('search', source.venueSearch);
+    placeUrl.searchParams.set('pp', '50');
+    const placeResponse = await fetch(placeUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+    if (placeResponse.ok) {
+      const placePayload = await placeResponse.json();
+      const place = (placePayload.places || []).map(wrapper => wrapper.place || wrapper)
+        .find(item => matchPattern.test(String(item?.name || item?.title || item?.location || '')));
+      if (place?.id) {
+        filterKey = 'venue_id';
+        filterId = String(place.id);
+      }
+    }
+  }
+
+  if (!filterId && !source.departmentSearch && source.venueSearch) {
     const departmentUrl = new URL('/api/2/departments/search', base);
-    departmentUrl.searchParams.set('search', source.departmentSearch || source.venueSearch || 'Cantor Arts Center');
+    departmentUrl.searchParams.set('search', source.venueSearch);
     departmentUrl.searchParams.set('pp', '50');
     const departmentResponse = await fetch(departmentUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
     if (departmentResponse.ok) {
@@ -2370,10 +2613,11 @@ async function readCivic(source) {
     const response = await fetch(url, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
     const html = await response.text();
     if (!response.ok) throw new Error('CivicPlus official calendar was not valid: ' + response.status);
-    // A month with no published events is valid.  It should not make the
-    // whole source fail or hide cards from adjacent months.
     return /itemtype=["']http:\/\/schema\.org\/Event/i.test(html) ? html : '';
   }));
+  const discoveryPattern = new RegExp(source.discoveryPattern
+    || 'family|families|kids?|children|youth|teen|toddler|movie|concert|music|festival|celebration|holiday|halloween|lantern|campout|egg hunt|art|craft|science|stem|nature|outdoor', 'i');
+  const detailFamilyPattern = source.detailFamilyPattern ? new RegExp(source.detailFamilyPattern, 'i') : null;
   const candidates = pages.flatMap((html, monthIndex) => [...html.matchAll(/<li>\s*<h3>([\s\S]*?)<\/li>/gi)].flatMap(match => {
     const block = match[0];
     const title = plainText(block.match(/id=["']eventTitle_\d+["'][^>]*>[\s\S]*?<span>([\s\S]*?)<\/span>/i)?.[1] || '');
@@ -2396,8 +2640,7 @@ async function readCivic(source) {
     const place = plainText(block.match(/itemprop=["']location["'][\s\S]*?itemprop=["']name["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
     const street = plainText(block.match(/itemprop=["']streetAddress["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || '');
     const city = canonicalCity(plainText(block.match(/itemprop=["']addressLocality["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || source.city || ''));
-    const familySignal = /\b(?:family|families|kids?|children|youth|teen|toddler|movie|concert|music|festival|celebration|holiday|halloween|lantern|campout|egg hunt|art|craft|science|stem|nature|outdoor)\b/i.test(title);
-    if (!title || !href || !isUpcoming(dateValue, endDateValue) || !familySignal) return [];
+    if (!title || !href || !isUpcoming(dateValue, endDateValue) || !discoveryPattern.test(title)) return [];
     return [{ title, url: new URL(decodeXml(href), source.feedUrl).href, dateValue, endDateValue, place, street, city, monthIndex }];
   }));
   const seen = new Set();
@@ -2431,6 +2674,7 @@ async function readCivic(source) {
         return `${day}T${String(hour).padStart(2, '0')}:${landingTimeRange[4] || '00'}:00`;
       })();
       const audienceText = `${item.title} ${officialText} ${plainText(landingHtml.match(/<meta\s+name=["']description["']\s+content=["']([^"']*)/i)?.[1] || '')}`;
+      if (detailFamilyPattern && !detailFamilyPattern.test(audienceText)) return null;
       if (!hasPublishableSummary(description, { title: item.title }) || isExplicitlyAdultOnly(audienceText)) return null;
       const image = htmlAttribute(landingHtml, /widget image[\s\S]{0,1600}?<img[^>]+src=["']([^"']+)["']/i);
       const event = directEvent({
@@ -2890,6 +3134,8 @@ async function readPaloAlto(source) {
   const monthNumbers = { jan: '01', feb: '02', mar: '03', apr: '04', may: '05', jun: '06', jul: '07', aug: '08', sep: '09', oct: '10', nov: '11', dec: '12' };
   const youthSignal = new RegExp(source.familyPattern
     || 'children|kids?|famil(?:y|ies)|youth|teen|toddler|preschool|elementary|middle school|high school|all ages|parent(?:s)?\\s*(?:and|&)\\s*(?:child|kid)', 'i');
+  const discoverySignal = new RegExp(source.discoveryPattern || source.familyPattern
+    || 'children|kids?|famil(?:y|ies)|youth|teen|toddler|preschool|elementary|middle school|high school|all ages', 'i');
   const excluded = /\b(?:committee|commission|council|board|meeting|recruitment|hearing|work session)\b/i;
   const seen = new Set();
   const candidates = [...html.matchAll(/<div class=["']list-item-container[\s\S]*?<\/article>/gi)].flatMap(blockMatch => {
@@ -2907,7 +3153,7 @@ async function readPaloAlto(source) {
     const audienceText = `${title} ${description} ${tags}`;
     const url = href ? new URL(href, source.feedUrl).href : '';
     const key = `${url}|${dateValue}`;
-    if (!title || !url || !dateValue || seen.has(key) || !isUpcoming(dateValue) || !youthSignal.test(audienceText) || excluded.test(title)) return [];
+    if (!title || !url || !dateValue || seen.has(key) || !isUpcoming(dateValue) || !discoverySignal.test(audienceText) || excluded.test(title)) return [];
     seen.add(key);
     const parts = venue.split(',').map(value => value.trim()).filter(Boolean);
     const place = parts.shift() || source.name;
@@ -2950,12 +3196,14 @@ async function readPaloAlto(source) {
     const dateMatch = detailText.match(/Next date:\s*((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+20\d{2})\s*\|\s*(\d{1,2}:\d{2}\s*(?:AM|PM))/i);
     const dateValue = dateMatch ? isoDateFromOfficialText(dateMatch[1], dateMatch[2]) : candidate.dateValue;
     const description = linkedDescription || detailDescription || candidate.description;
+    const fullAudienceText = `${candidate.audienceText} ${detailText.slice(0, 5000)} ${linkedDescription.slice(0, 2200)}`;
+    if (!youthSignal.test(fullAudienceText) || isExplicitlyAdultOnly(fullAudienceText)) return null;
     const event = directEvent({
       id: 'paloalto-' + createHash('sha256').update(`${candidate.url}|${dateValue}`).digest('hex').slice(0, 16),
       title: candidate.title, dateValue, description,
       image: officialPageOgImage(detailHtml) || (candidate.image ? new URL(candidate.image, source.feedUrl).href : ''),
       place: candidate.place, address: shortAddress(candidate.street, 'Palo Alto'), city: 'Palo Alto',
-      source: source.name, url: candidate.url, ageText: `${candidate.audienceText} ${detailText.slice(0, 3500)} ${linkedDescription.slice(0, 2200)}`
+      source: source.name, url: candidate.url, ageText: fullAudienceText
     });
     const rescued = await enrichWithSpecialEventPage(event, source);
     return hasUsableSourceContent(rescued.description) ? {
@@ -3332,7 +3580,7 @@ const translationCatalog = await loadChineseTranslationCatalogs();
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const existingSourceHealth = await readFile(sourceHealthTarget, 'utf8').then(JSON.parse).catch(() => ({ sources: [] }));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['jmz-family', 'stanford-venue-family', 'rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'paloalto-special-events', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'santana-row', 'annual-festival', 'curated', 'google-visitor-events', 'eventbrite-organizer'];
+const directMethods = ['jmz-family', 'stanford-venue-family', 'rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'paloalto-special-events', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'santana-row', 'annual-festival', 'withapps', 'chamber-seasonal', 'palo-alto-museum', 'senate-events', 'curated', 'google-visitor-events', 'eventbrite-organizer'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
@@ -3354,6 +3602,10 @@ const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'squarespace-events') return readSquarespaceEvents(source);
   if (source.method === 'santana-row') return readSantanaRow(source);
   if (source.method === 'annual-festival') return readAnnualFestival(source);
+  if (source.method === 'withapps') return readWithApps(source);
+  if (source.method === 'chamber-seasonal') return readChamberSeasonal(source);
+  if (source.method === 'palo-alto-museum') return readPaloAltoMuseum(source);
+  if (source.method === 'senate-events') return readSenateEvents(source);
   if (source.method === 'tribe') return readTribe(source);
   if (source.method === 'history') return readHistorySanJose(source);
   if (source.method === 'chcp') return readChcp(source);
