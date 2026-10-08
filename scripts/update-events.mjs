@@ -3175,7 +3175,7 @@ async function readPaloAlto(source) {
     : [];
   const listingPages = [firstHtml, ...remaining];
   const monthNumbers = { jan: '01', feb: '02', mar: '03', apr: '04', may: '05', jun: '06', jul: '07', aug: '08', sep: '09', oct: '10', nov: '11', dec: '12' };
-  const youthSignal = /family day|family-friendly|family friendly|for families|families welcome|bring the whole family|whole family|all ages|children|kids?|youth|teens?|tweens?|toddler|preschool|elementary|middle school|high school|school[- ]age|grades?\\s*[K0-9]|parent(?:s)?\\s*(?:and|&)\\s*(?:child|kid)|caregivers?\\s*(?:and|with)\\s*(?:children|kids?)/i;
+  const youthSignal = /family day|family-friendly|family friendly|for families|families welcome|bring the whole family|whole family|your family|families (?:can|are|will)|all ages|children|kids?|youth|teens?|tweens?|toddler|preschool|elementary|middle school|high school|school[- ]age|grades?\\s*[K0-9]|parent(?:s)?\\s*(?:and|&)\\s*(?:child|kid)|caregivers?\\s*(?:and|with)\\s*(?:children|kids?)/i;
   const adultProgramSignal = /\\bfor adults\\b|\\bamong adults\\b|\\badult(?:s|'s)?\\s+(?:training|workshop|class|program|mental health|education)\\b|\\btraining\\b[\\s\\S]{0,120}\\badults\\b/i;
   const discoverySignal = new RegExp(source.discoveryPattern || source.familyPattern
     || 'children|kids?|famil(?:y|ies)|youth|teen|toddler|preschool|elementary|middle school|high school|all ages', 'i');
