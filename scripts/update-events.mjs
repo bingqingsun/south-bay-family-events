@@ -2515,11 +2515,14 @@ async function readMontalvo(source) {
       const description = decodeXml(detail.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)/i)?.[1] || '');
       if (!hasUsableSourceContent(description)) return null;
       const image = decodeXml(detail.match(/tn-production-season-detail-page__image[^>]+src=["']([^"']+)/i)?.[1] || item.image || '');
-      return directEvent({
+      const event = directEvent({
         id: 'montalvo-' + createHash('sha256').update(`${url}|${dateValue}`).digest('hex').slice(0, 16), title, dateValue, endDateValue,
         description, image, place: 'Montalvo Arts Center', address: source.address || '', city: source.city || '',
         source: source.name, url, ageText: `${title} ${detailText}`, format: 'live-show'
       });
+      // Keep the feed's transaction link separately; the published primary
+      // URL may resolve to the richer first-party event information page.
+      return { ...event, ticketUrl: url };
     } catch { return null; }
   }));
   return events.filter(Boolean);
