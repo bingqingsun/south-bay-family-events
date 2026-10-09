@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-09T02:28:56.790Z",
+  "generatedAt": "2026-10-09T11:40:54.810Z",
   "configuredSources": 95,
   "directSources": 89,
   "fallbackSourcesRun": 0,
@@ -20,7 +20,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 17,
+      "eventCount": 16,
       "failureStreak": 0,
       "error": ""
     },
@@ -47,7 +47,7 @@
       "method": "thetech",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 11,
+      "eventCount": 10,
       "failureStreak": 0,
       "error": ""
     },
@@ -215,7 +215,7 @@
       "method": "stanford",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 0,
+      "eventCount": 2,
       "failureStreak": 0,
       "error": ""
     },
@@ -245,7 +245,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 16,
+      "eventCount": 17,
       "failureStreak": 0,
       "error": ""
     },
@@ -275,7 +275,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 20,
+      "eventCount": 21,
       "failureStreak": 0,
       "error": ""
     },
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 42,
+      "failureStreak": 43,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 42,
+      "failureStreak": 43,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -306,7 +306,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 42,
+      "failureStreak": 43,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -386,7 +386,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 39,
+      "failureStreak": 40,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -414,10 +414,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "ok",
+      "status": "failed",
       "eventCount": 0,
-      "failureStreak": 0,
-      "error": ""
+      "failureStreak": 1,
+      "error": "Los Altos History Museum event list was not valid: 202"
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -446,7 +446,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 10,
+      "failureStreak": 11,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -505,7 +505,7 @@
       "method": "chcp",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 6,
+      "eventCount": 5,
       "failureStreak": 0,
       "error": ""
     },
@@ -536,7 +536,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 10,
+      "failureStreak": 11,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -546,7 +546,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 10,
+      "failureStreak": 11,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -785,7 +785,7 @@
       "method": "curated",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 7,
+      "eventCount": 6,
       "failureStreak": 0,
       "error": ""
     },
@@ -940,69 +940,70 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 42,
+      "failureStreak": 43,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 42,
+      "failureStreak": 43,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 42,
+      "failureStreak": 43,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Peninsula Youth Theatre",
-      "failureStreak": 39,
+      "failureStreak": 40,
       "error": "PYT official show list was not valid: 200"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 10,
+      "failureStreak": 11,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
       "name": "The Village at San Antonio Center",
-      "failureStreak": 10,
+      "failureStreak": 11,
       "error": "Eventbrite organizer payload was not found"
     },
     {
       "name": "CalColor Academy",
-      "failureStreak": 10,
+      "failureStreak": 11,
       "error": "Eventbrite organizer payload was not found"
     }
   ],
   "paloAltoChildrensTheatreEnrichment": {
-    "checkedAt": "2026-10-09T02:28:56.790Z",
+    "checkedAt": "2026-10-09T11:40:54.810Z",
     "enriched": 6
   },
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-10-09T02:28:56.790Z",
-    "enriched": 333,
-    "fetch-blocked": 16,
+    "checkedAt": "2026-10-09T11:40:54.810Z",
+    "enriched": 335,
     "identity-mismatch": 39,
+    "fetch-blocked": 16,
     "cached": 4,
     "fieldUpdates": {
       "description": 12,
       "address": 3,
-      "image": 6
+      "image": 5,
+      "endDateValue": 4
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-10-09T02:28:56.790Z",
-    "official": 234,
-    "unclassified": 155,
+    "checkedAt": "2026-10-09T11:40:54.810Z",
+    "official": 236,
     "missing": 3,
     "failure:no_verified_official_image_candidate": 1,
+    "unclassified": 155,
     "failure:official_page_fetch_blocked": 2
   },
   "editorialCoverGeneration": {
     "frameworkVersion": "editorial-cover-v1",
-    "checkedAt": "2026-10-09T02:28:56.790Z",
+    "checkedAt": "2026-10-09T11:40:54.810Z",
     "generated": 3,
     "byReason": {
       "no_verified_official_image_candidate": 1,
@@ -1016,7 +1017,7 @@
   },
   "officialImageMirror": {
     "frameworkVersion": "official-image-mirror-v1",
-    "checkedAt": "2026-10-09T02:29:44.971Z",
+    "checkedAt": "2026-10-09T11:41:44.698Z",
     "configuredSources": 1,
     "mirroredEvents": 6,
     "mirroredAssets": 4,
