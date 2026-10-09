@@ -7936,7 +7936,7 @@
     "meetingPoint": "",
     "mapUrl": "",
     "source": "East Bay Regional Park District · Ardenwood Harvest Festival",
-    "url": "https://www.ebparks.org/calendar?terms=Ardenwood+Harvest+Festival",
+    "url": "https://apm.activecommunities.com/ebparks/Activity_Search/60196",
     "movieRating": "",
     "seasonalTheme": "",
     "availabilityStatus": "",
@@ -7982,22 +7982,16 @@
         "linkResolution": "session-canonical"
       }
     ],
-    "canonicalDetail": {
-      "status": "identity-mismatch",
-      "sourceUrl": "https://anc.apm.activecommunities.com/ebparks/activity/search/detail/60196?onlineSiteId=0&from_original_cui=true&locale=en-US",
-      "verifiedAt": "2026-10-08T11:48:32.163Z",
-      "fieldsUpdated": []
-    },
     "sourceId": "ebparks-ardenwood-harvest-festival",
     "canonicalUrl": "https://apm.activecommunities.com/ebparks/Activity_Search/60196",
-    "sourceLandingUrl": "https://www.ebparks.org/calendar?terms=Ardenwood+Harvest+Festival",
-    "fallbackUrl": "https://www.ebparks.org/calendar?terms=Ardenwood+Harvest+Festival",
-    "linkStatus": "content-mismatch",
+    "sourceLandingUrl": "",
+    "fallbackUrl": "",
+    "linkStatus": "blocked-machine",
     "linkCheckedAt": "2026-10-08T11:50:44.280Z",
-    "linkCheckMethod": "machine",
+    "linkCheckMethod": "manual-official-source",
     "redirectTarget": "https://anc.apm.activecommunities.com/ebparks/activity/search/detail/60196?onlineSiteId=0&from_original_cui=true&locale=en-US",
-    "linkEvidence": "Page did not contain enough event identity signals.",
-    "linkResolution": "fallback",
+    "linkEvidence": "Per-event Activity_Search ID linked from official EBRPD calendar; browser rendering required.",
+    "linkResolution": "canonical",
     "translations": {
       "zh": {
         "title": "Ardenwood 丰收节",
@@ -19581,7 +19575,7 @@
     "meetingPoint": "",
     "mapUrl": "",
     "source": "Montalvo Arts Center",
-    "url": "https://montalvoarts.org/experience/events-calendar/",
+    "url": "https://montalvoarts.org/experience/carriage-house-concerts/st-paul/",
     "movieRating": "",
     "seasonalTheme": "",
     "availabilityStatus": "",
@@ -19590,22 +19584,16 @@
       "montalvo-76bfc090d1c846b0"
     ],
     "fieldProvenance": {},
-    "canonicalDetail": {
-      "status": "identity-mismatch",
-      "sourceUrl": "https://my.montalvoarts.org/3103/3146",
-      "verifiedAt": "2026-10-08T11:48:32.163Z",
-      "fieldsUpdated": []
-    },
     "sourceId": "montalvo-arts-center",
-    "canonicalUrl": "https://my.montalvoarts.org/3103/3146",
-    "sourceLandingUrl": "https://montalvoarts.org/experience/events-calendar/",
-    "fallbackUrl": "https://montalvoarts.org/experience/events-calendar/",
-    "linkStatus": "content-mismatch",
+    "canonicalUrl": "https://montalvoarts.org/experience/carriage-house-concerts/st-paul/",
+    "sourceLandingUrl": "",
+    "fallbackUrl": "",
+    "linkStatus": "ok",
     "linkCheckedAt": "2026-10-08T11:50:46.678Z",
-    "linkCheckMethod": "machine",
+    "linkCheckMethod": "manual-official-source",
     "redirectTarget": "https://my.montalvoarts.org/3103/3146",
-    "linkEvidence": "Page did not contain enough event identity signals.",
-    "linkResolution": "fallback",
+    "linkEvidence": "Verified first-party event detail page contains the event title and matching 2026 date.",
+    "linkResolution": "canonical",
     "sessions": [],
     "translations": {
       "zh": {
@@ -19617,7 +19605,8 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "linkSource": "curated_verified"
   },
   {
     "id": "rss-6961562d8b29ea2800c880a7",
@@ -28414,7 +28403,7 @@
     "meetingPoint": "",
     "mapUrl": "",
     "source": "Montalvo Arts Center",
-    "url": "https://montalvoarts.org/experience/events-calendar/",
+    "url": "https://montalvoarts.org/experience/goblins-in-the-garden/",
     "movieRating": "",
     "seasonalTheme": "halloween",
     "availabilityStatus": "",
@@ -28423,22 +28412,16 @@
       "montalvo-d1b9714ec6b1e859"
     ],
     "fieldProvenance": {},
-    "canonicalDetail": {
-      "status": "identity-mismatch",
-      "sourceUrl": "https://my.montalvoarts.org/3257/3258",
-      "verifiedAt": "2026-10-08T11:48:32.163Z",
-      "fieldsUpdated": []
-    },
     "sourceId": "montalvo-arts-center",
-    "canonicalUrl": "https://my.montalvoarts.org/3257/3258",
-    "sourceLandingUrl": "https://montalvoarts.org/experience/events-calendar/",
-    "fallbackUrl": "https://montalvoarts.org/experience/events-calendar/",
-    "linkStatus": "content-mismatch",
+    "canonicalUrl": "https://montalvoarts.org/experience/goblins-in-the-garden/",
+    "sourceLandingUrl": "",
+    "fallbackUrl": "",
+    "linkStatus": "ok",
     "linkCheckedAt": "2026-10-08T11:50:48.619Z",
-    "linkCheckMethod": "machine",
-    "redirectTarget": "https://my.montalvoarts.org/3257/3258",
-    "linkEvidence": "Page did not contain enough event identity signals.",
-    "linkResolution": "fallback",
+    "linkCheckMethod": "manual-official-source",
+    "redirectTarget": "https://montalvoarts.org/experience/goblins-in-the-garden/",
+    "linkEvidence": "Verified first-party Montalvo event detail page contains event information and links to the dedicated ticket page.",
+    "linkResolution": "canonical",
     "sessions": [],
     "translationStatus": "current",
     "translations": {
@@ -28450,7 +28433,9 @@
         "translationSource": "chatgpt-reviewed",
         "status": "approved"
       }
-    }
+    },
+    "linkSource": "curated_verified",
+    "ticketUrl": "https://my.montalvoarts.org/3257/3258"
   },
   {
     "id": "rss-6aa97ca786d8450031164ecb",

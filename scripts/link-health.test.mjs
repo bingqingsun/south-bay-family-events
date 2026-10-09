@@ -115,4 +115,67 @@ const migrated = staticLinkResult({
 assert.equal(migrated.linkStatus, 'unknown');
 assert.equal(migrated.canonicalUrl, 'https://www.scparadeofchampions.org/parade-schedule');
 
+// A manually verified event page must outrank a feed's ticket URL, while
+// never silently substituting the source's general event calendar.
+const montalvoSource = {
+  id: 'montalvo-arts-center', name: 'Montalvo Arts Center',
+  domain: 'montalvoarts.org', linkPolicy: 'first_party_detail',
+  landingUrl: 'https://montalvoarts.org/experience/events-calendar/',
+  detailUrlOverrides: [
+    { title: 'Goblins in the Garden', date: '2026-10-25', url: 'https://montalvoarts.org/experience/goblins-in-the-garden/', ticketUrl: 'https://my.montalvoarts.org/3257/3258' }
+  ]
+};
+const goblins = {
+  title: 'Goblins in the Garden', dateValue: '2026-10-25T11:00:00+00:00',
+  canonicalUrl: 'https://my.montalvoarts.org/3257/3258', source: montalvoSource.name
+};
+assert.equal(staticLinkResult(goblins, montalvoSource).canonicalUrl,
+  'https://montalvoarts.org/experience/goblins-in-the-garden/');
+assert.equal(staticLinkResult(goblins, montalvoSource).fallbackUrl, '');
+const checkedGoblins = await auditLinks([goblins], [montalvoSource], {
+  concurrency: 1,
+  fetchImpl: async url => ({
+    ok: true, status: 200, url,
+    text: async () => '<h1>Goblins in the Garden</h1><p>Sunday Oct 25, 2026</p>'
+  })
+});
+assert.equal(checkedGoblins.events[0].linkResolution, 'canonical');
+assert.equal(checkedGoblins.events[0].url,
+  'https://montalvoarts.org/experience/goblins-in-the-garden/');
+
+// A verified ActiveCommunities per-activity link often redirects from its
+// legacy route to a new SPA route. The numeric ID must survive unchanged.
+const ardenwoodSource = {
+  id: 'ebparks-ardenwood-harvest-festival',
+  name: 'East Bay Regional Park District · Ardenwood Harvest Festival',
+  domain: 'ebparks.org', linkPolicy: 'first_party_detail',
+  linkHosts: ['apm.activecommunities.com', 'anc.apm.activecommunities.com']
+};
+const ardenwood = {
+  title: 'Ardenwood Harvest Festival', source: ardenwoodSource.name,
+  url: 'https://apm.activecommunities.com/ebparks/Activity_Search/60196',
+  linkSource: 'curated_verified'
+};
+const ardenwoodResult = await auditLinks([ardenwood], [ardenwoodSource], {
+  concurrency: 1,
+  fetchImpl: async () => ({
+    ok: true, status: 200,
+    url: 'https://anc.apm.activecommunities.com/ebparks/activity/search/detail/60196?onlineSiteId=0',
+    text: async () => '<h1>Register for an activity</h1>'
+  })
+});
+assert.equal(ardenwoodResult.events[0].linkResolution, 'canonical');
+assert.match(ardenwoodResult.events[0].url, /\/detail\/60196/);
+
+const unrelatedTicket = await auditLinks([ardenwood], [ardenwoodSource], {
+  concurrency: 1,
+  fetchImpl: async () => ({
+    ok: true, status: 200,
+    url: 'https://anc.apm.activecommunities.com/ebparks/activity/search/detail/60197',
+    text: async () => '<h1>Register for an activity</h1>'
+  })
+});
+assert.equal(unrelatedTicket.events[0].linkStatus, 'content-mismatch');
+assert.equal(unrelatedTicket.events[0].url, '');
+
 console.log('link health tests passed');

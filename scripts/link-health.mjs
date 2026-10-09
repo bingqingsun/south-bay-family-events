@@ -58,8 +58,22 @@ export function landingUrlFor(source = {}) {
   return landing && isAllowedOfficialUrl(landing, source) && isUserFacingUrl(landing) ? landing : '';
 }
 
+export function verifiedDetailOverride(event, source = {}) {
+  const title = String(event.title || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  const date = String(event.dateValue || '').slice(0, 10);
+  const match = (source.detailUrlOverrides || []).find(item =>
+    String(item.title || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim() === title
+    && String(item.date || '').slice(0, 10) === date
+  );
+  const url = normalizeOfficialUrl(match?.url || '');
+  return url && isAllowedOfficialUrl(url, source) && isUserFacingUrl(url) ? url : '';
+}
+
 export function staticLinkResult(event, source) {
-  const canonicalUrl = normalizeOfficialUrl(event.canonicalUrl || event.url || '');
+  // Editorial detail overrides are verified first-party event-specific URLs,
+  // not a source's generic calendar or registration index.
+  const canonicalUrl = verifiedDetailOverride(event, source)
+    || normalizeOfficialUrl(event.canonicalUrl || event.url || '');
   // A source that promises a first-party detail page must never silently
   // degrade to a generic calendar/listing page. Sources that explicitly opt
   // into listing fallback keep the existing behavior.
@@ -97,6 +111,21 @@ export function titleMatchesPage(title, html) {
   const matched = words.filter(word => page.includes(word)).length;
   if (words.length === 1) return matched === 1;
   return matched >= Math.min(2, words.length) && matched / words.length >= 0.45;
+}
+
+function sameTicketDetailAfterRedirect(from, to) {
+  // ActiveCommunities upgrades its legacy Activity_Search/<id> links to an
+  // SPA route. Keep identity tied to the *same numeric activity*, not just
+  // to the organizer's domain or a generic calendar page.
+  try {
+    const original = new URL(from);
+    const target = new URL(to);
+    const id = original.pathname.match(/\/Activity_Search\/(\d+)\/?$/i)?.[1];
+    const newId = target.pathname.match(/\/activity\/search\/detail\/(\d+)\/?$/i)?.[1];
+    return Boolean(id && newId && id === newId
+      && original.hostname === 'apm.activecommunities.com'
+      && target.hostname === 'anc.apm.activecommunities.com');
+  } catch { return false; }
 }
 
 export function sourceForEvent(event, sources = []) {
@@ -178,11 +207,13 @@ export async function checkLink(event, source, { fetchImpl = fetch, timeoutMs = 
       // A curated_verified URL is human-configured first-party evidence. When
       // the URL itself remains stable, allow an inconclusive machine parser to
       // defer to that evidence; a redirect or soft error still fails above.
-      if (event.linkSource === 'curated_verified' && redirectTarget === result.canonicalUrl) {
+      if ((event.linkSource === 'curated_verified' || verifiedDetailOverride(event, source))
+        && (redirectTarget === result.canonicalUrl
+          || sameTicketDetailAfterRedirect(result.canonicalUrl, redirectTarget))) {
         return {
           ...result, canonicalUrl: redirectTarget, linkStatus: 'ok',
           linkCheckMethod: 'machine+curated', linkCheckedAt: checkedAt, redirectTarget,
-          linkEvidence: 'First-party curated URL returned 2xx; machine title extraction was inconclusive.'
+          linkEvidence: 'Curated per-event URL returned 2xx; machine title extraction was inconclusive, and any ticket redirect preserved its activity ID.'
         };
       }
       return {

@@ -457,7 +457,20 @@
     "city": "Saratoga",
     "id": "montalvo-arts-center",
     "landingUrl": "https://montalvoarts.org/experience/events-calendar/",
-    "linkPolicy": "first_party_detail_with_listing_fallback"
+    "linkPolicy": "first_party_detail",
+    "detailUrlOverrides": [
+      {
+        "title": "Goblins in the Garden",
+        "date": "2026-10-25",
+        "url": "https://montalvoarts.org/experience/goblins-in-the-garden/",
+        "ticketUrl": "https://my.montalvoarts.org/3257/3258"
+      },
+      {
+        "title": "St. Paul & The Minneapolis Funk All Stars",
+        "date": "2026-10-16",
+        "url": "https://montalvoarts.org/experience/carriage-house-concerts/st-paul/"
+      }
+    ]
   },
   {
     "name": "City of Los Altos Parks & Recreation",
@@ -1374,7 +1387,8 @@
         "format": "festival",
         "url": "https://apm.activecommunities.com/ebparks/Activity_Search/60197"
       }
-    ]
+    ],
+    "linkPolicy": "first_party_detail"
   },
   {
     "id": "scc-fairgrounds-bay-area-card-show",
