@@ -98,7 +98,7 @@
       activeUntil: '2026-11-02T00:00:00',
       lastChanceThreshold: 3,
       selectedEventRefs: [
-        { id: 'series-bf2c8a59c45b87b2', url: 'https://www.gilroygardens.org/halloween/' },
+        { id: 'series-e312633de924366b', url: 'https://www.gilroygardens.org/halloween/' },
         'rss-6a9c66e53b6c71003e5e111d',
         'curated-4c0727d8deda8c4d',
         { id: 'rss-6abc4d747c8c150075767bd5', title: 'Fratello Marionettes: Spooktacular', url: 'https://sccl.bibliocommons.com/events/6abc4d747c8c150075767bd5' },
