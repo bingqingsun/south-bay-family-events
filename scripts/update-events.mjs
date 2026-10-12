@@ -29,7 +29,7 @@ import { applyEditorialCovers } from './editorial-cover.mjs';
 import { selectPublishableOfficialDescription } from './official-description.mjs';
 import { approvedSpecialEventUrl, configuredCandidates, sitemapCandidates, verifySpecialEventPage } from './special-event-pages.mjs';
 import { selectCupertinoDetailDates, cupertinoDetailConflictsWithOccurrence } from './cupertino-detail-date.mjs';
-import { cupertinoVenueFromHeading } from './cupertino-venue.mjs';
+import { cupertinoVenueFromHeading, cleanCupertinoVenueCandidate } from './cupertino-venue.mjs';
 import { cupertinoAudienceEvidence } from './cupertino-audience.mjs';
 import {
   paloAltoSpecialEventCalendarUrl,
@@ -2831,6 +2831,7 @@ function cupertinoDetailEnrichment(event, html, source) {
   // text, which can absorb the previous sentence's last word (e.g. "Santa").
   const officialVenue = cupertinoVenueFromHeading(html, addressMatch?.street || address, detailTitle);
   if (officialVenue) place = officialVenue;
+  else place = cleanCupertinoVenueCandidate(place, detailTitle);
 
   const description = officialDetailDescription(html, schema, detailTitle) || event.description;
   const image = event.image || htmlAttribute(html, /<meta\s+property=["']og:image["']\s+content=["']([^"']+)/i);
