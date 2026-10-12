@@ -119,7 +119,7 @@
         { id: 'santana-8e02371ec72aec44', url: 'https://santanarow.com/event/farmer-mike-pumpkin-carving/' }
       ],
       quickPickIds: [
-        'series-bf2c8a59c45b87b2',
+        'series-e312633de924366b',
         'curated-f364c82c4ac30523',
         'curated-89a240ca6e3b7fc7',
         'filoli-546ede82db7e6eeb'
