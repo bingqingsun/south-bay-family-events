@@ -29,6 +29,7 @@ import { applyEditorialCovers } from './editorial-cover.mjs';
 import { selectPublishableOfficialDescription } from './official-description.mjs';
 import { approvedSpecialEventUrl, configuredCandidates, sitemapCandidates, verifySpecialEventPage } from './special-event-pages.mjs';
 import { selectCupertinoDetailDates, cupertinoDetailConflictsWithOccurrence } from './cupertino-detail-date.mjs';
+import { cupertinoVenueFromHeading } from './cupertino-venue.mjs';
 import { cupertinoAudienceEvidence } from './cupertino-audience.mjs';
 import {
   paloAltoSpecialEventCalendarUrl,
@@ -2825,6 +2826,11 @@ function cupertinoDetailEnrichment(event, html, source) {
     const candidate = prefix.match(/([A-Z][A-Za-z0-9&'’.-]*(?:\s+[A-Z][A-Za-z0-9&'’.-]*){1,5})$/)?.[1] || '';
     if (candidate && !/^(?:South Bay|City of Cupertino)$/i.test(candidate)) place = candidate;
   }
+
+  // A heading adjacent to the address beats a venue guessed from flattened
+  // text, which can absorb the previous sentence's last word (e.g. "Santa").
+  const officialVenue = cupertinoVenueFromHeading(html, addressMatch?.street || address, detailTitle);
+  if (officialVenue) place = officialVenue;
 
   const description = officialDetailDescription(html, schema, detailTitle) || event.description;
   const image = event.image || htmlAttribute(html, /<meta\s+property=["']og:image["']\s+content=["']([^"']+)/i);
