@@ -2,7 +2,7 @@ window.SBFF_WEEKEND_PICKS = {
   id: '2026-10-10',
   weekendStart: '2026-10-09',
   weekendEnd: '2026-10-11',
-  status: 'draft',
+  status: 'published',
   publishedAt: '2026-10-07T14:56:00-07:00',
   updatedAt: '2026-10-12T07:10:00-07:00',
   intro: '15 handpicked South Bay family activities for Oct 10–11, sorted by start time—from messy play and multicultural festivals to live music, planetarium shows, fall celebrations, and local culture.',
