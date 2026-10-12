@@ -40,3 +40,25 @@ export function cupertinoVenueFromHeading(html, streetAddress, eventTitle = '') 
   }
   return best?.name || '';
 }
+
+/**
+ * Cupertino's flattened detail page text can concatenate the last word of an
+ * activity title with the venue right before an address. For example,
+ * "Breakfast with Santa" + "Quinlan Community Center" becomes
+ * "Santa Quinlan Community Center". Remove only a demonstrably repeated
+ * title-tail token and preserve real compound city names such as Santa Clara.
+ */
+export function cleanCupertinoVenueCandidate(value, eventTitle = '') {
+  const candidate = String(value || '').replace(/\s+/g, ' ').trim();
+  const words = candidate.split(' ').filter(Boolean);
+  const titleWords = String(eventTitle || '').trim().replace(/[^A-Za-z0-9]+$/g, '').split(/\s+/).filter(Boolean);
+  const titleTail = titleWords[titleWords.length - 1]?.toLowerCase() || '';
+  const remainder = words.slice(1).join(' ');
+  const isKnownCompoundPlace = /^(?:Santa Clara|San Jose|San Francisco|San Mateo|Palo Alto|Mountain View|Los Altos|Los Gatos|Menlo Park)\b/i.test(candidate);
+  if (words.length >= 4 && titleTail && words[0].toLowerCase() === titleTail
+      && !isKnownCompoundPlace
+      && /\b(?:community center|recreation center|civic center|senior center|arts center|library|museum|garden|theat(?:er|re)|school|park|hall|plaza|auditorium|gymnasium)\b/i.test(remainder)) {
+    return remainder;
+  }
+  return candidate;
+}
