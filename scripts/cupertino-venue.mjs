@@ -16,20 +16,25 @@ export function cupertinoVenueFromHeading(html, streetAddress, eventTitle = '') 
         .replace(/&amp;/gi, '&')
         .replace(/\s+/g, ' ')
         .trim()
-    }))
-    .filter(item => item.name.length >= 4
-      && item.name.length <= 90
-      && item.name.toLowerCase() !== String(eventTitle || '').trim().toLowerCase()
-      && !/^(?:where|when|location|contact us|join us!?|get social|quick links|add to calendar)$/i.test(item.name)
-      && !/\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+\w+\s+\d{1,2}\b/i.test(item.name));
+    }));
+
+  const isVenueHeading = name => name.length >= 4
+    && name.length <= 90
+    && name.toLowerCase() !== String(eventTitle || '').trim().toLowerCase()
+    && !/^(?:where|when|location|contact us|join us!?|get social|quick links|add to calendar)$/i.test(name)
+    && !/\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+\w+\s+\d{1,2}\b/i.test(name);
 
   const streetPattern = new RegExp('\\b' + streetNumber + '\\b', 'g');
   let best = null;
   for (const match of page.matchAll(streetPattern)) {
-    for (const heading of headings) {
-      const gap = match.index - heading.end;
-      if (gap < 0 || gap > 700) continue;
-      if (!best || gap < best.gap) best = { name: heading.name, gap };
+    // The closest heading always wins. Never skip a non-venue heading (such
+    // as "Contact Us") and then accidentally borrow an earlier event venue.
+    const closest = headings
+      .map(heading => ({ ...heading, gap: match.index - heading.end }))
+      .filter(heading => heading.gap >= 0 && heading.gap <= 700)
+      .sort((a, b) => a.gap - b.gap)[0];
+    if (closest && isVenueHeading(closest.name) && (!best || closest.gap < best.gap)) {
+      best = closest;
     }
   }
   return best?.name || '';
