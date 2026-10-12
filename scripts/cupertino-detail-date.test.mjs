@@ -43,4 +43,9 @@ assert.equal(cupertinoDetailConflictsWithOccurrence(santaPage, '2026-12-06T08:30
 assert.equal(cupertinoDetailConflictsWithOccurrence(santaPage, '2026-12-05T08:30:00'), false);
 assert.equal(cupertinoDetailConflictsWithOccurrence('Navigation December 5, 2026 Contact Us', '2026-12-06'), false);
 
-console.log('Cupertino detail date guard tests passed');
+// Run venue regression checks in the existing Cupertino CI test suite.
+const { cupertinoVenueFromHeading } = await import('./cupertino-venue.mjs');
+const santaVenueHtml = '<h1>Breakfast with Santa</h1><p>Photos with Santa!</p><h6>Quinlan Community Center</h6><p>10185 North Stelling Road, Cupertino</p><h3>Contact Us</h3><p>10300 Torre Ave</p>';
+assert.equal(cupertinoVenueFromHeading(santaVenueHtml, '10185 North Stelling Road', 'Breakfast with Santa'), 'Quinlan Community Center');
+assert.equal(cupertinoVenueFromHeading(santaVenueHtml, '10300 Torre Ave', 'Breakfast with Santa'), '');
+console.log('Cupertino detail date and venue guard tests passed');
