@@ -32,6 +32,10 @@ assert.match(dailyWorkflow, /apply-event-translations\.mjs/);
 assert.doesNotMatch(dailyWorkflow, /OPENAI_API_KEY|generate-chinese-translations\.mjs|Build runtime translation overlay/);
 assert.match(dailyWorkflow, /github\.event\.schedule/);
 assert.match(dailyWorkflow, /nominal_utc/);
+assert.match(dailyWorkflow, /17 5 \* \* \*/);
+assert.match(dailyWorkflow, /17 6 \* \* \*/);
+assert.match(dailyWorkflow, /22:17/);
+assert.doesNotMatch(dailyWorkflow, /cron: '0 [56] \* \* \*'/);
 assert.doesNotMatch(dailyWorkflow, /TZ=America\/Los_Angeles date \+%H/);
 
 const workflowDir = new URL('../.github/workflows/', import.meta.url);
