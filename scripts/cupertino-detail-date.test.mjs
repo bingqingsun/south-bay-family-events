@@ -53,7 +53,7 @@ const { parseCupertinoDetail } = await import('./lib/source-adapters/cupertino.m
 assert.equal(cleanCupertinoVenueCandidate('Santa Quinlan Community Center', 'Breakfast with Santa'), 'Quinlan Community Center');
 assert.equal(cleanCupertinoVenueCandidate('Santa Clara Community Center', 'Breakfast with Santa'), 'Santa Clara Community Center');
 assert.equal(cleanCupertinoVenueCandidate('Quinlan Community Center', 'Breakfast with Santa'), 'Quinlan Community Center');
-const santaFlattenedPage = '<h1>Breakfast with Santa</h1><p>Next date: Saturday, December 05, 2026 | 08:30 AM to 11:30 AM</p><p>Breakfast with Santa Quinlan Community Center 10185 North Stelling Road, Cupertino</p>';
+const santaFlattenedPage = '<h1>Breakfast with Santa</h1><p>Next date: Saturday, December 05, 2026 | 08:30 AM to 11:30 AM</p><p>Photos with Santa Quinlan Community Center 10185 North Stelling Road, Cupertino</p>';
 const santaCanonical = parseCupertinoDetail({ html: santaFlattenedPage, event: { title: 'Breakfast with Santa' } });
 assert.equal(santaCanonical.venue, 'Quinlan Community Center', 'Canonical detail adapter must not reintroduce the title word Santa');
 assert.equal(santaCanonical.streetAddress, '10185 North Stelling Road, Cupertino');
