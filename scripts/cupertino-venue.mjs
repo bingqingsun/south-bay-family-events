@@ -21,6 +21,7 @@ export function cupertinoVenueFromHeading(html, streetAddress, eventTitle = '') 
   const isVenueHeading = name => name.length >= 4
     && name.length <= 90
     && name.toLowerCase() !== String(eventTitle || '').trim().toLowerCase()
+    && /(?:community|recreation|civic|senior|arts|aquatic|ice) center|park|library|museum|garden|theat(?:er|re)|school|farm|field|hall|plaza|arena|auditorium|gymnasium/i.test(name)
     && !/^(?:where|when|location|contact us|join us!?|get social|quick links|add to calendar)$/i.test(name)
     && !/\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+\w+\s+\d{1,2}\b/i.test(name);
 
