@@ -359,7 +359,7 @@ function ageInfo(categories) {
   // as a Teen Zone or Kids Area. It should prevent those local audience
   // labels from narrowing the entire event, while still allowing an explicit
   // numeric age or grade range to win when the organizer provides one.
-  const explicitWholeFamilyAudience = /\b(?:bring|join|welcome)\s+(?:the\s+)?whole\s+family\b|\bfor\s+(?:the\s+)?whole\s+family\b|\bmultigenerational\s+event\b|\bfamilies\s+(?:are\s+)?(?:welcome|invited)\b/.test(lower);
+  const explicitWholeFamilyAudience = /\b(?:bring|join|welcome)\s+(?:the\s+)?whole\s+family\b|\bfor\s+(?:the\s+)?whole\s+family\b|\bmultigenerational\s+event\b|\bfamilies\s+(?:are\s+)?(?:welcome|invited)\b|\b(?:welcome|invite)\s+(?:newcomers?[^.]{0,80}\band\s+)?families\s+with\s+(?:kids?|children)\b|\bfamilies\s+with\s+(?:kids?|children)\s+(?:are\s+)?(?:welcome|invited)\b/.test(lower);
   // A sentence such as “All ages are welcome” is a direct organizer audience
   // statement, not a broad category. It must take precedence over narrower
   // taxonomy chips that can appear alongside it (for example Babies/Teens).
