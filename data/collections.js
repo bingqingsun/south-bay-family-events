@@ -119,7 +119,6 @@
         { id: 'editorial-32d6b7102984722f', url: 'https://www.thetech.org/upcomingevents' },
         { id: 'filoli-546ede82db7e6eeb', url: 'https://filoli.org/whats-on/events/nightfall/' },
         { id: 'santana-104fc08c96737ad5', url: 'https://santanarow.com/event/glass-pumpkin-festival/' },
-        'rss-6a9c8d4c442d35226f66ef71',
         { id: 'santana-8e02371ec72aec44', url: 'https://santanarow.com/event/farmer-mike-pumpkin-carving/' }
       ],
       quickPickIds: [
