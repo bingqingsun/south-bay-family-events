@@ -48,4 +48,14 @@ const { cupertinoVenueFromHeading } = await import('./cupertino-venue.mjs');
 const santaVenueHtml = '<h1>Breakfast with Santa</h1><p>Photos with Santa!</p><h6>Quinlan Community Center</h6><p>10185 North Stelling Road, Cupertino</p><h3>Contact Us</h3><p>10300 Torre Ave</p>';
 assert.equal(cupertinoVenueFromHeading(santaVenueHtml, '10185 North Stelling Road', 'Breakfast with Santa'), 'Quinlan Community Center');
 assert.equal(cupertinoVenueFromHeading(santaVenueHtml, '10300 Torre Ave', 'Breakfast with Santa'), '');
+const { cleanCupertinoVenueCandidate } = await import('./cupertino-venue.mjs');
+const { parseCupertinoDetail } = await import('./lib/source-adapters/cupertino.mjs');
+assert.equal(cleanCupertinoVenueCandidate('Santa Quinlan Community Center', 'Breakfast with Santa'), 'Quinlan Community Center');
+assert.equal(cleanCupertinoVenueCandidate('Santa Clara Community Center', 'Breakfast with Santa'), 'Santa Clara Community Center');
+assert.equal(cleanCupertinoVenueCandidate('Quinlan Community Center', 'Breakfast with Santa'), 'Quinlan Community Center');
+const santaFlattenedPage = '<h1>Breakfast with Santa</h1><p>Next date: Saturday, December 05, 2026 | 08:30 AM to 11:30 AM</p><p>Breakfast with Santa Quinlan Community Center 10185 North Stelling Road, Cupertino</p>';
+const santaCanonical = parseCupertinoDetail({ html: santaFlattenedPage, event: { title: 'Breakfast with Santa' } });
+assert.equal(santaCanonical.venue, 'Quinlan Community Center', 'Canonical detail adapter must not reintroduce the title word Santa');
+assert.equal(santaCanonical.streetAddress, '10185 North Stelling Road, Cupertino');
+
 console.log('Cupertino detail date and venue guard tests passed');
