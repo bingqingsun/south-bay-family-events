@@ -408,5 +408,31 @@
     "format": "festival",
     "verifiedAt": "2026-10-08T02:10:00Z",
     "replaceExisting": true
+  },
+  {
+    "id": "editorial-milpitas-pumpkins-in-the-park-2026",
+    "title": "Pumpkins in the Park",
+    "dateValue": "2026-10-17T11:00",
+    "endDateValue": "2026-10-17T13:00:00",
+    "description": "Milpitas families can enjoy free trick-or-treating, crafts, costume fun and community performances at Cardoza Park, with optional paid passes for a pumpkin patch, petting zoo, climbing wall and other activities.",
+    "sourceDescriptionRaw": "The City of Milpitas invites families to Cardoza Park on October 17, 2026, 11 a.m.–1 p.m. for free trick-or-treating, crafts, costume contest and community performances. Optional paid Pumpkin Passes offer a pumpkin patch, petting zoo, climbing wall and more.",
+    "place": "Cardoza Park",
+    "address": "Kennedy Drive and Park Victoria Drive, Milpitas, CA 95035",
+    "city": "Milpitas",
+    "source": "City of Milpitas · Seasonal Events",
+    "url": "https://www.milpitas.gov/1160/Pumpkins-in-the-Park",
+    "image": "https://www.milpitas.gov/ImageRepository/Document?documentId=10598",
+    "ageMin": 0,
+    "ageMax": 18,
+    "ageLabel": "All ages",
+    "ageSource": "City of Milpitas official event page",
+    "costStatus": "free",
+    "costLabel": "免费",
+    "costSource": "City of Milpitas official event page",
+    "costEvidence": "Free admission; optional paid Pumpkin Passes for premium attractions.",
+    "type": "community",
+    "format": "festival",
+    "seasonalTheme": "halloween",
+    "verifiedAt": "2026-10-12T12:05:53.771Z"
   }
 ]
