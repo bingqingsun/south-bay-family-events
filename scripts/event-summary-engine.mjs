@@ -15,6 +15,8 @@ const CONCRETE_ACTION = /\b(?:make|making|build|building|create|creating|paint|p
 
 const PARTICIPATION_SIGNAL = /\b(?:with us|hands-on|take (?:it|them) home|bring .* home|hang your|your own|kids?|children|families|participants|attendees|together|you(?:'ll| will| can)|visitors? can)\b/i;
 
+const OBSERVATION_TOOL = /\b(?:telescopes?|binoculars?|microscopes?|magnifying\s+glasses?|spotting\s+scopes?)\b/i;
+
 const SPECIFIC_OBJECT = /\b(?:feeder|kite|lantern|painting|paint|flower|keychain|cardholder|card|cards|lego|legos|craft|project|experiment|game|games|story|stories|song|songs|instrument|bracelet|jewelry|robot|puzzle|mooncake|collage|mask|puppet|book|books|seed|garden|cookie|cookies|cake|clay|pottery|origami|model|slime|rocket|birdhouse|art|workshop|performance|show|concert|film|movie|exhibit|exhibition)\b/i;
 
 const BACKGROUND_ONLY = /\b(?:our mission is|is designed to|aims? to|a great way to|fall migration season|there are lots of|celebrates? the history of|highlights? the participation of|inspires? curiosity|spark a love for|benefits? include|supports? .* development)\b/i;
@@ -249,6 +251,7 @@ function scoreSentence(sentence, index) {
   if (CONTENT_LIST_SIGNAL.test(sentence)) score += 28;
   if (PARTICIPATION_SIGNAL.test(sentence)) score += 8;
   if (SPECIFIC_OBJECT.test(sentence)) score += 8;
+  if (OBSERVATION_TOOL.test(sentence)) score += 12;
   if (/\b(?:by|while|then|and)\b/i.test(sentence) && CONCRETE_ACTION.test(sentence)) score += 3;
   if (sentence.length >= 35 && sentence.length <= 260) score += 4;
   if (sentence.length > 420) score -= 8;
