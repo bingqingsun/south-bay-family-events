@@ -465,9 +465,17 @@ function filteredVisibleEvents() {
 }
 
 function feedSnapshot(list) {
+  // IDs and dates alone are insufficient: an organizer may fix a venue,
+  // address or description while keeping the same session and URL.
+  const displayFields = event => [
+    event.id, event.dateValue, event.title, event.place, event.address,
+    event.description, event.parentSummary, event.image, event.costLabel,
+    event.ageLabel, event.registrationStatus, event.url,
+    event.translations?.zh?.title, event.translations?.zh?.description
+  ];
   return JSON.stringify(list.map(event => [
-    event.id,
-    matchingSessions(event).map(session => session.id || session.dateValue || session.date || session.url || '')
+    displayFields(event),
+    matchingSessions(event).map(session => displayFields(session))
   ]));
 }
 
@@ -698,32 +706,69 @@ function refreshExpiredEvents() {
   const nextVisibleEvents = filteredVisibleEvents();
   if (feedSnapshot(nextVisibleEvents) !== renderedFeedSnapshot) render({ preserveViewport: true });
 }
-fetch(`${assetBase}/data/events.json`).then(response => {
-  if (!response.ok) throw new Error(`Unable to load events.json: ${response.status}`);
-  const lastModified = response.headers.get('last-modified');
-  if (lastModified) window.SOUTH_BAY_EVENTS_META = { generatedAt: lastModified };
-  return response.json();
-}).then(data => {
-  if (!Array.isArray(data)) throw new Error('events.json must contain an array');
-  events = data;
-  window.SOUTH_BAY_EVENTS = events;
-  window.dispatchEvent(new CustomEvent('sbff:events-ready', { detail: { count: events.length } }));
-}).catch(error => {
-  events = [];
-  window.SOUTH_BAY_EVENTS = events;
-  console.error('South Bay Family Finds event feed failed to load.', error);
-}).finally(() => {
-  renderUpdateTime();
-  migrateSavedSeries(); populateAgeFilter(); refreshExpiredEvents();
-  // Check once on initial load, whenever the user returns from the background,
-  // and at most hourly while the page stays continuously open.
-  window.setInterval(refreshExpiredEvents, 60 * 60 * 1000);
-  document.addEventListener('visibilitychange', () => { if (!document.hidden) refreshExpiredEvents(); });
+const EVENT_FEED_INTERVAL_MS = 60 * 60 * 1000;
+const EVENT_FEED_RESUME_THROTTLE_MS = 60 * 1000;
+let lastEventFeedFetchAt = 0;
+let eventFeedRequest = null;
 
-  // Re-assert the top position after the first event batch has changed the
-  // page height. Two animation frames let layout and scroll anchoring settle,
-  // which is especially important on iOS browsers.
+// Reload the actual JSON, not just the visible cards derived from the old
+// in-memory array. Bypass stale mobile-browser and intermediate HTTP caches.
+function fetchLatestEventFeed() {
+  if (eventFeedRequest) return eventFeedRequest;
+  lastEventFeedFetchAt = Date.now();
+  const url = new URL(`${assetBase}/data/events.json`, window.location.href);
+  url.searchParams.set('_sbff_refresh', String(lastEventFeedFetchAt));
+  eventFeedRequest = fetch(url.href, { cache: 'no-store' }).then(response => {
+    if (!response.ok) throw new Error(`Unable to load events.json: ${response.status}`);
+    const lastModified = response.headers.get('last-modified');
+    if (lastModified) window.SOUTH_BAY_EVENTS_META = { generatedAt: lastModified };
+    return response.json();
+  }).then(data => {
+    if (!Array.isArray(data)) throw new Error('events.json must contain an array');
+    events = data;
+    window.SOUTH_BAY_EVENTS = events;
+    migrateSavedSeries();
+    populateAgeFilter();
+    refreshExpiredEvents(); // Re-render only if visible content actually changed.
+    renderUpdateTime();
+    window.dispatchEvent(new CustomEvent('sbff:events-ready', { detail: { count: events.length } }));
+  }).catch(error => {
+    // Keep previously rendered events during a temporary network failure.
+    console.error('South Bay Family Finds event feed failed to load.', error);
+    if (!events.length) {
+      window.SOUTH_BAY_EVENTS = events;
+      refreshExpiredEvents();
+      renderUpdateTime();
+    }
+  }).finally(() => {
+    eventFeedRequest = null;
+  });
+  return eventFeedRequest;
+}
+
+function refreshReturnedTab() {
+  if (document.hidden) return;
+  refreshExpiredEvents();
+  // Avoid repeated downloads from rapid app/tab switches, but do refresh on
+  // a meaningful return to foreground rather than keeping a stale feed forever.
+  if (Date.now() - lastEventFeedFetchAt >= EVENT_FEED_RESUME_THROTTLE_MS) {
+    void fetchLatestEventFeed();
+  }
+}
+
+void fetchLatestEventFeed().finally(() => {
+  // Only the initial hard reload may correct a scroll offset. Subsequent
+  // background refreshes preserve the visible card and its screen position.
   if (isReloadNavigation) {
     requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo(0, 0)));
   }
 });
+document.addEventListener('visibilitychange', refreshReturnedTab);
+window.addEventListener('pageshow', event => {
+  if (event.persisted) refreshReturnedTab(); // Safari back/forward cache.
+});
+window.setInterval(() => {
+  if (document.hidden) return;
+  refreshExpiredEvents();
+  void fetchLatestEventFeed();
+}, EVENT_FEED_INTERVAL_MS);
