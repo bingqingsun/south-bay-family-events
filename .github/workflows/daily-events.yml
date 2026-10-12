@@ -34,12 +34,12 @@ on:
       - 'collections.js'
       - '.github/workflows/daily-events.yml'
   schedule:
-    # GitHub cron is UTC. Run daily at 10 PM Pacific:
-    # 05:00 UTC = 10 PM PDT; 06:00 UTC = 10 PM PST.
+    # GitHub cron is UTC. Run daily at 10:17 PM Pacific to avoid the busy top-of-hour window:
+    # 05:17 UTC = 10:17 PM PDT; 06:17 UTC = 10:17 PM PST.
     # Both schedules fire year-round; the first step gates execution to
-    # the occurrence whose America/Los_Angeles local hour is 22.
-    - cron: '0 5 * * *'
-    - cron: '0 6 * * *'
+    # the occurrence whose America/Los_Angeles local time is 22:17.
+    - cron: '17 5 * * *'
+    - cron: '17 6 * * *'
   workflow_dispatch:
     inputs:
       include_serpapi:
@@ -55,23 +55,23 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     steps:
-      - name: Gate scheduled run to 10 PM Pacific
+      - name: Gate scheduled run to 10:17 PM Pacific
         if: ${{ github.event_name == 'schedule' }}
         env:
           SCHEDULE: ${{ github.event.schedule }}
         run: |
           utc_date=$(date -u +%F)
           case "$SCHEDULE" in
-            "0 5 * * *") nominal_utc="$utc_date 05:00 UTC" ;;
-            "0 6 * * *") nominal_utc="$utc_date 06:00 UTC" ;;
+            "17 5 * * *") nominal_utc="$utc_date 05:17 UTC" ;;
+            "17 6 * * *") nominal_utc="$utc_date 06:17 UTC" ;;
             *)
               echo "Unexpected schedule: $SCHEDULE"
               exit 1
               ;;
           esac
           local_time=$(TZ=America/Los_Angeles date -d "$nominal_utc" +%H:%M)
-          if [ "$local_time" != "22:00" ]; then
-            echo "Scheduled duplicate maps to $local_time Pacific instead of 22:00; stopping successfully."
+          if [ "$local_time" != "22:17" ]; then
+            echo "Scheduled duplicate maps to $local_time Pacific instead of 22:17; stopping successfully."
             echo "SKIP_REFRESH=true" >> "$GITHUB_ENV"
           fi
       - uses: actions/checkout@v4
