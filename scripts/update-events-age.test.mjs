@@ -43,4 +43,15 @@ result = context.ageInfo('Bring the whole family. Participants ages 8–12 may j
 assert.deepEqual(rangesOf(result), [[8, 12]], 'an explicit numeric organizer range should still outrank broad whole-family wording');
 assert.equal(result.ageLabel, 'Ages 8–12');
 
+result = context.ageInfo('Teens Games. We welcome newcomers to hobby gaming and families with kids.');
+assert.deepEqual(rangesOf(result), [], 'families-with-kids wording must prevent a broad Teens taxonomy from narrowing the whole event');
+assert.equal(result.ageMin, null);
+assert.equal(result.ageMax, null);
+assert.equal(result.ageLabel, 'Family-friendly');
+assert.deepEqual(JSON.parse(JSON.stringify(result.ageBands)), ['family']);
+
+result = context.ageInfo('Teens. Families with kids are welcome. Ages 10–14.');
+assert.deepEqual(rangesOf(result), [[10, 14]], 'explicit numeric ages must still outrank families-with-kids wording');
+assert.equal(result.ageLabel, 'Ages 10–14');
+
 console.log('Update-events age tests passed.');
