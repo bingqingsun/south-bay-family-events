@@ -1,4 +1,5 @@
 import { plainText } from '../detail-extractors/generic.mjs';
+import { cupertinoVenueFromHeading, cleanCupertinoVenueCandidate } from '../../cupertino-venue.mjs';
 
 
 function cupertinoAddressCandidate(text) {
@@ -52,6 +53,11 @@ export function parseCupertinoDetail({ html, event }) {
       .trim();
     venue = prefix.match(/([A-Z][A-Za-z0-9&'’.-]*(?:\s+[A-Z][A-Za-z0-9&'’.-]*){1,5})$/)?.[1] || '';
   }
+
+  // A separately labelled official venue heading takes priority. Otherwise,
+  // strip only a stray title word from the flattened address-adjacent prefix.
+  venue = cupertinoVenueFromHeading(html, addressMatch?.street || '', title)
+    || cleanCupertinoVenueCandidate(venue, title);
 
   const age = text.match(/\bages?\s*(\d{1,2})\s*(?:\+|and up)\b/i)?.[1];
   return {
