@@ -4,7 +4,7 @@ window.SBFF_WEEKEND_PICKS = {
   weekendEnd: '2026-10-11',
   status: 'published',
   publishedAt: '2026-10-07T14:56:00-07:00',
-  updatedAt: '2026-10-07T19:10:00-07:00',
+  updatedAt: '2026-10-12T07:10:00-07:00',
   intro: '15 handpicked South Bay family activities for Oct 10–11, sorted by start time—from messy play and multicultural festivals to live music, planetarium shows, fall celebrations, and local culture.',
   introZh: '精选 10月10日周六–10月11日周日 15 个南湾亲子活动，并按开始时间排序，包括感官玩乐、多元文化节、现场音乐、天文馆节目、秋日庆典和本地文化活动。',
   picks: [
