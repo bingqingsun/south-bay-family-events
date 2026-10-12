@@ -28,7 +28,8 @@ import { enrichCanonicalEvents } from './canonical-detail-pipeline.mjs';
 import { applyEditorialCovers } from './editorial-cover.mjs';
 import { selectPublishableOfficialDescription } from './official-description.mjs';
 import { approvedSpecialEventUrl, configuredCandidates, sitemapCandidates, verifySpecialEventPage } from './special-event-pages.mjs';
-import { selectCupertinoDetailDates } from './cupertino-detail-date.mjs';
+import { selectCupertinoDetailDates, cupertinoDetailConflictsWithOccurrence } from './cupertino-detail-date.mjs';
+import { cupertinoVenueFromHeading } from './cupertino-venue.mjs';
 import { cupertinoAudienceEvidence } from './cupertino-audience.mjs';
 import {
   paloAltoSpecialEventCalendarUrl,
@@ -2826,6 +2827,11 @@ function cupertinoDetailEnrichment(event, html, source) {
     if (candidate && !/^(?:South Bay|City of Cupertino)$/i.test(candidate)) place = candidate;
   }
 
+  // A heading adjacent to the address beats a venue guessed from flattened
+  // text, which can absorb the previous sentence's last word (e.g. "Santa").
+  const officialVenue = cupertinoVenueFromHeading(html, addressMatch?.street || address, detailTitle);
+  if (officialVenue) place = officialVenue;
+
   const description = officialDetailDescription(html, schema, detailTitle) || event.description;
   const image = event.image || htmlAttribute(html, /<meta\s+property=["']og:image["']\s+content=["']([^"']+)/i);
   const pricing = costInfo('', detailText);
@@ -3818,6 +3824,13 @@ async function revalidateMissingOfficialEvent(event) {
     const pageText = plainText(html);
     if (!isSameEvent(event.title, pageText)) return null;
     if (/\b(?:this event (?:has been )?cancell?ed|event cancell?ed)\b/i.test(pageText)) return null;
+    // A previously published occurrence may disappear from Cupertino's listing
+    // while its old detail URL still resolves. A title match alone does NOT
+    // prove that the old date remains valid (e.g. Dec 6 vs confirmed Dec 5).
+    if (source.method === 'cupertino' && cupertinoDetailConflictsWithOccurrence(pageText, event.dateValue)) {
+      console.warn(`Dropping outdated Cupertino occurrence "${event.title}" (${String(event.dateValue).slice(0, 10)}): detail page confirms a different date.`);
+      return null;
+    }
     const refreshedEvent = source.method === 'cupertino'
       ? cupertinoDetailEnrichment(event, html, source)
       : event;
