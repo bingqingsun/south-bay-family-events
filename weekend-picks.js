@@ -33,9 +33,13 @@
   }
   function localizedEvent(event) {
     if (!isZh) return { title:event.title, description:event.description || '' };
-    const translated = translations[event.id];
-    const zhTitle = translated?.status === 'approved' ? translated.title : '';
-    const zhDescription = translated?.status === 'approved' ? translated.description : '';
+    const embedded = event.translations?.zh;
+    const overlay = translations[event.id];
+    const overlayCurrent = overlay?.status === 'approved'
+      && (!embedded?.fingerprint || overlay.sourceFingerprint === embedded.fingerprint);
+    const translated = overlayCurrent ? overlay : (embedded?.status === 'approved' ? embedded : null);
+    const zhTitle = translated?.title || '';
+    const zhDescription = translated?.description || '';
     return {
       title: zhTitle && zhTitle !== event.title ? `${zhTitle}（${event.title}）` : event.title,
       description: zhDescription || event.description || ''
@@ -277,7 +281,7 @@
   }
 
   function loadLandingFeed() {
-    fetch(`${assetBase}/data/events.json`).then(response => {
+    fetch(`${assetBase}/data/events.json`, { cache: 'no-store' }).then(response => {
       if (!response.ok) throw new Error(`Unable to load events.json: ${response.status}`);
       return response.json();
     }).then(events => renderLanding(events)).catch(error => {
