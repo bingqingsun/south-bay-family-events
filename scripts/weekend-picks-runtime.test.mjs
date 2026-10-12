@@ -12,10 +12,18 @@ const context = vm.createContext({
 
 vm.runInContext(fs.readFileSync(new URL('../data/weekend-picks.js', import.meta.url), 'utf8'), context);
 vm.runInContext(fs.readFileSync(new URL('../weekend-picks-runtime.js', import.meta.url), 'utf8'), context);
+vm.runInContext(fs.readFileSync(new URL('../data/collections.js', import.meta.url), 'utf8'), context);
 
 const runtime = context.window.SBFFWeekendPicksRuntime;
 const config = context.window.SBFF_WEEKEND_PICKS;
 const events = JSON.parse(fs.readFileSync(new URL('../data/events.json', import.meta.url), 'utf8'));
+const weekendCollection = context.window.SBFF_COLLECTIONS.find(item => item.slug === 'weekend-picks');
+assert.ok(weekendCollection, 'Homepage Weekend Picks collection entry should exist');
+assert.deepEqual(
+  Array.from(weekendCollection.selectedEventRefs, ref => ref.id),
+  Array.from(config.picks, pick => pick.eventRef.id),
+  'Homepage collection must use exactly the same ordered canonical event IDs as Weekend Picks'
+);
 
 assert.ok(runtime, 'Weekend Picks runtime should load');
 assert.ok(config.picks.length > 0, 'Published Weekend Picks should contain at least one editor-selected activity');
@@ -92,6 +100,12 @@ if (today <= config.weekendEnd) {
     `Live current/future Weekend Picks must resolve; unresolved: ${unresolvedCurrentOrFuture.map(item => item.eventRef.title).join(', ')}`
   );
   assert.equal(model.expiredPicks.length, 0, 'Resolved live Weekend Picks must all overlap the configured weekend');
+  assert.equal(model.validPicks.length, config.picks.length, 'Every published Weekend Pick must resolve and overlap the weekend');
+  const { createRequire } = await import('node:module');
+  const require = createRequire(import.meta.url);
+  const collectionRuntime = require('../collection-runtime.js');
+  const collectionModel = collectionRuntime.buildCollectionViewModel(weekendCollection, events, { now: new Date() });
+  assert.equal(collectionModel.resolvedEditorialCount, config.picks.length, 'Homepage collection should resolve the same full set');
   assert.ok(model.validPicks.length > 0, 'Live Weekend Picks should expose at least one current activity');
   assert.equal(model.state, 'live');
 } else {

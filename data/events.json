@@ -13203,7 +13203,7 @@
         "id": "curated-318e6231d2584779",
         "date": "10月18日 10:00",
         "dateValue": "2026-10-18T10:00",
-        "endDateValue": "2026-10-18T18:00:00",
+        "endDateValue": "2026-10-18T17:00:00",
         "url": "https://www.downtowncampbell.com/event/31st-annual-campbell-oktoberfest",
         "source": "Downtown Campbell",
         "place": "Downtown Campbell",
@@ -13264,7 +13264,7 @@
     "title": "Hands on the Arts Festival",
     "date": "10月17日 10:00",
     "dateValue": "2026-10-17T10:00",
-    "endDateValue": "2026-10-17T18:00:00",
+    "endDateValue": "2026-10-17T15:00:00",
     "ageBands": [
       "all-ages"
     ],
@@ -14246,6 +14246,67 @@
     "translationStatus": "current"
   },
   {
+    "id": "editorial-milpitas-pumpkins-in-the-park-2026",
+    "title": "Pumpkins in the Park",
+    "date": "10月17日 11:00",
+    "dateValue": "2026-10-17T11:00",
+    "endDateValue": "2026-10-17T13:00:00",
+    "ongoing": false,
+    "ageBands": [],
+    "ageRanges": [],
+    "ageMin": 0,
+    "ageMax": 18,
+    "ageLabel": "All ages",
+    "ageSource": "City of Milpitas official event page",
+    "costStatus": "free",
+    "costLabel": "免费",
+    "costSource": "City of Milpitas official event page",
+    "costEvidence": "Free admission; optional paid Pumpkin Passes for premium attractions.",
+    "registrationStatus": "unknown",
+    "registrationSource": "",
+    "registrationEvidence": "",
+    "type": "community",
+    "icon": "🤝",
+    "color": "#dceeea",
+    "tag": "社区与家庭",
+    "format": "festival",
+    "seasonalTheme": "halloween",
+    "verification": "manual-verified",
+    "lastVerifiedAt": "2026-10-12T12:05:53.771Z",
+    "description": "Milpitas families can enjoy free trick-or-treating, crafts, costume fun and community performances at Cardoza Park, with optional paid passes for a pumpkin patch, petting zoo, climbing wall and other activities.",
+    "parentSummary": "Milpitas families can enjoy free trick-or-treating, crafts, costume fun and community performances at Cardoza Park, with optional paid passes for a pumpkin patch, petting zoo, climbing wall and other activities.",
+    "sourceDescriptionRaw": "The City of Milpitas invites families to Cardoza Park on October 17, 2026, 11 a.m.–1 p.m. for free trick-or-treating, crafts, costume contest and community performances. Optional paid Pumpkin Passes offer a pumpkin patch, petting zoo, climbing wall and more.",
+    "summaryStatus": "manual_verified",
+    "summaryMethod": "manual_verified",
+    "summaryQuality": "manual_verified",
+    "summaryEvidence": "The City of Milpitas invites families to Cardoza Park on October 17, 2026, 11 a.m.–1 p.m. for free trick-or-treating, crafts, costume contest and community performances. Optional paid Pumpkin Passes offer a pumpkin patch, petting zoo, climbing wall and more.",
+    "image": "https://www.milpitas.gov/ImageRepository/Document?documentId=10598",
+    "imageStatus": "official",
+    "place": "Cardoza Park",
+    "address": "Kennedy Drive and Park Victoria Drive, Milpitas, CA 95035",
+    "city": "Milpitas",
+    "source": "City of Milpitas · Seasonal Events",
+    "url": "https://www.milpitas.gov/1160/Pumpkins-in-the-Park",
+    "canonicalUrl": "https://www.milpitas.gov/1160/Pumpkins-in-the-Park",
+    "sourceLandingUrl": "https://www.milpitas.gov/1160/Pumpkins-in-the-Park",
+    "linkStatus": "ok",
+    "linkCheckedAt": "2026-10-12T12:05:53.771Z",
+    "sessions": [],
+    "translations": {
+      "zh": {
+        "title": "Milpitas 公园南瓜节",
+        "description": "Milpitas 的家庭可以在 Cardoza Park 免费讨糖、做手工、参加装扮活动并欣赏社区表演；南瓜地、宠物互动区、攀岩墙等项目可另购活动通票。",
+        "fingerprint": "ee035f787e18c51fe8e1cdff72bbff83ebe9d7310803b984d5418655e168cbf2",
+        "translatedAt": "2026-10-12T12:05:53.771Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    },
+    "translationStatus": "current",
+    "translationSourceFingerprint": "ee035f787e18c51fe8e1cdff72bbff83ebe9d7310803b984d5418655e168cbf2",
+    "refreshStatus": "verified-supplement"
+  },
+  {
     "id": "chcp-d244b5156a5e153b",
     "title": "CAH Museum Open",
     "date": "10月17日 12:00",
@@ -14708,8 +14769,8 @@
     "costLabel": "费用未注明",
     "costSource": "",
     "costEvidence": "",
-    "registrationStatus": "unknown",
-    "registrationSource": "",
+    "registrationStatus": "required",
+    "registrationSource": "SCCLD official event listing",
     "registrationEvidence": "",
     "type": "arts",
     "icon": "🎨",
@@ -14717,8 +14778,8 @@
     "tag": "艺术与创作",
     "verification": "rss",
     "lastVerifiedAt": "2026-10-12T04:49:53.201Z",
-    "description": "All vampires who join us will have a chance to learn the steps of a traditional waltz from a professional instructor.",
-    "parentSummary": "All vampires who join us will have a chance to learn the steps of a traditional waltz from a professional instructor.",
+    "description": "A costume-friendly vampire party for teens ages 13+ and adults, with gothic photo spots, crafts, games and a chance to learn the waltz. Registration is required.",
+    "parentSummary": "A costume-friendly vampire party for teens ages 13+ and adults, with gothic photo spots, crafts, games and a chance to learn the waltz. Registration is required.",
     "sourceDescriptionRaw": "Join us for a spine-chilling soiree at the Gilroy Library! In honor of the 50 th anniversary of Interview with the Vampire by the iconic Anne Rice, all are invited to dress up in their vampiric best and celebrate. Featuring hauntingly beautiful gothic décor and photo ops, terrifyingly tasty treats, ghoulish games, creepy crafts, and much more, this will be the party to end all parties. All vampires who join us will have a chance to learn the steps of a traditional waltz from a professional instructor. Complete activities and win games at the ball to earn raffle tickets. One lucky winner will be chosen to take home the collector's anniversary edition of Interview with the Vampire! Register to reserve your spot at our fearsome fête. This program is for adults and teens ages 13+. Coming in costume is strongly encouraged (but not required for entry)!",
     "sourceDescriptionHash": "8320297feba29256b0a8f39a4af5278c7854ff45400d1b5a0827dee76dd7df23",
     "summaryStatus": "extractive",
@@ -14771,14 +14832,15 @@
     "translations": {
       "zh": {
         "title": "Vampire Ball 吸血鬼舞会",
-        "description": "参加活动的“吸血鬼”都有机会跟专业老师学习传统华尔兹舞步。",
-        "fingerprint": "bda1e84edc8b7bdd9bbcdf082baf1a4c135a4e685beee44817b468e2a053d893",
-        "translatedAt": "2026-10-12T04:50:47.453Z",
-        "translationSource": "reviewed-batch",
+        "description": "这场吸血鬼主题派对面向 13 岁及以上青少年和成人，设有哥特风拍照区、手工、游戏和华尔兹教学，需提前报名。",
+        "fingerprint": "af59b7e2e00ac496293c7af5f17348d51a96f96abc8420cd248360a90957dbd4",
+        "translatedAt": "2026-10-12T12:05:53.771Z",
+        "translationSource": "chatgpt-reviewed",
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "af59b7e2e00ac496293c7af5f17348d51a96f96abc8420cd248360a90957dbd4"
   },
   {
     "id": "rss-6937540c8b29ea2800c33d40",
@@ -14987,8 +15049,8 @@
     "costLabel": "费用未注明",
     "costSource": "",
     "costEvidence": "",
-    "registrationStatus": "unknown",
-    "registrationSource": "",
+    "registrationStatus": "required",
+    "registrationSource": "Midpen official event page",
     "registrationEvidence": "",
     "type": "outdoor",
     "icon": "🌿",
@@ -14997,8 +15059,8 @@
     "verification": "official-page",
     "lastVerifiedAt": "2026-10-12T04:49:53.201Z",
     "format": "program",
-    "description": "Finally, you’ll leave the Solar System and explore the stars and nebulae of our home galaxy, the Milky Way.",
-    "parentSummary": "Finally, you’ll leave the Solar System and explore the stars and nebulae of our home galaxy, the Milky Way.",
+    "description": "Explore Moon rocks, Saturn's rings, Neptune and distant stars with NASA scientists and amateur astronomers during an outdoor telescope evening. Advance reservations are required.",
+    "parentSummary": "Explore Moon rocks, Saturn's rings, Neptune and distant stars with NASA scientists and amateur astronomers during an outdoor telescope evening. Advance reservations are required.",
     "sourceDescriptionRaw": "Join Docent Naturalists Liza Coe, Catherine Xun, Dave Kocsis, Naureen Moon, NASA scientists, and local amateur astronomers for an evening observing the night sky. Neptune and Saturn will be visible (weather permitting). You'll begin with a close-up look at rocks from the Moon, Mars, and across the Solar System. Gaze through telescopes for detailed views of the lunar surface, continue the journey farther to Saturn’s spectacular rings and moons, and then go beyond to blue Neptune. Finally, you’ll leave the Solar System and explore the stars and nebulae of our home galaxy, the Milky Way. (Note: This activity is not a hike but will be held in the Skyline Circle Parking Area, a short walk from where you’ll park your cars.) Bring layered clothing to stay warm. Reservations are required and will be accepted on or after October 3 at 12:00 p.m. (Noon) and close October 16 at 2:00 p.m.",
     "sourceDescriptionHash": "73093b73731aee04c1e19d84dde5962d6cfdd2630149604218135ebbcc8db4bf",
     "summaryStatus": "extractive",
@@ -15012,8 +15074,8 @@
     "imagePresentation": "",
     "imageBackground": "",
     "place": "Skyline Ridge Preserve",
-    "address": "",
-    "city": "",
+    "address": "Skyline Ridge Equestrian Parking Area, Skyline Blvd, La Honda, CA 94020",
+    "city": "La Honda",
     "meetingPoint": "Skyline Ridge Equestrian Parking Area on Skyline Boulevard located one mile south of the Skyline Blvd.",
     "mapUrl": "https://maps.google.com/maps/search/?api=1&query=37.310046354962,-122.17215672342&z=16",
     "source": "Midpeninsula Regional Open Space District",
@@ -15055,14 +15117,15 @@
     "translations": {
       "zh": {
         "title": "夜空之旅",
-        "description": "最后，你将离开太阳系，探索我们所在的银河系中的恒星和星云。",
-        "fingerprint": "b259659f6c107c7e5531488d5b28bc09bf1c531ba6d24dfbfa8c8b2d1b4004f6",
-        "translatedAt": "2026-09-26T04:40:00Z",
-        "translationSource": "editorial-reviewed",
+        "description": "和 NASA 科学家及天文爱好者一起观察月球岩石、土星环、海王星和遥远恒星，体验户外望远镜观测之夜。需提前预约。",
+        "fingerprint": "bce9b3659d87fa9a07ed144cb651e475d97bac264f49cc406a0bf4f334558364",
+        "translatedAt": "2026-10-12T12:05:53.771Z",
+        "translationSource": "chatgpt-reviewed",
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "bce9b3659d87fa9a07ed144cb651e475d97bac264f49cc406a0bf4f334558364"
   },
   {
     "id": "deanza-a776919f1660dbd5",
@@ -15639,7 +15702,7 @@
     "title": "2026 Fall Family Day",
     "date": "10月18日 14:00",
     "dateValue": "2026-10-18T14:00",
-    "endDateValue": "2026-10-18T18:00:00",
+    "endDateValue": "2026-10-18T16:15:00",
     "ageBands": [],
     "ageRanges": [
       [
@@ -15647,15 +15710,15 @@
         18
       ]
     ],
-    "ageMin": 13,
+    "ageMin": 0,
     "ageMax": 18,
-    "ageLabel": "Ages 13–18",
-    "ageSource": "Official audience information",
+    "ageLabel": "All ages",
+    "ageSource": "City of Palo Alto official event page",
     "familyFriendly": true,
-    "costStatus": "unknown",
-    "costLabel": "费用未注明",
-    "costSource": "",
-    "costEvidence": "",
+    "costStatus": "free",
+    "costLabel": "免费",
+    "costSource": "City of Palo Alto official event page",
+    "costEvidence": "FREE at the Palo Alto Art Center.",
     "registrationStatus": "unknown",
     "registrationSource": "",
     "registrationEvidence": "",
@@ -15666,8 +15729,8 @@
     "verification": "official-page",
     "lastVerifiedAt": "2026-10-12T04:49:53.201Z",
     "format": "museum-program",
-    "description": "The Teen Zone will feature activities exclusively for teens such as button-making, jewelry-making, and board games.",
-    "parentSummary": "The Teen Zone will feature activities exclusively for teens such as button-making, jewelry-making, and board games.",
+    "description": "A free family art afternoon at Palo Alto Art Center with foil monoprints, collages, dot art and foam prints, plus a Teen Zone with jewelry-making, buttons and board games.",
+    "parentSummary": "A free family art afternoon at Palo Alto Art Center with foil monoprints, collages, dot art and foam prints, plus a Teen Zone with jewelry-making, buttons and board games.",
     "sourceDescriptionRaw": "Join us for a creative afternoon inspired by our fall exhibition, Live the moment light. Enjoy art activities led by Art Center teaching artists. Make foil monoprints, collage art, dot art, and foam prints! Bring the whole family for this fun, multigenerational event. Teens are invited to visit the Teen Zone, a dedicated space created in collaboration with Art Center Teen Leadership. The Teen Zone will feature activities exclusively for teens such as button-making, jewelry-making, and board games.",
     "sourceDescriptionHash": "ddaaf6005bc461d72e218484607dc2f6f6b3f21c86caf612868684971e62f5ea",
     "summaryStatus": "extractive",
@@ -15736,8 +15799,18 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "16a4afa30400038f2fe92434b2b7b05d7b6a5cc7ab4a3395b62d46739d7a0964"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "88ae7a4b8083bc448dbf1b9e36ea95430b165d64436915b7d7aec7752d3124b0",
+    "translations": {
+      "zh": {
+        "title": "2026 秋季家庭艺术日",
+        "description": "在 Palo Alto Art Center 免费体验锡箔版画、拼贴、点彩和泡沫版画；青少年还可以到 Teen Zone 制作首饰和徽章、玩桌游。",
+        "fingerprint": "88ae7a4b8083bc448dbf1b9e36ea95430b165d64436915b7d7aec7752d3124b0",
+        "translatedAt": "2026-10-12T12:05:53.771Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "bayfc-02168620458f2221",
@@ -15969,9 +16042,9 @@
         18
       ]
     ],
-    "ageMin": 13,
+    "ageMin": 0,
     "ageMax": 18,
-    "ageLabel": "Ages 13–18",
+    "ageLabel": "All ages",
     "ageSource": "Official audience information",
     "familyFriendly": true,
     "costStatus": "unknown",
@@ -15979,7 +16052,7 @@
     "costSource": "",
     "costEvidence": "",
     "registrationStatus": "not-required",
-    "registrationSource": "官方活动说明",
+    "registrationSource": "SCCLD official event listing",
     "registrationEvidence": "All are welcome, no registration is required.",
     "type": "community",
     "icon": "🤝",
@@ -15987,8 +16060,8 @@
     "tag": "社区与家庭",
     "verification": "rss",
     "lastVerifiedAt": "2026-10-12T04:49:53.201Z",
-    "description": "If you need assistance with the form, speak with a staff member at your local library, call (408) 540-3945, or email us at ask@lib.sccgov.org.",
-    "parentSummary": "If you need assistance with the form, speak with a staff member at your local library, call (408) 540-3945, or email us at ask@lib.sccgov.org.",
+    "description": "Celebrate Filipino American History Month with singer-songwriter Kira Hooks, whose live set blends soul, jazz, R&B and folk. All are welcome and no registration is required.",
+    "parentSummary": "Celebrate Filipino American History Month with singer-songwriter Kira Hooks, whose live set blends soul, jazz, R&B and folk. All are welcome and no registration is required.",
     "sourceDescriptionRaw": "Please join us for a live music performance by Kira Hooks to celebrate Filipino American History Month! Kira Hooks is a Filipina American singer-songwriter based in the San Francisco Bay Area. Born in Houston, Texas, she spent her formative years living in the Netherlands, Nigeria, Scotland, and China. Her time abroad deeply informs her musical sensibility and global perspective. Her music blends elements of soul, jazz, R&B, and folk, characterized by a rich, fluid vocal style and emotionally resonant songwriting. This program is part of SCCLD's celebration of Filipino American History Month. All are welcome, no registration is required. For accessibility accommodations (ex. ASL), please fill out the online form at sccld.org/accessibility 7+ days prior to the event. If you need assistance with the form, speak with a staff member at your local library, call (408) 540-3945, or email us at ask@lib.sccgov.org.",
     "sourceDescriptionHash": "2c4b7e147c745d120eadae9439b5bbd379448b97fa355f6d6595e7cc3060cfc1",
     "summaryStatus": "extractive",
@@ -16056,14 +16129,15 @@
     "translations": {
       "zh": {
         "title": "Kira Hooks 音乐演出｜菲律宾裔美国人历史月",
-        "description": "如果填写表格时需要帮助，请咨询当地分馆工作人员，致电 (408) 540-3945，或发送邮件至 ask@lib.sccgov.org。",
-        "fingerprint": "9b5842898c89c4c9d38ed622658e7175bea32be443298205e51f88281733b98c",
-        "translatedAt": "2026-09-26",
-        "translationSource": "editorial-reviewed",
+        "description": "歌手兼词曲作者 Kira Hooks 将带来融合灵魂乐、爵士、R&B 和民谣的现场演出，一起庆祝菲律宾裔美国人历史月。欢迎大家参加，无需报名。",
+        "fingerprint": "3d1b51e22511b89302aa2c951446635db8a3d1f0620121ca4dfed9c9f576ef0e",
+        "translatedAt": "2026-10-12T12:05:53.771Z",
+        "translationSource": "chatgpt-reviewed",
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "3d1b51e22511b89302aa2c951446635db8a3d1f0620121ca4dfed9c9f576ef0e"
   },
   {
     "id": "rss-697025281e64afd01e559e39",

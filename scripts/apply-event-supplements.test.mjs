@@ -35,4 +35,18 @@ const differentSource = mergeEventSupplements(canonical, [{
 }]);
 assert.equal(differentSource.length, 2);
 
+
+// Explicitly verified one-off end times may override an overly broad scraped duration.
+const verifiedTime = mergeEventSupplements([{
+  id: 'official-family-day', title: '2026 Fall Family Day',
+  dateValue: '2026-10-18T14:00', endDateValue: '2026-10-18T18:00:00',
+  url: 'https://example.com/family-day', source: 'City of Palo Alto'
+}], [{
+  id: 'official-family-day', title: '2026 Fall Family Day',
+  dateValue: '2026-10-18T14:00', endDateValue: '2026-10-18T16:15:00',
+  url: 'https://example.com/family-day', source: 'City of Palo Alto',
+  overrideEndDateValue: true, replaceExisting: true
+}]);
+assert.equal(verifiedTime[0].endDateValue, '2026-10-18T16:15:00');
+
 console.log('Event supplement duplicate-guard tests passed.');

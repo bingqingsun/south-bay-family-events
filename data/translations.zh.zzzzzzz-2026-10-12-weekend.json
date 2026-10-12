@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "entries": [
+    {
+      "id": "editorial-milpitas-pumpkins-in-the-park-2026",
+      "sourceUrl": "https://www.milpitas.gov/1160/Pumpkins-in-the-Park",
+      "title": "Milpitas 公园南瓜节",
+      "description": "Milpitas 的家庭可以在 Cardoza Park 免费讨糖、做手工、参加装扮活动并欣赏社区表演；南瓜地、宠物互动区、攀岩墙等项目可另购活动通票。",
+      "sourceFingerprint": "ee035f787e18c51fe8e1cdff72bbff83ebe9d7310803b984d5418655e168cbf2",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-12T12:05:53.771Z"
+    },
+    {
+      "id": "paloalto-b7c93d23105d0017",
+      "sourceUrl": "https://www.paloalto.gov/Events-Directory/Community-Services/2026-Fall-Family-Day",
+      "title": "2026 秋季家庭艺术日",
+      "description": "在 Palo Alto Art Center 免费体验锡箔版画、拼贴、点彩和泡沫版画；青少年还可以到 Teen Zone 制作首饰和徽章、玩桌游。",
+      "sourceFingerprint": "88ae7a4b8083bc448dbf1b9e36ea95430b165d64436915b7d7aec7752d3124b0",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-12T12:05:53.771Z"
+    },
+    {
+      "id": "rss-6a74f2cd9006f75353156cdb",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a74f2cd9006f75353156cdb",
+      "title": "Kira Hooks 音乐演出｜菲律宾裔美国人历史月",
+      "description": "歌手兼词曲作者 Kira Hooks 将带来融合灵魂乐、爵士、R&B 和民谣的现场演出，一起庆祝菲律宾裔美国人历史月。欢迎大家参加，无需报名。",
+      "sourceFingerprint": "3d1b51e22511b89302aa2c951446635db8a3d1f0620121ca4dfed9c9f576ef0e",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-12T12:05:53.771Z"
+    },
+    {
+      "id": "rss-6aadb197d6577100383d7a79",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6aadb197d6577100383d7a79",
+      "title": "Vampire Ball 吸血鬼舞会",
+      "description": "这场吸血鬼主题派对面向 13 岁及以上青少年和成人，设有哥特风拍照区、手工、游戏和华尔兹教学，需提前报名。",
+      "sourceFingerprint": "af59b7e2e00ac496293c7af5f17348d51a96f96abc8420cd248360a90957dbd4",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-12T12:05:53.771Z"
+    },
+    {
+      "id": "midpen-585f6695feb2edcb",
+      "sourceUrl": "https://www.openspace.org/events/guided-activities/night-sky-journey",
+      "title": "夜空之旅",
+      "description": "和 NASA 科学家及天文爱好者一起观察月球岩石、土星环、海王星和遥远恒星，体验户外望远镜观测之夜。需提前预约。",
+      "sourceFingerprint": "bce9b3659d87fa9a07ed144cb651e475d97bac264f49cc406a0bf4f334558364",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-12T12:05:53.771Z"
+    }
+  ]
+}

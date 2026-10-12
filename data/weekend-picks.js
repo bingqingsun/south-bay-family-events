@@ -1,177 +1,156 @@
 window.SBFF_WEEKEND_PICKS = {
-  id: '2026-10-10',
-  weekendStart: '2026-10-09',
-  weekendEnd: '2026-10-11',
-  status: 'published',
-  publishedAt: '2026-10-07T14:56:00-07:00',
-  updatedAt: '2026-10-07T19:10:00-07:00',
-  intro: '15 handpicked South Bay family activities for Oct 10–11, sorted by start time—from messy play and multicultural festivals to live music, planetarium shows, fall celebrations, and local culture.',
-  introZh: '精选 10月10日周六–10月11日周日 15 个南湾亲子活动，并按开始时间排序，包括感官玩乐、多元文化节、现场音乐、天文馆节目、秋日庆典和本地文化活动。',
-  picks: [
+  "id": "2026-10-17",
+  "weekendStart": "2026-10-16",
+  "weekendEnd": "2026-10-18",
+  "status": "published",
+  "publishedAt": "2026-10-12T05:05:53-07:00",
+  "updatedAt": "2026-10-12T05:05:53-07:00",
+  "intro": "12 handpicked South Bay family activities for Oct 16–18, from fall festivals and hands-on art to Halloween adventures, family theatre, astronomy, board games and cultural music.",
+  "introZh": "精选 10月16日周五–10月18日周日 12 个南湾亲子活动，包括秋季节庆、动手艺术、万圣节体验、家庭剧场、天文观测、桌游和文化音乐。",
+  "picks": [
     {
-      eventRef: {
-        id: 'squarespace-d6e6ae57c36df3d2',
-        title: 'Messy Fun Fair',
-        url: 'https://gopher-chinchilla-xn32.squarespace.com/events/messy-fun-fair-oct-2026',
-        dateValue: '2026-10-10T09:30:00'
+      "eventRef": {
+        "id": "series-3ba73f7f41073d10",
+        "title": "Alebrijes: A Día de Muertos Tale",
+        "url": "https://www.teatrovision.org/alebrijes",
+        "dateValue": "2026-10-16T20:00"
       },
-      label: 'Messy Play Pick', labelZh: '感官玩乐精选',
-      whyWePicked: 'Bubble play, Oobleck, a mud kitchen, and a sandbox treasure hunt make this a hands-on morning for younger kids.',
-      whyWePickedZh: '泡泡、Oobleck、泥巴厨房和沙坑寻宝，把周六早上变成一场很适合低龄孩子的感官玩乐体验。'
+      "label": "Family Theatre Pick",
+      "labelZh": "亲子剧场精选",
+      "whyWePicked": "A colorful Día de Muertos story about Mexican folk-art creatures, performed in Spanish with English supertitles; Friday and weekend shows.",
+      "whyWePickedZh": "以墨西哥民间艺术神兽为主角的亡灵节舞台剧，色彩鲜明、配有英文字幕，周五至周日均有场次。"
     },
     {
-      eventRef: {
-        id: 'editorial-santa-clara-library-comic-con-2026',
-        title: 'Santa Clara City Library Comic Con',
-        url: 'https://calendar.santaclaraca.gov/santaclaraca/260168981',
-        dateValue: '2026-10-10T10:00:00'
+      "eventRef": {
+        "id": "curated-309a06d278d87506",
+        "title": "Hands on the Arts Festival",
+        "url": "https://www.sunnyvale.ca.gov/recreation-and-community/special-events/hands-on-the-arts",
+        "dateValue": "2026-10-17T10:00"
       },
-      label: 'Comic Con Pick', labelZh: 'Comic Con 精选',
-      whyWePicked: 'Artist Alley, creator signings, tabletop games, anime, cosplay, crafts, and free admission make this a full-day fandom event for all ages.',
-      whyWePickedZh: 'Artist Alley、创作者见面、桌游、动漫、cosplay 和手作都集中在一起，而且免费，适合全年龄家庭。'
+      "label": "Hands-on Art Pick",
+      "labelZh": "动手艺术精选",
+      "whyWePicked": "Sunnyvale's free art festival has hands-on workshops, roaming performers and multicultural music and dance for the whole family.",
+      "whyWePickedZh": "Sunnyvale 的免费儿童艺术节有动手工作坊、巡游表演和多元文化音乐舞蹈，全家都能参与。"
     },
     {
-      eventRef: {
-        id: 'editorial-picnic-by-the-lake-2026',
-        title: 'Picnic by the Lake: Multicultural Festival and Resource Fair',
-        url: 'https://sd15.senate.ca.gov/event/4th-annual-picnic-lake-multicultural-festival-and-legislative-resource-fair',
-        dateValue: '2026-10-10T10:00:00'
+      "eventRef": {
+        "id": "series-967f412f99629809",
+        "title": "Campbell Oktoberfest",
+        "url": "https://www.downtowncampbell.com/event/31st-annual-campbell-oktoberfest",
+        "dateValue": "2026-10-17T10:00"
       },
-      label: 'Multicultural Pick', labelZh: '多元文化精选',
-      whyWePicked: 'A free lakeside festival with a kids’ zone, inflatables, face painting, climbing wall, cultural performances, community booths, and food.',
-      whyWePickedZh: '免费的湖畔多元文化节，有儿童区、充气设施、面部彩绘、攀岩墙、文化表演、社区摊位和食物。'
+      "label": "Weekend Festival Pick",
+      "labelZh": "周末节庆精选",
+      "whyWePicked": "A free two-day downtown festival with a Kids Zone, German food, artisan booths and live music across multiple stages.",
+      "whyWePickedZh": "免费的两日市中心节庆，集合儿童游乐区、德国美食、手作摊位和多舞台现场音乐。"
     },
     {
-      eventRef: {
-        id: 'curated-781a33c73d1cc21e',
-        title: 'Pumpkins in the Park',
-        url: 'https://grpg.org/pumpkins-in-the-park/',
-        dateValue: '2026-10-10T10:00'
+      "eventRef": {
+        "id": "curated-4c0727d8deda8c4d",
+        "title": "Spooky Times at Deer Holloween Farm",
+        "url": "https://www.mountainview.gov/Home/Components/Calendar/Event/3484/18",
+        "dateValue": "2026-10-17T10:00"
       },
-      label: 'Fall Festival Pick', labelZh: '秋日庆典精选',
-      whyWePicked: 'Downtown San Jose’s free harvest festival brings together pumpkins, performances, crafts, inflatables, food trucks, and family activities.',
-      whyWePickedZh: 'San Jose 市中心的免费秋收节集合南瓜、表演、手作、充气游乐、餐车和丰富亲子活动。'
+      "label": "Farm Halloween Pick",
+      "labelZh": "农场万圣节精选",
+      "whyWePicked": "Meet farm animals, explore haunted barns and make spooky crafts at this special Halloween day supporting Deer Hollow Farm.",
+      "whyWePickedZh": "在 Deer Hollow Farm 见见农场动物、探索闹鬼谷仓、做万圣节手工，活动收益支持农场动物照护。"
     },
     {
-      eventRef: {
-        id: 'annual-e215d3e355f9dadd',
-        title: 'Magical Glass Pumpkin Patch',
-        url: 'https://magicalglasspumpkinpatch.com/',
-        dateValue: '2026-10-10T10:00:00'
+      "eventRef": {
+        "id": "rss-6961562d8b29ea2800c880a7",
+        "title": "Bay Area Games Day",
+        "url": "https://sccl.bibliocommons.com/events/6961562d8b29ea2800c880a7",
+        "dateValue": "2026-10-17T10:00"
       },
-      label: 'Art & Fall Pick', labelZh: '艺术秋日精选',
-      whyWePicked: 'Thousands of handmade glass pumpkins turn the Los Gatos High School lawn into a colorful fall art walk where families can meet the artists.',
-      whyWePickedZh: '数千个手工玻璃南瓜铺满 Los Gatos High School 草坪，像一场秋日艺术漫步，还能现场认识创作者。'
+      "label": "Board Game Pick",
+      "labelZh": "桌游精选",
+      "whyWePicked": "An all-day, newcomer-friendly tabletop gathering with modern strategy games and family favorites, especially good for older kids.",
+      "whyWePickedZh": "全天开放的桌游聚会，既有现代策略桌游也有家庭经典游戏，对较大的孩子尤其有吸引力。"
     },
     {
-      eventRef: {
-        id: 'series-fa91b5c1b92ad279',
-        title: 'Ardenwood Harvest Festival',
-        url: 'https://www.ebparks.org/calendar?terms=Ardenwood+Harvest+Festival',
-        dateValue: '2026-10-10T10:00'
+      "eventRef": {
+        "id": "editorial-milpitas-pumpkins-in-the-park-2026",
+        "title": "Pumpkins in the Park",
+        "url": "https://www.milpitas.gov/1160/Pumpkins-in-the-Park",
+        "dateValue": "2026-10-17T11:00"
       },
-      label: 'Harvest Pick', labelZh: '丰收节精选',
-      whyWePicked: 'Corn harvesting, cider pressing, live music, historic crafts, and farm demonstrations create a classic old-time harvest weekend.',
-      whyWePickedZh: '摘玉米、榨苹果汁、现场音乐、传统手工和农场演示，很有经典乡村丰收节的氛围。'
+      "label": "Milpitas Pumpkin Pick",
+      "labelZh": "Milpitas 南瓜节精选",
+      "whyWePicked": "A free community Halloween celebration with trick-or-treating, crafts and performances; optional passes add a pumpkin patch and attractions.",
+      "whyWePickedZh": "免费社区万圣节庆典有讨糖、手工和表演；另购通票还能体验南瓜地和游乐项目。"
     },
     {
-      eventRef: {
-        id: 'santana-72acfe73ee338c31',
-        title: "Makers Market's Local Artist Street Fair",
-        url: 'https://santanarow.com/event/makers-market-in-the-park/',
-        dateValue: '2026-10-10T11:00:00'
+      "eventRef": {
+        "id": "curated-65eaf117b0ba8a01",
+        "title": "Almaden Fall Harvest & 20th Anniversary",
+        "url": "https://www.sanjoseca.gov/Home/Components/Calendar/Event/8548/5117",
+        "dateValue": "2026-10-17T11:00"
       },
-      label: 'Local Makers Pick', labelZh: '本地创作者精选',
-      whyWePicked: 'More than 60 local makers bring handmade jewelry, ceramics, art, crochet, plants, and more to Santana Row.',
-      whyWePickedZh: '60 多位本地创作者带来首饰、陶艺、艺术品、钩织、植物等，很适合一家人轻松逛逛。'
+      "label": "Community Celebration Pick",
+      "labelZh": "社区庆典精选",
+      "whyWePicked": "Almaden celebrates its community center and library's 20th anniversary with a free harvest festival, pumpkin patch, bubbles and performances.",
+      "whyWePickedZh": "Almaden 社区中心和图书馆庆祝 20 周年，免费秋收节有南瓜地、泡泡、现场表演等亲子活动。"
     },
     {
-      eventRef: {
-        id: 'stanford-386ce655d6bc8ed9',
-        title: 'Charlie and the Tropicales',
-        url: 'https://events.stanford.edu/event/charlie-and-the-tropicales',
-        dateValue: '2026-10-10T11:00:00-07:00'
+      "eventRef": {
+        "id": "rss-6aadb197d6577100383d7a79",
+        "title": "Vampire Ball",
+        "url": "https://sccl.bibliocommons.com/events/6aadb197d6577100383d7a79",
+        "dateValue": "2026-10-17T14:00"
       },
-      label: 'Family Music Pick', labelZh: '亲子音乐精选',
-      whyWePicked: 'An interactive all-ages family concert brings New Orleans Caribbean-style music to Stanford’s Dinkelspiel Auditorium.',
-      whyWePickedZh: '这场全年龄互动亲子音乐会把新奥尔良加勒比风格音乐带进 Stanford 的 Dinkelspiel Auditorium。'
+      "label": "Teen Halloween Pick",
+      "labelZh": "青少年万圣节精选",
+      "whyWePicked": "A costume-friendly gothic party for ages 13+ with crafts, games, photos and a waltz lesson; advance registration is required.",
+      "whyWePickedZh": "面向 13 岁以上青少年的哥特风装扮派对，有手工、游戏、拍照和华尔兹教学，需提前报名。"
     },
     {
-      eventRef: {
-        id: 'annual-0f268c5ea6c9daf8',
-        title: 'Mountain View Oktoberfest',
-        url: 'https://www.mvoktoberfest.com/',
-        dateValue: '2026-10-10T11:00:00'
+      "eventRef": {
+        "id": "midpen-585f6695feb2edcb",
+        "title": "Night Sky Journey",
+        "url": "https://www.openspace.org/events/guided-activities/night-sky-journey",
+        "dateValue": "2026-10-17T18:30"
       },
-      label: 'Festival Pick', labelZh: '节庆精选',
-      whyWePicked: 'A free two-day downtown festival with German music, dancing, contests, food, and a family-friendly Bavarian atmosphere.',
-      whyWePickedZh: 'Downtown Mountain View 的免费两日节庆，有德国音乐、舞蹈、比赛、美食和亲子友好的巴伐利亚氛围。'
+      "label": "Astronomy Pick",
+      "labelZh": "天文观测精选",
+      "whyWePicked": "Join NASA scientists and local astronomers for telescopes, Moon rocks, Saturn and Neptune at Skyline Ridge; reserve ahead.",
+      "whyWePickedZh": "跟 NASA 科学家及本地天文爱好者一起在 Skyline Ridge 看月球岩石、土星和海王星，需提前预约。"
     },
     {
-      eventRef: {
-        id: 'editorial-spirit-of-freedom-2026',
-        title: 'Ukrainian Cultural Festival: The Spirit of Freedom',
-        url: 'https://www.eventbrite.com/e/ukrainian-cultural-festival-the-spirit-of-freedom-tickets-2002350327732',
-        dateValue: '2026-10-10T11:00:00'
+      "eventRef": {
+        "id": "series-7d054c14ef3151fd",
+        "title": "Spooky Movies",
+        "url": "https://sccl.bibliocommons.com/events/6aa334094b3b06003082e767",
+        "dateValue": "2026-10-18T11:00"
       },
-      label: 'Cultural Pick', labelZh: '文化体验',
-      whyWePicked: 'This free family-friendly Saratoga festival shares Ukrainian music, food, traditional arts, clothing, history, and cultural exhibits.',
-      whyWePickedZh: 'Saratoga 的免费亲子乌克兰文化节，通过音乐、美食、传统艺术、服饰、历史和文化展览认识乌克兰文化。'
+      "label": "Teen Movie Pick",
+      "labelZh": "青少年电影精选",
+      "whyWePicked": "Milpitas Library screens three spooky comedy-horror classics, including Gremlins; a fun option for families with teens.",
+      "whyWePickedZh": "Milpitas 图书馆连映三部惊悚喜剧经典，包括《小魔怪》，适合有青少年孩子的家庭。"
     },
     {
-      eventRef: {
-        id: 'editorial-halloween-scare-faire-costume-swap-2026',
-        title: 'Halloween Scare Faire & Costume Swap',
-        url: 'https://www.paloalto.gov/Events-Directory/Public-Works/Halloween-Scare-Faire-Costume-Swap',
-        dateValue: '2026-10-10T13:00:00'
+      "eventRef": {
+        "id": "paloalto-b7c93d23105d0017",
+        "title": "2026 Fall Family Day",
+        "url": "https://www.paloalto.gov/Events-Directory/Community-Services/2026-Fall-Family-Day",
+        "dateValue": "2026-10-18T14:00"
       },
-      label: 'Halloween Pick', labelZh: '万圣节精选',
-      whyWePicked: 'Families can swap costumes and decorations, make crafts, enjoy face painting and temporary tattoos, and listen to live music for free.',
-      whyWePickedZh: '全家可以免费交换服装和装饰、做手工、体验面部彩绘和临时纹身，还能听现场音乐。'
+      "label": "Family Art Day Pick",
+      "labelZh": "家庭艺术日精选",
+      "whyWePicked": "Free art-making at Palo Alto Art Center includes monoprints, collage and a new Teen Zone with jewelry and button crafts.",
+      "whyWePickedZh": "Palo Alto Art Center 的免费家庭艺术日有版画、拼贴，还有制作首饰和徽章的青少年专区。"
     },
     {
-      eventRef: {
-        id: 'editorial-palo-alto-rocks-2026',
-        title: 'Palo Alto Rocks! A Music Party in the Park',
-        url: 'https://paloaltomuseum.org/',
-        dateValue: '2026-10-10T16:00:00'
+      "eventRef": {
+        "id": "rss-6a74f2cd9006f75353156cdb",
+        "title": "Kira Hooks Music Performance | Filipino American History Month",
+        "url": "https://sccl.bibliocommons.com/events/6a74f2cd9006f75353156cdb",
+        "dateValue": "2026-10-18T14:00"
       },
-      label: 'Music Pick', labelZh: '音乐精选',
-      whyWePicked: 'A free outdoor music party at Heritage Park adds live bands, local music trivia, ice cream, and prizes to the afternoon.',
-      whyWePickedZh: 'Heritage Park 的免费户外音乐派对，有现场乐队、本地音乐问答、冰淇淋和奖品。'
-    },
-    {
-      eventRef: {
-        id: 'deanza-72211aa990ec1447',
-        title: 'Cosmic Journey',
-        url: 'https://daweb2.deanza.edu/events/event.html?id=191547180',
-        dateValue: '2026-10-10T16:00'
-      },
-      label: 'Space Pick', labelZh: '天文精选',
-      whyWePicked: 'Real satellite imagery brings the outer planets, ring systems, and moons to life in a family-friendly planetarium show.',
-      whyWePickedZh: '节目用真实卫星影像呈现外行星、行星环和卫星，是一场适合全家观看的天文馆体验。'
-    },
-    {
-      eventRef: {
-        id: 'civic-85dc62e71e3867da',
-        title: 'Milpitas Fiesta',
-        url: 'https://www.milpitas.gov/1325/Milpitas-Fiesta',
-        dateValue: '2026-10-10T16:00:00'
-      },
-      label: 'Community Pick', labelZh: '社区文化精选',
-      whyWePicked: 'Celebrate Filipino heritage with live music, cultural dance, handmade arts and crafts, food, and free community activities.',
-      whyWePickedZh: '通过现场音乐、文化舞蹈、手工艺、美食和免费社区活动一起庆祝菲律宾文化。'
-    },
-    {
-      eventRef: {
-        id: 'deanza-3dad4b06740adb05',
-        title: 'We Are Stars',
-        url: 'https://daweb2.deanza.edu/events/event.html?id=191550390',
-        dateValue: '2026-10-10T17:15'
-      },
-      label: 'STEM Pick', labelZh: 'STEM 精选',
-      whyWePicked: 'Ages six and up can explore cosmic chemistry and discover where the elements in our bodies came from in an immersive planetarium show.',
-      whyWePickedZh: '6 岁以上孩子可以通过沉浸式天文馆节目探索宇宙化学，了解构成我们身体的元素从何而来。'
+      "label": "Cultural Music Pick",
+      "labelZh": "文化音乐精选",
+      "whyWePicked": "Celebrate Filipino American History Month with Kira Hooks' live blend of soul, jazz, R&B and folk; all are welcome.",
+      "whyWePickedZh": "在 Kira Hooks 融合灵魂乐、爵士、R&B 和民谣的现场演出中庆祝菲律宾裔美国人历史月。"
     }
   ]
 };

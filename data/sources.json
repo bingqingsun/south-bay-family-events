@@ -740,7 +740,8 @@
           "verifiedAt": "2026-10-04T23:50:00Z",
           "sourceUrl": "https://content.govdelivery.com/accounts/CASUNNYVALE/bulletins/42b4291",
           "evidence": "first-party-current-event-image"
-        }
+        },
+        "endDateValue": "2026-10-17T15:00:00"
       }
     ]
   },
@@ -789,7 +790,8 @@
           "verifiedAt": "2026-10-04T23:50:00Z",
           "sourceUrl": "https://www.downtowncampbell.com/event/31st-annual-campbell-oktoberfest",
           "evidence": "first-party-current-event-image"
-        }
+        },
+        "endDateValue": "2026-10-17T18:00:00"
       },
       {
         "title": "Campbell Oktoberfest",
@@ -805,7 +807,8 @@
           "verifiedAt": "2026-10-04T23:50:00Z",
           "sourceUrl": "https://www.downtowncampbell.com/event/31st-annual-campbell-oktoberfest",
           "evidence": "first-party-current-event-image"
-        }
+        },
+        "endDateValue": "2026-10-18T17:00:00"
       }
     ]
   },

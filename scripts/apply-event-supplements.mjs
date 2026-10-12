@@ -127,7 +127,9 @@ function mergeVerifiedReplacement(existing, supplement) {
     // when replacing a recurring event whose supplement verification date may
     // refer to a different occurrence of the same official series.
     dateValue: existing.dateValue || verified.dateValue,
-    endDateValue: existing.endDateValue || verified.endDateValue,
+    endDateValue: supplement.overrideEndDateValue === true && verified.endDateValue
+      ? verified.endDateValue
+      : (existing.endDateValue || verified.endDateValue),
     sessions: Array.isArray(existing.sessions) && existing.sessions.length ? existing.sessions : verified.sessions,
     image: supplement.image || existing.image || '',
     imagePresentation: existing.imagePresentation || '',
