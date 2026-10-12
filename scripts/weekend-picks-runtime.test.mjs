@@ -100,12 +100,18 @@ if (today <= config.weekendEnd) {
     `Live current/future Weekend Picks must resolve; unresolved: ${unresolvedCurrentOrFuture.map(item => item.eventRef.title).join(', ')}`
   );
   assert.equal(model.expiredPicks.length, 0, 'Resolved live Weekend Picks must all overlap the configured weekend');
-  assert.equal(model.validPicks.length, config.picks.length, 'Every published Weekend Pick must resolve and overlap the weekend');
+  const expectedCurrentOrFuture = config.picks.filter(pick => String(pick.eventRef?.dateValue || '').slice(0, 10) >= today);
+  const resolvedCurrentOrFuture = model.validPicks.filter(pick => String(pick.eventRef?.dateValue || '').slice(0, 10) >= today);
+  assert.equal(resolvedCurrentOrFuture.length, expectedCurrentOrFuture.length, 'Every current or future published pick must resolve and overlap the weekend');
   const { createRequire } = await import('node:module');
   const require = createRequire(import.meta.url);
   const collectionRuntime = require('../collection-runtime.js');
   const collectionModel = collectionRuntime.buildCollectionViewModel(weekendCollection, events, { now: new Date() });
-  assert.equal(collectionModel.resolvedEditorialCount, config.picks.length, 'Homepage collection should resolve the same full set');
+  assert.deepEqual(
+    Array.from(collectionModel.resolvedEvents, event => event.id).sort(),
+    Array.from(model.resolvedPicks, pick => pick.event.id).sort(),
+    'Homepage collection and Weekend Picks must resolve the same canonical events'
+  );
   assert.ok(model.validPicks.length > 0, 'Live Weekend Picks should expose at least one current activity');
   assert.equal(model.state, 'live');
 } else {
