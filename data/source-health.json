@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-12T13:47:25.814Z",
+  "generatedAt": "2026-10-12T20:31:42.921Z",
   "configuredSources": 95,
   "directSources": 89,
   "fallbackSourcesRun": 0,
@@ -20,7 +20,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 10,
+      "eventCount": 11,
       "failureStreak": 0,
       "error": ""
     },
@@ -94,7 +94,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 496,
+      "eventCount": 471,
       "failureStreak": 0,
       "error": ""
     },
@@ -235,7 +235,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 18,
+      "eventCount": 14,
       "failureStreak": 0,
       "error": ""
     },
@@ -265,7 +265,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 6,
+      "eventCount": 5,
       "failureStreak": 0,
       "error": ""
     },
@@ -275,7 +275,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 13,
+      "eventCount": 9,
       "failureStreak": 0,
       "error": ""
     },
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 49,
+      "failureStreak": 50,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 49,
+      "failureStreak": 50,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -306,7 +306,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 49,
+      "failureStreak": 50,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -386,7 +386,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 46,
+      "failureStreak": 47,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -414,10 +414,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 3,
-      "error": "Los Altos History Museum event list was not valid: 202"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -446,7 +446,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 17,
+      "failureStreak": 18,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -536,7 +536,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 17,
+      "failureStreak": 18,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -546,7 +546,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 17,
+      "failureStreak": 18,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -940,56 +940,52 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 49,
+      "failureStreak": 50,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 49,
+      "failureStreak": 50,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 49,
+      "failureStreak": 50,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Peninsula Youth Theatre",
-      "failureStreak": 46,
+      "failureStreak": 47,
       "error": "PYT official show list was not valid: 200"
     },
     {
-      "name": "Los Altos History Museum",
-      "failureStreak": 3,
-      "error": "Los Altos History Museum event list was not valid: 202"
-    },
-    {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 17,
+      "failureStreak": 18,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
       "name": "The Village at San Antonio Center",
-      "failureStreak": 17,
+      "failureStreak": 18,
       "error": "Eventbrite organizer payload was not found"
     },
     {
       "name": "CalColor Academy",
-      "failureStreak": 17,
+      "failureStreak": 18,
       "error": "Eventbrite organizer payload was not found"
     }
   ],
   "paloAltoChildrensTheatreEnrichment": {
-    "checkedAt": "2026-10-12T13:47:25.814Z",
+    "checkedAt": "2026-10-12T20:31:42.921Z",
     "enriched": 6
   },
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-10-12T13:47:25.814Z",
-    "enriched": 305,
+    "checkedAt": "2026-10-12T20:31:42.921Z",
+    "enriched": 302,
     "identity-mismatch": 36,
     "fetch-blocked": 16,
     "cached": 2,
+    "fetch-failed": 1,
     "fieldUpdates": {
       "description": 11,
       "image": 1
@@ -997,15 +993,15 @@
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-10-12T13:47:25.814Z",
-    "official": 211,
-    "unclassified": 146,
+    "checkedAt": "2026-10-12T20:31:42.921Z",
+    "official": 210,
+    "unclassified": 145,
     "missing": 2,
     "failure:official_page_fetch_blocked": 2
   },
   "editorialCoverGeneration": {
     "frameworkVersion": "editorial-cover-v1",
-    "checkedAt": "2026-10-12T13:47:25.814Z",
+    "checkedAt": "2026-10-12T20:31:42.921Z",
     "generated": 2,
     "byReason": {
       "official_page_fetch_blocked": 2
@@ -1017,7 +1013,7 @@
   },
   "officialImageMirror": {
     "frameworkVersion": "official-image-mirror-v1",
-    "checkedAt": "2026-10-12T13:48:12.126Z",
+    "checkedAt": "2026-10-12T20:32:46.057Z",
     "configuredSources": 1,
     "mirroredEvents": 6,
     "mirroredAssets": 4,
