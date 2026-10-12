@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 
-export const EVENT_SUMMARY_VERSION = 'event-summary-v2-p7';
+export const EVENT_SUMMARY_VERSION = 'event-summary-v2-p8';
 
 // South Bay Family Finds event-summary engine.
 //
@@ -43,6 +43,8 @@ const DIRECT_PARTICIPATION_ACTION = /(?:^(?:come\b[^.!?]{0,80}\band\s+)?(?:follo
 const SUPPORT_ACTIVITY = /\b(?:homework help|tutoring|tutors?|study help|academic support)\b/i;
 const CONTENT_LIST_SIGNAL = /\b(?:activities?|program(?:ming)?|event)\s+(?:include|includes|feature|features|offer|offers)\b/i;
 const SEQUENCE_TAIL_PREFIX = /^(?:finally|lastly|at last|to finish|to wrap up)\b/i;
+const WHOLE_EVENT_FAMILY_SIGNAL = /\b(?:bring|join|welcome)\s+(?:the\s+)?whole\s+family\b|\bfor\s+(?:the\s+)?whole\s+family\b|\bmultigenerational\s+event\b|\bfamilies\s+(?:are\s+)?(?:welcome|invited)\b/i;
+const SCOPED_AUDIENCE_AREA = /\b(?:teen|tween|kids?|children'?s|adult|toddler|preschool)\s+(?:zone|area|space|corner|room)\b|\bactivities\s+exclusively\s+for\s+(?:teens?|tweens?|kids?|children|adults?|toddlers?|preschoolers?)\b/i;
 const PREPARATION_LOGISTICS = /\b(?:recommend(?:ed|ing)?|prepare|preparing|bring|wear|remember to bring)\b[^.!?]{0,180}\b(?:water bottle|sunscreen|sunblock|hat|helmet|bike lock|layers?|jacket|weather|closed[- ]toe shoes?|comfortable shoes?)\b/i;
 
 const CONTINUATION_START = /^(?:and|or|but|because|which|that|who|whose|where|when|while|until|with|without|from|by|including|such as)\b/i;
@@ -243,7 +245,7 @@ export function hasActivitySummary(text, options = {}) {
   return isSummaryAcceptable(text, options);
 }
 
-function scoreSentence(sentence, index) {
+function scoreSentence(sentence, index, sourceText = '') {
   let score = Math.min(sentence.length, 220) / 35;
   if (CONCRETE_ACTION.test(sentence)) score += 22;
   if (DIRECT_PARTICIPATION_ACTION.test(sentence)) score += 32;
@@ -270,6 +272,10 @@ function scoreSentence(sentence, index) {
   // A sentence beginning with a closing transition usually describes only the
   // final stop in a multi-step experience, not the event as a whole.
   if (SEQUENCE_TAIL_PREFIX.test(sentence)) score -= 18;
+  // Do not let a dedicated sub-area (Teen Zone, Kids Area, etc.) define the
+  // entire event when the organizer explicitly describes the event itself as
+  // whole-family or multigenerational.
+  if (WHOLE_EVENT_FAMILY_SIGNAL.test(sourceText) && SCOPED_AUDIENCE_AREA.test(sentence)) score -= 24;
   // Small tie-breaker toward earlier official text without allowing a generic
   // lead sentence to beat a later sentence that contains the actual activity.
   score -= index * 0.15;
@@ -283,7 +289,7 @@ export function selectConcreteSourceSentence(sourceText, options = {}) {
   for (let index = 0; index < sentences.length; index += 1) {
     const sentence = sentences[index];
     if (!isSummaryAcceptable(sentence, options)) continue;
-    const score = scoreSentence(sentence, index);
+    const score = scoreSentence(sentence, index, sourceText);
     if (!best || score > best.score) best = { sentence, score, index };
   }
 
@@ -359,7 +365,7 @@ export function buildExtractiveSummary(sourceText, { title = '', format = '' } =
   }
 
   const candidates = splitSourceSentences(text, options)
-    .map((sentence, index) => ({ sentence, index, score: scoreSentence(sentence, index) }))
+    .map((sentence, index) => ({ sentence, index, score: scoreSentence(sentence, index, text) }))
     .filter(item => isSummaryAcceptable(item.sentence, options))
     .sort((a, b) => b.score - a.score);
 

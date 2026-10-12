@@ -355,6 +355,11 @@ function ageInfo(categories) {
   const lower = text.toLowerCase();
   const familyFriendly = /family(?:-friendly)?/.test(lower);
   const allAges = /\ball[-\s]ages?\b|\bfor all[-\s]ages\b|\bappropriate for all[-\s]ages\b/.test(lower);
+  // A whole-event family invitation is broader than a scoped sub-area such
+  // as a Teen Zone or Kids Area. It should prevent those local audience
+  // labels from narrowing the entire event, while still allowing an explicit
+  // numeric age or grade range to win when the organizer provides one.
+  const explicitWholeFamilyAudience = /\b(?:bring|join|welcome)\s+(?:the\s+)?whole\s+family\b|\bfor\s+(?:the\s+)?whole\s+family\b|\bmultigenerational\s+event\b|\bfamilies\s+(?:are\s+)?(?:welcome|invited)\b/.test(lower);
   // A sentence such as “All ages are welcome” is a direct organizer audience
   // statement, not a broad category. It must take precedence over narrower
   // taxonomy chips that can appear alongside it (for example Babies/Teens).
@@ -387,7 +392,7 @@ function ageInfo(categories) {
   // precise organizer range. For example, “Ages 5–12” can also carry the
   // platform's Pre-teens category, but the card and filter should remain 5–12.
   const hasExplicitAgeRange = ranges.length > 0;
-  if (!hasExplicitAgeRange) {
+  if (!hasExplicitAgeRange && !explicitWholeFamilyAudience) {
     if (/bab(?:y|ies)\s*\(\s*under\s*2\s*\)|\bkids?:\s*bab(?:y|ies)\b|\bunder\s*2\b|\binfants?\b/.test(lower)) addRange(0, 1);
     if (/toddlers?|18\s*(?:months?|mos?)/.test(lower)) addRange(1, 3);
     if (/pre-?school(?:ers?)?/.test(lower)) addRange(3, 5);
@@ -418,6 +423,7 @@ function ageInfo(categories) {
     };
   }
   if (!ranges.length && allAges) return { ageBands: ['all-ages'], ageRanges: [[0, 18]], ageMin: 0, ageMax: 18, ageLabel: 'All ages', ageSource: 'Official audience information', familyFriendly };
+  if (!ranges.length && explicitWholeFamilyAudience) return { ageBands: ['family'], ageRanges: [], ageMin: null, ageMax: null, ageLabel: 'Family-friendly', ageSource: 'Official whole-family audience statement', familyFriendly: true };
   if (!ranges.length) return { ageBands: familyFriendly ? ['family'] : [], ageRanges: [], ageMin: null, ageMax: null, ageLabel: familyFriendly ? 'Family-friendly' : '', ageSource: familyFriendly ? 'Official audience information' : '', familyFriendly };
   const normalized = ranges.sort((a, b) => a[0] - b[0]).reduce((merged, range) => {
     const previous = merged.at(-1);
