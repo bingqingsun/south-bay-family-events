@@ -1086,7 +1086,12 @@
         "ageText": "All ages Family-friendly",
         "cost": "Free admission; optional paid Pumpkin Pass",
         "format": "festival",
-        "seasonalTheme": "halloween"
+        "seasonalTheme": "halloween",
+        "imageOverride": {
+          "verifiedAt": "2026-10-12T12:05:53.771Z",
+          "sourceUrl": "https://www.milpitas.gov/1160/Pumpkins-in-the-Park",
+          "evidence": "first-party-current-event-image"
+        }
       }
     ]
   },

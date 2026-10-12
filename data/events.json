@@ -14469,7 +14469,16 @@
     },
     "translationStatus": "current",
     "translationSourceFingerprint": "ee035f787e18c51fe8e1cdff72bbff83ebe9d7310803b984d5418655e168cbf2",
-    "refreshStatus": "verified-supplement"
+    "refreshStatus": "verified-supplement",
+    "imageFailureReason": "",
+    "imageProvenance": {
+      "source": "curated-manual",
+      "method": "manual_verified",
+      "sourceUrl": "https://www.milpitas.gov/1160/Pumpkins-in-the-Park",
+      "verifiedAt": "2026-10-12T12:05:53.771Z",
+      "score": 100,
+      "evidence": "first-party-current-event-image"
+    }
   },
   {
     "id": "chcp-d244b5156a5e153b",
