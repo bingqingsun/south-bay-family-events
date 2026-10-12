@@ -251,7 +251,7 @@ function scoreSentence(sentence, index) {
   if (CONTENT_LIST_SIGNAL.test(sentence)) score += 28;
   if (PARTICIPATION_SIGNAL.test(sentence)) score += 8;
   if (SPECIFIC_OBJECT.test(sentence)) score += 8;
-  if (OBSERVATION_TOOL.test(sentence)) score += 12;
+  if (OBSERVATION_TOOL.test(sentence)) score += 18;
   if (/\b(?:by|while|then|and)\b/i.test(sentence) && CONCRETE_ACTION.test(sentence)) score += 3;
   if (sentence.length >= 35 && sentence.length <= 260) score += 4;
   if (sentence.length > 420) score -= 8;
