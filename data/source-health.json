@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-12T04:45:17.009Z",
+  "generatedAt": "2026-10-12T04:49:53.201Z",
   "configuredSources": 95,
   "directSources": 89,
   "fallbackSourcesRun": 0,
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 45,
+      "failureStreak": 46,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 45,
+      "failureStreak": 46,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -306,7 +306,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 45,
+      "failureStreak": 46,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -386,7 +386,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 42,
+      "failureStreak": 43,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -414,10 +414,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 1,
-      "error": "Los Altos History Museum event list was not valid: 202"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -446,7 +446,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 13,
+      "failureStreak": 14,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -536,7 +536,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 13,
+      "failureStreak": 14,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -546,7 +546,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 13,
+      "failureStreak": 14,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -940,62 +940,59 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 45,
+      "failureStreak": 46,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 45,
+      "failureStreak": 46,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 45,
+      "failureStreak": 46,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Peninsula Youth Theatre",
-      "failureStreak": 42,
+      "failureStreak": 43,
       "error": "PYT official show list was not valid: 200"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 13,
+      "failureStreak": 14,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
       "name": "The Village at San Antonio Center",
-      "failureStreak": 13,
+      "failureStreak": 14,
       "error": "Eventbrite organizer payload was not found"
     },
     {
       "name": "CalColor Academy",
-      "failureStreak": 13,
+      "failureStreak": 14,
       "error": "Eventbrite organizer payload was not found"
     }
   ],
   "paloAltoChildrensTheatreEnrichment": {
-    "checkedAt": "2026-10-12T04:45:17.009Z",
+    "checkedAt": "2026-10-12T04:49:53.201Z",
     "enriched": 6
   },
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-10-12T04:45:17.009Z",
-    "enriched": 304,
+    "checkedAt": "2026-10-12T04:49:53.201Z",
+    "enriched": 303,
     "identity-mismatch": 36,
     "fetch-blocked": 16,
-    "cached": 1,
+    "cached": 2,
     "fieldUpdates": {
       "description": 11,
-      "endDateValue": 1,
-      "place": 1,
-      "address": 1,
-      "image": 2
+      "image": 1
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-10-12T04:45:17.009Z",
+    "checkedAt": "2026-10-12T04:49:53.201Z",
     "official": 210,
     "missing": 3,
     "failure:no_verified_official_image_candidate": 1,
@@ -1004,7 +1001,7 @@
   },
   "editorialCoverGeneration": {
     "frameworkVersion": "editorial-cover-v1",
-    "checkedAt": "2026-10-12T04:45:17.009Z",
+    "checkedAt": "2026-10-12T04:49:53.201Z",
     "generated": 3,
     "byReason": {
       "no_verified_official_image_candidate": 1,
@@ -1018,7 +1015,7 @@
   },
   "officialImageMirror": {
     "frameworkVersion": "official-image-mirror-v1",
-    "checkedAt": "2026-10-12T04:46:09.014Z",
+    "checkedAt": "2026-10-12T04:50:45.058Z",
     "configuredSources": 1,
     "mirroredEvents": 6,
     "mirroredAssets": 4,
