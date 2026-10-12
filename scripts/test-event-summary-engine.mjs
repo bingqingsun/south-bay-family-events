@@ -258,6 +258,16 @@ const movieStructured = buildOfficialMovieScreeningSummary({ rating: 'PG', theat
 assert.equal(movieStructured.summary, 'PG-rated movie screening at Example Cinema.');
 assert.deepEqual(movieStructured.evidenceData, { kind: 'movie-screening', rating: 'PG', theater: 'Example Cinema' });
 
+// Observational science/nature programs: a closing "Finally..." step must not
+// outrank a more representative hands-on/observational sentence earlier in the
+// official description.
+const nightSkySource = "Join Docent Naturalists and local astronomers for an evening observing the night sky. Neptune and Saturn will be visible (weather permitting). You'll begin with a close-up look at rocks from the Moon, Mars, and across the Solar System. Gaze through telescopes for detailed views of the lunar surface, continue the journey farther to Saturn’s spectacular rings and moons, and then go beyond to blue Neptune. Finally, you’ll leave the Solar System and explore the stars and nebulae of our home galaxy, the Milky Way.";
+const nightSkySummary = buildExtractiveSummary(nightSkySource, { title: 'Night Sky Journey' });
+assert.match(nightSkySummary.summary, /^Gaze through telescopes/i,
+  'observational programs should surface the concrete telescope experience');
+assert.doesNotMatch(nightSkySummary.summary, /^Finally\b/i,
+  'a closing sequence step should not become the whole event summary');
+
 // Engine contract: it selects evidence but never truncates a selected sentence
 // into a stored ellipsis or invents a replacement clause.
 const longAction = "Families can create a detailed paper city together using reusable templates, markers, stickers, recycled materials, and guided design prompts while talking with library staff about how neighborhoods are planned and built.";
@@ -271,7 +281,7 @@ const summaryRecord = buildSummaryRecord({
   status: 'extractive',
   verifiedAt: '2026-09-19T00:00:00.000Z'
 });
-assert.equal(summaryRecord.summaryVersion, 'event-summary-v2-p6');
+assert.equal(summaryRecord.summaryVersion, 'event-summary-v2-p7');
 assert.equal(summaryRecord.parentSummary, timeSegments[0]);
 
 const retainedLegacyExtractive = upgradeSummaryRecordVersion({
@@ -284,7 +294,7 @@ const retainedLegacyExtractive = upgradeSummaryRecordVersion({
   summaryVersion: 'event-summary-v2-p4',
   summaryVerifiedAt: '2026-10-01T00:00:00.000Z'
 }, { verifiedAt: '2026-10-04T00:00:00.000Z' });
-assert.equal(retainedLegacyExtractive.summaryVersion, 'event-summary-v2-p6');
+assert.equal(retainedLegacyExtractive.summaryVersion, 'event-summary-v2-p7');
 assert.match(retainedLegacyExtractive.parentSummary, /Explore Palo Alto’s parks/i);
 assert.doesNotMatch(retainedLegacyExtractive.parentSummary, /Email Address|View Map|Fields marked/i);
 
@@ -297,7 +307,7 @@ const retainedManual = upgradeSummaryRecordVersion({
   summaryVersion: 'event-summary-v2-p4',
   summaryVerifiedAt: '2026-10-01T00:00:00.000Z'
 }, { verifiedAt: '2026-10-04T00:00:00.000Z' });
-assert.equal(retainedManual.summaryVersion, 'event-summary-v2-p6');
+assert.equal(retainedManual.summaryVersion, 'event-summary-v2-p7');
 assert.equal(retainedManual.parentSummary, 'A verified family performance.');
 assert.equal(summaryRecord.parentSummary, timeSegments[0]);
 assert.equal(summaryRecord.summaryEvidence, summaryRecord.parentSummary);

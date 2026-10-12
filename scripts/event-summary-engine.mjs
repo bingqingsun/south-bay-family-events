@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 
-export const EVENT_SUMMARY_VERSION = 'event-summary-v2-p6';
+export const EVENT_SUMMARY_VERSION = 'event-summary-v2-p7';
 
 // South Bay Family Finds event-summary engine.
 //
@@ -11,9 +11,11 @@ export const EVENT_SUMMARY_VERSION = 'event-summary-v2-p6';
 // - extractive summaries must remain verbatim substrings of the normalized
 //   official source text so every published claim is directly auditable.
 
-const CONCRETE_ACTION = /\b(?:make|making|build|building|create|creating|paint|painting|decorate|decorating|assemble|assembling|plant|planting|cook|cooking|bake|baking|craft|crafting|play|playing|watch|watching|read|reading|dance|dancing|sing|singing|taste|tasting|eat|eating|drink|drinking|tour|touring|hike|hiking|try|trying|practice|practicing|explore|exploring|learn|learning|design|designing|draw|drawing|sew|sewing|knit|knitting|crochet|crocheting|meet|meeting|listen|listening|perform|performing|compete|competing|solve|solving|experiment|experimenting|test|testing|launch|launching|fly|flying|throw|throwing|kick|kicking|jump|jumping|stamp|stamping|fold|folding|coloring|write|writing|ride|riding|visit|visiting|see|seeing|experience|experiencing)\b/i;
+const CONCRETE_ACTION = /\b(?:make|making|build|building|create|creating|paint|painting|decorate|decorating|assemble|assembling|plant|planting|cook|cooking|bake|baking|craft|crafting|play|playing|watch|watching|read|reading|dance|dancing|sing|singing|taste|tasting|eat|eating|drink|drinking|tour|touring|hike|hiking|try|trying|practice|practicing|explore|exploring|learn|learning|design|designing|draw|drawing|sew|sewing|knit|knitting|crochet|crocheting|meet|meeting|listen|listening|perform|performing|compete|competing|solve|solving|experiment|experimenting|test|testing|launch|launching|fly|flying|throw|throwing|kick|kicking|jump|jumping|stamp|stamping|fold|folding|coloring|write|writing|ride|riding|visit|visiting|see|seeing|observe|observing|gaze|gazing|stargaze|stargazing|experience|experiencing)\b/i;
 
 const PARTICIPATION_SIGNAL = /\b(?:with us|hands-on|take (?:it|them) home|bring .* home|hang your|your own|kids?|children|families|participants|attendees|together|you(?:'ll| will| can)|visitors? can)\b/i;
+
+const OBSERVATION_TOOL = /\b(?:telescopes?|binoculars?|microscopes?|magnifying\s+glasses?|spotting\s+scopes?)\b/i;
 
 const SPECIFIC_OBJECT = /\b(?:feeder|kite|lantern|painting|paint|flower|keychain|cardholder|card|cards|lego|legos|craft|project|experiment|game|games|story|stories|song|songs|instrument|bracelet|jewelry|robot|puzzle|mooncake|collage|mask|puppet|book|books|seed|garden|cookie|cookies|cake|clay|pottery|origami|model|slime|rocket|birdhouse|art|workshop|performance|show|concert|film|movie|exhibit|exhibition)\b/i;
 
@@ -25,10 +27,10 @@ const BIOGRAPHY_OR_PROMOTION = /\b(?:recent publications?|publications? include|
 
 const OPERATIONAL_NOTE = /\b(?:will be|is) held (?:inside|indoors?|outdoors?)\b|\b(?:will not|won't|does not|doesn't) (?:be )?held\b|\bnot (?:be )?held\b|\b(?:in case of|depending on) (?:rain|weather)\b|\b(?:parking|entrance|room|location) (?:is|will be|has changed)\b|\b(?:cancell?ed|postponed|rescheduled)\b/i;
 
-const ACTIVITY_VERB = /\b(?:watch|watching|listen|listening|enjoy|join|explore|discover|create|build|make|making|play|sing|dance|read|learn|practice|taste|eat|drink|walk|hike|tour|meet|test|testing|paint|painting|decorate|decorating|design|designing|draw|drawing|sew|sewing|knit|knitting|crochet|crocheting|see|experience|ride|visit|try|participate)\b/i;
+const ACTIVITY_VERB = /\b(?:watch|watching|listen|listening|enjoy|join|explore|discover|create|build|make|making|play|sing|dance|read|learn|practice|taste|eat|drink|walk|hike|tour|meet|test|testing|paint|painting|decorate|decorating|design|designing|draw|drawing|sew|sewing|knit|knitting|crochet|crocheting|see|experience|ride|visit|try|participate|observe|observing|gaze|gazing|stargaze|stargazing)\b/i;
 const EVENT_NOUN = /\b(?:story(?:time)?|songs?|rhymes?|crafts?|games?|workshop|class|concerts?|performances?|shows?|movies?|films?|screenings?|exhibit(?:ion)?s?|festival|parade|museum|science|art|music|opera|ballet|theat(?:er|re)|sports?|matches?)\b/i;
 const EXPERIENCE_STRUCTURE = /\b(?:with|featur(?:e|es|ing)|includes?|offers?|offering|where|activities?|demonstrations?|performances?|stations?|zone|zones)\b/i;
-const STRONG_ACTIVITY_DETAIL = /\b(?:make|making|build|building|create|creating|paint|painting|decorate|decorating|assemble|assembling|plant|planting|cook|cooking|bake|baking|craft|crafting|play|playing|watch|watching|read|reading|dance|dancing|sing|singing|taste|tasting|eat|eating|drink|drinking|tour|touring|hike|hiking|try|trying|practice|practicing|explore|exploring|learn|learning|design|designing|draw|drawing|sew|sewing|knit|knitting|crochet|crocheting|meet|meeting|listen|listening|perform|performing|compete|competing|solve|solving|experiment|experimenting|test|testing|launch|launching|fly|flying|throw|throwing|kick|kicking|jump|jumping|stamp|stamping|fold|folding|color|coloring|write|writing|ride|riding|walk|walking|follow|following|find|finding|collect|collecting|participate|participating|discuss|discussing|trick[- ]or[- ]treat(?:ing)?)\b/i;
+const STRONG_ACTIVITY_DETAIL = /\b(?:make|making|build|building|create|creating|paint|painting|decorate|decorating|assemble|assembling|plant|planting|cook|cooking|bake|baking|craft|crafting|play|playing|watch|watching|read|reading|dance|dancing|sing|singing|taste|tasting|eat|eating|drink|drinking|tour|touring|hike|hiking|try|trying|practice|practicing|explore|exploring|learn|learning|design|designing|draw|drawing|sew|sewing|knit|knitting|crochet|crocheting|meet|meeting|listen|listening|perform|performing|compete|competing|solve|solving|experiment|experimenting|test|testing|launch|launching|fly|flying|throw|throwing|kick|kicking|jump|jumping|stamp|stamping|fold|folding|color|coloring|write|writing|ride|riding|walk|walking|follow|following|find|finding|collect|collecting|participate|participating|discuss|discussing|observe|observing|gaze|gazing|stargaze|stargazing|trick[- ]or[- ]treat(?:ing)?)\b/i;
 const GENERIC_EXPERIENCE = /\b(?:family[- ]friendly|fun|exciting|interactive|immersive|magical|spectacular|unforgettable|special)\b[^.!?]{0,100}\bexperience\b/i;
 const PROMOTIONAL_FLUFF = /\b(?:cherished|treasured|beloved|community favorite|unforgettable experience|something for everyone|perfect way to|experience the magic|make memories|memories that last|never forget|must[- ]see|can't miss|cannot miss|not to be missed)\b/i;
 const SENSORY_OR_ACCESSIBILITY_DETAIL = /\b(?:visually busy|visual stimulation|sensory (?:need|needs|difference|differences|processing)|different textures?|unusual textures?|noise level|may become noisy|bright lights?|flashing lights?|loud sounds?|accessibility accommodations?)\b/i;
@@ -40,6 +42,7 @@ const ABSTRACT_ACTIVITY_COPY = /\b(?:explore new ways to play and learn|engaging
 const DIRECT_PARTICIPATION_ACTION = /(?:^(?:come\b[^.!?]{0,80}\band\s+)?(?:follow|find|collect|trick[- ]or[- ]treat(?:ing)?)\b|\b(?:you|families|kids|children|visitors|participants|attendees|guests?)\b[^.!?]{0,100}\b(?:can|will|are invited to|are welcome to)?\s*(?:follow|find|collect|trick[- ]or[- ]treat(?:ing)?)\b)/i;
 const SUPPORT_ACTIVITY = /\b(?:homework help|tutoring|tutors?|study help|academic support)\b/i;
 const CONTENT_LIST_SIGNAL = /\b(?:activities?|program(?:ming)?|event)\s+(?:include|includes|feature|features|offer|offers)\b/i;
+const SEQUENCE_TAIL_PREFIX = /^(?:finally|lastly|at last|to finish|to wrap up)\b/i;
 const PREPARATION_LOGISTICS = /\b(?:recommend(?:ed|ing)?|prepare|preparing|bring|wear|remember to bring)\b[^.!?]{0,180}\b(?:water bottle|sunscreen|sunblock|hat|helmet|bike lock|layers?|jacket|weather|closed[- ]toe shoes?|comfortable shoes?)\b/i;
 
 const CONTINUATION_START = /^(?:and|or|but|because|which|that|who|whose|where|when|while|until|with|without|from|by|including|such as)\b/i;
@@ -248,6 +251,7 @@ function scoreSentence(sentence, index) {
   if (CONTENT_LIST_SIGNAL.test(sentence)) score += 28;
   if (PARTICIPATION_SIGNAL.test(sentence)) score += 8;
   if (SPECIFIC_OBJECT.test(sentence)) score += 8;
+  if (OBSERVATION_TOOL.test(sentence)) score += 18;
   if (/\b(?:by|while|then|and)\b/i.test(sentence) && CONCRETE_ACTION.test(sentence)) score += 3;
   if (sentence.length >= 35 && sentence.length <= 260) score += 4;
   if (sentence.length > 420) score -= 8;
@@ -263,6 +267,9 @@ function scoreSentence(sentence, index) {
   if (isGenericExperienceOnly(sentence)) score -= 45;
   if (isPromotionalFluffOnly(sentence)) score -= 45;
   if (isLikelyFragment(sentence)) score -= 60;
+  // A sentence beginning with a closing transition usually describes only the
+  // final stop in a multi-step experience, not the event as a whole.
+  if (SEQUENCE_TAIL_PREFIX.test(sentence)) score -= 18;
   // Small tie-breaker toward earlier official text without allowing a generic
   // lead sentence to beat a later sentence that contains the actual activity.
   score -= index * 0.15;
