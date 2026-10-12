@@ -268,6 +268,14 @@ assert.match(nightSkySummary.summary, /^Gaze through telescopes/i,
 assert.doesNotMatch(nightSkySummary.summary, /^Finally\b/i,
   'a closing sequence step should not become the whole event summary');
 
+// Scoped audience areas must not eclipse the whole-family event itself.
+const fallFamilyDaySource = "Join us for a creative afternoon inspired by our fall exhibition, Live the moment light. Enjoy art activities led by Art Center teaching artists. Make foil monoprints, collage art, dot art, and foam prints! Bring the whole family for this fun, multigenerational event. Teens are invited to visit the Teen Zone, a dedicated space created in collaboration with Art Center Teen Leadership. The Teen Zone will feature activities exclusively for teens such as button-making, jewelry-making, and board games.";
+const fallFamilyDaySummary = buildExtractiveSummary(fallFamilyDaySource, { title: '2026 Fall Family Day', format: 'museum-program' });
+assert.match(fallFamilyDaySummary.summary, /^Make foil monoprints/i,
+  'whole-family event summaries should prefer main activities over a scoped Teen Zone');
+assert.doesNotMatch(fallFamilyDaySummary.summary, /Teen Zone|exclusively for teens/i,
+  'a scoped audience area must not define the parent-facing summary');
+
 // Engine contract: it selects evidence but never truncates a selected sentence
 // into a stored ellipsis or invents a replacement clause.
 const longAction = "Families can create a detailed paper city together using reusable templates, markers, stickers, recycled materials, and guided design prompts while talking with library staff about how neighborhoods are planned and built.";
@@ -281,7 +289,7 @@ const summaryRecord = buildSummaryRecord({
   status: 'extractive',
   verifiedAt: '2026-09-19T00:00:00.000Z'
 });
-assert.equal(summaryRecord.summaryVersion, 'event-summary-v2-p7');
+assert.equal(summaryRecord.summaryVersion, 'event-summary-v2-p8');
 assert.equal(summaryRecord.parentSummary, timeSegments[0]);
 
 const retainedLegacyExtractive = upgradeSummaryRecordVersion({
@@ -294,7 +302,7 @@ const retainedLegacyExtractive = upgradeSummaryRecordVersion({
   summaryVersion: 'event-summary-v2-p4',
   summaryVerifiedAt: '2026-10-01T00:00:00.000Z'
 }, { verifiedAt: '2026-10-04T00:00:00.000Z' });
-assert.equal(retainedLegacyExtractive.summaryVersion, 'event-summary-v2-p7');
+assert.equal(retainedLegacyExtractive.summaryVersion, 'event-summary-v2-p8');
 assert.match(retainedLegacyExtractive.parentSummary, /Explore Palo Alto’s parks/i);
 assert.doesNotMatch(retainedLegacyExtractive.parentSummary, /Email Address|View Map|Fields marked/i);
 
@@ -307,7 +315,7 @@ const retainedManual = upgradeSummaryRecordVersion({
   summaryVersion: 'event-summary-v2-p4',
   summaryVerifiedAt: '2026-10-01T00:00:00.000Z'
 }, { verifiedAt: '2026-10-04T00:00:00.000Z' });
-assert.equal(retainedManual.summaryVersion, 'event-summary-v2-p7');
+assert.equal(retainedManual.summaryVersion, 'event-summary-v2-p8');
 assert.equal(retainedManual.parentSummary, 'A verified family performance.');
 assert.equal(summaryRecord.parentSummary, timeSegments[0]);
 assert.equal(summaryRecord.summaryEvidence, summaryRecord.parentSummary);
