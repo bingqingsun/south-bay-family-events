@@ -32,4 +32,15 @@ assert.equal(result.ageMin, 0);
 assert.equal(result.ageMax, 18);
 assert.equal(result.ageLabel, 'All ages');
 
+result = context.ageInfo('Bring the whole family for this fun, multigenerational event. Teens are invited to visit the Teen Zone. The Teen Zone features activities exclusively for teens.');
+assert.deepEqual(rangesOf(result), [], 'a scoped Teen Zone must not narrow a whole-family event');
+assert.equal(result.ageMin, null);
+assert.equal(result.ageMax, null);
+assert.equal(result.ageLabel, 'Family-friendly');
+assert.deepEqual(JSON.parse(JSON.stringify(result.ageBands)), ['family']);
+
+result = context.ageInfo('Bring the whole family. Participants ages 8–12 may join the workshop.');
+assert.deepEqual(rangesOf(result), [[8, 12]], 'an explicit numeric organizer range should still outrank broad whole-family wording');
+assert.equal(result.ageLabel, 'Ages 8–12');
+
 console.log('Update-events age tests passed.');
