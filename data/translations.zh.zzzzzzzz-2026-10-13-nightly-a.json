@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "entries": [
+    {
+      "id": "rss-6aa42fe556fe62004a2f6bad",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6aa42fe556fe62004a2f6bad",
+      "title": "万圣节寻宝游戏",
+      "description": "图书馆的书架之间藏着许多万圣节主题、但并不太吓人的纸艺作品，来看看你能不能把它们全部找出来！",
+      "sourceFingerprint": "ff8bf5c5316a5cd83f2600694135ebf9a1275f3e404dfa8c94f6c145c92d9d9f",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-13T14:07:00Z"
+    },
+    {
+      "id": "rss-68cdb1eb62a8786065c374d7",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/68cdb1eb62a8786065c374d7",
+      "title": "家庭故事时间＋自由玩耍",
+      "description": "故事时间适合不同年龄的孩子，欢迎全家一起参与听故事、唱歌、念童谣、手指游戏和律动等早期读写活动。",
+      "sourceFingerprint": "551b535f6407d746ae6fcd6c579aaa130b5725d7fad57d173019e0857efe30d6",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-13T14:07:00Z"
+    },
+    {
+      "id": "rss-694451baea69de6e00104926",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/694451baea69de6e00104926",
+      "title": "家庭故事时间与自由玩耍",
+      "description": "故事时间适合不同年龄的孩子，欢迎全家一起参与听故事、唱歌、念童谣、手指游戏和律动等早期读写活动。",
+      "sourceFingerprint": "c7478f8231ddceaf8845ae9507b21fd6a89b5ea7f7714c09e81a3b3d0b555620",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-13T14:07:00Z"
+    },
+    {
+      "id": "rss-6a94585760ccaf01c0221c3c",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a94585760ccaf01c0221c3c",
+      "title": "万圣节故事时间与游行",
+      "description": "一起来参加互动式故事讲述，在充满万圣节奇幻气氛的故事中发挥想象力，感受这个节日的魅力。",
+      "sourceFingerprint": "a2ad27a295ca5a822c0a50861dd873f6461482be3e9dab61102830f2a7939ed6",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-13T14:07:00Z"
+    },
+    {
+      "id": "rss-693330536724c63d00e572bf",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/693330536724c63d00e572bf",
+      "title": "室内家庭故事时间与自由玩耍",
+      "description": "故事时间适合不同年龄的孩子，欢迎全家一起参与听故事、唱歌、念童谣、手指游戏和律动等早期读写活动。",
+      "sourceFingerprint": "29dbe3dd869b28a1c996d6ae07cf7afaf41d89328ecafdebdfcd9017d2661a3b",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-13T14:07:00Z"
+    },
+    {
+      "id": "rss-677c54effea9b97171fe8f93",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/677c54effea9b97171fe8f93",
+      "title": "Seven Trees 婴幼儿故事时间",
+      "description": "邀请婴幼儿和照护者一起参加，通过故事、歌曲、轻轻弹跳、挠痒互动、童谣、图书和游戏增进彼此关系，在互动中共同学习。",
+      "sourceFingerprint": "a8a633542bdbeeffe24a1d9beff38344c0d04af4ce85dc39d22eb0e87d0e14d5",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-13T14:07:00Z"
+    },
+    {
+      "id": "series-e312633de924366b",
+      "sourceUrl": "https://www.gilroygardens.org/halloween/",
+      "title": "The Great Big BOO! 万圣节庆典",
+      "description": "在 Gilroy Gardens 举办的亲子万圣节庆典，包含现场音乐剧演出、沿 BOO Trail 讨糖、与角色见面以及互动式万圣节体验。",
+      "sourceFingerprint": "ea7cd8ab1f0f6e04bd7a50e1d4f4ed27bbca800efb033ea546970b04e5a57aae",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-13T14:07:00Z"
+    }
+  ]
+}

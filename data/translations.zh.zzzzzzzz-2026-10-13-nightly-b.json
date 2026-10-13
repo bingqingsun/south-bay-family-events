@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "entries": [
+    {
+      "id": "editorial-milpitas-pumpkins-in-the-park-2026",
+      "sourceUrl": "https://www.milpitas.gov/1160/Pumpkins-in-the-Park",
+      "title": "Pumpkins in the Park 南瓜公园活动",
+      "description": "Milpitas 市邀请家庭于 October 17, 2026 的 11 a.m.–1 p.m. 前往 Cardoza Park，参加免费的讨糖、手工活动、装扮比赛和社区演出。另可付费购买 Pumpkin Passes，体验南瓜园、宠物互动区、攀岩墙等项目。",
+      "sourceFingerprint": "6487095d099838d27e10b0bb1410d86b3e1b138f6ea040068c232ab095bc8fb9",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-13T14:07:00Z"
+    },
+    {
+      "id": "jmz-family-9e10bcb96952915e",
+      "sourceUrl": "https://www.paloaltozoo.org/Visit/Accessibility",
+      "title": "超级家庭星期日",
+      "description": "Junior Museum & Zoo 致力于提供包容、无障碍的参观体验。",
+      "sourceFingerprint": "17b2e6936bed7b50b626aa82feeaae42ee35eeb7249dd9141553acea295b2a8e",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-13T14:07:00Z"
+    },
+    {
+      "id": "series-34d0b34c56f66607",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a7fafcfaafa6100295cbd53",
+      "title": "睡衣故事时间 [Hora de Cuentos en Pijama]",
+      "description": "在快乐中学习。",
+      "sourceFingerprint": "dcb0d34a721267c1cfa1cfc3787835f39e17e83a67a05e31877a8253f46ea490",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-13T14:07:00Z"
+    },
+    {
+      "id": "series-8591fc4cbaa997e0",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a876f9229a7dd0d67456656",
+      "title": "K-2 年级科学星期日",
+      "description": "每个星期日都来做一项新实验！",
+      "sourceFingerprint": "56afe420a5dcc246eeff3e46c6b7c261043a1fd2531ed94a48dc576d9bfb7e15",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-13T14:07:00Z"
+    },
+    {
+      "id": "rss-6abd5040e06996003a804e1d",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6abd5040e06996003a804e1d",
+      "title": "线上作家讲座：主厨 Pyet DeSpain",
+      "description": "欢迎参加主厨 Pyet DeSpain 的线上分享，听她介绍自己的首部食谱《Rooted in Fire: A Celebration of Native American and Mexican Cooking》。",
+      "sourceFingerprint": "68878f39760a26f71e0832dd6db666962fe44aeede62d394e3616495f44c5cc6",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-13T14:07:00Z"
+    },
+    {
+      "id": "rss-6abafc6dc6cddb004594fd45",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6abafc6dc6cddb004594fd45",
+      "title": "手工毛线与布艺冬季小鸟制作",
+      "description": "与社区教育工作者、可持续艺术家 Leila Ghasempor 一起动手创作，把冬日野生动物的可爱魅力带回家！",
+      "sourceFingerprint": "a1a948a475f1bd997caad5dd5b2848fcd24e2f2bc5768030de047614e90eed20",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-13T14:07:00Z"
+    },
+    {
+      "id": "midpen-c20df77ae679a18f",
+      "sourceUrl": "https://www.openspace.org/events/guided-activities/giving-thanks",
+      "title": "Giving Thanks 感恩之旅",
+      "description": "沿途观察草地、灌木丛和河岸栖地，并了解当地原住民族如何运用文化性用火和定期修剪等方式照料植物，确保有充足的食物及用于建造房屋、编织篮子和制作药物的材料。",
+      "sourceFingerprint": "3031359718da285a7aaf426216919c6b96fe5e61e72db41d5180b4b1281d2507",
+      "status": "approved",
+      "override": true,
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-13T14:07:00Z"
+    }
+  ]
+}
