@@ -276,6 +276,15 @@ assert.match(fallFamilyDaySummary.summary, /^Make foil monoprints/i,
 assert.doesNotMatch(fallFamilyDaySummary.summary, /Teen Zone|exclusively for teens/i,
   'a scoped audience area must not define the parent-facing summary');
 
+// Sales and community shopping events: administrative membership copy must not
+// outrank the actual activity families can participate in.
+const bookSaleSource = "The Friends of the Gilroy Library invite everyone to our monthly big book sale! This special sale is held on the second Saturday of every month. All ages are welcome to browse and find a great deal! We sell hardback and paperback books, blu rays, DVDs, audiobook and music CDs in many languages. Prices vary from 50 cents for paperbacks and up for other items. Annual Membership rates: $5 Individual $10 Family. Join or renew membership online. Ongoing Bookstore hours: Monday 1pm-3pm.";
+const bookSaleSummary = buildExtractiveSummary(bookSaleSource, { title: 'Big Book Sale' });
+assert.match(bookSaleSummary.summary, /\b(?:browse|sell)\b/i,
+  'sale summaries should describe browsing or items being sold');
+assert.doesNotMatch(bookSaleSummary.summary, /membership rates?|join or renew membership|bookstore hours/i,
+  'administrative membership details must never become the event summary');
+
 // Engine contract: it selects evidence but never truncates a selected sentence
 // into a stored ellipsis or invents a replacement clause.
 const longAction = "Families can create a detailed paper city together using reusable templates, markers, stickers, recycled materials, and guided design prompts while talking with library staff about how neighborhoods are planned and built.";
@@ -289,7 +298,7 @@ const summaryRecord = buildSummaryRecord({
   status: 'extractive',
   verifiedAt: '2026-09-19T00:00:00.000Z'
 });
-assert.equal(summaryRecord.summaryVersion, 'event-summary-v2-p8');
+assert.equal(summaryRecord.summaryVersion, 'event-summary-v2-p9');
 assert.equal(summaryRecord.parentSummary, timeSegments[0]);
 
 const retainedLegacyExtractive = upgradeSummaryRecordVersion({
@@ -302,7 +311,7 @@ const retainedLegacyExtractive = upgradeSummaryRecordVersion({
   summaryVersion: 'event-summary-v2-p4',
   summaryVerifiedAt: '2026-10-01T00:00:00.000Z'
 }, { verifiedAt: '2026-10-04T00:00:00.000Z' });
-assert.equal(retainedLegacyExtractive.summaryVersion, 'event-summary-v2-p8');
+assert.equal(retainedLegacyExtractive.summaryVersion, 'event-summary-v2-p9');
 assert.match(retainedLegacyExtractive.parentSummary, /Explore Palo Alto’s parks/i);
 assert.doesNotMatch(retainedLegacyExtractive.parentSummary, /Email Address|View Map|Fields marked/i);
 
@@ -315,7 +324,7 @@ const retainedManual = upgradeSummaryRecordVersion({
   summaryVersion: 'event-summary-v2-p4',
   summaryVerifiedAt: '2026-10-01T00:00:00.000Z'
 }, { verifiedAt: '2026-10-04T00:00:00.000Z' });
-assert.equal(retainedManual.summaryVersion, 'event-summary-v2-p8');
+assert.equal(retainedManual.summaryVersion, 'event-summary-v2-p9');
 assert.equal(retainedManual.parentSummary, 'A verified family performance.');
 assert.equal(summaryRecord.parentSummary, timeSegments[0]);
 assert.equal(summaryRecord.summaryEvidence, summaryRecord.parentSummary);
