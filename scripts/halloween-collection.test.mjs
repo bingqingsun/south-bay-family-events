@@ -30,7 +30,9 @@ assert.equal(
 assert.equal(config.lastChanceThreshold, 3, 'Halloween must use the approved Last Chance threshold');
 assert.ok(config.selectedEventRefs.length > 0, 'Halloween must contain curated canonical event references');
 assert.equal(config.quickPickIds.length, 4, 'Halloween should configure four Quick Picks');
-assert.ok(events.some((event) => event.id === 'series-83c1d125bf40ee84' && event.title === 'Laser Spooktacular Halloween'), 'Halloween guide must use the canonical Laser Spooktacular Halloween event');
+assert.ok(events.some((event) => event.title === 'Laser Spooktacular Halloween'
+  && (event.id === 'series-83c1d125bf40ee84' || event.legacyIds?.includes('series-83c1d125bf40ee84'))
+  && (event.sessions || []).length >= 2), 'Halloween guide must resolve the canonical multi-session Laser Spooktacular Halloween event');
 assert.equal(events.some((event) => event.title === 'Laser Halloween Spooktacular'), false, 'Removed Laser Halloween Spooktacular duplicate must stay absent');
 assert.ok(events.some((event) => event.id === 'editorial-32d6b7102984722f' || event.legacyIds?.includes('editorial-32d6b7102984722f')), 'Tech or Treat supplement must enter canonical data');
 
