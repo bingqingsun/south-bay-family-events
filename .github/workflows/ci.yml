@@ -145,6 +145,7 @@ jobs:
           node scripts/translation-coverage-report.mjs
           node scripts/apply-event-supplements.mjs
           node scripts/apply-event-supplements.test.mjs
+          node scripts/verified-summary-overrides.test.mjs
           node scripts/summary-quality-repair.mjs
           node scripts/sap-center-sessions.test.mjs
           node scripts/live-show-sessions.test.mjs
