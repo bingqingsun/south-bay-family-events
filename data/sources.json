@@ -398,7 +398,39 @@
     ],
     "mirrorOfficialImages": true,
     "mirrorRequired": true,
-    "mirrorDir": "assets/official/palo-alto-childrens-theatre"
+    "mirrorDir": "assets/official/palo-alto-childrens-theatre",
+    "verifiedSummaryOverrides": [
+      {
+        "title": "Main Stage Production: Seussical - The Musical",
+        "date": "2027-04-29",
+        "verifiedAt": "2026-10-14T20:00:00Z",
+        "sourceUrls": [
+          "https://www.paloalto.gov/Departments/Community-Services/Arts-Sciences/Palo-Alto-Childrens-Theatre/Productions/Main-Stage-Productions"
+        ],
+        "sourceText": "Come see all your favorite Dr. Seuss characters, including Horton, The Cat in the Hat, Gertrude McFuzz, and Lazy Mayzie! Your entire family will embark on a musical adventure, from the Jungle of Nool to the Circus McGurkus to the invisible world of the Whos!",
+        "description": "Meet Horton the Elephant, the Cat in the Hat, Gertrude McFuzz and Mayzie La Bird in a family musical that travels from the Jungle of Nool to Circus McGurkus and the tiny world of the Whos.",
+        "zh": {
+          "title": "主舞台音乐剧：Seussical - The Musical",
+          "description": "苏斯博士笔下的经典角色齐聚舞台！跟随大象 Horton、戴帽子的猫、Gertrude McFuzz 和 Mayzie La Bird，踏上一段穿越诺尔丛林、马戏团和 Whos 小人国的奇妙音乐之旅。"
+        }
+      },
+      {
+        "title": "PAUSD Outreach Production: Escondido Elementary (Noble Gnarble)",
+        "date": "2026-11-05",
+        "verifiedAt": "2026-10-14T20:00:00Z",
+        "sourceUrls": [
+          "https://www.paloalto.gov/Departments/Community-Services/Arts-Sciences/Palo-Alto-Childrens-Theatre/Productions/Outreach-Productions",
+          "https://pact.showare.com/eventperformances.asp?evt=57",
+          "https://bbbpress.com/product/journey-of-the-noble-gnarble/"
+        ],
+        "sourceText": "Escondido | Performance dates: Nov. 5 – 7, 2026 | Production location: Escondido Elementary School. Journey of the Noble Gnarble is a story of a little gnarble with a big dream, who tries to make it past doubting blyfish, sneaky subbalubbles, and hungry plinks on his way to the surface of the sea. Along the way he befriends the glinny glims who teach him the importance of positivity and determination!",
+        "description": "Escondido Elementary presents Journey of the Noble Gnarble, a children's musical about a tiny sea creature determined to reach the ocean's surface despite doubters and obstacles along the way.",
+        "zh": {
+          "title": "PAUSD 校园音乐剧：Escondido Elementary《Journey of the Noble Gnarble》",
+          "description": "Escondido Elementary 的孩子们将演出音乐剧《Journey of the Noble Gnarble》：一只小小的海洋生物梦想游到海面，途中虽然遭遇质疑与困难，仍然勇敢追逐自己的目标。"
+        }
+      }
+    ]
   },
   {
     "name": "CMT San Jose",
