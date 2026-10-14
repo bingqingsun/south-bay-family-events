@@ -4092,11 +4092,19 @@ function seriesKey(event) {
     return [event.format, event.source, event.title, event.place, event.dateValue].join('\u001f');
   }
   if (event.format === 'live-show') {
-    // Show identity is the production + organizer + venue + audience. Price,
-    // registration and availability are session facts and may legitimately
-    // differ between showtimes (or simply be extracted inconsistently).
-    return [event.format, event.source, event.title, event.place, event.address, event.meetingPoint, event.city,
-      JSON.stringify(event.ageRanges || []), event.ageLabel || ''].join('\u001f');
+    // A parent-facing show is the production + organizer + venue. Per-session
+    // extraction can legitimately disagree on address formatting or audience
+    // wording, so those unstable fields must never split one production into
+    // duplicate cards.
+    const stable = value => String(value || '')
+      .normalize('NFKD')
+      .replace(/[’‘`]/g, "'")
+      .replace(/&/g, ' and ')
+      .replace(/[^a-z0-9]+/gi, ' ')
+      .toLowerCase()
+      .replace(/\s+/g, ' ')
+      .trim();
+    return [event.format, stable(event.source), stable(event.title), stable(event.place), stable(event.city)].join('\u001f');
   }
   // Recurring programs at the same organizer/venue with the same title and
   // audience are one parent-facing activity. Derived category, price,
