@@ -60,4 +60,9 @@ assert.deepEqual(JSON.parse(JSON.stringify(context.sapCenterDetailSessions(textO
   '2026-10-24T15:00'
 ], 'rendered text fallback must also preserve all sessions');
 
+assert.match(source, /dates\.filter\(dateValue => isUpcoming\(dateValue\)\)/,
+  'SAP Center session filtering must not pass isUpcoming directly to Array.filter');
+assert.doesNotMatch(source, /dates\.filter\(isUpcoming\)/,
+  'Array.filter index must never be passed as an event end time');
+
 console.log('SAP Center multi-session tests passed.');
