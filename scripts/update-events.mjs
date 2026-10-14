@@ -3859,6 +3859,7 @@ async function revalidateMissingOfficialEvent(event) {
 
 const revalidatedMissingEvents = (await Promise.all(existingEvents
   .filter(event => successfulDirectSourceNames.has(event.source) && isStillActive(event))
+  .flatMap(revalidationOccurrences)
   .map(revalidateMissingOfficialEvent))).filter(Boolean);
 const feedEvents = [...freshFeedEvents, ...retainedSourceEvents, ...revalidatedMissingEvents];
 const raw = searchAttempts.flatMap(result => result.status === 'fulfilled' ? result.value : []);
@@ -4085,20 +4086,75 @@ function seriesKey(event) {
     // and resolve any disagreement conservatively while building the card.
     return [event.format, normalizedMovieTitle(event.title), event.type].join('\u001f');
   }
-  if (event.format === 'live-show') {
-    // A performance can publish one official detail URL per showing. Those
-    // pages often differ slightly in extracted prose even though they are the
-    // same production. Summary/description text is presentation evidence, not
-    // event identity, so do not let those wording differences split showtimes
-    // into duplicate cards. Venue, audience and pricing still remain part of
-    // the identity to avoid combining genuinely different productions.
-    return [event.source, event.title, event.place, event.address, event.meetingPoint, event.city, event.type,
-      JSON.stringify(event.ageRanges || []), event.ageLabel || '', event.costLabel, event.costSource, event.registrationStatus].join('\u001f');
+  if (event.format === 'sports-game') {
+    // Sports fixtures are separate outings even when the same teams meet more
+    // than once. Never collapse different game dates into "other sessions".
+    return [event.format, event.source, event.title, event.place, event.dateValue].join('\u001f');
   }
-  // Deliberately conservative: different themes, venues, audience rules, or
-  // pricing stay as separate cards even when a host reuses the same title.
-  return [event.source, event.title, event.description, event.place, event.address, event.meetingPoint, event.city, event.type,
-    JSON.stringify(event.ageRanges || []), event.ageLabel || '', event.costLabel, event.costSource, event.registrationStatus].join('\u001f');
+  if (event.format === 'live-show') {
+    // Show identity is the production + organizer + venue + audience. Price,
+    // registration and availability are session facts and may legitimately
+    // differ between showtimes (or simply be extracted inconsistently).
+    return [event.format, event.source, event.title, event.place, event.address, event.meetingPoint, event.city,
+      JSON.stringify(event.ageRanges || []), event.ageLabel || ''].join('\u001f');
+  }
+  // Recurring programs at the same organizer/venue with the same title and
+  // audience are one parent-facing activity. Derived category, price,
+  // registration and availability must not split otherwise-identical sessions.
+  // Keep description in the identity for generic programs so materially
+  // different programs that reuse a title still remain separate.
+  return [event.format || '', event.source, event.title, event.description, event.place, event.address, event.meetingPoint, event.city,
+    JSON.stringify(event.ageRanges || []), event.ageLabel || ''].join('\u001f');
+}
+
+function revalidationOccurrences(event) {
+  const sessions = Array.isArray(event.sessions) ? event.sessions : [];
+  if (!sessions.length && !String(event.id || '').startsWith('series-')) return [event];
+
+  // Published series cards are presentation objects, not source occurrences.
+  // Revalidating the parent itself can feed an old generated series back into
+  // the next refresh alongside newly fetched sessions, creating duplicate
+  // cards. Revalidate concrete occurrences instead, then rebuild the series.
+  const base = { ...event, sessions: [] };
+  const occurrences = [
+    {
+      date: event.date,
+      dateValue: event.dateValue,
+      endDateValue: event.endDateValue,
+      url: event.url,
+      source: event.source,
+      place: event.place,
+      address: event.address,
+      city: event.city
+    },
+    ...sessions
+  ];
+  const seen = new Set();
+  return occurrences.flatMap((session, index) => {
+    const dateValue = session.dateValue || event.dateValue || '';
+    const url = session.url || event.url || '';
+    const key = `${String(url).toLowerCase()}\u001f${dateValue}`;
+    if (!url || !dateValue || seen.has(key)) return [];
+    seen.add(key);
+    const concreteId = session.id && !String(session.id).startsWith('series-')
+      ? session.id
+      : 'revalidated-' + createHash('sha256').update(key).digest('hex').slice(0, 16);
+    return [{
+      ...base,
+      ...session,
+      id: concreteId,
+      date: session.date || event.date,
+      dateValue,
+      endDateValue: session.endDateValue || event.endDateValue || '',
+      url,
+      source: session.source || event.source,
+      place: session.place || event.place,
+      address: session.address || event.address,
+      city: session.city || event.city,
+      legacyIds: [...new Set([...(event.legacyIds || []), event.id].filter(Boolean))],
+      sessions: []
+    }];
+  });
 }
 
 function legacyLiveShowSeriesId(event) {
@@ -4153,7 +4209,10 @@ function groupRepeatedSessions(items) {
       source: first.format === 'movie-screening' ? 'Official cinema listings' : first.source,
       sessions: cardSessions.map(event => ({
         id: event.id, date: event.date, dateValue: event.dateValue, endDateValue: event.endDateValue,
-        url: event.url, source: event.source, place: event.place, address: event.address, city: event.city
+        url: event.url, source: event.source, place: event.place, address: event.address, city: event.city,
+        costStatus: event.costStatus, costLabel: event.costLabel, costSource: event.costSource, costEvidence: event.costEvidence,
+        registrationStatus: event.registrationStatus, registrationSource: event.registrationSource,
+        registrationEvidence: event.registrationEvidence, availabilityStatus: event.availabilityStatus
       }))
     }];
   }).sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
