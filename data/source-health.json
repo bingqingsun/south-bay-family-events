@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-14T19:49:27.844Z",
+  "generatedAt": "2026-10-14T19:55:37.307Z",
   "configuredSources": 95,
   "directSources": 89,
   "fallbackSourcesRun": 0,
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 57,
+      "failureStreak": 58,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 57,
+      "failureStreak": 58,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -306,7 +306,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 57,
+      "failureStreak": 58,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -386,7 +386,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 54,
+      "failureStreak": 55,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -416,7 +416,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 1,
+      "failureStreak": 2,
       "error": "Los Altos History Museum event list was not valid: 202"
     },
     {
@@ -446,7 +446,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 25,
+      "failureStreak": 26,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -536,7 +536,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 25,
+      "failureStreak": 26,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -546,7 +546,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 25,
+      "failureStreak": 26,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -940,67 +940,67 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 57,
+      "failureStreak": 58,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 57,
+      "failureStreak": 58,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 57,
+      "failureStreak": 58,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Peninsula Youth Theatre",
-      "failureStreak": 54,
+      "failureStreak": 55,
       "error": "PYT official show list was not valid: 200"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 25,
+      "failureStreak": 26,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
       "name": "The Village at San Antonio Center",
-      "failureStreak": 25,
+      "failureStreak": 26,
       "error": "Eventbrite organizer payload was not found"
     },
     {
       "name": "CalColor Academy",
-      "failureStreak": 25,
+      "failureStreak": 26,
       "error": "Eventbrite organizer payload was not found"
     }
   ],
   "paloAltoChildrensTheatreEnrichment": {
-    "checkedAt": "2026-10-14T19:49:27.844Z",
-    "enriched": 6
+    "checkedAt": "2026-10-14T19:55:37.307Z",
+    "enriched": 5
   },
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-10-14T19:49:27.844Z",
-    "enriched": 323,
+    "checkedAt": "2026-10-14T19:55:37.307Z",
+    "enriched": 322,
     "identity-mismatch": 37,
     "fetch-blocked": 16,
     "cached": 2,
     "fieldUpdates": {
-      "description": 11,
-      "image": 10
+      "description": 10,
+      "image": 1
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-10-14T19:49:27.844Z",
-    "official": 225,
+    "checkedAt": "2026-10-14T19:55:37.307Z",
+    "official": 224,
     "unclassified": 151,
     "missing": 2,
     "failure:official_page_fetch_blocked": 2
   },
   "editorialCoverGeneration": {
     "frameworkVersion": "editorial-cover-v1",
-    "checkedAt": "2026-10-14T19:49:27.844Z",
+    "checkedAt": "2026-10-14T19:55:37.307Z",
     "generated": 2,
     "byReason": {
       "official_page_fetch_blocked": 2
@@ -1012,9 +1012,9 @@
   },
   "officialImageMirror": {
     "frameworkVersion": "official-image-mirror-v1",
-    "checkedAt": "2026-10-14T19:50:19.610Z",
+    "checkedAt": "2026-10-14T19:56:28.655Z",
     "configuredSources": 1,
-    "mirroredEvents": 6,
+    "mirroredEvents": 5,
     "mirroredAssets": 4,
     "failures": []
   }
