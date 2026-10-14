@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
 
 const source = await readFile(new URL('./update-events.mjs', import.meta.url), 'utf8');
+const appSource = await readFile(new URL('../app.js', import.meta.url), 'utf8');
 const isoStart = source.indexOf('function isoDateFromOfficialText');
 const isoEnd = source.indexOf('function directEvent');
 const sapStart = source.indexOf('function sapCenterDetailSessions');
@@ -64,5 +65,12 @@ assert.match(source, /dates\.filter\(dateValue => isUpcoming\(dateValue\)\)/,
   'SAP Center session filtering must not pass isUpcoming directly to Array.filter');
 assert.doesNotMatch(source, /dates\.filter\(isUpcoming\)/,
   'Array.filter index must never be passed as an event end time');
+
+assert.match(appSource, /multiSessionSummary:\s*\(count, range\)/,
+  'event cards must expose a visible multi-session summary');
+assert.match(appSource, /sessionDateRangeLabel\(sessions\)/,
+  'multi-session cards must show the session date range instead of only the first showing');
+assert.match(appSource, /sessionToggle\.dataset\.sessionCount\s*=\s*String\(sessions\.length\)/,
+  'multi-session toggle must retain the full visible session count');
 
 console.log('SAP Center multi-session tests passed.');
