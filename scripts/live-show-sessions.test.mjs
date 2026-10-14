@@ -69,6 +69,116 @@ assert.ok(grouped[0].legacyIds.includes('deanza-first') && grouped[0].legacyIds.
 assert.ok(grouped[0].legacyIds.some(id => /^series-[0-9a-f]{16}$/.test(id)),
   'historical description-based live-show series IDs must remain as migration aliases');
 
+
+// Session-level commerce/availability differences must not split one show into
+// multiple parent cards.
+const mixedSessionFacts = [
+  {
+    ...sessions[0],
+    costStatus: 'paid',
+    costLabel: '需付费／价格见详情',
+    costSource: '官方活动说明',
+    registrationStatus: 'unknown',
+    availabilityStatus: ''
+  },
+  {
+    ...sessions[1],
+    costStatus: 'unknown',
+    costLabel: '费用未注明',
+    costSource: '',
+    registrationStatus: 'full',
+    availabilityStatus: 'full'
+  }
+];
+const mixedGrouped = JSON.parse(JSON.stringify(context.groupRepeatedSessions(mixedSessionFacts)));
+assert.equal(mixedGrouped.length, 1,
+  'price or registration differences between showtimes must not create duplicate show cards');
+assert.equal(mixedGrouped[0].sessions.length, 2);
+assert.equal(mixedGrouped[0].sessions[0].costStatus, 'paid',
+  'session-level cost facts must be preserved');
+assert.equal(mixedGrouped[0].sessions[1].registrationStatus, 'full',
+  'session-level registration facts must be preserved');
+
+// Generic recurring programs keep description/audience as identity, but
+// registration/cost/category derivation must not split otherwise identical
+// sessions.
+const recurringBase = {
+  source: 'Santa Clara County Library District',
+  title: 'Reading Buddies for Grades K-6',
+  description: 'Practice your reading skills by reading aloud one on one with a friendly dog!',
+  place: 'Morgan Hill Library · Children\'s Activity Room',
+  address: '660 West Main Ave, Morgan Hill',
+  meetingPoint: '',
+  city: 'Morgan Hill',
+  format: 'program',
+  type: 'community',
+  ageRanges: [[5, 13]],
+  ageLabel: 'Grades K–8',
+  costStatus: 'unknown',
+  costLabel: '费用未注明',
+  costSource: '',
+  registrationStatus: 'unknown',
+  movieRating: '',
+  date: '',
+  endDateValue: ''
+};
+const recurring = [
+  {
+    ...recurringBase,
+    id: 'reading-a',
+    dateValue: '2026-10-19T18:00',
+    registrationStatus: 'full',
+    availabilityStatus: 'full',
+    url: 'https://example.org/a'
+  },
+  {
+    ...recurringBase,
+    id: 'reading-b',
+    dateValue: '2026-10-19T18:15',
+    type: 'play',
+    registrationStatus: 'unknown',
+    availabilityStatus: '',
+    url: 'https://example.org/b'
+  }
+];
+const recurringGrouped = JSON.parse(JSON.stringify(context.groupRepeatedSessions(recurring)));
+assert.equal(recurringGrouped.length, 1,
+  'derived category or registration status must not split one recurring program');
+assert.equal(recurringGrouped[0].sessions.length, 2);
+
+// Sports games with the same opponent remain separate fixtures.
+const gameBase = {
+  ...recurringBase,
+  source: 'San Jose Barracuda',
+  title: 'San Jose Barracuda vs Stars',
+  description: 'Official San Jose Barracuda home game against Stars at Tech CU Arena.',
+  place: 'Tech CU Arena',
+  address: '1500 S 10th St, San Jose',
+  city: 'San Jose',
+  format: 'sports-game',
+  type: 'sports',
+  ageRanges: [],
+  ageLabel: ''
+};
+assert.equal(context.groupRepeatedSessions([
+  { ...gameBase, id: 'game-a', dateValue: '2026-12-04T19:00', url: 'https://example.org/game-a' },
+  { ...gameBase, id: 'game-b', dateValue: '2026-12-05T18:00', url: 'https://example.org/game-b' }
+]).length, 2, 'separate sports fixtures must never be collapsed into sessions');
+
+// Revalidation must expand a generated series back into concrete occurrences,
+// never feed the old parent card back into the next grouping pass.
+const publishedSeries = grouped[0];
+const revalidation = JSON.parse(JSON.stringify(context.revalidationOccurrences(publishedSeries)));
+assert.equal(revalidation.length, 2, 'series revalidation should expose each concrete occurrence once');
+assert.deepEqual(revalidation.map(item => item.dateValue), [
+  '2026-10-24T17:15',
+  '2026-10-24T19:00'
+]);
+assert.ok(revalidation.every(item => !String(item.id).startsWith('series-')),
+  'revalidation inputs must be concrete occurrence IDs, not generated parent series IDs');
+assert.ok(revalidation.every(item => Array.isArray(item.sessions) && item.sessions.length === 0),
+  'revalidation occurrences must not carry nested sessions');
+
 const programA = { ...sessions[0], id: 'program-a', format: 'program', description: 'Program A description.' };
 const programB = { ...sessions[1], id: 'program-b', format: 'program', description: 'Program B description.' };
 assert.equal(context.groupRepeatedSessions([programA, programB]).length, 2,
