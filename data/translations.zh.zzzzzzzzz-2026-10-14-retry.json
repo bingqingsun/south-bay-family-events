@@ -1,0 +1,151 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "entries": [
+    {
+      "id": "rss-6aa42744d6577100383c97e5",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6aa42744d6577100383c97e5",
+      "title": "现场简历评审",
+      "description": "每次简历评审是一场 15 分钟的一对一交流，图书管理员会指出需要改进之处，并帮助你整理信息。",
+      "sourceFingerprint": "ab4d676cbdd38cf10092bffb9a5fc24046e27ee3cd06c378591c531df38a9d85",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-14T19:42:00Z"
+    },
+    {
+      "id": "series-ca41eff744a0cfd1",
+      "sourceUrl": "https://www.cineluxtheatres.com/cinelux-tennant-station/tickets/274811000385",
+      "title": "FORGOTTEN ISLAND",
+      "description": "在 CineLux Morgan Hill 放映的 PG 级电影。",
+      "sourceFingerprint": "62d4df695f22c033d8c1da278b4d4519c0c005e28482f63aae75fc8840bb5f11",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-14T19:42:00Z",
+      "override": true
+    },
+    {
+      "id": "rss-6ac406a4de300e0045186d19",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6ac406a4de300e0045186d19",
+      "title": "Everyone Can Create：增强现实创作",
+      "description": "你将学习如何把自己的艺术元素加入现实环境，并在真实空间中探索这些创作。",
+      "sourceFingerprint": "5958f2eca0900bcbdbbc28211520071f1eb83534199b7a89d44ebd7c5bfe8c32",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-14T19:42:00Z"
+    },
+    {
+      "id": "rss-6a94597f36204e08fbb85098",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a94597f36204e08fbb85098",
+      "title": "Game On！",
+      "description": "Nintendo Switch 游戏机在放学后供青少年游玩。",
+      "sourceFingerprint": "ba38fe88bdaf90848c95776a32fc4ff7448cfac375e8e1fe9dfd4f7b17b17038",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-14T19:42:00Z"
+    },
+    {
+      "id": "rss-693c85b58b29ea2800c3f83b",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/693c85b58b29ea2800c3f83b",
+      "title": "Willow Glen Library 儿童朗读活动",
+      "description": "参加 Reading to Children 活动可以帮助孩子发展想象力，并激发他们对图书、阅读和学习的兴趣。",
+      "sourceFingerprint": "15e3c783e76c53ec230d9056b8adbdadd6f278554a26a61c9c726cb432411035",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-14T19:42:00Z"
+    },
+    {
+      "id": "rss-69fa551ff56bd86e00adbf69",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/69fa551ff56bd86e00adbf69",
+      "title": "LEGO 工程挑战",
+      "description": "用 LEGO 搭建、学习并发挥想象力！",
+      "sourceFingerprint": "594a6bbfd41a7835e4a98a4332a581c4e8bf6a53491e74bd8ebfee9ee2b5ce63",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-14T19:42:00Z"
+    },
+    {
+      "id": "rss-69c48bc55a2d780f42c4c4e9",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/69c48bc55a2d780f42c4c4e9",
+      "title": "Joyce Ellington Teens Reach 迎新说明会",
+      "description": "参加迎新说明会后留下来，在 5:00-6:30 PM 参加你的第一次 Joyce Ellington Teens Reach Meeting，与其他青少年志愿者见面，并开始累积志愿服务时数。",
+      "sourceFingerprint": "dc3ab001b97e06b3c2cbca29a755ee18f1b79ad4bb5bd583a080916e359eb6e3",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-14T19:42:00Z"
+    },
+    {
+      "id": "rss-6a3032c18ea300e2631dc5f1",
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/6a3032c18ea300e2631dc5f1",
+      "title": "音乐会：Music at Kohl Mansion 呈现 Escher String Quartet",
+      "description": "该乐团是 Chamber Music Society of Lincoln Center 的 Artists，并因专注于弦乐四重奏核心曲目和当代音乐而获得国际认可。",
+      "sourceFingerprint": "95cfdccd1047a60839ad365380aafd083e7d7ce1fd665c5e47eb418091454af9",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-14T19:42:00Z"
+    },
+    {
+      "id": "jmz-family-9e10bcb96952915e",
+      "sourceUrl": "https://www.paloaltozoo.org/Visit/Accessibility",
+      "title": "超级家庭星期日",
+      "description": "Junior Museum & Zoo 致力于提供包容且无障碍的参观体验。",
+      "sourceFingerprint": "17b2e6936bed7b50b626aa82feeaae42ee35eeb7249dd9141553acea295b2a8e",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-14T19:42:00Z",
+      "override": true
+    },
+    {
+      "id": "series-34d0b34c56f66607",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a7fafcfaafa6100295cbd53",
+      "title": "睡衣故事时间 [Hora de Cuentos en Pijama]",
+      "description": "在玩乐中学习。",
+      "sourceFingerprint": "dcb0d34a721267c1cfa1cfc3787835f39e17e83a67a05e31877a8253f46ea490",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-14T19:42:00Z",
+      "override": true
+    },
+    {
+      "id": "series-8591fc4cbaa997e0",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a876f9229a7dd0d67456656",
+      "title": "K-2 年级科学星期日",
+      "description": "每个星期日进行一个新的实验！",
+      "sourceFingerprint": "56afe420a5dcc246eeff3e46c6b7c261043a1fd2531ed94a48dc576d9bfb7e15",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-14T19:42:00Z",
+      "override": true
+    },
+    {
+      "id": "rss-6acfbc26295d793e2d175ba1",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6acfbc26295d793e2d175ba1",
+      "title": "作者分享会：Nina Simon",
+      "description": "你可以购买自己的书，并带来请作者签名。",
+      "sourceFingerprint": "29f4623a08fb2f0b6d0d2c1f6f9819ec053622e93d5baa44f2b8bd359af52310",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-14T19:42:00Z"
+    },
+    {
+      "id": "rss-6a839d3760ccaf01c01ef38b",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a839d3760ccaf01c01ef38b",
+      "title": "和 Farmer Arann 一起玩音乐",
+      "description": "Farmer Arann 将带着他的乐器、洪亮的歌声、独特的歌曲和充满活力的个性来到 Saratoga Library！",
+      "sourceFingerprint": "c7ba03fc7f6d4e5d34c49a7078b58e264c1aa7f72b1696ee8138f3d8d4684afd",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-14T19:42:00Z"
+    },
+    {
+      "id": "series-8b95161e6ba6ccff",
+      "sourceUrl": "https://www.sanjose.org/theaters/events/hip-hop-nutcracker-broadway-san-jose",
+      "title": "Hip Hop Nutcracker - Broadway San Jose",
+      "description": "与原作类似，在《The Hip Hop Nutcracker》中，Maria-Clara 和 Nutcracker Prince 展开梦境冒险，与一群老鼠战斗、造访糖果之地，并领悟节日季的意义。",
+      "sourceFingerprint": "95cbe860b27ff1e8eb37b8fe3ac95ec2ad47eee625a103f7ae325966ee607303",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-14T19:42:00Z",
+      "override": true
+    }
+  ]
+}
