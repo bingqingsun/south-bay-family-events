@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 
-export const EVENT_SUMMARY_VERSION = 'event-summary-v2-p8';
+export const EVENT_SUMMARY_VERSION = 'event-summary-v2-p9';
 
 // South Bay Family Finds event-summary engine.
 //
