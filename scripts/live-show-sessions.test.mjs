@@ -70,6 +70,30 @@ assert.ok(grouped[0].legacyIds.some(id => /^series-[0-9a-f]{16}$/.test(id)),
   'historical description-based live-show series IDs must remain as migration aliases');
 
 
+// Minor per-session venue/audience extraction differences must not split one
+// production into multiple cards. These fields are frequently normalized only
+// later by canonical detail enrichment.
+const driftedSessionFacts = [
+  {
+    ...sessions[0],
+    address: '21250 Stevens Creek Boulevard',
+    ageRanges: [[5, 18]],
+    ageLabel: 'Ages 5+'
+  },
+  {
+    ...sessions[1],
+    address: '21250 Stevens Creek Boulevard, Cupertino',
+    ageRanges: [],
+    ageLabel: 'Family-friendly'
+  }
+];
+const driftedGrouped = JSON.parse(JSON.stringify(context.groupRepeatedSessions(driftedSessionFacts)));
+assert.equal(driftedGrouped.length, 1,
+  'address formatting or audience extraction drift must not create duplicate live-show cards');
+assert.equal(driftedGrouped[0].sessions.length, 2,
+  'all concrete showtimes must survive stable live-show grouping');
+
+
 // Session-level commerce/availability differences must not split one show into
 // multiple parent cards.
 const mixedSessionFacts = [
@@ -216,5 +240,41 @@ const programA = { ...sessions[0], id: 'program-a', format: 'program', descripti
 const programB = { ...sessions[1], id: 'program-b', format: 'program', description: 'Program B description.' };
 assert.equal(context.groupRepeatedSessions([programA, programB]).length, 2,
   'non-show programs with materially different descriptions must remain conservatively separate');
+
+// CI runs this test after the live refresh. Enforce the release invariant on
+// the materialized payload too: one production/organizer/venue must never be
+// published as multiple top-level live-show cards.
+const published = JSON.parse(await readFile(new URL('../data/events.json', import.meta.url), 'utf8'));
+const normalizeIdentity = value => String(value || '')
+  .normalize('NFKD')
+  .replace(/[’‘`]/g, "'")
+  .replace(/&/g, ' and ')
+  .replace(/[^a-z0-9]+/gi, ' ')
+  .toLowerCase()
+  .replace(/\s+/g, ' ')
+  .trim();
+const publishedLiveShowGroups = new Map();
+for (const event of published.filter(item => item.format === 'live-show')) {
+  const key = [
+    normalizeIdentity(event.source),
+    normalizeIdentity(event.title),
+    normalizeIdentity(event.place),
+    normalizeIdentity(event.city)
+  ].join('\u001f');
+  const group = publishedLiveShowGroups.get(key) || [];
+  group.push(event);
+  publishedLiveShowGroups.set(key, group);
+}
+const duplicatePublishedShows = [...publishedLiveShowGroups.values()]
+  .filter(group => group.length > 1)
+  .map(group => group.map(event => ({
+    id: event.id,
+    title: event.title,
+    dateValue: event.dateValue,
+    place: event.place,
+    sessions: (event.sessions || []).map(session => session.dateValue)
+  })));
+assert.deepEqual(duplicatePublishedShows, [],
+  'published payload must not contain duplicate top-level cards for the same live production');
 
 console.log('Live-show session grouping tests passed.');
