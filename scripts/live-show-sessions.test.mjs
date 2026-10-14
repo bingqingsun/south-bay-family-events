@@ -179,6 +179,39 @@ assert.ok(revalidation.every(item => !String(item.id).startsWith('series-')),
 assert.ok(revalidation.every(item => Array.isArray(item.sessions) && item.sessions.length === 0),
   'revalidation occurrences must not carry nested sessions');
 
+
+const staleGeneratedParent = {
+  ...publishedSeries,
+  id: 'revalidated-stale-parent',
+  legacyIds: [...publishedSeries.legacyIds, 'series-old-parent'],
+  sessions: []
+};
+assert.deepEqual(
+  JSON.parse(JSON.stringify(context.revalidationOccurrences(staleGeneratedParent))),
+  [],
+  'a synthetic revalidated series parent with no concrete sessions must be dropped instead of perpetuating itself'
+);
+
+const parentWithNonConcreteTopLevel = {
+  ...publishedSeries,
+  id: 'series-old-parent',
+  dateValue: '2026-12-19T10:00',
+  url: 'https://example.org/event-series',
+  sessions: [
+    { id: 'show-1', dateValue: '2026-12-20T10:00', url: 'https://example.org/event-series#show-1' },
+    { id: 'show-2', dateValue: '2026-12-21T10:00', url: 'https://example.org/event-series#show-2' }
+  ]
+};
+const concreteOnly = JSON.parse(JSON.stringify(context.revalidationOccurrences(parentWithNonConcreteTopLevel)));
+assert.deepEqual(concreteOnly.map(item => item.dateValue), [
+  '2026-12-20T10:00',
+  '2026-12-21T10:00'
+], 'generated series revalidation must ignore a non-concrete parent date and keep only source sessions');
+
+const oldIdentityAliases = recurringGrouped[0].legacyIds.filter(id => /^series-[0-9a-f]{16}$/.test(id));
+assert.ok(oldIdentityAliases.length >= 2,
+  'stable regrouping must retain historical series hashes for translation/saved-card migration');
+
 const programA = { ...sessions[0], id: 'program-a', format: 'program', description: 'Program A description.' };
 const programB = { ...sessions[1], id: 'program-b', format: 'program', description: 'Program B description.' };
 assert.equal(context.groupRepeatedSessions([programA, programB]).length, 2,

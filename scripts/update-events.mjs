@@ -4109,28 +4109,40 @@ function seriesKey(event) {
 
 function revalidationOccurrences(event) {
   const sessions = Array.isArray(event.sessions) ? event.sessions : [];
-  if (!sessions.length && !String(event.id || '').startsWith('series-')) return [event];
+  const id = String(event.id || '');
+  const legacyIds = Array.isArray(event.legacyIds) ? event.legacyIds : [];
+  const generatedSeriesParent = id.startsWith('series-');
+  const syntheticSeriesParent = id.startsWith('revalidated-')
+    && legacyIds.some(legacyId => String(legacyId).startsWith('series-'));
 
-  // Published series cards are presentation objects, not source occurrences.
-  // Revalidating the parent itself can feed an old generated series back into
-  // the next refresh alongside newly fetched sessions, creating duplicate
-  // cards. Revalidate concrete occurrences instead, then rebuild the series.
+  // A generated parent is never an organizer occurrence. Only its concrete
+  // sessions may be revalidated. A synthetic parent created by an older
+  // refresh is also discarded here so it cannot become permanently self-
+  // sustaining across future refreshes.
+  if (generatedSeriesParent || syntheticSeriesParent) {
+    if (!sessions.length) return [];
+  } else if (!sessions.length) {
+    return [event];
+  }
+
   const base = { ...event, sessions: [] };
-  const occurrences = [
-    {
-      date: event.date,
-      dateValue: event.dateValue,
-      endDateValue: event.endDateValue,
-      url: event.url,
-      source: event.source,
-      place: event.place,
-      address: event.address,
-      city: event.city
-    },
-    ...sessions
-  ];
+  const occurrences = generatedSeriesParent || syntheticSeriesParent
+    ? sessions
+    : [
+        {
+          date: event.date,
+          dateValue: event.dateValue,
+          endDateValue: event.endDateValue,
+          url: event.url,
+          source: event.source,
+          place: event.place,
+          address: event.address,
+          city: event.city
+        },
+        ...sessions
+      ];
   const seen = new Set();
-  return occurrences.flatMap((session, index) => {
+  return occurrences.flatMap(session => {
     const dateValue = session.dateValue || event.dateValue || '';
     const url = session.url || event.url || '';
     const key = `${String(url).toLowerCase()}\u001f${dateValue}`;
@@ -4151,16 +4163,17 @@ function revalidationOccurrences(event) {
       place: session.place || event.place,
       address: session.address || event.address,
       city: session.city || event.city,
-      legacyIds: [...new Set([...(event.legacyIds || []), event.id].filter(Boolean))],
+      legacyIds: [...new Set([...legacyIds, event.id].filter(Boolean))],
       sessions: []
     }];
   });
 }
 
-function legacyLiveShowSeriesId(event) {
-  // Before live-show identity was stabilized, description text participated in
-  // the series hash. Preserve those historical IDs as aliases so saved cards
-  // and editorial references survive the migration to the stable grouping key.
+function legacySeriesId(event) {
+  // Preserve the series identity used before session-level price,
+  // registration and derived category were removed from grouping. Approved
+  // translations, saved cards and editorial references can continue resolving
+  // through these aliases even when the new stable parent ID changes.
   const legacyKey = [event.source, event.title, event.description, event.place, event.address, event.meetingPoint, event.city, event.type,
     JSON.stringify(event.ageRanges || []), event.ageLabel || '', event.costLabel, event.costSource, event.registrationStatus].join('\u001f');
   return 'series-' + createHash('sha256').update(legacyKey).digest('hex').slice(0, 16);
@@ -4202,7 +4215,7 @@ function groupRepeatedSessions(items) {
       movieRating,
       legacyIds: [...new Set([
         ...ordered.flatMap(event => [event.id, ...(event.legacyIds || [])]),
-        ...(first.format === 'live-show' ? ordered.map(legacyLiveShowSeriesId) : [])
+        ...ordered.map(legacySeriesId)
       ])],
       // Keep the parent-facing movie label while preserving each concrete
       // session's real source identity and official ticket URL.
