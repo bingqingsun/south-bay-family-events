@@ -64,6 +64,10 @@ assert.deepEqual(grouped[0].sessions.map(session => session.url), [
   'https://daweb2.deanza.edu/events/event.html?id=185122379',
   'https://daweb2.deanza.edu/events/event.html?id=191549239'
 ]);
+assert.ok(grouped[0].legacyIds.includes('deanza-first') && grouped[0].legacyIds.includes('deanza-second'),
+  'individual showing IDs must remain resolvable after grouping');
+assert.ok(grouped[0].legacyIds.some(id => /^series-[0-9a-f]{16}$/.test(id)),
+  'historical description-based live-show series IDs must remain as migration aliases');
 
 const programA = { ...sessions[0], id: 'program-a', format: 'program', description: 'Program A description.' };
 const programB = { ...sessions[1], id: 'program-b', format: 'program', description: 'Program B description.' };
