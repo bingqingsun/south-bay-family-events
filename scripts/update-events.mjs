@@ -4085,10 +4085,29 @@ function seriesKey(event) {
     // and resolve any disagreement conservatively while building the card.
     return [event.format, normalizedMovieTitle(event.title), event.type].join('\u001f');
   }
+  if (event.format === 'live-show') {
+    // A performance can publish one official detail URL per showing. Those
+    // pages often differ slightly in extracted prose even though they are the
+    // same production. Summary/description text is presentation evidence, not
+    // event identity, so do not let those wording differences split showtimes
+    // into duplicate cards. Venue, audience and pricing still remain part of
+    // the identity to avoid combining genuinely different productions.
+    return [event.source, event.title, event.place, event.address, event.meetingPoint, event.city, event.type,
+      JSON.stringify(event.ageRanges || []), event.ageLabel || '', event.costLabel, event.costSource, event.registrationStatus].join('\u001f');
+  }
   // Deliberately conservative: different themes, venues, audience rules, or
   // pricing stay as separate cards even when a host reuses the same title.
   return [event.source, event.title, event.description, event.place, event.address, event.meetingPoint, event.city, event.type,
     JSON.stringify(event.ageRanges || []), event.ageLabel || '', event.costLabel, event.costSource, event.registrationStatus].join('\u001f');
+}
+
+function legacyLiveShowSeriesId(event) {
+  // Before live-show identity was stabilized, description text participated in
+  // the series hash. Preserve those historical IDs as aliases so saved cards
+  // and editorial references survive the migration to the stable grouping key.
+  const legacyKey = [event.source, event.title, event.description, event.place, event.address, event.meetingPoint, event.city, event.type,
+    JSON.stringify(event.ageRanges || []), event.ageLabel || '', event.costLabel, event.costSource, event.registrationStatus].join('\u001f');
+  return 'series-' + createHash('sha256').update(legacyKey).digest('hex').slice(0, 16);
 }
 
 function groupRepeatedSessions(items) {
@@ -4125,7 +4144,10 @@ function groupRepeatedSessions(items) {
       id: 'series-' + createHash('sha256').update(key).digest('hex').slice(0, 16),
       title: displayTitle,
       movieRating,
-      legacyIds: [...new Set(ordered.flatMap(event => [event.id, ...(event.legacyIds || [])]))],
+      legacyIds: [...new Set([
+        ...ordered.flatMap(event => [event.id, ...(event.legacyIds || [])]),
+        ...(first.format === 'live-show' ? ordered.map(legacyLiveShowSeriesId) : [])
+      ])],
       // Keep the parent-facing movie label while preserving each concrete
       // session's real source identity and official ticket URL.
       source: first.format === 'movie-screening' ? 'Official cinema listings' : first.source,
