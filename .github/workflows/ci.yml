@@ -120,6 +120,7 @@ jobs:
           node --check weekend-picks.js
           node --check data/weekend-picks.js
           node --check scripts/weekend-picks-runtime.test.mjs
+          node --check scripts/sap-center-sessions.test.mjs
           node --check scripts/halloween-collection.test.mjs
           node --check scripts/generate-sitemap.mjs
           node --check scripts/seo-foundation.test.mjs
@@ -148,6 +149,7 @@ jobs:
           node scripts/summary-semantic-coverage.test.mjs
           node scripts/cupertino-detail-date.test.mjs
           node scripts/cupertino-audience.test.mjs
+          node scripts/sap-center-sessions.test.mjs
           node scripts/age-policy.test.cjs && node scripts/update-events-age.test.mjs
           node scripts/test-summary-output.mjs
           node scripts/classification.test.mjs
