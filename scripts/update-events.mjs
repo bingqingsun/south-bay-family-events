@@ -1799,15 +1799,21 @@ function sapCenterListingDates(dateText) {
 }
 
 function sapCenterDetailSessions(html, year) {
-  // SAP Center's session table has nested spans. Parse the published cells
-  // before using a text fallback: unrelated inline scripts can otherwise
-  // make a generic HTML-to-text conversion swallow later sessions.
-  const tableSessions = [...String(html || '').matchAll(/showings_date[\s\S]*?m-date__month[^>]*>\s*([^<]+)[\s\S]*?m-date__day[^>]*>\s*(\d{1,2})[\s\S]*?<span class=["']time\s+cell["'][^>]*>\s*(\d{1,2}(?::\d{2})?\s*(?:AM|PM))/gi)];
-  const parsedTableSessions = tableSessions.map(match => isoDateFromOfficialText(`${plainText(match[1])} ${match[2]}, ${year}`, match[3])).filter(Boolean);
-  if (parsedTableSessions.length) return [...new Set(parsedTableSessions)];
+  // SAP Center can wrap every showing in one shared showings container. A
+  // regex anchored to that wrapper may therefore find only the first session.
+  // Parse both the structured cells and the rendered date/time text, then
+  // merge them instead of treating the first structured hit as complete.
+  const tableSessions = [...String(html || '').matchAll(/m-date__month[^>]*>\s*([^<]+)[\s\S]{0,500}?m-date__day[^>]*>\s*(\d{1,2})[\s\S]{0,1200}?<span class=["'][^"']*\btime\b[^"']*\bcell\b[^"']*["'][^>]*>\s*(\d{1,2}(?::\d{2})?\s*(?:AM|PM))/gi)];
+  const parsedTableSessions = tableSessions
+    .map(match => isoDateFromOfficialText(`${plainText(match[1])} ${match[2]}, ${year}`, match[3]))
+    .filter(Boolean);
+
   const text = plainText(html).replace(/\s+/g, ' ').trim();
-  const sessions = [...text.matchAll(/\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+((?:January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\.?\s+\d{1,2})\s+(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?))\b/gi)];
-  return [...new Set(sessions.map(match => isoDateFromOfficialText(`${match[1]}, ${year}`, match[2])).filter(Boolean))];
+  const textSessions = [...text.matchAll(/\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+((?:January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\.?\s+\d{1,2})\s+(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?))\b/gi)]
+    .map(match => isoDateFromOfficialText(`${match[1]}, ${year}`, match[2]))
+    .filter(Boolean);
+
+  return [...new Set([...parsedTableSessions, ...textSessions])];
 }
 
 async function readSapCenter(source) {
@@ -1847,7 +1853,7 @@ async function readSapCenter(source) {
       // from the event title.
     }
     if (!hasPublishableSummary(description, { title: listing.title, format: 'live-show' })) return [];
-    return dates.filter(isUpcoming).map((dateValue, index) => directEvent({
+    return dates.filter(dateValue => isUpcoming(dateValue)).map((dateValue, index) => directEvent({
       id: 'sapcenter-' + createHash('sha256').update(`${listing.url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
       title: listing.title, dateValue, description, image: listing.image,
       place: 'SAP Center at San Jose', address: source.address || '', city: source.city || '', source: source.name, url: listing.url,
