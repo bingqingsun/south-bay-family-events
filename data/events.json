@@ -33073,17 +33073,24 @@
     "verification": "official-page",
     "lastVerifiedAt": "2026-09-22T23:48:34.606Z",
     "format": "live-show",
-    "description": "PAUSD Outreach Production at Escondido Elementary School Journey of the Noble Gnarble Thursday, November 5, 4:30p Friday, November 6, 7:00p Saturday, November 7, 12:00p",
-    "parentSummary": "PAUSD Outreach Production at Escondido Elementary School Journey of the Noble Gnarble Thursday, November 5, 4:30p Friday, November 6, 7:00p Saturday, November 7, 12:00p",
-    "sourceDescriptionRaw": "PAUSD Outreach Production at Escondido Elementary School Journey of the Noble Gnarble Thursday, November 5, 4:30p Friday, November 6, 7:00p Saturday, November 7, 12:00p",
-    "sourceDescriptionHash": "d618087d4a6cd6a402e157fee5dc91406cd89862bff9744005aaa7ff0975d1f1",
-    "summaryStatus": "extractive",
-    "summaryMethod": "best_source_sentence",
-    "summaryQuality": "acceptable",
-    "summaryEvidence": "PAUSD Outreach Production at Escondido Elementary School Journey of the Noble Gnarble Thursday, November 5, 4:30p Friday, November 6, 7:00p Saturday, November 7, 12:00p",
-    "summaryEvidenceData": null,
+    "description": "Escondido Elementary presents Journey of the Noble Gnarble, a children's musical about a tiny sea creature determined to reach the ocean's surface despite doubters and obstacles along the way.",
+    "parentSummary": "Escondido Elementary presents Journey of the Noble Gnarble, a children's musical about a tiny sea creature determined to reach the ocean's surface despite doubters and obstacles along the way.",
+    "sourceDescriptionRaw": "Escondido | Performance dates: Nov. 5 – 7, 2026 | Production location: Escondido Elementary School. Journey of the Noble Gnarble is a story of a little gnarble with a big dream, who tries to make it past doubting blyfish, sneaky subbalubbles, and hungry plinks on his way to the surface of the sea. Along the way he befriends the glinny glims who teach him the importance of positivity and determination!",
+    "sourceDescriptionHash": "982c13fcd699534b19e9c8742b03d52e005287f1b7df8f1f94ce3167d0689653",
+    "summaryStatus": "manual_verified",
+    "summaryMethod": "source_verified_editorial",
+    "summaryQuality": "manual_verified",
+    "summaryEvidence": "Escondido | Performance dates: Nov. 5 – 7, 2026 | Production location: Escondido Elementary School. Journey of the Noble Gnarble is a story of a little gnarble with a big dream, who tries to make it past doubting blyfish, sneaky subbalubbles, and hungry plinks on his way to the surface of the sea. Along the way he befriends the glinny glims who teach him the importance of positivity and determination!",
+    "summaryEvidenceData": {
+      "kind": "verified-editorial",
+      "sourceUrls": [
+        "https://www.paloalto.gov/Departments/Community-Services/Arts-Sciences/Palo-Alto-Childrens-Theatre/Productions/Outreach-Productions",
+        "https://pact.showare.com/eventperformances.asp?evt=57",
+        "https://bbbpress.com/product/journey-of-the-noble-gnarble/"
+      ]
+    },
     "summaryVersion": "event-summary-v2-p9",
-    "summaryVerifiedAt": "2026-09-22T23:48:34.606Z",
+    "summaryVerifiedAt": "2026-10-14T20:00:00Z",
     "image": "/assets/official/palo-alto-childrens-theatre/fd49fa1c66677ced81ba.jpg",
     "imagePresentation": "",
     "imageBackground": "",
@@ -33222,11 +33229,11 @@
     "imageStatus": "official",
     "translations": {
       "zh": {
-        "title": "PAUSD 校园巡演：Escondido Elementary（Noble Gnarble）",
-        "description": "PAUSD Outreach Production 在 Escondido Elementary School 演出 Journey of the Noble Gnarble：Thursday, November 5, 4:30p；Friday, November 6, 7:00p；Saturday, November 7, 12:00p。",
-        "fingerprint": "c85a32151de66fc6460a906813b370db2126e79a2395e47c7891afed7eb6f113",
-        "translatedAt": "2026-09-26",
-        "translationSource": "editorial-reviewed",
+        "title": "PAUSD 校园音乐剧：Escondido Elementary《Journey of the Noble Gnarble》",
+        "description": "Escondido Elementary 的孩子们将演出音乐剧《Journey of the Noble Gnarble》：一只小小的海洋生物梦想游到海面，途中虽然遭遇质疑与困难，仍然勇敢追逐自己的目标。",
+        "fingerprint": "89bf29b426e44aa7e3d0208bb4acc71a62d8219b76a74ab37e74c9ba9e720066",
+        "translatedAt": "2026-10-14T20:00:00Z",
+        "translationSource": "official-evidence-editorial-reviewed",
         "status": "approved"
       }
     },
@@ -48267,17 +48274,22 @@
     "verification": "official-page",
     "lastVerifiedAt": "2026-09-22T23:48:34.606Z",
     "format": "live-show",
-    "description": "SEUSSICAL - THE MUSICAL Music by Stephen Flaherty | Lyrics by Lynn Ahrens April 29 - May 16, 2027 Book by Lynn Ahrens and Stephen Flaherty Co-Conceived by Lynn Ahrens, Stephen Flaherty, and Eric Idle Based on the works of Dr. Seuss April 29 – May 16, 2027 Come see all your favorite Dr. Seuss characters, including Horton, The Cat in the Hat, Gertrude McFuzz, and Lazy Mayzie!",
-    "parentSummary": "SEUSSICAL - THE MUSICAL Music by Stephen Flaherty | Lyrics by Lynn Ahrens April 29 - May 16, 2027 Book by Lynn Ahrens and Stephen Flaherty Co-Conceived by Lynn Ahrens, Stephen Flaherty, and Eric Idle Based on the works of Dr. Seuss April 29 – May 16, 2027 Come see all your favorite Dr. Seuss characters, including Horton, The Cat in the Hat, Gertrude McFuzz, and Lazy Mayzie!",
-    "sourceDescriptionRaw": "SEUSSICAL - THE MUSICAL Music by Stephen Flaherty | Lyrics by Lynn Ahrens April 29 - May 16, 2027 Book by Lynn Ahrens and Stephen Flaherty Co-Conceived by Lynn Ahrens, Stephen Flaherty, and Eric Idle Based on the works of Dr. Seuss April 29 – May 16, 2027 Come see all your favorite Dr. Seuss characters, including Horton, The Cat in the Hat, Gertrude McFuzz, and Lazy Mayzie! Your entire family will embark on a musical adventure, from the Jungle of Nool to the Circus McGurkus to the invisible world of the Whos!",
-    "sourceDescriptionHash": "193ac9231c23f8df3c46ac57723bd984f085a8795f95db2d760ff7a11f00baba",
-    "summaryStatus": "extractive",
-    "summaryMethod": "concrete_sentence",
-    "summaryQuality": "strong",
-    "summaryEvidence": "SEUSSICAL - THE MUSICAL Music by Stephen Flaherty | Lyrics by Lynn Ahrens April 29 - May 16, 2027 Book by Lynn Ahrens and Stephen Flaherty Co-Conceived by Lynn Ahrens, Stephen Flaherty, and Eric Idle Based on the works of Dr. Seuss April 29 – May 16, 2027 Come see all your favorite Dr. Seuss characters, including Horton, The Cat in the Hat, Gertrude McFuzz, and Lazy Mayzie!",
-    "summaryEvidenceData": null,
+    "description": "Meet Horton the Elephant, the Cat in the Hat, Gertrude McFuzz and Mayzie La Bird in a family musical that travels from the Jungle of Nool to Circus McGurkus and the tiny world of the Whos.",
+    "parentSummary": "Meet Horton the Elephant, the Cat in the Hat, Gertrude McFuzz and Mayzie La Bird in a family musical that travels from the Jungle of Nool to Circus McGurkus and the tiny world of the Whos.",
+    "sourceDescriptionRaw": "Come see all your favorite Dr. Seuss characters, including Horton, The Cat in the Hat, Gertrude McFuzz, and Lazy Mayzie! Your entire family will embark on a musical adventure, from the Jungle of Nool to the Circus McGurkus to the invisible world of the Whos!",
+    "sourceDescriptionHash": "c3ac3a6aa2fa962f032839e3dd3c206ce55df1d903127ed646555dcbfa2613e0",
+    "summaryStatus": "manual_verified",
+    "summaryMethod": "source_verified_editorial",
+    "summaryQuality": "manual_verified",
+    "summaryEvidence": "Come see all your favorite Dr. Seuss characters, including Horton, The Cat in the Hat, Gertrude McFuzz, and Lazy Mayzie! Your entire family will embark on a musical adventure, from the Jungle of Nool to the Circus McGurkus to the invisible world of the Whos!",
+    "summaryEvidenceData": {
+      "kind": "verified-editorial",
+      "sourceUrls": [
+        "https://www.paloalto.gov/Departments/Community-Services/Arts-Sciences/Palo-Alto-Childrens-Theatre/Productions/Main-Stage-Productions"
+      ]
+    },
     "summaryVersion": "event-summary-v2-p9",
-    "summaryVerifiedAt": "2026-09-22T23:48:34.606Z",
+    "summaryVerifiedAt": "2026-10-14T20:00:00Z",
     "image": "/assets/official/palo-alto-childrens-theatre/78686b6c190989783632.jpg",
     "imagePresentation": "",
     "imageBackground": "",
@@ -48629,11 +48641,11 @@
     "imageStatus": "official",
     "translations": {
       "zh": {
-        "title": "主舞台演出：Seussical - The Musical",
-        "description": "SEUSSICAL - THE MUSICAL，由 Stephen Flaherty 作曲、Lynn Ahrens 作词；April 29 - May 16, 2027。剧本由 Lynn Ahrens 和 Stephen Flaherty 创作，Lynn Ahrens、Stephen Flaherty 与 Eric Idle 共同构思，根据 Dr. Seuss 的作品改编。April 29 – May 16, 2027。演出中将出现 Horton、The Cat in the Hat、Gertrude McFuzz 和 Lazy Mayzie 等角色。",
-        "fingerprint": "e6253e9a5ba409c3fd6f82039db8623a9c050484ad33311d6518cf0c0495d9f0",
-        "translatedAt": "2026-09-26",
-        "translationSource": "editorial-reviewed",
+        "title": "主舞台音乐剧：Seussical - The Musical",
+        "description": "苏斯博士笔下的经典角色齐聚舞台！跟随大象 Horton、戴帽子的猫、Gertrude McFuzz 和 Mayzie La Bird，踏上一段穿越诺尔丛林、马戏团和 Whos 小人国的奇妙音乐之旅。",
+        "fingerprint": "f85abae841effc931dba45d914d2485aa04af85360e69b47e3a81ce26c6330f2",
+        "translatedAt": "2026-10-14T20:00:00Z",
+        "translationSource": "official-evidence-editorial-reviewed",
         "status": "approved"
       }
     },
