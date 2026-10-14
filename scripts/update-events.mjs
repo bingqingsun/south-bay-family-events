@@ -4085,6 +4085,16 @@ function seriesKey(event) {
     // and resolve any disagreement conservatively while building the card.
     return [event.format, normalizedMovieTitle(event.title), event.type].join('\u001f');
   }
+  if (event.format === 'live-show') {
+    // A performance can publish one official detail URL per showing. Those
+    // pages often differ slightly in extracted prose even though they are the
+    // same production. Summary/description text is presentation evidence, not
+    // event identity, so do not let those wording differences split showtimes
+    // into duplicate cards. Venue, audience and pricing still remain part of
+    // the identity to avoid combining genuinely different productions.
+    return [event.source, event.title, event.place, event.address, event.meetingPoint, event.city, event.type,
+      JSON.stringify(event.ageRanges || []), event.ageLabel || '', event.costLabel, event.costSource, event.registrationStatus].join('\u001f');
+  }
   // Deliberately conservative: different themes, venues, audience rules, or
   // pricing stay as separate cards even when a host reuses the same title.
   return [event.source, event.title, event.description, event.place, event.address, event.meetingPoint, event.city, event.type,
