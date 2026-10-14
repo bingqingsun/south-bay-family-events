@@ -30,6 +30,8 @@ on:
       - 'scripts/apply-event-supplements.mjs'
       - 'data/sources.json'
       - 'data/event-supplements.json'
+      - 'data/reviewed-event-summaries.json'
+      - 'scripts/apply-event-translations.mjs'
       - 'app.js'
       - 'collections.js'
       - '.github/workflows/daily-events.yml'
