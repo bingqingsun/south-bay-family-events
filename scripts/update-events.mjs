@@ -4101,6 +4101,15 @@ function seriesKey(event) {
     JSON.stringify(event.ageRanges || []), event.ageLabel || '', event.costLabel, event.costSource, event.registrationStatus].join('\u001f');
 }
 
+function legacyLiveShowSeriesId(event) {
+  // Before live-show identity was stabilized, description text participated in
+  // the series hash. Preserve those historical IDs as aliases so saved cards
+  // and editorial references survive the migration to the stable grouping key.
+  const legacyKey = [event.source, event.title, event.description, event.place, event.address, event.meetingPoint, event.city, event.type,
+    JSON.stringify(event.ageRanges || []), event.ageLabel || '', event.costLabel, event.costSource, event.registrationStatus].join('\u001f');
+  return 'series-' + createHash('sha256').update(legacyKey).digest('hex').slice(0, 16);
+}
+
 function groupRepeatedSessions(items) {
   const groups = new Map();
   items.forEach(event => { const key = seriesKey(event); (groups.get(key) || groups.set(key, []).get(key)).push(event); });
@@ -4135,7 +4144,10 @@ function groupRepeatedSessions(items) {
       id: 'series-' + createHash('sha256').update(key).digest('hex').slice(0, 16),
       title: displayTitle,
       movieRating,
-      legacyIds: [...new Set(ordered.flatMap(event => [event.id, ...(event.legacyIds || [])]))],
+      legacyIds: [...new Set([
+        ...ordered.flatMap(event => [event.id, ...(event.legacyIds || [])]),
+        ...(first.format === 'live-show' ? ordered.map(legacyLiveShowSeriesId) : [])
+      ])],
       // Keep the parent-facing movie label while preserving each concrete
       // session's real source identity and official ticket URL.
       source: first.format === 'movie-screening' ? 'Official cinema listings' : first.source,
