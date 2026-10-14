@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-14T19:55:37.307Z",
+  "generatedAt": "2026-10-14T20:00:25.750Z",
   "configuredSources": 95,
   "directSources": 89,
   "fallbackSourcesRun": 0,
@@ -20,7 +20,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 12,
+      "eventCount": 13,
       "failureStreak": 0,
       "error": ""
     },
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 58,
+      "failureStreak": 59,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 58,
+      "failureStreak": 59,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -306,7 +306,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 58,
+      "failureStreak": 59,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -386,7 +386,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 55,
+      "failureStreak": 56,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -414,10 +414,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 2,
-      "error": "Los Altos History Museum event list was not valid: 202"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -446,7 +446,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 26,
+      "failureStreak": 27,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -536,7 +536,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 26,
+      "failureStreak": 27,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -546,7 +546,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 26,
+      "failureStreak": 27,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -931,76 +931,76 @@
       "name": "St. Lucy Fun Fest",
       "method": "annual-festival",
       "mode": "direct",
-      "status": "ok",
+      "status": "failed",
       "eventCount": 0,
-      "failureStreak": 0,
-      "error": ""
+      "failureStreak": 1,
+      "error": "fetch failed"
     }
   ],
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 58,
+      "failureStreak": 59,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 58,
+      "failureStreak": 59,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 58,
+      "failureStreak": 59,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Peninsula Youth Theatre",
-      "failureStreak": 55,
+      "failureStreak": 56,
       "error": "PYT official show list was not valid: 200"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 26,
+      "failureStreak": 27,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
       "name": "The Village at San Antonio Center",
-      "failureStreak": 26,
+      "failureStreak": 27,
       "error": "Eventbrite organizer payload was not found"
     },
     {
       "name": "CalColor Academy",
-      "failureStreak": 26,
+      "failureStreak": 27,
       "error": "Eventbrite organizer payload was not found"
     }
   ],
   "paloAltoChildrensTheatreEnrichment": {
-    "checkedAt": "2026-10-14T19:55:37.307Z",
+    "checkedAt": "2026-10-14T20:00:25.750Z",
     "enriched": 5
   },
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-10-14T19:55:37.307Z",
-    "enriched": 322,
+    "checkedAt": "2026-10-14T20:00:25.750Z",
+    "enriched": 318,
     "identity-mismatch": 37,
     "fetch-blocked": 16,
     "cached": 2,
     "fieldUpdates": {
-      "description": 10,
+      "description": 12,
       "image": 1
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-10-14T19:55:37.307Z",
-    "official": 224,
-    "unclassified": 151,
+    "checkedAt": "2026-10-14T20:00:25.750Z",
+    "official": 225,
+    "unclassified": 146,
     "missing": 2,
     "failure:official_page_fetch_blocked": 2
   },
   "editorialCoverGeneration": {
     "frameworkVersion": "editorial-cover-v1",
-    "checkedAt": "2026-10-14T19:55:37.307Z",
+    "checkedAt": "2026-10-14T20:00:25.750Z",
     "generated": 2,
     "byReason": {
       "official_page_fetch_blocked": 2
@@ -1012,7 +1012,7 @@
   },
   "officialImageMirror": {
     "frameworkVersion": "official-image-mirror-v1",
-    "checkedAt": "2026-10-14T19:56:28.655Z",
+    "checkedAt": "2026-10-14T20:01:23.099Z",
     "configuredSources": 1,
     "mirroredEvents": 5,
     "mirroredAssets": 4,
