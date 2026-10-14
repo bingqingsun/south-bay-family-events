@@ -1842,17 +1842,6 @@ async function readSapCenter(source) {
       if (detailResponse.ok) {
         const detailHtml = await detailResponse.text();
         const detailSessions = sapCenterDetailSessions(detailHtml, listing.year || Number(listing.listingDates[0].slice(0, 4)));
-        if (/Disney On Ice/i.test(listing.title)) {
-          const probes = ['showings_date', 'October 23', '2026-10-23', 'More Showings', 'showings'];
-          const debug = Object.fromEntries(probes.map(probe => {
-            const index = detailHtml.indexOf(probe);
-            return [probe, {
-              index,
-              snippet: index >= 0 ? detailHtml.slice(Math.max(0, index - 220), Math.min(detailHtml.length, index + 1200)) : ''
-            }];
-          }));
-          console.log('SAPCENTER_DISNEY_DEBUG=' + JSON.stringify({ htmlLength: detailHtml.length, detailSessions, debug }));
-        }
         if (detailSessions.length) dates = detailSessions;
         const meta = decodeXml(detailHtml.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)/i)?.[1]
           || detailHtml.match(/<meta\s+property=["']og:description["']\s+content=["']([^"']+)/i)?.[1] || '');
@@ -1864,7 +1853,7 @@ async function readSapCenter(source) {
       // from the event title.
     }
     if (!hasPublishableSummary(description, { title: listing.title, format: 'live-show' })) return [];
-    return dates.filter(isUpcoming).map((dateValue, index) => directEvent({
+    return dates.filter(dateValue => isUpcoming(dateValue)).map((dateValue, index) => directEvent({
       id: 'sapcenter-' + createHash('sha256').update(`${listing.url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
       title: listing.title, dateValue, description, image: listing.image,
       place: 'SAP Center at San Jose', address: source.address || '', city: source.city || '', source: source.name, url: listing.url,
