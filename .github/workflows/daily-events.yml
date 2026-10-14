@@ -97,6 +97,7 @@ jobs:
           node scripts/linked-official-detail.test.mjs
           node scripts/link-ui.test.cjs
           node scripts/cupertino-audience.test.mjs
+          node scripts/sap-center-sessions.test.mjs
           node scripts/palo-alto-childrens-theatre.test.mjs
           node scripts/age-policy.test.cjs
           node scripts/apply-event-supplements.test.mjs
