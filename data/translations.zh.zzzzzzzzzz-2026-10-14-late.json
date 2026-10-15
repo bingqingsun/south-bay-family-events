@@ -1,0 +1,292 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "entries": [
+    {
+      "id": "chm-museum-f26c4c52f7e5588c",
+      "sourceUrl": "https://computerhistory.org/exhibits/chatbots-decoded/",
+      "title": "解读聊天机器人：探索人工智能",
+      "description": "与由聊天机器人驱动的机器人交谈，并听专家分享人工智能将如何影响我们的未来。",
+      "sourceFingerprint": "b4ddfc4f95b008a9d21354acd1a5b7d9b2825f779c27c42967d6ab4089c4f54b",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z",
+      "override": true
+    },
+    {
+      "id": "chm-museum-45b8705bb38bdfa6",
+      "sourceUrl": "https://computerhistory.org/exhibits/make-software/",
+      "title": "创造软件，改变世界！",
+      "description": "展览探索七项改变世界的应用背后的历史、影响和技术：MP3、Photoshop、MRI、汽车碰撞模拟、Wikipedia、短信和 World of Warcraft。",
+      "sourceFingerprint": "a09a107c611f324f46dc5968d3f1429b395b63f5f01eb4ffce68e1db0de515fc",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z",
+      "override": true
+    },
+    {
+      "id": "rss-6a2b3d5ac7d3cd58005fc0f0",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a2b3d5ac7d3cd58005fc0f0",
+      "title": "英语与西班牙语阅读伙伴",
+      "description": "欢迎幼儿园至 3 年级的孩子用英语或西班牙语朗读。受过培训的青少年志愿者会给予鼓励，并在需要时帮助纠正发音。",
+      "sourceFingerprint": "29994e6adde4ea1112a0bc0dbc9dc211293e51eb668ae90e52b5d07e98f1e5c1",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z"
+    },
+    {
+      "id": "rss-690a9f713cbc052f0083364f",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/690a9f713cbc052f0083364f",
+      "title": "TeenHQ 海报打印",
+      "description": "想把脑海中的创意制作成可以挂在墙上的艺术作品吗？",
+      "sourceFingerprint": "574fa42918c8c19ca92c3318386c8989945e0423d7d65f701f9152fc5cf139d1",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z"
+    },
+    {
+      "id": "jmz-family-9e10bcb96952915e",
+      "sourceUrl": "https://www.paloaltozoo.org/Visit/Accessibility",
+      "title": "超级家庭星期日",
+      "description": "近距离认识动物园里的动物。",
+      "sourceFingerprint": "76b85dd4113d5b315914e2e92a84394b591146c4fc457a42fea6b8ec0870de95",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z",
+      "override": true
+    },
+    {
+      "id": "series-690165277481ce0a",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a7fafcfaafa6100295cbd53",
+      "title": "睡衣故事时间 [Hora de Cuentos en Pijama]",
+      "description": "在玩乐中学习！每周一晚上 6:30pm，在 Gilroy Library 的 Burrow 举行睡衣故事时间。大家会和图书管理员 Cameron 一起读故事、唱歌和玩互动游戏。",
+      "sourceFingerprint": "fe22617d23c90636b5938e72943fe941bcc5ff532bd03518f9ce41ebc44601a9",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z",
+      "override": true
+    },
+    {
+      "id": "nhl-2026020213",
+      "sourceUrl": "https://www.nhl.com/gamecenter/van-vs-sjs/2026/10/29/2026020213",
+      "title": "圣何塞鲨鱼队对阵温哥华加人队",
+      "description": "圣何塞鲨鱼队在圣何塞 SAP Center 主场迎战温哥华加人队的官方比赛。",
+      "sourceFingerprint": "51f88bb0576a60c19d410b234c0661c70a7744d2d8ad9bb5c79fcc07bebee562",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z"
+    },
+    {
+      "id": "series-690483f377cafcb6",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a876f9229a7dd0d67456656",
+      "title": "K-2 年级科学星期日",
+      "description": "随行成人需要协助孩子完成实验和活动。每个星期日都会开展一项新实验！",
+      "sourceFingerprint": "5489f4dfa70decb52a6c9fbfe26e989dce236f75d788c914de65bb4b4fe1af82",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z",
+      "override": true
+    },
+    {
+      "id": "nhl-2026020235",
+      "sourceUrl": "https://www.nhl.com/gamecenter/cgy-vs-sjs/2026/11/02/2026020235",
+      "title": "圣何塞鲨鱼队对阵卡尔加里火焰队",
+      "description": "圣何塞鲨鱼队在圣何塞 SAP Center 主场迎战卡尔加里火焰队的官方比赛。",
+      "sourceFingerprint": "fb8a1130e73729cba3d965ad04636272d3acdca79c9f936f8c7d04b95cd4250b",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z"
+    },
+    {
+      "id": "nhl-2026020330",
+      "sourceUrl": "https://www.nhl.com/gamecenter/nsh-vs-sjs/2026/11/15/2026020330",
+      "title": "圣何塞鲨鱼队对阵纳什维尔掠夺者队",
+      "description": "圣何塞鲨鱼队在圣何塞 SAP Center 主场迎战纳什维尔掠夺者队的官方比赛。",
+      "sourceFingerprint": "b7c7417e535f12d2e88c4754848ac3ed6cb6c03e614ca9141f1a4c9faf149b8e",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z"
+    },
+    {
+      "id": "nhl-2026020343",
+      "sourceUrl": "https://www.nhl.com/gamecenter/cgy-vs-sjs/2026/11/17/2026020343",
+      "title": "圣何塞鲨鱼队对阵卡尔加里火焰队",
+      "description": "圣何塞鲨鱼队在圣何塞 SAP Center 主场迎战卡尔加里火焰队的官方比赛。",
+      "sourceFingerprint": "fb8a1130e73729cba3d965ad04636272d3acdca79c9f936f8c7d04b95cd4250b",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z"
+    },
+    {
+      "id": "nhl-2026020372",
+      "sourceUrl": "https://www.nhl.com/gamecenter/sea-vs-sjs/2026/11/21/2026020372",
+      "title": "圣何塞鲨鱼队对阵西雅图海怪队",
+      "description": "圣何塞鲨鱼队在圣何塞 SAP Center 主场迎战西雅图海怪队的官方比赛。",
+      "sourceFingerprint": "056954d41d744f3d81d375d01198ec0231800a94caca92a7d1d22d6c5cc292f1",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z"
+    },
+    {
+      "id": "nhl-2026020384",
+      "sourceUrl": "https://www.nhl.com/gamecenter/min-vs-sjs/2026/11/23/2026020384",
+      "title": "圣何塞鲨鱼队对阵明尼苏达狂野队",
+      "description": "圣何塞鲨鱼队在圣何塞 SAP Center 主场迎战明尼苏达狂野队的官方比赛。",
+      "sourceFingerprint": "cc54e38c4c705e0594c4413a65e672ff8b497f037b0423540a6811977a16328c",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z"
+    },
+    {
+      "id": "nhl-2026020410",
+      "sourceUrl": "https://www.nhl.com/gamecenter/vgk-vs-sjs/2026/11/27/2026020410",
+      "title": "圣何塞鲨鱼队对阵维加斯金骑士队",
+      "description": "圣何塞鲨鱼队在圣何塞 SAP Center 主场迎战维加斯金骑士队的官方比赛。",
+      "sourceFingerprint": "b3f19ac4f68696636aaa2ab2ba807ed5fc7599e22a7c8f035900710a2467133c",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z"
+    },
+    {
+      "id": "series-36fb3c1a1c31bd8b",
+      "sourceUrl": "https://www.sanjose.org/theaters/events/hip-hop-nutcracker-broadway-san-jose",
+      "title": "Hip Hop Nutcracker：嘻哈版《胡桃夹子》",
+      "description": "与原作一样，在《The Hip Hop Nutcracker》中，Maria-Clara 和胡桃夹子王子展开一段梦境冒险：他们与一群老鼠交战，游览糖果王国，并领悟节日季的意义。",
+      "sourceFingerprint": "95cbe860b27ff1e8eb37b8fe3ac95ec2ad47eee625a103f7ae325966ee607303",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z",
+      "override": true
+    },
+    {
+      "id": "nhl-2026020495",
+      "sourceUrl": "https://www.nhl.com/gamecenter/sea-vs-sjs/2026/12/08/2026020495",
+      "title": "圣何塞鲨鱼队对阵西雅图海怪队",
+      "description": "圣何塞鲨鱼队在圣何塞 SAP Center 主场迎战西雅图海怪队的官方比赛。",
+      "sourceFingerprint": "056954d41d744f3d81d375d01198ec0231800a94caca92a7d1d22d6c5cc292f1",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z"
+    },
+    {
+      "id": "nhl-2026020535",
+      "sourceUrl": "https://www.nhl.com/gamecenter/van-vs-sjs/2026/12/14/2026020535",
+      "title": "圣何塞鲨鱼队对阵温哥华加人队",
+      "description": "圣何塞鲨鱼队在圣何塞 SAP Center 主场迎战温哥华加人队的官方比赛。",
+      "sourceFingerprint": "51f88bb0576a60c19d410b234c0661c70a7744d2d8ad9bb5c79fcc07bebee562",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z"
+    },
+    {
+      "id": "nhl-2026020611",
+      "sourceUrl": "https://www.nhl.com/gamecenter/vgk-vs-sjs/2026/12/26/2026020611",
+      "title": "圣何塞鲨鱼队对阵维加斯金骑士队",
+      "description": "圣何塞鲨鱼队在圣何塞 SAP Center 主场迎战维加斯金骑士队的官方比赛。",
+      "sourceFingerprint": "b3f19ac4f68696636aaa2ab2ba807ed5fc7599e22a7c8f035900710a2467133c",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z"
+    },
+    {
+      "id": "nhl-2026020860",
+      "sourceUrl": "https://www.nhl.com/gamecenter/nsh-vs-sjs/2027/01/28/2026020860",
+      "title": "圣何塞鲨鱼队对阵纳什维尔掠夺者队",
+      "description": "圣何塞鲨鱼队在圣何塞 SAP Center 主场迎战纳什维尔掠夺者队的官方比赛。",
+      "sourceFingerprint": "b7c7417e535f12d2e88c4754848ac3ed6cb6c03e614ca9141f1a4c9faf149b8e",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z"
+    },
+    {
+      "id": "nhl-2026020867",
+      "sourceUrl": "https://www.nhl.com/gamecenter/chi-vs-sjs/2027/01/30/2026020867",
+      "title": "圣何塞鲨鱼队对阵芝加哥黑鹰队",
+      "description": "圣何塞鲨鱼队在圣何塞 SAP Center 主场迎战芝加哥黑鹰队的官方比赛。",
+      "sourceFingerprint": "76d004466ac673eaaf7e0534c3e80bb9a842eb4eb1861abe56f4939803eae209",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z"
+    },
+    {
+      "id": "nhl-2026020902",
+      "sourceUrl": "https://www.nhl.com/gamecenter/chi-vs-sjs/2027/02/10/2026020902",
+      "title": "圣何塞鲨鱼队对阵芝加哥黑鹰队",
+      "description": "圣何塞鲨鱼队在圣何塞 SAP Center 主场迎战芝加哥黑鹰队的官方比赛。",
+      "sourceFingerprint": "76d004466ac673eaaf7e0534c3e80bb9a842eb4eb1861abe56f4939803eae209",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z"
+    },
+    {
+      "id": "barracuda-54822",
+      "sourceUrl": "https://sjbarracuda.com/schedule",
+      "title": "圣何塞 Barracuda 对阵 Firebirds",
+      "description": "圣何塞 Barracuda 在 Tech CU Arena 主场迎战 Firebirds 的官方比赛。",
+      "sourceFingerprint": "e0ff4b91513ded3ada156873abe88ab21963a5e8bfdb4a8da177610fa6ae1f9e",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z"
+    },
+    {
+      "id": "nhl-2026021070",
+      "sourceUrl": "https://www.nhl.com/gamecenter/col-vs-sjs/2027/03/05/2026021070",
+      "title": "圣何塞鲨鱼队对阵科罗拉多雪崩队",
+      "description": "圣何塞鲨鱼队在圣何塞 SAP Center 主场迎战科罗拉多雪崩队的官方比赛。",
+      "sourceFingerprint": "eae73a277715beb83847f0ffd1e36abf589c1ca12b67a4b342a4eec170b36a3e",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z"
+    },
+    {
+      "id": "nhl-2026021210",
+      "sourceUrl": "https://www.nhl.com/gamecenter/ana-vs-sjs/2027/03/24/2026021210",
+      "title": "圣何塞鲨鱼队对阵阿纳海姆鸭队",
+      "description": "圣何塞鲨鱼队在圣何塞 SAP Center 主场迎战阿纳海姆鸭队的官方比赛。",
+      "sourceFingerprint": "cf0d7c946ff16e88f87d5be851e3e5e216250396bfbd55cd4c7e3a1459cd01a0",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z"
+    },
+    {
+      "id": "nhl-2026021247",
+      "sourceUrl": "https://www.nhl.com/gamecenter/col-vs-sjs/2027/03/29/2026021247",
+      "title": "圣何塞鲨鱼队对阵科罗拉多雪崩队",
+      "description": "圣何塞鲨鱼队在圣何塞 SAP Center 主场迎战科罗拉多雪崩队的官方比赛。",
+      "sourceFingerprint": "eae73a277715beb83847f0ffd1e36abf589c1ca12b67a4b342a4eec170b36a3e",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z"
+    },
+    {
+      "id": "barracuda-54841",
+      "sourceUrl": "https://sjbarracuda.com/schedule",
+      "title": "圣何塞 Barracuda 对阵 Firebirds",
+      "description": "圣何塞 Barracuda 在 Tech CU Arena 主场迎战 Firebirds 的官方比赛。",
+      "sourceFingerprint": "e0ff4b91513ded3ada156873abe88ab21963a5e8bfdb4a8da177610fa6ae1f9e",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z"
+    },
+    {
+      "id": "nhl-2026021323",
+      "sourceUrl": "https://www.nhl.com/gamecenter/min-vs-sjs/2027/04/08/2026021323",
+      "title": "圣何塞鲨鱼队对阵明尼苏达狂野队",
+      "description": "圣何塞鲨鱼队在圣何塞 SAP Center 主场迎战明尼苏达狂野队的官方比赛。",
+      "sourceFingerprint": "cc54e38c4c705e0594c4413a65e672ff8b497f037b0423540a6811977a16328c",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z"
+    },
+    {
+      "id": "nhl-2026021331",
+      "sourceUrl": "https://www.nhl.com/gamecenter/ana-vs-sjs/2027/04/10/2026021331",
+      "title": "圣何塞鲨鱼队对阵阿纳海姆鸭队",
+      "description": "圣何塞鲨鱼队在圣何塞 SAP Center 主场迎战阿纳海姆鸭队的官方比赛。",
+      "sourceFingerprint": "cf0d7c946ff16e88f87d5be851e3e5e216250396bfbd55cd4c7e3a1459cd01a0",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-15T04:35:10Z"
+    }
+  ]
+}
