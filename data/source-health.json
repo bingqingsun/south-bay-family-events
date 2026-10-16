@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-10-15T10:01:20.474Z",
+  "generatedAt": "2026-10-16T09:54:57.243Z",
   "configuredSources": 95,
   "directSources": 89,
-  "fallbackSourcesRun": 6,
+  "fallbackSourcesRun": 0,
   "sources": [
     {
       "key": "Palo Alto City Library|library.cityofpaloalto.org|https://gateway.bibliocommons.com/v2/libraries/paloalto/rss/events",
@@ -10,7 +10,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 15,
+      "eventCount": 16,
       "failureStreak": 0,
       "error": ""
     },
@@ -20,7 +20,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 14,
+      "eventCount": 10,
       "failureStreak": 0,
       "error": ""
     },
@@ -28,11 +28,8 @@
       "key": "Santa Clara County Parks|parks.santaclaracounty.gov|",
       "name": "Santa Clara County Parks",
       "method": "search-fallback",
-      "mode": "search-fallback",
-      "status": "ok",
-      "eventCount": 10,
-      "failureStreak": 0,
-      "error": ""
+      "mode": "not-run",
+      "failureStreak": 0
     },
     {
       "key": "Midpeninsula Regional Open Space District|openspace.org|https://www.openspace.org/get-involved/events-activities?f%5B0%5D=rating%3A146",
@@ -88,11 +85,8 @@
       "key": "City of San José|sanjoseca.gov|",
       "name": "City of San José",
       "method": "search-fallback",
-      "mode": "search-fallback",
-      "status": "ok",
-      "eventCount": 10,
-      "failureStreak": 0,
-      "error": ""
+      "mode": "not-run",
+      "failureStreak": 0
     },
     {
       "key": "Santa Clara County Library District|sccld.org|https://gateway.bibliocommons.com/v2/libraries/sccl/rss/events?audiences=5b28181c4727c7344c796675%2C5b28181c4727c7344c796676%2C5b28181c4727c7344c796677%2C5b28181c4727c7344c796678%2C5b28181c4727c7344c796679%2C5b28181c4727c7344c79667a%2C5b2a5dcb2c1d736b168c62ac",
@@ -108,21 +102,15 @@
       "key": "City of Sunnyvale|sunnyvale.ca.gov|",
       "name": "City of Sunnyvale",
       "method": "search-fallback",
-      "mode": "search-fallback",
-      "status": "ok",
-      "eventCount": 10,
-      "failureStreak": 0,
-      "error": ""
+      "mode": "not-run",
+      "failureStreak": 0
     },
     {
       "key": "City of Mountain View|mountainview.gov|",
       "name": "City of Mountain View",
       "method": "search-fallback",
-      "mode": "search-fallback",
-      "status": "ok",
-      "eventCount": 10,
-      "failureStreak": 0,
-      "error": ""
+      "mode": "not-run",
+      "failureStreak": 0
     },
     {
       "key": "City of Cupertino|cupertino.gov|https://www.cupertino.gov/Events-directory?dlv_OC+CL+City+Events+Listing=%28dd_OC+Event+Categories%3DMajor+events%29%28dd_OC+Composite+Date%3D0d%29",
@@ -130,7 +118,7 @@
       "method": "cupertino",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 4,
+      "eventCount": 3,
       "failureStreak": 0,
       "error": ""
     },
@@ -138,11 +126,8 @@
       "key": "City of Santa Clara|santaclaraca.gov|",
       "name": "City of Santa Clara",
       "method": "search-fallback",
-      "mode": "search-fallback",
-      "status": "ok",
-      "eventCount": 10,
-      "failureStreak": 0,
-      "error": ""
+      "mode": "not-run",
+      "failureStreak": 0
     },
     {
       "key": "Computer History Museum|computerhistory.org|https://computerhistory.org/events/feed/",
@@ -179,10 +164,10 @@
       "name": "Happy Hollow Park & Zoo",
       "method": "happyhollow",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 1,
-      "error": "Happy Hollow official calendar was not valid: 403"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Gilroy Gardens|gilroygardens.org|https://www.gilroygardens.org/calendar-hours/",
@@ -230,7 +215,7 @@
       "method": "stanford",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 0,
+      "eventCount": 3,
       "failureStreak": 0,
       "error": ""
     },
@@ -250,7 +235,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 9,
+      "eventCount": 12,
       "failureStreak": 0,
       "error": ""
     },
@@ -260,7 +245,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 9,
+      "eventCount": 11,
       "failureStreak": 0,
       "error": ""
     },
@@ -280,7 +265,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 9,
+      "eventCount": 12,
       "failureStreak": 0,
       "error": ""
     },
@@ -290,7 +275,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 10,
+      "eventCount": 12,
       "failureStreak": 0,
       "error": ""
     },
@@ -301,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 60,
+      "failureStreak": 61,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -311,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 60,
+      "failureStreak": 61,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -321,7 +306,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 60,
+      "failureStreak": 61,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -359,10 +344,10 @@
       "name": "San Jose Giants",
       "method": "mlb",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 1,
-      "error": "The operation was aborted due to timeout"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "San Jose Earthquakes|sjearthquakes.com|https://stats-api.mlssoccer.com/competitions/MLS-COM-000001/seasons",
@@ -401,7 +386,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 57,
+      "failureStreak": 58,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -461,7 +446,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 28,
+      "failureStreak": 29,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -470,7 +455,7 @@
       "method": "tribe",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 4,
+      "eventCount": 3,
       "failureStreak": 0,
       "error": ""
     },
@@ -540,7 +525,7 @@
       "method": "google-visitor-events",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 1,
+      "eventCount": 5,
       "failureStreak": 0,
       "error": ""
     },
@@ -551,7 +536,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 28,
+      "failureStreak": 29,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -561,7 +546,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 28,
+      "failureStreak": 29,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -800,7 +785,7 @@
       "method": "curated",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 4,
+      "eventCount": 3,
       "failureStreak": 0,
       "error": ""
     },
@@ -829,10 +814,10 @@
       "name": "Santana Row",
       "method": "santana-row",
       "mode": "direct",
-      "status": "failed",
-      "eventCount": 0,
-      "failureStreak": 1,
-      "error": "fetch failed"
+      "status": "ok",
+      "eventCount": 4,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Guadalupe River Park Conservancy · Pumpkins in the Park|grpg.org|https://grpg.org/pumpkins-in-the-park/",
@@ -878,147 +863,151 @@
       "key": "Santa Clara Community Calendar|calendar.santaclaraca.gov|",
       "name": "Santa Clara Community Calendar",
       "method": "search-fallback",
-      "mode": "search-fallback",
-      "status": "failed",
-      "eventCount": 0,
-      "failureStreak": 1,
-      "error": "Search failed: 200 — Google hasn't returned any results for this query."
+      "mode": "not-run",
+      "failureStreak": 1
     },
     {
       "key": "Fremont Parents' Nursery School|gopher-chinchilla-xn32.squarespace.com|https://gopher-chinchilla-xn32.squarespace.com/events",
       "name": "Fremont Parents' Nursery School",
       "method": "squarespace-events",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 1,
-      "error": "fetch failed"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Mountain View Chamber · Seasonal Events|chambermv.org|https://chambermv.org/seasonal-events/",
       "name": "Mountain View Chamber · Seasonal Events",
       "method": "chamber-seasonal",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 1,
-      "error": "fetch failed"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Palo Alto Museum|paloaltomuseum.org|https://paloaltomuseum.org/events/",
       "name": "Palo Alto Museum",
       "method": "palo-alto-museum",
       "mode": "direct",
-      "status": "failed",
-      "eventCount": 0,
-      "failureStreak": 1,
-      "error": "fetch failed"
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "California State Senate District 15 · Family Events|sd15.senate.ca.gov|https://sd15.senate.ca.gov/events",
       "name": "California State Senate District 15 · Family Events",
       "method": "senate-events",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 1,
-      "error": "fetch failed"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Magical Glass Pumpkin Patch|magicalglasspumpkinpatch.com|https://magicalglasspumpkinpatch.com/wp-json/wp/v2/pages?slug=home",
       "name": "Magical Glass Pumpkin Patch",
       "method": "annual-festival",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 1,
-      "error": "fetch failed"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Mountain View Oktoberfest|mvoktoberfest.com|https://www.mvoktoberfest.com/",
       "name": "Mountain View Oktoberfest",
       "method": "annual-festival",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 1,
-      "error": "fetch failed"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "St. Lucy Fun Fest|stlucyschool.org|https://www.stlucyschool.org/funfest/",
       "name": "St. Lucy Fun Fest",
       "method": "annual-festival",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 2,
-      "error": "fetch failed"
+      "failureStreak": 0,
+      "error": ""
     }
   ],
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 60,
+      "failureStreak": 61,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 60,
+      "failureStreak": 61,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 60,
+      "failureStreak": 61,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Peninsula Youth Theatre",
-      "failureStreak": 57,
+      "failureStreak": 58,
       "error": "PYT official show list was not valid: 200"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 28,
+      "failureStreak": 29,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
       "name": "The Village at San Antonio Center",
-      "failureStreak": 28,
+      "failureStreak": 29,
       "error": "Eventbrite organizer payload was not found"
     },
     {
       "name": "CalColor Academy",
-      "failureStreak": 28,
+      "failureStreak": 29,
       "error": "Eventbrite organizer payload was not found"
     }
   ],
   "paloAltoChildrensTheatreEnrichment": {
-    "checkedAt": "2026-10-15T10:01:20.474Z",
+    "checkedAt": "2026-10-16T09:54:57.243Z",
     "enriched": 5
   },
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-10-15T10:01:20.474Z",
-    "enriched": 110,
-    "identity-mismatch": 243,
+    "checkedAt": "2026-10-16T09:54:57.243Z",
+    "enriched": 329,
+    "identity-mismatch": 37,
     "fetch-blocked": 16,
-    "cached": 2,
+    "cached": 1,
     "fieldUpdates": {
-      "description": 4,
-      "image": 1
+      "description": 13,
+      "costStatus": 2,
+      "costLabel": 2,
+      "costSource": 2,
+      "costEvidence": 2,
+      "endDateValue": 5,
+      "address": 2,
+      "image": 6,
+      "dateValue": 1
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-10-15T10:01:20.474Z",
-    "official": 208,
-    "unclassified": 161,
+    "checkedAt": "2026-10-16T09:54:57.243Z",
+    "official": 234,
+    "unclassified": 147,
     "missing": 2,
     "failure:official_page_fetch_blocked": 2
   },
   "editorialCoverGeneration": {
     "frameworkVersion": "editorial-cover-v1",
-    "checkedAt": "2026-10-15T10:01:20.474Z",
+    "checkedAt": "2026-10-16T09:54:57.243Z",
     "generated": 2,
     "byReason": {
       "official_page_fetch_blocked": 2
@@ -1030,7 +1019,7 @@
   },
   "officialImageMirror": {
     "frameworkVersion": "official-image-mirror-v1",
-    "checkedAt": "2026-10-15T10:02:12.078Z",
+    "checkedAt": "2026-10-16T09:55:50.213Z",
     "configuredSources": 1,
     "mirroredEvents": 5,
     "mirroredAssets": 4,
