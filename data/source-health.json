@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-16T09:54:57.243Z",
+  "generatedAt": "2026-10-19T14:29:58.788Z",
   "configuredSources": 95,
   "directSources": 89,
   "fallbackSourcesRun": 0,
@@ -10,7 +10,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 16,
+      "eventCount": 14,
       "failureStreak": 0,
       "error": ""
     },
@@ -20,7 +20,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 10,
+      "eventCount": 15,
       "failureStreak": 0,
       "error": ""
     },
@@ -37,7 +37,7 @@
       "method": "midpen",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 7,
+      "eventCount": 9,
       "failureStreak": 0,
       "error": ""
     },
@@ -57,7 +57,7 @@
       "method": "paloalto",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 6,
+      "eventCount": 5,
       "failureStreak": 0,
       "error": ""
     },
@@ -77,7 +77,7 @@
       "method": "jmz-family",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 1,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -175,7 +175,7 @@
       "method": "gilroy",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 8,
+      "eventCount": 5,
       "failureStreak": 0,
       "error": ""
     },
@@ -195,7 +195,7 @@
       "method": "deanza",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 26,
+      "eventCount": 23,
       "failureStreak": 0,
       "error": ""
     },
@@ -215,7 +215,7 @@
       "method": "stanford",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 3,
+      "eventCount": 2,
       "failureStreak": 0,
       "error": ""
     },
@@ -235,7 +235,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 12,
+      "eventCount": 17,
       "failureStreak": 0,
       "error": ""
     },
@@ -245,7 +245,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 11,
+      "eventCount": 5,
       "failureStreak": 0,
       "error": ""
     },
@@ -265,7 +265,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 12,
+      "eventCount": 6,
       "failureStreak": 0,
       "error": ""
     },
@@ -275,7 +275,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 12,
+      "eventCount": 17,
       "failureStreak": 0,
       "error": ""
     },
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 61,
+      "failureStreak": 62,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 61,
+      "failureStreak": 62,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -306,7 +306,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 61,
+      "failureStreak": 62,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -314,10 +314,10 @@
       "name": "South FIRST FRIDAYS / ArtWalkSJ",
       "method": "southfirstfridays",
       "mode": "direct",
-      "status": "ok",
+      "status": "failed",
       "eventCount": 0,
-      "failureStreak": 0,
-      "error": ""
+      "failureStreak": 1,
+      "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
     },
     {
       "key": "SAP Center|sapcenter.com|https://www.sapcenter.com/events/all",
@@ -335,7 +335,7 @@
       "method": "bayfc",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 2,
+      "eventCount": 1,
       "failureStreak": 0,
       "error": ""
     },
@@ -355,7 +355,7 @@
       "method": "mls",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 3,
+      "eventCount": 2,
       "failureStreak": 0,
       "error": ""
     },
@@ -386,7 +386,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 58,
+      "failureStreak": 59,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -395,7 +395,7 @@
       "method": "barracuda",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 31,
+      "eventCount": 30,
       "failureStreak": 0,
       "error": ""
     },
@@ -446,7 +446,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 29,
+      "failureStreak": 30,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -485,7 +485,7 @@
       "method": "history",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 0,
+      "eventCount": 1,
       "failureStreak": 0,
       "error": ""
     },
@@ -525,7 +525,7 @@
       "method": "google-visitor-events",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 5,
+      "eventCount": 1,
       "failureStreak": 0,
       "error": ""
     },
@@ -536,7 +536,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 29,
+      "failureStreak": 30,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -546,7 +546,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 29,
+      "failureStreak": 30,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -635,7 +635,7 @@
       "method": "curated",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 1,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -655,7 +655,7 @@
       "method": "curated",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 2,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -735,7 +735,7 @@
       "method": "curated",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 2,
+      "eventCount": 1,
       "failureStreak": 0,
       "error": ""
     },
@@ -745,7 +745,7 @@
       "method": "curated",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 1,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -785,7 +785,7 @@
       "method": "curated",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 3,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -940,86 +940,79 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 61,
+      "failureStreak": 62,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 61,
+      "failureStreak": 62,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 61,
+      "failureStreak": 62,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Peninsula Youth Theatre",
-      "failureStreak": 58,
+      "failureStreak": 59,
       "error": "PYT official show list was not valid: 200"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 29,
+      "failureStreak": 30,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
       "name": "The Village at San Antonio Center",
-      "failureStreak": 29,
+      "failureStreak": 30,
       "error": "Eventbrite organizer payload was not found"
     },
     {
       "name": "CalColor Academy",
-      "failureStreak": 29,
+      "failureStreak": 30,
       "error": "Eventbrite organizer payload was not found"
     }
   ],
   "paloAltoChildrensTheatreEnrichment": {
-    "checkedAt": "2026-10-16T09:54:57.243Z",
+    "checkedAt": "2026-10-19T14:29:58.788Z",
     "enriched": 5
   },
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-10-16T09:54:57.243Z",
-    "enriched": 329,
-    "identity-mismatch": 37,
-    "fetch-blocked": 16,
+    "checkedAt": "2026-10-19T14:29:58.788Z",
+    "enriched": 306,
+    "cancelled": 14,
+    "fetch-blocked": 11,
+    "identity-mismatch": 35,
     "cached": 1,
+    "skipped-untrusted-url": 1,
     "fieldUpdates": {
-      "description": 13,
-      "costStatus": 2,
-      "costLabel": 2,
-      "costSource": 2,
-      "costEvidence": 2,
-      "endDateValue": 5,
-      "address": 2,
-      "image": 6,
-      "dateValue": 1
+      "description": 11,
+      "costStatus": 1,
+      "costLabel": 1,
+      "costSource": 1,
+      "costEvidence": 1,
+      "endDateValue": 6,
+      "image": 1
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-10-16T09:54:57.243Z",
-    "official": 234,
-    "unclassified": 147,
-    "missing": 2,
-    "failure:official_page_fetch_blocked": 2
+    "checkedAt": "2026-10-19T14:29:58.788Z",
+    "official": 215,
+    "unclassified": 139
   },
   "editorialCoverGeneration": {
     "frameworkVersion": "editorial-cover-v1",
-    "checkedAt": "2026-10-16T09:54:57.243Z",
-    "generated": 2,
-    "byReason": {
-      "official_page_fetch_blocked": 2
-    },
-    "byPreset": {
-      "farm-halloween": 1,
-      "halloween": 1
-    }
+    "checkedAt": "2026-10-19T14:29:58.788Z",
+    "generated": 0,
+    "byReason": {},
+    "byPreset": {}
   },
   "officialImageMirror": {
     "frameworkVersion": "official-image-mirror-v1",
-    "checkedAt": "2026-10-16T09:55:50.213Z",
+    "checkedAt": "2026-10-19T14:30:44.755Z",
     "configuredSources": 1,
     "mirroredEvents": 5,
     "mirroredAssets": 4,
