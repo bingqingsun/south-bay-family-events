@@ -101,10 +101,7 @@
       lastChanceThreshold: 3,
       selectedEventRefs: [
         { id: 'series-e312633de924366b', url: 'https://www.gilroygardens.org/halloween/' },
-        'rss-6a9c66e53b6c71003e5e111d',
-        'curated-4c0727d8deda8c4d',
         { id: 'rss-6abc4d747c8c150075767bd5', title: 'Fratello Marionettes: Spooktacular', url: 'https://sccl.bibliocommons.com/events/6abc4d747c8c150075767bd5' },
-        { id: 'rss-6aa334094b3b06003082e767', url: 'https://sccl.bibliocommons.com/events/6aa334094b3b06003082e767' },
         'curated-308477d1807c9d4c',
         'curated-f364c82c4ac30523',
         { id: 'calendar-24500', url: 'https://www.gamblegarden.org/event/halloween/' },
