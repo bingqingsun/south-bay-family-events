@@ -466,6 +466,12 @@
         "ticketUrl": "https://my.montalvoarts.org/3257/3258"
       },
       {
+        "title": "4th Lowrider Art Showcase – Celebrating Dia de los Muertos",
+        "date": "2026-11-01",
+        "url": "https://montalvoarts.org/experience/lowrider-art-showcase-2026/",
+        "ticketUrl": "https://my.montalvoarts.org/3248"
+      },
+      {
         "title": "St. Paul & The Minneapolis Funk All Stars",
         "date": "2026-10-16",
         "url": "https://montalvoarts.org/experience/carriage-house-concerts/st-paul/"
@@ -516,7 +522,15 @@
     "method": "history",
     "feedUrl": "https://historysanjose.org/programs-events/",
     "address": "635 Phelan Ave, San Jose",
-    "city": "San Jose"
+    "city": "San Jose",
+    "landingUrl": "https://historysanjose.org/programs-events/",
+    "detailUrlOverrides": [
+      {
+        "title": "History Park Children’s Heritage Holiday",
+        "date": "2026-12-12",
+        "url": "https://historysanjose.org/programs-events/"
+      }
+    ]
   },
   {
     "name": "San José Buddhist Church Betsuin",
