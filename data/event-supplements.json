@@ -434,5 +434,29 @@
     "format": "festival",
     "seasonalTheme": "halloween",
     "verifiedAt": "2026-10-12T12:05:53.771Z"
+  },
+  {
+    "id": "curated-f364c82c4ac30523",
+    "title": "Monster Bash",
+    "dateValue": "2026-10-24T10:00",
+    "endDateValue": "2026-10-24T14:00:00",
+    "description": "A free all-ages Halloween celebration with a Treat Trail, games, live performances, an inflatable zone, and a bike circus.",
+    "sourceDescriptionRaw": "Mountain View's Monster Bash is a free all-ages Halloween celebration at Rengstorff Park with a Treat Trail, games, live performances, an inflatable zone, and a bike circus.",
+    "image": "https://www.mountainview.gov/home/showpublishedimage/9558/639237821395300000",
+    "place": "Rengstorff Park",
+    "address": "201 S Rengstorff Ave, Mountain View, CA",
+    "city": "Mountain View",
+    "source": "City of Mountain View · Seasonal Events",
+    "url": "https://www.mountainview.gov/our-city/departments/community-services/special-events/monster-bash",
+    "ageLabel": "All ages",
+    "ageSource": "City of Mountain View official Monster Bash page",
+    "costStatus": "free",
+    "costLabel": "免费",
+    "costSource": "City of Mountain View official Monster Bash page",
+    "costEvidence": "The organizer describes Monster Bash as a free community Halloween event.",
+    "type": "community",
+    "format": "festival",
+    "seasonalTheme": "halloween",
+    "verifiedAt": "2026-10-19T07:25:00-07:00"
   }
 ]
