@@ -1,5 +1,16 @@
 {
   "version": 1,
   "locale": "zh-Hans",
-  "entries": []
+  "entries": [
+    {
+      "id": "cupertino-d464f2babbdf75fb",
+      "sourceFingerprint": "0cc0cf98a8e9c5ae75a6e830c437c72c2b9f594e32afdc47814515ad5de27f89",
+      "title": "圣诞树点灯仪式",
+      "description": "见证圣诞树被数百盏闪烁的灯光点亮，感受充满魔法般光彩的节日氛围。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-20T02:26:00Z",
+      "override": true
+    }
+  ]
 }
