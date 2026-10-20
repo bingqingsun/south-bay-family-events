@@ -135,4 +135,4 @@ jobs:
           fi
 
           git push origin "HEAD:main"
-          git push origin --delete "$GITHUB_REF_NAME" || true
+          git push origin --delete "$SOURCE_BRANCH" || true
