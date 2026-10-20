@@ -1,0 +1,69 @@
+name: Ingest ChatGPT translation inbox
+
+concurrency:
+  group: ingest-chatgpt-translation-inbox
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - automation/translation-inbox
+    paths:
+      - 'data/translation-inbox.json'
+
+permissions:
+  contents: write
+
+jobs:
+  stage:
+    runs-on: ubuntu-latest
+    outputs:
+      has_changes: ${{ steps.stage.outputs.has_changes }}
+      publish_branch: ${{ steps.stage.outputs.publish_branch }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: automation/translation-inbox
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Stage inbox on latest main
+        id: stage
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "south-bay-events-bot"
+          git config user.email "actions@github.com"
+
+          cp data/translation-inbox.json "$RUNNER_TEMP/translation-inbox.json"
+          git fetch origin main
+
+          publish_branch="chore/fill-zh-translations-inbox-${GITHUB_RUN_ID}"
+          git checkout -B "$publish_branch" origin/main
+          node scripts/merge-translation-inbox.mjs "$RUNNER_TEMP/translation-inbox.json" data/translations.zh.automation.json
+
+          if git diff --quiet -- data/translations.zh.automation.json; then
+            echo "No translation catalog changes to publish."
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "publish_branch=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git add data/translations.zh.automation.json
+          git commit -m "chore: stage reviewed translations from automation inbox"
+          git push origin "HEAD:$publish_branch"
+
+          echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          echo "publish_branch=$publish_branch" >> "$GITHUB_OUTPUT"
+
+  publish:
+    needs: stage
+    if: needs.stage.outputs.has_changes == 'true'
+    uses: ./.github/workflows/publish-reviewed-translations.yml
+    with:
+      source_branch: ${{ needs.stage.outputs.publish_branch }}
+    permissions:
+      contents: write
