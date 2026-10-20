@@ -14,7 +14,18 @@ on:
       - 'data/translations.zh.js'
       - 'data/events.json'
       - 'data/events.js'
+  workflow_call:
+    inputs:
+      source_branch:
+        description: Translation branch to validate and publish.
+        required: true
+        type: string
   workflow_dispatch:
+    inputs:
+      source_branch:
+        description: Optional translation branch to validate and publish.
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -22,10 +33,12 @@ permissions:
 jobs:
   validate-and-publish:
     runs-on: ubuntu-latest
+    env:
+      SOURCE_BRANCH: ${{ inputs.source_branch || github.ref_name }}
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ env.SOURCE_BRANCH }}
           fetch-depth: 0
 
       - uses: actions/setup-node@v4
@@ -39,7 +52,7 @@ jobs:
           git fetch origin main
           if ! git merge-base --is-ancestor origin/main HEAD; then
             git rebase origin/main
-            git push --force-with-lease origin "HEAD:${GITHUB_REF_NAME}"
+            git push --force-with-lease origin "HEAD:${SOURCE_BRANCH}"
           fi
 
       - name: Rebuild translation overlay
@@ -55,7 +68,7 @@ jobs:
             echo "Translation materialization already matches the reviewed sidecars."
           else
             git commit -m "chore: materialize reviewed Chinese translations"
-            git push origin "HEAD:${GITHUB_REF_NAME}"
+            git push origin "HEAD:${SOURCE_BRANCH}"
           fi
 
       - name: Run translation QA and coverage
@@ -122,4 +135,4 @@ jobs:
           fi
 
           git push origin "HEAD:main"
-          git push origin --delete "$GITHUB_REF_NAME" || true
+          git push origin --delete "$SOURCE_BRANCH" || true

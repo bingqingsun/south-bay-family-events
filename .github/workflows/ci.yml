@@ -86,6 +86,7 @@ jobs:
           node --check scripts/apply-event-supplements.mjs
           node --check scripts/apply-event-supplements.test.mjs
           node --check scripts/load-translation-catalogs.mjs
+          node --check scripts/merge-translation-inbox.mjs
           node --check scripts/translation-qa.mjs
           node --check scripts/translation-coverage-report.mjs
           node --check scripts/runtime-translation-fallback.test.mjs
@@ -135,6 +136,7 @@ jobs:
           node scripts/apply-event-translations.mjs
       - name: Run policy and data-contract tests
         run: |
+          node scripts/merge-translation-inbox.mjs data/translation-inbox.json "$RUNNER_TEMP/translations.zh.automation.json"
           node scripts/test-event-summary-engine.mjs
           node scripts/civicplus-description.test.mjs
           node scripts/event-translations.test.mjs

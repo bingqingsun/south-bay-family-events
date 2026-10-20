@@ -5,7 +5,12 @@ export async function loadChineseTranslationCatalogs() {
   const names = (await readdir(dataDir))
     .filter(name => /^translations\.zh(?:\.[^.]+(?:-[^.]+)*)?\.json$/i.test(name))
     .filter(name => name !== 'translations.zh.manifest.json')
-    .sort((a, b) => a.localeCompare(b));
+    .sort((a, b) => {
+      const automationCatalog = 'translations.zh.automation.json';
+      if (a === automationCatalog) return b === automationCatalog ? 0 : 1;
+      if (b === automationCatalog) return -1;
+      return a.localeCompare(b);
+    });
 
   const catalogs = await Promise.all(names.map(async name => ({
     name,
