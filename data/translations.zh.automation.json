@@ -3,6 +3,17 @@
   "locale": "zh-Hans",
   "entries": [
     {
+      "id": "barracuda-54788",
+      "sourceFingerprint": "e0ff4b91513ded3ada156873abe88ab21963a5e8bfdb4a8da177610fa6ae1f9e",
+      "title": "圣何塞梭鱼队对阵火鸟队",
+      "description": "圣何塞梭鱼队在 Tech CU Arena 主场迎战火鸟队的正式比赛。",
+      "sourceUrl": "https://sjbarracuda.com/schedule",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-20T22:05:36.843Z",
+      "override": true
+    },
+    {
       "id": "cupertino-d464f2babbdf75fb",
       "sourceFingerprint": "0cc0cf98a8e9c5ae75a6e830c437c72c2b9f594e32afdc47814515ad5de27f89",
       "title": "圣诞树点灯仪式",
@@ -10,6 +21,149 @@
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-10-20T02:26:00Z",
+      "override": true
+    },
+    {
+      "id": "google-visitor-4c15e79a0172322b",
+      "sourceFingerprint": "9f7a501cba9361853d980aa5d9f68b5b0587ba198fbf74f40e79975cc66c62a3",
+      "title": "与 Arely Cardenas 和 Local Color 一起彩绘陶瓷盘",
+      "description": "参加由艺术家 Arely Cardenas 和 Local Color 带来的免费陶瓷盘彩绘工作坊，发挥想象力，创作自己的作品。适合 5 岁及以上参加。",
+      "sourceUrl": "https://rsvp.withgoogle.com/events/ceramic-dish-painting-with-arely-cardenas-and-local-color",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-20T22:05:36.843Z",
+      "override": true
+    },
+    {
+      "id": "google-visitor-59cbaf332ce76678",
+      "sourceFingerprint": "c151124e51f5739b0c2c4eefddf8ea043d1254f1cff0c3b9aa0635d2562a870d",
+      "title": "覆盖作物入门 101：与 My California Garden 一起改善花园土壤",
+      "description": "带上全家人，一起学习如何在下一个种植季节到来前，以自然方式改善花园土壤。",
+      "sourceUrl": "https://rsvp.withgoogle.com/events/cover-crops-101-boost-your-garden-soil-with-my-california-garden",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-20T22:05:36.843Z",
+      "override": true
+    },
+    {
+      "id": "google-visitor-7502b769f5340efe",
+      "sourceFingerprint": "2550cc8c0ba5df10b2a61d8515ceffc281d4e7464d2c690bfea162facd9e261e",
+      "title": "与 Planet Bee 一起体验终极蜂蜜采收工作坊",
+      "description": "参加 Planet Bee 提供的免费蜜蜂动手体验活动，庆祝这一季甜蜜的收获。",
+      "sourceUrl": "https://rsvp.withgoogle.com/events/the-ultimate-honey-harvest-workshop-with-planet-bee",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-20T22:05:36.843Z",
+      "override": true
+    },
+    {
+      "id": "google-visitor-f2e8c39ed08787d7",
+      "sourceFingerprint": "8bb70e07a044208f389fa794aebec944a65d4012bb4b78be4739b058bbe6df13",
+      "title": "与 CodeREV 一起探索编程（感恩花园）",
+      "description": "在这个免费的互动式 Minecraft 工作坊中，8–13 岁的孩子将在安全的数字空间中组队建造一座“感恩花园”。",
+      "sourceUrl": "https://rsvp.withgoogle.com/events/adventures-in-coding-with-code-rev-gratitude-garden",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-20T22:05:36.843Z",
+      "override": true
+    },
+    {
+      "id": "paloalto-fdf913bcaf6fa1ab",
+      "sourceFingerprint": "0caf26b84cab8ef0df96a85bcc598067a59c33de8962b7329b82cbb4f7dd5de6",
+      "title": "Lytton Plaza 节日树点灯仪式",
+      "description": "准备好点亮夜晚，参加精彩的节日树点灯活动，开启节日季！",
+      "sourceUrl": "https://www.paloalto.gov/Events-Directory/Community-Services/Holiday-Tree-Lighting",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-20T22:05:36.843Z",
+      "override": true
+    },
+    {
+      "id": "rss-694338438b29ea2800c4c4ca",
+      "sourceFingerprint": "644dd9742cb4f2d177d552e1dfc116eaf8dfed7463579fbe44ed2e916852ecf2",
+      "title": "4-6 年级图书与积木读书会",
+      "description": "欢迎四至六年级学生参加我们的读书与乐高搭建俱乐部！",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/694338438b29ea2800c4c4ca",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-20T22:05:36.843Z",
+      "override": true
+    },
+    {
+      "id": "rss-6a25aace2ea730c17ab50490",
+      "sourceFingerprint": "269da052ede38fff6ba354a04e34a072cc7bece27d4901f6f71d10192fb44309",
+      "title": "乐高星期五！",
+      "description": "发挥想象力，动手搭建有趣的作品！",
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/6a25aace2ea730c17ab50490",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-20T22:05:36.843Z",
+      "override": true
+    },
+    {
+      "id": "rss-6a962ae1660e510bf440ac05",
+      "sourceFingerprint": "af627a1a7b2daf671e2acf88dedfbc68f219a1ce3d2474cd6ee3a6942f772d0c",
+      "title": "自然之歌：艺术展",
+      "description": "从那时起，我们每逢周四都会一起画水彩画。",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a962ae1660e510bf440ac05",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-20T22:05:36.843Z",
+      "override": true
+    },
+    {
+      "id": "rss-6aa984c186d8450031165272",
+      "sourceFingerprint": "4adc11dcc678449a5de948cbb76940a4e29bd4a28d83f2e691658fadc978850b",
+      "title": "秋季天然护发与护肤",
+      "description": "在工作坊中亲手制作专属的护发和护肤产品，并将作品带回家！",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6aa984c186d8450031165272",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-20T22:05:36.843Z",
+      "override": true
+    },
+    {
+      "id": "series-690165277481ce0a",
+      "sourceFingerprint": "fe22617d23c90636b5938e72943fe941bcc5ff532bd03518f9ce41ebc44601a9",
+      "title": "睡衣故事时间 [Hora de Cuentos en Pijama]",
+      "description": "边玩边学。每周一下午 6:30 在 Burrow 举行。欢迎来到 Gilroy 图书馆的睡衣故事时间：我们将与图书馆员 Cameron 一起读故事、唱歌和玩游戏。",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a7fafcfaafa6100295cbd54",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-20T22:05:36.843Z",
+      "override": true
+    },
+    {
+      "id": "series-690483f377cafcb6",
+      "sourceFingerprint": "5489f4dfa70decb52a6c9fbfe26e989dce236f75d788c914de65bb4b4fe1af82",
+      "title": "K-2 年级科学星期日",
+      "description": "陪同的成年人需要协助孩子完成实验和活动。每个星期日都会进行一项新实验！",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a876f9229a7dd0d67456656",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-20T22:05:36.843Z",
+      "override": true
+    },
+    {
+      "id": "stanford-4fc958104810329a",
+      "sourceFingerprint": "888eba42c7f8f32f3da9c43a0ed99bbb5f8cecdb4e0eea7cbc4b9462c53cb74b",
+      "title": "国际配偶咖啡交流会 ☕️",
+      "description": "咖啡交流活动是结交新朋友、了解 Bechtel 的项目、课程和工作坊，以及斯坦福校园和周边社区实用资源的好机会。",
+      "sourceUrl": "https://events.stanford.edu/event/international-spouse-coffee-6560",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-20T22:05:36.843Z",
+      "override": true
+    },
+    {
+      "id": "stanford-6fa531359e33f531",
+      "sourceFingerprint": "d09e647d200ff592584b25bce9217757eba2db6aea38ae4f513c04af5604cb83",
+      "title": "教职员工身心健康",
+      "description": "本次专业发展工作坊将结合现有研究及 K-12 教职员工调查的数据，探讨个人和学校可以采取哪些措施与策略来改善教职员工的身心健康。",
+      "sourceUrl": "https://events.stanford.edu/event/faculty-and-staff-well-being",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-20T22:05:36.843Z",
       "override": true
     }
   ]
