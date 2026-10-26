@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-10-20T10:08:39.848Z",
+  "generatedAt": "2026-10-26T15:08:46.023Z",
   "configuredSources": 95,
   "directSources": 89,
-  "fallbackSourcesRun": 6,
+  "fallbackSourcesRun": 0,
   "sources": [
     {
       "key": "Palo Alto City Library|library.cityofpaloalto.org|https://gateway.bibliocommons.com/v2/libraries/paloalto/rss/events",
@@ -10,7 +10,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 15,
+      "eventCount": 13,
       "failureStreak": 0,
       "error": ""
     },
@@ -20,7 +20,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 12,
+      "eventCount": 14,
       "failureStreak": 0,
       "error": ""
     },
@@ -28,11 +28,8 @@
       "key": "Santa Clara County Parks|parks.santaclaracounty.gov|",
       "name": "Santa Clara County Parks",
       "method": "search-fallback",
-      "mode": "search-fallback",
-      "status": "ok",
-      "eventCount": 10,
-      "failureStreak": 0,
-      "error": ""
+      "mode": "not-run",
+      "failureStreak": 0
     },
     {
       "key": "Midpeninsula Regional Open Space District|openspace.org|https://www.openspace.org/get-involved/events-activities?f%5B0%5D=rating%3A146",
@@ -50,7 +47,7 @@
       "method": "thetech",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 10,
+      "eventCount": 14,
       "failureStreak": 0,
       "error": ""
     },
@@ -60,7 +57,7 @@
       "method": "paloalto",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 6,
+      "eventCount": 5,
       "failureStreak": 0,
       "error": ""
     },
@@ -80,7 +77,7 @@
       "method": "jmz-family",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 0,
+      "eventCount": 10,
       "failureStreak": 0,
       "error": ""
     },
@@ -88,11 +85,8 @@
       "key": "City of San José|sanjoseca.gov|",
       "name": "City of San José",
       "method": "search-fallback",
-      "mode": "search-fallback",
-      "status": "ok",
-      "eventCount": 10,
-      "failureStreak": 0,
-      "error": ""
+      "mode": "not-run",
+      "failureStreak": 0
     },
     {
       "key": "Santa Clara County Library District|sccld.org|https://gateway.bibliocommons.com/v2/libraries/sccl/rss/events?audiences=5b28181c4727c7344c796675%2C5b28181c4727c7344c796676%2C5b28181c4727c7344c796677%2C5b28181c4727c7344c796678%2C5b28181c4727c7344c796679%2C5b28181c4727c7344c79667a%2C5b2a5dcb2c1d736b168c62ac",
@@ -100,7 +94,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 498,
+      "eventCount": 487,
       "failureStreak": 0,
       "error": ""
     },
@@ -108,41 +102,32 @@
       "key": "City of Sunnyvale|sunnyvale.ca.gov|",
       "name": "City of Sunnyvale",
       "method": "search-fallback",
-      "mode": "search-fallback",
-      "status": "ok",
-      "eventCount": 10,
-      "failureStreak": 0,
-      "error": ""
+      "mode": "not-run",
+      "failureStreak": 0
     },
     {
       "key": "City of Mountain View|mountainview.gov|",
       "name": "City of Mountain View",
       "method": "search-fallback",
-      "mode": "search-fallback",
-      "status": "ok",
-      "eventCount": 10,
-      "failureStreak": 0,
-      "error": ""
+      "mode": "not-run",
+      "failureStreak": 0
     },
     {
       "key": "City of Cupertino|cupertino.gov|https://www.cupertino.gov/Events-directory?dlv_OC+CL+City+Events+Listing=%28dd_OC+Event+Categories%3DMajor+events%29%28dd_OC+Composite+Date%3D0d%29",
       "name": "City of Cupertino",
       "method": "cupertino",
       "mode": "direct",
-      "status": "failed",
-      "eventCount": 0,
-      "failureStreak": 1,
-      "error": "The operation was aborted due to timeout"
+      "status": "ok",
+      "eventCount": 2,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "City of Santa Clara|santaclaraca.gov|",
       "name": "City of Santa Clara",
       "method": "search-fallback",
-      "mode": "search-fallback",
-      "status": "failed",
-      "eventCount": 0,
-      "failureStreak": 1,
-      "error": "Search failed: 503 — We couldn't get valid results for this search. Please try again later."
+      "mode": "not-run",
+      "failureStreak": 1
     },
     {
       "key": "Computer History Museum|computerhistory.org|https://computerhistory.org/events/feed/",
@@ -190,7 +175,7 @@
       "method": "gilroy",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 5,
+      "eventCount": 2,
       "failureStreak": 0,
       "error": ""
     },
@@ -210,7 +195,7 @@
       "method": "deanza",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 23,
+      "eventCount": 19,
       "failureStreak": 0,
       "error": ""
     },
@@ -230,7 +215,7 @@
       "method": "stanford",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 3,
+      "eventCount": 1,
       "failureStreak": 0,
       "error": ""
     },
@@ -250,7 +235,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 30,
+      "eventCount": 33,
       "failureStreak": 0,
       "error": ""
     },
@@ -260,7 +245,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 5,
+      "eventCount": 20,
       "failureStreak": 0,
       "error": ""
     },
@@ -280,7 +265,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 5,
+      "eventCount": 22,
       "failureStreak": 0,
       "error": ""
     },
@@ -290,7 +275,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 30,
+      "eventCount": 32,
       "failureStreak": 0,
       "error": ""
     },
@@ -301,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 63,
+      "failureStreak": 64,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -311,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 63,
+      "failureStreak": 64,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -321,7 +306,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 63,
+      "failureStreak": 64,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -340,7 +325,7 @@
       "method": "sapcenter",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 7,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -380,7 +365,7 @@
       "method": "showare",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 97,
+      "eventCount": 92,
       "failureStreak": 0,
       "error": ""
     },
@@ -401,7 +386,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 60,
+      "failureStreak": 61,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -420,7 +405,7 @@
       "method": "filoli",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 3,
+      "eventCount": 4,
       "failureStreak": 0,
       "error": ""
     },
@@ -450,7 +435,7 @@
       "method": "montalvo",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 2,
+      "eventCount": 1,
       "failureStreak": 0,
       "error": ""
     },
@@ -461,7 +446,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 31,
+      "failureStreak": 32,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -470,7 +455,7 @@
       "method": "tribe",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 3,
+      "eventCount": 2,
       "failureStreak": 0,
       "error": ""
     },
@@ -500,7 +485,7 @@
       "method": "history",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 1,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -520,7 +505,7 @@
       "method": "chcp",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 3,
+      "eventCount": 5,
       "failureStreak": 0,
       "error": ""
     },
@@ -540,7 +525,7 @@
       "method": "google-visitor-events",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 5,
+      "eventCount": 4,
       "failureStreak": 0,
       "error": ""
     },
@@ -551,7 +536,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 31,
+      "failureStreak": 32,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -561,7 +546,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 31,
+      "failureStreak": 32,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -730,7 +715,7 @@
       "method": "curated",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 1,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -750,7 +735,7 @@
       "method": "curated",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 1,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -780,7 +765,7 @@
       "method": "curated",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 1,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -790,7 +775,7 @@
       "method": "curated",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 1,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -820,7 +805,7 @@
       "method": "curated",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 1,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -878,11 +863,8 @@
       "key": "Santa Clara Community Calendar|calendar.santaclaraca.gov|",
       "name": "Santa Clara Community Calendar",
       "method": "search-fallback",
-      "mode": "search-fallback",
-      "status": "failed",
-      "eventCount": 0,
-      "failureStreak": 2,
-      "error": "Search failed: 200 — Google hasn't returned any results for this query."
+      "mode": "not-run",
+      "failureStreak": 2
     },
     {
       "key": "Fremont Parents' Nursery School|gopher-chinchilla-xn32.squarespace.com|https://gopher-chinchilla-xn32.squarespace.com/events",
@@ -958,74 +940,77 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 63,
+      "failureStreak": 64,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 63,
+      "failureStreak": 64,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 63,
+      "failureStreak": 64,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Peninsula Youth Theatre",
-      "failureStreak": 60,
+      "failureStreak": 61,
       "error": "PYT official show list was not valid: 200"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 31,
+      "failureStreak": 32,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
       "name": "The Village at San Antonio Center",
-      "failureStreak": 31,
+      "failureStreak": 32,
       "error": "Eventbrite organizer payload was not found"
     },
     {
       "name": "CalColor Academy",
-      "failureStreak": 31,
+      "failureStreak": 32,
       "error": "Eventbrite organizer payload was not found"
     }
   ],
   "paloAltoChildrensTheatreEnrichment": {
-    "checkedAt": "2026-10-20T10:08:39.848Z",
+    "checkedAt": "2026-10-26T15:08:46.023Z",
     "enriched": 5
   },
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-10-20T10:08:39.848Z",
-    "enriched": 312,
-    "cancelled": 11,
-    "fetch-blocked": 11,
-    "cached": 2,
+    "checkedAt": "2026-10-26T15:08:46.023Z",
+    "enriched": 123,
+    "cancelled": 193,
     "identity-mismatch": 35,
-    "skipped-untrusted-url": 1,
+    "fetch-blocked": 7,
     "fieldUpdates": {
-      "description": 14,
-      "image": 5
+      "address": 3,
+      "city": 2,
+      "description": 15,
+      "endDateValue": 12,
+      "place": 5,
+      "image": 4,
+      "dateValue": 1
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-10-20T10:08:39.848Z",
-    "official": 221,
-    "unclassified": 140
+    "checkedAt": "2026-10-26T15:08:46.023Z",
+    "official": 101,
+    "unclassified": 64
   },
   "editorialCoverGeneration": {
     "frameworkVersion": "editorial-cover-v1",
-    "checkedAt": "2026-10-20T10:08:39.848Z",
+    "checkedAt": "2026-10-26T15:08:46.023Z",
     "generated": 0,
     "byReason": {},
     "byPreset": {}
   },
   "officialImageMirror": {
     "frameworkVersion": "official-image-mirror-v1",
-    "checkedAt": "2026-10-20T10:10:55.380Z",
+    "checkedAt": "2026-10-26T15:09:53.157Z",
     "configuredSources": 1,
     "mirroredEvents": 5,
     "mirroredAssets": 4,
