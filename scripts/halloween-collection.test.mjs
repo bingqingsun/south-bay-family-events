@@ -33,16 +33,16 @@ assert.equal(config.quickPickIds.length, 4, 'Halloween should configure four Qui
 assert.equal(events.some((event) => event.title === 'Laser Halloween Spooktacular'), false, 'Removed Laser Halloween Spooktacular duplicate must stay absent');
 assert.ok(events.some((event) => event.id === 'editorial-32d6b7102984722f' || event.legacyIds?.includes('editorial-32d6b7102984722f')), 'Tech or Treat supplement must enter canonical data');
 
-const model = runtime.buildCollectionViewModel(config, events, { now: '2026-09-28T12:00:00' });
+const model = runtime.buildCollectionViewModel(config, events, { now: '2026-10-26T12:00:00' });
 assert.deepEqual(
   model.unresolvedRefs,
   [],
   `All Halloween collection refs must resolve against canonical events plus verified supplements; unresolved: ${JSON.stringify(model.unresolvedRefs)}`
 );
 assert.equal(model.resolvedEditorialCount, config.selectedEventRefs.length, 'Each selected reference should resolve to one canonical event');
-assert.equal(model.resolvedEditorialCount, 14, 'Halloween should contain 14 currently resolvable editorial selections after removing expired seasonal references');
-assert.ok(model.currentEventCount > 0, 'Halloween should have current events on Sep 28, 2026');
-assert.equal(model.currentQuickPicks.length, 4, 'All four Halloween Quick Picks should be current on Sep 28, 2026');
+assert.equal(model.resolvedEditorialCount, 7, 'Halloween should contain only currently resolvable editorial selections after expired refs are pruned');
+assert.ok(model.currentEventCount > 0, 'Halloween should still have current events on Oct 26, 2026');
+assert.equal(model.currentQuickPicks.length, 4, 'All four Halloween Quick Picks should be current on Oct 26, 2026');
 assert.ok([runtime.STATES.FEATURED, runtime.STATES.LAST_CHANCE].includes(model.collectionState), 'Halloween should be visible while active');
 
 const afterSeason = runtime.buildCollectionViewModel(config, events, { now: '2026-12-01T12:00:00' });
