@@ -146,7 +146,7 @@
     description.hidden = !description.textContent.trim();
     node.querySelector('.description-toggle')?.remove();
     node.querySelector('.distance')?.remove();
-    node.querySelector('.time .detail-text').textContent = event.ongoing ? (isZh ? '正在展出' : 'On view now') : formatDate(session.dateValue || event.dateValue || session.date || event.date);
+    node.querySelector('.time .detail-text').textContent = window.SBFFEventCard.formatMultiDayRange(event, session, locale) || (event.ongoing ? (isZh ? '正在展出' : 'On view now') : formatDate(session.dateValue || event.dateValue || session.date || event.date));
     node.querySelector('.place .detail-text').textContent = session.place || event.place || event.city || (isZh ? '南湾' : 'South Bay');
 
     const location = node.querySelector('.address');
