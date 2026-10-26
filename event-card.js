@@ -64,7 +64,7 @@
     const hasSessions = Array.isArray(event?.sessions) && event.sessions.length > 0;
     const item = hasSessions ? session : event;
     const parseDay = value => {
-      const match = String(value || '').match(/^(\\d{4})-(\\d{2})-(\\d{2})(?=$|[T ])/);
+      const match = String(value || '').match(/^(\d{4})-(\d{2})-(\d{2})(?=$|[T ])/);
       return match ? { key: match[0], year: Number(match[1]), month: Number(match[2]), day: Number(match[3]) } : null;
     };
     const start = parseDay(item?.dateValue);
