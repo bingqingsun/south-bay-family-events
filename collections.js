@@ -310,9 +310,8 @@
       descriptionToggle.setAttribute('aria-expanded', String(expanded));
     });
 
-    node.querySelector('.time .detail-text').textContent = event.ongoing
-      ? ui.onViewNow
-      : (dateLabel(session.dateValue) || session.date || ui.timeUnavailable);
+    node.querySelector('.time .detail-text').textContent = window.SBFFEventCard.formatMultiDayRange(event, session, language)
+      || (event.ongoing ? ui.onViewNow : (dateLabel(session.dateValue) || session.date || ui.timeUnavailable));
     node.querySelector('.place .detail-text').textContent = session.place || event.place || event.city || 'South Bay';
 
     const address = node.querySelector('.address');
