@@ -57,5 +57,35 @@
     return node;
   }
 
-  window.SBFFEventCard = Object.freeze({ render });
+  // Display a verified multi-day window instead of a misleading start-only date.
+  // Series with separate sessions must use the chosen session's dates; the
+  // parent event's broad window is not necessarily a continuous event.
+  function formatMultiDayRange(event, session, locale = 'en') {
+    const hasSessions = Array.isArray(event?.sessions) && event.sessions.length > 0;
+    const item = hasSessions ? session : event;
+    const parseDay = value => {
+      const match = String(value || '').match(/^(\\d{4})-(\\d{2})-(\\d{2})(?=$|[T ])/);
+      return match ? { key: match[0], year: Number(match[1]), month: Number(match[2]), day: Number(match[3]) } : null;
+    };
+    const start = parseDay(item?.dateValue);
+    const end = parseDay(item?.endDateValue);
+    if (!start || !end || end.key <= start.key) return '';
+
+    const currentYear = Number(new Intl.DateTimeFormat('en-US', { timeZone: 'America/Los_Angeles', year: 'numeric' }).format(new Date()));
+    const showYear = start.year !== currentYear || end.year !== currentYear;
+    if (locale === 'zh') {
+      const first = `${showYear ? `${start.year}年` : ''}${start.month}月${start.day}日`;
+      const last = `${start.year !== end.year ? `${end.year}年` : ''}${end.month}月${end.day}日`;
+      return `${first} – ${last}`;
+    }
+    const month = value => new Intl.DateTimeFormat('en-US', { timeZone: 'UTC', month: 'short' })
+      .format(new Date(Date.UTC(value.year, value.month - 1, value.day, 12)));
+    const first = `${month(start)} ${start.day}`;
+    const last = start.year === end.year && start.month === end.month
+      ? String(end.day) : `${month(end)} ${end.day}`;
+    if (start.year !== end.year) return `${first}, ${start.year} – ${month(end)} ${end.day}, ${end.year}`;
+    return `${first} – ${last}${showYear ? `, ${end.year}` : ''}`;
+  }
+
+  window.SBFFEventCard = Object.freeze({ render, formatMultiDayRange });
 })();
