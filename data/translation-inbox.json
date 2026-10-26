@@ -1,7 +1,7 @@
 {
   "version": 1,
   "locale": "zh-Hans",
-  "submittedAt": "2026-10-26T15:14:37.584Z",
+  "submittedAt": "2026-10-26T15:16:01.519Z",
   "entries": [
     {
       "id": "filoli-c8f6e299bd0bfe47",
@@ -11,7 +11,7 @@
       "sourceUrl": "https://filoli.org/whats-on/events/nightfall-champagne-lounge/",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
@@ -22,7 +22,7 @@
       "sourceUrl": "https://filoli.org/whats-on/events/autumn-days/",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
@@ -33,7 +33,7 @@
       "sourceUrl": "https://www.cineluxtheatres.com/cinelux-gilroy-cafe-lounge/tickets/235010000296",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
@@ -44,7 +44,7 @@
       "sourceUrl": "https://www.cineluxtheatres.com/cinelux-plaza-cafe-lounge/tickets/113759000046",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
@@ -55,7 +55,7 @@
       "sourceUrl": "https://paloalto.bibliocommons.com/v2/events/699f624cb0595799c09f6053",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
@@ -66,18 +66,18 @@
       "sourceUrl": "https://paloalto.bibliocommons.com/v2/events/68afa7b0022de53d00d2717e",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
       "id": "rss-6946001eea69de6e001069b5",
-      "sourceFingerprint": "1a53c640f505e138257c18664ac460b00e3328bde1631545dd3eda89a93c6d9a",
+      "sourceFingerprint": "ba0cc657af8a839ff2c8e10a01403da17d297f17118b504551b0da10dd152108",
       "title": "幼儿故事时间",
       "description": "每周三上午 10:30，与图书管理员 Heidi 一起在 Children's Library 参加幼儿故事时间。活动包含故事、歌曲、童谣和律动等多种早期读写启蒙内容。",
       "sourceUrl": "https://paloalto.bibliocommons.com/v2/events/6946001eea69de6e001069b5",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
@@ -88,7 +88,7 @@
       "sourceUrl": "https://events.stanford.edu/event/international-spouse-coffee-6560",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
@@ -99,18 +99,18 @@
       "sourceUrl": "https://paloalto.bibliocommons.com/v2/events/698e5b7094297d3600abe212",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
       "id": "rss-6a3dbc0bfddb082f00fe14a2",
-      "sourceFingerprint": "46ce017192f81d582f3aa73ddd017ac26a24274c7ec71306c4a459e4a1becfeb",
+      "sourceFingerprint": "c58b0c832f2573914924e25852af08d346e7e812becda0dfad6d5658b1ca8e92",
       "title": "音乐与律动",
       "description": "通过律动、歌曲和舞蹈培养早期读写能力。活动会介绍乐器、歌曲和舞步，让大家都能跟着音乐一起动起来。适合有孩子的家庭参加，无需相关经验。",
       "sourceUrl": "https://paloalto.bibliocommons.com/v2/events/6a3dbc0bfddb082f00fe14a2",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
@@ -121,7 +121,7 @@
       "sourceUrl": "https://paloalto.bibliocommons.com/v2/events/6a9cb52960ccaf01c023b78c",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
@@ -132,7 +132,7 @@
       "sourceUrl": "https://paloalto.bibliocommons.com/v2/events/6946005fea69de6e001069c9",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
@@ -143,7 +143,7 @@
       "sourceUrl": "https://paloalto.bibliocommons.com/v2/events/6a25aace2ea730c17ab50491",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
@@ -154,7 +154,7 @@
       "sourceUrl": "https://www.chcp.org/event-6856661",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
@@ -165,7 +165,7 @@
       "sourceUrl": "https://rsvp.withgoogle.com/events/cover-crops-101-boost-your-garden-soil-with-my-california-garden?psv=1",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
@@ -176,7 +176,7 @@
       "sourceUrl": "https://rsvp.withgoogle.com/events/adventures-in-coding-with-code-rev-gratitude-garden?psv=1",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
@@ -187,7 +187,7 @@
       "sourceUrl": "https://www.chcp.org/event-5301207",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
@@ -198,7 +198,7 @@
       "sourceUrl": "https://www.chcp.org/event-6883688",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
@@ -209,7 +209,7 @@
       "sourceUrl": "https://rsvp.withgoogle.com/events/the-ultimate-honey-harvest-workshop-with-planet-bee?psv=1",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
@@ -220,7 +220,7 @@
       "sourceUrl": "https://www.paloalto.gov/Events-Directory/Community-Services/Mental-Health-Fair",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
@@ -231,7 +231,7 @@
       "sourceUrl": "https://www.chcp.org/event-6402077",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
@@ -242,7 +242,7 @@
       "sourceUrl": "https://rsvp.withgoogle.com/events/ceramic-dish-painting-with-arely-cardenas-and-local-color?psv=1",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
@@ -253,7 +253,7 @@
       "sourceUrl": "https://santanarow.com/event/elf-on-the-shelf-scavenger-hunt/",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
@@ -264,7 +264,7 @@
       "sourceUrl": "https://www.cupertino.gov/Parks-Recreation/Events/Tree-Lighting/Tree-Lighting-Event",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
@@ -275,7 +275,7 @@
       "sourceUrl": "https://www.cupertino.gov/Parks-Recreation/Events/Breakfast-with-Santa",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     },
     {
@@ -286,7 +286,7 @@
       "sourceUrl": "https://www.paloaltozoo.org/Visit/Accessibility",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:14:37.584Z",
+      "reviewedAt": "2026-10-26T15:16:01.519Z",
       "override": true
     }
   ]
