@@ -142,7 +142,7 @@ export function applyCuratedImageOverrides(events, sources) {
 
   for (const source of sources || []) {
     for (const item of source.events || []) {
-      if (!item?.image || !item?.imageOverride) continue;
+      if (!item?.image) continue;
       const targetTitle = normalizeTitle(item.title);
       const targetDate = dateKey(item.dateValue);
       const targetSource = String(source.name || '').trim();
