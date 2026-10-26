@@ -101,24 +101,17 @@
       lastChanceThreshold: 3,
       selectedEventRefs: [
         { id: 'series-e312633de924366b', url: 'https://www.gilroygardens.org/halloween/' },
-        'curated-308477d1807c9d4c',
         'curated-f364c82c4ac30523',
-        { id: 'calendar-24500', url: 'https://www.gamblegarden.org/event/halloween/' },
-        'curated-89a240ca6e3b7fc7',
-        { id: 'chcp-df1761c0a01542cf', url: 'https://www.chcp.org/event-6856658' },
-        { id: 'cupertino-f11efb5ab0b93776', url: 'https://www.cupertino.gov/Parks-Recreation/Events/Monster-Mash' },
         { id: 'santana-3e0678c8161a52e9', url: 'https://santanarow.com/event/trick-or-treat-the-row-halloween-family-festival/' },
-        { id: 'rss-6a9c6702aafa61002961d5e9', url: 'https://sccl.bibliocommons.com/events/6a9c6702aafa61002961d5e9' },
         { id: 'curated-d185004a710de571', url: 'https://www.menlopark.gov/Citywide-calendar/Community-events/20261028-Trunk-or-Treat' },
         { id: 'editorial-32d6b7102984722f', url: 'https://www.thetech.org/upcomingevents' },
         { id: 'filoli-546ede82db7e6eeb', url: 'https://filoli.org/whats-on/events/nightfall/' },
         { id: 'santana-104fc08c96737ad5', url: 'https://santanarow.com/event/glass-pumpkin-festival/' },
-        { id: 'santana-8e02371ec72aec44', url: 'https://santanarow.com/event/farmer-mike-pumpkin-carving/' }
       ],
       quickPickIds: [
         'series-e312633de924366b',
-        'curated-f364c82c4ac30523',
-        'curated-89a240ca6e3b7fc7',
+        'santana-3e0678c8161a52e9',
+        'editorial-32d6b7102984722f',
         'filoli-546ede82db7e6eeb'
       ],
       archiveEyebrow: '2026 HALLOWEEN SEASON ENDED',
