@@ -411,7 +411,7 @@ function renderEventCard(event, eventIndex, generation) {
   const registrationFact = node.querySelector('.fact-registration'); const registrationText = event.registrationStatus === 'full' ? t('registrationFull') : event.registrationStatus === 'required' ? t('registrationRequired') : ''; registrationFact.textContent = registrationText; registrationFact.title = registrationText ? [event.registrationSource, event.registrationEvidence].filter(Boolean).join(': ') : ''; if (!registrationText) registrationFact.remove();
   facts.hidden = facts.querySelectorAll('.fact').length === 0;
   const distance = eventDistance(event); const distanceNode = node.querySelector('.distance'); distanceNode.hidden = distance === null; distanceNode.textContent = distance === null ? '' : t('distance')(distance < 10 ? distance.toFixed(1) : Math.round(distance));
-  node.querySelector('.time .detail-text').textContent = event.ongoing ? t('onViewNow') : (dateLabel(session.dateValue) || (session.date === '请查看主办方时间' ? t('timeUnavailable') : session.date)); node.querySelector('.place .detail-text').textContent = session.place || event.place;
+  node.querySelector('.time .detail-text').textContent = window.SBFFEventCard.formatMultiDayRange(event, session, state.language) || (event.ongoing ? t('onViewNow') : (dateLabel(session.dateValue) || (session.date === '请查看主办方时间' ? t('timeUnavailable') : session.date))); node.querySelector('.place .detail-text').textContent = session.place || event.place;
   const rank = eventIndex + 1; const analyticsParameters = { event_id: event.id, rank, sort_type: state.sort, recommendation_score: event.recommendationScore || 0, editor_pick: event.recommendationBadge === 'top-pick', activity_category: event.type || 'other', organizer: event.source || 'unknown', surface: 'homepage', placement: 'event_grid' }; const highIntentParameters = { ...analyticsParameters, ...selectedFilterParameters() };
   const address = node.querySelector('.address'); const addressLink = node.querySelector('.address-link'); const addressText = session.address || event.address || ''; const meetingPoint = !addressText ? String(event.meetingPoint || '').trim() : ''; const mapTarget = window.SBFFMapNavigation?.getNavigationTarget({ event, session }); const locationText = addressText || (meetingPoint ? `Meet at: ${meetingPoint}` : (mapTarget ? (session.place || event.place || event.city || 'Map location') : ''));
   address.hidden = !locationText; address.querySelector('.detail-text').textContent = locationText; addressLink.hidden = !mapTarget; addressLink.querySelector('.directions').textContent = t('directions'); addressLink.setAttribute('aria-label', `${t('directions')}: ${locationText}`); addressLink.addEventListener('click', () => window.SBFFMapNavigation?.openMapPicker({ event, session, analyticsParameters: highIntentParameters, triggerElement: addressLink }));
@@ -468,7 +468,7 @@ function feedSnapshot(list) {
   // IDs and dates alone are insufficient: an organizer may fix a venue,
   // address or description while keeping the same session and URL.
   const displayFields = event => [
-    event.id, event.dateValue, event.title, event.place, event.address,
+    event.id, event.dateValue, event.endDateValue, event.title, event.place, event.address,
     event.description, event.parentSummary, event.image, event.costLabel,
     event.ageLabel, event.registrationStatus, event.url,
     event.translations?.zh?.title, event.translations?.zh?.description
