@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-26T15:08:46.023Z",
+  "generatedAt": "2026-10-26T15:50:58.679Z",
   "configuredSources": 95,
   "directSources": 89,
   "fallbackSourcesRun": 0,
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 64,
+      "failureStreak": 65,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 64,
+      "failureStreak": 65,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -306,7 +306,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 64,
+      "failureStreak": 65,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -386,7 +386,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 61,
+      "failureStreak": 62,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -405,7 +405,7 @@
       "method": "filoli",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 4,
+      "eventCount": 0,
       "failureStreak": 0,
       "error": ""
     },
@@ -446,7 +446,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 32,
+      "failureStreak": 33,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -536,7 +536,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 32,
+      "failureStreak": 33,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -546,7 +546,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 32,
+      "failureStreak": 33,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -940,77 +940,75 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 64,
+      "failureStreak": 65,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 64,
+      "failureStreak": 65,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 64,
+      "failureStreak": 65,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Peninsula Youth Theatre",
-      "failureStreak": 61,
+      "failureStreak": 62,
       "error": "PYT official show list was not valid: 200"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 32,
+      "failureStreak": 33,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
       "name": "The Village at San Antonio Center",
-      "failureStreak": 32,
+      "failureStreak": 33,
       "error": "Eventbrite organizer payload was not found"
     },
     {
       "name": "CalColor Academy",
-      "failureStreak": 32,
+      "failureStreak": 33,
       "error": "Eventbrite organizer payload was not found"
     }
   ],
   "paloAltoChildrensTheatreEnrichment": {
-    "checkedAt": "2026-10-26T15:08:46.023Z",
+    "checkedAt": "2026-10-26T15:50:58.679Z",
     "enriched": 5
   },
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-10-26T15:08:46.023Z",
-    "enriched": 123,
+    "checkedAt": "2026-10-26T15:50:58.679Z",
     "cancelled": 193,
+    "enriched": 118,
     "identity-mismatch": 35,
     "fetch-blocked": 7,
+    "cached": 1,
     "fieldUpdates": {
-      "address": 3,
-      "city": 2,
-      "description": 15,
-      "endDateValue": 12,
+      "description": 10,
+      "endDateValue": 8,
       "place": 5,
-      "image": 4,
-      "dateValue": 1
+      "image": 1
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-10-26T15:08:46.023Z",
-    "official": 101,
+    "checkedAt": "2026-10-26T15:50:58.679Z",
+    "official": 97,
     "unclassified": 64
   },
   "editorialCoverGeneration": {
     "frameworkVersion": "editorial-cover-v1",
-    "checkedAt": "2026-10-26T15:08:46.023Z",
+    "checkedAt": "2026-10-26T15:50:58.679Z",
     "generated": 0,
     "byReason": {},
     "byPreset": {}
   },
   "officialImageMirror": {
     "frameworkVersion": "official-image-mirror-v1",
-    "checkedAt": "2026-10-26T15:09:53.157Z",
+    "checkedAt": "2026-10-26T15:52:14.740Z",
     "configuredSources": 1,
     "mirroredEvents": 5,
     "mirroredAssets": 4,
