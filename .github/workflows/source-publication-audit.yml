@@ -22,4 +22,7 @@ jobs:
           INCLUDE_SERPAPI: 'false'
         run: |
           node scripts/update-events.mjs
+          node scripts/summary-quality-repair.mjs
+          node scripts/apply-event-translations.mjs
           node scripts/test-summary-output.mjs
+          node scripts/summary-semantic-coverage.test.mjs
