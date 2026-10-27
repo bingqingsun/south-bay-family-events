@@ -1,17 +1,72 @@
 {
   "version": 1,
   "locale": "zh-Hans",
-  "submittedAt": "2026-10-27T04:38:18.000Z",
+  "submittedAt": "2026-10-27T11:17:30.257Z",
   "entries": [
     {
+      "id": "stanford-3f065da8a20d746e",
+      "sourceFingerprint": "1cf7cc699602e10cdb7e48ef6ee4aaa4d7bb335a0dd39efdba89ea6376fb3290",
+      "title": "“谁说了算？”——制定重视学生福祉、参与度与归属感的学校手机政策",
+      "description": "在2025-26学年，Challenge Success与三所学校合作，共同设计并试行由学生参与制定、而不是单方面替学生制定的政策。",
+      "sourceUrl": "https://events.stanford.edu/event/whose-call-creating-school-cell-phone-policies-that-center-student-well-being-engagement-belonging",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-27T11:17:30.257Z",
+      "override": true
+    },
+    {
+      "id": "series-b4ca46c81e59fc6d",
+      "sourceFingerprint": "ea7cd8ab1f0f6e04bd7a50e1d4f4ed27bbca800efb033ea546970b04e5a57aae",
+      "title": "The Great Big BOO! 万圣节狂欢",
+      "description": "在Gilroy Gardens参加适合家庭的万圣节庆祝活动，欣赏现场音乐剧演出，沿BOO Trail讨糖，与活动角色见面互动，并体验丰富的万圣节互动项目。",
+      "sourceUrl": "https://www.gilroygardens.org/halloween/",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-27T11:17:30.257Z",
+      "override": true
+    },
+    {
+      "id": "rss-689fbe369fd3e1d82154c4d4",
+      "sourceFingerprint": "2a4c844f4da2669e84efca69fbcdd09c2869ceb92f5f3bf0f99b5d5b307db4ed",
+      "title": "与Sara一起冥想",
+      "description": "与Sara一起参加引导式冥想体验。",
+      "sourceUrl": "https://paloalto.bibliocommons.com/v2/events/689fbe369fd3e1d82154c4d4",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-27T11:17:30.257Z",
+      "override": true
+    },
+    {
+      "id": "series-4e71831f1c8ba942",
+      "sourceFingerprint": "c3213c76eb0409cf3fcd8d872a7cb26de031e978ada008f96750871128211581",
+      "title": "(字幕版)《魔法科高中的劣等生 剧场版 四叶继承篇》",
+      "description": "在CineLux Plaza放映的NR级电影。",
+      "sourceUrl": "https://www.cineluxtheatres.com/cinelux-plaza-cafe-lounge/tickets/113845000047",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-27T11:17:30.257Z",
+      "override": true
+    },
+    {
+      "id": "chcp-e7d87a20dd25378b",
+      "sourceFingerprint": "39c873615ff4ce09050e84db53b919422f7148711c7702d0acdb3861e93ad536",
+      "title": "华裔美国人历史博物馆开放日",
+      "description": "华裔美国人历史博物馆（CAHM）于2026年十一月21日12:00 PM至3:45 PM开放，地址为635 Phelan Ave, San Jose, CA 95112。博物馆位于圣何塞Kelley Park的History Park内，设在Ng Shing Gung建筑中。",
+      "sourceUrl": "https://www.chcp.org/event-6402077",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-10-27T11:17:30.257Z",
+      "override": true
+    },
+    {
       "id": "series-5b2bcc9d188e0bb4",
-      "sourceFingerprint": "76b85dd4113d5b315914e2e92a84394b591146c4fc457a42fea6b8ec0870de95",
+      "sourceFingerprint": "a0d86b790d6c278fbedf679b12eff569fc4036b94bbf4953841be7e7a11dd202",
       "title": "超级家庭星期日",
-      "description": "近距离与动物园里的动物见面。",
+      "description": "Palo Alto Junior Museum & Zoo致力于为访客提供包容且无障碍的参观体验。",
       "sourceUrl": "https://www.paloaltozoo.org/Visit/Accessibility",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-27T04:38:18.000Z",
+      "reviewedAt": "2026-10-27T11:17:30.257Z",
       "override": true
     }
   ]
