@@ -19,10 +19,15 @@ export async function loadChineseTranslationCatalogs() {
 
   const entries = [];
   const indexById = new Map();
+  const variantsById = new Map();
   const conflicts = [];
   for (const catalog of catalogs) {
     for (const entry of Array.isArray(catalog.data?.entries) ? catalog.data.entries : []) {
       const id = entry?.id;
+      if (id) {
+        if (!variantsById.has(id)) variantsById.set(id, []);
+        variantsById.get(id).push(entry);
+      }
       if (!id || !indexById.has(id)) {
         if (id) indexById.set(id, entries.length);
         entries.push(entry);
@@ -50,6 +55,7 @@ export async function loadChineseTranslationCatalogs() {
     version: 1,
     locale: 'zh-Hans',
     files: catalogs.map(item => item.name),
+    variantsById,
     entries
   };
 }

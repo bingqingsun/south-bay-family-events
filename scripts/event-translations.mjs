@@ -30,7 +30,7 @@ function unsupportedClaimIssues(source, translated) {
     },
     {
       target: /(?:无需|不需要|不用)报名/,
-      source: /\bno registration (?:is )?required\b|\bregistration (?:is )?not required\b/,
+      source: /\bno registration (?:is )?(?:required|needed)\b|\bregistration (?:is )?not (?:required|needed)\b/,
       label: 'no-registration'
     }
   ];
@@ -78,6 +78,22 @@ function buildCatalogIndexes(catalog) {
   return { entries, byId, duplicates };
 }
 
+// Old reviewed sidecars may still contain a translation for a previous English
+// description. Prefer an approved, QA-valid version whose fingerprint matches
+// the event being published, regardless of which filename loads last.
+function selectMatchingRevision(event, ids, fingerprint, variantsById) {
+  if (!(variantsById instanceof Map)) return null;
+  for (const id of ids) {
+    const candidates = (variantsById.get(id) || [])
+      .filter(entry => entry?.status === 'approved' && entry.sourceFingerprint === fingerprint)
+      .sort((a, b) => Date.parse(b.reviewedAt || b.generatedAt || '') - Date.parse(a.reviewedAt || a.generatedAt || ''));
+    const valid = candidates.find(entry => auditChineseTranslation(event, entry).ok);
+    if (valid) return valid;
+    if (candidates.length) return candidates[0]; // Existing strict QA still rejects it.
+  }
+  return null;
+}
+
 export function applyChineseTranslationCatalog(items, catalog, { generatedAt = new Date().toISOString(), strict = true } = {}) {
   const { entries, byId, duplicates } = buildCatalogIndexes(catalog);
   if (duplicates.length && strict) throw new Error(`Duplicate translation catalog keys: ${duplicates.join(', ')}`);
@@ -92,16 +108,16 @@ export function applyChineseTranslationCatalog(items, catalog, { generatedAt = n
     // Organizer URLs are intentionally not used as identity keys because recurring
     // series and sports schedules can share one landing URL across many events.
     const legacyIds = Array.isArray(event?.legacyIds) ? event.legacyIds : [];
-    const entry = event?.id
-      ? (byId.get(event.id) || legacyIds.map(id => byId.get(id)).find(Boolean) || null)
-      : null;
+    const ids = event?.id ? [event.id, ...legacyIds] : [];
+    const fingerprint = translationFingerprint(event);
+    const latest = ids.map(id => byId.get(id)).find(Boolean) || null;
+    const entry = selectMatchingRevision(event, ids, fingerprint, catalog?.variantsById) || latest;
     if (!entry || entry.status !== 'approved') {
       event.translationStatus = entry?.status || 'missing';
       stats.missing += 1;
       continue;
     }
 
-    const fingerprint = translationFingerprint(event);
     if (entry.sourceFingerprint !== fingerprint) {
       event.translationStatus = 'stale';
       event.translationSourceFingerprint = fingerprint;

@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "note": "Remaining QA-corrected bilingual translations; no unsupported ages/prices/registration claims.",
+  "entries": [
+    {
+      "id": "rss-6a73814874e3b8b75db7cc4e",
+      "sourceFingerprint": "16f72fe2e614c6e7624db211dc4eb2e7003f873d79919c2fd43e80f2c3a78ae6",
+      "title": "万圣节贴纸寻宝",
+      "description": "你能在绘本区找到至少七张万圣节主题贴纸吗？",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ab5b57b0c7bf418f4e3e627",
+      "sourceFingerprint": "fed25a3fac40c7722979bb4a2ecb2c9eb88c5e7182e9dd651619c5c88e45f5d3",
+      "title": "油画作品展",
+      "description": "展出 Mamatha Induvadan 创作的风景、花卉、海景及沉思与虔敬主题油画。作品通过鲜明的色彩、肌理和表现形式探索自然、信念、韧性与重新开始的自由。十月 10 日下午 3 点将在 Orchard Room 举办面向公众的招待会。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ab70a67129d8e0031f52551",
+      "sourceFingerprint": "36927588f144b7f1de0becf837ce6fd7a2589bbd1cab44dfbe79e5c8cef61136",
+      "title": "万圣节数学挑战",
+      "description": "来到图书馆，解答适合自己年级及更高难度的万圣节数学题，即可获得小奖品。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ad665f5035faf0033ddb087",
+      "sourceFingerprint": "ba97641c19f1c55d64fb3564a371daade6e179830bfdad6694dfece605d72fb0",
+      "title": "随取随做：南瓜手工",
+      "description": "可将材料带回家，也可以在图书馆制作。面向 0–10 岁儿童，材料数量有限。每位参与者可在服务台领取 1 份。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a07b6ef278f7c2f008d79da",
+      "sourceFingerprint": "1f2bb5d8b0faad86cbbc371cca1d74ac55e3d9752eb7eabb7acaeb49dada69e0",
+      "title": "1:1 电脑技术导师 / 1:1 技术辅导",
+      "description": "想进一步了解电脑吗？欢迎参加电脑技术指导。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "calendar-25497",
+      "sourceFingerprint": "610ca18b24093f3427d5e14998dc5d9be3e15336cc6519355b6c166d5eda8255",
+      "title": "亲子花艺体验",
+      "description": "Gamble Garden 将于 2026 年十月 31 日星期六上午 9:30 至 11 点举办亲子花艺活动。成人与孩子结伴学习插花，容器、花材和所需材料全部提供；每组可以制作两件作品带回家。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a83d64fbf1aec09082b53e0",
+      "sourceFingerprint": "58078cc314cca0a345e8e3cd97d14ff94aa17efec36948d952045246c81061a8",
+      "title": "阅读伙伴：与治疗犬一起朗读",
+      "description": "每次为期 15 分钟，由受过专门训练的治疗犬和志愿者陪伴。从九月起，Gilroy 图书馆每月第 1 个星期二举办活动。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ada56e3ebad220045473632",
+      "sourceFingerprint": "1840fe72396daf4dd36880cf02a5ccf8c49ecb0d7224f60b761c2bc4f142be92",
+      "title": "2–3 年级 Book Bugs 读书俱乐部",
+      "description": "聚会中大家会讨论图书，并参加有趣的手工或其他活动。请到 Los Altos 或 Woodland 图书馆的儿童服务台领取和借阅本期图书。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a55401ddee4ff5300c938a9",
+      "sourceFingerprint": "69843a91ff8677d7f12e84a9a9fe56d55238f33badb76f4acc7921a2b53a9c75",
+      "title": "儿童乐高俱乐部",
+      "description": "欢迎 5 岁及以上儿童发挥想象力和搭建技能，尽情玩乐高。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ac6ec1e11bbf300684b4d89",
+      "sourceFingerprint": "0f64887630175dda17c84e1a8ca5fe65fd74a2bc114000dca1b141b524357427",
+      "title": "儿童乐高俱乐部",
+      "description": "欢迎 5 岁及以上儿童发挥想象力和搭建技能，尽情玩乐高。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6abaf4d6e8cf1c005cafd2b8",
+      "sourceFingerprint": "7838be6bb6b62d2919fcfa6de59a1e7de22be123d5b76439bcf78338c86b8304",
+      "title": "Little Learners 幼儿学习俱乐部",
+      "description": "3–5 岁儿童通过不同主题和动手活动，培养早期读写技能。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    }
+  ]
+}

@@ -1,0 +1,317 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "note": "Fact-checked translations of restored active events; exact fingerprints verified in CI live source audit.",
+  "entries": [
+    {
+      "id": "rss-6ad13d1efee2d21deb238fd3",
+      "sourceFingerprint": "0d622060c63d14d3d0fe68d1600a5aa4cd3906907947abc2276e524f4f5dfe68",
+      "title": "亡灵节社区祭坛",
+      "description": "每年的社区祭坛将在亡灵节前一周搭建，欢迎社区居民前来参观和参与。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6aa42fe556fe62004a2f6bbb",
+      "sourceFingerprint": "5e0a21094d84450f4cb1288eeecdd6ff670abc7e0c197d10fe8ae03bb4794bb7",
+      "title": "万圣节主题寻宝",
+      "description": "书架之间藏着一些万圣节主题但不太吓人的纸艺作品，看看你能否将它们全部找出来。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6920f0c7dff9d93e00d12ee0",
+      "sourceFingerprint": "a7d94e52dcc69e76bc76e93a094832a50f8b9c69a46d808ca0de8e52e35f66b8",
+      "title": "Las Madres 家长亲子游戏小组",
+      "description": "与面临相似育儿问题的家长建立友谊十分重要。欢迎参加 Las Madres Downtown/Rose Garden 每周二举办的亲子游戏小组。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-647f3a6898683094",
+      "sourceFingerprint": "b48c30a9aeac907e085f5182098c06b0c623d6abc823542466ddd100cd277837",
+      "title": "《WILDWOOD》电影放映",
+      "description": "在 CineLux Morgan Hill 放映的 PG13 级电影。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ab6ff1531e9a41a0fbc9415",
+      "sourceFingerprint": "65db87ef3a5fd27e0320d326b9f0b5a4ab6427151ed8f061da7f1564e2782d69",
+      "title": "被遗忘的声音：战时加州被迫迁离家园的意大利裔美国人",
+      "description": "了解战争年代的监视、公民权利侵害，以及代代相传的创伤。内容涵盖意大利裔美国人与日裔、德裔社区鲜为人知的拘禁历史、加州渔业等家庭经营行业受到的冲击、文化抹除与重新发现的故事，以及承认历史不公的立法和决议。讲者 Lindsay Marie Morris 是居住在洛杉矶的小说家和记者。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a83713669166f088b92df78",
+      "sourceFingerprint": "dbbf67a97946c9d4fbee580e4f82218ca1e61c78a073079f3c53316a957c5727",
+      "title": "儿童折纸活动",
+      "description": "用彩纸折出帆船、企鹅、青蛙或武士头盔等作品。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a7b589eb204780029922cb6",
+      "sourceFingerprint": "bf49752c5bb373da5c964ca29d42914e624d1bf448c8910eb373c3bd5e71a6a5",
+      "title": "Reading Partners 一对一阅读辅导",
+      "description": "Reading Partners 由受过培训的志愿者导师提供免费的一对一阅读辅导。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6946001eea69de6e001069b5",
+      "sourceFingerprint": "3ae5e9f8af4d81fb77af0bf3f4b47dba42436168e8607b1eacff9926bc03cd73",
+      "title": "幼儿故事会",
+      "description": "这是一场适合全家、各年龄段共同参与的趣味互动故事会，让大家体验阅读和学习的乐趣。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6aad5ae2ab7a8e0037c2bba1",
+      "sourceFingerprint": "8b0e18566fd5619775c26a0cd37ea982abae0920b8fc3d19e4aa60d80bf56a3d",
+      "title": "故事探索家：TK 至 1 年级读书会",
+      "description": "无需提前阅读指定图书。活动中大家会一起读书、简短讨论、跟着音乐活动，最后完成有趣的手工。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a877377db86e4004d8688fa",
+      "sourceFingerprint": "128dc7583fadc994e5cca45ca9ecea893cb2444770d6a773d0eb258ae89baf68",
+      "title": "四季皆美的加州原生植物园艺讲座",
+      "description": "了解如何在花园种植加州原生植物，为城市生态吸引急需的传粉昆虫，同时美化庭院。加州有数千种原生植物，讲座重点介绍如何挑选在不同季节带来色彩和观赏趣味的植物，让你全年欣赏花朵、蝴蝶、蜜蜂与鸟儿。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6aa329a34b3b06003082e460",
+      "sourceFingerprint": "56ce6043e2e7431cef0499b95abe8175f50475bde382435e592b2f738cc0be82",
+      "title": "K–5 年级万圣节手工",
+      "description": "欢迎 K 至 5 年级儿童来到 Milpitas 图书馆，制作万圣节和亡灵节主题手工。所有材料均由活动提供。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-b4ca46c81e59fc6d",
+      "sourceFingerprint": "95dc4b3046e4848859262a808a00600b15e12be4b93c1233cc49b9f5d77dc3e2",
+      "title": "The Great Big BOO! 万圣节音乐剧",
+      "description": "观看 The Great Big BOO! 现场音乐剧，跟着音乐唱歌跳舞，之后还可在园区各处与熟悉的 BOO Alley 角色见面互动。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T20:06:54.600Z"
+    },
+    {
+      "id": "thetech-ca28f2a8b6e388d3",
+      "sourceFingerprint": "88ff79ad34c479ab1b34287ca162618705d03b7a61e18c15e151047039649fb1",
+      "title": "Tech or Treat 万圣节活动",
+      "description": "欢迎各年龄段的游客前来体验这场充满万圣节气氛的活动。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-68faeb383cbc052f00816103",
+      "sourceFingerprint": "5e326ae66754a73bb91e786c8624356b6789f2ad2022fcfccd50c162940d1291",
+      "title": "正念冥想体验",
+      "description": "欢迎各种经验水平的参加者，无需报名。建议自带瑜伽垫或冥想坐垫，没有携带的也可使用现场椅子。带领者 Phuong 是一位有正念冥想指导经验的佛教尼师。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6aab2601b19bb10d7c32e8fc",
+      "sourceFingerprint": "7517f54373d68f0ea8eaf078afe758a7c62dff2681e33bf2f28dd2636d9cb19b",
+      "title": "青少年计时拼图与服装比赛",
+      "description": "大家将组成每队 3–4 人的小组进行计时拼图挑战，比一比哪组完成得最快。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a46df8e4407827f8aa8f84c",
+      "sourceFingerprint": "6f429ceab707eca017a1f5f070e25a7aba400b46941f71369ea5d4393769ccc6",
+      "title": "周六 STEAM 实验室：僵尸果汁",
+      "description": "制作充满万圣节气氛的“僵尸果汁”，观察干冰从固体变成气体，产生冒泡的二氧化碳和雾气，还能让手套做成的手仿佛活过来。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a7fae042dac6e00371f2eb3",
+      "sourceFingerprint": "70f52d6e3bb3d8edf32361a3296bb2bc96beb2c7e294cf85093039dcff9174e5",
+      "title": "图书馆万圣节讨糖活动",
+      "description": "下午 4 点至闭馆（6 点）提供糖果和其他小礼物。穿上你的万圣节服装，装满糖果袋，与朋友见面；还可到儿童、成人和账户服务台参加讨糖活动。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "santana-6666c41d4ab6fbfc",
+      "sourceFingerprint": "7c2e3957de59bad0281ecbafda73695ac07bf9d86b3c7dd5f78b812263b02768",
+      "title": "Santana Row 亡灵节庆典",
+      "description": "免费社区活动，包括脸部彩绘、Catrina 和 Catrin 角色互动、墨西哥流浪乐队音乐、手工及快闪市集。活动安排：10:30 AM–10 PM：Zazil 早午餐及社区祭坛；12–5 PM：文化快闪市集；12–3 PM：Oak Tree Lounge 的 Catrina 拍照活动；12–3 PM：Santana Row Park 脸部彩绘；1–3 PM：墨西哥流浪乐队和舞蹈演出；3–4:30 PM：El Jardín Tequila Bar 的乐队和脸部彩绘；4:30–6 PM：Zazil 乐队演出。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-69d6e67ef29b90618efdcdd3",
+      "sourceFingerprint": "d6d63d733bec60c1638aca05716057cfd5f4ea75c8a3139935839d77359895ed",
+      "title": "宝宝手语与唱歌活动",
+      "description": "欢迎来到一楼活动室，参加专为宝宝准备的手语和歌唱活动。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ace6733ebad220045450cb2",
+      "sourceFingerprint": "51612ec7e8b7d3d1a3b2e8ff7e31687721ee283afd2b06c4cee0fd110434d06e",
+      "title": "周日电影午后：《小鸡快跑》",
+      "description": "播放妙趣横生的定格动画电影《小鸡快跑》，这是《超级无敌掌门狗》创作者 Peter Lord 和 Nick Park 的首部长片。故事戏仿《大逃亡》等第二次世界大战题材电影：母鸡 Ginger 多次尝试逃离 Tweedy 夫妇经营的养鸡场却屡屡失败，直到公鸡 Rocky 到来，大家才看到逃出农场、避免被做成鸡肉馅饼的希望。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-69433e6f8b29ea2800c4c58e",
+      "sourceFingerprint": "a9a52e9217551ee8c0a0ab7b2e571ee9b99c23db8a98fa4e0b9eb091599daed9",
+      "title": "K–8 年级乐高俱乐部",
+      "description": "孩子们可以发挥创造力和工程思维，用乐高自由搭建各种想象中的作品。无需预约，可直接参加。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-690165277481ce0a",
+      "sourceFingerprint": "79ed9269c1d93c500a72bd4da7e490fc04bf8520b6900853aaac5b1c26ba7e72",
+      "title": "睡衣故事会",
+      "description": "每周一下午 6:30 在 Burrow 举行。欢迎来到 Gilroy 图书馆，与图书馆员 Cameron 一起读故事、唱歌和玩游戏，在快乐中学习。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-3aa80c72ec51102d",
+      "sourceFingerprint": "79d202e8a801a4e8a57aa4883d33ec255ff61387c3eab23aa5ca2ccb5658ced5",
+      "title": "音乐与律动故事会",
+      "description": "一起听音乐、故事并快乐游戏，非常适合有幼儿的家庭。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-ad2ab4c17113ab9b",
+      "sourceFingerprint": "5581b7210de417c562bb62e54423dbec0fde888605d1481d2977adbe7e3578cd",
+      "title": "学步前宝宝膝上亲子故事会",
+      "description": "面向尚未学会走路的宝宝及照护者，重点培养早期读写能力。活动包括传统童谣、膝上律动、身体儿歌、歌曲和简短易懂的绘本。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-69713c291e64afd01e55c816",
+      "sourceFingerprint": "72f2cf0146783ce77d51a6a953efcc1a4da4d621dcd4853b729a8edcf7d7e0ce",
+      "title": "乐高俱乐部",
+      "description": "欢迎幼儿园至 8 年级学生每月第一个星期二用乐高玩耍、自由创作。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-470310c719697d24",
+      "sourceFingerprint": "ea52790e1aca20f10bcf82e09d8874ab305b80602e987750a2bb5b0e32deaa7f",
+      "title": "晚间宝宝欢乐故事会",
+      "description": "欢迎家长和 12 个月及以下的宝宝，一起听简短有趣的故事、童谣、玩手指游戏并唱歌。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-5defd18a0b983cc5",
+      "sourceFingerprint": "1d0640ba946b09fe39d1ea8c641ffc97d1cbf64994b1976858a15af7c115ef5b",
+      "title": "初学者排舞课程",
+      "description": "每周二与专业舞蹈老师 Yolanda Gonzales 一起参加有趣又充满活力的排舞课程。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-69bf12a7bfe6da104224d4a7",
+      "sourceFingerprint": "ec9bcfc86da5e660e401f5eb029f708625bd37a491759863eafcd0c18111f412",
+      "title": "Saratoga 图书馆编织与钩针交流圈",
+      "description": "带上自己的手工作品与毛线，可以提问、寻求或提供帮助、分享想法并认识新朋友。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-93ecb2cb2df39d9b",
+      "sourceFingerprint": "84ff7297175bfcff1a4d27247c113e491c63c499b9b3d4dab1a53e33a45e3cc2",
+      "title": "青少年《龙与地下城》冬季活动",
+      "description": "冬季活动面向已经熟悉游戏基本规则的玩家。不知道怎么玩？欢迎进一步了解活动信息。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ad955b6ad4027659154a050",
+      "sourceFingerprint": "a6f393bc5a8eadb76421081875375bd0b63d33f6181b1b55c5686f05f1536fc6",
+      "title": "与艺术家 Rachel Palacios 一起装饰海娜蜡烛",
+      "description": "庆祝排灯节——光明战胜黑暗的节日，在 LED 蜡烛上设计海娜图案并带回家。适合 3 至 8 年级儿童，无需报名。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a8e25d11c197d11325add77",
+      "sourceFingerprint": "a0c3d68114134c56cc3488e6c4792ade9687f7f2aca87212bd4a4c95d0d101aa",
+      "title": "成长中的读者：帮助孩子成为自信的小作家",
+      "description": "一场面向家长及照护者的免费工作坊，由 Santa Clara County Office of Education 和 Santa Clara County Library District 的 The Reading Program 联合举办，帮助孩子建立写作信心。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "note": "Additional exact-fingerprint versions for official descriptions that vary between refreshes.",
+  "entries": [
+    {
+      "id": "series-96fbef5e74aab377",
+      "sourceFingerprint": "8c28f9fd1cfbe4a81c334da8d371d7198edfed66dad6cbc116f9f7258f4a5928",
+      "title": "宝宝手语故事会",
+      "description": "从十月 9 日星期五上午 10:30 开始，举行 20 分钟的宝宝故事会，内容包括美国手语、短故事、歌曲和童谣。适合 0–12 个月的宝宝及其照护者，活动后还有自由玩耍时间。西语介绍也说明：从十月 9 日上午 10:30 开始，活动包含 20 分钟的宝宝手语、故事、歌曲和童谣。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T20:17:36.344Z"
+    },
+    {
+      "id": "rss-6a4ec0bfc7e02e3d0067c3ea",
+      "sourceFingerprint": "07c11db47685c5b1ccad32545869aeea7b07e3cf5428860d291acf2cb7c1ea32",
+      "title": "Campbell 图书馆之友二手书及物品义卖",
+      "description": "出售拼图、游戏、精装小说、儿童图书、爱情与惊悚小说、有声书、DVD、CD 以及各类实用指南。可用现金、支票、Zelle、银行卡或 Venmo 支付。记得自带购物袋。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T20:17:36.344Z"
+    }
+  ]
+}

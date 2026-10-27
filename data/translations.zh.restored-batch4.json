@@ -1,0 +1,377 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "note": "Reviewed translations using full source text and current source fingerprint.",
+  "entries": [
+    {
+      "id": "rss-694b56bb9fb47cac989f46d9",
+      "sourceFingerprint": "f227141da195d1328e03590c0756ac60118c51ad1c6011f4bf83523f5f6a391d",
+      "title": "诗歌公开朗读会",
+      "description": "欢迎大家前来聆听或朗诵诗歌，并参与讨论。每月第二个星期六举行，无需报名。Garlicky Group of Poets 自 1995 年起在 Gilroy 图书馆举行活动，吸引南县各地居民参加。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ad50effa76c9f3e2ae890c7",
+      "sourceFingerprint": "a29f805f8a67053ae345b7311f661431a8ba33e991b2e6c3741aad556eed433d",
+      "title": "开放麦克风音乐表演",
+      "description": "带上你一直练习的吉他、尤克里里、歌声或其他有趣乐器，参加开放麦克风表演。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ad1462c96ec3a003adadd8f",
+      "sourceFingerprint": "55b0aa0764bd3e3a3f3c0076060ae3fb283ee6bcbb94abdb5ccf8cc00c2d93d1",
+      "title": "秋日故事会",
+      "description": "每首童谣、歌曲和故事都能帮助孩子培养自信阅读所需的技能。欢迎来到 Falling for Stories，从这里开始爱上阅读。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a595fbd82c03c5c17d88c56",
+      "sourceFingerprint": "c76247c8491ef73cabe3d317382af0babb64f7efd87207b6e0cc6cf60d83b3d7",
+      "title": "包容性感官律动与调节工作坊",
+      "description": "Gilroy 图书馆与 JMM Dance Co. 合作，在 2026 年余下时间的每月第三个星期日举办感官律动与调节工作坊。通过有节奏、关注身体感受并重视情绪安全的温和结构化动作，帮助家庭了解感官调节。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a8e25ec3b6c71003e5b60bf",
+      "sourceFingerprint": "a0c3d68114134c56cc3488e6c4792ade9687f7f2aca87212bd4a4c95d0d101aa",
+      "title": "成长中的读者：帮助孩子建立写作信心",
+      "description": "由 Santa Clara County Office of Education 和 Santa Clara County Library District 的 The Reading Program 联合举办的免费家长及照护者工作坊，帮助孩子增强写作信心。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-697025281e64afd01e559e3a",
+      "sourceFingerprint": "9414fef6c2542e76d06fa8ac7651fb4bde9c05dd67fbec463d01a915f85530b0",
+      "title": "周日自由手工时光",
+      "description": "欢迎成人、青少年和儿童每月第三个星期日下午来做手工。现场提供材料，可自主探索惊喜艺术主题。儿童需有负责照护的成人陪同参与。活动室下午 3:30 关闭，请预留足够的制作时间。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ace9a3d901b02002cc2296d",
+      "sourceFingerprint": "065b3c70f8adc88b88ea307ec6137becf7fab8ad7c9d0bbdd7791db3c603402f",
+      "title": "Cupertino 图书馆周日排舞",
+      "description": "欢迎到 Cupertino 图书馆参加周日排舞活动。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ada5ccf8a335b6ae5c9fbf8",
+      "sourceFingerprint": "fd74bce78cd516726beaf5376513ebc392a4586bd1e2098f794e218c0963c54d",
+      "title": "用毛线创作绘画",
+      "description": "了解 Diné 织布艺术家 D.Y. Begay 的作品，从她色彩丰富的羊毛挂毯中汲取灵感，创作自己的小型毛线艺术品。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a03728bc7d3cd580058b779",
+      "sourceFingerprint": "76ba3ee6d4461522c0944631c8af97fb804df44eb1d2646b8fea55b8c5b15ec2",
+      "title": "普通话故事会",
+      "description": "用普通话一起听故事、念童谣、玩手指游戏并唱歌。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-69bb3dd8491b809c6f217ab2",
+      "sourceFingerprint": "bf7fe2d9dec65f1d71154d663837528691849d72c2cb57b16c8e20b26fd8511b",
+      "title": "Morgan Hill 图书馆尤克里里社团",
+      "description": "带上尤克里里和乐谱架，或直接来欣赏演奏并一起唱歌。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a862ab593b500003ff62929",
+      "sourceFingerprint": "65228864d22e98ed0e37322303287f7a731e1f78ee98c48801b8c39d2a652175",
+      "title": "宝宝手语与唱歌活动",
+      "description": "成人照护者将学习基础美国手语，以便与宝宝沟通。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ad8eff3fee2d21deb24cdfc",
+      "sourceFingerprint": "cbdedf435acd9f6cfb507f6446cf239fe90799725834a78f9997596c0a597058",
+      "title": "线上图书馆资源讲座：认识 LearningExpress",
+      "description": "探索适用于初高中学习、大学入学备考、求职、简历和面试、职业考试准备等方面的学习资料和工具。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a7fadfdaafa6100295cbbe8",
+      "sourceFingerprint": "12802e9411e9e2b927fbd544e8a46fce48d66c1ee321aa0f2aa72e4d188c38b0",
+      "title": "橡皮泥创意游戏",
+      "description": "孩子们用不同形状的模具捏、搓、压橡皮泥，在玩耍中发挥想象和创造力，同时锻炼精细动作技能。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ade54ad035faf0033deee0e",
+      "sourceFingerprint": "5f4ccc5ef4d0b5b77accbbc139ea35864e384a0688ab41293f99ce6b9c354cc9",
+      "title": "4–5 年级 Page Turners 读书俱乐部",
+      "description": "本月阅读 Gillian McDunn 的《Trouble at the Tangerine》。活动将于 2026 年十一月 18 日星期三下午 4 点至 5 点在 Los Altos 图书馆 Orchard Room 举行。如能参加，请在线报名，并到 Los Altos 或 Woodland 图书馆儿童咨询台领取借阅图书。请在聚会前读完。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-698bad018d5e2d09335e5e8c",
+      "sourceFingerprint": "6689209a707bf8ddf343fd190e0cf7879bec2a0c1ddf28157255b99c973c2d72",
+      "title": "初学者原声乐器合奏",
+      "description": "欢迎参加每月举行的初学者原声乐器合奏，一起享受音乐。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6aa984c186d8450031165272",
+      "sourceFingerprint": "db0ec1964fa363d36c24be4d0ad585893ef9b44b719348f01798cc29e3842413",
+      "title": "秋季天然护发与护肤",
+      "description": "活动提供全部材料。由于材料有限，仅接待 18 位参加者。若迟到超过十分钟，席位可能让给候补名单上的其他人，请准时到场。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a5be2859943bdf31e9fe462",
+      "sourceFingerprint": "2519d1ccb354d28b31d4357d9adcbda12f7eb887ceff964c654c9e06b24ae11d",
+      "title": "3–8 岁音乐与律动活动",
+      "description": "孩子和照护者一起探索音乐、跳舞，享受快乐时光。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6adc04e8035faf0033dea44e",
+      "sourceFingerprint": "f51c9e8cd3c01fd854978d93ef4185af3776aaa15530d31e6171193f1d953a53",
+      "title": "家庭涂色活动",
+      "description": "提供不同主题、图案和复杂程度的涂色画纸，适合各年龄段参加者。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6adbfeb7901b02002cc4c0d2",
+      "sourceFingerprint": "fbfd04a56debe19999a46c82ce6ef11350c10fe9f58c5402304896ffea037fd3",
+      "title": "聚光灯之外：人生不只一种热爱",
+      "description": "通过个人故事、实用经验和深入交流，重新思考传统职业道路，为创造力留出空间，并探索成功的不同定义。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6961562d8b29ea2800c880a8",
+      "sourceFingerprint": "7267347bff96bd4346e137a2ab839f8938a33b9fed2e823aedc74fe217908cc6",
+      "title": "湾区桌游日",
+      "description": "一起玩现代爱好者桌游，也有《卡坦岛》《瘟疫危机》等经典策略游戏，以及适合家庭和聚会的游戏。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ad152ca9dbc2b002c8ee995",
+      "sourceFingerprint": "f0dd2e8a3e6c8cca4c5af2009b5ae0986d057cb1d7d1651a55befc07c109c9c0",
+      "title": "Pow Wow 原住民舞蹈表演",
+      "description": "了解美洲原住民族的歌曲、舞蹈、艺术、食物和传统。Ohiya 是由旧金山湾区原住民歌手、舞者和艺术家组成的文化合作团体。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6aceadf29d27a0004550bf5b",
+      "sourceFingerprint": "35ed7ccbe1e1c034c7bb799ae2a09b53bf29a347a8446fc2d82f3065422b7666",
+      "title": "印度器乐二重奏音乐会",
+      "description": "Saratoga 图书馆与 SR Fine Arts 合作，邀请湾区音乐家带来印度器乐音乐会。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ad152cb9dbc2b002c8ee997",
+      "sourceFingerprint": "5d123cbfcb80df5dd1e5c524ba09ade4329e26029b4b792608e5df87674c8fd0",
+      "title": "Pow Wow 原住民舞蹈示范",
+      "description": "了解美洲原住民族的歌曲、舞蹈、艺术、食物和传统。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ad405dd11bbf300684c6700",
+      "sourceFingerprint": "fbbb50c0861fefb64ce3e3f8329794953e64d74b7083227077d2ec3417eb4b27",
+      "title": "Huevember：色彩理论与水彩绘画",
+      "description": "下午 3:30 至 5 点，在 Milpitas 图书馆活动室学习色彩理论和水彩的基础知识。了解色相、明暗、色调以及如何搭配调色板，再用水彩实践。材料有限，先到先得。仅面向成人及 13 岁以上青少年。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ab595ab65abe8002a7bdd79",
+      "sourceFingerprint": "58b50d13ae085405fa677470b7ee029c2255722cf61acc26ea962dedb5d2b59c",
+      "title": "作家 Julie Tully：讲故事与掌握自己的叙事",
+      "description": "Julie Tully 从牛仔女郎到随海军配偶迁徙，再成为作家。她书写人生、文化及二者的交汇，并借助讲故事的热情连接不同背景的人。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6adbd94ef4d1423e2ce444eb",
+      "sourceFingerprint": "ad152df4e212ca07b6d1ca600aa1f24ecc3321946f66eb5254732d733f4b49e7",
+      "title": "儿童宾果游戏",
+      "description": "来玩宾果游戏，赢取有趣的奖品。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6adab146de300e00451c3dca",
+      "sourceFingerprint": "b2ae425c997aca7cc94a19cf84da09c6e74084a03a89f44a1f0ca755b3062ab9",
+      "title": "感恩节火鸡宾果：赢取节日大餐",
+      "description": "通过宾果游戏赢得组成感恩节大餐的食物，从蔓越莓酱到南瓜派都有机会获得。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6aac27ed86d845003116d706",
+      "sourceFingerprint": "3b06b8d7a623e156d3b2b1342b4e60c2bb0bc39e14fad34d348d33513a19bddf",
+      "title": "学生带领：为收容所动物制作玩具",
+      "description": "为仍在等待被领养的动物制作玩具，为它们带来舒适、欢乐与陪伴，也让参加者有机会为社区作出积极贡献。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6add3e7629c3d60033323c19",
+      "sourceFingerprint": "bb2a635a26acc133125d029091624c2ddc3782a7bb8d66bde3f2459ce59c22ab",
+      "title": "K–5 年级秋季手工",
+      "description": "欢迎 K 至 5 年级儿童来到 Milpitas 图书馆制作秋季主题手工。所需材料全部提供。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6adfe9fa9d27a00045538d73",
+      "sourceFingerprint": "a1fe437c1853b1d244ed39290c9b59eaf8f16a29eefa769a52714e7de934780f",
+      "title": "6–8 年级 TO BE READ 读书会",
+      "description": "大家将在聚会中讨论所读图书，并参加趣味活动。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6adbe1878a335b6ae5ca1c4e",
+      "sourceFingerprint": "48053bf1c0526d3d31d730d3c415f83d9afa96111cf955133cee2226b6c8e65d",
+      "title": "Cupertino 图书馆家庭游戏日",
+      "description": "和朋友一起玩游戏，也可以在现场结识新朋友。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ad8fb662b40e729fed33387",
+      "sourceFingerprint": "a758a121535b74e2401e27de527769290746cd0e1952d30fbb84508b3b2ee63c",
+      "title": "计时拼图比赛与拼图交换",
+      "description": "计时开始前，任何人都不能看到拼图。目标是在最短时间内拼完；如在 2 小时后仍无人完成，则剩余散片最少的队伍获胜。适合 14 岁及以上参加。交换拼图时请携带没有缺片的拼图。必须在线报名，从十月 25 日星期日上午 10 点开始，名额共 40 人。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-68fbc717831f063d00538864",
+      "sourceFingerprint": "0ed9cc8addf10492ddd589210a00c37fd671c93f8e41c5d246d3e82dc0e1911a",
+      "title": "感恩节：所有图书馆闭馆",
+      "description": "感恩节期间所有图书馆闭馆。仍可通过官网使用电子书、下载和流媒体等资源。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-68fbb68b61706d28001f5dc7",
+      "sourceFingerprint": "e9a2c6f75eee947cf881de64d2ff933b1ebde6ffa5097737b6dfcca85dd7f0b5",
+      "title": "感恩节：流动图书车暂停服务",
+      "description": "感恩节期间流动图书车暂停服务。仍可通过官网使用电子书、下载和流媒体等资源。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-68fbba8506078d360074607a",
+      "sourceFingerprint": "1cacc9eb448d0dc19149cb92139acc78af0cca61ec86b6c7507579daa772ae91",
+      "title": "感恩节：Campbell 图书馆闭馆",
+      "description": "感恩节期间 Campbell 图书馆闭馆。仍可通过官网使用电子书、下载和流媒体等资源。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-68fbbdcf06078d360074626d",
+      "sourceFingerprint": "9b84f83102fc7bc6dd38bc0b7906c277b927201570133d9010588dfec1b952eb",
+      "title": "感恩节：Cupertino 图书馆闭馆",
+      "description": "感恩节期间 Cupertino 图书馆闭馆。仍可通过官网使用电子书、下载和流媒体等资源。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-de431caf58f04878",
+      "sourceFingerprint": "4d84203bb4ff5d026d1792326a86cdd4782177269bc3f01f48b4ef77e6b68ef1",
+      "title": "感恩节：Gilroy 图书馆闭馆",
+      "description": "感恩节期间 Gilroy 图书馆闭馆。仍可通过官网使用电子书、下载和流媒体等资源。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    }
+  ]
+}

@@ -72,3 +72,28 @@ const canonicalizedResult = applyChineseTranslationCatalog([canonicalized], cano
 assert.equal(canonicalizedResult.stats.current, 1);
 assert.equal(canonicalized.translationStatus, 'current');
 assert.equal(canonicalized.translations.zh.title, '合并后的家庭活动');
+
+// Earlier reviewed versions remain available, but the active event selects the
+// exact approved fingerprint instead of whichever sidecar happens to load last.
+const oldRevision = {
+  id: event.id, sourceFingerprint: 'stale-english-fingerprint',
+  title: '旧译文', description: '旧描述', status: 'approved',
+  override: true, reviewedAt: '2026-10-27T23:00:00Z'
+};
+const matchingRevision = {
+  ...catalog.entries[0], reviewedAt: '2026-10-10T00:00:00Z'
+};
+const revisionsCatalog = {
+  entries: [oldRevision],
+  variantsById: new Map([[event.id, [matchingRevision, oldRevision]]])
+};
+const revised = structuredClone(event);
+const revisionResult = applyChineseTranslationCatalog([revised], revisionsCatalog);
+assert.equal(revisionResult.stats.current, 1);
+assert.equal(revised.translations.zh.title, matchingRevision.title);
+
+// Library organizers commonly say 'no registration needed' instead of 'required'.
+assert.equal(auditChineseTranslation(
+  { title: 'Poetry', description: 'No registration needed. Read poems together.' },
+  { title: '诗歌朗读', description: '无需报名，大家一起朗读诗歌。' }
+).ok, true);
