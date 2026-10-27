@@ -458,5 +458,31 @@
     "format": "festival",
     "seasonalTheme": "halloween",
     "verifiedAt": "2026-10-19T07:25:00-07:00"
+  },
+  {
+    "id": "editorial-gamble-family-fun-with-flowers-20261031",
+    "title": "Family Fun with Flowers",
+    "dateValue": "2026-10-31T09:30:00",
+    "endDateValue": "2026-10-31T11:00:00",
+    "description": "Adults and children create floral arrangements together with guided instruction, provided flowers and supplies, and two arrangements to take home per adult–child pair.",
+    "sourceDescriptionRaw": "Gamble Garden Family Fun with Flowers Saturday October 31, 2026 9:30–11am. Adult/child pairs learn floral arranging; containers, flowers and materials provided; each pair creates two arrangements to take home.",
+    "place": "Gamble Garden",
+    "address": "1431 Waverley St, Palo Alto, CA 94301",
+    "city": "Palo Alto",
+    "source": "Gamble Garden",
+    "url": "https://www.gamblegarden.org/event/family-fun-with-flowers/",
+    "ageLabel": "Family-friendly",
+    "ageSource": "Gamble Garden official event page",
+    "costStatus": "paid",
+    "costLabel": "$60–$150; check organizer details",
+    "costSource": "Gamble Garden official event listing",
+    "costEvidence": "Organizer's October 31 floral design calendar lists $60–$150.",
+    "registrationStatus": "required",
+    "registrationSource": "Gamble Garden official event page",
+    "registrationEvidence": "Class registration and nonrefundable registration fees are specified.",
+    "type": "community",
+    "format": "workshop",
+    "replaceExisting": true,
+    "verifiedAt": "2026-10-27T08:27:00-07:00"
   }
 ]
