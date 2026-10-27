@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-10-26T15:50:58.679Z",
+  "generatedAt": "2026-10-27T10:39:57.199Z",
   "configuredSources": 95,
   "directSources": 89,
-  "fallbackSourcesRun": 0,
+  "fallbackSourcesRun": 6,
   "sources": [
     {
       "key": "Palo Alto City Library|library.cityofpaloalto.org|https://gateway.bibliocommons.com/v2/libraries/paloalto/rss/events",
@@ -10,7 +10,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 13,
+      "eventCount": 14,
       "failureStreak": 0,
       "error": ""
     },
@@ -28,8 +28,11 @@
       "key": "Santa Clara County Parks|parks.santaclaracounty.gov|",
       "name": "Santa Clara County Parks",
       "method": "search-fallback",
-      "mode": "not-run",
-      "failureStreak": 0
+      "mode": "search-fallback",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Midpeninsula Regional Open Space District|openspace.org|https://www.openspace.org/get-involved/events-activities?f%5B0%5D=rating%3A146",
@@ -85,8 +88,11 @@
       "key": "City of San José|sanjoseca.gov|",
       "name": "City of San José",
       "method": "search-fallback",
-      "mode": "not-run",
-      "failureStreak": 0
+      "mode": "search-fallback",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Santa Clara County Library District|sccld.org|https://gateway.bibliocommons.com/v2/libraries/sccl/rss/events?audiences=5b28181c4727c7344c796675%2C5b28181c4727c7344c796676%2C5b28181c4727c7344c796677%2C5b28181c4727c7344c796678%2C5b28181c4727c7344c796679%2C5b28181c4727c7344c79667a%2C5b2a5dcb2c1d736b168c62ac",
@@ -94,7 +100,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 487,
+      "eventCount": 489,
       "failureStreak": 0,
       "error": ""
     },
@@ -102,15 +108,21 @@
       "key": "City of Sunnyvale|sunnyvale.ca.gov|",
       "name": "City of Sunnyvale",
       "method": "search-fallback",
-      "mode": "not-run",
-      "failureStreak": 0
+      "mode": "search-fallback",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "City of Mountain View|mountainview.gov|",
       "name": "City of Mountain View",
       "method": "search-fallback",
-      "mode": "not-run",
-      "failureStreak": 0
+      "mode": "search-fallback",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "City of Cupertino|cupertino.gov|https://www.cupertino.gov/Events-directory?dlv_OC+CL+City+Events+Listing=%28dd_OC+Event+Categories%3DMajor+events%29%28dd_OC+Composite+Date%3D0d%29",
@@ -126,8 +138,11 @@
       "key": "City of Santa Clara|santaclaraca.gov|",
       "name": "City of Santa Clara",
       "method": "search-fallback",
-      "mode": "not-run",
-      "failureStreak": 1
+      "mode": "search-fallback",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Computer History Museum|computerhistory.org|https://computerhistory.org/events/feed/",
@@ -215,7 +230,7 @@
       "method": "stanford",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 1,
+      "eventCount": 2,
       "failureStreak": 0,
       "error": ""
     },
@@ -235,7 +250,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 33,
+      "eventCount": 27,
       "failureStreak": 0,
       "error": ""
     },
@@ -245,7 +260,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 20,
+      "eventCount": 21,
       "failureStreak": 0,
       "error": ""
     },
@@ -255,7 +270,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 0,
+      "eventCount": 7,
       "failureStreak": 0,
       "error": ""
     },
@@ -265,7 +280,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 22,
+      "eventCount": 23,
       "failureStreak": 0,
       "error": ""
     },
@@ -275,7 +290,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 32,
+      "eventCount": 26,
       "failureStreak": 0,
       "error": ""
     },
@@ -286,7 +301,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 65,
+      "failureStreak": 66,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +311,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 65,
+      "failureStreak": 66,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -306,7 +321,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 65,
+      "failureStreak": 66,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -386,7 +401,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 62,
+      "failureStreak": 63,
       "error": "PYT official show list was not valid: 200"
     },
     {
@@ -405,7 +420,7 @@
       "method": "filoli",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 0,
+      "eventCount": 4,
       "failureStreak": 0,
       "error": ""
     },
@@ -414,10 +429,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "ok",
+      "status": "failed",
       "eventCount": 0,
-      "failureStreak": 0,
-      "error": ""
+      "failureStreak": 1,
+      "error": "Los Altos History Museum event list was not valid: 202"
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -446,7 +461,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 33,
+      "failureStreak": 34,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
@@ -465,7 +480,7 @@
       "method": "symphony",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 15,
+      "eventCount": 6,
       "failureStreak": 0,
       "error": ""
     },
@@ -536,7 +551,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 33,
+      "failureStreak": 34,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -546,7 +561,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 33,
+      "failureStreak": 34,
       "error": "Eventbrite organizer payload was not found"
     },
     {
@@ -863,8 +878,11 @@
       "key": "Santa Clara Community Calendar|calendar.santaclaraca.gov|",
       "name": "Santa Clara Community Calendar",
       "method": "search-fallback",
-      "mode": "not-run",
-      "failureStreak": 2
+      "mode": "search-fallback",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Fremont Parents' Nursery School|gopher-chinchilla-xn32.squarespace.com|https://gopher-chinchilla-xn32.squarespace.com/events",
@@ -940,75 +958,77 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 65,
+      "failureStreak": 66,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 65,
+      "failureStreak": 66,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 65,
+      "failureStreak": 66,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Peninsula Youth Theatre",
-      "failureStreak": 62,
+      "failureStreak": 63,
       "error": "PYT official show list was not valid: 200"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 33,
+      "failureStreak": 34,
       "error": "Official iCalendar feed was not valid: 403"
     },
     {
       "name": "The Village at San Antonio Center",
-      "failureStreak": 33,
+      "failureStreak": 34,
       "error": "Eventbrite organizer payload was not found"
     },
     {
       "name": "CalColor Academy",
-      "failureStreak": 33,
+      "failureStreak": 34,
       "error": "Eventbrite organizer payload was not found"
     }
   ],
   "paloAltoChildrensTheatreEnrichment": {
-    "checkedAt": "2026-10-26T15:50:58.679Z",
+    "checkedAt": "2026-10-27T10:39:57.199Z",
     "enriched": 5
   },
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-10-26T15:50:58.679Z",
-    "cancelled": 193,
-    "enriched": 118,
+    "checkedAt": "2026-10-27T10:39:57.199Z",
+    "enriched": 125,
+    "cancelled": 191,
     "identity-mismatch": 35,
     "fetch-blocked": 7,
     "cached": 1,
     "fieldUpdates": {
-      "description": 10,
-      "endDateValue": 8,
+      "address": 4,
+      "city": 4,
+      "description": 17,
+      "endDateValue": 10,
       "place": 5,
       "image": 1
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-10-26T15:50:58.679Z",
-    "official": 97,
-    "unclassified": 64
+    "checkedAt": "2026-10-27T10:39:57.199Z",
+    "official": 103,
+    "unclassified": 65
   },
   "editorialCoverGeneration": {
     "frameworkVersion": "editorial-cover-v1",
-    "checkedAt": "2026-10-26T15:50:58.679Z",
+    "checkedAt": "2026-10-27T10:39:57.199Z",
     "generated": 0,
     "byReason": {},
     "byPreset": {}
   },
   "officialImageMirror": {
     "frameworkVersion": "official-image-mirror-v1",
-    "checkedAt": "2026-10-26T15:52:14.740Z",
+    "checkedAt": "2026-10-27T10:41:22.921Z",
     "configuredSources": 1,
     "mirroredEvents": 5,
     "mirroredAssets": 4,
