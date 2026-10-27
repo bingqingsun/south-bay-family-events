@@ -956,7 +956,7 @@ async function readEventbriteOrganizer(source) {
     const city = canonicalCity(venueAddress.city || venue.address?.addressLocality || source.city || '');
     const dateValue = String(schema.startDate || `${item.start_date}T${item.start_time || '00:00'}`).slice(0, 19);
     const endDateValue = String(schema.endDate || `${item.end_date || item.start_date}T${item.end_time || item.start_time || '23:59'}`).slice(0, 19);
-    if (!isUpcoming(dateValue, endDateValue) || !/^https?:\\/\\//i.test(item.url)) return null;
+    if (!isUpcoming(dateValue, endDateValue) || !String(item.url).startsWith('https://')) return null;
     const event = directEvent({
       id: 'eventbrite-' + createHash('sha256').update(`${item.url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
       title, dateValue, endDateValue, description,
