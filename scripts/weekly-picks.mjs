@@ -49,7 +49,7 @@ const topic = event => {
 export function candidateEvents(events, friday) {
   const sunday = addDays(friday, 2);
   return events.filter(event => {
-    if (!event?.id || !event.title || !validLink(event) || banned.test(event.title)) return false;
+    if (!event?.id || !event.title || !validLink(event) || banned.test(event.title) || poor.test(event.title)) return false;
     const start = day(event.dateValue);
     const end = day(event.endDateValue || event.dateValue);
     if (!start || !end || start > sunday || end < friday || event.ongoing) return false;
@@ -206,6 +206,7 @@ export function updateCollection(content, picks, friday, sunday, mode, timestamp
     if (!refsRegex.test(weekend)) throw new Error('Weekend selectedEventRefs array not found');
     weekend = weekend.replace(refsRegex, (_full, head, tail) => head + '[\n' + refs + '\n      ]' + tail);
   }
+  if (mode === 'publish') weekend = replaceLine(weekend, 'year', Number(friday.slice(0, 4)));
   weekend = replaceLine(weekend, 'published', mode === 'publish');
   if (mode === 'publish') weekend = replaceLine(weekend, 'publishAt', timestamp);
   return weekend + rest;
