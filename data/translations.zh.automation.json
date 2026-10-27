@@ -366,13 +366,13 @@
     },
     {
       "id": "series-5b2bcc9d188e0bb4",
-      "sourceFingerprint": "a0d86b790d6c278fbedf679b12eff569fc4036b94bbf4953841be7e7a11dd202",
+      "sourceFingerprint": "76b85dd4113d5b315914e2e92a84394b591146c4fc457a42fea6b8ec0870de95",
       "title": "超级家庭星期日",
-      "description": "Palo Alto Junior Museum & Zoo 致力于为所有访客提供包容且无障碍的体验。",
+      "description": "近距离与动物园里的动物见面。",
       "sourceUrl": "https://www.paloaltozoo.org/Visit/Accessibility",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-10-26T15:16:01.519Z",
+      "reviewedAt": "2026-10-27T04:38:18.000Z",
       "override": true
     },
     {
