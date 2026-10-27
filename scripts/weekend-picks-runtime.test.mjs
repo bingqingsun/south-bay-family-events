@@ -88,7 +88,8 @@ for (const fixture of resolverFixtures) {
 const model = runtime.getWeekendPicksViewModel(events);
 const today = runtime.currentPacificDate();
 if (config.status !== 'published') {
-  assert.equal(model.state, 'draft', 'Retired edition must not display as live on Sunday night');
+  assert.equal(model.state, config.status === 'ended' ? 'ended' : 'draft',
+    'Retired edition must not display as live on Sunday night');
   assert.equal(model.homepageVisible, false, 'Retired edition must disappear from the homepage');
 } else if (today <= config.weekendEnd) {
   // During a live weekend, an already-ended one-off pick may have been pruned
