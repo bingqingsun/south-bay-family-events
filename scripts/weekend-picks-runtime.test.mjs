@@ -87,7 +87,10 @@ for (const fixture of resolverFixtures) {
 
 const model = runtime.getWeekendPicksViewModel(events);
 const today = runtime.currentPacificDate();
-if (today <= config.weekendEnd) {
+if (config.status !== 'published') {
+  assert.equal(model.state, 'draft', 'Retired edition must not display as live on Sunday night');
+  assert.equal(model.homepageVisible, false, 'Retired edition must disappear from the homepage');
+} else if (today <= config.weekendEnd) {
   // During a live weekend, an already-ended one-off pick may have been pruned
   // from the active canonical database. Current/future picks must still resolve.
   const unresolvedCurrentOrFuture = model.unresolvedPicks.filter(item => {
