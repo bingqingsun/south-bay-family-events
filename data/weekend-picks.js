@@ -1,180 +1,156 @@
 window.SBFF_WEEKEND_PICKS = {
-  "id": "2026-10-24",
-  "weekendStart": "2026-10-23",
-  "weekendEnd": "2026-10-25",
+  "id": "2026-10-31",
+  "weekendStart": "2026-10-30",
+  "weekendEnd": "2026-11-01",
   "status": "published",
-  "publishedAt": "2026-10-19T05:00:00-07:00",
-  "updatedAt": "2026-10-19T05:00:00-07:00",
-  "intro": "14 handpicked South Bay family activities for Oct 23–25, from Halloween festivals and immersive garden nights to cultural art, ice shows, planetarium adventures and hands-on STEM.",
-  "introZh": "精选 10月23日周五–10月25日周日 14 个南湾亲子活动，涵盖万圣节庆典、花园夜游、文化艺术、冰上演出、天文馆和动手 STEM。",
+  "publishedAt": "2026-10-27T15:41:08.346Z",
+  "updatedAt": "2026-10-27T15:41:08.346Z",
+  "intro": "12 selected South Bay family activities for Oct 30–Nov 1: Halloween adventures, Bluey on stage, hands-on science, floral art, live sports and Día de los Muertos traditions.",
+  "introZh": "精选 10月30日周五–11月1日周日 12 个南湾亲子活动：万圣节体验、Bluey 舞台剧、动手科学、花艺、现场球赛和亡灵节文化庆祝。",
   "picks": [
     {
       "eventRef": {
         "id": "filoli-546ede82db7e6eeb",
         "title": "Nightfall",
         "url": "https://filoli.org/whats-on/events/nightfall/",
-        "dateValue": "2026-10-23T17:30"
+        "dateValue": "2026-10-30"
       },
-      "label": "Immersive Night Pick",
-      "labelZh": "沉浸式夜游精选",
-      "whyWePicked": "Explore Filoli's glowing redwood trail, haunted house and witches' village after dark; book a timed ticket early.",
-      "whyWePickedZh": "入夜后漫步 Filoli 发光的红杉步道、神秘宅邸和女巫村，沉浸感十足；建议提前预订入场时段。"
+      "label": "Last-Chance Night Pick",
+      "labelZh": "季末夜游精选",
+      "whyWePicked": "The last Halloween weekend to explore Filoli’s glowing trails, story-filled house and witches’ village; timed admission is recommended.",
+      "whyWePickedZh": "Filoli 万圣节夜游迎来季末最后一个周末：发光步道、神秘庄园和女巫村串起沉浸式体验，建议提前选好入场时段。"
     },
     {
       "eventRef": {
-        "id": "series-bd3c83f4163c1417",
-        "title": "Disney On Ice",
-        "url": "https://www.sapcenter.com/events/detail/disney-on-ice-4",
-        "dateValue": "2026-10-23T19:00"
+        "id": "filoli-4f17e2f674cccccd",
+        "title": "Autumn Days at Filoli",
+        "url": "https://filoli.org/whats-on/events/autumn-days/",
+        "dateValue": "2026-10-30"
       },
-      "label": "Family Show Pick",
-      "labelZh": "亲子演出精选",
-      "whyWePicked": "Moana, Frozen, Encanto and Stitch meet on the ice at SAP Center, with Friday, Saturday and Sunday shows.",
-      "whyWePickedZh": "Moana、《冰雪奇缘》《魔法满屋》和 Stitch 登上 SAP Center 冰面，周五至周日都有演出。"
+      "label": "Fall Garden Pick",
+      "labelZh": "秋日花园精选",
+      "whyWePicked": "Filoli’s final Autumn Days weekend brings giant pumpkins, redwood railway displays, autumn garden walks and seasonal photo spots.",
+      "whyWePickedZh": "Filoli 秋日季的最后一个周末，有巨型南瓜、红杉林小火车展示、花园散步和秋日拍照场景。"
     },
     {
       "eventRef": {
-        "id": "curated-f364c82c4ac30523",
-        "title": "Monster Bash",
-        "url": "https://www.mountainview.gov/our-city/departments/community-services/special-events/monster-bash",
-        "dateValue": "2026-10-24T10:00"
+        "id": "wix-301e5304d362edd6",
+        "title": "365 Night Market at Grand Century Mall, San Jose",
+        "url": "https://www.365nightmarket.com/event-details/365-night-market-at-grand-century-mall-san-jose-2026-10-30-16-00",
+        "dateValue": "2026-10-30T16:00"
       },
-      "label": "Free Festival Pick",
-      "labelZh": "免费节庆精选",
-      "whyWePicked": "Mountain View's free Halloween festival packs a Treat Trail, games, performers and a bike circus into Rengstorff Park.",
-      "whyWePickedZh": "Mountain View 的免费万圣节庆典有讨糖路线、游戏、现场表演和自行车马戏，适合全家。"
+      "label": "Weekend Night Market Pick",
+      "labelZh": "周末夜市精选",
+      "whyWePicked": "A Friday–Saturday night market at Grand Century Mall pairs food stalls, shopping and live music for an easy-going family outing.",
+      "whyWePickedZh": "Grand Century Mall 的周五、周六夜市汇集美食、购物和音乐，适合全家轻松走走逛逛。"
     },
     {
       "eventRef": {
-        "id": "santana-8e02371ec72aec44",
-        "title": "Farmer Mike Pumpkin Carving",
-        "url": "https://santanarow.com/event/farmer-mike-pumpkin-carving/",
-        "dateValue": "2026-10-24T10:00"
+        "id": "series-b4ca46c81e59fc6d",
+        "title": "The Great Big BOO!",
+        "url": "https://www.gilroygardens.org/halloween/",
+        "dateValue": "2026-10-30T17:00:00+00:00"
       },
-      "label": "Pumpkin Art Pick",
-      "labelZh": "南瓜艺术精选",
-      "whyWePicked": "Watch Farmer Mike transform giant pumpkins into intricate sculptures at Santana Row on Saturday or Sunday.",
-      "whyWePickedZh": "周六或周日在 Santana Row 看 Farmer Mike 把巨型南瓜现场雕成精巧作品，轻松又有秋日氛围。"
+      "label": "Halloween Theme Park Pick",
+      "labelZh": "万圣节乐园精选",
+      "whyWePicked": "Gilroy Gardens’ final Halloween weekend features trick-or-treating along BOO Trail, live character shows and themed rides.",
+      "whyWePickedZh": "Gilroy Gardens 万圣节收官周末，可以沿 BOO Trail 讨糖、观看角色演出、体验主题游乐项目。"
     },
     {
       "eventRef": {
-        "id": "curated-fd7d4676fae949fe",
-        "title": "Community Day: Día de Los Muertos",
-        "url": "https://sjmusart.org/programs-at-sjma/community-days/dia-de-los-muertos",
-        "dateValue": "2026-10-24T11:00"
+        "id": "series-3d214ccc6c86c0a6",
+        "title": "Bluey’s Big Play",
+        "url": "https://www.sanjose.org/theaters/events/blueys-big-play",
+        "dateValue": "2026-10-30T18:00"
       },
-      "label": "Art & Culture Pick",
-      "labelZh": "艺术文化精选",
-      "whyWePicked": "San José Museum of Art offers a free Día de los Muertos day with family artmaking, cultural demonstrations and performances.",
-      "whyWePickedZh": "San José Museum of Art 的免费亡灵节社区日有亲子创作、文化展示和现场演出，适合不同年龄。"
+      "label": "Family Theatre Pick",
+      "labelZh": "亲子剧场精选",
+      "whyWePicked": "Bluey and Bingo leap from screen to stage in a 50-minute puppet-filled family show, with performances Friday through Sunday.",
+      "whyWePickedZh": "Bluey 和 Bingo 登上真实舞台，50 分钟的亲子木偶剧从周五演到周日，小朋友能近距离感受动画角色。"
     },
     {
       "eventRef": {
-        "id": "curated-89a240ca6e3b7fc7",
-        "title": "Children’s SpooktaClara",
-        "url": "https://www.santaclaraca.gov/our-city/departments-g-z/parks-recreation/special-events/children-s-halloween-party",
-        "dateValue": "2026-10-24T12:00"
+        "id": "calendar-25497",
+        "title": "Family Fun with Flowers",
+        "url": "https://www.gamblegarden.org/event/family-fun-with-flowers/",
+        "dateValue": "2026-10-31T09:30:00"
       },
-      "label": "Little Kids Pick",
-      "labelZh": "低龄儿童精选",
-      "whyWePicked": "Santa Clara's free Central Park party features a trick-or-treat row, pumpkin walk and activities especially for kids 10 and under.",
-      "whyWePickedZh": "Santa Clara Central Park 免费万圣节派对有讨糖街、南瓜巡游和特别为 10 岁及以下孩子设计的活动。"
+      "label": "Creative Workshop Pick",
+      "labelZh": "亲子花艺精选",
+      "whyWePicked": "Children and adults make flower arrangements side by side at Gamble Garden, with flowers and materials provided; registration is required.",
+      "whyWePickedZh": "在 Palo Alto 的 Gamble Garden，大人和孩子一起学习插花，花材和工具由主办方提供，需提前报名。"
     },
     {
       "eventRef": {
-        "id": "paloalto-c6831448873a5045",
-        "title": "Teen Halloween Roller Derby!",
-        "url": "https://www.paloalto.gov/Events-Directory/Library/Teen-Halloween-Roller-Derby",
-        "dateValue": "2026-10-24T14:00"
+        "id": "thetech-ca28f2a8b6e388d3",
+        "title": "Tech or Treat",
+        "url": "https://www.thetech.org/techortreat",
+        "dateValue": "2026-10-31"
       },
-      "label": "Teen Activity Pick",
-      "labelZh": "青少年活动精选",
-      "whyWePicked": "A Halloween skate-and-craft afternoon at Mitchell Park Bowl gives tweens and teens a more active weekend option.",
-      "whyWePickedZh": "Mitchell Park Bowl 的万圣节轮滑与手作下午场，为大孩子和青少年提供更有活力的选择。"
+      "label": "Spooky STEM Pick",
+      "labelZh": "万圣节科学精选",
+      "whyWePicked": "The Tech Interactive combines Halloween trick-or-treat stations, hands-on science, spooky photo ops and optional add-on workshops.",
+      "whyWePickedZh": "The Tech Interactive 把讨糖、动手科学实验和万圣节拍照结合起来；部分特别工作坊需额外购票。"
     },
     {
       "eventRef": {
-        "id": "rss-6aca96a59d27a0004550067b",
-        "title": "Voices of Pasifika: Samoan Weaving for Kids",
-        "url": "https://sccl.bibliocommons.com/events/6aca96a59d27a0004550067b",
-        "dateValue": "2026-10-24T15:00"
+        "id": "nhl-2026020222",
+        "title": "San Jose Sharks vs Ottawa Senators",
+        "url": "https://www.nhl.com/gamecenter/ott-vs-sjs/2026/10/31/2026020222",
+        "dateValue": "2026-10-31T13:00"
       },
-      "label": "Cultural Craft Pick",
-      "labelZh": "文化手作精选",
-      "whyWePicked": "Kids ages 8+ can discover Samoan lalaga weaving and its cultural roots at Cupertino Library.",
-      "whyWePickedZh": "8 岁以上孩子可以在 Cupertino Library 认识萨摩亚 lalaga 编织及其文化背景，亲手体验传统工艺。"
+      "label": "Live Hockey Pick",
+      "labelZh": "冰球比赛精选",
+      "whyWePicked": "Catch the San Jose Sharks taking on the Ottawa Senators at SAP Center on Halloween afternoon.",
+      "whyWePickedZh": "万圣节下午到 SAP Center 看 San Jose Sharks 主场迎战 Ottawa Senators，感受现场冰球氛围。"
     },
     {
       "eventRef": {
-        "id": "series-9f09211a666c4efb",
-        "title": "Magic Tree House",
-        "url": "https://daweb2.deanza.edu/events/event.html?id=191544836",
-        "dateValue": "2026-10-24T16:00"
+        "id": "curated-7a8b718d2671e135",
+        "title": "Día de los Muertos",
+        "url": "https://www.cdm.org/event/dia-de-los-muertos/",
+        "dateValue": "2026-11-01T10:00"
       },
-      "label": "Space & Story Pick",
-      "labelZh": "太空故事精选",
-      "whyWePicked": "Jack and Annie's planetarium space mission brings the Sun, Moon and planets to life for children ages 4+.",
-      "whyWePickedZh": "De Anza 天文馆把《神奇树屋》中 Jack 和 Annie 的太空任务搬上穹幕，带 4 岁以上孩子探索日月与行星。"
+      "label": "Children’s Museum Pick",
+      "labelZh": "儿童博物馆精选",
+      "whyWePicked": "The Children’s Discovery Museum marks Día de los Muertos with Aztec dance, sugar-skull and butterfly-mask crafts, and a family procession.",
+      "whyWePickedZh": "Children’s Discovery Museum 的亡灵节庆祝有阿兹特克舞蹈、糖骷髅与蝴蝶面具手工，以及馆内巡游。"
     },
     {
       "eventRef": {
-        "id": "series-fc478c8b04edff13",
-        "title": "Symphonic Spooktacular",
-        "url": "https://www.symphonysanjose.org/attend/2026-2027-season/concerts/symphonic-spooktacular/",
-        "dateValue": "2026-10-24T19:30"
+        "id": "santana-6666c41d4ab6fbfc",
+        "title": "Día de Los Muertos Celebration",
+        "url": "https://santanarow.com/event/dia-de-los-muertos-celebration/",
+        "dateValue": "2026-11-01"
       },
-      "label": "Live Music Pick",
-      "labelZh": "现场音乐精选",
-      "whyWePicked": "Symphony San Jose mixes cinematic spooky favorites and orchestral classics at California Theatre, with two weekend concerts.",
-      "whyWePickedZh": "Symphony San Jose 在 California Theatre 演奏万圣节电影配乐与交响名曲，周六晚和周日下午各有一场。"
+      "label": "Free Culture Pick",
+      "labelZh": "免费文化活动精选",
+      "whyWePicked": "Santana Row’s free Día de los Muertos celebration features face painting, mariachi music, Catrina photo ops and a cultural market.",
+      "whyWePickedZh": "Santana Row 的免费亡灵节活动有脸部彩绘、墨西哥流浪乐队音乐、Catrina 合影和文化市集。"
     },
     {
       "eventRef": {
-        "id": "filoli-7e4830eaace5eac0",
-        "title": "Dia de Los Muertos",
-        "url": "https://filoli.org/whats-on/events/dia-de-los-muertos/",
-        "dateValue": "2026-10-25T10:00"
+        "id": "montalvo-0d7c8ed71446ccd7",
+        "title": "4th Lowrider Art Showcase – Celebrating Dia de los Muertos",
+        "url": "https://montalvoarts.org/experience/lowrider-art-showcase-2026/",
+        "dateValue": "2026-11-01T13:00:00+00:00"
       },
-      "label": "Garden Culture Pick",
-      "labelZh": "花园文化精选",
-      "whyWePicked": "Filoli's Sunday Día de los Muertos celebration adds family activities, performances and interactive displays to a garden visit.",
-      "whyWePickedZh": "周日的 Filoli 亡灵节庆典把亲子活动、演出和互动展示带进历史花园；活动包含在当日门票内。"
+      "label": "Free Art Festival Pick",
+      "labelZh": "免费艺术节精选",
+      "whyWePicked": "A free family-friendly afternoon at Montalvo with lowrider cars, hands-on art, DJs, dancing, local vendors and garden access.",
+      "whyWePickedZh": "Montalvo 的免费亲子艺术节可以欣赏低底盘改装车、动手做艺术、逛本地摊位、听 DJ 音乐并走走花园。"
     },
     {
       "eventRef": {
-        "id": "paloalto-4ffaa6fa302eb82a",
-        "title": "Halloween Costume Party @ Magical Bridge",
-        "url": "https://www.paloalto.gov/Events-Directory/Community-Services/Halloween-Costume-Party-Magical-Bridge",
-        "dateValue": "2026-10-25T10:00"
+        "id": "bayfc-44057bc336846e65",
+        "title": "Bay FC vs San Diego Wave FC",
+        "url": "https://bayfc.com/match/2026-match-30/",
+        "dateValue": "2026-11-01T14:00"
       },
-      "label": "Inclusive Play Pick",
-      "labelZh": "共融游乐精选",
-      "whyWePicked": "A costume-friendly Sunday morning at Magical Bridge Playground combines music and hands-on Halloween fun in an inclusive setting.",
-      "whyWePickedZh": "Magical Bridge Playground 的周日万圣节化装派对结合音乐和动手活动，在共融游乐空间里轻松庆祝。"
-    },
-    {
-      "eventRef": {
-        "id": "montalvo-d1b9714ec6b1e859",
-        "title": "Goblins in the Garden",
-        "url": "https://my.montalvoarts.org/3257/3258",
-        "dateValue": "2026-10-25T11:00"
-      },
-      "label": "Family Halloween Pick",
-      "labelZh": "亲子万圣节精选",
-      "whyWePicked": "Montalvo pairs slime and potion crafts, costumes and a Fratello Marionettes show in a garden party designed with younger kids in mind.",
-      "whyWePickedZh": "Montalvo 花园派对集合史莱姆、魔法药水手作、变装和木偶剧，尤其适合低龄孩子。"
-    },
-    {
-      "eventRef": {
-        "id": "rss-6aa97ca786d8450031164ecb",
-        "title": "Student-Led Astronomy Workshop for Tweens",
-        "url": "https://sccl.bibliocommons.com/events/6aa97ca786d8450031164ecb",
-        "dateValue": "2026-10-25T13:00"
-      },
-      "label": "Hands-on STEM Pick",
-      "labelZh": "动手 STEM 精选",
-      "whyWePicked": "Tweens ages 8–12 explore rockets and the atmosphere through hands-on activities at Morgan Hill Library; registration required.",
-      "whyWePickedZh": "8–12 岁孩子在 Morgan Hill Library 通过动手活动探索火箭与大气层；需提前报名。"
+      "label": "Women’s Soccer Pick",
+      "labelZh": "女子足球精选",
+      "whyWePicked": "Cheer for Bay FC in its home match against San Diego Wave FC at PayPal Park on Sunday afternoon.",
+      "whyWePickedZh": "周日下午到 PayPal Park 为 Bay FC 加油，看她们主场迎战 San Diego Wave FC。"
     }
   ]
 };
