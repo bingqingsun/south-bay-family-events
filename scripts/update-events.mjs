@@ -3,6 +3,7 @@
  * Requires SERPAPI_KEY in the environment. Uses SerpApi's standard Google
  * search engine so the job also works on plans without Google Events access.
  */
+import { isOfficialClosureNotice, pytSynopsisFromDetail } from './lib/source-detail-repair.mjs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { applyChineseTranslationCatalog } from './event-translations.mjs';
@@ -540,13 +541,7 @@ function costInfo(cost, description = '') {
 }
 
 function isClosureNotice(title, description = '') {
-  const heading = plainText(title);
-  const detail = plainText(description);
-  // Library RSS feeds use the same event schema for programs and operational
-  // notices. A closure cannot be an outing, even if the feed's broad audience
-  // category happens to include families or children.
-  return /^(?:closed|closure|closing|holiday\s+(?:hours|closure)|special\s+hours)\b/i.test(heading)
-    || /\b(?:all\s+)?(?:city\s+)?(?:libraries|library branches?|branches?)\s+(?:will be|are)\s+closed\b/i.test(detail);
+  return isOfficialClosureNotice(title, description);
 }
 
 async function readRss(source) {
@@ -689,7 +684,7 @@ async function readChcp(source) {
     // CHCP's calendar also syndicates adult lectures and non-local events.
     // Keep only locally held cultural activities with an explicit family or
     // youth signal in CHCP's own title or description.
-    if (!title || !href || !isUpcoming(dateValue) || /\bonline\b/i.test(location) || !/San Jose|Santa Clara|Mountain View|Palo Alto|Milpitas|Cupertino|Los Altos|Sunnyvale/i.test(location) || !familySignal || !hasUsableSourceContent(description)) return [];
+    if (!title || !href || !isUpcoming(dateValue) || /\bonline\b/i.test(location) || !/San Jose|Santa Clara|Mountain View|Palo Alto|Milpitas|Cupertino|Los Altos|Sunnyvale/i.test(location) || !familySignal || isClosureNotice(title, description) || !hasUsableSourceContent(description)) return [];
     const url = new URL(href, source.feedUrl).href;
     const event = directEvent({
       id: 'chcp-' + createHash('sha256').update(`${url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
@@ -2326,9 +2321,14 @@ async function readPyt(source) {
       const title = plainText(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] || '');
       const datesLabel = text.match(/\bDates?\s+((?:January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b[^.]{0,70}20\d{2})/i)?.[1] || '';
       const year = datesLabel.match(/20\d{2}/)?.[0] || '';
-      const description = officialParagraphText(html, {
+      const synopsis = pytSynopsisFromDetail(html, title);
+      const paragraphFallback = officialParagraphText(html, {
         excludePattern: /\b(?:audition|rehears|casting|student groups?|processing fee|facility fee|volunteer|sponsor this|why is there a fee)\b/i
       });
+      // Production pages may render their synopsis in a div rather than a <p>.
+      // Reject a footer-only fallback instead of publishing copyright copy.
+      const description = synopsis || (/\b(?:Read this site in Spanish|501\s*\(c\)|all rights reserved)\b/i.test(paragraphFallback)
+        ? '' : paragraphFallback);
       if (!title || !year || !hasPublishableSummary(description, { title, format: 'live-show' })) return [];
       const image = htmlAttribute(html, /<meta\b[^>]*property=["']og:image["'][^>]*content=["']([^"']+)/i);
       const venue = text.match(/\bVenue\s+(Mountain View Center for the Performing Arts[^.]{0,85})/i)?.[1]?.trim() || 'Mountain View Center for the Performing Arts';
