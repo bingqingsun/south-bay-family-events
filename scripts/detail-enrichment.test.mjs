@@ -445,26 +445,26 @@ assert.equal(isOfficialClosureNotice('Children’s Museum Celebration', 'Enjoy h
 
 // PYT production detail pages place story text after their show-specific CTA.
 // Generic <p> scanning can otherwise grab copyright/fee notices in the footer.
-const singingHtml = \`
+const singingHtml = `
 <html><body><h1>Singin' In The Rain</h1><div>Dates March 13-21, 2027</div>
 <div>Venue Mountain View Center for the Performing Arts</div>
 <a>Buy Tickets</a><a>Sponsor This Show</a>
 <div>Based on the Greatest Movie Musical of All Time, this Hollywood classic is packed with hilarious situations, snappy dialogue, and a hit-parade score that will have the house tapping their toes.</div>
 <div>Screenplay By: Betty Comden and Adolph Green.</div>
 <footer><p>Read this site in Spanish © 2026 Peninsula Youth Theatre is a 501(c)(3) nonprofit.</p></footer>
-</body></html>\`;
+</body></html>`;
 const singingText = pytSynopsisFromDetail(singingHtml, "Singin' In The Rain");
 assert.match(singingText, /Hollywood classic is packed/);
 assert.doesNotMatch(singingText, /Screenplay By|site in Spanish|501/);
 assert.equal(pytSynopsisFromDetail(singingHtml, 'Different Musical'), '');
 
-const lillyHtml = \`
+const lillyHtml = `
 <html><body><h1>Lilly's Purple Plastic Purse</h1><p>Dates April 9 & 10, 2027</p>
 <div>Buy Tickets Sponsor This Show</div>
 <section>Lilly loves everything! School, dressing up, and even her stinky baby brother, Julius. But when she cannot wait until sharing time to show off her purple plastic purse and sunglasses, things do not quite go as planned.</section>
 <div>Why is there a fee on my ticket? The venue adds a facility fee.</div>
 <footer><p>Read this site in Spanish and see our copyright notice.</p></footer>
-</body></html>\`;
+</body></html>`;
 const lillyText = pytSynopsisFromDetail(lillyHtml, "Lilly's Purple Plastic Purse");
 assert.match(lillyText, /purple plastic purse/);
 assert.doesNotMatch(lillyText, /fee on my ticket|copyright/);
