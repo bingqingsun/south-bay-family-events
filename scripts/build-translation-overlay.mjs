@@ -1,4 +1,5 @@
-import { writeFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
+import { applyChineseTranslationCatalog } from './event-translations.mjs';
 import { loadChineseTranslationCatalogs } from './load-translation-catalogs.mjs';
 
 const catalog = await loadChineseTranslationCatalogs();
@@ -14,6 +15,22 @@ for (const entry of catalog.entries || []) {
     description: String(entry.description || '').trim(),
     sourceFingerprint: entry.sourceFingerprint,
     status: entry.status
+  };
+}
+
+// The static overlay must agree with the current published events, even when
+// the default catalog winner is an older translation for the same event ID.
+const events = JSON.parse(await readFile(new URL('../data/events.json', import.meta.url), 'utf8'));
+const currentEvents = events.map(event => ({ ...event }));
+applyChineseTranslationCatalog(currentEvents, catalog, { strict: true });
+for (const event of currentEvents) {
+  if (event.translationStatus !== 'current' || !event.translations?.zh) continue;
+  const zh = event.translations.zh;
+  overlay[event.id] = {
+    title: zh.title,
+    description: zh.description,
+    sourceFingerprint: zh.fingerprint,
+    status: 'approved'
   };
 }
 
