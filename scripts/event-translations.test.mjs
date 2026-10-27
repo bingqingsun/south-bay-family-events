@@ -73,20 +73,24 @@ assert.equal(canonicalizedResult.stats.current, 1);
 assert.equal(canonicalized.translationStatus, 'current');
 assert.equal(canonicalized.translations.zh.title, '合并后的家庭活动');
 
-// Catalog overrides must follow review freshness rather than filenames.
-// Nightly automation can still supersede a reviewed entry when it is newer.
-const { shouldAcceptCatalogOverride } = await import('./load-translation-catalogs.mjs');
-assert.equal(shouldAcceptCatalogOverride(
-  { override: true, reviewedAt: '2026-10-27T10:00:00Z' },
-  { override: true, reviewedAt: '2026-10-19T18:00:00Z' }
-), false);
-assert.equal(shouldAcceptCatalogOverride(
-  { override: true, reviewedAt: '2026-10-20T10:00:00Z' },
-  { override: true, reviewedAt: '2026-10-27T18:00:00Z' }
-), true);
-assert.equal(shouldAcceptCatalogOverride(
-  { override: true }, { override: true }
-), true);
+// Earlier reviewed versions remain available, but the active event selects the
+// exact approved fingerprint instead of whichever sidecar happens to load last.
+const oldRevision = {
+  id: event.id, sourceFingerprint: 'stale-english-fingerprint',
+  title: '旧译文', description: '旧描述', status: 'approved',
+  override: true, reviewedAt: '2026-10-27T23:00:00Z'
+};
+const matchingRevision = {
+  ...catalog.entries[0], reviewedAt: '2026-10-10T00:00:00Z'
+};
+const revisionsCatalog = {
+  entries: [oldRevision],
+  variantsById: new Map([[event.id, [matchingRevision, oldRevision]]])
+};
+const revised = structuredClone(event);
+const revisionResult = applyChineseTranslationCatalog([revised], revisionsCatalog);
+assert.equal(revisionResult.stats.current, 1);
+assert.equal(revised.translations.zh.title, matchingRevision.title);
 
 // Library organizers commonly say 'no registration needed' instead of 'required'.
 assert.equal(auditChineseTranslation(
