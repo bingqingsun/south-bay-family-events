@@ -1,0 +1,123 @@
+name: Publish weekly Weekend Picks
+# Sun 23:55 Pacific: retire; Mon 05:00 Pacific: publish coming Friday–Sunday.
+on:
+  schedule:
+    - cron: '55 6 * * 1'
+    - cron: '55 7 * * 1'
+    - cron: '0 12 * * 1'
+    - cron: '0 13 * * 1'
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: 'Publish upcoming weekend or retire current edition'
+        type: choice
+        required: true
+        default: publish
+        options:
+          - publish
+          - retire
+      friday:
+        description: 'Optional edition Friday (YYYY-MM-DD), default next Friday Pacific'
+        required: false
+        type: string
+      force:
+        description: 'Replace same-week editor changes on manual dispatch'
+        type: boolean
+        required: false
+        default: false
+permissions:
+  contents: write
+concurrency:
+  group: south-bay-data-write-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  weekly-picks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Select proper Pacific scheduled slot
+        id: slot
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          SCHEDULE: ${{ github.event.schedule }}
+          REQUESTED_MODE: ${{ inputs.operation }}
+          REQUESTED_FRIDAY: ${{ inputs.friday }}
+          REQUESTED_FORCE: ${{ inputs.force }}
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT_NAME" == "schedule" ]]; then
+            date_utc=$(date -u +%F)
+            case "$SCHEDULE" in
+              '55 6 * * 1') hour=06:55; operation=retire; expected='Sun-23:55' ;;
+              '55 7 * * 1') hour=07:55; operation=retire; expected='Sun-23:55' ;;
+              '0 12 * * 1') hour=12:00; operation=publish; expected='Mon-05:00' ;;
+              '0 13 * * 1') hour=13:00; operation=publish; expected='Mon-05:00' ;;
+              *) echo "Unknown scheduled slot"; exit 1 ;;
+            esac
+            pacific=$(TZ=America/Los_Angeles date -d "$date_utc $hour UTC" '+%a-%H:%M')
+            if [[ "$pacific" != "$expected" ]]; then
+              echo "Skipping duplicate DST schedule: $pacific"
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            friday=""
+            force=false
+          else
+            operation="$REQUESTED_MODE"
+            friday="$REQUESTED_FRIDAY"
+            force="$REQUESTED_FORCE"
+            if [[ -z "$operation" ]]; then operation=publish; fi
+          fi
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+          echo "operation=$operation" >> "$GITHUB_OUTPUT"
+          echo "friday=$friday" >> "$GITHUB_OUTPUT"
+          echo "force=$force" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        if: steps.slot.outputs.skip != 'true'
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        if: steps.slot.outputs.skip != 'true'
+        with:
+          node-version: 22
+      - name: Check publisher syntax and editorial rules
+        if: steps.slot.outputs.skip != 'true'
+        run: |
+          node --check scripts/weekly-picks.mjs
+          node scripts/weekly-picks.test.mjs
+      - name: Update Weekend Picks edition
+        if: steps.slot.outputs.skip != 'true'
+        shell: bash
+        env:
+          OPERATION: ${{ steps.slot.outputs.operation }}
+          FRIDAY: ${{ steps.slot.outputs.friday }}
+          FORCE: ${{ steps.slot.outputs.force }}
+        run: |
+          set -euo pipefail
+          if [[ -n "$FRIDAY" ]]; then
+            node scripts/weekly-picks.mjs "--mode=$OPERATION" "--friday=$FRIDAY" "--force=$FORCE"
+          else
+            node scripts/weekly-picks.mjs "--mode=$OPERATION" "--force=$FORCE"
+          fi
+      - name: Validate released data and homepage parity
+        if: steps.slot.outputs.skip != 'true' && steps.slot.outputs.operation == 'publish'
+        run: node scripts/weekend-picks-runtime.test.mjs
+      - name: Publish generated files on main
+        if: steps.slot.outputs.skip != 'true'
+        shell: bash
+        env:
+          OPERATION: ${{ steps.slot.outputs.operation }}
+        run: |
+          set -euo pipefail
+          git config user.name "south-bay-weekend-picks-bot"
+          git config user.email "actions@github.com"
+          git add data/weekend-picks.js data/collections.js index.html zh/index.html weekend-picks/index.html zh/weekend-picks/index.html
+          if git diff --cached --quiet; then
+            echo "No Weekend Picks changes to publish"
+            exit 0
+          fi
+          git commit -m "chore: $OPERATION Weekend Picks edition"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
