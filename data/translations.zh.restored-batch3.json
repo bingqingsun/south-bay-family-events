@@ -1,0 +1,407 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "note": "Reviewed translations for restored source events, using current post-refresh fingerprints.",
+  "entries": [
+    {
+      "id": "rss-6abc4b9ee06996003a8027f3",
+      "sourceFingerprint": "c77e4fc6bb63f111d27e7135a15554fe4c425e92f633ac56a27e5b87a94c69e0",
+      "title": "线上作家讲座：E. Lockhart",
+      "description": "欢迎参加与《纽约时报》畅销书榜第 1 名作家 E. Lockhart 的线上交流。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ab48db5a472a016061f4871",
+      "sourceFingerprint": "c97adb3417d6442ccb42a7d042486d7e44227b8e78f48e9f272153b815931049",
+      "title": "小小探索家：恐龙十一月",
+      "description": "在 Little Explorers 活动中参加恐龙主题手工和游戏，庆祝 Dinovember。Little Explorers 是每月举办、面向幼儿及学龄前儿童家庭的创意活动。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a236df83233d28b1b2d1d58",
+      "sourceFingerprint": "48a883b7f7806a12e15a949dd54a82ab8a9394d2fd4de0375dfcd3b3d28efbfc",
+      "title": "5 岁以上儿童 Keva 积木俱乐部",
+      "description": "只用木板，不需要工具、胶水、钉子或胶带，练习艺术设计和建筑搭建技能。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-3814c6c81aec826b",
+      "sourceFingerprint": "e50c6ef7e94871a6c7f6088bde945272e7f052130381fdf73a2b70b9fdf57549",
+      "title": "13–25 岁 LGBTQ+ 青年交流空间 / 13–25 岁支持小组",
+      "description": "由工作人员带领，为青年提供友好安心的交流空间，一起玩游戏、参加集体活动和讨论，并建立社区联系。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6acac7e22b40e729fed20dcf",
+      "sourceFingerprint": "24a19eea10a455197b3ef6db569e24b4496eb96dd311385673fba801227df866",
+      "title": "青少年手工下午茶",
+      "description": "欢迎参加由青少年顾问委员会组织的手工活动！给迷你画布上色、享用零食，还可以一起观看《Gilmore Girls》。仅限 13–18 岁青少年。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ad90d0596ec3a003adc0c67",
+      "sourceFingerprint": "b2eba864e1ec245f30ef289db3b599c99e4db0dcdb6b9acd1a14de2b2ba118a2",
+      "title": "排灯节音乐会：Arjun Verma",
+      "description": "通过传统的北印度古典旋律（raagas），欣赏深沉庄严的音乐意境和充满活力的节奏，感受当地音乐文化传承。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-696191ef992fc18a86dc9a3f",
+      "sourceFingerprint": "0ff649a9e3346fcef0d2469a4e5b0a9961fb46edd3c1ea6302ffb5f6d624c377",
+      "title": "宝宝手语故事会与自由玩耍",
+      "description": "欢迎 0–12 个月、尚未学会走路的宝宝参加特别故事会，体验美国手语、歌曲、故事和趣味互动。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6abd93ddebad2200454222f6",
+      "sourceFingerprint": "e50cb965ebd563a18e594e8ed630061477ac3c3e0a8d7b4456150a3b8b1261d2",
+      "title": "排灯节油灯彩绘",
+      "description": "给自己的 diya 传统小油灯上色并进行装饰。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ac7fb90295b3b0033cafc4c",
+      "sourceFingerprint": "c76d10280b4f9527e472fe4aa1b3144f83bd5b0d298c60165ac79b4f8e5c95a0",
+      "title": "Milpitas 图书馆排灯节庆祝活动",
+      "description": "现场有海娜艺术家为参加者绘制个性化图案；等待时还可以参加手工活动。海娜彩绘的现场等候名单将在活动开始前 30 分钟于礼堂外开放登记。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-00d7a5e1c6fc242f",
+      "sourceFingerprint": "7a4217e8eb1e0cc02703ba372935182bed6b6f3438cc403a443fb9826b7f4bcd",
+      "title": "青少年《龙与地下城》俱乐部",
+      "description": "想了解下次有空位的通知或其他 D&D 活动，可联系青少年图书馆员 Hannah Clement：hannah.clement@lib.sccgov.org。本俱乐部今天举行聚会。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6adbde91377296003a4e30f7",
+      "sourceFingerprint": "88499cd9f087aa06c7ee6cde36ef88353591c196b8985d57266098de4bfae52f",
+      "title": "青少年世界文化手工工作坊",
+      "description": "通过手工活动了解世界各地在十一月举行的文化传统。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6adfc9e3035faf0033df3113",
+      "sourceFingerprint": "b4eebeb9698a06eccab04d6c44b2b26e4bfb8bbe48a324660ec4e687ba617801",
+      "title": "3–12 岁儿童纸艺 Rangoli",
+      "description": "上午 10:30 至 11:30 随时到场，制作自己的 Rangoli 图案。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-2de9456420b5788e",
+      "sourceFingerprint": "3ba7545142c14fcffed867aff1aa9f3bf222e12c858ebabfffeeab54106c5fec",
+      "title": "亲子背带舞蹈",
+      "description": "带上宝宝和婴儿背带，跟着流行音乐一起学习舞蹈。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ad152c696ec3a003adae180",
+      "sourceFingerprint": "e4e77b8bd7d73c882b78a9e7325f289e1ceacb3e8bf385321b3bf49ef0276af3",
+      "title": "Pow Wow 原住民舞蹈示范",
+      "description": "了解美洲原住民族的歌曲、舞蹈、艺术、食物和传统。Ohiya 由旧金山湾区的原住民歌手、舞者与艺术家合作组成。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a8e25dc3b6c71003e5b60bd",
+      "sourceFingerprint": "cb257aa358a1a6417d4c79f8ffdf0540ffe59de9a540b72829435f9fe463a9b0",
+      "title": "成长中的读者：帮助孩子建立写作信心",
+      "description": "由 Santa Clara County Office of Education 与 Santa Clara County Library District 的 The Reading Program 联合举办的免费家长和照护者工作坊，帮助孩子更有信心地写作。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ac7f2fe686221156abbaf77",
+      "sourceFingerprint": "40eeb7dfd374875b66e2f39fbd2cdd098d93f6a8192f00d83d44a4297aed041a",
+      "title": "排灯节海娜彩绘",
+      "description": "排灯节象征光明战胜黑暗、善战胜恶、知识战胜无知。海娜艺术家 Tinali 将为参与者的手部或手臂绘制图案。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a5abd9a82c03c5c17d8c601",
+      "sourceFingerprint": "5d705961e05ca75ce5c3f99e7706982f7a86b18a74ad8acae5d9140064768629",
+      "title": "用家中现有物品装饰节日：慢风格家居讲座",
+      "description": "了解 Slow Style Home 家居理念：在需要关怀时营造温暖、需要动力时获得灵感，并在庆祝时欢迎亲友。现场可购买作者签名图书。欢迎所有人参加。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6acfbc26295d793e2d175ba1",
+      "sourceFingerprint": "637ae575475b21b252a29fd20858beebfb9eb37af9c7c583503acd27a279fb89",
+      "title": "作家见面会：Nina Simon",
+      "description": "现场提供少量图书供购买，数量有限。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ac945b729c3d600332edba3",
+      "sourceFingerprint": "668366b76b95af30d4d71114b6462f3c026d70c3c3b27f88fe62c4f11cf13dbc",
+      "title": "木偶艺术剧场：《Super Tommy》",
+      "description": "如需填写表格的帮助，可联系当地的图书馆工作人员，致电 (408) 540-3945，或发送邮件至 ask@lib.sccgov.org。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-68fbb68b61706d28001f5dc6",
+      "sourceFingerprint": "3c84fb06f73e8273a1b3777ffb465e4d2fb065ff45da8a6bcb3cd3a5855b105d",
+      "title": "退伍军人节：流动图书车暂停服务",
+      "description": "退伍军人节期间，流动图书车暂停服务。仍可访问图书馆网站使用电子书、下载、流媒体等资源。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-68fbba8506078d3600746079",
+      "sourceFingerprint": "3926c5d0a411c29341ff490658969a76f9c35f030118d4fae43426b6ce6427c5",
+      "title": "退伍军人节：Campbell 图书馆闭馆",
+      "description": "退伍军人节期间 Campbell 图书馆闭馆。仍可访问图书馆网站使用电子书、下载、流媒体等资源。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-68fbbdcf06078d360074626c",
+      "sourceFingerprint": "cd46159974ac2cce7705e6d32b95d98ef02b12666ceb780b6269b57ce9b5ac44",
+      "title": "退伍军人节：Cupertino 图书馆闭馆",
+      "description": "退伍军人节期间 Cupertino 图书馆闭馆。仍可访问图书馆网站使用电子书、下载、流媒体等资源。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-68fbff10831f063d005394d1",
+      "sourceFingerprint": "5cbfe31f4c87d8a89c6c2ae79c9c8fa9a901344db218473b94a9cb09e605d9e2",
+      "title": "退伍军人节：Gilroy 图书馆闭馆",
+      "description": "退伍军人节期间 Gilroy 图书馆闭馆。仍可访问图书馆网站使用电子书、下载、流媒体等资源。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-68fc04f0831f063d005395ab",
+      "sourceFingerprint": "47fed60329996afadd66721156337d07b88602d454d61f2507cad36716a3b2f7",
+      "title": "退伍军人节：Los Altos 图书馆闭馆",
+      "description": "退伍军人节期间 Los Altos 图书馆闭馆。仍可访问图书馆网站使用电子书、下载、流媒体等资源。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-68fc02290562322f002cf8d0",
+      "sourceFingerprint": "8e139f60f58c0e8823b119f5d383d7f47d3c9946f0f77876637a9a46421b580e",
+      "title": "退伍军人节：Milpitas 图书馆闭馆",
+      "description": "退伍军人节期间 Milpitas 图书馆闭馆。仍可访问图书馆网站使用电子书、下载、流媒体等资源。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-68fc0826fbf38a2800206d69",
+      "sourceFingerprint": "eb7872a1a44bb87b55bf29e93abb4372cafc9fac604fcfd8322dd4e863e75df6",
+      "title": "退伍军人节：Morgan Hill 图书馆闭馆",
+      "description": "退伍军人节期间 Morgan Hill 图书馆闭馆。仍可访问图书馆网站使用电子书、下载、流媒体等资源。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-68fc0c9a886bb73600b77d79",
+      "sourceFingerprint": "dc9b3b42c0d8768f43b52f5e8a3fe8b7c93830c2b35f7172dbe5cd1aea7ea3e0",
+      "title": "退伍军人节：Saratoga 图书馆闭馆",
+      "description": "退伍军人节期间 Saratoga 图书馆闭馆。仍可访问图书馆网站使用电子书、下载、流媒体等资源。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-68fc11d1831f063d005398b5",
+      "sourceFingerprint": "dfc9e92ced469593cf0c514e8c17d136293991ea2ed369f15d9fcdc4e9795bae",
+      "title": "退伍军人节：Woodland 分馆闭馆",
+      "description": "退伍军人节期间 Woodland 图书馆分馆闭馆。仍可访问图书馆网站使用电子书、下载、流媒体等资源。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6abd5040e06996003a804e1d",
+      "sourceFingerprint": "efd3eb576c381ad7fd76d4d61ecf5c533509400567c1ce982213ec935ec3350b",
+      "title": "线上作家讲座：主厨 Pyet DeSpain",
+      "description": "欢迎参加主厨 Pyet DeSpain 的线上分享，了解她的首部食谱《Rooted in Fire: A Celebration of Native American and Mexican Cooking》。她会介绍如何使用洋姜、野牛肉等食材，制作六十多道融合菜。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a5a6f9482c03c5c17d8b1d5",
+      "sourceFingerprint": "bf1c0efd27da1ba15acef4259d458b819ba6c56ac9b9e9925a516156ba8c36f2",
+      "title": "乐高俱乐部",
+      "description": "孩子们可以根据现场提示搭建，也可以发挥想象力自由创作。Gilroy 图书馆的乐高俱乐部每月第二个星期五举行，由馆方提供积木。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6917c8b306078d360077f44b",
+      "sourceFingerprint": "e0d5d3bc90d8b1a0c921a77e986d184cc1bfc800c49aeab7a58ca9d6aaceb4d4",
+      "title": "13–25 岁 LGBTQ+ 青年安全交流空间",
+      "description": "由工作人员带领的聚会为青年提供安心交流的空间，大家可一起玩游戏、参加集体活动与讨论，并建立社区联系。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a4ec0bfc7e02e3d0067c3ea",
+      "sourceFingerprint": "07c11db47685c5b1ccad32545869aeea7b07e3cf5428860d291acf2cb7c1ea32",
+      "title": "Campbell 图书馆之友二手书及物品义卖",
+      "description": "出售拼图、游戏、精装小说、儿童图书、爱情与惊悚小说、有声书、DVD、CD 以及各类实用指南。可用现金、支票、Zelle、银行卡或 Venmo 支付。记得自带购物袋。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ada9bfc9dbc2b002c906e1f",
+      "sourceFingerprint": "c7bc6f00f671f07e801e4ee5a88aa79025f1c61cd6331e64a22f770229bd7aa2",
+      "title": "排灯节海娜手绘",
+      "description": "ShilpaKala Arts 的海娜艺术家将用简单的图案装饰你的双手。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6934d94204caba2f00d3a3dc",
+      "sourceFingerprint": "e84c73e12f23819ef05d4bc0866cbc4690652f1f26749486b6eb6cb92dfe7f43",
+      "title": "朋友一起修补衣物",
+      "description": "想学缝纫的初学者也可以学习基础手缝针法。无需报名，带上需要修补的物品或手工作品，或者使用现场布料边角料练习针法。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a839d3760ccaf01c01ef38b",
+      "sourceFingerprint": "6e182e81492b4521fd8fa9d91efee3cfe35701671fd0430ea06f2900acfbad01",
+      "title": "与 Farmer Arann 一起玩音乐",
+      "description": "Farmer Arann 会带着乐器、洪亮的歌声、独特的歌曲和充满活力的个性来到 Saratoga 图书馆。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6acea9ef9dbc2b002c8e679d",
+      "sourceFingerprint": "cd84295b719599702f245c70844ab1200ba22f06d7ef9d652efb28bb1d71f2b5",
+      "title": "印度古典舞表演",
+      "description": "Saratoga 图书馆邀请湾区优秀古典舞者表演印度古典舞。12.50pm：Nivedha Balan 演出 Innovation Song；1.00pm–1.45pm：Smt. 表演 Mohiniyattam 舞蹈。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6adbdd8ea85a2c003381be1c",
+      "sourceFingerprint": "70f7398a691e49efb588bfccf52e9aaf38c038ef313b4c6e9a0c21c5f50c1252",
+      "title": "青少年咖啡与羊角面包聚会",
+      "description": "自己冲一杯咖啡，拿一份羊角面包，与朋友轻松地一起看《Gilmore Girls》。无需报名，但座位有限。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6acbe58f29c3d600332f3cab",
+      "sourceFingerprint": "cea63104a7c58e8bed7e86fdbd22d878dc77a0fcc7c4b5e435a44347fd9f3219",
+      "title": "排灯节海娜手绘艺术",
+      "description": "本地艺术家 Tinali 将为参加活动的孩子们在手上绘制漂亮的海娜图案。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ad146389dbc2b002c8ee408",
+      "sourceFingerprint": "a2e490259f444283670f0d21af7e26b1e0e6608e7ddeda8dddc1cb629eeacae1",
+      "title": "制作属于自己的自然悬挂饰品",
+      "description": "活动提供所有材料，也欢迎自带小树枝、树叶、羽毛等材料，制作独一无二的自然风格悬挂饰品。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-74ab2daae4c44084",
+      "sourceFingerprint": "067699c46131144f08e7ec61560e09cb401e38d4905e0083f5e82e7c6acbb0aa",
+      "title": "《绿野仙踪》舞台演出",
+      "description": "沿着黄砖路，与 Dorothy 和伙伴们一起前往翡翠城，经历面对魔法师的冒险。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    }
+  ]
+}
