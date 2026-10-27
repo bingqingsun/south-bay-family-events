@@ -1,0 +1,557 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "note": "Reviewed simplified Chinese translations for missing activities restored by the 2026-10-27 source audit. Original English remains authoritative; entries apply only to exact title+description fingerprints.",
+  "entries": [
+    {
+      "id": "series-6fa7c91171100d6f",
+      "sourceFingerprint": "b4ddfc4f95b008a9d21354acd1a5b7d9b2825f779c27c42967d6ab4089c4f54b",
+      "title": "解密聊天机器人：探索人工智能",
+      "description": "与聊天机器人驱动的机器人交谈，并听专家讲述人工智能的未来。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-8e7e621aa83f6600",
+      "sourceFingerprint": "a09a107c611f324f46dc5968d3f1429b395b63f5f01eb4ffce68e1db0de515fc",
+      "title": "用软件改变世界！",
+      "description": "展览介绍七项改变世界的应用背后的历史、影响和技术：MP3、Photoshop、MRI、汽车碰撞模拟、Wikipedia、短信及《魔兽世界》。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ad7b5e3ebad22004546a9fa",
+      "sourceFingerprint": "ecc4c4f6bf2522217176157c215b908fc86c47ebdb5da82a1159d47cae841625",
+      "title": "万圣节周寻宝活动",
+      "description": "找到清单上的所有小怪物，就可以到服务台领取一份奖品。活动免费。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6ad13d1efee2d21deb238fd3",
+      "sourceFingerprint": "bd02593affe44d7630de55cd5a7153fc99605af3d260e1e7b29516eb9c3a2117",
+      "title": "亡灵节社区祭坛",
+      "description": "每年的社区祭坛将在亡灵节前一周搭建，欢迎社区居民前来参观并共同参与。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6aa42fe556fe62004a2f6bbb",
+      "sourceFingerprint": "5fada7725749110d20b1af2fc87e4abeeff9b4ee657271fb99ec29bcf5d015cf",
+      "title": "万圣节趣味寻宝",
+      "description": "书架之间藏着一些带有万圣节气氛、但并不太吓人的纸艺作品，看看你能否把它们全部找出来。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-699f51ef2866a5b4883e5159",
+      "sourceFingerprint": "bc29a5b82a5563580372efa6782326cd209ff20649f97986a306dc84711a4f01",
+      "title": "宝宝与家长同乐时间",
+      "description": "孩子们可以探索新玩具和活动，大人们则有机会聊天、彼此认识。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-67ae6d3ab77ff728002c0698",
+      "sourceFingerprint": "b79e5fdb255d48a0b02a6f08c910417b4c43dfcdb2e533f2951e946881fa3a6b",
+      "title": "Rose Garden 图书馆宝宝亲子故事会",
+      "description": "欢迎新生儿、婴幼儿及照护者通过故事、歌曲、亲子律动、童谣、图书和游戏共同学习、增进亲子联系。故事会结束后还可继续留下来玩耍。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-68cdb1eb62a8786065c374d9",
+      "sourceFingerprint": "e1e28fb1c1d9c3c19a16d013fd5364d2f96726fb7026dc7efac82d0d8dac66db",
+      "title": "家庭故事会与自由玩耍",
+      "description": "故事会结束后，欢迎全家留下来继续玩耍。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-693330536724c63d00e572c1",
+      "sourceFingerprint": "8243d3669fb5d2afa2c89e9a19094b25af64e4b0c034f52abd58f8b96371f4d5",
+      "title": "室内家庭故事会与自由玩耍",
+      "description": "适合全家参与的互动故事会，通过阅读和学习活动让各年龄段的家人体验阅读乐趣。故事会结束后还可留下来玩耍。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-677c54effea9b97171fe8f95",
+      "sourceFingerprint": "6415e090e4b96dc02f66177d978ab2924044d7f6aaf1775d73ab2cba6c4b8cab",
+      "title": "Seven Trees 婴幼儿故事会",
+      "description": "欢迎宝宝及照护者通过故事、歌曲、亲子律动、童谣、图书和游戏一起学习、增进亲子联系。故事会结束后还可继续留下来玩耍。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-64970cf0e716625b",
+      "sourceFingerprint": "3bf1eb8ecffe9f484bfb55ae23ed7d796bb4f7695367c9c5f063ccaacf32057c",
+      "title": "普通话与英语双语家庭故事会",
+      "description": "一起通过唱歌、律动和互动动作，参加充满乐趣的故事会。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-edef8729abf6fa7c",
+      "sourceFingerprint": "d3ff30b111c0ffb875426c100fd94b87ea18196b4ec98b49b04abc409bd4d57f",
+      "title": "K–6 年级免费作业辅导",
+      "description": "Saratoga 图书馆为 K–6 年级学生提供免费作业辅导。大学生志愿者导师会帮助孩子理解难点、巩固所学知识。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-2d56503476a29a49",
+      "sourceFingerprint": "2e721a0d42dfac498fae62c77d89460ff850bd2ca623d72aa8e5f16614b65f86",
+      "title": "K–6 年级作业辅导",
+      "description": "每周一、二、三、四下午 4 点至 5:30，有辅导老师为学生答疑并提供作业帮助。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-f39fce4eaadcaeb9",
+      "sourceFingerprint": "e50cd1d38d80fc3153325d02c53aef014b72ce7b91a4587a735f2c678dfecec6",
+      "title": "K–6 年级作业辅导",
+      "description": "每周二和周三下午 4:00 至 5:30，有辅导老师帮助学生完成作业。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-dab388e4c4d245c5",
+      "sourceFingerprint": "175f72d7abbac36e99436258fd6884d6c45fd995d2da26a678bfb987af49a82c",
+      "title": "K–6 年级免费作业辅导",
+      "description": "每周二和周四下午 4:30 至 6:00，由受过培训的导师提供免费作业辅导。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-9910f50ce6de0d1e",
+      "sourceFingerprint": "7199431514d79e0e5464c91b2d3b50ac6c207e2801e03baee7788b848cf59504",
+      "title": "中英双语家庭故事会",
+      "description": "这场 30 分钟的故事会包含唱歌、律动与互动动作。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-7fce332df51fc6df",
+      "sourceFingerprint": "e671ddc11db78ae86cee861410a06cd265093c54e6bb52259ff87348fee6769a",
+      "title": "幼儿故事会",
+      "description": "专为幼儿准备的故事会，包含故事、歌曲等有趣内容。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-938a5572a24750ec",
+      "sourceFingerprint": "4661961b76e8e23b1a5d105083c52a294fdf53a1567c5c07f9316dd42021ea8a",
+      "title": "幼儿故事会",
+      "description": "期待在故事会上见到大家！",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-1520b840ff624b48",
+      "sourceFingerprint": "5d9afbea8631c534f4479f935ec9880c4419e545c7c501416ccb2e74707cad28",
+      "title": "12 个月及以下宝宝故事会",
+      "description": "欢迎 12 个月及以下宝宝参加，体验有趣的互动童谣、手指游戏、动作儿歌与歌曲。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-743d51884f7bd548",
+      "sourceFingerprint": "4a4d57939ea1f68f90205745687f957618b56adf09bc626bfc049f5cc74a3c74",
+      "title": "迷你创客活动",
+      "description": "在三个不同的活动站点练习和了解精细动作技能。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-77007e75390db46d",
+      "sourceFingerprint": "2d1105463207c0edc9cf1a35d330e357638c4a39ec78c35311f22890c9849e65",
+      "title": "宝宝故事会与自由玩耍",
+      "description": "欢迎 0–1 岁、尚未学会走路的宝宝和照护者参加 20 分钟的互动活动，包括歌曲、童谣、轻柔律动、婴儿手语及绘本。之后可以留下来探索适龄玩具，家长也能与其他家庭交流。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-62089ec340040394",
+      "sourceFingerprint": "622fa98f867a18be58a9a07b8851ec9972a74f1f88cfca15f091c08e14352d47",
+      "title": "儿童乐高俱乐部",
+      "description": "孩子们可以发挥创造力和工程思维，用乐高自由搭建任何想象中的作品。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-b779a137c4d34d6d",
+      "sourceFingerprint": "42b998d09172c5c6498112ce09b63a812e88b6afb74c39978f0c84c2c5ac08ed",
+      "title": "K–5 年级作业辅导",
+      "description": "每周三和周四下午 3:30 至 4:30，辅导老师会帮助学生完成作业。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-8e1a04fc387c2938",
+      "sourceFingerprint": "d7aa8bc0f618a20b038515b804e9d8f14b28500c64027393d165c9f0741d3ab8",
+      "title": "K–6 年级作业辅导",
+      "description": "每周一和周三下午 4 点至 5:30，有导师提供作业辅导。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-bd2f185bf99b225f",
+      "sourceFingerprint": "b82242908a8f4858440fdbd5a0cbbd1d8e7d88177ecfcc5f87feac07c05a6571",
+      "title": "K–6 年级免费作业辅导",
+      "description": "学生可在小组合作环境中免费获得作业帮助。青少年志愿者导师会协助理解难点并巩固所学。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-19097995a402dbc5",
+      "sourceFingerprint": "0df9cfbd38227f52a1a433b085c9d9b131d0ced8258125c66d426a2a966b1b8b",
+      "title": "阅读闯关计划",
+      "description": "读者可以用阅读记录表追踪自己的阅读进度，在过程中收获乐趣。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-796525eb0e97032f",
+      "sourceFingerprint": "877fc1a6fc3135de48990a20b211ad4424e98f8a24ab5160c21af7ff365904bb",
+      "title": "Milpitas 儿童国际象棋俱乐部",
+      "description": "在轻松有趣的环境中下国际象棋、结交新朋友。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-d0926ea26493b319",
+      "sourceFingerprint": "978baf8e5b94ab9ead5b76f37ca6e30ef25aaf3bb221d794bf1cd742bff6b21e",
+      "title": "睡前故事会",
+      "description": "适合所有年龄参加，活动通过故事、歌曲、童谣和舞蹈帮助孩子发展早期读写能力。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a8f57416383850d1b2440ce",
+      "sourceFingerprint": "4dc418da4e9a565733c0250c240e64ca7903aee3a5d91a9344f5bc328a6bef6f",
+      "title": "0–18 个月宝宝亲子故事会",
+      "description": "这场 15–20 分钟的故事会适合 0–18 个月、尚未学会走路的宝宝及照护者一起学习和玩耍。结束后欢迎留下来继续玩耍。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-3909700a8320a277",
+      "sourceFingerprint": "181b1c6f1f1b6ffb848e5bade6acb303b2a58e44b05c6ca556347e6bf574cca6",
+      "title": "0–12 个月宝宝故事会与自由玩耍",
+      "description": "家长和宝宝一起听故事、学习和玩耍。活动面向尚未学会走路的宝宝，仅接待前 30 位宝宝，每个家庭最多可有 2 位成人参加。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-f8079c89bd093fbf",
+      "sourceFingerprint": "66b5373e3ad23fd6a50684d550a66e1833ff4ad667d0dc0b94385c9d2c7d0504",
+      "title": "图书与律动故事会",
+      "description": "故事会结束后，欢迎留下来，在全新的游戏空间中继续探索和玩耍。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-8597051f33dc21d2",
+      "sourceFingerprint": "7f322e68ae4d4bb98a8b13a271fca44f7d173982d1db90775943a27921623a29",
+      "title": "幼儿故事会",
+      "description": "通过故事、歌曲、童谣和丰富的互动律动，享受充满乐趣的故事会。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-619c002d927e8a3d",
+      "sourceFingerprint": "43577d8365eb0739aeb1a3a28e608ba030b66be4ebbd89d026cdb393129ebfe5",
+      "title": "12–36 个月幼儿故事与歌曲时间",
+      "description": "故事会包含丰富的律动、歌唱与互动动作。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-e2bbe91dd816ad88",
+      "sourceFingerprint": "f580b45a15acf5788702e40a1db445197d4200803ca4d775125906caa889e27c",
+      "title": "家庭故事会",
+      "description": "一起听故事、玩手指游戏、做动作儿歌并唱歌。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-86acd2d5ec640058",
+      "sourceFingerprint": "956d5bf578a15f4e83b94fd3264af64adb6680e5d1c15c072b1af2909f0360c3",
+      "title": "每周编织与钩针聚会",
+      "description": "带上自己的作品前来提问、寻求帮助、分享创意，并结识新朋友。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-81e40bfcf9de735c",
+      "sourceFingerprint": "35c2811cd3bea4673ebcc3f9e516bf409778e2b212407bcfa35b4fafc49aaeaf",
+      "title": "英语学习者口语交流俱乐部",
+      "description": "在轻松、友好的小组中练习英语口语，也有机会结交新朋友。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-9069011c0d4ff0e0",
+      "sourceFingerprint": "9f0b82d205060078a1a3b7ba743223bd7712f9a038ea98222c7c41c865f0c3f2",
+      "title": "幼儿欢乐聚会",
+      "description": "活动持续 30 分钟，之后是自由玩耍时间，一直进行到上午 11:40。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-2bc7d90439f2bd5c",
+      "sourceFingerprint": "e8ddfa13adfcd128afc2371f8cb8ec723bb57d0da3e045b3b2eb7fc1156980dd",
+      "title": "宝宝欢乐聚会",
+      "description": "活动持续 30 分钟，之后还有自由玩耍时间。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-e030acbc987b76cc",
+      "sourceFingerprint": "dd21d4260ce6701c4ff04fe3b8bb92cd453037f697140ef162d3a9f8037da031",
+      "title": "Milpitas 图书馆编织与钩针交流圈",
+      "description": "每周五下午一起参加编织和钩针交流活动。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6abc6381377296003a489155",
+      "sourceFingerprint": "b0e9a963791dd014c2b75ae6dacd70ff49e1d9356f17916142718f1264d1bcbd",
+      "title": "周五万圣节电影夜",
+      "description": "到图书馆观看经典万圣节主题电影。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-3d214ccc6c86c0a6",
+      "sourceFingerprint": "1f3edf09617d1b18c1700e66c1416b8ebe4be0eee095a6d3f7038bfbcdcf2cff",
+      "title": "Bluey’s Big Play（布鲁伊舞台剧）",
+      "description": "这部舞台剧由 BBC Studios 和 Andrew Kay 联合 Windmill Theatre Co. 呈现。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-65ae778921c1e606",
+      "sourceFingerprint": "3b071726fecc6a07900ba152508d127d6164af19eb4f6891006663d8c0286a36",
+      "title": "中英双语家庭故事会",
+      "description": "儿童图书馆员将用普通话和英语带领大家听故事、唱歌、玩绒布板故事和手指游戏，并完成手工作品。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-56150e2a10d1f03f",
+      "sourceFingerprint": "fabb05ec43bd556ced540b6f71a842e31de766e6bfafe4968347f343ed02a0d3",
+      "title": "生态栖息地修复：清除法国金雀花",
+      "description": "工作人员会讲解植物识别和清除方法，以及为什么需要将这种植物从当地自然环境中移除。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-7e7f2bfadce7fd53",
+      "sourceFingerprint": "db2ffa75b133bf8e0bbd21cd15d8bc5a44ace67ee136696375fe3437ec378271",
+      "title": "Cupertino 图书馆家庭故事会",
+      "description": "适合所有年龄参加，通过故事、歌曲、童谣和舞蹈，促进儿童早期读写能力的发展。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-698e125a2a787a47a5e73be8",
+      "sourceFingerprint": "5c5566f069e2f7f08d46e9c64e0647d56fd134cef70fde009e185a64cb4266ce",
+      "title": "家庭故事会：庆祝万圣节",
+      "description": "每周六上午 10:30，在 Mitchell Park 图书馆与图书馆员 Juliana 一起唱歌、念童谣、读故事。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-d86654699fc871b7",
+      "sourceFingerprint": "40b9f1e31f90e93d0cb46f4bc12b30803d1362af50d5cedea5e244754d84986e",
+      "title": "沙锤与律动",
+      "description": "欢迎家庭和照护者一起使用打击乐器、丝巾、沙锤等道具，在音乐和律动中享受乐趣。西班牙语口号邀请大家一起动起来、欢笑并跳舞。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-db40b30ece5ce688",
+      "sourceFingerprint": "f580b45a15acf5788702e40a1db445197d4200803ca4d775125906caa889e27c",
+      "title": "家庭故事会",
+      "description": "一起听故事、玩手指游戏、做动作儿歌并唱歌。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-eaf05320b23ec270",
+      "sourceFingerprint": "b94ba9c2563bba506c67784df444af15374ac6b6007ec2e7c0566c0e0c3685e2",
+      "title": "家庭故事会",
+      "description": "每周六上午举行家庭故事会，包含丰富的律动、歌唱和互动动作。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-03ae01ecce43e320",
+      "sourceFingerprint": "54b0a20503db8eb214014ebfd0da518fe6b2163c680ae4bd7419dfb80153bb15",
+      "title": "初学者吉他课程",
+      "description": "这套 4 节课的系列课程介绍节奏与拍号、吉他调音、指板上的手指位置、和弦的识读与演奏，以及指弹技巧。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "chcp-534d9874a53833e5",
+      "sourceFingerprint": "64a67543355e099689c78cf9d53523e12ad796636a9c5e84d583c2d4d9ba9acc",
+      "title": "亡灵节期间 CAH 博物馆开放活动",
+      "description": "现场设有儿童活动、表演、美食餐车、手工艺品、彩绘脸部、摊位、祭坛展示、购物和趣味比赛等内容。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6adbde39ebad220045479242",
+      "sourceFingerprint": "5295a01561cf073cf178f12d0d36b8c9481557bb7b9c06b163657cdba53a9711",
+      "title": "成人与青少年种子材料包",
+      "description": "每份材料包包含一包种子、一份介绍植物与种植方法的手册、推荐阅读及食谱或手工建议。每人限领一份。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-8d45608227b4e32e",
+      "sourceFingerprint": "9151281b5d59b0d9adf0ff52fb542afb33bad3ff5f60a46ca072aa1d071716d2",
+      "title": "周一早晨冥想与正念练习",
+      "description": "与导师 Manisha 一起冥想 20 分钟，再用 10 分钟提问交流。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-77c4e8b5cd22cc24",
+      "sourceFingerprint": "e1facc2ad660715d4593728a03dcc0b2aa353bd57749f2e34d01e51af3f80a28",
+      "title": "创作与玩耍：STEAM 探索",
+      "description": "每周一晚上与图书馆员 Beth 一起在儿童区域通过手工活动探索科学、技术、工程、艺术和数学。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-f4e125f828162f16",
+      "sourceFingerprint": "9b39c30ec2b203fe3220e1f03dfc21c79d166d9ad57c0505f9e0942034367670",
+      "title": "K–6 年级阅读伙伴活动",
+      "description": "读者每月可报名 1 次，与友善的狗狗一对一朗读，练习阅读技能。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-106365a8b879e26a",
+      "sourceFingerprint": "fad1033779dc19297795ea514f05a82f683f9c5d5e2f7595d4c940bc81644f2d",
+      "title": "周一冥想与正念练习",
+      "description": "与导师 Manisha 一起冥想 20 分钟，再用 10 分钟提问交流。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    }
+  ]
+}
