@@ -1,0 +1,177 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "note": "Grounded Chinese event translations; 125,136,137 excluded because official extraction produced unrelated navigation/footer text.",
+  "entries": [
+    {
+      "id": "series-089bf149895c15a9",
+      "sourceFingerprint": "0427e9911e60efa4ef6b95736e33769d6bd395829d5c8c575b42236723c41360",
+      "title": "感恩节：Los Altos 图书馆闭馆",
+      "description": "感恩节期间 Los Altos 图书馆闭馆。仍可通过官网使用电子书、下载和流媒体等资源。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-8b7c544195f3e405",
+      "sourceFingerprint": "952d31727345b1dae50784dc85a82a5c4bc509ba06346ef77dcc38906f43565c",
+      "title": "感恩节：Milpitas 图书馆闭馆",
+      "description": "感恩节期间 Milpitas 图书馆闭馆。仍可通过官网使用电子书、下载和流媒体等资源。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-68fc0826fbf38a2800206d6a",
+      "sourceFingerprint": "3f58d70a8ac80dc6e3b789c593fce1c661965b6a110714d4da79ec5e9e304d35",
+      "title": "感恩节：Morgan Hill 图书馆闭馆",
+      "description": "感恩节期间 Morgan Hill 图书馆闭馆。仍可通过官网使用电子书、下载和流媒体等资源。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-68fc0c9a886bb73600b77d7a",
+      "sourceFingerprint": "bb70e9775bc89ec2e221cd53916c89d298d73594900647f92713d5a1a1d9f5b7",
+      "title": "感恩节：Saratoga 图书馆闭馆",
+      "description": "感恩节期间 Saratoga 图书馆闭馆。仍可通过官网使用电子书、下载和流媒体等资源。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-e7c8bcfc3f789e55",
+      "sourceFingerprint": "390f9c5baa22af4523fe47b762fb531f225f472d7656f241e311167ff438ea2b",
+      "title": "感恩节：Woodland 图书馆分馆闭馆",
+      "description": "感恩节期间 Woodland 图书馆分馆闭馆。仍可通过官网使用电子书、下载和流媒体等资源。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a68e7ebe9de6536001ed073",
+      "sourceFingerprint": "0296154c4dc057f9a3b2631d40d8d8b2bda84a926295bbdc1aa019e4ea71ca11",
+      "title": "K–5 年级阅读伙伴",
+      "description": "孩子们可以与毛茸茸的动物朋友结伴，一对一朗读自己喜爱的图书。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a80ab1bb2047800299313ca",
+      "sourceFingerprint": "8455de7d8dc4a2e2cc203abc9dbf06164f419ef61032c2a205b09256a6219e63",
+      "title": "毛茸茸的阅读伙伴",
+      "description": "来练习阅读技巧，大声读给友善的狗狗或猫咪听，让它成为你专属的毛茸茸听众。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a760e36e30fe4845967b5e9",
+      "sourceFingerprint": "97f5acc51bda5ae9230180e2a63d9405231c3e61e7340782534e488fc464ec98",
+      "title": "K–1 年级 Bookcaterpillars 读书会",
+      "description": "如能参加，请到儿童咨询台报名并领取本期图书。每月 1 日开始报名和领取图书。活动当天会一起阅读，也可以提前读完。现场提供手工和零食。感谢 Gilroy 图书馆之友的支持。欢迎幼儿园至 1 年级儿童参加。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "rss-6a7fb7c9d4b10d00300695c1",
+      "sourceFingerprint": "c06d6bc28b5e4da9c9ea417d6c83b4db173f832da60d9a77286741c48e4801be",
+      "title": "2–3 年级 Bookworms 读书会",
+      "description": "如能参加，请到儿童咨询台报名并领取本期图书。每月 1 日开始报名和领取图书。活动当天会一起阅读，也可以提前读完。现场提供手工和零食。感谢 Gilroy 图书馆之友的支持。欢迎 2、3 年级儿童参加。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "pyt-663ec1d716693a20",
+      "sourceFingerprint": "a43bcbb924fa9f4c1d11e81d72376b06c4f72829456660409dbcfa0afcac4881",
+      "title": "《圣诞节前夜》",
+      "description": "听亲历者讲述那个著名的圣诞节前夜究竟发生了什么。她还特别强调：当晚她可并没有安静地待着！",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-5b2bcc9d188e0bb4",
+      "sourceFingerprint": "76b85dd4113d5b315914e2e92a84394b591146c4fc457a42fea6b8ec0870de95",
+      "title": "超级家庭星期日",
+      "description": "与动物园里的动物近距离见面。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "pyt-12ab169e6b033576",
+      "sourceFingerprint": "589d2bba2e73e599e32b2c286cee7ed5650100896467c56d49faec0ee7906573",
+      "title": "《亚瑟王宫廷中的康涅狄格少年》",
+      "description": "一名现代孩子参观城堡时，意外穿越到了亚瑟王的宫廷，而且她的手机完全没有信号。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "pyt-d856e3c0ef9f1fab",
+      "sourceFingerprint": "ed18b025b36e3d4f92d1c0fc30fa2b5e41c71a8dfc2317c866b135ffa76ceec8",
+      "title": "《侏儒怪的女儿》",
+      "description": "根据 Diane Stanley 的同名图书改编，讲述一个女孩如何按照自己的意愿，找到属于自己的人生角色。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "symphony-2-0",
+      "sourceFingerprint": "45a968a584b6ba8ad42d8da975d29b66137e82cc657989c5a01690b2f1cd3461",
+      "title": "我的第一场交响乐",
+      "description": "在乐器体验区，小朋友可以用自己的双手近距离探索真正的管弦乐器。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "pyt-ee795046384e1232",
+      "sourceFingerprint": "7491134f12e7bb23b143146caad43017df06c1721db44e12e43915930d4171a1",
+      "title": "《仲夏夜之梦》",
+      "description": "莎士比亚这部充满爱情、魔法和精灵恶作剧的喜剧，非常适合小型工作室演出：人数不多、合作紧密的演员阵容将以精准、活泼且相互信任的表演呈现作品。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "pyt-c85aa465979112e9",
+      "sourceFingerprint": "fdaf1c95fbb4272f4213e21c46c8a464a42b26b963049d86b7baaf67e3ebce83",
+      "title": "《爱丽丝梦游仙境》",
+      "description": "跟随爱丽丝跳进兔子洞，与她一起遇见毛毛虫、疯帽子和红心皇后，展开奇妙冒险。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "id": "series-e4cdb6bfef3fabe5",
+      "sourceFingerprint": "27ca0206faab1efce5bd291009e6d8df6563de85e355f44584a44de238c7113e",
+      "title": "我的第一场芭蕾舞",
+      "description": "演出包含《奥罗拉的婚礼》，小红帽、拇指汤姆、穿靴子的猫和蓝鸟等童话角色都会出席这场婚礼。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-assistant-reviewed",
+      "reviewedAt": "2026-10-27T00:00:00Z"
+    }
+  ]
+}
