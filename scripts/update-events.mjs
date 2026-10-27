@@ -3712,7 +3712,10 @@ const existingSourceHealth = await readFile(sourceHealthTarget, 'utf8').then(JSO
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
 const directMethods = ['jmz-family', 'stanford-venue-family', 'rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'paloalto-special-events', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'santana-row', 'annual-festival', 'chamber-seasonal', 'palo-alto-museum', 'senate-events', 'curated', 'google-visitor-events', 'eventbrite-organizer'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
-const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
+// Use the scheduled *nominal Pacific day* so a delayed GitHub Actions cron
+// cannot accidentally skip (or double-spend) the Tue/Thu search fallback.
+const weekday = process.env.SBFF_SCHEDULED_LOCAL_WEEKDAY
+  || new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
 // Tuesday/Thursday fallback. A manually dispatched `false` explicitly disables
 // it; `true` explicitly enables it on any weekday.
