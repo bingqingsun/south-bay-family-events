@@ -40,6 +40,7 @@ const before = [
   'window.SBFF_COLLECTIONS = [',
   "    Object.freeze({",
   "      slug: 'weekend-picks',",
+  "      year: 2026,",
   "      homeDescription: 'old',",
   "      homeTags: ['old'],",
   "      landingDescription: 'old',",
