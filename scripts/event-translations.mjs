@@ -30,7 +30,7 @@ function unsupportedClaimIssues(source, translated) {
     },
     {
       target: /(?:无需|不需要|不用)报名/,
-      source: /\bno registration (?:is )?required\b|\bregistration (?:is )?not required\b/,
+      source: /\bno registration (?:is )?(?:required|needed)\b|\bregistration (?:is )?not (?:required|needed)\b/,
       label: 'no-registration'
     }
   ];
