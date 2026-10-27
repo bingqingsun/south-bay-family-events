@@ -72,3 +72,18 @@ const canonicalizedResult = applyChineseTranslationCatalog([canonicalized], cano
 assert.equal(canonicalizedResult.stats.current, 1);
 assert.equal(canonicalized.translationStatus, 'current');
 assert.equal(canonicalized.translations.zh.title, '合并后的家庭活动');
+
+// Catalog overrides must follow review freshness rather than filenames.
+// Nightly automation can still supersede a reviewed entry when it is newer.
+const { shouldAcceptCatalogOverride } = await import('./load-translation-catalogs.mjs');
+assert.equal(shouldAcceptCatalogOverride(
+  { override: true, reviewedAt: '2026-10-27T10:00:00Z' },
+  { override: true, reviewedAt: '2026-10-19T18:00:00Z' }
+), false);
+assert.equal(shouldAcceptCatalogOverride(
+  { override: true, reviewedAt: '2026-10-20T10:00:00Z' },
+  { override: true, reviewedAt: '2026-10-27T18:00:00Z' }
+), true);
+assert.equal(shouldAcceptCatalogOverride(
+  { override: true }, { override: true }
+), true);
