@@ -575,12 +575,13 @@
   },
   {
     "name": "The Village at San Antonio Center",
-    "domain": "eventbrite.com",
-    "method": "eventbrite-organizer",
-    "feedUrl": "https://www.eventbrite.com/o/the-village-at-san-antonio-center-79938931743",
+    "domain": "villageatsanantoniocenter.com",
+    "method": "official-venue-calendar",
+    "feedUrl": "https://villageatsanantoniocenter.com/events/",
     "address": "645 San Antonio Rd, Mountain View",
     "city": "Mountain View",
-    "familyPattern": "family|families|children|kids?|all ages|youth|foam|puppet|creative play|mini golf|community social"
+    "familyPattern": "family|families|children|kids?|all ages|youth|foam|puppet|creative play|mini golf|community social",
+    "landingUrl": "https://villageatsanantoniocenter.com/events/"
   },
   {
     "name": "CalColor Academy",
