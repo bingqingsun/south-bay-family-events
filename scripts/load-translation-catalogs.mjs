@@ -1,5 +1,18 @@
 import { readdir, readFile } from 'node:fs/promises';
 
+// A later filename must not let a stale reviewed translation overwrite a
+// newer explicit correction. If timestamps are absent, keep legacy ordering.
+export function shouldAcceptCatalogOverride(existing, incoming) {
+  if (incoming?.override !== true) return false;
+  if (existing?.override !== true) return true;
+  const existingAt = Date.parse(existing?.reviewedAt || existing?.generatedAt || '');
+  const incomingAt = Date.parse(incoming?.reviewedAt || incoming?.generatedAt || '');
+  if (Number.isFinite(existingAt) && Number.isFinite(incomingAt)) {
+    return incomingAt >= existingAt;
+  }
+  return true;
+}
+
 export async function loadChineseTranslationCatalogs() {
   const dataDir = new URL('../data/', import.meta.url);
   const names = (await readdir(dataDir))
@@ -32,7 +45,7 @@ export async function loadChineseTranslationCatalogs() {
       const index = indexById.get(id);
       const existing = entries[index];
       if (entry.override === true) {
-        entries[index] = entry;
+        if (shouldAcceptCatalogOverride(existing, entry)) entries[index] = entry;
         continue;
       }
       if (existing?.override === true) {
