@@ -913,16 +913,27 @@ async function readEventbriteOrganizer(source) {
   const html = await response.text();
   if (!response.ok) throw new Error('Eventbrite organizer page was not valid: ' + response.status);
   const payloadText = html.match(/"upcomingEvents":(\[[\s\S]*?\]),"hasMoreUpcoming"/)?.[1];
-  if (!payloadText) {
-    // Empty organizer listings are not parser failures. Eventbrite removed
-    // upcomingEvents from some genuinely empty organizer pages.
-    if (/nothing planned right now|no upcoming events|no events currently scheduled/i.test(plainText(html))) return [];
-    throw new Error('Eventbrite organizer payload was not found and an empty calendar was not confirmed');
-  }
   let items;
-  try { items = JSON.parse(payloadText); } catch { throw new Error('Eventbrite organizer payload could not be read'); }
+  if (payloadText) {
+    try { items = JSON.parse(payloadText); } catch { throw new Error('Eventbrite organizer payload could not be read'); }
+  } else {
+    // The organizer UI is evolving; try verifiable event-detail links before
+    // treating a missing internal JSON shape as a failed calendar.
+    const links = [...new Set([...html.matchAll(/\bhref=["']([^"']+)["']/gi)].flatMap(match => {
+      try {
+        const url = new URL(decodeXml(match[1]), source.feedUrl);
+        return /(^|\.)eventbrite\.com$/i.test(url.hostname) && /^\/e\/.+-tickets-\d+/i.test(url.pathname)
+          ? [url.origin + url.pathname] : [];
+      } catch { return []; }
+    }))].slice(0, 24);
+    items = links.map(url => ({ url }));
+    if (!items.length) {
+      if (/nothing planned right now|no upcoming events|no events currently scheduled/i.test(plainText(html))) return [];
+      throw new Error('Eventbrite organizer has neither usable events nor a confirmed empty listing');
+    }
+  }
   const familyPattern = new RegExp(source.familyPattern || 'family|children|kids?|all ages|youth', 'i');
-  const available = items.filter(item => item?.url && isUpcoming(item.start_date)
+  const available = items.filter(item => item?.url && (!item.start_date || isUpcoming(item.start_date))
     && !item.is_cancelled && !item.is_protected_event
     && item.event_sales_status?.sales_status !== 'sold_out'
     && item.ticket_availability?.is_sold_out !== true
@@ -945,6 +956,7 @@ async function readEventbriteOrganizer(source) {
     const city = canonicalCity(venueAddress.city || venue.address?.addressLocality || source.city || '');
     const dateValue = String(schema.startDate || `${item.start_date}T${item.start_time || '00:00'}`).slice(0, 19);
     const endDateValue = String(schema.endDate || `${item.end_date || item.start_date}T${item.end_time || item.start_time || '23:59'}`).slice(0, 19);
+    if (!isUpcoming(dateValue, endDateValue) || !/^https?:\\/\\//i.test(item.url)) return null;
     const event = directEvent({
       id: 'eventbrite-' + createHash('sha256').update(`${item.url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
       title, dateValue, endDateValue, description,
