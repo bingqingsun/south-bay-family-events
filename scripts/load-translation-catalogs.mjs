@@ -1,18 +1,5 @@
 import { readdir, readFile } from 'node:fs/promises';
 
-// A later filename must not let a stale reviewed translation overwrite a
-// newer explicit correction. If timestamps are absent, keep legacy ordering.
-export function shouldAcceptCatalogOverride(existing, incoming) {
-  if (incoming?.override !== true) return false;
-  if (existing?.override !== true) return true;
-  const existingAt = Date.parse(existing?.reviewedAt || existing?.generatedAt || '');
-  const incomingAt = Date.parse(incoming?.reviewedAt || incoming?.generatedAt || '');
-  if (Number.isFinite(existingAt) && Number.isFinite(incomingAt)) {
-    return incomingAt >= existingAt;
-  }
-  return true;
-}
-
 export async function loadChineseTranslationCatalogs() {
   const dataDir = new URL('../data/', import.meta.url);
   const names = (await readdir(dataDir))
@@ -32,10 +19,15 @@ export async function loadChineseTranslationCatalogs() {
 
   const entries = [];
   const indexById = new Map();
+  const variantsById = new Map();
   const conflicts = [];
   for (const catalog of catalogs) {
     for (const entry of Array.isArray(catalog.data?.entries) ? catalog.data.entries : []) {
       const id = entry?.id;
+      if (id) {
+        if (!variantsById.has(id)) variantsById.set(id, []);
+        variantsById.get(id).push(entry);
+      }
       if (!id || !indexById.has(id)) {
         if (id) indexById.set(id, entries.length);
         entries.push(entry);
@@ -45,7 +37,7 @@ export async function loadChineseTranslationCatalogs() {
       const index = indexById.get(id);
       const existing = entries[index];
       if (entry.override === true) {
-        if (shouldAcceptCatalogOverride(existing, entry)) entries[index] = entry;
+        entries[index] = entry;
         continue;
       }
       if (existing?.override === true) {
@@ -63,6 +55,7 @@ export async function loadChineseTranslationCatalogs() {
     version: 1,
     locale: 'zh-Hans',
     files: catalogs.map(item => item.name),
+    variantsById,
     entries
   };
 }
