@@ -70,6 +70,7 @@ jobs:
               ;;
           esac
           local_time=$(TZ=America/Los_Angeles date -d "$nominal_utc" +%H:%M)
+          echo "SBFF_SCHEDULED_LOCAL_WEEKDAY=$(TZ=America/Los_Angeles date -d "$nominal_utc" +%a)" >> "$GITHUB_ENV"
           if [ "$local_time" != "22:17" ]; then
             echo "Scheduled duplicate maps to $local_time Pacific instead of 22:17; stopping successfully."
             echo "SKIP_REFRESH=true" >> "$GITHUB_ENV"

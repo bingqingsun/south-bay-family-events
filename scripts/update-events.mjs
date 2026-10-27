@@ -908,16 +908,72 @@ async function readCurated(source) {
 // Eventbrite organizer pages expose an official upcoming-events payload that
 // includes ticket availability. This lets us retain The Village as a durable
 // source while suppressing sold-out, cancelled, protected and expired events.
+// A retailer/community venue's first-party calendar may have no upcoming
+// entries. A verified empty state is healthy and must not be mistaken for a
+// broken third-party ticketing page. Future events require official Event
+// structured data and retain only organizer-authored facts.
+async function readOfficialVenueCalendar(source) {
+  const response = await fetch(source.feedUrl, {
+    headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000)
+  });
+  const html = await response.text();
+  if (!response.ok) throw new Error('Venue official calendar was not reachable: ' + response.status);
+  const schemas = [...html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)]
+    .flatMap(match => {
+      try { return eventNodes(JSON.parse(decodeXml(match[1]))); } catch { return []; }
+    }).filter(item => /(^|\/)Event$/i.test(Array.isArray(item?.['@type']) ? String(item['@type'][0]) : String(item?.['@type'] || '')));
+  if (!schemas.length && /\bno events currently scheduled\b|\bnothing planned right now\b/i.test(plainText(html))) return [];
+  if (!schemas.length) throw new Error('Venue calendar has neither official Event data nor a confirmed empty state');
+  return schemas.flatMap((item, index) => {
+    const title = plainText(item.name || '');
+    const description = sourceDescriptionText(item.description || '');
+    const dateValue = String(item.startDate || '').slice(0, 19);
+    const endDateValue = String(item.endDate || '').slice(0, 19);
+    const url = (() => {
+      try { return new URL(String(item.url || item['@id'] || ''), source.feedUrl).href; } catch { return ''; }
+    })();
+    if (!title || !hasUsableSourceContent(description) || !isUpcoming(dateValue, endDateValue)
+      || !url || !isOfficialUrl(url, source.domain) || isExplicitlyAdultOnly(title + ' ' + description)) return [];
+    const location = Array.isArray(item.location) ? item.location[0] : item.location || {};
+    const address = location.address || {};
+    const city = canonicalCity(address.addressLocality || source.city || '');
+    return [directEvent({
+      id: 'venue-' + createHash('sha256').update(url + '|' + dateValue).digest('hex').slice(0, 16),
+      title, dateValue, endDateValue, description,
+      image: Array.isArray(item.image) ? item.image[0] : item.image || '',
+      place: plainText(location.name || source.name),
+      address: shortAddress(address.streetAddress || source.address || '', city),
+      city, source: source.name, url, ageText: title + ' ' + description
+    })];
+  });
+}
+
 async function readEventbriteOrganizer(source) {
   const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(20000) });
   const html = await response.text();
   if (!response.ok) throw new Error('Eventbrite organizer page was not valid: ' + response.status);
   const payloadText = html.match(/"upcomingEvents":(\[[\s\S]*?\]),"hasMoreUpcoming"/)?.[1];
-  if (!payloadText) throw new Error('Eventbrite organizer payload was not found');
   let items;
-  try { items = JSON.parse(payloadText); } catch { throw new Error('Eventbrite organizer payload could not be read'); }
+  if (payloadText) {
+    try { items = JSON.parse(payloadText); } catch { throw new Error('Eventbrite organizer payload could not be read'); }
+  } else {
+    // The organizer UI is evolving; try verifiable event-detail links before
+    // treating a missing internal JSON shape as a failed calendar.
+    const links = [...new Set([...html.matchAll(/\bhref=["']([^"']+)["']/gi)].flatMap(match => {
+      try {
+        const url = new URL(decodeXml(match[1]), source.feedUrl);
+        return /(^|\.)eventbrite\.com$/i.test(url.hostname) && /^\/e\/.+-tickets-\d+/i.test(url.pathname)
+          ? [url.origin + url.pathname] : [];
+      } catch { return []; }
+    }))].slice(0, 24);
+    items = links.map(url => ({ url }));
+    if (!items.length) {
+      if (/nothing planned right now|no upcoming events|no events currently scheduled/i.test(plainText(html))) return [];
+      throw new Error('Eventbrite organizer has neither usable events nor a confirmed empty listing');
+    }
+  }
   const familyPattern = new RegExp(source.familyPattern || 'family|children|kids?|all ages|youth', 'i');
-  const available = items.filter(item => item?.url && isUpcoming(item.start_date)
+  const available = items.filter(item => item?.url && (!item.start_date || isUpcoming(item.start_date))
     && !item.is_cancelled && !item.is_protected_event
     && item.event_sales_status?.sales_status !== 'sold_out'
     && item.ticket_availability?.is_sold_out !== true
@@ -940,6 +996,7 @@ async function readEventbriteOrganizer(source) {
     const city = canonicalCity(venueAddress.city || venue.address?.addressLocality || source.city || '');
     const dateValue = String(schema.startDate || `${item.start_date}T${item.start_time || '00:00'}`).slice(0, 19);
     const endDateValue = String(schema.endDate || `${item.end_date || item.start_date}T${item.end_time || item.start_time || '23:59'}`).slice(0, 19);
+    if (!isUpcoming(dateValue, endDateValue) || !String(item.url).startsWith('https://')) return null;
     const event = directEvent({
       id: 'eventbrite-' + createHash('sha256').update(`${item.url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
       title, dateValue, endDateValue, description,
@@ -2242,39 +2299,68 @@ async function readCmt(source) {
 // Each page lists its actual ticketed performance times, age suitability,
 // price, venue and a show image—better evidence than a season-announcement.
 async function readPyt(source) {
+  // PYT migrated in September 2026 from /boxoffice/ to /shows/ and
+  // /stories-on-stage/. Discover the organizer's own production detail pages
+  // instead of relying on the retired ticket-row DOM.
   const headers = { 'user-agent': 'SouthBayFamilyEventsBot/1.0' };
   const response = await fetch(source.feedUrl, { headers, signal: AbortSignal.timeout(15000) });
   const html = await response.text();
-  if (!response.ok || !/\/boxoffice\//i.test(html)) throw new Error('PYT official show list was not valid: ' + response.status);
-  const links = [...new Set([...html.matchAll(/href=["'](https:\/\/pytnet\.org\/boxoffice\/[^"'#?]+\/?)["']/gi)].map(match => match[1]))].slice(0, 16);
+  if (!response.ok || !/\/(?:shows|stories-on-stage)\//i.test(html)) {
+    throw new Error('PYT current official show catalog was not valid: ' + response.status);
+  }
+  const links = [...new Set([...html.matchAll(/\bhref=(["'])([^"'#?]+)\1/gi)].flatMap(match => {
+    try {
+      const url = new URL(decodeXml(match[2]), source.feedUrl);
+      if (!/(^|\.)pytnet\.org$/i.test(url.hostname)) return [];
+      if (!/^\/(?:shows|stories-on-stage)\/[a-z0-9-]+\/?$/i.test(url.pathname)) return [];
+      return [url.href];
+    } catch { return []; }
+  }))].slice(0, 24);
+  if (!links.length) throw new Error('PYT current catalog has no production detail links');
   const shows = await Promise.all(links.map(async url => {
     try {
-      const detailResponse = await fetch(url, { headers, signal: AbortSignal.timeout(15000) });
-      const detail = await detailResponse.text();
-      const text = plainText(detail);
-      if (!detailResponse.ok || !/appropriate for all ages/i.test(text)) return [];
-      const title = plainText(detail.match(/<h1[^>]*class=["'][^"']*heading[^"']*["'][^>]*>([\s\S]*?)<\/h1>/i)?.[1] || '');
-      const sourceDescription = officialParagraphText(detail, {
-        excludePattern: /\b(?:audition|rehears|conflict|casting|participation fee|volunteer hours?|student groups?)\b/i
+      const response = await fetch(url, { headers, signal: AbortSignal.timeout(15000) });
+      const html = await response.text();
+      if (!response.ok) return [];
+      const text = plainText(html);
+      const title = plainText(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] || '');
+      const datesLabel = text.match(/\bDates?\s+((?:January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b[^.]{0,70}20\d{2})/i)?.[1] || '';
+      const year = datesLabel.match(/20\d{2}/)?.[0] || '';
+      const description = officialParagraphText(html, {
+        excludePattern: /\b(?:audition|rehears|casting|student groups?|processing fee|facility fee|volunteer|sponsor this|why is there a fee)\b/i
       });
-      const year = text.match(/\b(20\d{2})\b/)?.[1] || '';
-      const image = decodeXml(detail.match(/<div\s+id=["']sub-banner["'][\s\S]*?<img[^>]+src=["']([^"']+)/i)?.[1] || '');
-      const ticketRows = [...detail.matchAll(/<div\s+class=["']ticket-row["'][\s\S]*?<div\s+class=["']ticket-col ticketname["'][\s\S]*?>([\s\S]*?)<\/div>\s*<\/div>[\s\S]*?<div\s+class=["']ticket-col ticketdate["'][\s\S]*?>([\s\S]*?)<\/div>\s*<\/div>/gi)];
-      if (!title || !hasPublishableSummary(sourceDescription, { title, format: 'live-show' })) return [];
-      return ticketRows.flatMap(row => {
-        const ticketType = plainText(row[1]);
-        // The product is for families planning outings, not closed school
-        // field trips; retain only the public performance inventory.
-        if (!/general admission/i.test(ticketType)) return [];
-        const dateText = plainText(row[2]);
-        const dateValue = isoDateFromOfficialText(dateText.replace(/\b(am|pm)\b/i, `$1, ${year}`), dateText);
-        if (!isUpcoming(dateValue)) return [];
-        const event = directEvent({
-          id: 'pyt-' + createHash('sha256').update(`${url}|${dateValue}`).digest('hex').slice(0, 16), title, dateValue, description: sourceDescription,
-          image, place: 'Mountain View Center for the Performing Arts', address: source.address || '', city: source.city || '',
-          source: source.name, url, ageText: 'all ages', format: 'live-show'
+      if (!title || !year || !hasPublishableSummary(description, { title, format: 'live-show' })) return [];
+      const image = htmlAttribute(html, /<meta\b[^>]*property=["']og:image["'][^>]*content=["']([^"']+)/i);
+      const venue = text.match(/\bVenue\s+(Mountain View Center for the Performing Arts[^.]{0,85})/i)?.[1]?.trim() || 'Mountain View Center for the Performing Arts';
+      const publicTimes = [...text.matchAll(/\b(?:Mon|Tue|Wed|Thu|Thur|Fri|Sat|Sun)[a-z]*,?\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+(\d{1,2})\s+(\d{1,2}:\d{2})\s*(AM|PM)\b/gi)]
+        .filter(match => !/\bStudent Matinee\b/i.test(text.slice(match.index + match[0].length, match.index + match[0].length + 80)));
+      const sessions = publicTimes.map(match => {
+        const month = match[1];
+        const dateValue = isoDateFromOfficialText(month + ' ' + match[2] + ', ' + year, match[3] + ' ' + match[4]);
+        return dateValue;
+      }).filter(dateValue => dateValue && isUpcoming(dateValue));
+      // Productions without an official public session schedule are represented
+      // by their exact published date range, not invented performance times.
+      // Such cards direct families to the verified production detail page.
+      if (!sessions.length) {
+        const first = datesLabel.match(/\b(January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{1,2})/i);
+        if (!first) return [];
+        const dateValue = isoDateFromOfficialText(first[1] + ' ' + first[2] + ', ' + year);
+        if (!dateValue) return [];
+        const range = datesLabel.match(/\b(?:-|–|&|and|to)\s*(\d{1,2})\b/i);
+        const endDateValue = range ? isoDateFromOfficialText(first[1] + ' ' + range[1] + ', ' + year) : dateValue;
+        if (!isUpcoming(dateValue, endDateValue)) return [];
+        sessions.push({ dateValue, endDateValue });
+      }
+      return sessions.map(session => {
+        const dateValue = typeof session === 'string' ? session : session.dateValue;
+        const endDateValue = typeof session === 'string' ? '' : session.endDateValue;
+        return directEvent({
+          id: 'pyt-' + createHash('sha256').update(url + '|' + dateValue).digest('hex').slice(0, 16),
+          title, dateValue, endDateValue, description, image,
+          place: venue, address: source.address || '', city: source.city || '',
+          source: source.name, url, ageText: 'families', format: 'live-show'
         });
-        return [{ ...event, ...costInfo('$17–$20', text) }];
       });
     } catch { return []; }
   }));
@@ -3471,10 +3557,22 @@ async function search(source) {
   if (!response.ok || payload.error) {
     throw new Error(`Search failed: ${response.status}${payload.error ? ` — ${payload.error}` : ''}`);
   }
-  const candidates = (payload.organic_results || [])
-    .filter(item => item.title && item.link && isOfficialUrl(item.link, source.domain))
+  // A verified organizer may use a second, explicitly configured official
+  // hostname (e.g. the city's community calendar or its library). Restrict
+  // discovery to the allowlist; never turn search snippets into event facts.
+  const allowedHosts = [source.domain, ...(source.linkHosts || [])].filter(Boolean);
+  const organic = payload.organic_results || [];
+  const candidates = organic
+    .filter(item => item.title && item.link
+      && allowedHosts.some(host => isOfficialUrl(item.link, host)))
     .map(item => ({ ...item, source: source.name }));
-  console.log(`SerpApi discovery · ${source.name}: ${(payload.organic_results || []).length} results, ${candidates.length} official-domain candidates.`);
+  const resultHosts = [...new Set(organic.flatMap(item => {
+    try { return [new URL(item.link).hostname]; } catch { return []; }
+  }))].slice(0, 8);
+  console.log(`SerpApi discovery · ${source.name}: ${organic.length} results, ${candidates.length} allowed-official-host candidates; result hosts: ${JSON.stringify(resultHosts)}.`);
+  if (organic.length && !candidates.length) {
+    console.warn(`::warning::Fallback search returned zero verified organizer domains for ${source.name}; investigate query or organizer links.`);
+  }
   return candidates;
 }
 
@@ -3664,9 +3762,12 @@ const translationCatalog = await loadChineseTranslationCatalogs();
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const existingSourceHealth = await readFile(sourceHealthTarget, 'utf8').then(JSON.parse).catch(() => ({ sources: [] }));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['jmz-family', 'stanford-venue-family', 'rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'paloalto-special-events', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'santana-row', 'annual-festival', 'chamber-seasonal', 'palo-alto-museum', 'senate-events', 'curated', 'google-visitor-events', 'eventbrite-organizer'];
+const directMethods = ['jmz-family', 'stanford-venue-family', 'rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'paloalto-special-events', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'santana-row', 'annual-festival', 'chamber-seasonal', 'palo-alto-museum', 'senate-events', 'curated', 'google-visitor-events', 'eventbrite-organizer', 'official-venue-calendar'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
-const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
+// Use the scheduled *nominal Pacific day* so a delayed GitHub Actions cron
+// cannot accidentally skip (or double-spend) the Tue/Thu search fallback.
+const weekday = process.env.SBFF_SCHEDULED_LOCAL_WEEKDAY
+  || new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' }).format(new Date());
 // Scheduled runs have no workflow input (empty value), so they use the normal
 // Tuesday/Thursday fallback. A manually dispatched `false` explicitly disables
 // it; `true` explicitly enables it on any weekday.
@@ -3681,6 +3782,7 @@ const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'stanford-venue-family') return readStanfordVenueFamily(source);
   if (source.method === 'curated') return readCurated(source);
   if (source.method === 'google-visitor-events') return readGoogleVisitorEvents(source);
+  if (source.method === 'official-venue-calendar') return readOfficialVenueCalendar(source);
   if (source.method === 'eventbrite-organizer') return readEventbriteOrganizer(source);
   if (source.method === 'wix-events') return readWixEvents(source);
   if (source.method === 'squarespace-events') return readSquarespaceEvents(source);
@@ -3945,21 +4047,33 @@ searchSources.forEach(source => {
 // Keep separate official sessions that share one details page. The earlier
 // URL-only dedupe silently discarded all but the final time for a show such
 // as a CMT production, defeating the card's “other sessions” experience.
-const preliminaryEvents = [...new Map([...feedEvents, ...candidates]
-  .map(event => [`${event.url.toLowerCase()}|${event.dateValue || ''}`, event])).values()]
-  // A card must explain what the activity is. A source's speaker bio, social
-  // promotion, or logistics copy is not an activity summary and cannot pass
-  // this final publication gate.
-  .filter(event => hasUsableSourceContent(event.description))
-  // A closure notice is useful operational information, but it is not a
-  // family activity and must never enter the browse catalog.
-  .filter(event => !/\b(?:library|bookmobile|museum|park|facility|center)\b.*\bclosed\b|\bclosed\b.*\b(?:library|bookmobile|museum|park|facility|center)\b/i.test(event.title || ''))
-  .filter(event => !isUnavailableEvent(event))
-  .filter(isFamilyRelevant)
-  .map(withPresentationFields)
+// Track publication losses by source and by stage. A feed that parses 489
+// entries but publishes zero is not a healthy feed; operators need the exact
+// gate that rejected its records, rather than a misleading source=ok status.
+const publicationStages = {};
+let publicationCandidates = [...new Map([...feedEvents, ...candidates]
+  .map(event => [`${String(event.url || '').toLowerCase()}|${event.dateValue || ''}`, event])).values()];
+function publicationStage(name, predicate) {
+  const before = publicationCandidates;
+  publicationCandidates = before.filter(predicate);
+  const counts = array => array.reduce((totals, event) => {
+    totals[event.source || 'unknown'] = (totals[event.source || 'unknown'] || 0) + 1;
+    return totals;
+  }, {});
+  publicationStages[name] = { before: counts(before), after: counts(publicationCandidates) };
+}
+publicationStage('usable-official-description', event => hasUsableSourceContent(event.sourceDescriptionRaw || event.description));
+publicationStage('not-closure', event => !/\\b(?:library|bookmobile|museum|park|facility|center)\\b.*\\bclosed\\b|\\bclosed\\b.*\\b(?:library|bookmobile|museum|park|facility|center)\\b/i.test(event.title || ''));
+publicationStage('available', event => !isUnavailableEvent(event));
+publicationStage('family-relevant', isFamilyRelevant);
+publicationCandidates = publicationCandidates.map(withPresentationFields);
+publicationStage('quality-reviewed', event => Boolean(qualityGateSummary(event)));
+const preliminaryEvents = publicationCandidates
   .map(qualityGateSummary)
   .filter(Boolean)
   .sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
+console.log('Publication stages by source: ' + JSON.stringify(publicationStages));
+sourceHealth.publicationStages = publicationStages;
 
 function eventTitleTokens(title) {
   return new Set(plainText(title).toLowerCase().replace(/\b(?:san|jose|milpitas|palo|alto|santa|clara|cupertino|sunnyvale|mountain|view|los)\b/g, '')
@@ -4075,6 +4189,14 @@ function coalesceCrossSourceDuplicates(events) {
   return result;
 }
 
+console.log('Publication before grouping: ' + JSON.stringify({
+  count: preliminaryEvents.length,
+  sccld: preliminaryEvents.filter(event => event.source === 'Santa Clara County Library District').length,
+  sample: preliminaryEvents.filter(event => event.source === 'Santa Clara County Library District').slice(0, 4).map(event => ({
+    title: event.title, start: event.dateValue, end: event.endDateValue,
+    active: isStillActive(event)
+  }))
+}));
 const individualEvents = coalesceCrossSourceDuplicates(preliminaryEvents)
   .map(withEffectiveEndTime)
   .sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
@@ -4243,6 +4365,12 @@ function groupRepeatedSessions(items) {
 // Apply presentation derivation once more after that selection so stale cards
 // cannot reintroduce a legacy type/icon/tag into the final published payload.
 const scheduledEvents = groupRepeatedSessions(individualEvents).map(withPresentationFields);
+console.log('Publication after grouping: ' + JSON.stringify({
+  individual: individualEvents.length,
+  individualSccld: individualEvents.filter(event => event.source === 'Santa Clara County Library District').length,
+  scheduled: scheduledEvents.length,
+  scheduledSccld: scheduledEvents.filter(event => event.source === 'Santa Clara County Library District').length
+}));
 
 if (!scheduledEvents.length) throw new Error('No verified upcoming events; leaving the published list unchanged.');
 
@@ -4335,6 +4463,16 @@ const canonicalDetail = await enrichCanonicalEvents(events, {
   concurrency: 6,
   timeoutMs: 12000
 });
+console.log('Publication at canonical detail: ' + JSON.stringify({
+  before: events.length,
+  beforeSccld: events.filter(event => event.source === 'Santa Clara County Library District').length,
+  after: canonicalDetail.events.length,
+  afterSccld: canonicalDetail.events.filter(event => event.source === 'Santa Clara County Library District').length,
+  unavailableSccld: canonicalDetail.events.filter(event => event.source === 'Santa Clara County Library District' && isUnavailableEvent(event)).length,
+  sample: canonicalDetail.events.filter(event => event.source === 'Santa Clara County Library District').slice(0, 3).map(event => ({
+    title: event.title, dateValue: event.dateValue, unavailable: isUnavailableEvent(event), description: String(event.description || '').slice(0, 100)
+  }))
+}));
 events = canonicalDetail.events
   .filter(event => !isUnavailableEvent(event))
   .map(event => {
@@ -4485,6 +4623,32 @@ if ((linkHealthSummary['not-found'] || 0) + (linkHealthSummary['content-mismatch
 // engine before publication; structured/manual records keep their verified
 // wording while adopting the current contract version.
 events = events.map(event => upgradeSummaryRecordVersion(event, { verifiedAt: generatedAt }));
+
+// Validate *published* source coverage, not merely a successful HTTP response.
+const publishedSourceCounts = events.reduce((counts, event) => {
+  counts[event.source || 'unknown'] = (counts[event.source || 'unknown'] || 0) + 1;
+  return counts;
+}, {});
+sourceHealth.publishedSourceCounts = publishedSourceCounts;
+const zeroOutputSources = directSources.filter(source => {
+  const fetched = sourceRefreshCounts[`${source.name} [${source.method || 'rss'}]`] || 0;
+  // Five CineLux sites are intentionally consolidated under the shared
+  // "CineLux Theatres" public organizer name.
+  if (source.method === 'cinelux') return false;
+  return fetched >= 20 && (publishedSourceCounts[source.name] || 0) === 0;
+});
+if (zeroOutputSources.length) {
+  const details = zeroOutputSources.map(source => ({
+    source: source.name,
+    fetched: sourceRefreshCounts[`${source.name} [${source.method || 'rss'}]`],
+    stages: Object.fromEntries(Object.entries(publicationStages).map(([key, value]) => [
+      key, { before: value.before[source.name] || 0, after: value.after[source.name] || 0 }
+    ]))
+  }));
+  console.error('::error::Official feeds with catastrophic publication loss: ' + JSON.stringify(details));
+  // Never publish a new catalog silently dropping a large, successful source.
+  throw new Error('Publication coverage gate blocked a destructive catalog refresh.');
+}
 
 const { stats: translationStats } = applyChineseTranslationCatalog(events, translationCatalog, {
   generatedAt,

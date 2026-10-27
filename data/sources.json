@@ -412,7 +412,7 @@
     "name": "Peninsula Youth Theatre",
     "domain": "pytnet.org",
     "method": "pyt",
-    "feedUrl": "https://pytnet.org/",
+    "feedUrl": "https://pytnet.org/shows/",
     "address": "500 Castro St, Mountain View",
     "city": "Mountain View"
   },
@@ -481,9 +481,11 @@
   {
     "name": "City of Los Altos Parks & Recreation",
     "domain": "losaltosca.gov",
-    "method": "ics",
-    "feedUrl": "https://www.losaltosca.gov/common/modules/iCalendar/iCalendar.aspx?catID=37&feed=calendar",
-    "city": "Los Altos"
+    "method": "civic",
+    "feedUrl": "https://www.losaltosca.gov/calendar.aspx",
+    "city": "Los Altos",
+    "discoveryPattern": "family|children|kids?|youth|teen|parks|recreation|art|music|festival|celebration|holiday|halloween",
+    "detailFamilyPattern": "family|families|children|kids?|youth|teen|all ages|craft|music|festival|celebration"
   },
   {
     "name": "Gamble Garden",
@@ -573,12 +575,13 @@
   },
   {
     "name": "The Village at San Antonio Center",
-    "domain": "eventbrite.com",
-    "method": "eventbrite-organizer",
-    "feedUrl": "https://www.eventbrite.com/o/the-village-at-san-antonio-center-79938931743",
+    "domain": "villageatsanantoniocenter.com",
+    "method": "official-venue-calendar",
+    "feedUrl": "https://villageatsanantoniocenter.com/events/",
     "address": "645 San Antonio Rd, Mountain View",
     "city": "Mountain View",
-    "familyPattern": "family|families|children|kids?|all ages|youth|foam|puppet|creative play|mini golf|community social"
+    "familyPattern": "family|families|children|kids?|all ages|youth|foam|puppet|creative play|mini golf|community social",
+    "landingUrl": "https://villageatsanantoniocenter.com/events/"
   },
   {
     "name": "CalColor Academy",
