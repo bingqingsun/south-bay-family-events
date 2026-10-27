@@ -4407,6 +4407,16 @@ const canonicalDetail = await enrichCanonicalEvents(events, {
   concurrency: 6,
   timeoutMs: 12000
 });
+console.log('Publication at canonical detail: ' + JSON.stringify({
+  before: events.length,
+  beforeSccld: events.filter(event => event.source === 'Santa Clara County Library District').length,
+  after: canonicalDetail.events.length,
+  afterSccld: canonicalDetail.events.filter(event => event.source === 'Santa Clara County Library District').length,
+  unavailableSccld: canonicalDetail.events.filter(event => event.source === 'Santa Clara County Library District' && isUnavailableEvent(event)).length,
+  sample: canonicalDetail.events.filter(event => event.source === 'Santa Clara County Library District').slice(0, 3).map(event => ({
+    title: event.title, dateValue: event.dateValue, unavailable: isUnavailableEvent(event), description: String(event.description || '').slice(0, 100)
+  }))
+}));
 events = canonicalDetail.events
   .filter(event => !isUnavailableEvent(event))
   .map(event => {
