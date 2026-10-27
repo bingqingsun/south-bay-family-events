@@ -908,6 +908,46 @@ async function readCurated(source) {
 // Eventbrite organizer pages expose an official upcoming-events payload that
 // includes ticket availability. This lets us retain The Village as a durable
 // source while suppressing sold-out, cancelled, protected and expired events.
+// A retailer/community venue's first-party calendar may have no upcoming
+// entries. A verified empty state is healthy and must not be mistaken for a
+// broken third-party ticketing page. Future events require official Event
+// structured data and retain only organizer-authored facts.
+async function readOfficialVenueCalendar(source) {
+  const response = await fetch(source.feedUrl, {
+    headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000)
+  });
+  const html = await response.text();
+  if (!response.ok) throw new Error('Venue official calendar was not reachable: ' + response.status);
+  const schemas = [...html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)]
+    .flatMap(match => {
+      try { return eventNodes(JSON.parse(decodeXml(match[1]))); } catch { return []; }
+    }).filter(item => /(^|\/)Event$/i.test(Array.isArray(item?.['@type']) ? String(item['@type'][0]) : String(item?.['@type'] || '')));
+  if (!schemas.length && /\bno events currently scheduled\b|\bnothing planned right now\b/i.test(plainText(html))) return [];
+  if (!schemas.length) throw new Error('Venue calendar has neither official Event data nor a confirmed empty state');
+  return schemas.flatMap((item, index) => {
+    const title = plainText(item.name || '');
+    const description = sourceDescriptionText(item.description || '');
+    const dateValue = String(item.startDate || '').slice(0, 19);
+    const endDateValue = String(item.endDate || '').slice(0, 19);
+    const url = (() => {
+      try { return new URL(String(item.url || item['@id'] || ''), source.feedUrl).href; } catch { return ''; }
+    })();
+    if (!title || !hasUsableSourceContent(description) || !isUpcoming(dateValue, endDateValue)
+      || !url || !isOfficialUrl(url, source.domain) || isExplicitlyAdultOnly(title + ' ' + description)) return [];
+    const location = Array.isArray(item.location) ? item.location[0] : item.location || {};
+    const address = location.address || {};
+    const city = canonicalCity(address.addressLocality || source.city || '');
+    return [directEvent({
+      id: 'venue-' + createHash('sha256').update(url + '|' + dateValue).digest('hex').slice(0, 16),
+      title, dateValue, endDateValue, description,
+      image: Array.isArray(item.image) ? item.image[0] : item.image || '',
+      place: plainText(location.name || source.name),
+      address: shortAddress(address.streetAddress || source.address || '', city),
+      city, source: source.name, url, ageText: title + ' ' + description
+    })];
+  });
+}
+
 async function readEventbriteOrganizer(source) {
   const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(20000) });
   const html = await response.text();
@@ -3722,7 +3762,7 @@ const translationCatalog = await loadChineseTranslationCatalogs();
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const existingSourceHealth = await readFile(sourceHealthTarget, 'utf8').then(JSON.parse).catch(() => ({ sources: [] }));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['jmz-family', 'stanford-venue-family', 'rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'paloalto-special-events', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'santana-row', 'annual-festival', 'chamber-seasonal', 'palo-alto-museum', 'senate-events', 'curated', 'google-visitor-events', 'eventbrite-organizer'];
+const directMethods = ['jmz-family', 'stanford-venue-family', 'rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'paloalto-special-events', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'santana-row', 'annual-festival', 'chamber-seasonal', 'palo-alto-museum', 'senate-events', 'curated', 'google-visitor-events', 'eventbrite-organizer', 'official-venue-calendar'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 // Use the scheduled *nominal Pacific day* so a delayed GitHub Actions cron
 // cannot accidentally skip (or double-spend) the Tue/Thu search fallback.
@@ -3742,6 +3782,7 @@ const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'stanford-venue-family') return readStanfordVenueFamily(source);
   if (source.method === 'curated') return readCurated(source);
   if (source.method === 'google-visitor-events') return readGoogleVisitorEvents(source);
+  if (source.method === 'official-venue-calendar') return readOfficialVenueCalendar(source);
   if (source.method === 'eventbrite-organizer') return readEventbriteOrganizer(source);
   if (source.method === 'wix-events') return readWixEvents(source);
   if (source.method === 'squarespace-events') return readSquarespaceEvents(source);
