@@ -87,3 +87,9 @@ assert.equal(shouldAcceptCatalogOverride(
 assert.equal(shouldAcceptCatalogOverride(
   { override: true }, { override: true }
 ), true);
+
+// Library organizers commonly say 'no registration needed' instead of 'required'.
+assert.equal(auditChineseTranslation(
+  { title: 'Poetry', description: 'No registration needed. Read poems together.' },
+  { title: '诗歌朗读', description: '无需报名，大家一起朗读诗歌。' }
+).ok, true);
