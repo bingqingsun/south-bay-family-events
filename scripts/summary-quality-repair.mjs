@@ -120,6 +120,12 @@ export function repairEventSummaries(events) {
     if (result.changed) {
       changed += 1;
       repaired.push({ id: event.id, title: event.title, issues: result.issues, summary: result.event.parentSummary });
+    } else if (result.issues.includes('overlong_card_summary')) {
+      // A very long, unsegmentable organizer paragraph cannot be used as an
+      // event card. Keep the source intact for later review rather than
+      // truncating to a misleading fragment or blocking unrelated events.
+      excluded.push({ id: event.id, title: event.title, source: event.source, reason: 'unrepairable_overlong_summary' });
+      continue;
     } else if (result.issues.length) {
       unresolved.push({ id: event.id, title: event.title, issues: result.issues, summary: event.parentSummary || event.description });
     }
