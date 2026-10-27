@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { enrichEventFromDetail, detailCompletenessScore, DETAIL_QUALITY_STATES } from './lib/detail-enrichment.mjs';
 import { genericDetailExtraction } from './lib/detail-extractors/generic.mjs';
+import { isOfficialClosureNotice, pytSynopsisFromDetail } from './lib/source-detail-repair.mjs';
 
 const baseEvent = {
   id: 'e1',
@@ -434,5 +435,39 @@ const source = { name: 'City Test', method: 'civic', domain: 'example.gov', city
   const result = enrichEventFromDetail(event, { source, html, finalUrl: event.url });
   assert.equal(result.event.address, '');
 }
+
+// Operational closures are not family outings even if the source CMS lists
+// them as events. Do not accidentally hide genuine museum open days.
+assert.equal(isOfficialClosureNotice('CAH Museum Closed for Thanksgiving Holiday', 'The museum will be CLOSED for the holiday.'), true);
+assert.equal(isOfficialClosureNotice('Cupertino Library Closed for Veterans Day', ''), true);
+assert.equal(isOfficialClosureNotice('CAH Museum Open', 'Museum tours and cultural events.'), false);
+assert.equal(isOfficialClosureNotice('Children’s Museum Celebration', 'Enjoy history and crafts with your family.'), false);
+
+// PYT production detail pages place story text after their show-specific CTA.
+// Generic <p> scanning can otherwise grab copyright/fee notices in the footer.
+const singingHtml = `
+<html><body><h1>Singin' In The Rain</h1><div>Dates March 13-21, 2027</div>
+<div>Venue Mountain View Center for the Performing Arts</div>
+<a>Buy Tickets</a><a>Sponsor This Show</a>
+<div>Based on the Greatest Movie Musical of All Time, this Hollywood classic is packed with hilarious situations, snappy dialogue, and a hit-parade score that will have the house tapping their toes.</div>
+<div>Screenplay By: Betty Comden and Adolph Green.</div>
+<footer><p>Read this site in Spanish © 2026 Peninsula Youth Theatre is a 501(c)(3) nonprofit.</p></footer>
+</body></html>`;
+const singingText = pytSynopsisFromDetail(singingHtml, "Singin' In The Rain");
+assert.match(singingText, /Hollywood classic is packed/);
+assert.doesNotMatch(singingText, /Screenplay By|site in Spanish|501/);
+assert.equal(pytSynopsisFromDetail(singingHtml, 'Different Musical'), '');
+
+const lillyHtml = `
+<html><body><h1>Lilly's Purple Plastic Purse</h1><p>Dates April 9 & 10, 2027</p>
+<div>Buy Tickets Sponsor This Show</div>
+<section>Lilly loves everything! School, dressing up, and even her stinky baby brother, Julius. But when she cannot wait until sharing time to show off her purple plastic purse and sunglasses, things do not quite go as planned.</section>
+<div>Why is there a fee on my ticket? The venue adds a facility fee.</div>
+<footer><p>Read this site in Spanish and see our copyright notice.</p></footer>
+</body></html>`;
+const lillyText = pytSynopsisFromDetail(lillyHtml, "Lilly's Purple Plastic Purse");
+assert.match(lillyText, /purple plastic purse/);
+assert.doesNotMatch(lillyText, /fee on my ticket|copyright/);
+assert.equal(pytSynopsisFromDetail('<h1>Singin In The Rain</h1><footer>Read this site in Spanish</footer>', 'Singin In The Rain'), '');
 
 console.log('detail-enrichment tests passed');

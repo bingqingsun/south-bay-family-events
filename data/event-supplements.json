@@ -484,5 +484,30 @@
     "format": "workshop",
     "replaceExisting": true,
     "verifiedAt": "2026-10-27T08:27:00-07:00"
+  },
+  {
+    "id": "rss-6a77a9a6a5e5f025a9ced0c9",
+    "title": "Tween Dungeons and Dragons",
+    "dateValue": "2026-10-28T15:30",
+    "endDateValue": "2026-10-28T17:00",
+    "description": "Kids ages 9–12 join a fall Dungeons & Dragons adventure, with a Game Master who helps newcomers learn the game. This session is fully registered; families can contact Librarian Charlie Roos about joining the waitlist for future sessions.",
+    "sourceDescriptionRaw": "Join our quest for valor! Kids ages 9-12 are invited to register for our Fall Session of Tween Dungeons and Dragons. Don't know how to play? No problem! Our Game Master will teach you everything you need to know to enjoy this world of monsters and magic. We're sorry, this event is full. Contact Librarian Charlie Roos to be added to a waitlist for future sessions.",
+    "place": "Campbell Library",
+    "city": "Campbell",
+    "source": "Santa Clara County Library District",
+    "url": "https://sccl.bibliocommons.com/events/6a77a9a6a5e5f025a9ced0c9",
+    "ageMin": 9,
+    "ageMax": 12,
+    "ageLabel": "Ages 9–12",
+    "ageSource": "Santa Clara County Library District official event description",
+    "registrationStatus": "full",
+    "registrationSource": "Santa Clara County Library District official registration",
+    "registrationEvidence": "Registration full. Contact Librarian Charlie Roos for a waitlist for future sessions.",
+    "costStatus": "unknown",
+    "costLabel": "费用未注明",
+    "type": "community",
+    "format": "program",
+    "replaceExisting": true,
+    "verifiedAt": "2026-10-27T21:30:00Z"
   }
 ]

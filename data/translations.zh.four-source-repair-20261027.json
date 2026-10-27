@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "note": "Official synopsis and confirmed audience/registration facts for corrected 2026-10-27 canonical sources. Only active on exact title+summary SHA-256.",
+  "entries": [
+    {
+      "id": "pyt-1a3052d0b67be2ab",
+      "sourceFingerprint": "0a5648745f50706d1779104e1dff61e3c2ce7cf9cc3b6d54c8695691f9dff43b",
+      "title": "《雨中曲》",
+      "description": "改编自经典好莱坞歌舞电影，这部音乐剧充满幽默情节、机智对白与动听的歌曲，让观众随着音乐轻快律动。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-official-source",
+      "reviewedAt": "2026-10-27T21:58:00Z"
+    },
+    {
+      "id": "pyt-a9030faf5041ecec",
+      "sourceFingerprint": "d15ab0cc8c640c2b983b49db05ff0ecaae0771822fca2d51fba762e2fd1fa4f8",
+      "title": "《莉莉的紫色塑料小包》",
+      "description": "改编自 Kevin Henkes 的同名儿童绘本，故事幽默、温暖又动人，尤其适合年幼的观众。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-official-source",
+      "reviewedAt": "2026-10-27T21:58:00Z"
+    },
+    {
+      "id": "rss-6a77a9a6a5e5f025a9ced0c9",
+      "sourceFingerprint": "d1d36dc6c4f3da86ab4c7ab434896a6be9f8f88334fb969f83fa5d29ce53a929",
+      "title": "儿童《龙与地下城》桌游活动",
+      "description": "9–12 岁儿童可在游戏主持人的指导下体验秋季《龙与地下城》冒险，新手也能学习游戏规则。本期活动已经报满，家长可联系图书馆员 Charlie Roos，询问未来场次的候补名单。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-official-source",
+      "reviewedAt": "2026-10-27T21:58:00Z"
+    }
+  ]
+}
