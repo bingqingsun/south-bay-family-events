@@ -61,7 +61,7 @@ function cancelled(html, title, source = {}) {
   if (source.method === 'rss') return false;
   const withoutChrome = String(html || '')
     .replace(/<script\b[^>]*>[\s\S]*?<\/script>|<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
-    .replace(/<(?:nav|footer)\b[^>]*>[\s\S]*?<\/(?:nav|footer)>/gi, ' ');
+    .replace(/<(?:nav|footer|aside)\b[^>]*>[\s\S]*?<\/(?:nav|footer|aside)>/gi, ' ');
   const heading = [...withoutChrome.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/gi)]
     .find(match => sameEventIdentity(title, plainText(match[1])));
   if (!heading) return false;
