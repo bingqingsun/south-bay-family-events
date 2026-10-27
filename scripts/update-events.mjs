@@ -4121,6 +4121,14 @@ function coalesceCrossSourceDuplicates(events) {
   return result;
 }
 
+console.log('Publication before grouping: ' + JSON.stringify({
+  count: preliminaryEvents.length,
+  sccld: preliminaryEvents.filter(event => event.source === 'Santa Clara County Library District').length,
+  sample: preliminaryEvents.filter(event => event.source === 'Santa Clara County Library District').slice(0, 4).map(event => ({
+    title: event.title, start: event.dateValue, end: event.endDateValue,
+    active: isStillActive(event)
+  }))
+}));
 const individualEvents = coalesceCrossSourceDuplicates(preliminaryEvents)
   .map(withEffectiveEndTime)
   .sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
@@ -4289,6 +4297,12 @@ function groupRepeatedSessions(items) {
 // Apply presentation derivation once more after that selection so stale cards
 // cannot reintroduce a legacy type/icon/tag into the final published payload.
 const scheduledEvents = groupRepeatedSessions(individualEvents).map(withPresentationFields);
+console.log('Publication after grouping: ' + JSON.stringify({
+  individual: individualEvents.length,
+  individualSccld: individualEvents.filter(event => event.source === 'Santa Clara County Library District').length,
+  scheduled: scheduledEvents.length,
+  scheduledSccld: scheduledEvents.filter(event => event.source === 'Santa Clara County Library District').length
+}));
 
 if (!scheduledEvents.length) throw new Error('No verified upcoming events; leaving the published list unchanged.');
 
@@ -4540,6 +4554,9 @@ const publishedSourceCounts = events.reduce((counts, event) => {
 sourceHealth.publishedSourceCounts = publishedSourceCounts;
 const zeroOutputSources = directSources.filter(source => {
   const fetched = sourceRefreshCounts[`${source.name} [${source.method || 'rss'}]`] || 0;
+  // Five CineLux sites are intentionally consolidated under the shared
+  // "CineLux Theatres" public organizer name.
+  if (source.method === 'cinelux') return false;
   return fetched >= 20 && (publishedSourceCounts[source.name] || 0) === 0;
 });
 if (zeroOutputSources.length) {
