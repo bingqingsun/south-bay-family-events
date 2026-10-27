@@ -1,0 +1,25 @@
+name: Audit event-source publication
+on:
+  pull_request:
+    paths:
+      - 'scripts/update-events.mjs'
+      - 'data/sources.json'
+      - '.github/workflows/source-publication-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run real feed-to-publication audit without publishing
+        env:
+          INCLUDE_SERPAPI: 'false'
+        run: |
+          node scripts/update-events.mjs
+          node scripts/test-summary-output.mjs
