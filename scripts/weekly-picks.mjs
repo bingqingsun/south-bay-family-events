@@ -82,7 +82,8 @@ function score(event, friday) {
   return value;
 }
 
-export function choosePicks(events, friday, { min = 8, max = 14 } = {}) {
+// Quality and diversity gates are stronger than a fixed card count; sparse weekends may have five good picks.
+export function choosePicks(events, friday, { min = 5, max = 14 } = {}) {
   const candidates = candidateEvents(events, friday).sort((a, b) =>
     score(b, friday) - score(a, friday) ||
     String(a.dateValue).localeCompare(String(b.dateValue)) ||

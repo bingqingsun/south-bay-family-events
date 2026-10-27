@@ -33,6 +33,7 @@ events.push({
 
 assert.equal(candidateEvents(events, '2026-10-30').length, 10);
 assert.equal(choosePicks(events, '2026-10-30').length, 10);
+assert.equal(choosePicks(events.slice(0, 6), '2026-10-30').length, 6, 'Sparse weekends publish quality selections without padding');
 assert.equal(editorialPicks(events, '2026-10-30').length, 10);
 assert.throws(() => choosePicks(events.slice(0, 2), '2026-10-30'), /publish gate/);
 
