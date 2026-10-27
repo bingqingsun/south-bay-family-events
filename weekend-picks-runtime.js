@@ -141,7 +141,8 @@
     const validPicks = resolvedPicks.filter(pick => !expiredPicks.includes(pick));
     const today = currentPacificDate();
     let state = 'draft';
-    if (source.status === 'published') {
+    if (source.status === 'ended') state = 'ended';
+    else if (source.status === 'published') {
       if (today > source.weekendEnd) state = 'ended';
       else if (!validPicks.length && source.picks.length) state = 'data_error';
       else if (validPicks.length) state = 'live';

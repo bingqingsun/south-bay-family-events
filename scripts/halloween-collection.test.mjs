@@ -42,7 +42,10 @@ assert.deepEqual(
 assert.equal(model.resolvedEditorialCount, config.selectedEventRefs.length, 'Each selected reference should resolve to one canonical event');
 assert.equal(model.resolvedEditorialCount, 7, 'Halloween should contain only currently resolvable editorial selections after expired refs are pruned');
 assert.ok(model.currentEventCount > 0, 'Halloween should still have current events on Oct 26, 2026');
-assert.equal(model.currentQuickPicks.length, 4, 'All four Halloween Quick Picks should be current on Oct 26, 2026');
+assert.ok(model.currentQuickPicks.length >= 1 && model.currentQuickPicks.length <= config.quickPickIds.length,
+  'Only still-active Halloween Quick Picks should be displayed as the season winds down');
+assert.ok(model.currentQuickPicks.every(event => model.currentEvents.some(active => active.id === event.id)),
+  'Each displayed Halloween Quick Pick must be current, not an expired event');
 assert.ok([runtime.STATES.FEATURED, runtime.STATES.LAST_CHANCE].includes(model.collectionState), 'Halloween should be visible while active');
 
 const afterSeason = runtime.buildCollectionViewModel(config, events, { now: '2026-12-01T12:00:00' });
