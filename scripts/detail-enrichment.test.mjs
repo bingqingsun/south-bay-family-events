@@ -211,6 +211,25 @@ const source = { name: 'City Test', method: 'civic', domain: 'example.gov', city
   assert.equal(result.diagnostics.detail_status, 'cancelled');
 }
 
+// Generic cancellation language in global chrome must never cancel
+// unrelated organizer activities (a regression for BiblioCommons RSS).
+{
+  const html = '<html><body><h1>Family Lantern Night</h1><p>Families make lanterns, listen to music, and enjoy crafts together.</p><footer><p>This event has been cancelled.</p></footer></body></html>';
+  const result = enrichEventFromDetail(baseEvent, { source, html, finalUrl: baseEvent.url });
+  assert.notEqual(result.diagnostics.quality_state, DETAIL_QUALITY_STATES.CANCELLED);
+}
+{
+  const html = '<html><body><h1>Family Lantern Night</h1><p>This event has been cancelled.</p></body></html>';
+  const rss = { ...source, method: 'rss' };
+  const result = enrichEventFromDetail(baseEvent, { source: rss, html, finalUrl: baseEvent.url });
+  assert.notEqual(result.diagnostics.quality_state, DETAIL_QUALITY_STATES.CANCELLED);
+}
+{
+  const html = '<html><body><h1>Family Lantern Night</h1><p>Families make lanterns and play games.</p><aside><h2>Another event</h2><p>This event has been cancelled.</p></aside></body></html>';
+  const result = enrichEventFromDetail(baseEvent, { source, html, finalUrl: baseEvent.url });
+  assert.notEqual(result.diagnostics.quality_state, DETAIL_QUALITY_STATES.CANCELLED);
+}
+
 // Identity mismatch protects against a recycled or redirected detail URL.
 {
   const html = `<html><body><h1>Adult Tax Workshop</h1><p>Tax filing information for adults.</p></body></html>`;
