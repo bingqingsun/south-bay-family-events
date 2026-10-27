@@ -51,8 +51,25 @@ function meaningfulPlace(value, sourceName) {
   return Boolean(text && text.toLowerCase() !== plainText(sourceName).toLowerCase());
 }
 
-function cancelled(text) {
-  return /\b(?:this event (?:has been )?cancell?ed|event cancell?ed|cancelled event)\b/i.test(text);
+// A full webpage may contain a global "this event was cancelled" message
+// from search widgets, hidden templates or neighboring events. Treat only
+// evidence tied to the current event as a cancellation.
+function cancelled(html, title, source = {}) {
+  // BiblioCommons and other RSS partners already expose a per-occurrence
+  // is_cancelled field, screened during RSS ingestion. Generic page chrome
+  // cannot override that authoritative event-level status.
+  if (source.method === 'rss') return false;
+  const withoutChrome = String(html || '')
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>|<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<(?:nav|footer)\b[^>]*>[\s\S]*?<\/(?:nav|footer)>/gi, ' ');
+  const heading = [...withoutChrome.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/gi)]
+    .find(match => sameEventIdentity(title, plainText(match[1])));
+  if (!heading) return false;
+  // Only the event header/primary status region, not the entire page.
+  // A genuine cancellation notice must be immediately associated with
+  // the organizer's heading rather than another event elsewhere on the page.
+  const aroundHeading = plainText(withoutChrome.slice(heading.index, heading.index + 1200)).slice(0, 420);
+  return /\b(?:this event (?:has been |is )?cancell?ed|event cancell?ed|cancelled event)\b/i.test(aroundHeading);
 }
 
 function agePatch(text) {
@@ -218,7 +235,7 @@ export function enrichEventFromDetail(event, {
     };
   }
 
-  if (cancelled(pageText)) {
+  if (cancelled(html, event.title, source)) {
     return {
       event,
       diagnostics: {
