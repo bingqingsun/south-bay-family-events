@@ -913,7 +913,12 @@ async function readEventbriteOrganizer(source) {
   const html = await response.text();
   if (!response.ok) throw new Error('Eventbrite organizer page was not valid: ' + response.status);
   const payloadText = html.match(/"upcomingEvents":(\[[\s\S]*?\]),"hasMoreUpcoming"/)?.[1];
-  if (!payloadText) throw new Error('Eventbrite organizer payload was not found');
+  if (!payloadText) {
+    // Empty organizer listings are not parser failures. Eventbrite removed
+    // upcomingEvents from some genuinely empty organizer pages.
+    if (/nothing planned right now|no upcoming events|no events currently scheduled/i.test(plainText(html))) return [];
+    throw new Error('Eventbrite organizer payload was not found and an empty calendar was not confirmed');
+  }
   let items;
   try { items = JSON.parse(payloadText); } catch { throw new Error('Eventbrite organizer payload could not be read'); }
   const familyPattern = new RegExp(source.familyPattern || 'family|children|kids?|all ages|youth', 'i');
@@ -2242,39 +2247,68 @@ async function readCmt(source) {
 // Each page lists its actual ticketed performance times, age suitability,
 // price, venue and a show image—better evidence than a season-announcement.
 async function readPyt(source) {
+  // PYT migrated in September 2026 from /boxoffice/ to /shows/ and
+  // /stories-on-stage/. Discover the organizer's own production detail pages
+  // instead of relying on the retired ticket-row DOM.
   const headers = { 'user-agent': 'SouthBayFamilyEventsBot/1.0' };
   const response = await fetch(source.feedUrl, { headers, signal: AbortSignal.timeout(15000) });
   const html = await response.text();
-  if (!response.ok || !/\/boxoffice\//i.test(html)) throw new Error('PYT official show list was not valid: ' + response.status);
-  const links = [...new Set([...html.matchAll(/href=["'](https:\/\/pytnet\.org\/boxoffice\/[^"'#?]+\/?)["']/gi)].map(match => match[1]))].slice(0, 16);
+  if (!response.ok || !/\/(?:shows|stories-on-stage)\//i.test(html)) {
+    throw new Error('PYT current official show catalog was not valid: ' + response.status);
+  }
+  const links = [...new Set([...html.matchAll(/\bhref=(["'])([^"'#?]+)\1/gi)].flatMap(match => {
+    try {
+      const url = new URL(decodeXml(match[2]), source.feedUrl);
+      if (!/(^|\.)pytnet\.org$/i.test(url.hostname)) return [];
+      if (!/^\/(?:shows|stories-on-stage)\/[a-z0-9-]+\/?$/i.test(url.pathname)) return [];
+      return [url.href];
+    } catch { return []; }
+  }))].slice(0, 24);
+  if (!links.length) throw new Error('PYT current catalog has no production detail links');
   const shows = await Promise.all(links.map(async url => {
     try {
-      const detailResponse = await fetch(url, { headers, signal: AbortSignal.timeout(15000) });
-      const detail = await detailResponse.text();
-      const text = plainText(detail);
-      if (!detailResponse.ok || !/appropriate for all ages/i.test(text)) return [];
-      const title = plainText(detail.match(/<h1[^>]*class=["'][^"']*heading[^"']*["'][^>]*>([\s\S]*?)<\/h1>/i)?.[1] || '');
-      const sourceDescription = officialParagraphText(detail, {
-        excludePattern: /\b(?:audition|rehears|conflict|casting|participation fee|volunteer hours?|student groups?)\b/i
+      const response = await fetch(url, { headers, signal: AbortSignal.timeout(15000) });
+      const html = await response.text();
+      if (!response.ok) return [];
+      const text = plainText(html);
+      const title = plainText(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] || '');
+      const datesLabel = text.match(/\bDates?\s+((?:January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b[^.]{0,70}20\d{2})/i)?.[1] || '';
+      const year = datesLabel.match(/20\d{2}/)?.[0] || '';
+      const description = officialParagraphText(html, {
+        excludePattern: /\b(?:audition|rehears|casting|student groups?|processing fee|facility fee|volunteer|sponsor this|why is there a fee)\b/i
       });
-      const year = text.match(/\b(20\d{2})\b/)?.[1] || '';
-      const image = decodeXml(detail.match(/<div\s+id=["']sub-banner["'][\s\S]*?<img[^>]+src=["']([^"']+)/i)?.[1] || '');
-      const ticketRows = [...detail.matchAll(/<div\s+class=["']ticket-row["'][\s\S]*?<div\s+class=["']ticket-col ticketname["'][\s\S]*?>([\s\S]*?)<\/div>\s*<\/div>[\s\S]*?<div\s+class=["']ticket-col ticketdate["'][\s\S]*?>([\s\S]*?)<\/div>\s*<\/div>/gi)];
-      if (!title || !hasPublishableSummary(sourceDescription, { title, format: 'live-show' })) return [];
-      return ticketRows.flatMap(row => {
-        const ticketType = plainText(row[1]);
-        // The product is for families planning outings, not closed school
-        // field trips; retain only the public performance inventory.
-        if (!/general admission/i.test(ticketType)) return [];
-        const dateText = plainText(row[2]);
-        const dateValue = isoDateFromOfficialText(dateText.replace(/\b(am|pm)\b/i, `$1, ${year}`), dateText);
-        if (!isUpcoming(dateValue)) return [];
-        const event = directEvent({
-          id: 'pyt-' + createHash('sha256').update(`${url}|${dateValue}`).digest('hex').slice(0, 16), title, dateValue, description: sourceDescription,
-          image, place: 'Mountain View Center for the Performing Arts', address: source.address || '', city: source.city || '',
-          source: source.name, url, ageText: 'all ages', format: 'live-show'
+      if (!title || !year || !hasPublishableSummary(description, { title, format: 'live-show' })) return [];
+      const image = htmlAttribute(html, /<meta\b[^>]*property=["']og:image["'][^>]*content=["']([^"']+)/i);
+      const venue = text.match(/\bVenue\s+(Mountain View Center for the Performing Arts[^.]{0,85})/i)?.[1]?.trim() || 'Mountain View Center for the Performing Arts';
+      const publicTimes = [...text.matchAll(/\b(?:Mon|Tue|Wed|Thu|Thur|Fri|Sat|Sun)[a-z]*,?\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+(\d{1,2})\s+(\d{1,2}:\d{2})\s*(AM|PM)\b/gi)]
+        .filter(match => !/\bStudent Matinee\b/i.test(text.slice(match.index + match[0].length, match.index + match[0].length + 80)));
+      const sessions = publicTimes.map(match => {
+        const month = match[1];
+        const dateValue = isoDateFromOfficialText(month + ' ' + match[2] + ', ' + year, match[3] + ' ' + match[4]);
+        return dateValue;
+      }).filter(dateValue => dateValue && isUpcoming(dateValue));
+      // Productions without an official public session schedule are represented
+      // by their exact published date range, not invented performance times.
+      // Such cards direct families to the verified production detail page.
+      if (!sessions.length) {
+        const first = datesLabel.match(/\b(January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{1,2})/i);
+        if (!first) return [];
+        const dateValue = isoDateFromOfficialText(first[1] + ' ' + first[2] + ', ' + year);
+        if (!dateValue) return [];
+        const range = datesLabel.match(/\b(?:-|–|&|and|to)\s*(\d{1,2})\b/i);
+        const endDateValue = range ? isoDateFromOfficialText(first[1] + ' ' + range[1] + ', ' + year) : dateValue;
+        if (!isUpcoming(dateValue, endDateValue)) return [];
+        sessions.push({ dateValue, endDateValue });
+      }
+      return sessions.map(session => {
+        const dateValue = typeof session === 'string' ? session : session.dateValue;
+        const endDateValue = typeof session === 'string' ? '' : session.endDateValue;
+        return directEvent({
+          id: 'pyt-' + createHash('sha256').update(url + '|' + dateValue).digest('hex').slice(0, 16),
+          title, dateValue, endDateValue, description, image,
+          place: venue, address: source.address || '', city: source.city || '',
+          source: source.name, url, ageText: 'families', format: 'live-show'
         });
-        return [{ ...event, ...costInfo('$17–$20', text) }];
       });
     } catch { return []; }
   }));
