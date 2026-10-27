@@ -3505,10 +3505,22 @@ async function search(source) {
   if (!response.ok || payload.error) {
     throw new Error(`Search failed: ${response.status}${payload.error ? ` — ${payload.error}` : ''}`);
   }
-  const candidates = (payload.organic_results || [])
-    .filter(item => item.title && item.link && isOfficialUrl(item.link, source.domain))
+  // A verified organizer may use a second, explicitly configured official
+  // hostname (e.g. the city's community calendar or its library). Restrict
+  // discovery to the allowlist; never turn search snippets into event facts.
+  const allowedHosts = [source.domain, ...(source.linkHosts || [])].filter(Boolean);
+  const organic = payload.organic_results || [];
+  const candidates = organic
+    .filter(item => item.title && item.link
+      && allowedHosts.some(host => isOfficialUrl(item.link, host)))
     .map(item => ({ ...item, source: source.name }));
-  console.log(`SerpApi discovery · ${source.name}: ${(payload.organic_results || []).length} results, ${candidates.length} official-domain candidates.`);
+  const resultHosts = [...new Set(organic.flatMap(item => {
+    try { return [new URL(item.link).hostname]; } catch { return []; }
+  }))].slice(0, 8);
+  console.log(`SerpApi discovery · ${source.name}: ${organic.length} results, ${candidates.length} allowed-official-host candidates; result hosts: ${JSON.stringify(resultHosts)}.`);
+  if (organic.length && !candidates.length) {
+    console.warn(`::warning::Fallback search returned zero verified organizer domains for ${source.name}; investigate query or organizer links.`);
+  }
   return candidates;
 }
 
