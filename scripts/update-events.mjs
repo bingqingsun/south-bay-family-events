@@ -3945,21 +3945,33 @@ searchSources.forEach(source => {
 // Keep separate official sessions that share one details page. The earlier
 // URL-only dedupe silently discarded all but the final time for a show such
 // as a CMT production, defeating the card's “other sessions” experience.
-const preliminaryEvents = [...new Map([...feedEvents, ...candidates]
-  .map(event => [`${event.url.toLowerCase()}|${event.dateValue || ''}`, event])).values()]
-  // A card must explain what the activity is. A source's speaker bio, social
-  // promotion, or logistics copy is not an activity summary and cannot pass
-  // this final publication gate.
-  .filter(event => hasUsableSourceContent(event.description))
-  // A closure notice is useful operational information, but it is not a
-  // family activity and must never enter the browse catalog.
-  .filter(event => !/\b(?:library|bookmobile|museum|park|facility|center)\b.*\bclosed\b|\bclosed\b.*\b(?:library|bookmobile|museum|park|facility|center)\b/i.test(event.title || ''))
-  .filter(event => !isUnavailableEvent(event))
-  .filter(isFamilyRelevant)
-  .map(withPresentationFields)
+// Track publication losses by source and by stage. A feed that parses 489
+// entries but publishes zero is not a healthy feed; operators need the exact
+// gate that rejected its records, rather than a misleading source=ok status.
+const publicationStages = {};
+let publicationCandidates = [...new Map([...feedEvents, ...candidates]
+  .map(event => [`${String(event.url || '').toLowerCase()}|${event.dateValue || ''}`, event])).values()];
+function publicationStage(name, predicate) {
+  const before = publicationCandidates;
+  publicationCandidates = before.filter(predicate);
+  const counts = array => array.reduce((totals, event) => {
+    totals[event.source || 'unknown'] = (totals[event.source || 'unknown'] || 0) + 1;
+    return totals;
+  }, {});
+  publicationStages[name] = { before: counts(before), after: counts(publicationCandidates) };
+}
+publicationStage('usable-official-description', event => hasUsableSourceContent(event.sourceDescriptionRaw || event.description));
+publicationStage('not-closure', event => !/\\b(?:library|bookmobile|museum|park|facility|center)\\b.*\\bclosed\\b|\\bclosed\\b.*\\b(?:library|bookmobile|museum|park|facility|center)\\b/i.test(event.title || ''));
+publicationStage('available', event => !isUnavailableEvent(event));
+publicationStage('family-relevant', isFamilyRelevant);
+publicationCandidates = publicationCandidates.map(withPresentationFields);
+publicationStage('quality-reviewed', event => Boolean(qualityGateSummary(event)));
+const preliminaryEvents = publicationCandidates
   .map(qualityGateSummary)
   .filter(Boolean)
   .sort((a, b) => String(a.dateValue || '9999').localeCompare(String(b.dateValue || '9999')));
+console.log('Publication stages by source: ' + JSON.stringify(publicationStages));
+sourceHealth.publicationStages = publicationStages;
 
 function eventTitleTokens(title) {
   return new Set(plainText(title).toLowerCase().replace(/\b(?:san|jose|milpitas|palo|alto|santa|clara|cupertino|sunnyvale|mountain|view|los)\b/g, '')
@@ -4485,6 +4497,29 @@ if ((linkHealthSummary['not-found'] || 0) + (linkHealthSummary['content-mismatch
 // engine before publication; structured/manual records keep their verified
 // wording while adopting the current contract version.
 events = events.map(event => upgradeSummaryRecordVersion(event, { verifiedAt: generatedAt }));
+
+// Validate *published* source coverage, not merely a successful HTTP response.
+const publishedSourceCounts = events.reduce((counts, event) => {
+  counts[event.source || 'unknown'] = (counts[event.source || 'unknown'] || 0) + 1;
+  return counts;
+}, {});
+sourceHealth.publishedSourceCounts = publishedSourceCounts;
+const zeroOutputSources = directSources.filter(source => {
+  const fetched = sourceRefreshCounts[`${source.name} [${source.method || 'rss'}]`] || 0;
+  return fetched >= 20 && (publishedSourceCounts[source.name] || 0) === 0;
+});
+if (zeroOutputSources.length) {
+  const details = zeroOutputSources.map(source => ({
+    source: source.name,
+    fetched: sourceRefreshCounts[`${source.name} [${source.method || 'rss'}]`],
+    stages: Object.fromEntries(Object.entries(publicationStages).map(([key, value]) => [
+      key, { before: value.before[source.name] || 0, after: value.after[source.name] || 0 }
+    ]))
+  }));
+  console.error('::error::Official feeds with catastrophic publication loss: ' + JSON.stringify(details));
+  // Never publish a new catalog silently dropping a large, successful source.
+  throw new Error('Publication coverage gate blocked a destructive catalog refresh.');
+}
 
 const { stats: translationStats } = applyChineseTranslationCatalog(events, translationCatalog, {
   generatedAt,
