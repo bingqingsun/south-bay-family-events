@@ -4063,7 +4063,7 @@ function publicationStage(name, predicate) {
   publicationStages[name] = { before: counts(before), after: counts(publicationCandidates) };
 }
 publicationStage('usable-official-description', event => hasUsableSourceContent(event.sourceDescriptionRaw || event.description));
-publicationStage('not-closure', event => !/\\b(?:library|bookmobile|museum|park|facility|center)\\b.*\\bclosed\\b|\\bclosed\\b.*\\b(?:library|bookmobile|museum|park|facility|center)\\b/i.test(event.title || ''));
+publicationStage('not-closure', event => !isClosureNotice(event.title, event.sourceDescriptionRaw || event.description));
 publicationStage('available', event => !isUnavailableEvent(event));
 publicationStage('family-relevant', isFamilyRelevant);
 publicationCandidates = publicationCandidates.map(withPresentationFields);
