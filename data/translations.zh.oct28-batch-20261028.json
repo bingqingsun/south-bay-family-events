@@ -44,16 +44,6 @@
       "reviewedAt": "2026-10-28T17:15:00Z"
     },
     {
-      "id": "series-083a119bc4869555",
-      "sourceFingerprint": "AUTO",
-      "title": "英语／越南语一对一科技帮助",
-      "description": "提供电脑基础指导，例如设置电子邮箱、撰写和发送邮件、网络搜索、Word 和 Excel 使用、Google 文档、打印与复印等。",
-      "status": "approved",
-      "override": true,
-      "translationSource": "editorial-reviewed-20261028",
-      "reviewedAt": "2026-10-28T17:15:00Z"
-    },
-    {
       "id": "series-705d5cc6cfc39b68",
       "sourceFingerprint": "AUTO",
       "title": "家庭故事会",
@@ -164,16 +154,6 @@
       "reviewedAt": "2026-10-28T17:15:00Z"
     },
     {
-      "id": "rss-6aa343fe88820d0031702bab",
-      "sourceFingerprint": "AUTO",
-      "title": "线上简历点评",
-      "description": "与图书馆员进行 15 分钟的一对一简历点评，获得修改和整理建议。需准备简历和职位描述，活动前 1 小时会发送 Zoom 链接。",
-      "status": "approved",
-      "override": true,
-      "translationSource": "editorial-reviewed-20261028",
-      "reviewedAt": "2026-10-28T17:15:00Z"
-    },
-    {
       "id": "series-647f3a6898683094",
       "sourceFingerprint": "AUTO",
       "title": "电影《WILDWOOD》",
@@ -228,16 +208,6 @@
       "sourceFingerprint": "AUTO",
       "title": "拼豆下午手工",
       "description": "使用彩色拼豆设计并制作自己的艺术作品。",
-      "status": "approved",
-      "override": true,
-      "translationSource": "editorial-reviewed-20261028",
-      "reviewedAt": "2026-10-28T17:15:00Z"
-    },
-    {
-      "id": "series-4b9dabab14c0bf3a",
-      "sourceFingerprint": "AUTO",
-      "title": "1 对 1 科技帮助",
-      "description": "志愿者可协助制作 Word、Excel、PowerPoint 文件，提交求职或政府表格，以及学习其他网络工具。",
       "status": "approved",
       "override": true,
       "translationSource": "editorial-reviewed-20261028",
@@ -308,16 +278,6 @@
       "sourceFingerprint": "AUTO",
       "title": "英语／西班牙语双语阅读伙伴",
       "description": "幼儿园至 3 年级儿童可向受过培训的青少年志愿者朗读英语或西班牙语，获得发音指导和鼓励。",
-      "status": "approved",
-      "override": true,
-      "translationSource": "editorial-reviewed-20261028",
-      "reviewedAt": "2026-10-28T17:15:00Z"
-    },
-    {
-      "id": "series-f0f5ed1a8e67ad14",
-      "sourceFingerprint": "AUTO",
-      "title": "阅读伙伴一对一辅导",
-      "description": "由受过培训的志愿者为孩子提供免费的个别阅读辅导。",
       "status": "approved",
       "override": true,
       "translationSource": "editorial-reviewed-20261028",
