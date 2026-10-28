@@ -29,7 +29,7 @@ assert.equal(
 );
 assert.equal(config.lastChanceThreshold, 3, 'Halloween must use the approved Last Chance threshold');
 assert.ok(config.selectedEventRefs.length > 0, 'Halloween must contain curated canonical event references');
-assert.equal(config.quickPickIds.length, 4, 'Halloween should configure four Quick Picks');
+assert.equal(config.quickPickIds.length, 3, 'Halloween should configure three active Quick Picks after the October 27 event expires');
 assert.equal(events.some((event) => event.title === 'Laser Halloween Spooktacular'), false, 'Removed Laser Halloween Spooktacular duplicate must stay absent');
 assert.ok(events.some((event) => event.id === 'editorial-32d6b7102984722f' || event.legacyIds?.includes('editorial-32d6b7102984722f')), 'Tech or Treat supplement must enter canonical data');
 
@@ -40,7 +40,7 @@ assert.deepEqual(
   `All Halloween collection refs must resolve against canonical events plus verified supplements; unresolved: ${JSON.stringify(model.unresolvedRefs)}`
 );
 assert.equal(model.resolvedEditorialCount, config.selectedEventRefs.length, 'Each selected reference should resolve to one canonical event');
-assert.equal(model.resolvedEditorialCount, 7, 'Halloween should contain only currently resolvable editorial selections after expired refs are pruned');
+assert.equal(model.resolvedEditorialCount, 6, 'Halloween should contain only currently resolvable editorial selections after expired refs are pruned');
 assert.ok(model.currentEventCount > 0, 'Halloween should still have current events on Oct 26, 2026');
 assert.ok(model.currentQuickPicks.length >= 1 && model.currentQuickPicks.length <= config.quickPickIds.length,
   'Only still-active Halloween Quick Picks should be displayed as the season winds down');
