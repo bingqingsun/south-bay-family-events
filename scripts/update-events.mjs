@@ -3,6 +3,7 @@
  * Requires SERPAPI_KEY in the environment. Uses SerpApi's standard Google
  * search engine so the job also works on plans without Google Events access.
  */
+import { isRoutineSupportService } from './lib/routine-support-service.mjs';
 import { isOfficialClosureNotice, isRoutineVenueAccessNotice, pytSynopsisFromDetail } from './lib/source-detail-repair.mjs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
@@ -4092,6 +4093,9 @@ publicationStage('not-closure', event => !isClosureNotice(event.title, event.sou
 // Apply to fresh, revalidated, failed-source-retained and search fallback records.
 // Otherwise a stale card can reappear after the source-level gate removes it.
 publicationStage('not-routine-venue-access', event => !isRoutineVenueAccessNotice(event.title));
+// Apply across RSS, curated, revalidated, retained and fallback events so a
+// generic one-on-one appointment or tutoring listing cannot return on refresh.
+publicationStage('not-routine-support-service', event => !isRoutineSupportService(event));
 publicationStage('available', event => !isUnavailableEvent(event));
 publicationStage('family-relevant', isFamilyRelevant);
 publicationCandidates = publicationCandidates.map(withPresentationFields);
