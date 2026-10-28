@@ -3443,9 +3443,9 @@ async function readPaloAltoSpecialEvents(source) {
 async function readHappyHollow(source) {
   const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
   const html = await response.text();
-  if (!response.ok || !/simcal-event/i.test(html)) throw new Error('Happy Hollow official calendar was not valid: ' + response.status);
+  if (!response.ok) throw new Error('Happy Hollow official calendar was not valid: ' + response.status);
   const youthSignal = /children|kids?|famil(?:y|ies)|youth|toddler|preschool|school|animal|zoo|park/i;
-  return [...html.matchAll(/<li class=["'][^"']*simcal-event[^"']*["'][\s\S]*?<\/li>/gi)].flatMap((match, index) => {
+  const calendarEvents = [...html.matchAll(/<li class=["'][^"']*simcal-event[^"']*["'][\s\S]*?<\/li>/gi)].flatMap((match, index) => {
     const block = match[0];
     const title = plainText(block.match(/class=["'][^"']*simcal-event-title[^"']*["'][^>]*>([\s\S]*?)<\//i)?.[1] || '');
     const description = plainText(block.match(/class=["'][^"']*simcal-event-description[^"']*["'][^>]*>([\s\S]*?)<\/div>/i)?.[1] || '');
@@ -3461,6 +3461,22 @@ async function readHappyHollow(source) {
     });
     return hasUsableSourceContent(event.description) ? [{ ...event, ...costInfo('', description) }] : [];
   });
+  // Happy Hollow's standalone seasonal program pages do not necessarily appear
+  // in the Simcal calendar. Read verified first-party special-event pages as a
+  // second discovery path, without relying on directory pages or third parties.
+  const specialEvents = await readCurated({ ...source, events: source.specialEvents || [] });
+  if (!/simcal-event/i.test(html) && !specialEvents.length) {
+    throw new Error('Happy Hollow event directory has no calendar entries or verified special events');
+  }
+  const specialKeys = new Set(specialEvents.map(event =>
+    `${plainText(event.title).toLowerCase()}|${String(event.dateValue).slice(0, 10)}`
+  ));
+  // The detail page wins over a generic listing when both describe the same
+  // program on the same day; do not split one festival into two cards.
+  const unlisted = calendarEvents.filter(event => !specialKeys.has(
+    `${plainText(event.title).toLowerCase()}|${String(event.dateValue).slice(0, 10)}`
+  ));
+  return [...unlisted, ...specialEvents];
 }
 
 // Gilroy Gardens publishes every dated occurrence as Event schema on its
