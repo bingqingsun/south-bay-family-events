@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "note": "Reviews exact current English summaries following October 28 routine-service exclusion and event refresh; CI baselines AUTO fingerprints.",
+  "entries": [
+    {
+      "id": "rss-6955a914c967cb41207f670c",
+      "sourceFingerprint": "AUTO",
+      "title": "Mount Pleasant 图书馆适应性活动",
+      "description": "通过艺术、手工和游戏结识新朋友、交流互动，一起享受愉快的社区活动。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-official-summary",
+      "reviewedAt": "2026-10-28T18:02:00Z"
+    },
+    {
+      "id": "rss-6ad39fa5e06996003a8424d6",
+      "sourceFingerprint": "AUTO",
+      "title": "秋日丙烯画布绘画",
+      "description": "Educational Park 图书馆的 Teens Reach 青少年志愿者小组举办月度会议和绘画活动，欢迎一起创作秋日主题画作。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-official-summary",
+      "reviewedAt": "2026-10-28T18:02:00Z"
+    },
+    {
+      "id": "rss-6a6265aae9de6536001dc48e",
+      "sourceFingerprint": "AUTO",
+      "title": "Teens Reach 青少年会议与活动",
+      "description": "加入 Teens Reach 需要年满 13–18 岁，对图书馆工作有兴趣，乐于与不同年龄和文化背景的人交流，并愿意可靠地合作、学习新技能。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-official-summary",
+      "reviewedAt": "2026-10-28T18:02:00Z"
+    },
+    {
+      "id": "moah-d3c9bf6217a293de",
+      "sourceFingerprint": "AUTO",
+      "title": "微型拼贴创作：制作迷你书架或展览",
+      "description": "与 Palo Alto 图书馆一起度过充满创意的下午，动手制作拼贴作品并发挥想象力。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-official-summary",
+      "reviewedAt": "2026-10-28T18:02:00Z"
+    },
+    {
+      "id": "rss-6a59165ec7e02e3d00698bc6",
+      "sourceFingerprint": "AUTO",
+      "title": "美国原住民传统文化月：故事与手工",
+      "description": "一起聆听美国原住民民间故事，再亲手制作传统的黏土捏塑小碗。活动欢迎大家参加，主要为 5 岁及以上儿童设计；场地及材料有限，请准时到场。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-official-summary",
+      "reviewedAt": "2026-10-28T18:02:00Z"
+    },
+    {
+      "id": "series-de03ef300325d4c0",
+      "sourceFingerprint": "AUTO",
+      "title": "开放缝纫工作室",
+      "description": "无论是想学习缝纫的新手，还是需要时间与空间完成作品的有经验者，都欢迎到开放工作室动手创作。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-official-summary",
+      "reviewedAt": "2026-10-28T18:02:00Z"
+    },
+    {
+      "id": "series-32a3b09e53dc18f2",
+      "sourceFingerprint": "AUTO",
+      "title": "Neurosphere：神经科学与更多探索（3–8 年级）",
+      "description": "学习大脑运作的基础知识，通过趣味活动测试自己的脑力，并了解未来与神经科学有关的职业方向。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-official-summary",
+      "reviewedAt": "2026-10-28T18:02:00Z"
+    }
+  ]
+}
