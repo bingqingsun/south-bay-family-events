@@ -80,6 +80,8 @@ jobs:
           node --check scripts/happy-hollow-special-events.test.mjs
           node --check scripts/lib/source-detail-repair.mjs
           node --check scripts/routine-venue-notice.test.mjs
+          node --check scripts/lib/routine-support-service.mjs
+          node --check scripts/routine-support-service.test.mjs
           node --check scripts/civicplus-description.mjs
           node --check scripts/civicplus-description.test.mjs
           node --check scripts/event-translations.mjs
@@ -163,6 +165,7 @@ jobs:
           node scripts/age-policy.test.cjs && node scripts/update-events-age.test.mjs
           node scripts/test-summary-output.mjs
           node scripts/routine-venue-notice.test.mjs
+          node scripts/routine-support-service.test.mjs
           node scripts/micailhuitl-source.test.mjs
           node scripts/weekend-oct31-coverage.test.mjs
           node scripts/happy-hollow-special-events.test.mjs
