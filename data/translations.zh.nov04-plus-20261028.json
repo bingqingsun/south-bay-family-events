@@ -1,0 +1,817 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "note": "Upcoming Nov 4 2026 through Mar 2027 active family events translation batch",
+  "entries": [
+    {
+      "id": "series-433b47fca15700ab",
+      "sourceFingerprint": "AUTO",
+      "title": "随取随做 STEM 手工包：捕梦网",
+      "description": "把美国原住民传统文化和现代数学概念结合起来，探索几何图形与规律，制作捕梦网。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-69f10f40fb87a3c2e2ac6f3d",
+      "sourceFingerprint": "AUTO",
+      "title": "茶点与玩具：亲子玩伴聚会",
+      "description": "孩子探索新玩具和游戏，成年人一边喝茶一边交流、认识其他家长。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-695477f8cba30d92b60b3b7c",
+      "sourceFingerprint": "AUTO",
+      "title": "室内家庭故事会",
+      "description": "不同年龄的孩子和家人一起听故事、唱歌、念童谣、玩手指游戏和动作活动，培养早期阅读能力。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a7b56fba821f90037ed215c",
+      "sourceFingerprint": "AUTO",
+      "title": "庆祝排灯节：故事会与艺术创作",
+      "description": "通过有趣的故事会和排灯节主题艺术手工，和家人朋友一起了解节日的文化、美丽与光明传统。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6aa42744d6577100383c97e6",
+      "sourceFingerprint": "AUTO",
+      "title": "现场简历点评",
+      "description": "与图书馆员进行 15 分钟的一对一简历点评，获得修改与整理建议。请带好简历及职位描述。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-693df9b31e64afd01e4ef59d",
+      "sourceFingerprint": "AUTO",
+      "title": "创客实验室",
+      "description": "每月学习操作 3D 打印机和 Cricut 切割机，体验动手制作。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a5280af489285b703d87855",
+      "sourceFingerprint": "AUTO",
+      "title": "儿童音乐与律动",
+      "description": "每月第 1 个周三参加音乐和身体律动活动。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-69fb8a1af56bd86e00adf8cc",
+      "sourceFingerprint": "AUTO",
+      "title": "志愿服务抵扣图书馆罚款",
+      "description": "参加社区志愿服务，帮助美化 Pearl Avenue 图书馆。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6ad39fa5e06996003a8424d6",
+      "sourceFingerprint": "AUTO",
+      "title": "秋日丙烯画",
+      "description": "参加 Educational Park 图书馆 Teens Reach 月度会议及艺术活动，创作秋天主题的丙烯画。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6adcfe36198b996a80a8d24e",
+      "sourceFingerprint": "AUTO",
+      "title": "人人都能编程：Sphero 机器人对战",
+      "description": "学习基本编程知识后，通过适合初学者的活动练习操作 Sphero 对战机器人。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-69c48bc55a2d780f42c4c4ea",
+      "sourceFingerprint": "AUTO",
+      "title": "Joyce Ellington 青少年志愿者迎新",
+      "description": "欢迎参加志愿者迎新活动，之后在 5:00–6:30 PM 参加第一次 Teens Reach 会议，认识伙伴并开始累积服务时数。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-69fa1d503f8e7924031e613f",
+      "sourceFingerprint": "AUTO",
+      "title": "为毛茸茸的朋友朗读",
+      "description": "孩子可以给温柔、受过训练的辅助犬朗读故事，练习阅读。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a8735c593b500003ff63e6a",
+      "sourceFingerprint": "AUTO",
+      "title": "STEM 周三：好奇色彩梦幻实验室",
+      "description": "融合海洋生物学、古生物学、天文学与艺术创作，通过壁画、合作绘画、手工和主题阅读探索科学。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6927797a0886c5530056c25a",
+      "sourceFingerprint": "AUTO",
+      "title": "TeenHQ 创客工作室",
+      "description": "每次最多 5 名青少年使用空间内的 3D 打印机、海报打印机、GlowForge、缝纫设备、Cricut 和胸针机等工具。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a6265aae9de6536001dc48e",
+      "sourceFingerprint": "AUTO",
+      "title": "青少年志愿者理事会会议与活动",
+      "description": "13–18 岁青少年可参与图书馆志愿服务、积累服务时数并锻炼领导能力；欢迎愿意合作和学习新技能的学生。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-68af786309c63c2f007beba3",
+      "sourceFingerprint": "AUTO",
+      "title": "欢乐周三：树懒手工",
+      "description": "每周体验不同主题的美术或手工创作，本期制作树懒主题作品。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-c149d365a8b0c682",
+      "sourceFingerprint": "AUTO",
+      "title": "书信之年：用贺卡传递联系",
+      "description": "大家一起动手制作并寄送贺卡，用温暖的方式保持联系。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a3da568c52cdc3600ece7ea",
+      "sourceFingerprint": "AUTO",
+      "title": "志愿服务抵扣罚款",
+      "description": "参与社区服务，一起美化 Cambrian 图书馆。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a95d4e460ccaf01c0225a09",
+      "sourceFingerprint": "AUTO",
+      "title": "线上数学俱乐部",
+      "description": "志愿者为 K-8 年级学生提供数学辅导，帮助学习并提高数学能力。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-69c48b8e23b45fff20f3239a",
+      "sourceFingerprint": "AUTO",
+      "title": "Joyce Ellington 青少年志愿者会议",
+      "description": "了解青少年志愿机会、图书馆项目与游戏活动，享用小食，偶尔还有嘉宾分享；欢迎带朋友参加。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-69fbb1fd43b41b3d0064a3f0",
+      "sourceFingerprint": "AUTO",
+      "title": "室内音乐与律动",
+      "description": "全家一起参加充满活力的音乐、故事和身体律动活动，在互动中体验学习乐趣。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-91e02ef2e02a58df",
+      "sourceFingerprint": "AUTO",
+      "title": "双语家庭故事会",
+      "description": "大家一起唱歌、念童谣并听故事。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a594d4f82c03c5c17d887a4",
+      "sourceFingerprint": "AUTO",
+      "title": "庆祝排灯节故事会",
+      "description": "一起感受排灯节的光明、团结与文化传统。免费参加，人数上限 50 人。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a33121d1e67cd9cb33aa51d",
+      "sourceFingerprint": "AUTO",
+      "title": "家庭故事会",
+      "description": "通过故事、歌曲、童谣、手指游戏和肢体活动，全家一起培养孩子的早期阅读能力。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a99d8351c197d11325d14f5",
+      "sourceFingerprint": "AUTO",
+      "title": "线下面试与人脉拓展技巧工作坊",
+      "description": "SJPL Works 商业图书馆员帮助参与者学习求职面试和职业人脉交流技巧。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a99d554aafa610029616008",
+      "sourceFingerprint": "AUTO",
+      "title": "儿童阅读陪伴",
+      "description": "通过故事朗读与阅读交流，帮助孩子发展想象力，培养阅读兴趣。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a4d69d54b05243d0055896d",
+      "sourceFingerprint": "AUTO",
+      "title": "拼贴胶囊：制作迷你博物馆",
+      "description": "与美国传统文化博物馆合作的动手创意活动，适合青少年和成人；无需经验，现场提供材料，带走独一无二的迷你纪念作品。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-1f61283ab7257574",
+      "sourceFingerprint": "AUTO",
+      "title": "周六桌游日",
+      "description": "每月第 1 个周六上午 10 点至下午 6 点聚会，可以自带桌游，也可以加入其他人的游戏。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-689fbe369fd3e1d82154c4d5",
+      "sourceFingerprint": "AUTO",
+      "title": "地点变更：Sara 正念冥想",
+      "description": "与 Sara 一起参加约 30 分钟的坐姿引导冥想，欢迎各种经验水平的参与者。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-513d4cfc97466353",
+      "sourceFingerprint": "AUTO",
+      "title": "家庭故事会",
+      "description": "每周六上午 10:30，在 Mitchell Park 图书馆与 Juliana 馆员一起唱歌、念童谣、听故事。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a46e4fb20e064860195a38b",
+      "sourceFingerprint": "AUTO",
+      "title": "周六 STEAM 实验室：ChompSaw 火箭",
+      "description": "孩子学习安全使用 ChompSaw 工具，动手制作纸板火箭并探索工程设计；儿童需要报名。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6ad963ab96ec3a003adc21d9",
+      "sourceFingerprint": "AUTO",
+      "title": "Gatorbotics：Scratch 编程工作坊",
+      "description": "通过动手活动探索机器人技术和设计思维，学习 Scratch 编程基础。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6ada9bfc9dbc2b002c906e1f",
+      "sourceFingerprint": "AUTO",
+      "title": "排灯节海娜手绘艺术",
+      "description": "由 ShilpaKala Arts 的海娜艺术家为手部绘制简单精美的图案。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6adbdd8ea85a2c003381be1c",
+      "sourceFingerprint": "AUTO",
+      "title": "青少年咖啡与可颂聚会",
+      "description": "自己调一杯咖啡，拿一块可颂，与朋友一起轻松观看《吉尔莫女孩》。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a59165ec7e02e3d00698bc6",
+      "sourceFingerprint": "AUTO",
+      "title": "美国原住民文化月：故事与陶艺",
+      "description": "聆听美国原住民民间故事，然后动手制作传统手捏陶罐。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-de03ef300325d4c0",
+      "sourceFingerprint": "AUTO",
+      "title": "开放式缝纫工作室",
+      "description": "无论是想学习缝纫的初学者，还是需要空间完成作品的熟练爱好者，都欢迎参加。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-32a3b09e53dc18f2",
+      "sourceFingerprint": "AUTO",
+      "title": "Neurosphere：神经科学探索（3-8 年级）",
+      "description": "了解大脑如何工作，通过趣味活动测试脑力，并认识神经科学相关的未来职业。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6ace9a3d901b02002cc2296d",
+      "sourceFingerprint": "AUTO",
+      "title": "Cupertino 图书馆周日排舞",
+      "description": "练习拖步、扫步和转身，提高平衡能力、协调性、耐力、步法与手臂表现力。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6ada56e3ebad220045473632",
+      "sourceFingerprint": "AUTO",
+      "title": "二、三年级阅读虫俱乐部",
+      "description": "面向 2 至 3 年级儿童。喜欢读书并和其他孩子讨论吗？欢迎一起分享阅读体验。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-69bb3dd8491b809c6f217ab2",
+      "sourceFingerprint": "AUTO",
+      "title": "Morgan Hill 图书馆尤克里里社团",
+      "description": "学习几首歌曲，并与其他人一起弹奏尤克里里。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a862ab593b500003ff62929",
+      "sourceFingerprint": "AUTO",
+      "title": "宝宝手语与歌唱",
+      "description": "照护者学习基础美国手语手势，与宝宝建立更好的日常沟通。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a7fadfdaafa6100295cbbe8",
+      "sourceFingerprint": "AUTO",
+      "title": "橡皮泥游戏时间",
+      "description": "幼儿通过玩橡皮泥锻炼精细动作，发挥想象力与创造力。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6ade54ad035faf0033deee0e",
+      "sourceFingerprint": "AUTO",
+      "title": "Page Turners 读书会（4-5 年级）",
+      "description": "大家一起讨论指定图书，并参加与书籍内容相关的趣味活动。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a5eb69c88e9bf28003235d9",
+      "sourceFingerprint": "AUTO",
+      "title": "秋季大学申请规划讲座",
+      "description": "了解最新大学招生趋势、标化考试可选政策、如何考察学校，以及秋季申请的重要时间表和行动步骤。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-698bad018d5e2d09335e5e8c",
+      "sourceFingerprint": "AUTO",
+      "title": "初学者原声乐器合奏",
+      "description": "演奏简单易学的流行歌曲，偶尔挑战一首更有难度的乐曲。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a7253c93f18b57d52335bb6",
+      "sourceFingerprint": "AUTO",
+      "title": "家庭手工：豆类与扁豆马赛克",
+      "description": "孩子和成年家人一起参与手工活动，用豆子与扁豆制作马赛克图案。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6adc04e8035faf0033dea44e",
+      "sourceFingerprint": "AUTO",
+      "title": "家庭涂色活动",
+      "description": "提供不同主题、设计和难度的涂色页，适合各年龄段自由创作。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6adbfeb7901b02002cc4c0d2",
+      "sourceFingerprint": "AUTO",
+      "title": "聚光灯之外：人生的多重热爱",
+      "description": "通过个人故事、实用建议与交流，重新思考职业道路，为创造力留出空间，并探索成功的不同定义。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a1f0f9643b41b3d006b10d6",
+      "sourceFingerprint": "AUTO",
+      "title": "犀牛计划：社区缝纫圈",
+      "description": "与艺术家 Michelle Wilson 和 Anne Beck 一起刺绣地图，连接 Palo Alto 与加州及墨西哥的历史路线。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6ad152ca9dbc2b002c8ee995",
+      "sourceFingerprint": "AUTO",
+      "title": "Pow Wow 原住民舞蹈表演",
+      "description": "欣赏原住民歌舞，了解美洲原住民族的艺术、美食和传统文化。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a6cf81ad23de82955c9bccc",
+      "sourceFingerprint": "AUTO",
+      "title": "音乐会：Palo Alto 室内乐学校",
+      "description": "欣赏 Palo Alto 室内乐学校带来的音乐会，可在学校官网了解更多。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6ad405dd11bbf300684c6700",
+      "sourceFingerprint": "AUTO",
+      "title": "Huevember：色彩理论与水彩",
+      "description": "学习色相、色调、明暗与配色，再用水彩实践这些技巧。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6ad7bd6c901b02002cc3d710",
+      "sourceFingerprint": "AUTO",
+      "title": "了解 Muwekma Ohlone 部落",
+      "description": "聆听 Bernadette Quiroz 创作的 Muwekma 起源故事《Kàanak Hašepekne Muwekma: I Made The People, By Me, Coyote》，随后参加手工活动。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a8f395260ccaf01c0213e7c",
+      "sourceFingerprint": "AUTO",
+      "title": "灯光节：排灯节庆典",
+      "description": "欣赏 Noorani Dance 的传统卡塔克舞艺术。舞团由国际舞者 Farah Yasmeen Shaikh 于 2016 年创立，其艺术风格融合导师 Pandit Chitresh Das 的古典与创新影响。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6adbd94ef4d1423e2ce444eb",
+      "sourceFingerprint": "AUTO",
+      "title": "儿童宾果游戏",
+      "description": "一起来玩 BINGO 宾果游戏，赢取有趣的奖品。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6aac27ed86d845003116d706",
+      "sourceFingerprint": "AUTO",
+      "title": "学生带领的动物玩具手工",
+      "description": "动手为当地动物收容所制作玩具，为等待领养的动物带来快乐，也帮助社区。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6add3e7629c3d60033323c19",
+      "sourceFingerprint": "AUTO",
+      "title": "秋季手工（K-5 年级）",
+      "description": "K 至 5 年级儿童在 Milpitas 图书馆制作秋天主题手工作品。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6ad8fb662b40e729fed33387",
+      "sourceFingerprint": "AUTO",
+      "title": "拼图比赛与交换",
+      "description": "计时开始前所有参赛者都看不到拼图图案，快来挑战并交换拼图。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-d400a606502a3188",
+      "sourceFingerprint": "AUTO",
+      "title": "摄影交流聚会",
+      "description": "每次聚会都会讨论摄影技巧、提高拍摄水平的方法与其他摄影话题。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a760e36e30fe4845967b5e9",
+      "sourceFingerprint": "AUTO",
+      "title": "小书虫读书会（K-1 年级）",
+      "description": "活动中大家一起阅读书籍，也欢迎提前把书读完再来讨论。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a7fb7c9d4b10d00300695c1",
+      "sourceFingerprint": "AUTO",
+      "title": "书虫读书会（2-3 年级）",
+      "description": "活动中大家一起阅读指定书籍，也欢迎提前阅读。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6ac83143a85a2c00337e3400",
+      "sourceFingerprint": "AUTO",
+      "title": "ArtSEE：节日挂饰绘画",
+      "description": "与青少年 Sharvi 一起设计并装饰独一无二的节日挂饰。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-1f1cd7ac4cee447b",
+      "sourceFingerprint": "AUTO",
+      "title": "Sandy 和 Kent 的排舞课",
+      "description": "报名后会收到课程提醒邮件及练习用的歌曲播放列表链接。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-68faeb383cbc052f00816108",
+      "sourceFingerprint": "AUTO",
+      "title": "地点变更：正念冥想",
+      "description": "每次包括 30 分钟静坐冥想、15 分钟放松练习，以及 15 分钟分享与问答。欢迎所有水平的参与者，无需报名。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-698e125a2a787a47a5e73bee",
+      "sourceFingerprint": "AUTO",
+      "title": "冬季精彩故事会",
+      "description": "材料数量有限，参加者可带走一份回家制作的手工材料包。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-691e6de99be7c6685c28fa8d",
+      "sourceFingerprint": "AUTO",
+      "title": "社区缝纫：节日餐垫",
+      "description": "学习制作节日主题餐垫，为家里增添节日装饰。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-03ff2abbce386551",
+      "sourceFingerprint": "AUTO",
+      "title": "湾区知识问答俱乐部",
+      "description": "面对面参加湾区问答活动，活动每月第二个周日在 Palo Alto 的 Mitchell Park 图书馆下午 2–6 点举行。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6aac872065abe8002a7a2a4e",
+      "sourceFingerprint": "AUTO",
+      "title": "动物朋友：与 Isabelle Cnudde 见见小鸡",
+      "description": "在 Palo Alto 儿童图书馆，与 Project HumaneKind 和 Clorofil 的 Isabelle Cnudde 一起认识一只羽毛朋友。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6ad7a697295d793e2d1803ec",
+      "sourceFingerprint": "AUTO",
+      "title": "演出：Nathan's Fearless Five 回归",
+      "description": "身穿黑衣的表演者们再次登场！",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6abc44f5295b3b0033ca0dd7",
+      "sourceFingerprint": "AUTO",
+      "title": "庆祝雅尔达之夜",
+      "description": "与童书作者 Anahita Tamaddon 一起庆祝雅尔达之夜，聆听她朗读作品《Yalda Night》。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a46e77fb96ccc750c590cc6",
+      "sourceFingerprint": "AUTO",
+      "title": "周六 STEAM：制作雪花",
+      "description": "混合小苏打与剃须泡沫制作蓬松的人造雪，同时探索其中的科学原理。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a7d12d9be1482002986fdd2",
+      "sourceFingerprint": "AUTO",
+      "title": "家庭手工：绒球相框",
+      "description": "儿童与成年家人一起参加创意手工活动，制作绒球相框。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a750a3788e9bf28003613ac",
+      "sourceFingerprint": "AUTO",
+      "title": "中午跨年庆祝派对",
+      "description": "用手工、舞蹈与音乐提前迎接新年，欢迎带上派对帽与发声玩具。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-9ad8c55f181fe3d3",
+      "sourceFingerprint": "AUTO",
+      "title": "英语／西班牙语双语家庭故事会",
+      "description": "通过英语与西班牙语故事、歌曲、童谣和动作活动一起学习。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6ab40a5c3dd190003e73fdd2",
+      "sourceFingerprint": "AUTO",
+      "title": "周六 STEAM：造一座桥",
+      "description": "使用报纸与胶带搭建坚固的桥梁，再测试它能承受多大的重量。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6abd91d1901b02002cbf1cae",
+      "sourceFingerprint": "AUTO",
+      "title": "Kirk Waller 音乐故事会",
+      "description": "跟随表演者生动有趣的讲述，体验来自古今各地的精彩故事。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a3313a0361280dd2264b895",
+      "sourceFingerprint": "AUTO",
+      "title": "双语家庭故事会：庆祝情人节",
+      "description": "通过西班牙语和英语故事、歌曲、童谣与律动活动庆祝节日。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a3313053e640a440019dd83",
+      "sourceFingerprint": "AUTO",
+      "title": "家庭故事会：庆祝情人节",
+      "description": "一起唱歌、念童谣、读故事，庆祝情人节。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6aceffd4ebad220045453a87",
+      "sourceFingerprint": "AUTO",
+      "title": "社区手工：新年羊毛毡小羊",
+      "description": "动手制作农历新年主题的羊毛毡小羊。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6ac5c06b754bb0003ac33b5e",
+      "sourceFingerprint": "AUTO",
+      "title": "周六 STEAM：机器人手",
+      "description": "孩子们动手探索工程设计、机器人技术与创意制作。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a3ac3e8c7d3cd580062527f",
+      "sourceFingerprint": "AUTO",
+      "title": "亲子音乐会：Dave Rocha 爵士三重奏",
+      "description": "Dave Rocha 爵士三重奏再次为孩子带来《爵士乐大冒险》主题音乐会。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    }
+  ]
+}

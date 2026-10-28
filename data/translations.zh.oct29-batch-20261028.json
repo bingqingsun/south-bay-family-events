@@ -1,0 +1,287 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "note": "Oct 29 active family-event Chinese translations",
+  "entries": [
+    {
+      "id": "series-300ff38e0d9ea96e",
+      "sourceFingerprint": "AUTO",
+      "title": "3D 打印按需服务",
+      "description": "按需免费打印符合规定的作品，需要提前报名。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-fb9b021dd1160d74",
+      "sourceFingerprint": "AUTO",
+      "title": "Village Square INSIDERS 社交活动",
+      "description": "通过美术、交友、游戏与《龙与地下城》桌游等活动，认识新朋友、享受社区时光。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-d49a05b46b63250b",
+      "sourceFingerprint": "AUTO",
+      "title": "家庭故事会",
+      "description": "全家一起听故事、唱歌、念童谣、玩手指游戏和律动，培养孩子早期阅读能力。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a937e4e392e9c02993d0403",
+      "sourceFingerprint": "AUTO",
+      "title": "万圣节故事会与游行",
+      "description": "通过故事、歌曲和喜欢的故事会活动庆祝万圣节，欢迎孩子穿上节日服装。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6aadb65d129d8e0031f36794",
+      "sourceFingerprint": "AUTO",
+      "title": "万圣节故事会",
+      "description": "在图书馆聆听万圣节故事，感受有趣的节日气氛。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-074ea77f0672b0b5",
+      "sourceFingerprint": "AUTO",
+      "title": "婴幼儿故事会",
+      "description": "适合 0 至 3 岁儿童及其照护者，通过故事、歌曲、童谣、手指游戏和动作培养早期语言能力，其他孩子也欢迎。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-85ab05e58877deb3",
+      "sourceFingerprint": "AUTO",
+      "title": "婴儿抱抱故事会",
+      "description": "尚未走稳的宝宝和照护者一起听故事、唱歌、玩童谣和亲子互动游戏，故事会后还可以参加自由玩耍。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-1a85ae7b48b4ca62",
+      "sourceFingerprint": "AUTO",
+      "title": "婴儿故事会与自由玩耍",
+      "description": "尚未学会独立走路的宝宝和照护者一起听故事、唱歌和做亲子互动，结束后留下来玩耍。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-516e5b4ac3526707",
+      "sourceFingerprint": "AUTO",
+      "title": "双语家庭故事会与自由玩耍",
+      "description": "不同年龄的家人一起听双语故事、玩童谣、手指游戏和律动，故事会结束后还有自由玩耍。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-62ce8eefc711c495",
+      "sourceFingerprint": "AUTO",
+      "title": "家庭故事会",
+      "description": "通过有趣的故事、歌曲、童谣、手指游戏和动作活动，让孩子和照护者共同体验阅读学习的乐趣。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6ab41205129d8e0031f486b2",
+      "sourceFingerprint": "AUTO",
+      "title": "万圣节嘉年华",
+      "description": "参加面向全家人的故事会，听故事、唱歌、念童谣、玩手指游戏和律动。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a7b58573f18f80030ba65a3",
+      "sourceFingerprint": "AUTO",
+      "title": "万圣节故事会与游行",
+      "description": "听完故事后，孩子可以在图书馆内排队游行，沿途领取万圣节糖果。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-5cbc4e5e6c03afb1",
+      "sourceFingerprint": "AUTO",
+      "title": "室内家庭故事会",
+      "description": "通过故事、歌曲、童谣、手指游戏和动作活动，让全家共同培养早期阅读能力。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-93b76328ad2c28c6",
+      "sourceFingerprint": "AUTO",
+      "title": "日语儿童故事朗读会",
+      "description": "欢迎学龄前孩子和家长到 West Valley 图书馆参加日语故事朗读活动。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a99d79e1c197d11325d14b1",
+      "sourceFingerprint": "AUTO",
+      "title": "线上面试与社交技巧工作坊",
+      "description": "免费的线上讲座，由 SJPL Works 商业图书馆员帮助学习面试技巧与职业人脉拓展。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "stanford-54d87103be469da7",
+      "sourceFingerprint": "AUTO",
+      "title": "Emily Jacobs：女性脑健康的新前沿",
+      "description": "讲者的研究曾获《纽约时报》《国家地理》《科学美国人》、NPR、BBC、TED、Radiolab、Netflix 与 MasterClass 等媒体关注。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-578dfbc9bf88f000",
+      "sourceFingerprint": "AUTO",
+      "title": "Lejla 的作业辅导",
+      "description": "幼儿园至五年级（5 年级）学生可以在儿童阅览室向志愿者 Lejla 寻求作业帮助。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-0b51fbe57e71d058",
+      "sourceFingerprint": "AUTO",
+      "title": "儿童国际象棋俱乐部",
+      "description": "学习国际象棋基础知识，或直接和其他孩子对弈。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-409581efedb56afc",
+      "sourceFingerprint": "AUTO",
+      "title": "乐高欢乐搭建",
+      "description": "用乐高积木自由发挥想象力搭建模型。5 岁以下儿童必须由家长陪同，以避免误吞小积木。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-1678a02b86d1a540",
+      "sourceFingerprint": "AUTO",
+      "title": "阅读伙伴",
+      "description": "K-3 年级儿童与志愿者一对一阅读，提高阅读技能并建立自信，志愿者会倾听并提供帮助。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-88d20323bf62c1c4",
+      "sourceFingerprint": "AUTO",
+      "title": "阅读伙伴一对一辅导",
+      "description": "受过培训的志愿者为孩子提供免费的个别阅读辅导。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a27280b90cc4e3a790c930f",
+      "sourceFingerprint": "AUTO",
+      "title": "阅读伙伴",
+      "description": "K-3 年级儿童与阅读指导员一对一练习阅读，获得倾听、指导和鼓励。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6920f0bad6833e76917eb5e7",
+      "sourceFingerprint": "AUTO",
+      "title": "1 对 1 科技帮助",
+      "description": "导师协助使用 Word、Excel 和 PowerPoint，填写求职与政府表格，以及学习其他在线工具。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-69419d441e64afd01e4f5955",
+      "sourceFingerprint": "AUTO",
+      "title": "阅读伙伴",
+      "description": "在鼓励与支持的氛围中提升基础阅读能力，帮助孩子建立阅读信心。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a4e8e007f5b862800a703b4",
+      "sourceFingerprint": "AUTO",
+      "title": "儿童阅读陪伴",
+      "description": "孩子通过聆听故事培养对图书和阅读的兴趣。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6aa44419f9ed2e00384fe240",
+      "sourceFingerprint": "AUTO",
+      "title": "梵语入门",
+      "description": "面向 7–17 岁儿童的梵语初级课程，从认识字母表开始学习。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a0c9e120c0f2c4503fa9ba7",
+      "sourceFingerprint": "AUTO",
+      "title": "借助 AI 提升学习能力",
+      "description": "通过动手实践学习提示词设计、资料整理和 AI 辅助研究，使用 Gemini、NotebookLM 与 Google Workspace，并重视批判思维、来源核查和正确引用。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6ab41026101eb7003f326220",
+      "sourceFingerprint": "AUTO",
+      "title": "成人 Python 编程入门",
+      "description": "适合希望提升职业技能或学习新知识的成人线上 Python 编程入门课。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    }
+  ]
+}
