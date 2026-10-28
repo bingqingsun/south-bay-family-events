@@ -195,7 +195,8 @@
         "ageText": "Family-friendly for all ages",
         "cost": "Paid admission required; Green Halloween activities are included in general admission.",
         "format": "festival",
-        "seasonalTheme": "halloween"
+        "seasonalTheme": "halloween",
+        "officialDescriptionPattern": "green halloween|costume parade|critter show|trick.or.treat|halloween (?:crafts?|games?|activities)"
       }
     ]
   },
