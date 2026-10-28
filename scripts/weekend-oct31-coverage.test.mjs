@@ -22,13 +22,12 @@ for(const [sourceId,title,date,urlPart,price] of [
   assert.ok((e.description||'').length>=45,`Activity description too short: ${title}`);
   if(price) assert.equal(e.costStatus,price,`Price label wrong: ${title}`);
 }
-for(const [id,title] of [
- ['rss-6abc15d2035faf0033d92969','Halloween Party'],
- ['rss-6ac4082ede300e0045186d78','Halloween Festival at Joyce Ellington Branch']
+for(const [title,officialId] of [
+ ['Halloween Party','6abc15d2035faf0033d92969'],
+ ['Halloween Festival at Joyce Ellington Branch','6ac4082ede300e0045186d78']
 ]) {
-  const e=events.find(x=>x.id===id);
-  assert.ok(e, `SJPL missed a late-page event: ${title}`);
-  assert.equal(e.dateValue.slice(0,10),'2026-10-31');
-  assert.equal(e.source,'San José Public Library');
+  const e=events.find(x=>x.title===title && x.source==='San José Public Library'
+    && String(x.url||'').includes(officialId) && String(x.dateValue||'').startsWith('2026-10-31'));
+  assert.ok(e, `SJPL missed an official late-page event: ${title}`);
 }
 console.log('Halloween weekend organizer and paginated library coverage passed');
