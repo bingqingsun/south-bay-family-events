@@ -3,7 +3,7 @@
  * Requires SERPAPI_KEY in the environment. Uses SerpApi's standard Google
  * search engine so the job also works on plans without Google Events access.
  */
-import { isOfficialClosureNotice, pytSynopsisFromDetail } from './lib/source-detail-repair.mjs';
+import { isOfficialClosureNotice, isRoutineVenueAccessNotice, pytSynopsisFromDetail } from './lib/source-detail-repair.mjs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { applyChineseTranslationCatalog } from './event-translations.mjs';
@@ -680,11 +680,11 @@ async function readChcp(source) {
     const parsedLocation = venueAndAddress(location, source.city || '');
     const city = parsedLocation.city || ['San Jose', 'Santa Clara', 'Mountain View', 'Palo Alto', 'Milpitas', 'Cupertino', 'Los Altos', 'Sunnyvale']
       .find(candidate => new RegExp(`\\b${candidate}\\b`, 'i').test(location)) || source.city || '';
-    const familySignal = /\b(?:family|children|kids?|youth|teen|all ages|festival|celebration|cultural|museum open|hands-on|lion dance|scavenger hunt)\b/i.test(eventText);
+    const familySignal = /\b(?:family|children|kids?|youth|teen|all ages|festival|celebration|cultural|hands-on|lion dance|scavenger hunt)\b/i.test(eventText);
     // CHCP's calendar also syndicates adult lectures and non-local events.
     // Keep only locally held cultural activities with an explicit family or
     // youth signal in CHCP's own title or description.
-    if (!title || !href || !isUpcoming(dateValue) || /\bonline\b/i.test(location) || !/San Jose|Santa Clara|Mountain View|Palo Alto|Milpitas|Cupertino|Los Altos|Sunnyvale/i.test(location) || !familySignal || isClosureNotice(title, description) || !hasUsableSourceContent(description)) return [];
+    if (!title || !href || !isUpcoming(dateValue) || /\bonline\b/i.test(location) || !/San Jose|Santa Clara|Mountain View|Palo Alto|Milpitas|Cupertino|Los Altos|Sunnyvale/i.test(location) || !familySignal || isClosureNotice(title, description) || isRoutineVenueAccessNotice(title) || !hasUsableSourceContent(description)) return [];
     const url = new URL(href, source.feedUrl).href;
     const event = directEvent({
       id: 'chcp-' + createHash('sha256').update(`${url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
@@ -4064,6 +4064,9 @@ function publicationStage(name, predicate) {
 }
 publicationStage('usable-official-description', event => hasUsableSourceContent(event.sourceDescriptionRaw || event.description));
 publicationStage('not-closure', event => !isClosureNotice(event.title, event.sourceDescriptionRaw || event.description));
+// Apply to fresh, revalidated, failed-source-retained and search fallback records.
+// Otherwise a stale card can reappear after the source-level gate removes it.
+publicationStage('not-routine-venue-access', event => !isRoutineVenueAccessNotice(event.title));
 publicationStage('available', event => !isUnavailableEvent(event));
 publicationStage('family-relevant', isFamilyRelevant);
 publicationCandidates = publicationCandidates.map(withPresentationFields);

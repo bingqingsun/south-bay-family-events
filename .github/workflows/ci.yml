@@ -75,6 +75,8 @@ jobs:
       - name: Check refresh-script syntax
         run: |
           node --check scripts/update-events.mjs
+          node --check scripts/lib/source-detail-repair.mjs
+          node --check scripts/routine-venue-notice.test.mjs
           node --check scripts/civicplus-description.mjs
           node --check scripts/civicplus-description.test.mjs
           node --check scripts/event-translations.mjs
@@ -157,6 +159,7 @@ jobs:
           node scripts/cupertino-audience.test.mjs
           node scripts/age-policy.test.cjs && node scripts/update-events-age.test.mjs
           node scripts/test-summary-output.mjs
+          node scripts/routine-venue-notice.test.mjs
           node scripts/classification.test.mjs
           node scripts/cost-policy.test.mjs
           node scripts/movie-policy.test.mjs
