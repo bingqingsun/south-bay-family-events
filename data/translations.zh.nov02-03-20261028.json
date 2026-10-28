@@ -64,40 +64,10 @@
       "reviewedAt": "2026-10-28T17:15:00Z"
     },
     {
-      "id": "rss-692738437eb3e430002628a1",
-      "sourceFingerprint": "AUTO",
-      "title": "儿童一对一阅读指导",
-      "description": "成人志愿者为孩子提供单独阅读练习，鼓励青少年提高阅读能力；参加时可告诉辅导员自己的需求。",
-      "status": "approved",
-      "override": true,
-      "translationSource": "editorial-reviewed-20261028",
-      "reviewedAt": "2026-10-28T17:15:00Z"
-    },
-    {
-      "id": "rss-6a99d789aafa610029616214",
-      "sourceFingerprint": "AUTO",
-      "title": "阅读伙伴",
-      "description": "为初学阅读的孩子提供积极的练习体验，帮助孩子提高阅读能力并建立信心。",
-      "status": "approved",
-      "override": true,
-      "translationSource": "editorial-reviewed-20261028",
-      "reviewedAt": "2026-10-28T17:15:00Z"
-    },
-    {
       "id": "rss-6a5008e7cca66c2f00a25b06",
       "sourceFingerprint": "AUTO",
       "title": "STEM 俱乐部：自制机器人手",
       "description": "每周一下午 4–5 点参加亲子 STEM 活动，动手探索机器人手的制作。",
-      "status": "approved",
-      "override": true,
-      "translationSource": "editorial-reviewed-20261028",
-      "reviewedAt": "2026-10-28T17:15:00Z"
-    },
-    {
-      "id": "rss-6a7faa735d8bc300315a6fe4",
-      "sourceFingerprint": "AUTO",
-      "title": "Santa Teresa 少儿数学俱乐部",
-      "description": "学习四舍五入、分数、面积、周长、图表、货币、多边形、角度和小数。面向 3 至 5 年级、8–11 岁儿童。",
       "status": "approved",
       "override": true,
       "translationSource": "editorial-reviewed-20261028",
@@ -124,30 +94,10 @@
       "reviewedAt": "2026-10-28T17:15:00Z"
     },
     {
-      "id": "rss-6ae22a2196ec3a003add9af0",
-      "sourceFingerprint": "AUTO",
-      "title": "Grant 的阅读伙伴活动",
-      "description": "孩子与受过培训的阅读志愿者 Grant 一对一阅读，培养阅读能力与自信心。",
-      "status": "approved",
-      "override": true,
-      "translationSource": "editorial-reviewed-20261028",
-      "reviewedAt": "2026-10-28T17:15:00Z"
-    },
-    {
       "id": "series-f95ec0e53e122a79",
       "sourceFingerprint": "AUTO",
       "title": "家庭故事会与自由玩耍",
       "description": "全家通过故事、歌曲、童谣、手指游戏与身体律动活动培养儿童早期阅读能力。",
-      "status": "approved",
-      "override": true,
-      "translationSource": "editorial-reviewed-20261028",
-      "reviewedAt": "2026-10-28T17:15:00Z"
-    },
-    {
-      "id": "rss-6a6555a5e1bf262b5115fa5d",
-      "sourceFingerprint": "AUTO",
-      "title": "线上图书馆应用导览",
-      "description": "参加每月的在线课程，学习使用 Libby、San Jose Mercury News、Flipster 与 Palace Project 查找电子书、有声书及报刊，鼓励动手体验。",
       "status": "approved",
       "override": true,
       "translationSource": "editorial-reviewed-20261028",
@@ -294,16 +244,6 @@
       "reviewedAt": "2026-10-28T17:15:00Z"
     },
     {
-      "id": "series-cf5cdd0c77f43b1f",
-      "sourceFingerprint": "AUTO",
-      "title": "3D 打印一对一预约",
-      "description": "适合上过 3D 设计与打印课程的人继续动手练习，在指导下打印简单的模型。",
-      "status": "approved",
-      "override": true,
-      "translationSource": "editorial-reviewed-20261028",
-      "reviewedAt": "2026-10-28T17:15:00Z"
-    },
-    {
       "id": "rss-6a89d81336204e08fbb653fa",
       "sourceFingerprint": "AUTO",
       "title": "动物朋友：爬行动物救援者 John Hale",
@@ -338,16 +278,6 @@
       "sourceFingerprint": "AUTO",
       "title": "乐高周二活动",
       "description": "发挥想象力，用乐高搭建有趣的作品。",
-      "status": "approved",
-      "override": true,
-      "translationSource": "editorial-reviewed-20261028",
-      "reviewedAt": "2026-10-28T17:15:00Z"
-    },
-    {
-      "id": "rss-6ac02397de300e004517d0ea",
-      "sourceFingerprint": "AUTO",
-      "title": "数学伙伴",
-      "description": "志愿者可以协助完成数学作业或练习题，为缺乏数学信心的学生提供积极的学习体验。",
       "status": "approved",
       "override": true,
       "translationSource": "editorial-reviewed-20261028",
@@ -398,16 +328,6 @@
       "sourceFingerprint": "AUTO",
       "title": "Almaden 放学后 STEAM 活动",
       "description": "孩子用乐高积木头脑风暴、设计与搭建，再根据挑战重新改进模型。",
-      "status": "approved",
-      "override": true,
-      "translationSource": "editorial-reviewed-20261028",
-      "reviewedAt": "2026-10-28T17:15:00Z"
-    },
-    {
-      "id": "rss-6abbdbbc29c3d600332c6845",
-      "sourceFingerprint": "AUTO",
-      "title": "Delaney 的作业辅导",
-      "description": "幼儿园至 5 年级学生可到儿童区向志愿者 Delaney 寻求作业帮助。",
       "status": "approved",
       "override": true,
       "translationSource": "editorial-reviewed-20261028",
