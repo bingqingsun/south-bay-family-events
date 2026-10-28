@@ -535,6 +535,31 @@
     ]
   },
   {
+    "id": "calpulli-tonalehqueh-dia-de-muertos",
+    "name": "Calpulli Tonalehqueh",
+    "domain": "aztecadancers.com",
+    "method": "curated",
+    "feedUrl": "https://www.aztecadancers.com/dia-de-muertos",
+    "landingUrl": "https://www.aztecadancers.com/dia-de-muertos",
+    "city": "San Jose",
+    "events": [
+      {
+        "title": "22nd Annual Micailhuitl: Día de Muertos",
+        "dateValue": "2026-10-31T14:00",
+        "endDateValue": "2026-11-01T18:00",
+        "description": "Join Calpulli Tonalehqueh at History Park for a two-day Día de Muertos celebration featuring Danza Azteca ceremonies, Ballet Folklórico and live music. Kids can decorate sugar skulls, make marigold and flower-crown crafts, and enjoy Saturday's Trunk or Treat. Explore community ofrendas, Native arts and crafts, a lowrider display, and food vendors.",
+        "place": "History Park",
+        "address": "635 Phelan Ave, San Jose",
+        "city": "San Jose",
+        "url": "https://www.aztecadancers.com/dia-de-muertos",
+        "ageText": "All ages family-friendly kids activities",
+        "cost": "Admission is FREE.",
+        "format": "festival",
+        "seasonalTheme": "dia-de-muertos"
+      }
+    ]
+  },
+  {
     "name": "San José Buddhist Church Betsuin",
     "domain": "sjbetsuin.org",
     "method": "tribe",
