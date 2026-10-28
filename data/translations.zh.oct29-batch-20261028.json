@@ -5,7 +5,7 @@
   "entries": [
     {
       "id": "series-300ff38e0d9ea96e",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "a1e07938dae0f5b75290d1b018a63370ff720c46a9ad193c02e73055bc0c9778",
       "title": "3D 打印按需服务",
       "description": "按需免费打印符合规定的作品，需要提前报名。",
       "status": "approved",
@@ -15,7 +15,7 @@
     },
     {
       "id": "series-fb9b021dd1160d74",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "2abc6513ff80fa4fe81bc1492831a2ebf7fa05f2c521b7c92d175d5eb8159218",
       "title": "Village Square INSIDERS 社交活动",
       "description": "通过美术、交友、游戏与《龙与地下城》桌游等活动，认识新朋友、享受社区时光。",
       "status": "approved",
@@ -25,7 +25,7 @@
     },
     {
       "id": "series-d49a05b46b63250b",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "ddbc75db51bf33f42d384da9e9ca9e786851a2de1c31ec36c4fbe84a76cd205a",
       "title": "家庭故事会",
       "description": "全家一起听故事、唱歌、念童谣、玩手指游戏和律动，培养孩子早期阅读能力。",
       "status": "approved",
@@ -35,7 +35,7 @@
     },
     {
       "id": "rss-6a937e4e392e9c02993d0403",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "df7fa0a53e1d58c8a2cef8fd6e4e4427331f112c04eeac9d99a7ff36a075b018",
       "title": "万圣节故事会与游行",
       "description": "通过故事、歌曲和喜欢的故事会活动庆祝万圣节，欢迎孩子穿上节日服装。",
       "status": "approved",
@@ -45,7 +45,7 @@
     },
     {
       "id": "rss-6aadb65d129d8e0031f36794",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "d50563bc80c788e7e960970a605f1f8bb08adfd5f6704e3ba952035b42a98ca3",
       "title": "万圣节故事会",
       "description": "在图书馆聆听万圣节故事，感受有趣的节日气氛。",
       "status": "approved",
@@ -55,7 +55,7 @@
     },
     {
       "id": "series-074ea77f0672b0b5",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "3a81cb98c28334243fe93a19011f83c83e7c360260c3dde77c4c9a5a9bf5acff",
       "title": "婴幼儿故事会",
       "description": "适合 0 至 3 岁儿童及其照护者，通过故事、歌曲、童谣、手指游戏和动作培养早期语言能力，其他孩子也欢迎。",
       "status": "approved",
@@ -65,7 +65,7 @@
     },
     {
       "id": "series-85ab05e58877deb3",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "5287a7ec183aa0c2919e455d05ee298e93707114320528a2fe66b48c612e7220",
       "title": "婴儿抱抱故事会",
       "description": "尚未走稳的宝宝和照护者一起听故事、唱歌、玩童谣和亲子互动游戏，故事会后还可以参加自由玩耍。",
       "status": "approved",
@@ -75,7 +75,7 @@
     },
     {
       "id": "series-1a85ae7b48b4ca62",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "b8082280afb90f2e0c9c0ecaa3d46c4ae9e4af7bf143998e907a44132578c041",
       "title": "婴儿故事会与自由玩耍",
       "description": "尚未学会独立走路的宝宝和照护者一起听故事、唱歌和做亲子互动，结束后留下来玩耍。",
       "status": "approved",
@@ -85,7 +85,7 @@
     },
     {
       "id": "series-516e5b4ac3526707",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "cf627417553a4f0d2faa9f7e4bb38b56ed373280d0840b7f544fe6ade60ce989",
       "title": "双语家庭故事会与自由玩耍",
       "description": "不同年龄的家人一起听双语故事、玩童谣、手指游戏和律动，故事会结束后还有自由玩耍。",
       "status": "approved",
@@ -95,7 +95,7 @@
     },
     {
       "id": "series-62ce8eefc711c495",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "a100aa95c532bb9513c0375064cbbd611f51178498e7ff575d0b703e6d8d022a",
       "title": "家庭故事会",
       "description": "通过有趣的故事、歌曲、童谣、手指游戏和动作活动，让孩子和照护者共同体验阅读学习的乐趣。",
       "status": "approved",
@@ -105,7 +105,7 @@
     },
     {
       "id": "rss-6ab41205129d8e0031f486b2",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "1245e807d3d362a95fca63e0477ef40748dea6a012fce5c50aa1fdb5090b75aa",
       "title": "万圣节嘉年华",
       "description": "参加面向全家人的故事会，听故事、唱歌、念童谣、玩手指游戏和律动。",
       "status": "approved",
@@ -115,7 +115,7 @@
     },
     {
       "id": "rss-6a7b58573f18f80030ba65a3",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "f9fa3e6588786785c63aae045ea35201b1f73456b85b6172d2fda45dee4bc037",
       "title": "万圣节故事会与游行",
       "description": "听完故事后，孩子可以在图书馆内排队游行，沿途领取万圣节糖果。",
       "status": "approved",
@@ -125,7 +125,7 @@
     },
     {
       "id": "series-5cbc4e5e6c03afb1",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "192da7f51c213081dc923a6c928dff9059ba21af048bd3d69282b4ed7263bbf0",
       "title": "室内家庭故事会",
       "description": "通过故事、歌曲、童谣、手指游戏和动作活动，让全家共同培养早期阅读能力。",
       "status": "approved",
@@ -135,7 +135,7 @@
     },
     {
       "id": "series-93b76328ad2c28c6",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "8478a8381a458ec338ed4a8fdf98ecade3bb825baab7acd3ffdef68568350891",
       "title": "日语儿童故事朗读会",
       "description": "欢迎学龄前孩子和家长到 West Valley 图书馆参加日语故事朗读活动。",
       "status": "approved",
@@ -145,7 +145,7 @@
     },
     {
       "id": "rss-6a99d79e1c197d11325d14b1",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "b7c7848501a700c3dd652b6bc6744ad2043ca677d17b305679d75d4792592c17",
       "title": "线上面试与社交技巧工作坊",
       "description": "免费的线上讲座，由 SJPL Works 商业图书馆员帮助学习面试技巧与职业人脉拓展。",
       "status": "approved",
@@ -155,7 +155,7 @@
     },
     {
       "id": "stanford-54d87103be469da7",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "9004306f67437504693d156d8c8eddc7c6485991ae42e35e54ff83a8b6cdacf6",
       "title": "Emily Jacobs：女性脑健康的新前沿",
       "description": "讲者的研究曾获《纽约时报》《国家地理》《科学美国人》、NPR、BBC、TED、Radiolab、Netflix 与 MasterClass 等媒体关注。",
       "status": "approved",
@@ -165,7 +165,7 @@
     },
     {
       "id": "series-578dfbc9bf88f000",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "757ba06c42ba1fbb906958adf982138a0d6358e3468a7ce3f24e2f6ad5da095b",
       "title": "Lejla 的作业辅导",
       "description": "幼儿园至五年级（5 年级）学生可以在儿童阅览室向志愿者 Lejla 寻求作业帮助。",
       "status": "approved",
@@ -175,7 +175,7 @@
     },
     {
       "id": "series-0b51fbe57e71d058",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "6f57e45e62e9de04a92fa0f45318df440450252f9b07f41d3709335a4c70f22b",
       "title": "儿童国际象棋俱乐部",
       "description": "学习国际象棋基础知识，或直接和其他孩子对弈。",
       "status": "approved",
@@ -185,7 +185,7 @@
     },
     {
       "id": "series-409581efedb56afc",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "eaa1d0e74cffdd2e0b1d858d75d258a88bd514ea22980b0f192011635bfdcc6e",
       "title": "乐高欢乐搭建",
       "description": "用乐高积木自由发挥想象力搭建模型。5 岁以下儿童必须由家长陪同，以避免误吞小积木。",
       "status": "approved",
@@ -195,7 +195,7 @@
     },
     {
       "id": "series-1678a02b86d1a540",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "89831467bcccb8a545d1c68133a8eb8281fdf333efa84821c6abaa84117d813f",
       "title": "阅读伙伴",
       "description": "K-3 年级儿童与志愿者一对一阅读，提高阅读技能并建立自信，志愿者会倾听并提供帮助。",
       "status": "approved",
@@ -205,7 +205,7 @@
     },
     {
       "id": "series-88d20323bf62c1c4",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "bf49752c5bb373da5c964ca29d42914e624d1bf448c8910eb373c3bd5e71a6a5",
       "title": "阅读伙伴一对一辅导",
       "description": "受过培训的志愿者为孩子提供免费的个别阅读辅导。",
       "status": "approved",
@@ -215,7 +215,7 @@
     },
     {
       "id": "rss-6a27280b90cc4e3a790c930f",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "d1f59e71ec8c56d7f7b870d3ab784f5e62f2f3681afd44803bb6550c0a34c8f4",
       "title": "阅读伙伴",
       "description": "K-3 年级儿童与阅读指导员一对一练习阅读，获得倾听、指导和鼓励。",
       "status": "approved",
@@ -225,7 +225,7 @@
     },
     {
       "id": "rss-6920f0bad6833e76917eb5e7",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "97650469ace59f13460b1e43d36a2400d481945549461faa96c36303b93c810a",
       "title": "1 对 1 科技帮助",
       "description": "导师协助使用 Word、Excel 和 PowerPoint，填写求职与政府表格，以及学习其他在线工具。",
       "status": "approved",
@@ -235,7 +235,7 @@
     },
     {
       "id": "rss-69419d441e64afd01e4f5955",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "9cfcc00020a9aca71092739b358818ac26ffc535b5d51964911a148b015d6086",
       "title": "阅读伙伴",
       "description": "在鼓励与支持的氛围中提升基础阅读能力，帮助孩子建立阅读信心。",
       "status": "approved",
@@ -245,7 +245,7 @@
     },
     {
       "id": "rss-6a4e8e007f5b862800a703b4",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "8e1b1f4fdfeb3455515de5b6c5268588b2bb4a6be41fa65e2836a38284456033",
       "title": "儿童阅读陪伴",
       "description": "孩子通过聆听故事培养对图书和阅读的兴趣。",
       "status": "approved",
@@ -255,7 +255,7 @@
     },
     {
       "id": "rss-6aa44419f9ed2e00384fe240",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "dc600b5681013dfe505e138f8e3f99daa78c4628b124712a046e43236cc3e6a9",
       "title": "梵语入门",
       "description": "面向 7–17 岁儿童的梵语初级课程，从认识字母表开始学习。",
       "status": "approved",
@@ -265,7 +265,7 @@
     },
     {
       "id": "rss-6a0c9e120c0f2c4503fa9ba7",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "ae4ae3c1d31bd1356993510f35f8eb90d25d0fd201c73a0d6a037c02bd766fde",
       "title": "借助 AI 提升学习能力",
       "description": "通过动手实践学习提示词设计、资料整理和 AI 辅助研究，使用 Gemini、NotebookLM 与 Google Workspace，并重视批判思维、来源核查和正确引用。",
       "status": "approved",
@@ -275,7 +275,7 @@
     },
     {
       "id": "rss-6ab41026101eb7003f326220",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "e254d25d0875b3e2bb44c8e10a8b0b21bd1c0165e1daf7cf0761ee72b009ddc4",
       "title": "成人 Python 编程入门",
       "description": "适合希望提升职业技能或学习新知识的成人线上 Python 编程入门课。",
       "status": "approved",

@@ -5,7 +5,7 @@
   "entries": [
     {
       "id": "series-da83eb37b6d7e1fc",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "ecc4c4f6bf2522217176157c215b908fc86c47ebdb5da82a1159d47cae841625",
       "title": "万圣节周寻宝游戏",
       "description": "按照清单找出隐藏的小怪物，完成寻宝后前往服务台领取奖品。",
       "status": "approved",
@@ -15,7 +15,7 @@
     },
     {
       "id": "series-3ed073575ee9cc77",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "0d622060c63d14d3d0fe68d1600a5aa4cd3906907947abc2276e524f4f5dfe68",
       "title": "亡灵节社区纪念祭坛",
       "description": "图书馆在亡灵节前一周搭建社区祭坛，欢迎大家前来参观并参与布置。",
       "status": "approved",
@@ -25,7 +25,7 @@
     },
     {
       "id": "series-3810ef93db66bb4e",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "5e0a21094d84450f4cb1288eeecdd6ff670abc7e0c197d10fe8ae03bb4794bb7",
       "title": "万圣节主题图书馆寻宝",
       "description": "书架间藏着一些有趣但不吓人的万圣节纸艺装饰，快来把它们全部找出来！",
       "status": "approved",
@@ -35,7 +35,7 @@
     },
     {
       "id": "series-335c829bad052837",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "b0053a8ac55e77108fce8f4b4fbb65a645ab2dfcdd64284ba0b9d8021c57fcfc",
       "title": "Mount Pleasant 图书馆适应性活动",
       "description": "通过美术、手工和游戏交朋友、交流互动，享受轻松愉快的活动时光。",
       "status": "approved",
@@ -45,7 +45,7 @@
     },
     {
       "id": "series-083a119bc4869555",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "70040cdb10151cbbe152a882f4926ee4f57ee4648ae44922b7f8cc90317721a7",
       "title": "英语／越南语一对一科技帮助",
       "description": "提供电脑基础指导，例如设置电子邮箱、撰写和发送邮件、网络搜索、Word 和 Excel 使用、Google 文档、打印与复印等。",
       "status": "approved",
@@ -55,7 +55,7 @@
     },
     {
       "id": "series-705d5cc6cfc39b68",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "ddbc75db51bf33f42d384da9e9ca9e786851a2de1c31ec36c4fbe84a76cd205a",
       "title": "家庭故事会",
       "description": "全家通过故事、歌曲、童谣、手指游戏及身体律动活动，共同培养儿童早期阅读能力。",
       "status": "approved",
@@ -65,7 +65,7 @@
     },
     {
       "id": "rss-6ac02cafe06996003a80e8d2",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "aa6a7119c26bb9fce6122450ed9545a0dfd5251256fd6bd1d40066e148eae19c",
       "title": "婴幼儿万圣节故事会与游行",
       "description": "照护者带孩子一起听故事、唱歌、玩童谣和手指游戏，培养语言与探索能力；主要面向 0 至 3 岁儿童，其他年龄孩子也欢迎参加。",
       "status": "approved",
@@ -75,7 +75,7 @@
     },
     {
       "id": "series-919b09ed3f85ec81",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "fd52176b0bf23f3c505a5ab59e9beaea595fca7b29450fd2ad5c01f3dc4777da",
       "title": "儿童阅读陪伴",
       "description": "孩子可以向志愿者朗读，或随时来听故事；无需提前报名。",
       "status": "approved",
@@ -85,7 +85,7 @@
     },
     {
       "id": "series-78ddbcc4f3c39b09",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "dd9779e1342ac977edb2d32de437263d02f77bbc378d362d09d6ffe795dcebe7",
       "title": "婴儿抱抱故事会",
       "description": "面向尚未学会走路的宝宝和照护者，通过故事、歌曲、童谣、拍手、轻挠和游戏，促进亲子交流和早期学习。",
       "status": "approved",
@@ -95,7 +95,7 @@
     },
     {
       "id": "rss-693dfdf71e64afd01e4ef6b3",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "51ada003fec68845073b4fc3d7be66fae75dc391627122644b66dbaa0b133896",
       "title": "家庭故事会",
       "description": "故事会后参加 Stay & Play 自由玩耍时间，孩子与照护者可一起探索、认识新朋友。",
       "status": "approved",
@@ -105,7 +105,7 @@
     },
     {
       "id": "rss-6a693783f4e5db3d00c4f8ad",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "2956471b57e4e4d067071bcd36038219ba19b409b88a267c5b572ef6ba591fc6",
       "title": "万圣节故事会",
       "description": "通过趣味互动故事感受万圣节的奇妙气氛。鼓励孩子穿节日服装参加图书馆内的游行。",
       "status": "approved",
@@ -115,7 +115,7 @@
     },
     {
       "id": "rss-695477f8cba30d92b60b3b7b",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "fe6c677ae79edd44839ab97084970d21feaa1300da179e5552618a279d7d54fa",
       "title": "万圣节故事会与变装游行",
       "description": "一起听万圣节互动故事，穿上节日服装在图书馆内参加变装游行。",
       "status": "approved",
@@ -125,7 +125,7 @@
     },
     {
       "id": "series-61dcdb63b5b3c99d",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "e339adfffaed3ddb10924c6d36ee019b5a51d5c486c618d000cbf479798af414",
       "title": "婴幼儿故事会",
       "description": "主要面向 0 至 3 岁儿童和照护者，通过故事、童谣、歌曲、游戏与肢体活动培养语言能力；其他年龄也欢迎。",
       "status": "approved",
@@ -135,7 +135,7 @@
     },
     {
       "id": "series-a4c6149d260f17f6",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "2e8744d8653febe5320c875d4a081e9ceb31e58b4ee41d49fc3e0688191fb085",
       "title": "儿童与照护者玩伴聚会",
       "description": "孩子在互动游戏中学习分享、轮流和合作，照护者也可以与其他家庭建立联系。",
       "status": "approved",
@@ -145,7 +145,7 @@
     },
     {
       "id": "series-3365d6d8ebe9a49e",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "98d99ad3deb48435d1c7d474fb107ac84c094d587eb5424f30a9c82a26587c80",
       "title": "儿童阅读陪伴",
       "description": "志愿者在儿童区陪孩子小组阅读、听故事，激发想象力并培养阅读兴趣。",
       "status": "approved",
@@ -155,7 +155,7 @@
     },
     {
       "id": "rss-6a7b585db204780029922c8e",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "dbde37bfdb76e375c9a42bc76e78259bc4277743de6c79bf84a57b4413404244",
       "title": "万圣节故事会与游行",
       "description": "孩子和家人可以在图书馆内变装游行，并在各个站点练习讨糖。",
       "status": "approved",
@@ -165,7 +165,7 @@
     },
     {
       "id": "rss-6aa343fe88820d0031702bab",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "b9f9c2518bd023e66ce834dc36b8bcd947725e419e20a813c61691522f3a8142",
       "title": "线上简历点评",
       "description": "与图书馆员进行 15 分钟的一对一简历点评，获得修改和整理建议。需准备简历和职位描述，活动前 1 小时会发送 Zoom 链接。",
       "status": "approved",
@@ -175,7 +175,7 @@
     },
     {
       "id": "series-647f3a6898683094",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "d02b53951ca57bf0622679fadac765a7380b47809c910dfbc6916fb02866c1d0",
       "title": "电影《WILDWOOD》",
       "description": "CineLux Almaden 放映的 PG13 级电影。",
       "status": "approved",
@@ -185,7 +185,7 @@
     },
     {
       "id": "rss-6ac02cdede300e004517d3af",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "8a74271e893c6ec1cb978539f88b5ad8cb9b30ad328f02d37b0426c91d988420",
       "title": "人人都能编程：Sphero 机器人迷宫",
       "description": "使用 iPad 和 Sphero 机器人学习编程与机器人基础，通过适合初学者的练习设计迷宫路线。",
       "status": "approved",
@@ -195,7 +195,7 @@
     },
     {
       "id": "series-92971b23c691ab06",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "70e5df49dcd6b81d4cc0649e568d7772a8a515de4854d7365f54215b01879f3f",
       "title": "放学后玩游戏",
       "description": "面向 13–18 岁青少年，可在馆内借用 Nintendo Switch 控制器和游戏，放学后与朋友一起玩。",
       "status": "approved",
@@ -205,7 +205,7 @@
     },
     {
       "id": "series-d5e04e467a78f6ef",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "8e1b1f4fdfeb3455515de5b6c5268588b2bb4a6be41fa65e2836a38284456033",
       "title": "儿童阅读陪伴",
       "description": "孩子通过聆听有趣故事，培养对书籍和阅读的兴趣。",
       "status": "approved",
@@ -215,7 +215,7 @@
     },
     {
       "id": "series-b3c379e4af751d19",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "55f646962c25ce5de62ce31179bd21171a7c924b92523cf6d701b423a8755cfb",
       "title": "Willow Glen 图书馆儿童阅读陪伴",
       "description": "志愿者 Mike、Sally 和 Matt 通过一对一或小组阅读陪伴，帮助孩子培养阅读兴趣；孩子也欢迎向志愿者朗读。",
       "status": "approved",
@@ -225,7 +225,7 @@
     },
     {
       "id": "rss-6aa340fb56fe62004a2f5c45",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "3f135ec0d4d3191537464932430b5acf7f8f981b18cbdec6640f078dbe2636d8",
       "title": "拼豆下午手工",
       "description": "使用彩色拼豆设计并制作自己的艺术作品。",
       "status": "approved",
@@ -235,7 +235,7 @@
     },
     {
       "id": "series-4b9dabab14c0bf3a",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "43fff31735870ca3bf593ec24d18aa498b640e071b5b2e5b6c72ef91d5376c66",
       "title": "1 对 1 科技帮助",
       "description": "志愿者可协助制作 Word、Excel、PowerPoint 文件，提交求职或政府表格，以及学习其他网络工具。",
       "status": "approved",
@@ -255,7 +255,7 @@
     },
     {
       "id": "series-0ddec1db7622ac29",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "3c2101859b670b905527e0ac297e423e4de55415accc68522570880893453480",
       "title": "钩针编织俱乐部",
       "description": "适合初学者的轻松钩针编织入门活动。",
       "status": "approved",
@@ -265,7 +265,7 @@
     },
     {
       "id": "rss-6a02132143b41b3d0065b3d9",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "da1842496977be53c68119f7dcf1836aa6d66423934cd3f6f3526ccda61ba91f",
       "title": "Edenvale Teens Reach 青少年会议",
       "description": "Teens Reach 青少年理事会通过策划图书馆活动、提供建议和参与服务，锻炼领导力。",
       "status": "approved",
@@ -275,7 +275,7 @@
     },
     {
       "id": "rss-6ab705e4129d8e0031f5240c",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "33629211b545aac199510830b247a6615eb9ad8ca22fabfac4dc7181a461495e",
       "title": "人人都能编程：Swift Playgrounds 入门",
       "description": "学习 Swift 基础，了解如何使用这种语言开发 iOS 与 macOS 应用。",
       "status": "approved",
@@ -285,7 +285,7 @@
     },
     {
       "id": "rss-68c9b4e89b6a35582f71b19f",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "4e53e05d44e0e73d6f4c27e0dc9b736434f6e78bf8c496346e918e3c8c47a474",
       "title": "万圣节活动与变装游行",
       "description": "这是一场不太吓人的万圣节活动，4:00 PM 先欣赏 Andy Z 的户外演出，建议自带毯子或坐垫。",
       "status": "approved",
@@ -295,7 +295,7 @@
     },
     {
       "id": "rss-6ad13d7a29c3d600333034dc",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "92f7d8313d17d758ee56e4fbb71adfd791d536d9fb5f718f9d68ff30bcf03863",
       "title": "万圣节定格动画制作",
       "description": "使用 iPad 上的 Stop Motion 应用，制作自己的万圣节主题定格动画。",
       "status": "approved",
@@ -305,7 +305,7 @@
     },
     {
       "id": "series-800b644846e41481",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "d22439da6292c52df489ac29de9e1cf7881e7364da7b00fddaec49e2a14b6c03",
       "title": "英语／西班牙语双语阅读伙伴",
       "description": "幼儿园至 3 年级儿童可向受过培训的青少年志愿者朗读英语或西班牙语，获得发音指导和鼓励。",
       "status": "approved",
@@ -315,7 +315,7 @@
     },
     {
       "id": "series-f0f5ed1a8e67ad14",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "bf49752c5bb373da5c964ca29d42914e624d1bf448c8910eb373c3bd5e71a6a5",
       "title": "阅读伙伴一对一辅导",
       "description": "由受过培训的志愿者为孩子提供免费的个别阅读辅导。",
       "status": "approved",
@@ -325,7 +325,7 @@
     },
     {
       "id": "rss-6abbfe109dbc2b002c8b1354",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "319e3cf9f48a03d571c2479d262ee43617462fbf8582aba7fd8444d6b8c05b6d",
       "title": "STEM 周三：Scratch 万圣节魔法药水",
       "description": "在动手制作虚拟魔法药水的过程中，学习 Scratch 角色、事件和声音等编程概念。",
       "status": "approved",
@@ -335,7 +335,7 @@
     },
     {
       "id": "series-eea2bae5a8157818",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "5d9b1727ef374326a1f36593dba5993377e6933f6d7c9c1aca990a46d6759448",
       "title": "大学申请文书 PIQ 写作工作坊",
       "description": "由写作老师一对一指导修改个人见解问题（PIQ），避免常见错误，向招生官更好地展示自己的优势。",
       "status": "approved",
@@ -345,7 +345,7 @@
     },
     {
       "id": "series-13dd3d071e5b8b9e",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "0af0a8b02ce193e18a5571e26cb4b00d6814da504786a103cfbe42fca345fe04",
       "title": "线上数学奥林匹克俱乐部",
       "description": "8–11 岁儿童通过 Zoom 学习解答有挑战性的数学题，为中学 MOEMS 数学竞赛做准备。",
       "status": "approved",
@@ -355,7 +355,7 @@
     },
     {
       "id": "rss-6aad74cdf9ed2e003851b154",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "632ff420bbb51476dfa1f74db9f62357a1a7fa2e289194bb569f886c2e4881b5",
       "title": "3D 打印密室逃脱：惊悚主题",
       "description": "本月挑战以惊悚为主题，每个月都有不同的密室逃脱任务，面向初中和高中学生。",
       "status": "approved",
@@ -365,7 +365,7 @@
     },
     {
       "id": "rss-6ab1997d8cf597003f9577f1",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "46b4f9972621e2363c600c6d136fd801d448b711a0a2210aa48f4a7b0bf08d30",
       "title": "AI 素养与人工智能偏见",
       "description": "无需任何 AI 或编程基础即可参加。",
       "status": "approved",
@@ -375,7 +375,7 @@
     },
     {
       "id": "series-fd21abce4e823db6",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "f203dd8f0f54c90e97ad1baa72a479c50f5f580af0e1dee2492ed38ea3714407",
       "title": "编织、钩针、梭编与蕾丝俱乐部",
       "description": "一起学习或提高各种针线手工技巧，欣赏他人的作品并交流心得。",
       "status": "approved",
@@ -385,7 +385,7 @@
     },
     {
       "id": "series-6d98a8a8fe291584",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "997f74395c00dc6a7a5b7d1811cd652b8c2851e11aeab508c70cb599ef0f4b36",
       "title": "儿童阅读陪伴",
       "description": "孩子可向志愿者练习朗读，也可随时听故事。适合学龄前及 K-3 年级儿童，活动在儿童区进行。",
       "status": "approved",
@@ -395,7 +395,7 @@
     },
     {
       "id": "rss-6a8e1fa269166f088b94df77",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "75b96a7b1d639e24471dd244aa725a7a5c74d258bbac5e364e9dde5874ff768b",
       "title": "青少年十月：图书馆实地寻宝",
       "description": "参加实地寻宝游戏，探索图书馆提供的各种图书、材料和服务资源。",
       "status": "approved",
@@ -405,7 +405,7 @@
     },
     {
       "id": "rss-69fa330bf6bd012f0065d7f3",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "e17cf6d0d64244db9fbe1181b1f42f7bcef7628c52de7df01787f57f2540e374",
       "title": "BYOB 自带一本书读书会",
       "description": "挑一本幽默、机智或具有讽刺意味的书来分享，也会讨论电影改编主题。五月 20 日的主题是电影改编。",
       "status": "approved",
@@ -415,7 +415,7 @@
     },
     {
       "id": "rss-6a590b9b0e562e28009a4b7c",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "d50563bc80c788e7e960970a605f1f8bb08adfd5f6704e3ba952035b42a98ca3",
       "title": "万圣节故事会",
       "description": "跟着万圣节故事走进充满神秘趣味的冒险世界。",
       "status": "approved",
@@ -425,7 +425,7 @@
     },
     {
       "id": "series-d072296077676883",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "48a0e2c13615f0911cfb6ead3c6506f3b6dfb3ea0c3f6c17658d45f81b41a0ad",
       "title": "生活印地语",
       "description": "适合不同语言背景的学习者，从听、说、读、写四项能力入手学习印地语，内容对照美国及加州世界语言课程框架。",
       "status": "approved",
@@ -435,7 +435,7 @@
     },
     {
       "id": "series-7c7e9b4c310881c6",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "c0d5bef1617b1bd276a80662c21ebb01c5222490cc4950f633a85d0415405d17",
       "title": "公开演讲练习",
       "description": "可以旁听或参加即兴演讲，在 1-2 分钟内回答现场题目；需报名获取 Zoom 链接和密码。",
       "status": "approved",
@@ -445,7 +445,7 @@
     },
     {
       "id": "series-94d1724a6c11a1a9",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "138d2140beb5da6673a4aae3220d2adfbaad0a2fb32b0ac1ba5e8585a3b6249d",
       "title": "青少年手工与交友",
       "description": "面向 12–18 岁青少年的每周创意社交活动。十月 7 日做饰品托盘、14 日做布袋、21 日做迷你南瓜、28 日做闪亮装饰；材料有限。",
       "status": "approved",
@@ -455,7 +455,7 @@
     },
     {
       "id": "series-d781b086e0649334",
-      "sourceFingerprint": "AUTO",
+      "sourceFingerprint": "98d99ad3deb48435d1c7d474fb107ac84c094d587eb5424f30a9c82a26587c80",
       "title": "儿童阅读陪伴",
       "description": "在志愿者带领下于儿童区小组听故事、练习阅读，培养想象力和阅读兴趣。",
       "status": "approved",
