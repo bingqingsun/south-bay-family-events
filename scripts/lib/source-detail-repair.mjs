@@ -25,6 +25,21 @@ export function isOfficialClosureNotice(title, description = '') {
     || /\b(?:museum|libraries|library branches?|bookmobile)\s+(?:will be|is|are)\s+closed\b/i.test(detail);
 }
 
+
+/**
+ * An organizer can put ordinary admission hours on an Events calendar.
+ * Opening notices are useful visitor information, but not distinct family
+ * activities. Judge the listing's TITLE rather than incidental festival
+ * language in its description (e.g. "Museum Open during Dia de Muertos").
+ * Preserve named open houses, guided tours and hands-on programs.
+ */
+export function isRoutineVenueAccessNotice(title) {
+  const name = plain(title);
+  const routineOpening = /\b(?:museum|gallery|zoo|visitor cent(?:er|re))\s+(?:is\s+)?open\b(?=\s*(?:$|\(|for\b|during\b|on\b|through\b))/i;
+  if (!routineOpening.test(name)) return false;
+  return !/\b(?:open house|open studio|guided tours?|workshops?|story\s?times?|demonstrations?|hands-on|performances?|concerts?)\b/i.test(name);
+}
+
 export function pytSynopsisFromDetail(html, expectedTitle) {
   const body = String(html || '');
   const heading = [...body.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/gi)]
