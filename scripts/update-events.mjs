@@ -857,7 +857,13 @@ async function readCurated(source) {
   const items = (source.events || []).filter(item => item.title && isUpcoming(item.dateValue));
   return (await Promise.all(items.map(async (item, index) => {
     const url = item.url || source.feedUrl;
-    const officialDescription = await curatedOfficialDescription(url, item.title);
+    const organizerDescription = await curatedOfficialDescription(url, item.title);
+    // Some verified event pages still carry only their site's generic SEO
+    // description. A source-specific activity keyword contract prevents that
+    // generic copy from replacing a stronger, manually verified program brief.
+    const officialDescription = item.officialDescriptionPattern
+      && !(new RegExp(item.officialDescriptionPattern, 'i')).test(organizerDescription)
+      ? '' : organizerDescription;
     const description = officialDescription || item.description || '';
     const event = directEvent({
       id: 'curated-' + createHash('sha256').update(`${source.feedUrl}|${item.title}|${item.dateValue}|${index}`).digest('hex').slice(0, 16),
