@@ -861,9 +861,12 @@ async function readCurated(source) {
     // Some verified event pages still carry only their site's generic SEO
     // description. A source-specific activity keyword contract prevents that
     // generic copy from replacing a stronger, manually verified program brief.
-    const officialDescription = item.officialDescriptionPattern
-      && !(new RegExp(item.officialDescriptionPattern, 'i')).test(organizerDescription)
+    const officialDescription = item.preferVerifiedDescription
+      || (item.officialDescriptionPattern
+        && !(new RegExp(item.officialDescriptionPattern, 'i')).test(organizerDescription))
       ? '' : organizerDescription;
+    // An organizer's SEO snippet may be generic or predominantly admission
+    // boilerplate. Preserve reviewed, event-specific manual copy when opted in.
     const description = officialDescription || item.description || '';
     const event = directEvent({
       id: 'curated-' + createHash('sha256').update(`${source.feedUrl}|${item.title}|${item.dateValue}|${index}`).digest('hex').slice(0, 16),
