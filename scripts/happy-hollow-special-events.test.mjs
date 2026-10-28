@@ -16,10 +16,11 @@ assert.equal(matches.length, 1, 'Green Halloween should be published as exactly 
 const event = matches[0];
 assert.equal(event.url, 'https://happyhollow.org/green-halloween/');
 assert.equal(event.dateValue, '2026-10-31T11:00');
-assert.equal(event.endDateValue, '2026-10-31T14:00');
+assert.ok(event.endDateValue.startsWith('2026-10-31T14:00'), 'The event must end at 2 PM, allowing normalized seconds');
 assert.equal(event.costStatus, 'paid', 'Included with admission is not free admission');
 assert.notEqual(event.costLabel, '$3', 'Costume discount must not be mistaken for ticket price');
 assert.match(event.description || '', /critter|costume|craft|trick-or-treat/i);
+assert.doesNotMatch(event.description || '', /connects people to nature through play/i, 'Generic site SEO copy must not replace event content');
 assert.equal(event.image, 'https://happyhollow.org/wp-content/uploads/2026/08/Green-Halloween-2025-website-.png');
 assert.ok(!events.some(event => /^Today.s Hours/i.test(event.title) && event.source === source.name),
   'Routine opening hours must not be published as a special event');
