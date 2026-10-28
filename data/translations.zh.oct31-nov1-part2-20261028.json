@@ -184,26 +184,6 @@
       "reviewedAt": "2026-10-28T17:15:00Z"
     },
     {
-      "id": "rss-6a50273788e9bf28002fcb61",
-      "sourceFingerprint": "AUTO",
-      "title": "OneinMath 数学课：Educational Park（K-3）",
-      "description": "面向 K-3 年级儿童的免费基础算术活动。",
-      "status": "approved",
-      "override": true,
-      "translationSource": "editorial-reviewed-20261028",
-      "reviewedAt": "2026-10-28T17:15:00Z"
-    },
-    {
-      "id": "rss-6a74e47a0d65ac360044e83a",
-      "sourceFingerprint": "AUTO",
-      "title": "OneinMath 数学课：Evergreen（K-3）",
-      "description": "K-3 年级学生可在志愿者指导下通过游戏、练习和互动活动巩固数学基础并建立自信。",
-      "status": "approved",
-      "override": true,
-      "translationSource": "editorial-reviewed-20261028",
-      "reviewedAt": "2026-10-28T17:15:00Z"
-    },
-    {
       "id": "rss-6a5008d1c7e02e3d006800db",
       "sourceFingerprint": "AUTO",
       "title": "周日桌游日",
