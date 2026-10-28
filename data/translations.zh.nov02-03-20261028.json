@@ -1,0 +1,497 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "note": "Current Nov 2-3 family-event Chinese translations after official source refresh",
+  "entries": [
+    {
+      "id": "rss-6aa1bad556fe62004a2f2bb9",
+      "sourceFingerprint": "AUTO",
+      "title": "音乐与律动",
+      "description": "面向不同年龄的家庭，通过音乐、身体动作和互动游戏体验学习的乐趣。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-69e7a8c91e64afd01e6aad55",
+      "sourceFingerprint": "AUTO",
+      "title": "Aysha 的儿童阅读陪伴",
+      "description": "在 Aysha 的陪伴下读书、听故事，激发想象力并培养阅读兴趣。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a67cb469943bdf31ea202f8",
+      "sourceFingerprint": "AUTO",
+      "title": "游戏专区",
+      "description": "不管是想展示游戏水平，还是从零开始学习基本玩法，都欢迎来参加。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6931d4246f92613600093955",
+      "sourceFingerprint": "AUTO",
+      "title": "儿童国际象棋俱乐部",
+      "description": "学习国际象棋基础，或与其他孩子一起下棋。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a7e0ad9d4b10d0030064670",
+      "sourceFingerprint": "AUTO",
+      "title": "国际象棋入门",
+      "description": "初学者及想提高水平的人，都可以在轻松友好的氛围中学习并对弈。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a3d7c4a86636e3d0050a034",
+      "sourceFingerprint": "AUTO",
+      "title": "周一创意手工：串珠玉米",
+      "description": "每周通过不同的艺术活动培养创造力、社交情绪能力和入学准备技能。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-692738437eb3e430002628a1",
+      "sourceFingerprint": "AUTO",
+      "title": "儿童一对一阅读指导",
+      "description": "成人志愿者为孩子提供单独阅读练习，鼓励青少年提高阅读能力；参加时可告诉辅导员自己的需求。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a99d789aafa610029616214",
+      "sourceFingerprint": "AUTO",
+      "title": "阅读伙伴",
+      "description": "为初学阅读的孩子提供积极的练习体验，帮助孩子提高阅读能力并建立信心。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a5008e7cca66c2f00a25b06",
+      "sourceFingerprint": "AUTO",
+      "title": "STEM 俱乐部：自制机器人手",
+      "description": "每周一下午 4–5 点参加亲子 STEM 活动，动手探索机器人手的制作。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a7faa735d8bc300315a6fe4",
+      "sourceFingerprint": "AUTO",
+      "title": "Santa Teresa 少儿数学俱乐部",
+      "description": "学习四舍五入、分数、面积、周长、图表、货币、多边形、角度和小数。面向 3 至 5 年级、8–11 岁儿童。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a4c36cc4407827f8aa9ca4e",
+      "sourceFingerprint": "AUTO",
+      "title": "钩针编织俱乐部",
+      "description": "带上现有编织作品或开始新项目，与其他人分享钩针编织技巧。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a655635f494c55649eb2de9",
+      "sourceFingerprint": "AUTO",
+      "title": "编织与蕾丝手工俱乐部",
+      "description": "学习编织、钩针、梭编和线轴蕾丝技巧，观摩他人的作品并交流经验。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6ae22a2196ec3a003add9af0",
+      "sourceFingerprint": "AUTO",
+      "title": "Grant 的阅读伙伴活动",
+      "description": "孩子与受过培训的阅读志愿者 Grant 一对一阅读，培养阅读能力与自信心。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-f95ec0e53e122a79",
+      "sourceFingerprint": "AUTO",
+      "title": "家庭故事会与自由玩耍",
+      "description": "全家通过故事、歌曲、童谣、手指游戏与身体律动活动培养儿童早期阅读能力。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a6555a5e1bf262b5115fa5d",
+      "sourceFingerprint": "AUTO",
+      "title": "线上图书馆应用导览",
+      "description": "参加每月的在线课程，学习使用 Libby、San Jose Mercury News、Flipster 与 Palace Project 查找电子书、有声书及报刊，鼓励动手体验。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-012dfe3f1c1c4b16",
+      "sourceFingerprint": "AUTO",
+      "title": "家庭故事会",
+      "description": "全家一起唱歌、念童谣并聆听故事。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-69aa02ed6724c63d00f7020d",
+      "sourceFingerprint": "AUTO",
+      "title": "音乐与身体律动",
+      "description": "全家参与歌曲、童谣、手指游戏与动作活动，培养儿童早期语言与阅读能力。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-67ae6d3ab77ff728002c0699",
+      "sourceFingerprint": "AUTO",
+      "title": "Rose Garden 婴儿抱抱故事会",
+      "description": "宝宝与照护者一起听故事、唱歌、玩童谣、拍手和亲子游戏，故事会后还能自由玩耍。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6ac810a1a85a2c00337e27f1",
+      "sourceFingerprint": "AUTO",
+      "title": "数数、游戏与探索",
+      "description": "孩子们通过有趣的游戏、创意活动和互动玩耍培养数字感觉。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-692e108051da852800c45914",
+      "sourceFingerprint": "AUTO",
+      "title": "钩针与棒针编织俱乐部",
+      "description": "交流毛线作品、学习编织和钩针技巧，和同好分享经验。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-691fb8c1dff9d93e00d10dc5",
+      "sourceFingerprint": "AUTO",
+      "title": "家庭故事会",
+      "description": "通过故事、歌曲、童谣、手指游戏和律动，帮助孩子培养早期阅读能力。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-691cdde30176055300007a45",
+      "sourceFingerprint": "AUTO",
+      "title": "家庭故事会与自由玩耍",
+      "description": "全家一起通过故事、歌曲、童谣和律动培养早期阅读能力。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-694451baea69de6e00104929",
+      "sourceFingerprint": "AUTO",
+      "title": "家庭故事会与自由游戏",
+      "description": "故事、歌曲、童谣、手指游戏和动作活动适合不同年龄段的家庭共同参与。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-693330536724c63d00e572c2",
+      "sourceFingerprint": "AUTO",
+      "title": "室内家庭故事会与自由玩耍",
+      "description": "全家通过互动故事会享受阅读与学习，故事会后还有 Stay & Play 自由玩耍活动。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-677c54effea9b97171fe8f96",
+      "sourceFingerprint": "AUTO",
+      "title": "Seven Trees 婴幼儿故事会",
+      "description": "宝宝与照护者通过故事、歌曲、童谣和亲子游戏共同学习，之后还可以留下来玩耍。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6ac81034377296003a4aa7ee",
+      "sourceFingerprint": "AUTO",
+      "title": "双语幼儿故事会与自由游戏",
+      "description": "幼儿通过双语故事、童谣、手指游戏和律动培养早期阅读能力。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6920f0c7dff9d93e00d12ee1",
+      "sourceFingerprint": "AUTO",
+      "title": "Las Madres 亲子玩伴小组",
+      "description": "每周二加入 Las Madres Downtown／Rose Garden 亲子聚会，与面临相似育儿问题的家长交流并建立友谊。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a985d6d57c264087ad5bacb",
+      "sourceFingerprint": "AUTO",
+      "title": "麻将入门",
+      "description": "一边玩一边学习认牌、摆牌、游戏流程、组牌和获胜方法，锻炼思维并认识新朋友。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a83713669166f088b92df79",
+      "sourceFingerprint": "AUTO",
+      "title": "儿童折纸",
+      "description": "用彩纸折出帆船、企鹅、青蛙或武士头盔等有趣作品。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-cf5cdd0c77f43b1f",
+      "sourceFingerprint": "AUTO",
+      "title": "3D 打印一对一预约",
+      "description": "适合上过 3D 设计与打印课程的人继续动手练习，在指导下打印简单的模型。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a89d81336204e08fbb653fa",
+      "sourceFingerprint": "AUTO",
+      "title": "动物朋友：爬行动物救援者 John Hale",
+      "description": "有机会认识变色龙 Bernie、鬃狮蜥 Ginger、红腿陆龟 Vince 或兔子 Cupcake。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-69caccbe66c3387a9d054710",
+      "sourceFingerprint": "AUTO",
+      "title": "创意写作工作坊",
+      "description": "不论已经写作多年，还是刚开始尝试，都可以报名获得创作灵感，让故事更出彩。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6ac02e94e06996003a80e933",
+      "sourceFingerprint": "AUTO",
+      "title": "Educational Park 艺术俱乐部",
+      "description": "十一月活动包括：3 日绘画（Frank Buffalo Hyde）、10 日排灯节 Rangoli 手工、17 日编织（Theresa Secord）、24 日地图艺术（Jaune Quick-to-See Smith）。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-fdc32e2e5866cb79",
+      "sourceFingerprint": "AUTO",
+      "title": "乐高周二活动",
+      "description": "发挥想象力，用乐高搭建有趣的作品。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6ac02397de300e004517d0ea",
+      "sourceFingerprint": "AUTO",
+      "title": "数学伙伴",
+      "description": "志愿者可以协助完成数学作业或练习题，为缺乏数学信心的学生提供积极的学习体验。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a6265a7f4e5db3d00c3c322",
+      "sourceFingerprint": "AUTO",
+      "title": "折纸也是编程",
+      "description": "通过折纸活动理解编程中的重要概念。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6ab40cd2da318a10e636366f",
+      "sourceFingerprint": "AUTO",
+      "title": "中文／英文儿童故事朗读",
+      "description": "志愿者 Ning 使用普通话或英语为孩子和家人朗读故事。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-69e7a8e8b1165a41a660aaa9",
+      "sourceFingerprint": "AUTO",
+      "title": "Ms. Lee 的儿童阅读陪伴",
+      "description": "通过故事与阅读互动培养孩子的想象力和阅读兴趣。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a4bcff0541102b7fa8ab380",
+      "sourceFingerprint": "AUTO",
+      "title": "虚拟现实设备探索体验",
+      "description": "学习使用 VR 设备，体验虚拟现实游戏和谜题。适合 12 岁及以上青少年；设备可能引起眩晕或方向感不适。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a73854af213992f00c9cfe4",
+      "sourceFingerprint": "AUTO",
+      "title": "Almaden 放学后 STEAM 活动",
+      "description": "孩子用乐高积木头脑风暴、设计与搭建，再根据挑战重新改进模型。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6abbdbbc29c3d600332c6845",
+      "sourceFingerprint": "AUTO",
+      "title": "Delaney 的作业辅导",
+      "description": "幼儿园至 5 年级学生可到儿童区向志愿者 Delaney 寻求作业帮助。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a36f828c7d3cd580061b593",
+      "sourceFingerprint": "AUTO",
+      "title": "乐高俱乐部",
+      "description": "每周二在图书馆参加一小时的乐高积木搭建活动。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a6270e588e9bf280032dae7",
+      "sourceFingerprint": "AUTO",
+      "title": "英语／越南语音乐律动与手工",
+      "description": "双语故事会结束后，孩子们学习制作简单而有创意的手工，并带回家。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6aa445aa129d8e0031f173bf",
+      "sourceFingerprint": "AUTO",
+      "title": "每月第 1 个周二 STEM：Lynbrook WiSTEM",
+      "description": "每个月探索不同的科学主题，认识科学领域与现实生活的联系。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a0df29643b41b3d0067dd3a",
+      "sourceFingerprint": "AUTO",
+      "title": "儿童阅读陪伴",
+      "description": "通过聆听趣味故事，培养孩子对图书与阅读的兴趣。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6ac8309f377296003a4ab25d",
+      "sourceFingerprint": "AUTO",
+      "title": "ArtSEE 感恩卡片创作",
+      "description": "参加由青少年 Sharvi 带领的活动，设计独一无二的感恩卡片。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "rss-6a83768e57c264087ad1c86a",
+      "sourceFingerprint": "AUTO",
+      "title": "Hillview 青少年志愿者理事会",
+      "description": "Teens Reach 面向 13–18 岁青少年，通过参与图书馆活动、策划与顾问工作锻炼领导力。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-73ff1e65e2544e5b",
+      "sourceFingerprint": "AUTO",
+      "title": "电影：《魔法科高中的劣等生 四叶继承篇》（配音版）",
+      "description": "CineLux Plaza 放映的 NR 未分级配音版电影。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    },
+    {
+      "id": "series-bfbfceeed099955b",
+      "sourceFingerprint": "AUTO",
+      "title": "线上正念冥想",
+      "description": "为避免打断冥想，参与者须在晚上 7:15 前进入线上活动；每周都需单独报名，也可观看 Phuong 的相关冥想视频。",
+      "status": "approved",
+      "override": true,
+      "translationSource": "editorial-reviewed-20261028",
+      "reviewedAt": "2026-10-28T17:15:00Z"
+    }
+  ]
+}
