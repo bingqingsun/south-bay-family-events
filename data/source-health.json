@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-28T16:46:14.463Z",
+  "generatedAt": "2026-10-28T16:50:31.125Z",
   "configuredSources": 96,
   "directSources": 90,
   "fallbackSourcesRun": 0,
@@ -164,10 +164,10 @@
       "name": "Happy Hollow Park & Zoo",
       "method": "happyhollow",
       "mode": "direct",
-      "status": "failed",
-      "eventCount": 0,
-      "failureStreak": 1,
-      "error": "The operation was aborted due to timeout"
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Gilroy Gardens|gilroygardens.org|https://www.gilroygardens.org/calendar-hours/",
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 72,
+      "failureStreak": 73,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 72,
+      "failureStreak": 73,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -306,7 +306,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 72,
+      "failureStreak": 73,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -446,7 +446,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 5,
+      "failureStreak": 6,
       "error": "CivicPlus official calendar was not valid: 403"
     },
     {
@@ -544,10 +544,10 @@
       "name": "The Village at San Antonio Center",
       "method": "official-venue-calendar",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 1,
-      "error": "The operation was aborted due to timeout"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "CalColor Academy|eventbrite.com|https://www.eventbrite.com/o/calcolor-academy-9700734107",
@@ -556,7 +556,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 40,
+      "failureStreak": 41,
       "error": "Eventbrite organizer has neither usable events nor a confirmed empty listing"
     },
     {
@@ -950,27 +950,27 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 72,
+      "failureStreak": 73,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 72,
+      "failureStreak": 73,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 72,
+      "failureStreak": 73,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 5,
+      "failureStreak": 6,
       "error": "CivicPlus official calendar was not valid: 403"
     },
     {
       "name": "CalColor Academy",
-      "failureStreak": 40,
+      "failureStreak": 41,
       "error": "Eventbrite organizer has neither usable events nor a confirmed empty listing"
     }
   ],
@@ -985,6 +985,7 @@
         "Palo Alto Junior Museum & Zoo": 10,
         "Santa Clara County Library District": 465,
         "City of Cupertino": 2,
+        "Happy Hollow Park & Zoo": 1,
         "Gilroy Gardens": 2,
         "De Anza College Planetarium": 19,
         "Stanford Events": 3,
@@ -1010,7 +1011,6 @@
         "City of Menlo Park": 1,
         "Santana Row": 4,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1022,6 +1022,7 @@
         "Palo Alto Junior Museum & Zoo": 10,
         "Santa Clara County Library District": 465,
         "City of Cupertino": 2,
+        "Happy Hollow Park & Zoo": 1,
         "Gilroy Gardens": 2,
         "De Anza College Planetarium": 19,
         "Stanford Events": 3,
@@ -1047,7 +1048,6 @@
         "City of Menlo Park": 1,
         "Santana Row": 4,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       }
     },
@@ -1061,6 +1061,7 @@
         "Palo Alto Junior Museum & Zoo": 10,
         "Santa Clara County Library District": 465,
         "City of Cupertino": 2,
+        "Happy Hollow Park & Zoo": 1,
         "Gilroy Gardens": 2,
         "De Anza College Planetarium": 19,
         "Stanford Events": 3,
@@ -1086,7 +1087,6 @@
         "City of Menlo Park": 1,
         "Santana Row": 4,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1098,6 +1098,7 @@
         "Palo Alto Junior Museum & Zoo": 10,
         "Santa Clara County Library District": 465,
         "City of Cupertino": 2,
+        "Happy Hollow Park & Zoo": 1,
         "Gilroy Gardens": 2,
         "De Anza College Planetarium": 19,
         "Stanford Events": 3,
@@ -1123,7 +1124,6 @@
         "City of Menlo Park": 1,
         "Santana Row": 4,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       }
     },
@@ -1137,6 +1137,7 @@
         "Palo Alto Junior Museum & Zoo": 10,
         "Santa Clara County Library District": 465,
         "City of Cupertino": 2,
+        "Happy Hollow Park & Zoo": 1,
         "Gilroy Gardens": 2,
         "De Anza College Planetarium": 19,
         "Stanford Events": 3,
@@ -1162,7 +1163,6 @@
         "City of Menlo Park": 1,
         "Santana Row": 4,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1174,6 +1174,7 @@
         "Palo Alto Junior Museum & Zoo": 10,
         "Santa Clara County Library District": 465,
         "City of Cupertino": 2,
+        "Happy Hollow Park & Zoo": 1,
         "Gilroy Gardens": 2,
         "De Anza College Planetarium": 19,
         "Stanford Events": 3,
@@ -1199,7 +1200,6 @@
         "City of Menlo Park": 1,
         "Santana Row": 4,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       }
     },
@@ -1213,6 +1213,7 @@
         "Palo Alto Junior Museum & Zoo": 10,
         "Santa Clara County Library District": 465,
         "City of Cupertino": 2,
+        "Happy Hollow Park & Zoo": 1,
         "Gilroy Gardens": 2,
         "De Anza College Planetarium": 19,
         "Stanford Events": 3,
@@ -1238,7 +1239,6 @@
         "City of Menlo Park": 1,
         "Santana Row": 4,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1250,6 +1250,7 @@
         "Palo Alto Junior Museum & Zoo": 10,
         "Santa Clara County Library District": 465,
         "City of Cupertino": 2,
+        "Happy Hollow Park & Zoo": 1,
         "Gilroy Gardens": 2,
         "De Anza College Planetarium": 19,
         "Stanford Events": 3,
@@ -1275,7 +1276,6 @@
         "City of Menlo Park": 1,
         "Santana Row": 4,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       }
     },
@@ -1289,6 +1289,7 @@
         "Palo Alto Junior Museum & Zoo": 10,
         "Santa Clara County Library District": 465,
         "City of Cupertino": 2,
+        "Happy Hollow Park & Zoo": 1,
         "Gilroy Gardens": 2,
         "De Anza College Planetarium": 19,
         "Stanford Events": 3,
@@ -1314,7 +1315,6 @@
         "City of Menlo Park": 1,
         "Santana Row": 4,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1326,6 +1326,7 @@
         "Palo Alto Junior Museum & Zoo": 10,
         "Santa Clara County Library District": 465,
         "City of Cupertino": 2,
+        "Happy Hollow Park & Zoo": 1,
         "Gilroy Gardens": 2,
         "De Anza College Planetarium": 19,
         "Stanford Events": 3,
@@ -1351,7 +1352,6 @@
         "City of Menlo Park": 1,
         "Santana Row": 4,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       }
     },
@@ -1365,6 +1365,7 @@
         "Palo Alto Junior Museum & Zoo": 10,
         "Santa Clara County Library District": 465,
         "City of Cupertino": 2,
+        "Happy Hollow Park & Zoo": 1,
         "Gilroy Gardens": 2,
         "De Anza College Planetarium": 19,
         "Stanford Events": 3,
@@ -1390,7 +1391,6 @@
         "City of Menlo Park": 1,
         "Santana Row": 4,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1402,6 +1402,7 @@
         "Palo Alto Junior Museum & Zoo": 10,
         "Santa Clara County Library District": 376,
         "City of Cupertino": 2,
+        "Happy Hollow Park & Zoo": 1,
         "Gilroy Gardens": 2,
         "De Anza College Planetarium": 17,
         "Stanford Events": 3,
@@ -1427,39 +1428,38 @@
         "City of Menlo Park": 1,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       }
     }
   },
   "paloAltoChildrensTheatreEnrichment": {
-    "checkedAt": "2026-10-28T16:46:14.463Z",
+    "checkedAt": "2026-10-28T16:50:31.125Z",
     "enriched": 5
   },
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-10-28T16:46:14.463Z",
-    "enriched": 320,
+    "checkedAt": "2026-10-28T16:50:31.125Z",
+    "enriched": 321,
     "identity-mismatch": 34,
     "cached": 2,
     "fetch-blocked": 7,
     "fieldUpdates": {
-      "description": 206,
+      "description": 205,
       "place": 174,
       "endDateValue": 189,
       "address": 22,
-      "image": 2
+      "image": 1
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-10-28T16:46:14.463Z",
-    "official": 301,
+    "checkedAt": "2026-10-28T16:50:31.125Z",
+    "official": 302,
     "unclassified": 62
   },
   "editorialCoverGeneration": {
     "frameworkVersion": "editorial-cover-v1",
-    "checkedAt": "2026-10-28T16:46:14.463Z",
+    "checkedAt": "2026-10-28T16:50:31.125Z",
     "generated": 0,
     "byReason": {},
     "byPreset": {}
@@ -1482,6 +1482,7 @@
     "Midpeninsula Regional Open Space District": 9,
     "Gamble Garden": 3,
     "City of Palo Alto": 5,
+    "Happy Hollow Park & Zoo": 1,
     "Calpulli Tonalehqueh": 1,
     "Santana Row": 3,
     "Children’s Discovery Museum of San Jose": 1,
@@ -1503,7 +1504,7 @@
   },
   "officialImageMirror": {
     "frameworkVersion": "official-image-mirror-v1",
-    "checkedAt": "2026-10-28T16:47:45.266Z",
+    "checkedAt": "2026-10-28T16:52:08.647Z",
     "configuredSources": 1,
     "mirroredEvents": 5,
     "mirroredAssets": 4,
