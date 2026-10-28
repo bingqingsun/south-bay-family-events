@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-28T15:29:19.514Z",
-  "configuredSources": 95,
-  "directSources": 89,
+  "generatedAt": "2026-10-28T16:46:14.463Z",
+  "configuredSources": 96,
+  "directSources": 90,
   "fallbackSourcesRun": 0,
   "sources": [
     {
@@ -164,10 +164,10 @@
       "name": "Happy Hollow Park & Zoo",
       "method": "happyhollow",
       "mode": "direct",
-      "status": "ok",
+      "status": "failed",
       "eventCount": 0,
-      "failureStreak": 0,
-      "error": ""
+      "failureStreak": 1,
+      "error": "The operation was aborted due to timeout"
     },
     {
       "key": "Gilroy Gardens|gilroygardens.org|https://www.gilroygardens.org/calendar-hours/",
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 71,
+      "failureStreak": 72,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 71,
+      "failureStreak": 72,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -306,7 +306,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 71,
+      "failureStreak": 72,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -446,7 +446,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 4,
+      "failureStreak": 5,
       "error": "CivicPlus official calendar was not valid: 403"
     },
     {
@@ -486,6 +486,16 @@
       "mode": "direct",
       "status": "ok",
       "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
+    },
+    {
+      "key": "Calpulli Tonalehqueh|aztecadancers.com|https://www.aztecadancers.com/dia-de-muertos",
+      "name": "Calpulli Tonalehqueh",
+      "method": "curated",
+      "mode": "direct",
+      "status": "ok",
+      "eventCount": 1,
       "failureStreak": 0,
       "error": ""
     },
@@ -534,10 +544,10 @@
       "name": "The Village at San Antonio Center",
       "method": "official-venue-calendar",
       "mode": "direct",
-      "status": "ok",
+      "status": "failed",
       "eventCount": 0,
-      "failureStreak": 0,
-      "error": ""
+      "failureStreak": 1,
+      "error": "The operation was aborted due to timeout"
     },
     {
       "key": "CalColor Academy|eventbrite.com|https://www.eventbrite.com/o/calcolor-academy-9700734107",
@@ -546,7 +556,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 39,
+      "failureStreak": 40,
       "error": "Eventbrite organizer has neither usable events nor a confirmed empty listing"
     },
     {
@@ -940,27 +950,27 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 71,
+      "failureStreak": 72,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 71,
+      "failureStreak": 72,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 71,
+      "failureStreak": 72,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 4,
+      "failureStreak": 5,
       "error": "CivicPlus official calendar was not valid: 403"
     },
     {
       "name": "CalColor Academy",
-      "failureStreak": 39,
+      "failureStreak": 40,
       "error": "Eventbrite organizer has neither usable events nor a confirmed empty listing"
     }
   ],
@@ -992,13 +1002,15 @@
         "Gamble Garden": 3,
         "Symphony San Jose": 13,
         "San Jose Theaters": 17,
-        "Chinese Historical & Cultural Project": 4,
+        "Calpulli Tonalehqueh": 1,
+        "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 4,
         "365 Night Market": 1,
         "Children’s Discovery Museum of San Jose": 1,
         "City of Menlo Park": 1,
         "Santana Row": 4,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1027,13 +1039,15 @@
         "Gamble Garden": 3,
         "Symphony San Jose": 13,
         "San Jose Theaters": 17,
-        "Chinese Historical & Cultural Project": 4,
+        "Calpulli Tonalehqueh": 1,
+        "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 4,
         "365 Night Market": 1,
         "Children’s Discovery Museum of San Jose": 1,
         "City of Menlo Park": 1,
         "Santana Row": 4,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     },
@@ -1064,13 +1078,15 @@
         "Gamble Garden": 3,
         "Symphony San Jose": 13,
         "San Jose Theaters": 17,
-        "Chinese Historical & Cultural Project": 4,
+        "Calpulli Tonalehqueh": 1,
+        "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 4,
         "365 Night Market": 1,
         "Children’s Discovery Museum of San Jose": 1,
         "City of Menlo Park": 1,
         "Santana Row": 4,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1099,13 +1115,15 @@
         "Gamble Garden": 3,
         "Symphony San Jose": 13,
         "San Jose Theaters": 17,
-        "Chinese Historical & Cultural Project": 4,
+        "Calpulli Tonalehqueh": 1,
+        "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 4,
         "365 Night Market": 1,
         "Children’s Discovery Museum of San Jose": 1,
         "City of Menlo Park": 1,
         "Santana Row": 4,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     },
@@ -1136,13 +1154,15 @@
         "Gamble Garden": 3,
         "Symphony San Jose": 13,
         "San Jose Theaters": 17,
-        "Chinese Historical & Cultural Project": 4,
+        "Calpulli Tonalehqueh": 1,
+        "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 4,
         "365 Night Market": 1,
         "Children’s Discovery Museum of San Jose": 1,
         "City of Menlo Park": 1,
         "Santana Row": 4,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1171,6 +1191,7 @@
         "Gamble Garden": 3,
         "Symphony San Jose": 13,
         "San Jose Theaters": 17,
+        "Calpulli Tonalehqueh": 1,
         "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 4,
         "365 Night Market": 1,
@@ -1178,6 +1199,7 @@
         "City of Menlo Park": 1,
         "Santana Row": 4,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     },
@@ -1208,6 +1230,7 @@
         "Gamble Garden": 3,
         "Symphony San Jose": 13,
         "San Jose Theaters": 17,
+        "Calpulli Tonalehqueh": 1,
         "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 4,
         "365 Night Market": 1,
@@ -1215,6 +1238,7 @@
         "City of Menlo Park": 1,
         "Santana Row": 4,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1243,6 +1267,7 @@
         "Gamble Garden": 3,
         "Symphony San Jose": 13,
         "San Jose Theaters": 17,
+        "Calpulli Tonalehqueh": 1,
         "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 4,
         "365 Night Market": 1,
@@ -1250,6 +1275,7 @@
         "City of Menlo Park": 1,
         "Santana Row": 4,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     },
@@ -1280,6 +1306,7 @@
         "Gamble Garden": 3,
         "Symphony San Jose": 13,
         "San Jose Theaters": 17,
+        "Calpulli Tonalehqueh": 1,
         "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 4,
         "365 Night Market": 1,
@@ -1287,6 +1314,7 @@
         "City of Menlo Park": 1,
         "Santana Row": 4,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1315,6 +1343,7 @@
         "Gamble Garden": 3,
         "Symphony San Jose": 13,
         "San Jose Theaters": 17,
+        "Calpulli Tonalehqueh": 1,
         "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 4,
         "365 Night Market": 1,
@@ -1322,6 +1351,7 @@
         "City of Menlo Park": 1,
         "Santana Row": 4,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     },
@@ -1352,6 +1382,7 @@
         "Gamble Garden": 3,
         "Symphony San Jose": 13,
         "San Jose Theaters": 17,
+        "Calpulli Tonalehqueh": 1,
         "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 4,
         "365 Night Market": 1,
@@ -1359,6 +1390,7 @@
         "City of Menlo Park": 1,
         "Santana Row": 4,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1387,6 +1419,7 @@
         "Gamble Garden": 3,
         "Symphony San Jose": 13,
         "San Jose Theaters": 17,
+        "Calpulli Tonalehqueh": 1,
         "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 4,
         "365 Night Market": 1,
@@ -1394,38 +1427,39 @@
         "City of Menlo Park": 1,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     }
   },
   "paloAltoChildrensTheatreEnrichment": {
-    "checkedAt": "2026-10-28T15:29:19.514Z",
+    "checkedAt": "2026-10-28T16:46:14.463Z",
     "enriched": 5
   },
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-10-28T15:29:19.514Z",
-    "enriched": 319,
+    "checkedAt": "2026-10-28T16:46:14.463Z",
+    "enriched": 320,
     "identity-mismatch": 34,
     "cached": 2,
     "fetch-blocked": 7,
     "fieldUpdates": {
-      "description": 205,
+      "description": 206,
       "place": 174,
       "endDateValue": 189,
       "address": 22,
-      "image": 1
+      "image": 2
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-10-28T15:29:19.514Z",
-    "official": 300,
+    "checkedAt": "2026-10-28T16:46:14.463Z",
+    "official": 301,
     "unclassified": 62
   },
   "editorialCoverGeneration": {
     "frameworkVersion": "editorial-cover-v1",
-    "checkedAt": "2026-10-28T15:29:19.514Z",
+    "checkedAt": "2026-10-28T16:46:14.463Z",
     "generated": 0,
     "byReason": {},
     "byPreset": {}
@@ -1448,6 +1482,7 @@
     "Midpeninsula Regional Open Space District": 9,
     "Gamble Garden": 3,
     "City of Palo Alto": 5,
+    "Calpulli Tonalehqueh": 1,
     "Santana Row": 3,
     "Children’s Discovery Museum of San Jose": 1,
     "Montalvo Arts Center": 1,
@@ -1468,7 +1503,7 @@
   },
   "officialImageMirror": {
     "frameworkVersion": "official-image-mirror-v1",
-    "checkedAt": "2026-10-28T15:30:47.208Z",
+    "checkedAt": "2026-10-28T16:47:45.266Z",
     "configuredSources": 1,
     "mirroredEvents": 5,
     "mirroredAssets": 4,
