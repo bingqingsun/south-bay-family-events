@@ -75,6 +75,7 @@ jobs:
       - name: Check refresh-script syntax
         run: |
           node --check scripts/update-events.mjs
+          node --check scripts/micailhuitl-source.test.mjs
           node --check scripts/happy-hollow-special-events.test.mjs
           node --check scripts/lib/source-detail-repair.mjs
           node --check scripts/routine-venue-notice.test.mjs
@@ -161,6 +162,7 @@ jobs:
           node scripts/age-policy.test.cjs && node scripts/update-events-age.test.mjs
           node scripts/test-summary-output.mjs
           node scripts/routine-venue-notice.test.mjs
+          node scripts/micailhuitl-source.test.mjs
           node scripts/happy-hollow-special-events.test.mjs
           node scripts/classification.test.mjs
           node scripts/cost-policy.test.mjs
