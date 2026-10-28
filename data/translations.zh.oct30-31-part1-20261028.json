@@ -4,26 +4,6 @@
   "note": "Verified translations for Oct 30-31 2026 family-event cards; exact source fingerprints resolved by existing baseline workflow",
   "entries": [
     {
-      "id": "rss-6aaaf170101eb7003f30a2cd",
-      "sourceFingerprint": "AUTO",
-      "title": "线上模拟面试",
-      "description": "在线参加一对一模拟面试，练习求职面试的回答技巧。",
-      "status": "approved",
-      "override": true,
-      "translationSource": "editorial-reviewed-20261028",
-      "reviewedAt": "2026-10-28T17:15:00Z"
-    },
-    {
-      "id": "rss-6ac02d1cde300e004517d3d4",
-      "sourceFingerprint": "AUTO",
-      "title": "阅读伙伴",
-      "description": "TK-3 年级学生可与志愿者或工作人员一对一练习阅读，增强理解能力和自信心。",
-      "status": "approved",
-      "override": true,
-      "translationSource": "editorial-reviewed-20261028",
-      "reviewedAt": "2026-10-28T17:15:00Z"
-    },
-    {
       "id": "rss-6a99d5583b6c71003e5d9748",
       "sourceFingerprint": "AUTO",
       "title": "Joyce Ellington 周五手工时光",
@@ -304,46 +284,6 @@
       "reviewedAt": "2026-10-28T17:15:00Z"
     },
     {
-      "id": "rss-69546cad726b4a92b2512114",
-      "sourceFingerprint": "AUTO",
-      "title": "一对一科技使用帮助",
-      "description": "可前往 Vineland 图书馆预约，或致电 408-808-3000。",
-      "status": "approved",
-      "override": true,
-      "translationSource": "editorial-reviewed-20261028",
-      "reviewedAt": "2026-10-28T17:15:00Z"
-    },
-    {
-      "id": "rss-6a6cdf460d65ac3600438928",
-      "sourceFingerprint": "AUTO",
-      "title": "OneinMath 数学课：Seven Trees（K-3）",
-      "description": "面向 K-3 年级学生的数学辅导，志愿者通过数学游戏和活动帮助孩子打好基础、建立信心。",
-      "status": "approved",
-      "override": true,
-      "translationSource": "editorial-reviewed-20261028",
-      "reviewedAt": "2026-10-28T17:15:00Z"
-    },
-    {
-      "id": "rss-6a569b11fa641fe01af3745a",
-      "sourceFingerprint": "AUTO",
-      "title": "OneinMath 数学课：Edenvale（K-3）",
-      "description": "为幼儿园至三年级（K-3）学生提供基础算术学习活动。",
-      "status": "approved",
-      "override": true,
-      "translationSource": "editorial-reviewed-20261028",
-      "reviewedAt": "2026-10-28T17:15:00Z"
-    },
-    {
-      "id": "rss-6a6555353edb05633e904b32",
-      "sourceFingerprint": "AUTO",
-      "title": "OneinMath 数学课：Tully（K-3）",
-      "description": "通过数学学习培养孩子的兴趣与信心，适合 K-3 年级，需要提前报名。",
-      "status": "approved",
-      "override": true,
-      "translationSource": "editorial-reviewed-20261028",
-      "reviewedAt": "2026-10-28T17:15:00Z"
-    },
-    {
       "id": "series-245032f8132d13e7",
       "sourceFingerprint": "AUTO",
       "title": "家庭故事会",
@@ -404,16 +344,6 @@
       "reviewedAt": "2026-10-28T17:15:00Z"
     },
     {
-      "id": "rss-6a8e202257c264087ad3cba4",
-      "sourceFingerprint": "AUTO",
-      "title": "Christian 英／西双语阅读伙伴",
-      "description": "K-5 年级儿童每周六与 Christian 练习英语或西班牙语阅读，提升阅读能力与信心。",
-      "status": "approved",
-      "override": true,
-      "translationSource": "editorial-reviewed-20261028",
-      "reviewedAt": "2026-10-28T17:15:00Z"
-    },
-    {
       "id": "curated-c836ed61276ac7b5",
       "sourceFingerprint": "AUTO",
       "title": "Japantown 滑板日与万圣节活动",
@@ -438,16 +368,6 @@
       "sourceFingerprint": "AUTO",
       "title": "周六欢乐活动：艺术、手工及更多",
       "description": "大家可以免费参加美术与手工活动，一起创作作品。",
-      "status": "approved",
-      "override": true,
-      "translationSource": "editorial-reviewed-20261028",
-      "reviewedAt": "2026-10-28T17:15:00Z"
-    },
-    {
-      "id": "rss-6920f111c313c23700e355a7",
-      "sourceFingerprint": "AUTO",
-      "title": "现场 1 对 1 科技帮助",
-      "description": "导师可一对一协助使用 Word、Excel、PowerPoint、提交求职或政府表格，以及学习网络工具。",
       "status": "approved",
       "override": true,
       "translationSource": "editorial-reviewed-20261028",
