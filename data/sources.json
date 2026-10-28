@@ -8,7 +8,8 @@
     "name": "Palo Alto City Library",
     "domain": "library.cityofpaloalto.org",
     "method": "rss",
-    "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/paloalto/rss/events"
+    "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/paloalto/rss/events",
+    "maxPages": 12
   },
   {
     "id": "san-jose-public-library",
@@ -19,7 +20,8 @@
     "name": "San José Public Library",
     "domain": "sjpl.org",
     "method": "rss",
-    "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/sjpl/rss/events"
+    "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/sjpl/rss/events",
+    "maxPages": 24
   },
   {
     "name": "Santa Clara County Parks",
@@ -573,6 +575,126 @@
         "cost": "Admission is FREE.",
         "format": "festival",
         "seasonalTheme": "dia-de-muertos"
+      }
+    ]
+  },
+  {
+    "id": "mhp-avenida",
+    "name": "Mexican Heritage Plaza",
+    "domain": "mhplaza.org",
+    "method": "curated",
+    "feedUrl": "https://mhplaza.org/allevents/avenida26",
+    "city": "San Jose",
+    "events": [
+      {
+        "title": "Avenida de Altares",
+        "dateValue": "2026-10-31T17:30",
+        "endDateValue": "2026-10-31T22:30",
+        "url": "https://mhplaza.org/allevents/avenida26",
+        "description": "Families can explore Día de Muertos community altars at Mexican Heritage Plaza, create hands-on art, enjoy face painting, browse an artisanal market, and watch live cultural performances.",
+        "place": "Mexican Heritage Plaza",
+        "address": "1700 Alum Rock Ave, San Jose",
+        "ageText": "All ages families and children",
+        "cost": "Free",
+        "format": "festival",
+        "seasonalTheme": "dia-de-muertos",
+        "officialDescriptionPattern": "community altar|hands-on art|face painting"
+      }
+    ]
+  },
+  {
+    "id": "jamsj-halloween",
+    "name": "Japanese American Museum of San Jose",
+    "domain": "jamsj.org",
+    "method": "curated",
+    "feedUrl": "https://www.jamsj.org/upcoming-events/skate-halloween",
+    "city": "San Jose",
+    "events": [
+      {
+        "title": "Skate Day & Halloween in Japantown",
+        "dateValue": "2026-10-31T12:00",
+        "endDateValue": "2026-10-31T19:00",
+        "url": "https://www.jamsj.org/upcoming-events/skate-halloween",
+        "description": "Kids can try skateboarding lessons and workshops, collect stickers around local Japantown businesses, explore Judi Oyama's opening exhibition, and enjoy a Trunk or Treat from 4 to 7 PM.",
+        "place": "Japanese American Museum of San Jose / Japantown",
+        "address": "535 N 5th St, San Jose",
+        "ageText": "Family-friendly for all ages",
+        "cost": "Free",
+        "format": "festival",
+        "seasonalTheme": "halloween",
+        "officialDescriptionPattern": "skate|trunk or treat|sticker rally",
+        "preferVerifiedDescription": true
+      }
+    ]
+  },
+  {
+    "id": "saratoga-witchy",
+    "name": "City of Saratoga · Community Events",
+    "domain": "saratoga.ca.us",
+    "method": "curated",
+    "feedUrl": "https://www.saratoga.ca.us/Calendar.aspx?EID=2691&calType=0&day=10&month=10&year=2026",
+    "city": "Saratoga",
+    "events": [
+      {
+        "title": "Witchy Walk-A-Bout",
+        "dateValue": "2026-10-31T14:00",
+        "endDateValue": "2026-10-31T16:00",
+        "url": "https://www.saratoga.ca.us/Calendar.aspx?EID=2691&calType=0&day=10&month=10&year=2026",
+        "description": "Children can trick-or-treat at Historic Saratoga Village businesses, play games, make Halloween crafts, enjoy giant bubbles, see a robotics demonstration, and hear live ukulele music.",
+        "place": "Historic Saratoga Village",
+        "address": "Big Basin Way, Saratoga",
+        "ageText": "Family-friendly event for children",
+        "cost": "Free",
+        "format": "festival",
+        "seasonalTheme": "halloween",
+        "officialDescriptionPattern": "trick.or.treat|robotics|bubble"
+      }
+    ]
+  },
+  {
+    "id": "stanford-shopping-halloween",
+    "name": "Stanford Shopping Center",
+    "domain": "simon.com",
+    "method": "curated",
+    "feedUrl": "https://www.simon.com/mall/stanford-shopping-center/stream/halloween-spooktacular-6290412",
+    "city": "Palo Alto",
+    "events": [
+      {
+        "title": "Halloween Spooktacular at Stanford Shopping Center",
+        "dateValue": "2026-10-31T14:00",
+        "endDateValue": "2026-10-31T16:00",
+        "url": "https://www.simon.com/mall/stanford-shopping-center/stream/halloween-spooktacular-6290412",
+        "description": "Celebrate Halloween at the Center Pavilion with family-friendly activities, festive giveaways and surprises, then visit participating shops marked with pumpkins to collect trick-or-treat candy.",
+        "place": "Stanford Shopping Center · Center Pavilion",
+        "address": "660 Stanford Shopping Center, Palo Alto",
+        "ageText": "Fun for the whole family",
+        "format": "festival",
+        "seasonalTheme": "halloween",
+        "officialDescriptionPattern": "trick.or.treat|festive activities|halloween fun"
+      }
+    ]
+  },
+  {
+    "id": "morgan-hill-safe-trick-or-treat",
+    "name": "Morgan Hill Downtown Association",
+    "domain": "visitmorganhill.org",
+    "method": "curated",
+    "feedUrl": "https://visitmorganhill.org/event-calendar-detail/safetrickortreat",
+    "city": "Morgan Hill",
+    "events": [
+      {
+        "title": "Downtown Safe Trick or Treat and Pumpkin Market",
+        "dateValue": "2026-10-31T15:00",
+        "endDateValue": "2026-10-31T19:00",
+        "url": "https://visitmorganhill.org/event-calendar-detail/safetrickortreat",
+        "description": "Families with young children can stroll downtown Morgan Hill's closed-to-traffic Monterey Road for safe trick-or-treating at participating businesses and explore a pumpkin market with community vendors.",
+        "place": "Downtown Morgan Hill · Monterey Road",
+        "address": "Monterey Rd, Morgan Hill",
+        "ageText": "Young children under 12 and their families",
+        "cost": "Free",
+        "format": "festival",
+        "seasonalTheme": "halloween",
+        "officialDescriptionPattern": "trick.or.treat|pumpkin market"
       }
     ]
   },
