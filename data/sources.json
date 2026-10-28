@@ -181,7 +181,24 @@
     "method": "happyhollow",
     "feedUrl": "https://happyhollow.org/events/",
     "address": "748 Story Road, San Jose",
-    "city": "San Jose"
+    "city": "San Jose",
+    "specialEvents": [
+      {
+        "title": "Green Halloween at Happy Hollow",
+        "dateValue": "2026-10-31T11:00",
+        "endDateValue": "2026-10-31T14:00",
+        "url": "https://happyhollow.org/green-halloween/",
+        "description": "Children can meet creepy animals at the Creepy Crawly Critter Show, join a costume parade, make Halloween crafts, play games, trick-or-treat at festive stations, and see seasonal animal enrichment at Happy Hollow Park & Zoo.",
+        "image": "https://happyhollow.org/wp-content/uploads/2026/08/Green-Halloween-2025-website-.png",
+        "place": "Happy Hollow Park & Zoo",
+        "address": "748 Story Rd, San Jose",
+        "ageText": "Family-friendly for all ages",
+        "cost": "Paid admission required; Green Halloween activities are included in general admission.",
+        "format": "festival",
+        "seasonalTheme": "halloween",
+        "officialDescriptionPattern": "green halloween|costume parade|critter show|trick.or.treat|halloween (?:crafts?|games?|activities)"
+      }
+    ]
   },
   {
     "name": "Gilroy Gardens",
