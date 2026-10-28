@@ -615,14 +615,15 @@
         "dateValue": "2026-10-31T12:00",
         "endDateValue": "2026-10-31T19:00",
         "url": "https://www.jamsj.org/upcoming-events/skate-halloween",
-        "description": "Join a Japantown Halloween celebration for skateboarding lessons and workshops, a sticker rally at local shops, a Trunk or Treat from 4 to 7 PM, and an exhibition opening with free museum admission.",
+        "description": "Kids can try skateboarding lessons and workshops, collect stickers around local Japantown businesses, explore Judi Oyama's opening exhibition, and enjoy a Trunk or Treat from 4 to 7 PM.",
         "place": "Japanese American Museum of San Jose / Japantown",
         "address": "535 N 5th St, San Jose",
         "ageText": "Family-friendly for all ages",
         "cost": "Free",
         "format": "festival",
         "seasonalTheme": "halloween",
-        "officialDescriptionPattern": "skate|trunk or treat|sticker rally"
+        "officialDescriptionPattern": "skate|trunk or treat|sticker rally",
+        "preferVerifiedDescription": true
       }
     ]
   },
