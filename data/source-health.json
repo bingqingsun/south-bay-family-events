@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-02T22:53:29.261Z",
+  "generatedAt": "2026-11-02T23:19:22.196Z",
   "configuredSources": 101,
   "directSources": 95,
   "fallbackSourcesRun": 0,
@@ -275,7 +275,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 28,
+      "eventCount": 27,
       "failureStreak": 0,
       "error": ""
     },
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 81,
+      "failureStreak": 82,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 81,
+      "failureStreak": 82,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -306,7 +306,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 81,
+      "failureStreak": 82,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -414,10 +414,10 @@
       "name": "Los Altos History Museum",
       "method": "lahm",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 1,
-      "error": "Los Altos History Museum event list was not valid: 202"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Museum of American Heritage|moah.org|https://www.moah.org/moahevents",
@@ -446,7 +446,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 14,
+      "failureStreak": 15,
       "error": "CivicPlus official calendar was not valid: 403"
     },
     {
@@ -606,7 +606,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 49,
+      "failureStreak": 50,
       "error": "Eventbrite organizer has neither usable events nor a confirmed empty listing"
     },
     {
@@ -616,7 +616,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 3,
+      "failureStreak": 4,
       "error": "Wix official event list was not valid: 200"
     },
     {
@@ -1000,32 +1000,32 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 81,
+      "failureStreak": 82,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 81,
+      "failureStreak": 82,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 81,
+      "failureStreak": 82,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 14,
+      "failureStreak": 15,
       "error": "CivicPlus official calendar was not valid: 403"
     },
     {
       "name": "CalColor Academy",
-      "failureStreak": 49,
+      "failureStreak": 50,
       "error": "Eventbrite organizer has neither usable events nor a confirmed empty listing"
     },
     {
       "name": "365 Night Market",
-      "failureStreak": 3,
+      "failureStreak": 4,
       "error": "Wix official event list was not valid: 200"
     }
   ],
@@ -1044,7 +1044,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 3,
         "San Jose Sharks": 35,
-        "CineLux Theatres": 141,
+        "CineLux Theatres": 140,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1058,6 +1058,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1073,7 +1074,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 3,
         "San Jose Sharks": 35,
-        "CineLux Theatres": 141,
+        "CineLux Theatres": 140,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1087,6 +1088,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     },
@@ -1104,7 +1106,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 3,
         "San Jose Sharks": 35,
-        "CineLux Theatres": 141,
+        "CineLux Theatres": 140,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1118,6 +1120,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1133,7 +1136,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 3,
         "San Jose Sharks": 35,
-        "CineLux Theatres": 141,
+        "CineLux Theatres": 140,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1147,6 +1150,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     },
@@ -1164,7 +1168,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 3,
         "San Jose Sharks": 35,
-        "CineLux Theatres": 141,
+        "CineLux Theatres": 140,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1178,6 +1182,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1193,7 +1198,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 3,
         "San Jose Sharks": 35,
-        "CineLux Theatres": 141,
+        "CineLux Theatres": 140,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1207,6 +1212,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     },
@@ -1224,7 +1230,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 3,
         "San Jose Sharks": 35,
-        "CineLux Theatres": 141,
+        "CineLux Theatres": 140,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1238,6 +1244,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1253,7 +1260,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 3,
         "San Jose Sharks": 35,
-        "CineLux Theatres": 141,
+        "CineLux Theatres": 140,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1267,6 +1274,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     },
@@ -1284,7 +1292,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 3,
         "San Jose Sharks": 35,
-        "CineLux Theatres": 141,
+        "CineLux Theatres": 140,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1298,6 +1306,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1313,7 +1322,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 3,
         "San Jose Sharks": 35,
-        "CineLux Theatres": 141,
+        "CineLux Theatres": 140,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1327,6 +1336,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     },
@@ -1344,7 +1354,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 3,
         "San Jose Sharks": 35,
-        "CineLux Theatres": 141,
+        "CineLux Theatres": 140,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1358,6 +1368,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1373,7 +1384,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 3,
         "San Jose Sharks": 35,
-        "CineLux Theatres": 141,
+        "CineLux Theatres": 140,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1387,6 +1398,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     },
@@ -1404,7 +1416,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 3,
         "San Jose Sharks": 35,
-        "CineLux Theatres": 141,
+        "CineLux Theatres": 140,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1418,6 +1430,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1433,7 +1446,7 @@
         "De Anza College Planetarium": 17,
         "Stanford Events": 3,
         "San Jose Sharks": 35,
-        "CineLux Theatres": 141,
+        "CineLux Theatres": 140,
         "Palo Alto Children's Theatre": 44,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1447,38 +1460,39 @@
         "Google Visitor Experience": 4,
         "Santana Row": 2,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     }
   },
   "paloAltoChildrensTheatreEnrichment": {
-    "checkedAt": "2026-11-02T22:53:29.261Z",
+    "checkedAt": "2026-11-02T23:19:22.196Z",
     "enriched": 5
   },
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-11-02T22:53:29.261Z",
-    "enriched": 497,
+    "checkedAt": "2026-11-02T23:19:22.196Z",
+    "enriched": 448,
     "identity-mismatch": 29,
-    "fetch-blocked": 34,
+    "fetch-blocked": 83,
     "cached": 2,
     "fieldUpdates": {
-      "description": 394,
-      "place": 281,
-      "endDateValue": 383,
-      "address": 22,
+      "description": 346,
+      "place": 240,
+      "endDateValue": 334,
+      "address": 17,
       "image": 1
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-11-02T22:53:29.261Z",
-    "official": 468,
-    "unclassified": 91
+    "checkedAt": "2026-11-02T23:19:22.196Z",
+    "official": 419,
+    "unclassified": 140
   },
   "editorialCoverGeneration": {
     "frameworkVersion": "editorial-cover-v1",
-    "checkedAt": "2026-11-02T22:53:29.261Z",
+    "checkedAt": "2026-11-02T23:19:22.196Z",
     "generated": 0,
     "byReason": {},
     "byPreset": {}
@@ -1515,7 +1529,7 @@
   },
   "officialImageMirror": {
     "frameworkVersion": "official-image-mirror-v1",
-    "checkedAt": "2026-11-02T22:55:05.310Z",
+    "checkedAt": "2026-11-02T23:20:44.940Z",
     "configuredSources": 1,
     "mirroredEvents": 5,
     "mirroredAssets": 4,
