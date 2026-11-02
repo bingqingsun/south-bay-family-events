@@ -179,12 +179,12 @@
     selectedRefCount
   }) {
     if (config.published === false || publishAtIsFuture(config, nowPacific)) return STATES.DRAFT;
-    if (selectedRefCount === 0 || resolvedEditorialCount === 0) return STATES.DATA_ERROR;
-    // Collection publication lifecycle is editorial metadata. An explicit
-    // cutoff protects seasonal guides from stale upstream records that may be
-    // incorrectly marked as indefinitely ongoing, without changing Event Card
-    // facts or duplicating event data in the collection itself.
+    // Lifecycle wins over data availability after a guide's editorial cutoff.
+    // Expired event rows are intentionally removed from canonical data, so an
+    // archived guide must not become a DATA_ERROR merely because its old
+    // references no longer resolve.
     if (activeUntilHasPassed(config, nowPacific)) return STATES.ENDED;
+    if (selectedRefCount === 0 || resolvedEditorialCount === 0) return STATES.DATA_ERROR;
     if (currentEventCount === 0) return STATES.ENDED;
     const threshold = Number.isFinite(Number(config.lastChanceThreshold)) ? Number(config.lastChanceThreshold) : 2;
     if (expiredCount > 0 && resolvedEditorialCount > threshold && currentEventCount <= threshold) return STATES.LAST_CHANCE;

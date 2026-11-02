@@ -129,7 +129,21 @@ function vm(config, events, now = '2026-09-21T12:00:00') {
   assert.equal(model.resolvedEditorialCount, 0);
 }
 
-// I: expiry boundary follows America/Los_Angeles, not the visitor/browser timezone.
+// I: after an explicit editorial cutoff, missing expired event rows are an
+// expected archive condition rather than a publication data error.
+{
+  const config = {
+    ...baseConfig,
+    activeUntil: '2026-09-20T00:00:00',
+    selectedEventRefs: ['expired-and-pruned']
+  };
+  const model = vm(config, [], '2026-09-21T12:00:00');
+  assert.equal(model.collectionState, runtime.STATES.ENDED);
+  assert.equal(model.resolvedEditorialCount, 0);
+  assert.equal(model.dataIncomplete, true);
+}
+
+// J: expiry boundary follows America/Los_Angeles, not the visitor/browser timezone.
 {
   const events = [event('i0', '2026-09-20')];
   const config = configFor(events);

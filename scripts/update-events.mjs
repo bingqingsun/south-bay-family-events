@@ -6,6 +6,7 @@
 import { isRoutineSupportService } from './lib/routine-support-service.mjs';
 import { isOfficialClosureNotice, isRoutineVenueAccessNotice, pytSynopsisFromDetail } from './lib/source-detail-repair.mjs';
 import { readFile, writeFile } from 'node:fs/promises';
+import { buildPublicEventPayload } from './public-event-payload.mjs';
 import { createHash } from 'node:crypto';
 import { applyChineseTranslationCatalog } from './event-translations.mjs';
 import { loadChineseTranslationCatalogs } from './load-translation-catalogs.mjs';
@@ -4694,7 +4695,9 @@ if (translationStats.stale) {
 await writeFile(target, `${JSON.stringify(events, null, 2)}\n`);
 // A same-origin script works both on GitHub Pages and when the user opens the
 // local HTML file directly, where browsers often block fetch() of JSON files.
-await writeFile(browserTarget, `window.SOUTH_BAY_EVENTS = ${JSON.stringify(events)};\nwindow.SOUTH_BAY_EVENTS_META = ${JSON.stringify({ generatedAt })};\n`);
+// Keep audit/provenance fields in events.json, but do not ship them to browsers.
+const browserEvents = buildPublicEventPayload(events);
+await writeFile(browserTarget, `window.SOUTH_BAY_EVENTS = ${JSON.stringify(browserEvents)};\nwindow.SOUTH_BAY_EVENTS_META = ${JSON.stringify({ generatedAt })};\n`);
 await writeFile(museumTarget, `${JSON.stringify(museums, null, 2)}\n`);
 await writeFile(museumBrowserTarget, `window.SOUTH_BAY_MUSEUMS = ${JSON.stringify(museums)};\n`);
 await writeFile(sourceHealthTarget, `${JSON.stringify(sourceHealth, null, 2)}\n`);
@@ -4704,4 +4707,5 @@ const summaryStatusCounts = events.reduce((counts, event) => {
   return counts;
 }, {});
 console.log(`Published ${events.length} verified activities from ${directSources.length} official calendars and ${searchSources.length} fallback sources; ${retainedSourceEvents.length} retained from last-known-good source data; Chinese translations: ${translationStats.current} current, ${translationStats.stale} stale, ${translationStats.missing} missing.`);
+console.log(`Browser event payload: ${Buffer.byteLength(JSON.stringify(browserEvents), 'utf8')} bytes after removing internal audit fields.`);
 console.log(`Event summary coverage: ${JSON.stringify(summaryStatusCounts)}`);
