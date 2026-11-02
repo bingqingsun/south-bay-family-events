@@ -57,9 +57,11 @@ assert.deepEqual(leftovers,[],`Routine services were published in the events fee
 // The genuine-Halloween fixtures above already assert the classifier preserves
 // these activities. The active feed intentionally prunes one-off October events
 // after Halloween, so its contents cannot be used to assert historical presence.
-const today = new Intl.DateTimeFormat('en-CA', {
+const dateParts = new Intl.DateTimeFormat('en-US', {
   timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit'
-}).format(new Date());
+}).formatToParts(new Date());
+const part = key => dateParts.find(item => item.type === key)?.value || '';
+const today = [part('year'), part('month'), part('day')].join('-');
 if (today <= '2026-11-01') {
   assert.ok(events.some(e => /Haunted House Engineering|Green Halloween/.test(e.title)),
     'Keep current Halloween STEM/family events while the season is active');
