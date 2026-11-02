@@ -2,9 +2,9 @@ window.SBFF_WEEKEND_PICKS = {
   "id": "2026-10-31",
   "weekendStart": "2026-10-30",
   "weekendEnd": "2026-11-01",
-  "status": "published",
+  "status": "ended",
   "publishedAt": "2026-10-27T15:41:08.346Z",
-  "updatedAt": "2026-10-27T15:41:08.346Z",
+  "updatedAt": "2026-11-02T17:28:40.853Z",
   "intro": "12 selected South Bay family activities for Oct 30–Nov 1: Halloween adventures, Bluey on stage, hands-on science, floral art, live sports and Día de los Muertos traditions.",
   "introZh": "精选 10月30日周五–11月1日周日 12 个南湾亲子活动：万圣节体验、Bluey 舞台剧、动手科学、花艺、现场球赛和亡灵节文化庆祝。",
   "picks": [
