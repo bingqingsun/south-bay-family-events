@@ -54,6 +54,14 @@ for(const event of [
 const events=JSON.parse(await readFile(new URL('../data/events.json',import.meta.url),'utf8'));
 const leftovers=events.filter(isRoutineSupportService).map(e=>({id:e.id,title:e.title}));
 assert.deepEqual(leftovers,[],`Routine services were published in the events feed: ${JSON.stringify(leftovers.slice(0,20))}`);
-assert.ok(events.some(e=>/Haunted House Engineering|Green Halloween/.test(e.title)),
-  'Do not filter the actual Halloween STEM/family programming');
+// The genuine-Halloween fixtures above already assert the classifier preserves
+// these activities. The active feed intentionally prunes one-off October events
+// after Halloween, so its contents cannot be used to assert historical presence.
+const today = new Intl.DateTimeFormat('en-CA', {
+  timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit'
+}).format(new Date());
+if (today <= '2026-11-01') {
+  assert.ok(events.some(e => /Haunted House Engineering|Green Halloween/.test(e.title)),
+    'Keep current Halloween STEM/family events while the season is active');
+}
 console.log('Routine support-service exclusion tests passed');
