@@ -28,6 +28,9 @@ on:
       - 'scripts/cupertino-audience.mjs'
       - 'scripts/cupertino-audience.test.mjs'
       - 'scripts/apply-event-supplements.mjs'
+      - 'scripts/apply-event-supplements.test.mjs'
+      - 'scripts/public-event-payload.mjs'
+      - 'scripts/public-event-payload.test.mjs'
       - 'scripts/build-translation-gaps.mjs'
       - 'scripts/build-translation-gaps.test.mjs'
       - 'data/sources.json'
@@ -103,6 +106,7 @@ jobs:
           node scripts/sap-center-sessions.test.mjs
           node scripts/palo-alto-childrens-theatre.test.mjs
           node scripts/age-policy.test.cjs
+          node scripts/public-event-payload.test.mjs
           node scripts/apply-event-supplements.test.mjs
           node scripts/build-translation-gaps.test.mjs
       - name: Refresh canonical event data

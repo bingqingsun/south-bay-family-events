@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { readFile, writeFile } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
 import { EVENT_SUMMARY_VERSION } from './event-summary-engine.mjs';
+import { isStillActive, pacificNowValue } from './lib/event-lifecycle.mjs';
 
 const eventsUrl = new URL('../data/events.json', import.meta.url);
 const supplementsUrl = new URL('../data/event-supplements.json', import.meta.url);
@@ -176,8 +177,10 @@ export function applyCuratedImageOverrides(events, sources) {
   return { events: output, applied };
 }
 
-export function mergeEventSupplements(events, supplements) {
-  const output = Array.isArray(events) ? events.map((event) => ({ ...event })) : [];
+export function mergeEventSupplements(events, supplements, { now = pacificNowValue() } = {}) {
+  const output = Array.isArray(events)
+    ? events.filter((event) => isStillActive(event, now)).map((event) => ({ ...event }))
+    : [];
   for (const item of supplements || []) {
     if (!item?.id || !item?.title || !item?.dateValue || !item?.url) continue;
     const targetTitle = normalizeTitle(item.title);
@@ -216,20 +219,27 @@ export function mergeEventSupplements(events, supplements) {
       }
       continue;
     }
-    output.push(canonicalSupplement(item));
+    const supplement = canonicalSupplement(item);
+    if (isStillActive(supplement, now)) output.push(supplement);
   }
-  output.sort((a, b) => String(a.dateValue || '').localeCompare(String(b.dateValue || '')) || String(a.title || '').localeCompare(String(b.title || '')));
-  return output;
+  const active = output.filter((event) => isStillActive(event, now));
+  active.sort((a, b) => String(a.dateValue || '').localeCompare(String(b.dateValue || '')) || String(a.title || '').localeCompare(String(b.title || '')));
+  return active;
 }
 
 async function run() {
   const events = JSON.parse(await readFile(eventsUrl, 'utf8'));
   const supplements = JSON.parse(await readFile(supplementsUrl, 'utf8'));
   const sources = JSON.parse(await readFile(sourcesUrl, 'utf8'));
-  const merged = mergeEventSupplements(events, supplements);
+  const now = pacificNowValue();
+  const merged = mergeEventSupplements(events, supplements, { now });
   const overridden = applyCuratedImageOverrides(merged, sources);
+  const activeSupplementCount = supplements.filter((item) =>
+    item?.id && item?.title && item?.dateValue && item?.url
+    && isStillActive(canonicalSupplement(item), now)
+  ).length;
   await writeFile(eventsUrl, `${JSON.stringify(overridden.events, null, 2)}\n`);
-  console.log(`Applied ${supplements.length} verified event supplement(s); canonical count ${events.length} -> ${overridden.events.length}`);
+  console.log(`Processed ${supplements.length} verified event supplement(s), ${activeSupplementCount} currently active; canonical count ${events.length} -> ${overridden.events.length}`);
   console.log(`Applied ${overridden.applied} curated official image override(s)`);
 }
 
