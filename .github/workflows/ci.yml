@@ -87,6 +87,8 @@ jobs:
           node --check scripts/event-translations.mjs
           node --check scripts/event-translations.test.mjs
           node --check scripts/generate-chinese-translations.mjs
+          node --check scripts/build-translation-gaps.mjs
+          node --check scripts/build-translation-gaps.test.mjs
           node --check scripts/translation-text.mjs
           node --check scripts/translation-text.test.mjs
           node --check scripts/apply-event-translations.mjs
@@ -154,6 +156,8 @@ jobs:
           node scripts/runtime-translation-fallback.test.mjs
           node scripts/translation-qa.mjs
           node scripts/translation-coverage-report.mjs
+          node scripts/build-translation-gaps.test.mjs
+          node scripts/build-translation-gaps.mjs
           node scripts/apply-event-supplements.mjs
           node scripts/apply-event-supplements.test.mjs
           node scripts/summary-quality-repair.mjs
