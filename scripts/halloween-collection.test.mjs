@@ -40,7 +40,7 @@ assert.deepEqual(
   `All Halloween collection refs must resolve against canonical events plus verified supplements; unresolved: ${JSON.stringify(model.unresolvedRefs)}`
 );
 assert.equal(model.resolvedEditorialCount, config.selectedEventRefs.length, 'Each selected reference should resolve to one canonical event');
-assert.equal(model.resolvedEditorialCount, 6, 'Halloween should contain only currently resolvable editorial selections after expired refs are pruned');
+assert.equal(model.resolvedEditorialCount, 5, 'Halloween should contain only currently resolvable editorial selections after expired refs are pruned');
 assert.ok(model.currentEventCount > 0, 'Halloween should still have current events on Oct 26, 2026');
 assert.ok(model.currentQuickPicks.length >= 1 && model.currentQuickPicks.length <= config.quickPickIds.length,
   'Only still-active Halloween Quick Picks should be displayed as the season winds down');

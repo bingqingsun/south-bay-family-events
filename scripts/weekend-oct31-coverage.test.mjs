@@ -3,6 +3,12 @@ import { readFile } from 'node:fs/promises';
 
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
 const events = JSON.parse(await readFile(new URL('../data/events.json', import.meta.url), 'utf8'));
+const pacificParts = new Intl.DateTimeFormat('en-US', {
+  timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit'
+}).formatToParts(new Date());
+const p = type => pacificParts.find(part => part.type === type)?.value || '';
+const pacificToday = [p('year'), p('month'), p('day')].join('-');
+
 for(const [id,minPages] of [['san-jose-public-library',24],['palo-alto-library',12]]) {
   const source=sources.find(s=>s.id===id);
   assert.ok(source?.maxPages>=minPages, `Library RSS pagination not configured: ${id}`);
@@ -16,7 +22,12 @@ for(const [sourceId,title,date,urlPart,price] of [
 ]) {
   assert.ok(sources.some(s=>s.id===sourceId&&s.events?.length), `Missing official source: ${title}`);
   const matches=events.filter(e=>e.title===title&&String(e.dateValue||'').startsWith(date));
-  assert.equal(matches.length,1,`Missing or duplicated weekend event: ${title} (got ${matches.length})`);
+  if (pacificToday <= date) {
+    assert.equal(matches.length, 1, `Missing or duplicated current weekend event: ${title} (got ${matches.length})`);
+  } else {
+    assert.ok(matches.length <= 1, `Historical event must not duplicate: ${title}`);
+  }
+  if (!matches.length) continue; // active feed prunes expired events
   const e=matches[0];
   assert.ok(e.url.includes(urlPart), `Official detail URL lost: ${title}`);
   assert.ok((e.description||'').length>=45,`Activity description too short: ${title}`);
@@ -28,6 +39,8 @@ for(const [title,officialId] of [
 ]) {
   const e=events.find(x=>x.title===title && x.source==='San José Public Library'
     && String(x.url||'').includes(officialId) && String(x.dateValue||'').startsWith('2026-10-31'));
-  assert.ok(e, `SJPL missed an official late-page event: ${title}`);
+  if (pacificToday <= '2026-10-31') {
+    assert.ok(e, `SJPL missed an official late-page event: ${title}`);
+  } // Historical library events are intentionally pruned from the live feed.
 }
 console.log('Halloween weekend organizer and paginated library coverage passed');

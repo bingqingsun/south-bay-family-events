@@ -6,6 +6,14 @@ on:
     - cron: '55 7 * * 1'
     - cron: '0 12 * * 1'
     - cron: '0 13 * * 1'
+    # Catch-up runs: GitHub scheduled workflows can be delayed for hours.
+    # The publisher is idempotent and preserves a same-week reviewed edition.
+    - cron: '20 16 * * 1'
+    - cron: '20 19 * * 1'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/weekly-picks.yml'
   workflow_dispatch:
     inputs:
       operation:
@@ -52,9 +60,14 @@ jobs:
               '55 7 * * 1') hour=07:55; operation=retire; expected='Sun-23:55' ;;
               '0 12 * * 1') hour=12:00; operation=publish; expected='Mon-05:00' ;;
               '0 13 * * 1') hour=13:00; operation=publish; expected='Mon-05:00' ;;
+              '20 16 * * 1'|'20 19 * * 1') operation=publish; expected='fallback' ;;
               *) echo "Unknown scheduled slot"; exit 1 ;;
             esac
-            pacific=$(TZ=America/Los_Angeles date -d "$date_utc $hour UTC" '+%a-%H:%M')
+            if [[ "$expected" != 'fallback' ]]; then
+              pacific=$(TZ=America/Los_Angeles date -d "$date_utc $hour UTC" '+%a-%H:%M')
+            else
+              pacific='fallback'
+            fi
             if [[ "$pacific" != "$expected" ]]; then
               echo "Skipping duplicate DST schedule: $pacific"
               echo "skip=true" >> "$GITHUB_OUTPUT"
@@ -63,9 +76,9 @@ jobs:
             friday=""
             force=false
           else
-            operation="$REQUESTED_MODE"
-            friday="$REQUESTED_FRIDAY"
-            force="$REQUESTED_FORCE"
+            operation="${REQUESTED_MODE:-publish}"
+            friday="${REQUESTED_FRIDAY:-}"
+            force="${REQUESTED_FORCE:-false}"
             if [[ -z "$operation" ]]; then operation=publish; fi
           fi
           echo "skip=false" >> "$GITHUB_OUTPUT"
