@@ -100,7 +100,6 @@
       selectedEventRefs: [
         { id: 'series-e312633de924366b', url: 'https://www.gilroygardens.org/halloween/' },
         'curated-f364c82c4ac30523',
-        { id: 'curated-d185004a710de571', url: 'https://www.menlopark.gov/Citywide-calendar/Community-events/20261028-Trunk-or-Treat' },
         { id: 'editorial-32d6b7102984722f', url: 'https://www.thetech.org/upcomingevents' },
         { id: 'filoli-546ede82db7e6eeb', url: 'https://filoli.org/whats-on/events/nightfall/' },
         { id: 'santana-104fc08c96737ad5', url: 'https://santanarow.com/event/glass-pumpkin-festival/' },
