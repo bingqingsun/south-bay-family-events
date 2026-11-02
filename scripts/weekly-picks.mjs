@@ -29,7 +29,24 @@ const banned = /champagne lounge|happy hour|meditation with|adult only|18\+|21\+
 const poor = /storytime|regular class|homework help|library ukulele|museum open|practice your vote|thursday live on cal ave/i;
 const focus = /halloween|spook|boo!|trick.or.treat|pumpkin|ghost|día de los muertos|dia de los muertos|lowrider|family festival|bluey|science fun/i;
 const family = /\bfamil(?:y|ies)\b|\bchildren\b|\bkids?\b|\bages?\b|\btoddlers?\b|\ball ages\b/i;
-const validLink = event => ['ok', 'redirected'].includes(event.linkStatus)
+// BiblioCommons blocks automated checks but its official, event-ID-specific
+// pages remain human-accessible. Do not mistake anti-bot blocks for broken links.
+function trustedMachineBlockedEvent(event) {
+  if (event.linkStatus !== 'blocked-machine' || !event.url) return false;
+  try {
+    const url = new URL(event.url);
+    if (['sccl.bibliocommons.com', 'sjpl.bibliocommons.com',
+      'paloalto.bibliocommons.com'].includes(url.hostname)) {
+      return /^\/(?:v2\/)?events\/[0-9a-f]{20,}$/i.test(url.pathname);
+    }
+    return event.source === 'The Tech Interactive' &&
+      url.hostname === 'tickets.thetech.org' &&
+      /^\/events\/[0-9a-f-]{36}$/i.test(url.pathname);
+  } catch {
+    return false;
+  }
+}
+const validLink = event => (['ok', 'redirected'].includes(event.linkStatus) || trustedMachineBlockedEvent(event))
   && /^https:\/\//.test(event.url || '')
   && !/(?:\/events?|\/schedule)\/?$/.test(new URL(event.url).pathname)
   && !event.linkEvidence?.includes('content-mismatch');
