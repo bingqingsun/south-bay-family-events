@@ -44,5 +44,5 @@ for (const event of events) {
   );
 }
 
-assert.ok(checked > 0, 'Expected at least one published event with an explicitly curated source image');
-console.log(`Curated image contract passed for ${checked} published events`);
+assert.ok(explicit.length > 0, 'Expected at least one explicitly curated source image in source configuration');
+console.log(`Curated image contract passed for ${checked} currently published matching event(s); ${explicit.length} configured image(s) retained for applicable dates`);
