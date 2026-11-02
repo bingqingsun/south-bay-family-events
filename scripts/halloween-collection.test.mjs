@@ -12,7 +12,8 @@ require('../data/collections.js');
 const baseEvents = JSON.parse(fs.readFileSync(new URL('../data/events.json', import.meta.url), 'utf8'));
 const supplements = JSON.parse(fs.readFileSync(new URL('../data/event-supplements.json', import.meta.url), 'utf8'));
 const sources = JSON.parse(fs.readFileSync(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const events = mergeEventSupplements(baseEvents, supplements);
+const collectionNow = '2026-10-26T12:00:00';
+const events = mergeEventSupplements(baseEvents, supplements, { now: collectionNow });
 const config = window.SBFF_COLLECTIONS.find((item) => item.slug === 'halloween');
 
 assert.ok(config, 'Halloween collection config must exist');
@@ -33,7 +34,7 @@ assert.equal(config.quickPickIds.length, 3, 'Halloween should configure three ac
 assert.equal(events.some((event) => event.title === 'Laser Halloween Spooktacular'), false, 'Removed Laser Halloween Spooktacular duplicate must stay absent');
 assert.ok(events.some((event) => event.id === 'editorial-32d6b7102984722f' || event.legacyIds?.includes('editorial-32d6b7102984722f')), 'Tech or Treat supplement must enter canonical data');
 
-const model = runtime.buildCollectionViewModel(config, events, { now: '2026-10-26T12:00:00' });
+const model = runtime.buildCollectionViewModel(config, events, { now: collectionNow });
 assert.deepEqual(
   model.unresolvedRefs,
   [],
