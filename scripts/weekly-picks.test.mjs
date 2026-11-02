@@ -32,6 +32,27 @@ events.push({
 });
 
 assert.equal(candidateEvents(events, '2026-10-30').length, 10);
+const libraryVerified = {
+  ...events[0], id: 'trusted-library',
+  linkStatus: 'blocked-machine', source: 'Santa Clara County Library District',
+  url: 'https://sccl.bibliocommons.com/events/6ad152c696ec3a003adae180'
+};
+const siteBlocked = {
+  ...events[0], id: 'untrusted-blocked',
+  linkStatus: 'blocked-machine', source: 'Unknown source',
+  url: 'https://unknown.example.com/events/6ad152c696ec3a003adae180'
+};
+const ticketBlocked = {
+  ...events[0], id: 'trusted-tech',
+  linkStatus: 'blocked-machine', source: 'The Tech Interactive',
+  url: 'https://tickets.thetech.org/events/f4a8a127-14ee-4150-ca58-24df1287e87c'
+};
+assert.ok(candidateEvents([libraryVerified], '2026-10-30').some(e => e.id === 'trusted-library'),
+  'Recognize official BiblioCommons event IDs despite bot blocking');
+assert.ok(candidateEvents([ticketBlocked], '2026-10-30').some(e => e.id === 'trusted-tech'),
+  'Recognize exact The Tech Interactive ticket event IDs despite bot blocking');
+assert.equal(candidateEvents([siteBlocked], '2026-10-30').length, 0,
+  'Never whitelist arbitrary sites just because a machine was blocked');
 assert.equal(choosePicks(events, '2026-10-30').length, 10);
 assert.equal(choosePicks(events.slice(0, 6), '2026-10-30').length, 6, 'Sparse weekends publish quality selections without padding');
 assert.equal(editorialPicks(events, '2026-10-30').length, 10);
