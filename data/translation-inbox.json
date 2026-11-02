@@ -1,7 +1,7 @@
 {
   "version": 1,
   "locale": "zh-Hans",
-  "submittedAt": "2026-11-02T23:56:25.642Z",
+  "submittedAt": "2026-11-02T23:57:30.582Z",
   "entries": [
     {
       "id": "stanford-81af156d4a0e43b7",
@@ -11,7 +11,7 @@
       "sourceUrl": "https://events.stanford.edu/event/lavonna-mark-giocomo-lab-amp-liz-jun-nuyujukian-lab",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -22,7 +22,7 @@
       "sourceUrl": "https://sccl.bibliocommons.com/events/6ae7cc4e0b801373af91c540",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -33,7 +33,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ae50be09dbc2b002c923b51",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -44,7 +44,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ae2569196ec3a003addafb3",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -55,18 +55,18 @@
       "sourceUrl": "https://sccl.bibliocommons.com/events/6ae3a8e78389bd86bfa3d4ad",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
       "id": "stanford-b4dade7af9c27c1a",
       "sourceFingerprint": "674c8fc06416c1b188b3675a38998a1fdef331eb6662cc751792058f37df545b",
-      "title": "养育青少年的艺术——2026 年 11 月",
+      "title": "养育青少年的艺术——2026 年十一月",
       "description": "本次工作坊将探讨青少年为何会有出人意料的行为、家长如何有效回应，以及如何在这一重要成长阶段建立牢固且相互尊重的亲子关系。",
       "sourceUrl": "https://events.stanford.edu/event/the-art-of-raising-teenagers-november-2026",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -77,7 +77,7 @@
       "sourceUrl": "https://paloalto.bibliocommons.com/events/6946001eea69de6e001069b6",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -88,7 +88,7 @@
       "sourceUrl": "https://events.stanford.edu/event/international-spouse-coffee-6560",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -99,7 +99,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/690e9c6d9b8793410094b89b",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -110,7 +110,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a45a6af0e851028002e983c",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -121,18 +121,18 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a347d087550c8bf9f5e64a2",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
       "id": "rss-6a5e86410e562e28009b31f6",
       "sourceFingerprint": "98d99ad3deb48435d1c7d474fb107ac84c094d587eb5424f30a9c82a26587c80",
       "title": "为孩子朗读",
-      "description": "参加“为孩子朗读”活动可以帮助孩子发展想象力，培养对图书、阅读和学习的兴趣。孩子将在儿童区“Read to Children”标识处与志愿者进行小组互动。活动免费。",
+      "description": "参加“为孩子朗读”活动可以帮助孩子发展想象力，培养对图书、阅读和学习的兴趣。孩子将在儿童区“Read to Children”标识处与志愿者进行小组互动。",
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a5e86410e562e28009b31f6",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -143,7 +143,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a94597f36204e08fbb8509b",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -154,7 +154,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a0df28643b41b3d0067dcef",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -165,29 +165,29 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a5e83e10e562e28009b3023",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
       "id": "rss-6a2b3d5ac7d3cd58005fc0f3",
       "sourceFingerprint": "d22439da6292c52df489ac29de9e1cf7881e7364da7b00fddaec49e2a14b6c03",
       "title": "英西双语阅读伙伴",
-      "description": "欢迎幼儿园至三年级学生用英语或西班牙语向受过培训的青少年志愿者朗读；志愿者会给予鼓励，并在需要时帮助纠正发音。",
+      "description": "欢迎幼儿园至 3 年级学生用英语或西班牙语向受过培训的青少年志愿者朗读；志愿者会给予鼓励，并在需要时帮助纠正发音。",
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a2b3d5ac7d3cd58005fc0f3",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
       "id": "rss-6ae521fb035faf0033e041d5",
       "sourceFingerprint": "3735ef0f3257d44df8e96d131285948ec13590125811622a4152751d4d8fa91b",
       "title": "STEM 星期三：制作冰棒棍弹射器",
-      "description": "制作好弹射器后，参与者可以发射绒球，还可挑战将绒球射入容器。活动免费，无需报名，材料有限。面向 5–10 岁儿童。",
+      "description": "制作好弹射器后，参与者可以发射绒球，还可挑战将绒球射入容器。无需报名，材料有限。面向 5–10 岁儿童。",
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ae521fb035faf0033e041d5",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -198,7 +198,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6aa42bc9a29f1b002adc25c8",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -209,7 +209,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a50273c0d65ac36003ea79f",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -220,7 +220,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a9863ec69166f088b96d0ac",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -231,7 +231,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6aac8994607483003827c031",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -242,29 +242,29 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a84a55bdb24b90d0a431819",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
       "id": "rss-6a945bfc29a7dd0d6747c74f",
       "sourceFingerprint": "138d2140beb5da6673a4aae3220d2adfbaad0a2fb32b0ac1ba5e8585a3b6249d",
       "title": "青少年手工与交流",
-      "description": "“青少年手工与交流”面向 12–18 岁青少年，每周在友好轻松的环境中一起社交、发挥创意并建立真实联系。10 月 7 日制作小饰品托盘，10 月 14 日制作手提袋，10 月 21 日制作迷你南瓜，10 月 28 日进行水钻装饰。免费材料数量有限，送完为止。",
+      "description": "“青少年手工与交流”面向 12–18 岁青少年，每周在友好轻松的环境中一起社交、发挥创意并建立真实联系。十月 7 日制作小饰品托盘，十月 14 日制作手提袋，十月 21 日制作迷你南瓜，十月 28 日进行水钻装饰。材料数量有限，送完为止。",
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a945bfc29a7dd0d6747c74f",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
       "id": "rss-6a0632da43b41b3d00668ce8",
       "sourceFingerprint": "98d99ad3deb48435d1c7d474fb107ac84c094d587eb5424f30a9c82a26587c80",
       "title": "为孩子朗读",
-      "description": "参加“为孩子朗读”活动可以帮助孩子发展想象力，培养对图书、阅读和学习的兴趣。孩子将在儿童区“Read to Children”标识处与志愿者进行小组互动。活动免费。",
+      "description": "参加“为孩子朗读”活动可以帮助孩子发展想象力，培养对图书、阅读和学习的兴趣。孩子将在儿童区“Read to Children”标识处与志愿者进行小组互动。",
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a0632da43b41b3d00668ce8",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -275,7 +275,7 @@
       "sourceUrl": "https://paloalto.bibliocommons.com/events/6a3dbc0bfddb082f00fe14a3",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -286,7 +286,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/68d6c3c797cf5a912eb0d21c",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -297,7 +297,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6933313904caba2f00d3710f",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -308,7 +308,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6941d7666f926136000b4825",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -319,7 +319,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ab2adbb8cf597003f95a298",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -330,7 +330,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/69fb88bf703c33630025dfa8",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -341,7 +341,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/690ce4919b879341009474a1",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -352,7 +352,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a45a51f48c98c3600a3c030",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -363,7 +363,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6946ec16e3e3999b5c038ac3",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -374,7 +374,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/69f53e6924bd39b0b5e92ce6",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -385,7 +385,7 @@
       "sourceUrl": "https://www.cineluxtheatres.com/cinelux-almaden-cafe-lounge/tickets/155262000043",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -396,7 +396,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a83721e4cb69d003e216ef2",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -407,7 +407,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ab41439da318a10e6363910",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -418,7 +418,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a4bcf2d4407827f8aa9a6cb",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -429,7 +429,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ae0f1f1035faf0033df6899",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -440,7 +440,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6acffc4c901b02002cc27bc5",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -451,7 +451,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6acaac2aea50a10050a6dfe4",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -462,7 +462,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a45a7527e16a03d00e98ad2",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -473,7 +473,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ada5adcfee2d21deb25195b",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -484,7 +484,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ad9188ede300e00451bf02d",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -495,7 +495,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/69c48cb6274a65e67a90bd31",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -506,7 +506,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6aaaf20a101eb7003f30a3a7",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -517,7 +517,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6aa44585101eb7003f2f539a",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -528,7 +528,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a4e8e007f5b862800a703b5",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -539,7 +539,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ab41026101eb7003f326221",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -550,7 +550,7 @@
       "sourceUrl": "https://paloalto.bibliocommons.com/events/6946005fea69de6e001069ca",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -561,7 +561,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a99d5583b6c71003e5d9749",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -572,7 +572,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ac81006a85a2c00337e2726",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -583,18 +583,18 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/694450b8ea69de6e00104860",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
       "id": "rss-6a594dd69943bdf31e9f6c88",
       "sourceFingerprint": "c5d15c98cb60bf38eb51a5eb1d96c777737b23c7e0b048161c3165cc2b70fd28",
       "title": "周五欢乐活动：秋日花环",
-      "description": "本周用丝带、人造花和枝叶制作简单花环，庆祝秋季。现场提供全部材料，活动免费。",
+      "description": "本周用丝带、人造花和枝叶制作简单花环，庆祝秋季。现场提供全部材料。",
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a594dd69943bdf31e9f6c88",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -605,7 +605,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/690e9a3d9b8793410094b84a",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -616,7 +616,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6944435f2c65973d00134d6d",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -627,7 +627,7 @@
       "sourceUrl": "https://paloalto.bibliocommons.com/events/6a25aace2ea730c17ab50492",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -638,7 +638,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6aa4454bf9ed2e00384fe31a",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -649,7 +649,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a989e34be148200298c0f69",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -660,7 +660,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ac679bade300e004518d761",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -671,7 +671,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ad2c659fee2d21deb23cfe6",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -682,7 +682,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ac02e0fde300e004517d42f",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -693,7 +693,7 @@
       "sourceUrl": "https://sccl.bibliocommons.com/events/6acac7e22b40e729fed20dcf",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -704,7 +704,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ae3c3fd035faf0033e003fd",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -715,7 +715,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a945c2bbe148200298b2da9",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -726,7 +726,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a5552f5b93a5a73032beb8a",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -737,7 +737,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a8ca5493b6c71003e5b0c37",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -748,7 +748,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6aa970bd101eb7003f303fcd",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -759,7 +759,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a060f880c0f2c4503fa22ad",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -770,7 +770,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ac6963129c3d600332e50c1",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -781,18 +781,18 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a405cd36db61d280098800c",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
       "id": "rss-6ad945fd11bbf300684cde91",
       "sourceFingerprint": "2e9ffca2e2cc7d060de3b6a628f25f538c4ffa49d1c302328295e749a969c441",
       "title": "AACI YTI 数字漫画制作工作坊",
-      "description": "学习相关技巧并创作一部数字漫画。AACI YTI 将提供 iPad 和 Apple Pencil。建议 10–17 岁参加，活动免费。",
+      "description": "学习相关技巧并创作一部数字漫画。AACI YTI 将提供 iPad 和 Apple Pencil。建议 10–17 岁参加。",
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ad945fd11bbf300684cde91",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -803,7 +803,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ae638bdf9d28050ccb02a67",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -814,7 +814,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/69e687f0b6c4ac1fedcda515",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -825,18 +825,18 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a7faa2c9d8416003f698ac3",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
       "id": "rss-6a945bd936204e08fbb85193",
       "sourceFingerprint": "fa9a6857a0362144026e509fc1ff4629b4537d93c40daa2e4df6059f2be21c85",
       "title": "家庭故事时间及自由玩耍",
-      "description": "现场提供多种玩具。欢迎认识其他家庭，与新老朋友一起玩耍。活动免费，名额有限。",
+      "description": "现场提供多种玩具。欢迎认识其他家庭，与新老朋友一起玩耍。名额有限。",
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a945bd936204e08fbb85193",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -847,7 +847,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a4007fc29ca8dc67ac6f60c",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -858,7 +858,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6958022976261f280061ffb5",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -869,7 +869,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6abecfd7a85a2c00337c76ad",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -880,7 +880,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ad91961e06996003a850f81",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -891,7 +891,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/69ebee76b1165a41a6617b7d",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -902,18 +902,18 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6920f1ccd6833e76917eb6fd",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
       "id": "rss-6a063389177319280019cdbf",
       "sourceFingerprint": "ecb91e0ea78a06e7e005f9a3be2a57c425936da799d7e62fe7c0babd542443e8",
       "title": "为孩子朗读",
-      "description": "本活动最适合学龄前儿童和幼儿园至三年级学生，在儿童区的“为孩子朗读”角举行。活动免费。",
+      "description": "本活动最适合学龄前儿童和幼儿园至 3 年级学生，在儿童区的“为孩子朗读”角举行。",
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a063389177319280019cdbf",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -924,7 +924,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a6a2aabe9de6536001f0daa",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -935,7 +935,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a405c29c52cdc3600ed5ad6",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -946,7 +946,7 @@
       "sourceUrl": "https://www.chcp.org/event-6883688",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -957,7 +957,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a7a2dc427b3c7becc8dfb75",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -968,7 +968,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a7f958360ccaf01c01e54bb",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -979,7 +979,7 @@
       "sourceUrl": "https://paloalto.bibliocommons.com/events/68faeb383cbc052f00816104",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -990,7 +990,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/69f53e43f29b90618e001eb9",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1001,7 +1001,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a36f8a1c7d3cd580061b5f6",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1012,7 +1012,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/69445123571fb4d550be6383",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1023,7 +1023,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a2b3ca7c7d3cd58005fc035",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1034,7 +1034,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ac1307f377296003a496e53",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1045,7 +1045,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6aad7352129d8e0031f34f13",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1056,7 +1056,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a3d7a8b6db61d280097f448",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1067,7 +1067,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6adfd29096ec3a003add250c",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1078,7 +1078,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a5e8e4be9de6536001d15eb",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1089,7 +1089,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ac02d67e06996003a80e8ff",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1100,7 +1100,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a8f3924aafa6100295f5579",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1111,7 +1111,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ac80f07a85a2c00337e26a3",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1122,7 +1122,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ac4057ce06996003a818326",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1133,7 +1133,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a3ec53af56bd86e00b94805",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1144,7 +1144,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a6554db7d824676437d343d",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1155,7 +1155,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a3f10c0f56bd86e00b95e6b",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1166,7 +1166,7 @@
       "sourceUrl": "https://sjbarracuda.com/schedule",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1177,7 +1177,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6adbed1a0b801373af90dddb",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1188,7 +1188,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ac13257377296003a496fa1",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1199,7 +1199,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6acacdd5e06996003a82c2d9",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1210,7 +1210,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a0f640b278f7c2f008eb4ac",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1221,18 +1221,18 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a060f20748daf857d58a47f",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
       "id": "rss-6a4d6b756ada472800579fda",
       "sourceFingerprint": "295b49e75c183776698bf4be1249a1b90f831ba23ee3be8d315577f0cb9c4aae",
       "title": "排灯节主题石头彩绘工作坊",
-      "description": "在这场创意工作坊中，老师将带领参与者以排灯节鲜艳的色彩和传统为灵感，动手绘制装饰石。活动免费。",
+      "description": "在这场创意工作坊中，老师将带领参与者以排灯节鲜艳的色彩和传统为灵感，动手绘制装饰石。",
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a4d6b756ada472800579fda",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1243,7 +1243,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/69389c8c94297d36009f164a",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1254,7 +1254,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6931d5996f92613600093aa4",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1265,7 +1265,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6aa4453c65abe8002a78720a",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1276,7 +1276,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6941d6d57ed7c62f00aaca5f",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1287,7 +1287,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a500d76c7e02e3d006801f0",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1298,7 +1298,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ada5ac229c3d6003331c02b",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1309,7 +1309,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6adbecf78a335b6ae5ca1e3f",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1320,7 +1320,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6944507e293fe254002a1f33",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1331,7 +1331,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a722160f213992f00c97325",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1342,7 +1342,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6aa99bc4d6577100383d120d",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1353,18 +1353,18 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ad7b1e7901b02002cc3d3b4",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
       "id": "rss-6aa44299129d8e0031f171ae",
       "sourceFingerprint": "b40043ead51574c13382a4fcb2e00a779dde5c674c3f925c06308b14d9730c3e",
       "title": "人人都能创作：定格动画入门",
-      "description": "11 月五节课的主题均为感恩节和秋季。11 月 1 日将介绍定格动画，孩子会了解定格动画的原理，并为自己的影片制作感恩节或秋季道具和角色。",
+      "description": "十一月五节课的主题均为感恩节和秋季。十一月 1 日将介绍定格动画，孩子会了解定格动画的原理，并为自己的影片制作感恩节或秋季道具和角色。",
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6aa44299129d8e0031f171ae",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1375,7 +1375,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6acfdd4c9d27a0004550eff7",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1386,7 +1386,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/69e7a8c54dacf581ff8a2b02",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1397,7 +1397,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/69c588e69057005337d08fff",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1408,7 +1408,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a95d33a36204e08fbb88e56",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1419,7 +1419,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a722151e30fe4845966cab9",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1430,7 +1430,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6adfd35b96ec3a003add2558",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1441,18 +1441,18 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/69fb8818703c33630025ded7",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
       "id": "rss-6a5abf13f4e5db3d00c2865f",
       "sourceFingerprint": "98d99ad3deb48435d1c7d474fb107ac84c094d587eb5424f30a9c82a26587c80",
       "title": "为孩子朗读",
-      "description": "参加“为孩子朗读”活动可以帮助孩子发展想象力，培养对图书、阅读和学习的兴趣。孩子将在儿童区“Read to Children”标识处与志愿者进行小组互动。活动免费。",
+      "description": "参加“为孩子朗读”活动可以帮助孩子发展想象力，培养对图书、阅读和学习的兴趣。孩子将在儿童区“Read to Children”标识处与志愿者进行小组互动。",
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a5abf13f4e5db3d00c2865f",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1463,7 +1463,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6aa1bad556fe62004a2f2bba",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1474,7 +1474,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a63cbe80e562e28009c3a1a",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1485,18 +1485,18 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a3d7c4a86636e3d0050a035",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
       "id": "rss-6a5008e7cca66c2f00a25b07",
       "sourceFingerprint": "7ac4ec16ce9d55b8ade0bbd66a49728f4b05c59da23b9f5ee7890c81bcb64816",
       "title": "STEM 俱乐部：Matheroni 披萨店",
-      "description": "每周一下午 4:00–5:00 随时加入，享受适合全家的 STEM 活动。",
+      "description": "每周一下午 4–5 点随时加入，享受适合全家的 STEM 活动。",
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a5008e7cca66c2f00a25b07",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1507,7 +1507,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a7e21343b6c71003e58b0f6",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1518,7 +1518,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a7a3c6927b3c7becc8e00a8",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1529,7 +1529,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/69e7a8d9b1165a41a660a9df",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1540,7 +1540,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/698b6f4d8ef687c592a78709",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1551,7 +1551,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a99d55caafa610029616047",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1562,7 +1562,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a594e5e9943bdf31e9f6c8b",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1573,7 +1573,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/68cdb1eb62a8786065c374da",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1584,7 +1584,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ae256d096ec3a003addafbe",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1595,7 +1595,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ad7b1d6377296003a4d46e8",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1606,40 +1606,40 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6add06b40b801373af90ec7a",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
       "id": "rss-6abc1aa29dbc2b002c8b20e4",
       "sourceFingerprint": "2226d5e1f0940f856f641b8cd67f603733d4207e745876688f45e0079d54e661",
       "title": "Educational Park 艺术俱乐部",
-      "description": "建议 5–12 岁参加。11 月活动：11 月 3 日 Frank Buffalo Hyde 绘画；11 月 10 日兰戈里排灯节手工；11 月 17 日 Theresa Secord 编织；11 月 24 日 Jaune Quick-to-See Smith 地图艺术。活动免费。",
+      "description": "建议 5–12 岁参加。十一月活动：3 日 Frank Buffalo Hyde 绘画；10 日兰戈里排灯节手工；17 日 Theresa Secord 编织；24 日 Jaune Quick-to-See Smith 地图艺术。",
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6abc1aa29dbc2b002c8b20e4",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
       "id": "rss-6a7e10fdd4b10d0030064866",
       "sourceFingerprint": "0fa103be2ea61d4f505d6f5118b18025919f50f90557a845312217e301191c1c",
       "title": "Edenvale 分馆作业辅导俱乐部",
-      "description": "幼儿园至八年级学生可在 Edenvale 分馆作业辅导俱乐部接受受过培训的图书馆志愿者指导，免费获得阅读、写作、数学和社会学科等作业帮助。",
+      "description": "幼儿园至 8 年级学生可在 Edenvale 分馆作业辅导俱乐部接受受过培训的图书馆志愿者指导，获得阅读、写作、数学和社会学科等作业帮助。",
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a7e10fdd4b10d0030064866",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
       "id": "rss-69ea74e7b6c4ac1fedce5169",
       "sourceFingerprint": "0c6b7cdb21f58364e41d3738ecf013cd012517ccb5d3ccbb2a0e57aeb2edbac9",
       "title": "动手又凌乱的 STEAM",
-      "description": "学习有时会很“乱”，所以每月第二个星期二，大家会穿上围裙和罩衫一起动手探索。",
+      "description": "学习有时会很“乱”，所以每月第 2 个星期二，大家会穿上围裙和罩衫一起动手探索。",
       "sourceUrl": "https://sjpl.bibliocommons.com/events/69ea74e7b6c4ac1fedce5169",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1650,7 +1650,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/68c345b1ce3cf62f00efa39e",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1661,7 +1661,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6adcf7bca6e1da73bc899581",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1672,7 +1672,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a594e7582c03c5c17d887f8",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1683,7 +1683,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6adfd3ae96ec3a003add2568",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1694,7 +1694,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a85eceebe14820029887e87",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1705,7 +1705,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ab6fa9e101eb7003f32f7c3",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1716,7 +1716,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6984cee5d34a4e759284bb6a",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1727,7 +1727,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a94583836204e08fbb8506c",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1738,7 +1738,7 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/68f2e0b2831f063d00527965",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1749,18 +1749,18 @@
       "sourceUrl": "https://paloalto.bibliocommons.com/events/689fbe369fd3e1d82154c4d6",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
       "id": "rss-6ae4c93a901b02002cc63238",
       "sourceFingerprint": "deb539194efa30c80f2f014c0e5074a777fa2c3e21e662ffc251ffaab195b539",
       "title": "纪录片：乌克兰大饥荒纪念日",
-      "description": "影片通过引人深思的目击者讲述，呈现这段关键但鲜为人知的历史，其影响至今仍在延续。相关书单中的图书将现场展示并可借阅。无需报名；报名者会在活动前一天收到提醒邮件。",
+      "description": "影片通过引人深思的目击者讲述，呈现这段关键但鲜为人知的历史，其影响至今仍在延续。相关书单中的图书将现场展示并可借阅。报名者会在活动前一天收到提醒邮件。",
       "sourceUrl": "https://paloalto.bibliocommons.com/events/6ae4c93a901b02002cc63238",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1771,7 +1771,7 @@
       "sourceUrl": "https://www.sanjose.org/theaters/events/nutcracker-magical-christmas-ballet",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1782,7 +1782,7 @@
       "sourceUrl": "https://sjbarracuda.com/schedule",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1793,7 +1793,7 @@
       "sourceUrl": "https://sccl.bibliocommons.com/events/6ad3c7a7901b02002cc32c73",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1804,7 +1804,7 @@
       "sourceUrl": "https://sccl.bibliocommons.com/events/6ae39b06ebad22004548e0f9",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1815,7 +1815,7 @@
       "sourceUrl": "https://sccl.bibliocommons.com/events/6a08e108e13d3b4603b486f1",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1826,7 +1826,7 @@
       "sourceUrl": "https://www.gilroygardens.org/holiday/",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1837,7 +1837,7 @@
       "sourceUrl": "https://sccl.bibliocommons.com/events/6ae3cd1a9dbc2b002c9205d1",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1848,7 +1848,7 @@
       "sourceUrl": "https://sccl.bibliocommons.com/events/6ad110029d27a000455125b3",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1859,7 +1859,7 @@
       "sourceUrl": "https://santanarow.com/event/elf-on-the-shelf-scavenger-hunt/",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1870,7 +1870,7 @@
       "sourceUrl": "https://sccl.bibliocommons.com/events/6ae3b624de300e00451dd897",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1881,7 +1881,7 @@
       "sourceUrl": "https://sccl.bibliocommons.com/events/6a9614c769166f088b9658ed",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1892,7 +1892,7 @@
       "sourceUrl": "https://sccl.bibliocommons.com/events/6a8e43e6be148200298a19de",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1903,7 +1903,7 @@
       "sourceUrl": "https://sjbarracuda.com/schedule",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1914,7 +1914,7 @@
       "sourceUrl": "https://sccl.bibliocommons.com/events/69d6e67ef29b90618efdcdd4",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1925,7 +1925,7 @@
       "sourceUrl": "https://sccl.bibliocommons.com/events/6ae78d6ede685359098d1379",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1936,7 +1936,7 @@
       "sourceUrl": "https://sccl.bibliocommons.com/events/6ae10914377296003a4f0a6f",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1947,7 +1947,7 @@
       "sourceUrl": "https://sccl.bibliocommons.com/events/6a8e25f42dac6e003721b7ac",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1958,7 +1958,7 @@
       "sourceUrl": "https://paloalto.bibliocommons.com/events/6ae3c3ad9b955d531f7ba1df",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1969,7 +1969,7 @@
       "sourceUrl": "https://sjbarracuda.com/schedule",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1980,7 +1980,7 @@
       "sourceUrl": "https://sjbarracuda.com/schedule",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     },
     {
@@ -1991,7 +1991,7 @@
       "sourceUrl": "https://sjbarracuda.com/schedule",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:56:25.642Z",
+      "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
     }
   ]
