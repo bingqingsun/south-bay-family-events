@@ -1,21 +1,21 @@
 {
   "version": 1,
   "locale": "zh-Hans",
-  "generatedAt": "2026-11-03T04:16:56.825Z",
+  "generatedAt": "2026-11-03T04:24:59.402Z",
   "generatedForDate": "2026-11-02",
-  "sourceEventCount": 560,
-  "activeEventCount": 560,
+  "sourceEventCount": 561,
+  "activeEventCount": 561,
   "stats": {
-    "current": 549,
-    "gaps": 11,
+    "current": 543,
+    "gaps": 18,
     "missing": 10,
-    "stale": 1,
+    "stale": 8,
     "invalid": 0
   },
   "batches": [
     {
       "file": "batch-001.json",
-      "count": 11
+      "count": 18
     }
   ]
 }

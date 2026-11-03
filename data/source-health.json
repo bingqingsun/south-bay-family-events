@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-03T04:15:31.084Z",
+  "generatedAt": "2026-11-03T04:23:21.929Z",
   "configuredSources": 101,
   "directSources": 95,
   "fallbackSourcesRun": 0,
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 83,
+      "failureStreak": 84,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 83,
+      "failureStreak": 84,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -306,7 +306,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 83,
+      "failureStreak": 84,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -446,7 +446,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 16,
+      "failureStreak": 17,
       "error": "CivicPlus official calendar was not valid: 403"
     },
     {
@@ -606,7 +606,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 51,
+      "failureStreak": 52,
       "error": "Eventbrite organizer has neither usable events nor a confirmed empty listing"
     },
     {
@@ -616,7 +616,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 5,
+      "failureStreak": 6,
       "error": "Wix official event list was not valid: 200"
     },
     {
@@ -1000,32 +1000,32 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 83,
+      "failureStreak": 84,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 83,
+      "failureStreak": 84,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 83,
+      "failureStreak": 84,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 16,
+      "failureStreak": 17,
       "error": "CivicPlus official calendar was not valid: 403"
     },
     {
       "name": "CalColor Academy",
-      "failureStreak": 51,
+      "failureStreak": 52,
       "error": "Eventbrite organizer has neither usable events nor a confirmed empty listing"
     },
     {
       "name": "365 Night Market",
-      "failureStreak": 5,
+      "failureStreak": 6,
       "error": "Wix official event list was not valid: 200"
     }
   ],
@@ -1058,6 +1058,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1087,6 +1088,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     },
@@ -1118,6 +1120,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1147,6 +1150,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     },
@@ -1178,6 +1182,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1207,6 +1212,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     },
@@ -1238,6 +1244,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1267,6 +1274,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     },
@@ -1298,6 +1306,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1327,6 +1336,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     },
@@ -1358,6 +1368,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1387,6 +1398,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     },
@@ -1418,6 +1430,7 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
@@ -1447,46 +1460,48 @@
         "Google Visitor Experience": 4,
         "Santana Row": 2,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     }
   },
   "paloAltoChildrensTheatreEnrichment": {
-    "checkedAt": "2026-11-03T04:15:31.084Z",
+    "checkedAt": "2026-11-03T04:23:21.929Z",
     "enriched": 5
   },
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-11-03T04:15:31.084Z",
-    "enriched": 469,
+    "checkedAt": "2026-11-03T04:23:21.929Z",
+    "enriched": 487,
+    "fetch-failed": 1,
     "identity-mismatch": 29,
-    "fetch-blocked": 66,
+    "fetch-blocked": 47,
     "cached": 2,
     "fieldUpdates": {
-      "description": 361,
-      "place": 255,
-      "address": 20,
-      "endDateValue": 350,
-      "dateValue": 4,
-      "image": 5,
-      "costStatus": 2,
-      "costLabel": 2,
-      "costSource": 2,
-      "costEvidence": 2,
-      "registrationStatus": 2,
-      "registrationSource": 2,
-      "registrationEvidence": 2
+      "description": 380,
+      "place": 269,
+      "address": 22,
+      "endDateValue": 368,
+      "dateValue": 2,
+      "image": 3,
+      "costStatus": 1,
+      "costLabel": 1,
+      "costSource": 1,
+      "costEvidence": 1,
+      "registrationStatus": 1,
+      "registrationSource": 1,
+      "registrationEvidence": 1
     }
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-11-03T04:15:31.084Z",
-    "official": 440,
-    "unclassified": 123
+    "checkedAt": "2026-11-03T04:23:21.929Z",
+    "official": 458,
+    "unclassified": 105
   },
   "editorialCoverGeneration": {
     "frameworkVersion": "editorial-cover-v1",
-    "checkedAt": "2026-11-03T04:15:31.084Z",
+    "checkedAt": "2026-11-03T04:23:21.929Z",
     "generated": 0,
     "byReason": {},
     "byPreset": {}
@@ -1523,7 +1538,7 @@
   },
   "officialImageMirror": {
     "frameworkVersion": "official-image-mirror-v1",
-    "checkedAt": "2026-11-03T04:16:55.785Z",
+    "checkedAt": "2026-11-03T04:24:58.475Z",
     "configuredSources": 1,
     "mirroredEvents": 5,
     "mirroredAssets": 4,
