@@ -37,6 +37,15 @@
       "status": "approved",
       "translationSource": "editorial-reviewed",
       "reviewedAt": "2026-11-02T20:30:00-08:00"
+    },
+    {
+      "id": "editorial-mvpns-touch-a-truck-20261107",
+      "title": "MVPNS 亲子摸车体验日",
+      "description": "孩子可以近距离登上并探索各种真实车辆。现场采用安静、禁止鸣笛的形式，还设有故事时间、工程主题游戏、拍照区和车辆集章活动，所得款项将支持 Mountain View Parent Nursery School。",
+      "sourceFingerprint": "b1e4cbf85a09c012ca39cb2240b073b791ddf3034fff577c2afa6bc4bc2fd74c",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-03T18:30:00-08:00"
     }
   ]
 }

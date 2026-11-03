@@ -658,5 +658,32 @@
     ],
     "replaceExisting": true,
     "verifiedAt": "2026-11-02T20:30:00-08:00"
+  },
+  {
+    "id": "editorial-mvpns-touch-a-truck-20261107",
+    "title": "Touch-a-Truck at MVPNS",
+    "dateValue": "2026-11-07T10:00:00",
+    "endDateValue": "2026-11-07T12:30:00",
+    "description": "Kids can climb aboard and explore real vehicles at this quiet, no-honking family event, with storytimes, construction-themed play, a photo area, and a vehicle-passport activity supporting Mountain View Parent Nursery School.",
+    "sourceDescriptionRaw": "Mountain View Parent Nursery School hosts Touch-a-Truck at MVPNS on November 7, 2026, from 10 a.m. to 12:30 p.m. at 1535 Oak Avenue in Los Altos. The quiet, no-honking event features real vehicles to explore, storytimes, construction-themed play, a photo area, and a vehicle-passport activity. Proceeds support the nonprofit parent-participation preschool.",
+    "image": "https://res.cloudinary.com/hxn9dbuhd/image/upload/f_auto%2Cc_limit%2Cw_1200%2Cq_auto/v1789971352/organizations/7/8/5/0/78506c19-c711-4840-b3e4-0282dd68149d/b422279d-be55-4985-9a87-0450432a41d3.png",
+    "place": "Mountain View Parent Nursery School",
+    "address": "1535 Oak Ave, Los Altos, CA 94024",
+    "city": "Los Altos",
+    "source": "Mountain View Parent Nursery School",
+    "url": "https://www.zeffy.com/en-US/ticketing/touch-a-truck-at-mvpns",
+    "ageLabel": "All ages; under 2 free",
+    "ageSource": "Official MVPNS ticket page",
+    "costStatus": "paid",
+    "costLabel": "$10 ages 2+ early bird; under 2 free; family 5-pack $40",
+    "costSource": "Official MVPNS ticket page",
+    "costEvidence": "The official ticket page lists $10 general admission for ages 2+, free admission under age 2, and a $40 family 5-pack.",
+    "registrationStatus": "recommended",
+    "registrationSource": "Official MVPNS ticket page",
+    "registrationEvidence": "Advance tickets are sold through the organizer's official Zeffy page.",
+    "type": "community",
+    "format": "festival",
+    "replaceExisting": true,
+    "verifiedAt": "2026-11-03T18:30:00-08:00"
   }
 ]
