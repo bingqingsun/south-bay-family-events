@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "entries": [
+    {
+      "id": "editorial-cdm-diwali-20261107",
+      "title": "Diwali 排灯节：灯光庆典",
+      "description": "在儿童探索博物馆庆祝排灯节：制作迪亚灯、欣赏兰戈里彩绘、参加故事朗读、音乐舞蹈表演和互动工作坊。",
+      "sourceFingerprint": "9e55f1a715271b2ab620e4120543c74448f851d2ff3c78edf82d1e47bea32232",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-02T20:30:00-08:00"
+    },
+    {
+      "id": "editorial-sbhrs-fall-train-show-20261107",
+      "title": "2026 秋季开放日与火车模型展",
+      "description": "在历史悠久的 Santa Clara 火车站参加为期两天的火车模型展和开放日，观看运行中的 HO 与 N 比例铁路模型，并了解当地铁路历史。",
+      "sourceFingerprint": "f7f4636597782f17e0433a55c339e82421c3dda2e41c32f09284cc3170fdbaca",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-02T20:30:00-08:00"
+    },
+    {
+      "id": "editorial-cupertino-bird-id-hike-20261107",
+      "title": "跟着护林员识鸟徒步",
+      "description": "跟随 Cupertino 公园护林员沿河岸栖息地进行约四分之一英里的导览徒步，学习辨认本地鸟类，并寻找红肩鵟、角鸮等鸟类。",
+      "sourceFingerprint": "f7aabb6260f201579fc72f523eb0b4f9070421fd036933668f394d047ecb7fc6",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-02T20:30:00-08:00"
+    },
+    {
+      "id": "editorial-cupertino-eec-open-house-20261107",
+      "title": "环境教育中心开放日",
+      "description": "全家可以到环境教育中心探索自然：认识动物大使、观察本地野生动物、与自然保护区工作人员和公园护林员交流，并参加动手体验活动。",
+      "sourceFingerprint": "76dcdb7750ae2b80dca5850823577fe9cd3391ed06d6a91a0dec74900eb41f5b",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-02T20:30:00-08:00"
+    }
+  ]
+}

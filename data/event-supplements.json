@@ -509,5 +509,154 @@
     "format": "program",
     "replaceExisting": true,
     "verifiedAt": "2026-10-27T21:30:00Z"
+  },
+  {
+    "id": "editorial-cdm-diwali-20261107",
+    "title": "Diwali: Festival of Lights",
+    "dateValue": "2026-11-07T10:00:00",
+    "endDateValue": "2026-11-07T15:30:00",
+    "description": "Celebrate Diwali at Children's Discovery Museum with diya-lamp making, rangoli art, a read-aloud, music, dance performances, and an interactive workshop.",
+    "sourceDescriptionRaw": "The Children's Discovery Museum invites families to discover Diwali traditions by making a diya lamp, enjoying rangoli artwork, and joining music, dance, read-aloud, and interactive cultural programming on November 7, 2026.",
+    "image": "https://www.cdm.org/wp-content/uploads/2025/06/diwali-hero-v2.png",
+    "place": "Children's Discovery Museum of San Jose",
+    "address": "180 Woz Way, San Jose, CA 95110",
+    "city": "San Jose",
+    "source": "Children's Discovery Museum of San Jose",
+    "url": "https://www.cdm.org/event/diwali/",
+    "ageLabel": "Family-friendly",
+    "ageSource": "Children's Discovery Museum official event page",
+    "costStatus": "paid",
+    "costLabel": "Museum admission required; see ticket details",
+    "costSource": "Children's Discovery Museum official event page",
+    "costEvidence": "The official event page directs visitors to buy museum tickets.",
+    "registrationStatus": "recommended",
+    "registrationSource": "Children's Discovery Museum official event page",
+    "registrationEvidence": "Advance museum tickets are available from the official event page.",
+    "type": "community",
+    "format": "festival",
+    "seasonalTheme": "diwali",
+    "replaceExisting": true,
+    "verifiedAt": "2026-11-02T20:30:00-08:00"
+  },
+  {
+    "id": "editorial-sbhrs-fall-train-show-20261107",
+    "title": "2026 Fall Open House / Train Show",
+    "dateValue": "2026-11-07T10:00:00",
+    "endDateValue": "2026-11-08T16:00:00",
+    "description": "Explore working HO- and N-scale model railroad displays and local railroad history inside the historic Santa Clara Depot during this two-day train show and open house.",
+    "sourceDescriptionRaw": "The South Bay Historical Railroad Society's 2026 Fall Open House and Train Show runs November 7 from 10 a.m. to 5 p.m. and November 8 from 10 a.m. to 4 p.m. at the Santa Clara Depot. Adults age 18 and older pay $5 per day; children are free.",
+    "place": "Santa Clara Depot",
+    "address": "1005 Railroad Ave, Santa Clara, CA 95050",
+    "city": "Santa Clara",
+    "source": "South Bay Historical Railroad Society",
+    "url": "https://sbhrs.org/event-6690497",
+    "ageMin": 0,
+    "ageLabel": "All ages",
+    "ageSource": "South Bay Historical Railroad Society official event page",
+    "costStatus": "variable",
+    "costLabel": "Adults 18+: $5/day; children free",
+    "costSource": "South Bay Historical Railroad Society official event page",
+    "costEvidence": "Adults 18 and older are $5 per day; children are free.",
+    "registrationStatus": "recommended",
+    "registrationSource": "South Bay Historical Railroad Society official event page",
+    "registrationEvidence": "Advance online registration is available.",
+    "type": "learning",
+    "format": "exhibition",
+    "sessions": [
+      {
+        "dateValue": "2026-11-07T10:00:00",
+        "endDateValue": "2026-11-07T17:00:00"
+      },
+      {
+        "dateValue": "2026-11-08T10:00:00",
+        "endDateValue": "2026-11-08T16:00:00"
+      }
+    ],
+    "replaceExisting": true,
+    "verifiedAt": "2026-11-02T20:30:00-08:00"
+  },
+  {
+    "id": "editorial-cupertino-bird-id-hike-20261107",
+    "title": "Join-A-Ranger: Bird ID and Guided Hike",
+    "dateValue": "2026-11-07T08:00:00",
+    "endDateValue": "2026-11-07T10:00:00",
+    "description": "Join Cupertino park rangers for a quarter-mile guided walk through riparian habitat, learn how to identify local birds, and look for species such as Red-shouldered Hawks and Screech Owls.",
+    "sourceDescriptionRaw": "Cupertino park rangers lead a bird-identification walk through riparian habitat at McClellan Ranch Preserve on November 7, 2026, from 8 to 10 a.m. The approximately quarter-mile route combines dirt and paved trails. Registration is required, and children must be accompanied by an adult.",
+    "image": "https://www.cupertino.gov/files/assets/city/v/1/parks-and-recreation/images/events/join-a-ranger/join-a-ranger_blackberry_farm.png?dimension=pageimage&w=480",
+    "place": "McClellan Ranch Preserve",
+    "address": "22221 McClellan Rd, Cupertino, CA 95014",
+    "city": "Cupertino",
+    "source": "City of Cupertino",
+    "url": "https://www.cupertino.gov/Parks-Recreation/Events/McClellan-Events/Join-A-Ranger-Bird-ID-and-Guided-Hike",
+    "ageLabel": "Children must attend with an adult",
+    "ageSource": "City of Cupertino official event page",
+    "costStatus": "variable",
+    "costLabel": "$10 residents; $13 non-residents",
+    "costSource": "City of Cupertino official event page",
+    "costEvidence": "The official page lists $10 resident and $13 non-resident pricing.",
+    "registrationStatus": "required",
+    "registrationSource": "City of Cupertino official event page",
+    "registrationEvidence": "All attendees must register.",
+    "type": "learning",
+    "format": "guided-hike",
+    "replaceExisting": true,
+    "verifiedAt": "2026-11-02T20:30:00-08:00"
+  },
+  {
+    "id": "editorial-cupertino-eec-open-house-20261107",
+    "title": "Environmental Education Center Open House",
+    "dateValue": "2026-11-07T12:00:00",
+    "endDateValue": "2026-12-19T16:00:00",
+    "description": "Visit the Environmental Education Center for family nature discovery, including animal ambassadors, local-wildlife exploration, conversations with preserve staff and park rangers, and hands-on activities.",
+    "sourceDescriptionRaw": "The City of Cupertino hosts a free Environmental Education Center Open House at McClellan Ranch Preserve on Saturdays from November 7 through December 19, 2026, noon to 4 p.m. Families can meet animal ambassadors, explore local wildlife, talk with preserve staff and park rangers, and join hands-on nature activities.",
+    "image": "https://www.cupertino.gov/files/assets/city/v/1/parks-and-recreation/images/mcclellan-ranch-preserve/eec_rotating_banner-01.png?dimension=pageimage&w=480",
+    "place": "Environmental Education Center at McClellan Ranch Preserve",
+    "address": "22221 McClellan Road, Cupertino, CA 95014",
+    "city": "Cupertino",
+    "source": "City of Cupertino",
+    "url": "https://www.cupertino.gov/Parks-Recreation/Events/McClellan-Events/Environmental-Education-Center-Open-House",
+    "ageLabel": "Kids and families",
+    "ageSource": "City of Cupertino official event page",
+    "costStatus": "free",
+    "costLabel": "免费",
+    "costSource": "City of Cupertino official event page",
+    "costEvidence": "The official event snapshot lists the cost as free.",
+    "registrationStatus": "walk-in",
+    "registrationSource": "City of Cupertino official event page",
+    "registrationEvidence": "The official page invites families to drop by.",
+    "type": "learning",
+    "format": "open-house",
+    "sessions": [
+      {
+        "dateValue": "2026-11-07T12:00:00",
+        "endDateValue": "2026-11-07T16:00:00"
+      },
+      {
+        "dateValue": "2026-11-14T12:00:00",
+        "endDateValue": "2026-11-14T16:00:00"
+      },
+      {
+        "dateValue": "2026-11-21T12:00:00",
+        "endDateValue": "2026-11-21T16:00:00"
+      },
+      {
+        "dateValue": "2026-11-28T12:00:00",
+        "endDateValue": "2026-11-28T16:00:00"
+      },
+      {
+        "dateValue": "2026-12-05T12:00:00",
+        "endDateValue": "2026-12-05T16:00:00"
+      },
+      {
+        "dateValue": "2026-12-12T12:00:00",
+        "endDateValue": "2026-12-12T16:00:00"
+      },
+      {
+        "dateValue": "2026-12-19T12:00:00",
+        "endDateValue": "2026-12-19T16:00:00"
+      }
+    ],
+    "replaceExisting": true,
+    "verifiedAt": "2026-11-02T20:30:00-08:00"
   }
 ]
