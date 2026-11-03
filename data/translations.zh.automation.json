@@ -146,6 +146,17 @@
       "override": true
     },
     {
+      "id": "cupertino-1ad798fe691514cf",
+      "sourceFingerprint": "932b6eb53b21601422d4dfc255ff940e692044c401458d323deee7034583d795",
+      "title": "2026–27 学年库比蒂诺安全上学路线工作组会议",
+      "description": "工作组会议汇集合作伙伴，讨论如何推进项目使命：让库比蒂诺的学生和家庭以步行、骑行等主动出行方式往返学校时更加安全。",
+      "sourceUrl": "https://www.cupertino.gov/Your-City/Departments/Public-Works/Transportation-Mobility/Safe-Routes-to-School-SR2S/SR2S-Working-Group",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-03T15:46:35.780Z",
+      "override": true
+    },
+    {
       "id": "cupertino-20f52b71e2347f03",
       "sourceFingerprint": "01a002b4339a174bdeb2e56f49abb6517622dc7b71704f74995db46cb4c6c35b",
       "title": "与圣诞老人共进早餐",
@@ -420,6 +431,17 @@
       "override": true
     },
     {
+      "id": "rss-6931d4246f92613600093956",
+      "sourceFingerprint": "6f57e45e62e9de04a92fa0f45318df440450252f9b07f41d3709335a4c70f22b",
+      "title": "儿童国际象棋俱乐部",
+      "description": "来学习下国际象棋，或者一起下一盘棋！",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6931d4246f92613600093956",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-03T15:46:35.780Z",
+      "override": true
+    },
+    {
       "id": "rss-6931d5996f92613600093aa4",
       "sourceFingerprint": "d30526dcfaa14dcb1c62d8747be7febecedff48edaddea4aab885ddf0f40b041",
       "title": "毛茸茸的阅读伙伴",
@@ -483,6 +505,17 @@
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-10-20T22:05:36.843Z",
+      "override": true
+    },
+    {
+      "id": "rss-69433e6f8b29ea2800c4c58f",
+      "sourceFingerprint": "a85f305cfeb9f3cfbf0790197ec9704c328328b070a0a1c55c6e8f710c45cccf",
+      "title": "K–8 年级 LEGO 乐高俱乐部",
+      "description": "孩子们将发挥创造力和工程技能，自由搭建自己想象中的各种作品。",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/69433e6f8b29ea2800c4c58f",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-03T15:46:35.780Z",
       "override": true
     },
     {
@@ -670,6 +703,17 @@
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-11-02T23:57:30.582Z",
+      "override": true
+    },
+    {
+      "id": "rss-69e7a8c91e64afd01e6aad56",
+      "sourceFingerprint": "5334b1a8325caa866b490ce694e3305ea17593c8aec0ed7c176303e095e7c16d",
+      "title": "Aysha 儿童朗读活动",
+      "description": "参加儿童朗读项目，帮助孩子发展想象力，培养对书籍、阅读和学习的热爱。",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/69e7a8c91e64afd01e6aad56",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-03T15:46:35.780Z",
       "override": true
     },
     {
@@ -1025,6 +1069,17 @@
       "override": true
     },
     {
+      "id": "rss-6a4c36cc4407827f8aa9ca4f",
+      "sourceFingerprint": "58bfd9a243af98eb8f31fc4bf20b8e2ed5acf0a0e63e4a4076fb083e605d5679",
+      "title": "钩针编织俱乐部",
+      "description": "带上自己的作品，或开始一个新项目，一起提高编织技巧并交流钩针编织的各种话题。",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a4c36cc4407827f8aa9ca4f",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-03T15:46:35.780Z",
+      "override": true
+    },
+    {
       "id": "rss-6a4d6b756ada472800579fda",
       "sourceFingerprint": "295b49e75c183776698bf4be1249a1b90f831ba23ee3be8d315577f0cb9c4aae",
       "title": "排灯节主题石头彩绘工作坊",
@@ -1168,6 +1223,17 @@
       "override": true
     },
     {
+      "id": "rss-6a5eb69c88e9bf28003235d9",
+      "sourceFingerprint": "ef12511b8faab3b260efeb41b1212b1e12250cbbac95962e8c8064773bb506a4",
+      "title": "今秋如何顺利规划大学申请",
+      "description": "活动将讨论学生如何将自己的兴趣、价值观和经历转化为真实的实践活动，以促进个人成长、展现品格并体现积极影响。",
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/6a5eb69c88e9bf28003235d9",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-03T15:46:35.780Z",
+      "override": true
+    },
+    {
       "id": "rss-6a63cbe80e562e28009c3a1a",
       "sourceFingerprint": "8500149ec244c620e0e0b8ec921d8cfe30d23f4a5662665d76cd4999d8a2c572",
       "title": "Village Square 作业辅导俱乐部",
@@ -1187,6 +1253,28 @@
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-11-02T23:57:30.582Z",
+      "override": true
+    },
+    {
+      "id": "rss-6a655635f494c55649eb2dea",
+      "sourceFingerprint": "f203dd8f0f54c90e97ad1baa72a479c50f5f580af0e1dee2492ed38ea3714407",
+      "title": "棒针、钩针、梭结花边与线轴蕾丝手工俱乐部",
+      "description": "想学习这些手工技艺、看看其他人的作品、提高技巧，或交流各种针线手工话题吗？",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a655635f494c55649eb2dea",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-03T15:46:35.780Z",
+      "override": true
+    },
+    {
+      "id": "rss-6a67cb469943bdf31ea202f9",
+      "sourceFingerprint": "b1a6fc907c7b811be72b8b1234da0ce30eecdb2fe003683394df1ccb47b84f98",
+      "title": "游戏天地",
+      "description": "想展示自己的技能，还是想从基础开始学习？",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a67cb469943bdf31ea202f9",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-03T15:46:35.780Z",
       "override": true
     },
     {
@@ -1242,6 +1330,17 @@
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-11-02T23:57:30.582Z",
+      "override": true
+    },
+    {
+      "id": "rss-6a7e0ad9d4b10d0030064671",
+      "sourceFingerprint": "9f6e8e022024cb216a2e90daf929d2cb8c2af2e86d27c7b270f4235b7e3fc3a5",
+      "title": "国际象棋入门",
+      "description": "无论你是第一次接触国际象棋，还是希望提高棋艺，都欢迎在轻松、互相支持的氛围中学习和对弈。",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a7e0ad9d4b10d0030064671",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-03T15:46:35.780Z",
       "override": true
     },
     {
@@ -1330,6 +1429,17 @@
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-11-02T23:57:30.582Z",
+      "override": true
+    },
+    {
+      "id": "rss-6a8e20a869166f088b94e122",
+      "sourceFingerprint": "c8e8687a16870fdb376f6cc27a07b3606790db0e14b4875b33c89f560bde7390",
+      "title": "家庭故事时间",
+      "description": "适合不同年龄孩子和全家参与的趣味互动故事时间，包含故事、歌曲、童谣、手指游戏和肢体活动等早期读写启蒙活动。",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a8e20a869166f088b94e122",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-03T15:46:35.780Z",
       "override": true
     },
     {
@@ -2213,6 +2323,17 @@
       "override": true
     },
     {
+      "id": "rss-6ae92fd7de685359098d78de",
+      "sourceFingerprint": "6225c722a6288063dc32e7c3eb7d1b62039e4da40a14f813f461fe12cd758b9b",
+      "title": "感恩节手工：串珠玉米棒",
+      "description": "使用扭扭棒和彩色珠子，按照简单的步骤制作感恩节主题串珠玉米棒。请向服务台领取材料。",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6ae92fd7de685359098d78de",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-03T15:46:35.780Z",
+      "override": true
+    },
+    {
       "id": "santana-bf9a9640f93b5b24",
       "sourceFingerprint": "e6cec501e55b604255f972a777a81e3e0c9743c39d9728ada2a585373ead4263",
       "title": "Elf on the Shelf 小精灵寻宝活动",
@@ -2397,6 +2518,17 @@
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-11-02T23:57:30.582Z",
+      "override": true
+    },
+    {
+      "id": "south-first-fridays-ea55a2b42f8f4afb",
+      "sourceFingerprint": "2538760699fa28f02a7ee18cff8556baee6d3df3e08539eb190b5fc0484821c4",
+      "title": "South FIRST FRIDAYS 圣何塞艺术漫步",
+      "description": "在圣何塞市中心，带上家人和朋友，共度充满艺术和表演的创意之夜，并与当地创意社群交流。",
+      "sourceUrl": "https://www.southfirstfridays.com/2026/11/november-6-2026-south-first-fridays-artwalksj/",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-03T15:46:35.780Z",
       "override": true
     },
     {
