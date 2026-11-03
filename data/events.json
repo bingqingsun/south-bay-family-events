@@ -10939,7 +10939,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "感恩节手工：串珠玉米棒",
+        "description": "使用扭扭棒和彩色珠子，按照简单的步骤制作感恩节主题串珠玉米棒。请向服务台领取材料。",
+        "fingerprint": "6225c722a6288063dc32e7c3eb7d1b62039e4da40a14f813f461fe12cd758b9b",
+        "translatedAt": "2026-11-03T15:46:35.780Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-433b47fca15700ab",
@@ -20781,7 +20791,7 @@
         "title": "《How to Train Your Dragon》",
         "description": "跟随不太像传统维京英雄的 Hiccup，与被误解的 Night Fury Toothless 成为朋友，并学会勇气也意味着用不同的方式看世界。",
         "fingerprint": "a47fb1b5bb710d00c68ab658f236818eb5e0c858e272fee5d5831e0512d19b1f",
-        "translatedAt": "2026-11-03T14:28:38.789Z",
+        "translatedAt": "2026-11-03T15:47:23.036Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -22073,7 +22083,7 @@
         "title": "故事与律动 / Hora de cuentos",
         "description": "孩子和照护者可一起听故事、念童谣、做手指游戏，并参加音乐和律动活动，培养早期读写能力。",
         "fingerprint": "d6b33e0aebd10cd7cacfa4589360c37bda26467f0d3eb4d43d996d829cc76b42",
-        "translatedAt": "2026-11-03T14:28:38.789Z",
+        "translatedAt": "2026-11-03T15:47:23.036Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -28685,7 +28695,7 @@
         "title": "Tiny Tot Jamboree 幼儿欢乐会",
         "description": "家长和 1–2 岁幼儿一起参加短小有趣的故事、童谣、手指游戏、活动和歌曲。",
         "fingerprint": "19039c77101e7b754cea87442a5b6c527a3efc21cccdd8fb7c28d638065cb8c3",
-        "translatedAt": "2026-11-03T14:28:38.789Z",
+        "translatedAt": "2026-11-03T15:47:23.036Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -29021,7 +29031,7 @@
         "title": "Itty Bitty Jamboree 婴儿欢乐会",
         "description": "成人和 0–12 个月婴儿一起参加短小有趣的故事、童谣、手指游戏和歌曲。",
         "fingerprint": "c344a114ee050cef7355631d275d83e124d1be22ee47743a4e0aeb5fddf52f40",
-        "translatedAt": "2026-11-03T14:28:38.789Z",
+        "translatedAt": "2026-11-03T15:47:23.036Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -32888,8 +32898,18 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing",
-    "summaryQualityRepairVersion": "summary-quality-repair-v1"
+    "translationStatus": "current",
+    "summaryQualityRepairVersion": "summary-quality-repair-v1",
+    "translations": {
+      "zh": {
+        "title": "South FIRST FRIDAYS 圣何塞艺术漫步",
+        "description": "在圣何塞市中心，带上家人和朋友，共度充满艺术和表演的创意之夜，并与当地创意社群交流。",
+        "fingerprint": "2538760699fa28f02a7ee18cff8556baee6d3df3e08539eb190b5fc0484821c4",
+        "translatedAt": "2026-11-03T15:46:35.780Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6ad90d0596ec3a003adc0c67",
@@ -43652,7 +43672,7 @@
         "title": "National STEM Day 全国 STEM 日",
         "description": "十一月 8 日星期日到访 The Tech Interactive，可免费参观。",
         "fingerprint": "b4593279940f6aad4243e696731e05f8e4004cf0c97a2e54671c2a3ccd29c208",
-        "translatedAt": "2026-11-03T14:28:38.789Z",
+        "translatedAt": "2026-11-03T15:47:23.036Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -49605,7 +49625,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "Aysha 儿童朗读活动",
+        "description": "参加儿童朗读项目，帮助孩子发展想象力，培养对书籍、阅读和学习的热爱。",
+        "fingerprint": "5334b1a8325caa866b490ce694e3305ea17593c8aec0ed7c176303e095e7c16d",
+        "translatedAt": "2026-11-03T15:46:35.780Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a67cb469943bdf31ea202f9",
@@ -49738,7 +49768,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "游戏天地",
+        "description": "想展示自己的技能，还是想从基础开始学习？",
+        "fingerprint": "b1a6fc907c7b811be72b8b1234da0ce30eecdb2fe003683394df1ccb47b84f98",
+        "translatedAt": "2026-11-03T15:46:35.780Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a63cbe80e562e28009c3a1a",
@@ -50014,7 +50054,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "儿童国际象棋俱乐部",
+        "description": "来学习下国际象棋，或者一起下一盘棋！",
+        "fingerprint": "6f57e45e62e9de04a92fa0f45318df440450252f9b07f41d3709335a4c70f22b",
+        "translatedAt": "2026-11-03T15:46:35.780Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a7e0ad9d4b10d0030064671",
@@ -50146,7 +50196,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "国际象棋入门",
+        "description": "无论你是第一次接触国际象棋，还是希望提高棋艺，都欢迎在轻松、互相支持的氛围中学习和对弈。",
+        "fingerprint": "9f6e8e022024cb216a2e90daf929d2cb8c2af2e86d27c7b270f4235b7e3fc3a5",
+        "translatedAt": "2026-11-03T15:46:35.780Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a3d7c4a86636e3d0050a035",
@@ -50706,7 +50766,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "钩针编织俱乐部",
+        "description": "带上自己的作品，或开始一个新项目，一起提高编织技巧并交流钩针编织的各种话题。",
+        "fingerprint": "58bfd9a243af98eb8f31fc4bf20b8e2ed5acf0a0e63e4a4076fb083e605d5679",
+        "translatedAt": "2026-11-03T15:46:35.780Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a655635f494c55649eb2dea",
@@ -50839,7 +50909,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "棒针、钩针、梭结花边与线轴蕾丝手工俱乐部",
+        "description": "想学习这些手工技艺、看看其他人的作品、提高技巧，或交流各种针线手工话题吗？",
+        "fingerprint": "f203dd8f0f54c90e97ad1baa72a479c50f5f580af0e1dee2492ed38ea3714407",
+        "translatedAt": "2026-11-03T15:46:35.780Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a7a3c6927b3c7becc8e00a8",
@@ -56080,7 +56160,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "家庭故事时间",
+        "description": "适合不同年龄孩子和全家参与的趣味互动故事时间，包含故事、歌曲、童谣、手指游戏和肢体活动等早期读写启蒙活动。",
+        "fingerprint": "c8e8687a16870fdb376f6cc27a07b3606790db0e14b4875b33c89f560bde7390",
+        "translatedAt": "2026-11-03T15:46:35.780Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "nhl-2026020298",
@@ -57586,7 +57676,7 @@
         "title": "《Matilda The Musical》",
         "description": "聪明勇敢的 Matilda Wormwood 运用自己的机智和一点魔法，对抗专横的 Miss Trunchbull，并寻找属于自己的位置。",
         "fingerprint": "c28f15878095e2adac2b2cac63a5c48ddc4f43925316ef6257a5f90a09388e19",
-        "translatedAt": "2026-11-03T14:28:38.789Z",
+        "translatedAt": "2026-11-03T15:47:23.036Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -64831,7 +64921,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "2026–27 学年库比蒂诺安全上学路线工作组会议",
+        "description": "工作组会议汇集合作伙伴，讨论如何推进项目使命：让库比蒂诺的学生和家庭以步行、骑行等主动出行方式往返学校时更加安全。",
+        "fingerprint": "932b6eb53b21601422d4dfc255ff940e692044c401458d323deee7034583d795",
+        "translatedAt": "2026-11-03T15:46:35.780Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a5eb69c88e9bf28003235d9",
@@ -64945,9 +65045,19 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
+    "translationStatus": "current",
     "translationSourceFingerprint": "ef12511b8faab3b260efeb41b1212b1e12250cbbac95962e8c8064773bb506a4",
-    "summaryQualityRepairVersion": "summary-quality-repair-v1"
+    "summaryQualityRepairVersion": "summary-quality-repair-v1",
+    "translations": {
+      "zh": {
+        "title": "今秋如何顺利规划大学申请",
+        "description": "活动将讨论学生如何将自己的兴趣、价值观和经历转化为真实的实践活动，以促进个人成长、展现品格并体现积极影响。",
+        "fingerprint": "ef12511b8faab3b260efeb41b1212b1e12250cbbac95962e8c8064773bb506a4",
+        "translatedAt": "2026-11-03T15:46:35.780Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-698bad018d5e2d09335e5e8c",
@@ -71705,7 +71815,7 @@
         "title": "Black Holes: The Other Side of Infinity 黑洞：无限的另一面",
         "description": "在这场节目中，你将穿越奇异的虫洞，体验银河系的形成，见证恒星猛烈死亡以及随后黑洞的诞生。",
         "fingerprint": "2dd57744a2a6c6f708b4c8867ec6e1d9ef8061df36b06f50907680bf27a53003",
-        "translatedAt": "2026-11-03T14:28:38.789Z",
+        "translatedAt": "2026-11-03T15:47:23.036Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -71915,7 +72025,7 @@
         "title": "Laser Journey 激光音乐秀",
         "description": "无论你是在 80 年代滑旱冰时第一次爱上 Journey 的歌曲，还是通过 American Idol 或 Glee 接触到这些音乐，Laser Journey 都是一场适合各年龄观众的趣味演出。",
         "fingerprint": "0e912b10734904838e9461f07bd2764727a6cb5a8ae198fa2f904d23c55ae37e",
-        "translatedAt": "2026-11-03T14:28:38.789Z",
+        "translatedAt": "2026-11-03T15:47:23.036Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -72246,7 +72356,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "K–8 年级 LEGO 乐高俱乐部",
+        "description": "孩子们将发挥创造力和工程技能，自由搭建自己想象中的各种作品。",
+        "fingerprint": "a85f305cfeb9f3cfbf0790197ec9704c328328b070a0a1c55c6e8f710c45cccf",
+        "translatedAt": "2026-11-03T15:46:35.780Z",
+        "translationSource": "chatgpt-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a8e25f42dac6e003721b7ac",
@@ -73440,7 +73560,7 @@
         "title": "Legends of the Night Sky | Orion 夜空传说：猎户座",
         "description": "加入我们，以充满想象力的方式了解冬季天空中的伟大猎人 Orion 猎户座的故事与传说。",
         "fingerprint": "db10cc0837492a21326507443b5cbbaade5c7ef201492fea106b91519d46674f",
-        "translatedAt": "2026-11-03T14:28:38.789Z",
+        "translatedAt": "2026-11-03T15:47:23.036Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -73635,7 +73755,7 @@
         "title": "Earth, Moon & Sun 地球、月球与太阳",
         "description": "在一个改编自 Native American 口述传统、对我们的家园星球及其最熟悉邻居存在许多误解的幽默角色帮助下，探索地球、月球与太阳之间的关系。",
         "fingerprint": "28a46fb93fce150d9775b8bf731703e7d15d5cd35328155d4e30aabd9fafb852",
-        "translatedAt": "2026-11-03T14:28:38.789Z",
+        "translatedAt": "2026-11-03T15:47:23.036Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -73734,7 +73854,7 @@
         "title": "Explore Live: Tour of the Universe 现场探索：宇宙之旅",
         "description": "Explore Live: Tour of the Universe——从你一贯开始的地方出发：抬头仰望，然后离开夜空，继续探索。",
         "fingerprint": "68491a1654413dc30fb811396809ff4af9f4aa00eaaaa281f771c7e328d841f8",
-        "translatedAt": "2026-11-03T14:28:38.789Z",
+        "translatedAt": "2026-11-03T15:47:23.036Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -73912,7 +74032,7 @@
         "title": "Laser Holiday Magic 节日魔法激光秀",
         "description": "这场激光灯光秀包含多首节日音乐，如 Joy to the World、Jingle Bell Rock、Let it Snow、Rockin' Round the Christmas Tree 等！",
         "fingerprint": "058efd6d135f1bfe6e392614e8894c674d11b5c466b0ca1084cf51b94e0c4ca2",
-        "translatedAt": "2026-11-03T14:28:38.789Z",
+        "translatedAt": "2026-11-03T15:47:23.036Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -76102,7 +76222,7 @@
         "title": "San Jose Barracuda vs Eagles 冰球比赛",
         "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Eagles。特别活动包括 Jurassic World、Frenzy 的生日庆祝，以及向前 2,000 名球迷赠送 Frenzy 毛绒玩偶。",
         "fingerprint": "46f1cbf520789c315450e366f51b7c35dd161fbd1f57209e93dd1ab555f05a19",
-        "translatedAt": "2026-11-03T14:28:38.789Z",
+        "translatedAt": "2026-11-03T15:47:23.036Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -82246,7 +82366,7 @@
         "title": "San Jose Barracuda vs Canucks 冰球比赛",
         "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Canucks。特别主题活动为 Turn It All Teal Night。",
         "fingerprint": "7c0bf1b24d5daed8388ce67b71cb49f79d9834a9976cb9e7343b2f66756affd3",
-        "translatedAt": "2026-11-03T14:28:38.789Z",
+        "translatedAt": "2026-11-03T15:47:23.036Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
