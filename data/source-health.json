@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-03T14:26:53.714Z",
+  "generatedAt": "2026-11-03T19:20:58.434Z",
   "configuredSources": 101,
   "directSources": 95,
   "fallbackSourcesRun": 0,
@@ -20,7 +20,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 348,
+      "eventCount": 345,
       "failureStreak": 0,
       "error": ""
     },
@@ -235,7 +235,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 56,
+      "eventCount": 18,
       "failureStreak": 0,
       "error": ""
     },
@@ -245,7 +245,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 30,
+      "eventCount": 15,
       "failureStreak": 0,
       "error": ""
     },
@@ -255,7 +255,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 17,
+      "eventCount": 2,
       "failureStreak": 0,
       "error": ""
     },
@@ -265,7 +265,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 45,
+      "eventCount": 13,
       "failureStreak": 0,
       "error": ""
     },
@@ -275,7 +275,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 67,
+      "eventCount": 18,
       "failureStreak": 0,
       "error": ""
     },
@@ -286,7 +286,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 85,
+      "failureStreak": 86,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +296,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 85,
+      "failureStreak": 86,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -306,7 +306,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 85,
+      "failureStreak": 86,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -446,7 +446,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 18,
+      "failureStreak": 19,
       "error": "CivicPlus official calendar was not valid: 403"
     },
     {
@@ -606,7 +606,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 53,
+      "failureStreak": 54,
       "error": "Eventbrite organizer has neither usable events nor a confirmed empty listing"
     },
     {
@@ -616,7 +616,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 7,
+      "failureStreak": 8,
       "error": "Wix official event list was not valid: 200"
     },
     {
@@ -1000,32 +1000,32 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 85,
+      "failureStreak": 86,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 85,
+      "failureStreak": 86,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 85,
+      "failureStreak": 86,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 18,
+      "failureStreak": 19,
       "error": "CivicPlus official calendar was not valid: 403"
     },
     {
       "name": "CalColor Academy",
-      "failureStreak": 53,
+      "failureStreak": 54,
       "error": "Eventbrite organizer has neither usable events nor a confirmed empty listing"
     },
     {
       "name": "365 Night Market",
-      "failureStreak": 7,
+      "failureStreak": 8,
       "error": "Wix official event list was not valid: 200"
     }
   ],
@@ -1033,7 +1033,7 @@
     "usable-official-description": {
       "before": {
         "Palo Alto City Library": 185,
-        "San José Public Library": 348,
+        "San José Public Library": 345,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
@@ -1044,7 +1044,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 2,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 215,
+        "CineLux Theatres": 66,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
@@ -1059,11 +1059,12 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
         "Palo Alto City Library": 185,
-        "San José Public Library": 347,
+        "San José Public Library": 344,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
@@ -1074,7 +1075,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 2,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 215,
+        "CineLux Theatres": 66,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
@@ -1089,13 +1090,14 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     },
     "not-closure": {
       "before": {
         "Palo Alto City Library": 185,
-        "San José Public Library": 347,
+        "San José Public Library": 344,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
@@ -1106,7 +1108,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 2,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 215,
+        "CineLux Theatres": 66,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
@@ -1121,11 +1123,12 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
         "Palo Alto City Library": 185,
-        "San José Public Library": 347,
+        "San José Public Library": 344,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
@@ -1136,7 +1139,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 2,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 215,
+        "CineLux Theatres": 66,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
@@ -1151,13 +1154,14 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     },
     "not-routine-venue-access": {
       "before": {
         "Palo Alto City Library": 185,
-        "San José Public Library": 347,
+        "San José Public Library": 344,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
@@ -1168,7 +1172,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 2,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 215,
+        "CineLux Theatres": 66,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
@@ -1183,11 +1187,12 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
         "Palo Alto City Library": 185,
-        "San José Public Library": 347,
+        "San José Public Library": 344,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
@@ -1198,7 +1203,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 2,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 215,
+        "CineLux Theatres": 66,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
@@ -1213,13 +1218,14 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     },
     "not-routine-support-service": {
       "before": {
         "Palo Alto City Library": 185,
-        "San José Public Library": 347,
+        "San José Public Library": 344,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
@@ -1230,7 +1236,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 2,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 215,
+        "CineLux Theatres": 66,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
@@ -1245,11 +1251,12 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
         "Palo Alto City Library": 185,
-        "San José Public Library": 295,
+        "San José Public Library": 293,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
@@ -1260,7 +1267,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 2,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 215,
+        "CineLux Theatres": 66,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
@@ -1275,13 +1282,14 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     },
     "available": {
       "before": {
         "Palo Alto City Library": 185,
-        "San José Public Library": 295,
+        "San José Public Library": 293,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
@@ -1292,7 +1300,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 2,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 215,
+        "CineLux Theatres": 66,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
@@ -1307,11 +1315,12 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
         "Palo Alto City Library": 184,
-        "San José Public Library": 295,
+        "San José Public Library": 293,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
@@ -1322,7 +1331,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 2,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 215,
+        "CineLux Theatres": 66,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
@@ -1337,13 +1346,14 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     },
     "family-relevant": {
       "before": {
         "Palo Alto City Library": 184,
-        "San José Public Library": 295,
+        "San José Public Library": 293,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
@@ -1354,7 +1364,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 2,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 215,
+        "CineLux Theatres": 66,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
@@ -1369,11 +1379,12 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
         "Palo Alto City Library": 184,
-        "San José Public Library": 295,
+        "San José Public Library": 293,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
@@ -1384,7 +1395,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 2,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 215,
+        "CineLux Theatres": 66,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
@@ -1399,13 +1410,14 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     },
     "quality-reviewed": {
       "before": {
         "Palo Alto City Library": 184,
-        "San José Public Library": 295,
+        "San José Public Library": 293,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
@@ -1416,7 +1428,7 @@
         "De Anza College Planetarium": 19,
         "Stanford Events": 2,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 215,
+        "CineLux Theatres": 66,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
@@ -1431,11 +1443,12 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
         "Palo Alto City Library": 167,
-        "San José Public Library": 285,
+        "San José Public Library": 283,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 5,
         "City of Palo Alto": 4,
@@ -1446,7 +1459,7 @@
         "De Anza College Planetarium": 17,
         "Stanford Events": 2,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 215,
+        "CineLux Theatres": 66,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
         "Palo Alto Children's Theatre": 44,
         "CMT San Jose": 16,
@@ -1461,29 +1474,29 @@
         "Google Visitor Experience": 4,
         "Santana Row": 2,
         "Palo Alto Museum": 1,
+        "Computer History Museum": 2,
         "History San José": 1
       }
     }
   },
   "paloAltoChildrensTheatreEnrichment": {
-    "checkedAt": "2026-11-03T14:26:53.714Z",
+    "checkedAt": "2026-11-03T19:20:58.434Z",
     "enriched": 5
   },
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-11-03T14:26:53.714Z",
-    "enriched": 469,
+    "checkedAt": "2026-11-03T19:20:58.434Z",
+    "enriched": 379,
     "identity-mismatch": 29,
-    "fetch-blocked": 65,
+    "fetch-blocked": 156,
     "cached": 2,
-    "fetch-failed": 1,
     "fieldUpdates": {
-      "description": 362,
-      "place": 256,
-      "address": 20,
-      "endDateValue": 351,
-      "image": 4,
+      "description": 274,
+      "place": 181,
+      "address": 11,
+      "endDateValue": 261,
       "dateValue": 2,
+      "image": 3,
       "costStatus": 1,
       "costLabel": 1,
       "costSource": 1,
@@ -1495,22 +1508,22 @@
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-11-03T14:26:53.714Z",
-    "official": 441,
-    "unclassified": 122
+    "checkedAt": "2026-11-03T19:20:58.434Z",
+    "official": 354,
+    "unclassified": 209
   },
   "editorialCoverGeneration": {
     "frameworkVersion": "editorial-cover-v1",
-    "checkedAt": "2026-11-03T14:26:53.714Z",
+    "checkedAt": "2026-11-03T19:20:58.434Z",
     "generated": 0,
     "byReason": {},
     "byPreset": {}
   },
   "publishedSourceCounts": {
     "Palo Alto City Library": 53,
-    "Santa Clara County Library District": 158,
+    "Santa Clara County Library District": 159,
     "San José Public Library": 208,
-    "Official cinema listings": 4,
+    "Official cinema listings": 3,
     "Stanford Events": 2,
     "CMT San Jose": 2,
     "Palo Alto Children's Theatre": 5,
@@ -1539,7 +1552,7 @@
   },
   "officialImageMirror": {
     "frameworkVersion": "official-image-mirror-v1",
-    "checkedAt": "2026-11-03T14:28:37.775Z",
+    "checkedAt": "2026-11-03T19:22:43.708Z",
     "configuredSources": 1,
     "mirroredEvents": 5,
     "mirroredAssets": 4,
