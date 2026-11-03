@@ -120,7 +120,7 @@ Object.assign(venueCoordinates, {
   '1010 Great Mall Dr, Milpitas': [37.4166849, -121.8969698],
   '3088 Olsen Dr, San Jose': [37.3220465, -121.948778]
 });
-const t = key => copy[state.language][key];
+const t = key => copy[state.language][key] ?? copy.en[key];
 const eventText = (event, field) => {
   if (!(translationEnabled && state.language === 'zh')) return event[field];
   const embedded = event.translations?.zh;
@@ -168,9 +168,9 @@ function applyStaticCopy() {
   document.documentElement.lang = state.language === 'zh' ? 'zh-CN' : 'en';
   document.title = state.language === 'zh' ? '南湾家庭发现｜亲子活动' : 'South Bay Family Finds | Kids & Family Activities';
   document.querySelector('meta[name="description"]').content = state.language === 'zh' ? '发现值得全家一起参与的南湾活动。' : 'Find family activities worth doing across San José, Silicon Valley, and the Peninsula.';
-  document.querySelectorAll('[data-i18n]').forEach(node => { node.textContent = t(node.dataset.i18n); });
-  document.querySelectorAll('[data-i18n-html]').forEach(node => { node.innerHTML = t(node.dataset.i18nHtml); });
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(node => { node.placeholder = t(node.dataset.i18nPlaceholder); });
+  document.querySelectorAll('[data-i18n]').forEach(node => { const value = t(node.dataset.i18n); if (value !== undefined) node.textContent = value; });
+  document.querySelectorAll('[data-i18n-html]').forEach(node => { const value = t(node.dataset.i18nHtml); if (value !== undefined) node.innerHTML = value; });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(node => { const value = t(node.dataset.i18nPlaceholder); if (value !== undefined) node.placeholder = value; });
   document.querySelectorAll('.language-button').forEach(button => { const active = button.dataset.language === state.language; button.classList.toggle('active', active); button.setAttribute('aria-pressed', String(active)); if (active) button.setAttribute('aria-current', 'page'); else button.removeAttribute('aria-current'); });
   document.querySelector('#savedLabel').textContent = t('saved');
   renderUpdateTime();
