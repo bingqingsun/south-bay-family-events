@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-03T19:20:58.434Z",
+  "generatedAt": "2026-11-04T14:40:57.876Z",
   "configuredSources": 101,
   "directSources": 95,
-  "fallbackSourcesRun": 0,
+  "fallbackSourcesRun": 6,
   "sources": [
     {
       "key": "Palo Alto City Library|library.cityofpaloalto.org|https://gateway.bibliocommons.com/v2/libraries/paloalto/rss/events",
@@ -10,7 +10,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 185,
+      "eventCount": 184,
       "failureStreak": 0,
       "error": ""
     },
@@ -20,7 +20,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 345,
+      "eventCount": 355,
       "failureStreak": 0,
       "error": ""
     },
@@ -28,8 +28,11 @@
       "key": "Santa Clara County Parks|parks.santaclaracounty.gov|",
       "name": "Santa Clara County Parks",
       "method": "search-fallback",
-      "mode": "not-run",
-      "failureStreak": 0
+      "mode": "search-fallback",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Midpeninsula Regional Open Space District|openspace.org|https://www.openspace.org/get-involved/events-activities?f%5B0%5D=rating%3A146",
@@ -85,8 +88,11 @@
       "key": "City of San José|sanjoseca.gov|",
       "name": "City of San José",
       "method": "search-fallback",
-      "mode": "not-run",
-      "failureStreak": 0
+      "mode": "search-fallback",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Santa Clara County Library District|sccld.org|https://gateway.bibliocommons.com/v2/libraries/sccl/rss/events?audiences=5b28181c4727c7344c796675%2C5b28181c4727c7344c796676%2C5b28181c4727c7344c796677%2C5b28181c4727c7344c796678%2C5b28181c4727c7344c796679%2C5b28181c4727c7344c79667a%2C5b2a5dcb2c1d736b168c62ac",
@@ -102,15 +108,21 @@
       "key": "City of Sunnyvale|sunnyvale.ca.gov|",
       "name": "City of Sunnyvale",
       "method": "search-fallback",
-      "mode": "not-run",
-      "failureStreak": 0
+      "mode": "search-fallback",
+      "status": "ok",
+      "eventCount": 10,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "City of Mountain View|mountainview.gov|",
       "name": "City of Mountain View",
       "method": "search-fallback",
-      "mode": "not-run",
-      "failureStreak": 0
+      "mode": "search-fallback",
+      "status": "ok",
+      "eventCount": 9,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "City of Cupertino|cupertino.gov|https://www.cupertino.gov/Events-directory",
@@ -118,7 +130,7 @@
       "method": "cupertino",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 5,
+      "eventCount": 6,
       "failureStreak": 0,
       "error": ""
     },
@@ -126,8 +138,11 @@
       "key": "City of Santa Clara|santaclaraca.gov|",
       "name": "City of Santa Clara",
       "method": "search-fallback",
-      "mode": "not-run",
-      "failureStreak": 0
+      "mode": "search-fallback",
+      "status": "ok",
+      "eventCount": 0,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Computer History Museum|computerhistory.org|https://computerhistory.org/events/feed/",
@@ -185,7 +200,7 @@
       "method": "foothill",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 0,
+      "eventCount": 1,
       "failureStreak": 0,
       "error": ""
     },
@@ -215,7 +230,7 @@
       "method": "stanford",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 2,
+      "eventCount": 1,
       "failureStreak": 0,
       "error": ""
     },
@@ -245,7 +260,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 15,
+      "eventCount": 21,
       "failureStreak": 0,
       "error": ""
     },
@@ -255,7 +270,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 2,
+      "eventCount": 1,
       "failureStreak": 0,
       "error": ""
     },
@@ -265,7 +280,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 13,
+      "eventCount": 22,
       "failureStreak": 0,
       "error": ""
     },
@@ -275,7 +290,7 @@
       "method": "cinelux",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 18,
+      "eventCount": 16,
       "failureStreak": 0,
       "error": ""
     },
@@ -286,7 +301,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 86,
+      "failureStreak": 87,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -296,7 +311,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 86,
+      "failureStreak": 87,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -306,7 +321,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 86,
+      "failureStreak": 87,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -325,7 +340,7 @@
       "method": "sapcenter",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 0,
+      "eventCount": 8,
       "failureStreak": 0,
       "error": ""
     },
@@ -446,7 +461,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 19,
+      "failureStreak": 20,
       "error": "CivicPlus official calendar was not valid: 403"
     },
     {
@@ -606,7 +621,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 54,
+      "failureStreak": 55,
       "error": "Eventbrite organizer has neither usable events nor a confirmed empty listing"
     },
     {
@@ -616,7 +631,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 8,
+      "failureStreak": 9,
       "error": "Wix official event list was not valid: 200"
     },
     {
@@ -923,8 +938,11 @@
       "key": "Santa Clara Community Calendar|calendar.santaclaraca.gov|",
       "name": "Santa Clara Community Calendar",
       "method": "search-fallback",
-      "mode": "not-run",
-      "failureStreak": 1
+      "mode": "search-fallback",
+      "status": "ok",
+      "eventCount": 1,
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Fremont Parents' Nursery School|gopher-chinchilla-xn32.squarespace.com|https://gopher-chinchilla-xn32.squarespace.com/events",
@@ -1000,40 +1018,40 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 86,
+      "failureStreak": 87,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 86,
+      "failureStreak": 87,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 86,
+      "failureStreak": 87,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 19,
+      "failureStreak": 20,
       "error": "CivicPlus official calendar was not valid: 403"
     },
     {
       "name": "CalColor Academy",
-      "failureStreak": 54,
+      "failureStreak": 55,
       "error": "Eventbrite organizer has neither usable events nor a confirmed empty listing"
     },
     {
       "name": "365 Night Market",
-      "failureStreak": 8,
+      "failureStreak": 9,
       "error": "Wix official event list was not valid: 200"
     }
   ],
   "publicationStages": {
     "usable-official-description": {
       "before": {
-        "Palo Alto City Library": 185,
-        "San José Public Library": 345,
+        "Palo Alto City Library": 184,
+        "San José Public Library": 355,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
@@ -1041,11 +1059,13 @@
         "Santa Clara County Library District": 463,
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
+        "Foothill College": 1,
         "De Anza College Planetarium": 19,
-        "Stanford Events": 2,
+        "Stanford Events": 1,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 66,
+        "CineLux Theatres": 78,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
+        "SAP Center": 8,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1059,12 +1079,11 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
-        "Palo Alto City Library": 185,
-        "San José Public Library": 344,
+        "Palo Alto City Library": 184,
+        "San José Public Library": 354,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
@@ -1073,10 +1092,11 @@
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "De Anza College Planetarium": 19,
-        "Stanford Events": 2,
+        "Stanford Events": 1,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 66,
+        "CineLux Theatres": 78,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
+        "SAP Center": 8,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1090,14 +1110,13 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       }
     },
     "not-closure": {
       "before": {
-        "Palo Alto City Library": 185,
-        "San José Public Library": 344,
+        "Palo Alto City Library": 184,
+        "San José Public Library": 354,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
@@ -1106,10 +1125,11 @@
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "De Anza College Planetarium": 19,
-        "Stanford Events": 2,
+        "Stanford Events": 1,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 66,
+        "CineLux Theatres": 78,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
+        "SAP Center": 8,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1123,12 +1143,11 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
-        "Palo Alto City Library": 185,
-        "San José Public Library": 344,
+        "Palo Alto City Library": 184,
+        "San José Public Library": 354,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
@@ -1137,10 +1156,11 @@
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "De Anza College Planetarium": 19,
-        "Stanford Events": 2,
+        "Stanford Events": 1,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 66,
+        "CineLux Theatres": 78,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
+        "SAP Center": 8,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1154,14 +1174,13 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       }
     },
     "not-routine-venue-access": {
       "before": {
-        "Palo Alto City Library": 185,
-        "San José Public Library": 344,
+        "Palo Alto City Library": 184,
+        "San José Public Library": 354,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
@@ -1170,10 +1189,11 @@
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "De Anza College Planetarium": 19,
-        "Stanford Events": 2,
+        "Stanford Events": 1,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 66,
+        "CineLux Theatres": 78,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
+        "SAP Center": 8,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1187,12 +1207,11 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
-        "Palo Alto City Library": 185,
-        "San José Public Library": 344,
+        "Palo Alto City Library": 184,
+        "San José Public Library": 354,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
@@ -1201,10 +1220,11 @@
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "De Anza College Planetarium": 19,
-        "Stanford Events": 2,
+        "Stanford Events": 1,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 66,
+        "CineLux Theatres": 78,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
+        "SAP Center": 8,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1218,14 +1238,13 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       }
     },
     "not-routine-support-service": {
       "before": {
-        "Palo Alto City Library": 185,
-        "San José Public Library": 344,
+        "Palo Alto City Library": 184,
+        "San José Public Library": 354,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
@@ -1234,10 +1253,11 @@
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "De Anza College Planetarium": 19,
-        "Stanford Events": 2,
+        "Stanford Events": 1,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 66,
+        "CineLux Theatres": 78,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
+        "SAP Center": 8,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1251,24 +1271,24 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
-        "Palo Alto City Library": 185,
-        "San José Public Library": 293,
+        "Palo Alto City Library": 184,
+        "San José Public Library": 297,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
         "Palo Alto Junior Museum & Zoo": 10,
-        "Santa Clara County Library District": 383,
+        "Santa Clara County Library District": 381,
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "De Anza College Planetarium": 19,
-        "Stanford Events": 2,
+        "Stanford Events": 1,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 66,
+        "CineLux Theatres": 78,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
+        "SAP Center": 8,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1282,26 +1302,26 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       }
     },
     "available": {
       "before": {
-        "Palo Alto City Library": 185,
-        "San José Public Library": 293,
+        "Palo Alto City Library": 184,
+        "San José Public Library": 297,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
         "Palo Alto Junior Museum & Zoo": 10,
-        "Santa Clara County Library District": 383,
+        "Santa Clara County Library District": 381,
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "De Anza College Planetarium": 19,
-        "Stanford Events": 2,
+        "Stanford Events": 1,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 66,
+        "CineLux Theatres": 78,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
+        "SAP Center": 8,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1315,24 +1335,24 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
-        "Palo Alto City Library": 184,
-        "San José Public Library": 293,
+        "Palo Alto City Library": 183,
+        "San José Public Library": 297,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
         "Palo Alto Junior Museum & Zoo": 10,
-        "Santa Clara County Library District": 383,
+        "Santa Clara County Library District": 381,
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "De Anza College Planetarium": 19,
-        "Stanford Events": 2,
+        "Stanford Events": 1,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 66,
+        "CineLux Theatres": 78,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
+        "SAP Center": 8,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1346,26 +1366,26 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       }
     },
     "family-relevant": {
       "before": {
-        "Palo Alto City Library": 184,
-        "San José Public Library": 293,
+        "Palo Alto City Library": 183,
+        "San José Public Library": 297,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
         "Palo Alto Junior Museum & Zoo": 10,
-        "Santa Clara County Library District": 383,
+        "Santa Clara County Library District": 381,
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "De Anza College Planetarium": 19,
-        "Stanford Events": 2,
+        "Stanford Events": 1,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 66,
+        "CineLux Theatres": 78,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
+        "SAP Center": 8,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1379,24 +1399,24 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
-        "Palo Alto City Library": 184,
-        "San José Public Library": 293,
+        "Palo Alto City Library": 183,
+        "San José Public Library": 297,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
         "Palo Alto Junior Museum & Zoo": 10,
-        "Santa Clara County Library District": 383,
+        "Santa Clara County Library District": 381,
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "De Anza College Planetarium": 19,
-        "Stanford Events": 2,
+        "Stanford Events": 1,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 66,
+        "CineLux Theatres": 78,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
+        "SAP Center": 8,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1410,26 +1430,26 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       }
     },
     "quality-reviewed": {
       "before": {
-        "Palo Alto City Library": 184,
-        "San José Public Library": 293,
+        "Palo Alto City Library": 183,
+        "San José Public Library": 297,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 6,
         "City of Palo Alto": 4,
         "Palo Alto Junior Museum & Zoo": 10,
-        "Santa Clara County Library District": 383,
+        "Santa Clara County Library District": 381,
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "De Anza College Planetarium": 19,
-        "Stanford Events": 2,
+        "Stanford Events": 1,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 66,
+        "CineLux Theatres": 78,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
+        "SAP Center": 8,
         "Palo Alto Children's Theatre": 74,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1443,24 +1463,24 @@
         "Google Visitor Experience": 4,
         "Santana Row": 3,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       },
       "after": {
-        "Palo Alto City Library": 167,
+        "Palo Alto City Library": 166,
         "San José Public Library": 283,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 5,
         "City of Palo Alto": 4,
         "Palo Alto Junior Museum & Zoo": 10,
-        "Santa Clara County Library District": 302,
+        "Santa Clara County Library District": 300,
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "De Anza College Planetarium": 17,
-        "Stanford Events": 2,
+        "Stanford Events": 1,
         "San Jose Sharks": 34,
-        "CineLux Theatres": 66,
+        "CineLux Theatres": 78,
         "South FIRST FRIDAYS / ArtWalkSJ": 1,
+        "SAP Center": 8,
         "Palo Alto Children's Theatre": 44,
         "CMT San Jose": 16,
         "Peninsula Youth Theatre": 22,
@@ -1474,29 +1494,28 @@
         "Google Visitor Experience": 4,
         "Santana Row": 2,
         "Palo Alto Museum": 1,
-        "Computer History Museum": 2,
         "History San José": 1
       }
     }
   },
   "paloAltoChildrensTheatreEnrichment": {
-    "checkedAt": "2026-11-03T19:20:58.434Z",
+    "checkedAt": "2026-11-04T14:40:57.876Z",
     "enriched": 5
   },
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-11-03T19:20:58.434Z",
-    "enriched": 379,
+    "checkedAt": "2026-11-04T14:40:57.876Z",
+    "enriched": 453,
     "identity-mismatch": 29,
-    "fetch-blocked": 156,
-    "cached": 2,
+    "fetch-blocked": 82,
+    "cached": 3,
     "fieldUpdates": {
-      "description": 274,
-      "place": 181,
-      "address": 11,
-      "endDateValue": 261,
-      "dateValue": 2,
-      "image": 3,
+      "description": 345,
+      "place": 245,
+      "endDateValue": 336,
+      "address": 19,
+      "dateValue": 3,
+      "image": 4,
       "costStatus": 1,
       "costLabel": 1,
       "costSource": 1,
@@ -1508,23 +1527,23 @@
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-11-03T19:20:58.434Z",
-    "official": 354,
-    "unclassified": 209
+    "checkedAt": "2026-11-04T14:40:57.876Z",
+    "official": 426,
+    "unclassified": 138
   },
   "editorialCoverGeneration": {
     "frameworkVersion": "editorial-cover-v1",
-    "checkedAt": "2026-11-03T19:20:58.434Z",
+    "checkedAt": "2026-11-04T14:40:57.876Z",
     "generated": 0,
     "byReason": {},
     "byPreset": {}
   },
   "publishedSourceCounts": {
-    "Palo Alto City Library": 53,
+    "Palo Alto City Library": 52,
     "Santa Clara County Library District": 159,
-    "San José Public Library": 208,
-    "Official cinema listings": 3,
-    "Stanford Events": 2,
+    "San José Public Library": 211,
+    "Stanford Events": 1,
+    "Official cinema listings": 2,
     "CMT San Jose": 2,
     "Palo Alto Children's Theatre": 5,
     "Google Visitor Experience": 4,
@@ -1548,11 +1567,12 @@
     "History San José": 1,
     "Symphony San Jose": 3,
     "Palo Alto Junior Museum & Zoo": 1,
+    "SAP Center": 1,
     "Computer History Museum": 2
   },
   "officialImageMirror": {
     "frameworkVersion": "official-image-mirror-v1",
-    "checkedAt": "2026-11-03T19:22:43.708Z",
+    "checkedAt": "2026-11-04T14:42:36.556Z",
     "configuredSources": 1,
     "mirroredEvents": 5,
     "mirroredAssets": 4,
