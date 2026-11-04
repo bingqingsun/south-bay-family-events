@@ -1,5 +1,7 @@
 {
-  "submittedAt": "2026-11-04T15:29:55.893Z",
+  "version": 1,
+  "locale": "zh-Hans",
+  "submittedAt": "2026-11-04T15:30:02.208Z",
   "entries": [
     {
       "id": "series-7f48ed2548f3fe18",
@@ -8,7 +10,7 @@
       "descriptionZh": "通过拆开电脑再重新组装，了解电脑的工作原理。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6abbdaf89abb62002c6af406"
     },
@@ -19,7 +21,7 @@
       "descriptionZh": "亡灵节（El Día de Muertos）是墨西哥的节日与传统，用来纪念逝去的亲人，并通过对死亡的纪念来庆祝生命。了解亡灵节，缅怀已故亲友。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6aaad20e3dd190003e726775"
     },
@@ -30,7 +32,7 @@
       "descriptionZh": "结合美国原住民传统文化与现代数学概念，探索几何形状和图案。推荐 12–18 岁参加。材料包内含材料和说明；图书馆开放期间可在青少年阅览室领取，数量有限，领完即止。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6abc1adb9dbc2b002c8b20ef"
     },
@@ -41,7 +43,7 @@
       "descriptionZh": "在纸叶片上写下你感激的事物，再把它挂到咨询台旁的感恩树上。随着更多叶片加入，一起见证感恩树逐渐茂盛。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ad12644fee2d21deb238860"
     },
@@ -52,7 +54,7 @@
       "descriptionZh": "年度社区祭坛将在亡灵节前一周搭建，欢迎社区成员前来参观并参与。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ad13d1efee2d21deb238fdb"
     },
@@ -63,7 +65,7 @@
       "descriptionZh": "Evergreen 分馆设有 Larry Kirkland 创作的公共艺术作品 Discoveries，由三座白色大理石雕塑组成，分别表现耳朵、嘴巴和眼睛，展现通过感官学习和发现的主题。欢迎到访欣赏。活动获得 San José Public Library Foundation、Friends of the Evergreen Branch Library 和 Friends of the West Valley Branch Library 赞助。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6abecfd7a85a2c00337c76ad"
     },
@@ -74,7 +76,7 @@
       "descriptionZh": "孩子们也可以向志愿者练习朗读。无需提前报名，活动期间可随时到场听故事。适合学龄前儿童及幼儿园至三年级学生，在儿童区举行。免费。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6acfdcb7035faf0033dca548"
     },
@@ -85,7 +87,7 @@
       "descriptionZh": "通过制作和装饰自己的纸制 Diya 灯庆祝排灯节。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sccl.bibliocommons.com/events/6aeaaa573c35b95bcb29923f"
     },
@@ -96,7 +98,7 @@
       "descriptionZh": "适合不同年龄的家庭成员一起参加，通过歌曲、童谣、手指游戏和律动活动开展早期读写启蒙。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/69aa02ed6724c63d00f7020e"
     },
@@ -107,7 +109,7 @@
       "descriptionZh": "欢迎新生儿和婴儿及照护者通过故事、歌曲、轻摇互动、挠痒游戏、童谣、图书和玩耍共同学习、增进亲子联系。故事会结束后可留下来继续玩耍。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/67ae6d3ab77ff728002c069a"
     },
@@ -118,7 +120,7 @@
       "descriptionZh": "看看其他人的编织作品、提升技巧、交流毛线话题，或学习棒针编织和钩针编织。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/692e108051da852800c45915"
     },
@@ -129,7 +131,7 @@
       "descriptionZh": "适合不同年龄的全家人参加，通过故事、歌曲、童谣、手指游戏和律动开展早期读写启蒙。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/691fb8c1dff9d93e00d10dc6"
     },
@@ -140,7 +142,7 @@
       "descriptionZh": "适合不同年龄的全家人参加，通过故事、歌曲、童谣、手指游戏和律动开展早期读写启蒙。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/694451baea69de6e0010492a"
     },
@@ -151,7 +153,7 @@
       "descriptionZh": "适合全家人的互动故事会，通过阅读与学习体验分享乐趣。故事会结束后，欢迎家庭留下来继续玩耍。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/693330536724c63d00e572c3"
     },
@@ -162,7 +164,7 @@
       "descriptionZh": "欢迎婴幼儿及照护者通过故事、歌曲、轻摇互动、挠痒游戏、童谣、图书和玩耍共同学习、增进亲子联系。故事会结束后可留下来继续玩耍。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/677c54effea9b97171fe8f97"
     },
@@ -173,7 +175,7 @@
       "descriptionZh": "通过故事、童谣、手指游戏和律动，帮助幼儿参与早期读写启蒙活动。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ac81034377296003a4aa7ef"
     },
@@ -184,7 +186,7 @@
       "descriptionZh": "“没有什么能替代与面临相似育儿问题的家长建立友谊的机会。”欢迎参加 Las Madres Downtown/Rose Garden 每周二举行的亲子玩耍小组。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6920f0c7dff9d93e00d12ee2"
     },
@@ -195,7 +197,7 @@
       "descriptionZh": "用彩纸折出帆船、企鹅、青蛙或武士头盔等造型。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a83713669166f088b92df7a"
     },
@@ -206,7 +208,7 @@
       "descriptionZh": "志愿者 Ning 将用普通话或英语为孩子和家人朗读故事。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ab40cd2da318a10e6363670"
     },
@@ -217,7 +219,7 @@
       "descriptionZh": "学习使用虚拟现实设备，初次体验 VR，并可再次参加更具沉浸感的体验、游戏和谜题活动。适合 12 岁及以上青少年。注意：设备可能引起眩晕和方向感混乱。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a4bcff0541102b7fa8ab381"
     },
@@ -228,7 +230,7 @@
       "descriptionZh": "孩子们将学习构思并使用 LEGO® 积木搭建作品，并在应对挑战时重新设计和搭建。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a73854af213992f00c9cfe5"
     },
@@ -239,7 +241,7 @@
       "descriptionZh": "每周二到图书馆参加一小时 LEGO® 积木搭建活动。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a36f828c7d3cd580061b594"
     },
@@ -250,7 +252,7 @@
       "descriptionZh": "故事会结束后，孩子们将学习制作一件简单而有创意的手工作品，并可带回家。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a6270e588e9bf280032dae8"
     },
@@ -261,7 +263,7 @@
       "descriptionZh": "孩子们在聆听故事中享受乐趣，培养对图书和阅读的热爱。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a0df29643b41b3d0067dd3b"
     },
@@ -272,7 +274,7 @@
       "descriptionZh": "在本次工作坊中，学习如何查询感兴趣职业所需的技能、能力、工作内容、推荐培训和薪资等信息，以帮助制定职业规划。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a94583836204e08fbb8506c"
     },
@@ -283,7 +285,7 @@
       "descriptionZh": "了解对创意思维产生重要影响的不同艺术家及艺术风格，并参与艺术活动。免费。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/693c86617ed7c62f00aa3366"
     },
@@ -294,7 +296,7 @@
       "descriptionZh": "在 Berryessa 分馆配合 Noble Elementary Library 阅读《Hello, Universe》的活动，制作豚鼠书签并了解有关豚鼠的知识。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ae3d5dcf9d28050ccafc99d"
     },
@@ -305,7 +307,7 @@
       "descriptionZh": "参加儿童朗读故事活动，帮助孩子发展想象力，激发对图书、阅读和学习的兴趣。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a99d554aafa610029616009"
     },
@@ -316,7 +318,7 @@
       "descriptionZh": "参加每月两次的课后游戏休闲活动，放松并享受游戏乐趣。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ac3fa6b9abb62002c6c6f7e"
     },
@@ -327,7 +329,7 @@
       "descriptionZh": "通过解谜和游戏学习编程基础。提供数量有限的 iPad。最适合 6–12 岁儿童；年龄较小的参加者需要照护者协助。免费。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ad6653e9d27a0004551f681"
     },
@@ -338,7 +340,7 @@
       "descriptionZh": "使用适合初学者的 CAD 工具 Tinkercad 学习核心 3D 建模技能，设计原创项目并展示作品。面向三至十二年级学生，无需编程或设计经验。限 15 人参加。免费。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6aa1b5e2101eb7003f2ec431"
     },
@@ -349,7 +351,7 @@
       "descriptionZh": "本周为纪念美国原住民传统文化月，将了解 John Herrington——首位进入太空的美国原住民部落注册成员。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ae0f1f1035faf0033df689a"
     },
@@ -360,7 +362,7 @@
       "descriptionZh": "Daniel 将先介绍皮影艺术，包括多种来自东南亚的皮影偶，随后表演广受喜爱的故事的皮影版本，其中包括冬季民间故事。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6ac810ceebad220045440c7c"
     },
@@ -371,7 +373,7 @@
       "descriptionZh": "孩子们在图书馆探索秋叶的各种形状、颜色和纹理，通过叶片拓印、按大小和颜色分类、观察叶脉等感官活动了解自然。面向 3–5 岁儿童。免费。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a7a3c27003cbf2bcbba0f74"
     },
@@ -382,7 +384,7 @@
       "descriptionZh": "带来 1–2 件需要修补的衣物，接受动手缝纫指导。可学习更换纽扣、修补破损或破洞、缩短衣摆、遮盖污渍等。现场有少量颜色的线、布料边角料和纽扣可用。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a73812b3f18b57d52339cab"
     },
@@ -393,7 +395,7 @@
       "descriptionZh": "内容包括常见简历格式、如何组织个人经历，以及如何使用职位描述中的关键词强化简历。入门讲解后，如时间允许，参加者可与图书管理员进行简短的一对一简历查看。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a62704ecca66c2f00a58706"
     },
@@ -404,7 +406,7 @@
       "descriptionZh": "为儿童介绍梵语，首先从学习字母开始。适合 7–17 岁。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6aa44419f9ed2e00384fe242"
     },
@@ -415,7 +417,7 @@
       "descriptionZh": "所有符合所列条件的打印项目均免费。必须报名。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6adfd4449d27a00045538722"
     },
@@ -426,7 +428,7 @@
       "descriptionZh": "欢迎到场了解 Evergreen Valley College，探索未来的学业方向。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6acfdd139d27a0004550eff5"
     },
@@ -437,7 +439,7 @@
       "descriptionZh": "使用胶水、瓷砖、木板和软木片制作色彩丰富、独具特色的杯垫，可在节日期间送礼，也可留作家中实用装饰。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sccl.bibliocommons.com/events/6aea85909dbc2b002c933a6e"
     },
@@ -448,7 +450,7 @@
       "descriptionZh": "回顾过去，我能看到自己的绘画方式和关注的事物发生了变化，同时也能发现一些始终反复出现的熟悉主题。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sccl.bibliocommons.com/events/6ae7cc4e0b801373af91c541"
     },
@@ -459,7 +461,7 @@
       "descriptionZh": "欢迎幼儿园至八年级学生在每月第一个星期二使用 LEGO 积木玩耍和创作。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sccl.bibliocommons.com/events/69713c291e64afd01e55c817"
     },
@@ -470,7 +472,7 @@
       "descriptionZh": "与一位毛茸茸的朋友一对一大声朗读，练习阅读技巧。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sccl.bibliocommons.com/events/6a83d64fbf1aec09082b53e1"
     },
@@ -481,7 +483,7 @@
       "descriptionZh": "见证圣诞树上数百盏闪烁的灯光同时亮起，营造出充满光彩的氛围。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://www.cupertino.gov/Parks-Recreation/Events/Tree-Lighting/Tree-Lighting-Event"
     },
@@ -492,7 +494,7 @@
       "descriptionZh": "电影结束后，将简短讨论影片的历史、制作过程和主题。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sccl.bibliocommons.com/events/6ae10914377296003a4f0a6f"
     },
@@ -503,7 +505,7 @@
       "descriptionZh": "有学龄儿童（5–14 岁）的家庭将制作艺术或手工作品，或参与动手 STEM 活动。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://sccl.bibliocommons.com/events/6a99efc6b20478002997e4d2"
     },
@@ -514,7 +516,7 @@
       "descriptionZh": "无论是第一次观看《Toy Story》（玩具总动员）、跟唱《Let It Go》，还是为喜爱的迪士尼公主欢呼，都可以在 Disney On Ice 重温珍贵回忆，并共同创造新的回忆。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://www.sapcenter.com/events/detail/disney-on-ice-presents-jump-in"
     },
@@ -525,7 +527,7 @@
       "descriptionZh": "孩子们使用墨水、水和咖啡滤纸创作色彩缤纷的扩散艺术，同时探索液体如何流动和混合的科学原理。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T15:29:55.893Z",
+      "reviewedAt": "2026-11-04T15:30:02.208Z",
       "override": true,
       "sourceUrl": "https://paloalto.bibliocommons.com/events/6ac5b316c6cddb004595e445"
     }
