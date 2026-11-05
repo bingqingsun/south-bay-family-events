@@ -91,6 +91,17 @@
       "override": true
     },
     {
+      "id": "chcp-62c9381e02558a15",
+      "sourceFingerprint": "dc1c499ea5541ddc942b288441347fb00672bcf605443106ce5f7d4425cb9058",
+      "title": "CHCP 参加圣何塞退伍军人节游行",
+      "description": "CHCP 将与 History San Jose 一同参加退伍军人节游行，以庆祝美国建国 250 周年。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://www.chcp.org/event-6905212"
+    },
+    {
       "id": "chcp-6577909c5b3d24e8",
       "sourceFingerprint": "b39b71520a49d46a625d887d458edaf9abb76e3f03ffa19764aea51f88fe5969",
       "title": "CHCP 外展活动 @ HSJ San José Roots Celebration",
@@ -387,6 +398,17 @@
       "override": true
     },
     {
+      "id": "rss-68c3468915946f2800d2899a",
+      "sourceFingerprint": "67f5000157b7bf58aab52fece15f9a9a30be33e36e54a3d320b326590a78ec2f",
+      "title": "青少年临时志愿服务",
+      "description": "欢迎各年龄段青少年在每月第二个星期五下午 4PM–5PM 参加无需预约的志愿服务，协助布置图书展示、整理空间、节日装饰及维护手工材料等图书馆工作。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/68c3468915946f2800d2899a"
+    },
+    {
       "id": "rss-68cdb1eb62a8786065c374da",
       "sourceFingerprint": "e1e28fb1c1d9c3c19a16d013fd5364d2f96726fb7026dc7efac82d0d8dac66db",
       "title": "家庭故事时间及自由玩耍",
@@ -420,6 +442,39 @@
       "override": true
     },
     {
+      "id": "rss-68f909ed3cbc052f008115b7",
+      "sourceFingerprint": "034e97c0d3dd82c9b1fd1db3904015564ebbcfa44c245c89f3a4d0f32e72980d",
+      "title": "书信之年：用贺卡传递联系",
+      "description": "参加图书馆的 Year of Letters 活动，与大家一起制作和寄送贺卡。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/68f909ed3cbc052f008115b7"
+    },
+    {
+      "id": "rss-68faeb383cbc052f00816108",
+      "sourceFingerprint": "cd65323f366d20bd8319797f0f10e3fc80db6074fbbfb5d29359000fe20a8401",
+      "title": "地点变更：正念冥想",
+      "description": "欢迎所有经验水平的参与者，无需报名。建议自带瑜伽垫和／或冥想坐垫；未携带者可使用现场椅子。Phuong 是一位有带领正念冥想经验的佛教尼师。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/68faeb383cbc052f00816108"
+    },
+    {
+      "id": "rss-68fbae9eb864f02900210841",
+      "sourceFingerprint": "709c6873e9857f29a69f62df685c97cb659730a13e34e62da4e12266a7bf1082",
+      "title": "园艺大师：节俭餐桌——制作精美节日桌面花饰",
+      "description": "学习如何从自家庭院或杂物抽屉中寻找有特色的材料、绿植和装饰元素；并将超市购买的平价花束重新搭配，制作看起来精致的桌面花饰。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/68fbae9eb864f02900210841"
+    },
+    {
       "id": "rss-690ce4919b879341009474a1",
       "sourceFingerprint": "cf627417553a4f0d2faa9f7e4bb38b56ed373280d0840b7f544fe6ade60ce989",
       "title": "双语家庭故事时间及自由玩耍",
@@ -442,6 +497,17 @@
       "override": true
     },
     {
+      "id": "rss-690e9a3d9b8793410094b84b",
+      "sourceFingerprint": "74b86480c59dab9207dca43f531883a61ecf31d441e42c541783e5e0f4ba7241",
+      "title": "周五趣味活动：LEGO 积木",
+      "description": "活动可能包括艺术手工、特别表演或工作坊，以及桌游或电子游戏。注意：每月第 2 个星期五为 LEGO 积木自由搭建活动。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/690e9a3d9b8793410094b84b"
+    },
+    {
       "id": "rss-690e9c6d9b8793410094b89b",
       "sourceFingerprint": "dd9779e1342ac977edb2d32de437263d02f77bbc378d362d09d6ffe795dcebe7",
       "title": "婴儿膝上故事时间",
@@ -451,6 +517,50 @@
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
+    },
+    {
+      "id": "rss-690e9c6d9b8793410094b89c",
+      "sourceFingerprint": "dd9779e1342ac977edb2d32de437263d02f77bbc378d362d09d6ffe795dcebe7",
+      "title": "婴儿膝上故事时间",
+      "description": "活动面向尚未学会走路的孩子及其父母或照护者。通过故事、歌曲、轻轻弹跳、挠痒互动、童谣、图书和游戏，帮助新生儿、婴儿与照护者共同学习并增进亲子联系。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/690e9c6d9b8793410094b89c"
+    },
+    {
+      "id": "rss-690e9c8c886bb73600b9c822",
+      "sourceFingerprint": "42d19b8685029535a1c6bc99080a493fcc09e059d4fdcbab5096409b7179e063",
+      "title": "给毛茸茸的朋友读书",
+      "description": "邀请孩子们向温顺、受过训练且喜欢听故事的辅助犬练习朗读。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/690e9c8c886bb73600b9c822"
+    },
+    {
+      "id": "rss-690e9ccafbf38a280022a873",
+      "sourceFingerprint": "eff7445f849f19bf354f05b4ecba76feca0fce606eea4c188e6b21add1079e8e",
+      "title": "West Valley 图书馆之友图书义卖",
+      "description": "参加图书义卖，支持当地分馆并寻找好书。请自带购物袋。仅接受现金和支票。星期六，十一月。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/690e9ccafbf38a280022a873"
+    },
+    {
+      "id": "rss-691e6de99be7c6685c28fa8d",
+      "sourceFingerprint": "01ac65809d26a0232c676d1e2990b70b013d79b990506a1662ffd06e85e4f125",
+      "title": "社区缝纫：节日餐垫",
+      "description": "学习制作节日主题餐垫，装饰家居。适合有一定基础的初学者、中级或高级缝纫爱好者。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/691e6de99be7c6685c28fa8d"
     },
     {
       "id": "rss-691fb8c1dff9d93e00d10dc6",
@@ -597,14 +707,14 @@
     },
     {
       "id": "rss-69433e6f8b29ea2800c4c58f",
-      "sourceFingerprint": "a85f305cfeb9f3cfbf0790197ec9704c328328b070a0a1c55c6e8f710c45cccf",
-      "title": "K–8 年级 LEGO 乐高俱乐部",
-      "description": "孩子们将发挥创造力和工程技能，自由搭建自己想象中的各种作品。",
-      "sourceUrl": "https://sccl.bibliocommons.com/events/69433e6f8b29ea2800c4c58f",
+      "sourceFingerprint": "a9a52e9217551ee8c0a0ab7b2e571ee9b99c23db8a98fa4e0b9eb091599daed9",
+      "title": "K–8 年级 LEGO 积木俱乐部",
+      "description": "孩子们将发挥创造力和工程技能，自由搭建自己想象中的各种作品。这是可随时到场参加的活动。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-03T15:46:35.780Z",
-      "override": true
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sccl.bibliocommons.com/events/69433e6f8b29ea2800c4c58f"
     },
     {
       "id": "rss-6944435f2c65973d00134d6d",
@@ -616,6 +726,17 @@
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
+    },
+    {
+      "id": "rss-6944435f2c65973d00134d6e",
+      "sourceFingerprint": "bc5a40e7f7658ff15dd0e614fa169ef30b35c4f3c9607382542a0eb40bcff101",
+      "title": "周五趣味手工：纸拼贴猫头鹰",
+      "description": "制作属于自己的猫头鹰手工作品，迎接秋季。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6944435f2c65973d00134d6e"
     },
     {
       "id": "rss-6944507e293fe254002a1f33",
@@ -706,15 +827,26 @@
       "override": true
     },
     {
-      "id": "rss-69713c291e64afd01e55c817",
-      "sourceFingerprint": "d5c82e54cf4c22c3a1abaa2b83eb9dde5f4859a2fdeae5641d0bfffe0fde5164",
+      "id": "rss-696ab8512c65973d0018455a",
+      "sourceFingerprint": "9ea6e7f5fea168cc3a840ece7f7d72a3ab3b50f9d47ddf331b701e17f43763ed",
+      "title": "AAC 辅助沟通故事时间",
+      "description": "通过“Storytime with AAC”故事活动，帮助孩子提升沟通能力。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T16:07:16.876Z",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
       "override": true,
-      "sourceUrl": "https://sccl.bibliocommons.com/events/69713c291e64afd01e55c817",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/696ab8512c65973d0018455a"
+    },
+    {
+      "id": "rss-69713c291e64afd01e55c817",
+      "sourceFingerprint": "72f2cf0146783ce77d51a6a953efcc1a4da4d621dcd4853b729a8edcf7d7e0ce",
       "title": "LEGO 积木俱乐部",
-      "description": "欢迎幼儿园至 8 年级学生在每月第一个星期二使用 LEGO 积木玩耍和创作。"
+      "description": "欢迎幼儿园至 8 年级学生在每月第一个星期二使用 LEGO 积木玩耍和创作。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sccl.bibliocommons.com/events/69713c291e64afd01e55c817"
     },
     {
       "id": "rss-6984cee5d34a4e759284bb6a",
@@ -750,6 +882,17 @@
       "override": true
     },
     {
+      "id": "rss-698fb6994a9fd98b7f7df315",
+      "sourceFingerprint": "5caaeeb13e1256b4dbd3b90374152543f135dfcb2ddadf913d81fe430ed65c2f",
+      "title": "Almaden Teens Reach 青少年志愿者会议",
+      "description": "加入青少年服务小组，通过协助图书展示、组织儿童活动、举办图书义卖等方式服务社区，并获得社区服务时数。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/698fb6994a9fd98b7f7df315"
+    },
+    {
       "id": "rss-699f624cb0595799c09f6053",
       "sourceFingerprint": "3aafb6be032aeaf2dc0cf4a1737861622924af3325d535d341dac41f8ea831d8",
       "title": "家庭故事时间",
@@ -770,6 +913,17 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/69aa02ed6724c63d00f7020e",
       "title": "音乐与律动",
       "description": "适合不同年龄的家庭成员一起参加，通过歌曲、童谣、手指游戏和律动活动开展早期读写启蒙。"
+    },
+    {
+      "id": "rss-69bf12a7bfe6da104224d4a8",
+      "sourceFingerprint": "ec9bcfc86da5e660e401f5eb029f708625bd37a491759863eafcd0c18111f412",
+      "title": "Saratoga 图书馆编织与钩针交流圈",
+      "description": "带上自己的作品和毛线，提出问题、互相帮助、分享想法并认识新朋友。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sccl.bibliocommons.com/events/69bf12a7bfe6da104224d4a8"
     },
     {
       "id": "rss-69c48cb6274a65e67a90bd31",
@@ -794,15 +948,37 @@
       "override": true
     },
     {
-      "id": "rss-69d6e67ef29b90618efdcdd4",
-      "sourceFingerprint": "86ca7be35cccb6e563ebe84725b1c529696a8399e12155b8397aa85fc9548149",
-      "title": "婴儿手语与歌唱",
-      "description": "成年照护者将学习用于与婴儿沟通的基础手语。",
-      "sourceUrl": "https://sccl.bibliocommons.com/events/69d6e67ef29b90618efdcdd4",
+      "id": "rss-69d6e5f3f29b90618efdcdc6",
+      "sourceFingerprint": "5ba304038efcdde9ccc730df16a8d96a6a5de1a5819c656941807567a0d3e202",
+      "title": "Poponta 日语故事时间",
+      "description": "日语故事活动包括传统的 kamishibai（纸芝居）、木偶和图书。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:57:30.582Z",
-      "override": true
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sccl.bibliocommons.com/events/69d6e5f3f29b90618efdcdc6"
+    },
+    {
+      "id": "rss-69d6e67ef29b90618efdcdd4",
+      "sourceFingerprint": "d6d63d733bec60c1638aca05716057cfd5f4ea75c8a3139935839d77359895ed",
+      "title": "婴儿手语与歌唱",
+      "description": "欢迎来到一楼活动室参加婴儿手语与歌唱活动。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sccl.bibliocommons.com/events/69d6e67ef29b90618efdcdd4"
+    },
+    {
+      "id": "rss-69d7da15ad384e40edb9de47",
+      "sourceFingerprint": "4dad7d1d69c804d896fb02ff34d1b07dd57a6cc69dbbd53ec82bebf957d29782",
+      "title": "首饰制作：STEM 手工",
+      "description": "参加创意首饰制作工作坊，学习使用彩色珠子和吊饰设计并制作独特的手链，完成后可带回家。提供材料。建议 7 岁及以上参加。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/69d7da15ad384e40edb9de47"
     },
     {
       "id": "rss-69e687f0b6c4ac1fedcda515",
@@ -871,6 +1047,17 @@
       "override": true
     },
     {
+      "id": "rss-69f1132dc1cf6f9a75887674",
+      "sourceFingerprint": "8b4e70800a07bb8b952f89aa8618321f73d639552f84b80cd5919d3b2431e7fe",
+      "title": "青少年迷你画布绘画",
+      "description": "认识社区里的其他青少年，在迷你画布上自由创作。面向 13–18 岁青少年。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/69f1132dc1cf6f9a75887674"
+    },
+    {
       "id": "rss-69f53e43f29b90618e001eb9",
       "sourceFingerprint": "f3477806bb86802d29789010e592702018b39bc2f1aa89bc0be5a7298f524c94",
       "title": "与 Bria 一起为孩子朗读",
@@ -891,6 +1078,17 @@
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
+    },
+    {
+      "id": "rss-69fa35cac7d3cd5800572602",
+      "sourceFingerprint": "cba2d3e2d70e9301f3fc3fb86ac2a0bf99468740449bc9e9961d2bd74554be67",
+      "title": "Andrea 老师的木偶与故事",
+      "description": "孩子们将在聆听故事的过程中享受乐趣，并培养对图书和阅读的兴趣。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/69fa35cac7d3cd5800572602"
     },
     {
       "id": "rss-69fb8818703c33630025ded7",
@@ -960,14 +1158,14 @@
     },
     {
       "id": "rss-6a08e108e13d3b4603b486f1",
-      "sourceFingerprint": "0cad2e6adad003aeb03396d2dbcb26fd7cd544fadcd4305c4181084521a469f5",
+      "sourceFingerprint": "cda6c8a33fab6051bf9316bd6a5ef379bf65f6a9b12cc3e547dfc9c6354f86f5",
       "title": "Soul 4Kidz 社区礼堂演出",
-      "description": "这个精彩团体将以充满活力和灵魂乐风格的方式演绎经典儿童歌曲及全家喜爱的曲目。",
-      "sourceUrl": "https://sccl.bibliocommons.com/events/6a08e108e13d3b4603b486f1",
+      "description": "该团体将以活泼、富有灵魂乐风格的方式演绎经典儿童歌曲和家庭喜爱的曲目。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:57:30.582Z",
-      "override": true
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a08e108e13d3b4603b486f1"
     },
     {
       "id": "rss-6a0df28643b41b3d0067dcef",
@@ -1001,6 +1199,28 @@
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
+    },
+    {
+      "id": "rss-6a1f0f9643b41b3d006b10d6",
+      "sourceFingerprint": "c7cee7d061a31c90e9dd281824dbecb687751355da3f9f3858a18e7b1b4a7dab",
+      "title": "The Rhinoceros Project：社区缝纫圈",
+      "description": "与艺术家 Michelle Wilson 和 Anne Beck 一起参与社区缝纫活动，协助制作连接 Palo Alto 与加州、墨西哥历史路线的刺绣地图。ArtLift Grant Program 支持本地艺术家的临时艺术项目，促进社区交流与参与。工作坊。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/6a1f0f9643b41b3d006b10d6"
+    },
+    {
+      "id": "rss-6a2311ff3233d28b1b2d1244",
+      "sourceFingerprint": "551b535f6407d746ae6fcd6c579aaa130b5725d7fad57d173019e0857efe30d6",
+      "title": "家庭故事时间与自由玩耍",
+      "description": "故事时间适合不同年龄的孩子，邀请全家一起参与讲故事、唱歌、童谣、手指游戏和律动等早期读写启蒙活动。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a2311ff3233d28b1b2d1244"
     },
     {
       "id": "rss-6a25aace2ea730c17ab50490",
@@ -1122,6 +1342,17 @@
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
+    },
+    {
+      "id": "rss-6a3ec54e296ea565de2ef26e",
+      "sourceFingerprint": "08495d78b60747514333d243878c343be22b7415f72558e6bb2bfcdd4e8cac05",
+      "title": "Village Square 国际象棋俱乐部",
+      "description": "欢迎到 Village Square 分馆学习初级和中级国际象棋。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a3ec54e296ea565de2ef26e"
     },
     {
       "id": "rss-6a3f10c0f56bd86e00b95e6b",
@@ -1366,6 +1597,17 @@
       "override": true
     },
     {
+      "id": "rss-6a5e86410e562e28009b31f7",
+      "sourceFingerprint": "98d99ad3deb48435d1c7d474fb107ac84c094d587eb5424f30a9c82a26587c80",
+      "title": "儿童阅读活动",
+      "description": "通过阅读活动，孩子们可以发展想象力，培养对图书、阅读和学习的兴趣。孩子们将在儿童区的“Read to Children”标志下与志愿者进行小组互动。免费。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a5e86410e562e28009b31f7"
+    },
+    {
       "id": "rss-6a5e8e4be9de6536001d15eb",
       "sourceFingerprint": "e0b7352b4905ef8de640c0f0f3a78fbb1a44b1720464b452e0695c4a424fb40a",
       "title": "排灯节庆祝故事时间",
@@ -1375,6 +1617,17 @@
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
+    },
+    {
+      "id": "rss-6a5e9032e9de6536001d1665",
+      "sourceFingerprint": "13d702d8499d3e24ba43d919b13bb1e863ec127f139aa077282000b2d8400004",
+      "title": "发光手工：云朵吊灯",
+      "description": "了解蓬松的云朵如何形成雨、闪电和雷声，再制作一盏发光的云朵吊灯，把天空景象带进室内。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a5e9032e9de6536001d1665"
     },
     {
       "id": "rss-6a5eb69c88e9bf28003235d9",
@@ -1465,6 +1718,17 @@
       "override": true
     },
     {
+      "id": "rss-6a6cf81ad23de82955c9bccc",
+      "sourceFingerprint": "138bfc0c42553e219f52b7a55bf18d90e6eb326d505b096031b40ed9fc6d2513",
+      "title": "音乐会：Palo Alto School of Chamber Music",
+      "description": "可在 Palo Alto School of Chamber Music 官网了解更多信息。无需报名，但报名者将在活动前一天收到提醒邮件。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/6a6cf81ad23de82955c9bccc"
+    },
+    {
       "id": "rss-6a722151e30fe4845966cab9",
       "sourceFingerprint": "e1e28fb1c1d9c3c19a16d013fd5364d2f96726fb7026dc7efac82d0d8dac66db",
       "title": "家庭故事时间及自由玩耍",
@@ -1485,6 +1749,17 @@
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
+    },
+    {
+      "id": "rss-6a7253c93f18b57d52335bb6",
+      "sourceFingerprint": "20e137877e04304d7398e59de91781182a50c073e3b101912e7b58fb92a33177",
+      "title": "家庭手工：豆类与扁豆拼贴画",
+      "description": "提供全部材料。家庭手工活动供孩子与成年陪伴者共同参与。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/6a7253c93f18b57d52335bb6"
     },
     {
       "id": "rss-6a73812b3f18b57d52339cab",
@@ -1553,6 +1828,17 @@
       "override": true
     },
     {
+      "id": "rss-6a7e10c2d4b10d0030064856",
+      "sourceFingerprint": "578d43c8ce0ac5f16b2a1c8cff9cd355e2c7db3b475a095b1a4bb49180629fb7",
+      "title": "青少年与成人玻璃生态瓶工作坊",
+      "description": "面向青少年和成人，通过制作水族箱与他人交流，增进图书馆社区的联系。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a7e10c2d4b10d0030064856"
+    },
+    {
       "id": "rss-6a7e10fdd4b10d0030064866",
       "sourceFingerprint": "0fa103be2ea61d4f505d6f5118b18025919f50f90557a845312217e301191c1c",
       "title": "Edenvale 分馆作业辅导俱乐部",
@@ -1562,6 +1848,17 @@
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
+    },
+    {
+      "id": "rss-6a7e20532dac6e00371edf07",
+      "sourceFingerprint": "88a4f586764eee5b1457861c9e21d8d88c1b3fc745e9da990656c3a85f35f476",
+      "title": "STEM 星期六：Pearl Avenue 国际象棋俱乐部",
+      "description": "孩子们将学习国际象棋基础、练习策略、解决趣味棋题，并与新朋友进行友谊对局。欢迎从初学者到有经验的小棋手参加。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a7e20532dac6e00371edf07"
     },
     {
       "id": "rss-6a7e21343b6c71003e58b0f6",
@@ -1620,14 +1917,14 @@
     },
     {
       "id": "rss-6a83d64fbf1aec09082b53e1",
-      "sourceFingerprint": "3f1f7fe73ff4364d36ce4eb632c873d0c3db48435260b1db4163e49c903bab84",
+      "sourceFingerprint": "58078cc314cca0a345e8e3cd97d14ff94aa17efec36948d952045246c81061a8",
+      "title": "阅读伙伴（Compañeros de Lectura）",
+      "description": "每次 15 分钟的阅读活动由一只受过专门训练的治疗犬及其志愿者陪同。Gilroy 图书馆的 Reading Buddies 活动从九月开始，在每月第 1 个星期二举行。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T16:07:16.876Z",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
       "override": true,
-      "sourceUrl": "https://sccl.bibliocommons.com/events/6a83d64fbf1aec09082b53e1",
-      "title": "阅读伙伴（Compañeros de Lectura）",
-      "description": "与一位毛茸茸的朋友一对一大声朗读，练习阅读技巧。"
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a83d64fbf1aec09082b53e1"
     },
     {
       "id": "rss-6a84a55bdb24b90d0a431819",
@@ -1663,6 +1960,17 @@
       "override": true
     },
     {
+      "id": "rss-6a8e1f8e4cb69d003e2361ae",
+      "sourceFingerprint": "42c0d9aa93cda0e59c18536c372c5fd04a8d4c0e249040d51aaf6a99d7326578",
+      "title": "Joyce Ellington 图书馆之友图书义卖",
+      "description": "参加图书义卖，支持当地分馆，并寻找自己喜爱的书籍。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a8e1f8e4cb69d003e2361ae"
+    },
+    {
       "id": "rss-6a8e20a869166f088b94e122",
       "sourceFingerprint": "c8e8687a16870fdb376f6cc27a07b3606790db0e14b4875b33c89f560bde7390",
       "title": "家庭故事时间",
@@ -1675,25 +1983,25 @@
     },
     {
       "id": "rss-6a8e25f42dac6e003721b7ac",
-      "sourceFingerprint": "8fea1e657fb7abd8e4c0a2924e336fd81f5c53929ba0e54c2d905ba0d566a5d7",
+      "sourceFingerprint": "17b1714237aeef6efb042a7e1e88c2c49692eb125f910c9e170e399891585b1b",
       "title": "培养阅读者：帮助有写作兴趣的孩子",
-      "description": "面向父母和照护者的免费工作坊，由 Santa Clara County Office of Education 与 Santa Clara County Library District 的 The Reading Program 联合举办。",
-      "sourceUrl": "https://sccl.bibliocommons.com/events/6a8e25f42dac6e003721b7ac",
+      "description": "面向父母和照护者的免费工作坊，由 Santa Clara County Office of Education 和 Santa Clara County Library District 的 The Reading Program 联合举办，帮助孩子建立写作自信。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:57:30.582Z",
-      "override": true
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a8e25f42dac6e003721b7ac"
     },
     {
       "id": "rss-6a8e43e6be148200298a19de",
-      "sourceFingerprint": "973747777ad687f741bc96160fc3cdeeaf0eb778fa5dceed4d9fce1c7e492696",
+      "sourceFingerprint": "7804a5e3c08ea1e0784c944e0324561d18f975cdfe9316aa45a45a10ca957270",
       "title": "节日爵士音乐",
-      "description": "演出将呈现多首热门节日歌曲，包括《Jingle Bells》《Frosty the Snowman》《Let It Snow》《Rockin’ Around the Christmas Tree》等。",
-      "sourceUrl": "https://sccl.bibliocommons.com/events/6a8e43e6be148200298a19de",
+      "description": "MAK Band Jazz 将带来节日歌曲合唱演出。乐队包括吉他、尤克里里、小号、次中音萨克斯、中音萨克斯、单簧管、长号、贝斯、鼓、口琴和打击乐，并有特邀爵士音乐家参与。曲目包括《Jingle Bells》《Frosty the Snowman》《Let It Snow》《Rockin’ Around the Christmas Tree》等。这是面向家庭的活动。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:57:30.582Z",
-      "override": true
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6a8e43e6be148200298a19de"
     },
     {
       "id": "rss-6a8f3924aafa6100295f5579",
@@ -1705,6 +2013,17 @@
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
+    },
+    {
+      "id": "rss-6a8f395260ccaf01c0213e7c",
+      "sourceFingerprint": "b1ad6c2bb7b8630983cf38d319706a9466240e2e2b75a096f49734c8f3b27423",
+      "title": "灯光节：排灯节庆祝活动",
+      "description": "在庭院参加 Rangoli 彩色粉笔绘画手工活动，并在 Adobe Room 参加其他手工活动。所有活动材料数量有限，用完为止。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/6a8f395260ccaf01c0213e7c"
     },
     {
       "id": "rss-6a94583836204e08fbb8506c",
@@ -2026,6 +2345,28 @@
       "override": true
     },
     {
+      "id": "rss-6aad858df9ed2e003851bb23",
+      "sourceFingerprint": "99007abc8e5878708074e5cf33f22b39ccec88763d52a4a325931cdaac5c6b29",
+      "title": "黑暗中的诗歌",
+      "description": "今年十二月，欢迎来到 Cupertino 图书馆，在柔和昏暗的灯光下共度诗歌分享之夜。不同年龄、文化和语言背景的参与者可分享口头和书面诗歌，每人都可以向小组朗读自己的诗作。活动由 Cupertino 桂冠诗人 Thomas Célérier 主持。欢迎所有人参加，无需经验。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6aad858df9ed2e003851bb23"
+    },
+    {
+      "id": "rss-6aadc53986d8450031173328",
+      "sourceFingerprint": "bc826b52f3a9d69aa9dbaefe94c24a8b1a433fe60394b2773220d9c79691c708",
+      "title": "菲律宾裔美国人历史月故事时间与 Parol 灯笼制作",
+      "description": "参加图书馆的特别双语故事时间和 Parol 灯笼手工活动，庆祝菲律宾裔美国人历史月。通过故事、音乐和活动，了解菲律宾文化、传统及菲律宾裔美国人的贡献。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6aadc53986d8450031173328"
+    },
+    {
       "id": "rss-6ab2adbb8cf597003f95a298",
       "sourceFingerprint": "5287a7ec183aa0c2919e455d05ee298e93707114320528a2fe66b48c612e7220",
       "title": "婴儿膝上故事时间",
@@ -2112,6 +2453,17 @@
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
+    },
+    {
+      "id": "rss-6ac02d7dde300e004517d401",
+      "sourceFingerprint": "4d62e1064db4f69b414eb0b4c91bf82db5ad220e8646e9b26ee87ee5e4b5363c",
+      "title": "南亚之声：互动展览",
+      "description": "互动摄影展展示南亚次大陆的多种乐器。每件展品附有二维码，可聆听这些乐器在阿富汗、孟加拉国、不丹、印度、马尔代夫、尼泊尔、巴基斯坦和斯里兰卡演奏时的声音。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6ac02d7dde300e004517d401"
     },
     {
       "id": "rss-6ac02e0fde300e004517d42f",
@@ -2356,6 +2708,17 @@
       "override": true
     },
     {
+      "id": "rss-6ad39f89fee2d21deb23e680",
+      "sourceFingerprint": "74ec983b79e5b2a0ace9bb8473e719dcf725c84740322b36553e42372b4baee7",
+      "title": "波斯语故事与歌曲",
+      "description": "儿童和家庭将通过波斯语故事与音乐，体验游戏和探索的乐趣。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6ad39f89fee2d21deb23e680"
+    },
+    {
       "id": "rss-6ad3c7a7901b02002cc32c73",
       "sourceFingerprint": "ac691e7885c000c2643fe330e5f9d5506e2742fc16850372641c8296818551e5",
       "title": "KidsCRAFT：秋叶窗饰",
@@ -2365,6 +2728,17 @@
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
+    },
+    {
+      "id": "rss-6ad66508035faf0033ddafc3",
+      "sourceFingerprint": "cad1cf8001dd38c576970695e1b2fe0ee047e36621006f9d260b8b1c2ae05451",
+      "title": "LEGO SPIKE 机器人制作",
+      "description": "参与者按照平板电脑上的简单图解步骤，搭建青蛙、狗或其他机器人，再学习使用简单的 Word Blocks 积木式指令，让机器人执行命令。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6ad66508035faf0033ddafc3"
     },
     {
       "id": "rss-6ad6653e9d27a0004551f681",
@@ -2400,6 +2774,17 @@
       "override": true
     },
     {
+      "id": "rss-6ad7bd6c901b02002cc3d710",
+      "sourceFingerprint": "762994ba1533e4667bfde4f93a04ca887afabd3ad920082d55f9c5a6278dea73",
+      "title": "了解 Muwekma Ohlone 部落",
+      "description": "聆听 Bernadette Quiroz 创作的 Muwekma 起源故事《Kàanak Hašepekne Muwekma: I Made The People, By Me, Coyote》，随后参加手工活动。面向 2–8 年级儿童及其家庭，必须报名。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/6ad7bd6c901b02002cc3d710"
+    },
+    {
       "id": "rss-6ad9188ede300e00451bf02d",
       "sourceFingerprint": "9df4a45ca111d21397f744da10a740fc8d0cf20f250ecd93d531276e67d806fb",
       "title": "为长者制作冬季节日贺卡",
@@ -2420,6 +2805,17 @@
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
+    },
+    {
+      "id": "rss-6ad919b829c3d60033318746",
+      "sourceFingerprint": "ad584ad3a84267fb6ca6d6cbda9aca7ae1897480508572214ee1cc6caa5b70c8",
+      "title": "青少年电影放映：《暮光之城》",
+      "description": "邀请青少年观看电影《Twilight》（《暮光之城》），现场提供免费零食。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6ad919b829c3d60033318746"
     },
     {
       "id": "rss-6ad945fd11bbf300684cde91",
@@ -2453,6 +2849,17 @@
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
+    },
+    {
+      "id": "rss-6ada5b0a29c3d6003331c041",
+      "sourceFingerprint": "a7427bb3a1867e88b7af7f275a1e3a9c853f5552f8343c287acbcfe31a2263be",
+      "title": "AACI YTI：编程奔向月球",
+      "description": "在工作坊中，学生使用 Scratch 制作自己的“火箭发射动画”，通过 broadcast（广播）功能设计倒计时、点火和升空流程，让火箭飞向太空。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6ada5b0a29c3d6003331c041"
     },
     {
       "id": "rss-6adbecf78a335b6ae5ca1e3f",
@@ -2566,14 +2973,14 @@
     },
     {
       "id": "rss-6ae10914377296003a4f0a6f",
-      "sourceFingerprint": "7084a5953cb04cb76b09245fd0241d4248e7b3348aae47daf379dc7eab4323d1",
+      "sourceFingerprint": "e9c38d2ab4ffcc7bbebf9216f96a8043f2ec77672fd484377a282e15f5f37d35",
+      "title": "周日下午电影与点心（Domingos de Matiné con merienda）",
+      "description": "电影结束后，将简短讨论影片的历史、制作过程和主题。观影时提供点心。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T16:07:16.876Z",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
       "override": true,
-      "sourceUrl": "https://sccl.bibliocommons.com/events/6ae10914377296003a4f0a6f",
-      "title": "周日下午电影与点心（Domingos de Matiné con merienda）",
-      "description": "电影结束后，将简短讨论影片的历史、制作过程和主题。"
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6ae10914377296003a4f0a6f"
     },
     {
       "id": "rss-6ae2569196ec3a003addafb3",
@@ -2598,15 +3005,26 @@
       "override": true
     },
     {
-      "id": "rss-6ae39b06ebad22004548e0f9",
-      "sourceFingerprint": "c83a3bca788162d86d7e083704a9904f0a0f90e72d7af15ea32b14a8c0bb5963",
-      "title": "中等质量黑洞；流星雨还是太空碎片？",
-      "description": "本次讲座将探讨近二十年来可见气体发射线的变化如何揭示隐藏的能量来源，并介绍 Magellan 光谱仪对矮星系 J1143 的最新观测；相关结果表明其核心可能存在一个正在吸积的中等质量黑洞。",
-      "sourceUrl": "https://sccl.bibliocommons.com/events/6ae39b06ebad22004548e0f9",
+      "id": "rss-6ae387a95ea4c386b3ebde6c",
+      "sourceFingerprint": "2558b44efc40cd7b08c567d0d86fea72828b0736b65f1f33ab698845832fb288",
+      "title": "免费衣物赠送活动",
+      "description": "挑选尺码 XS–XL 的保存良好的二手衣物，并将自己需要或喜欢的衣物带回家。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:57:30.582Z",
-      "override": true
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6ae387a95ea4c386b3ebde6c"
+    },
+    {
+      "id": "rss-6ae39b06ebad22004548e0f9",
+      "sourceFingerprint": "be1856feaaae7630944fbd49fb909a56b9062185d2ad13bfdae28f1b5068ae37",
+      "title": "中等质量黑洞；流星雨还是太空碎片？",
+      "description": "本次讲座探讨近二十年来可见气体发射线的变化如何揭示隐藏的能量来源，并介绍 Magellan 光谱仪对矮星系 J1143 的最新观测；结果指向其核心可能存在正在吸积的中等质量黑洞。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6ae39b06ebad22004548e0f9"
     },
     {
       "id": "rss-6ae3a8e78389bd86bfa3d4ad",
@@ -2621,25 +3039,25 @@
     },
     {
       "id": "rss-6ae3b624de300e00451dd897",
-      "sourceFingerprint": "ffb79709da90d9b08616a19c16811274b1160c065d073fb5d4a16c9451bb1d9b",
+      "sourceFingerprint": "8fa5bcd81e2ed0b8f15fda18d48d152dcf09c6f51a7488b9a86fa15e24a7be51",
       "title": "小小探索家：美妙冬日",
-      "description": "这里也许没有雪，但仍可通过多种冰雪主题手工和游戏，体验冬日乐趣。",
-      "sourceUrl": "https://sccl.bibliocommons.com/events/6ae3b624de300e00451dd897",
+      "description": "即使这里没有下雪，也能通过各种冰雪主题手工和游戏体验冬季。Little Explorers 是面向幼儿和学龄前儿童家庭的每月创意活动。每月第一个星期五一起探索新的游戏与学习方式。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:57:30.582Z",
-      "override": true
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6ae3b624de300e00451dd897"
     },
     {
       "id": "rss-6ae3c3ad9b955d531f7ba1df",
-      "sourceFingerprint": "96a1d1c03a94676e576e0d5eb121303128f4cee17f118513ceb2c98fc888232e",
-      "title": "与 Astro Everywhere 一起仰望夜空",
+      "sourceFingerprint": "4382ba51092a078ef3a163196e52dac03515629c8cb0dc60db814373a8ed8a5d",
+      "title": "与 Astro Everywhere 一起探索夜空",
       "description": "大家将在 Treetop Room 参加现场天文演示，使用天文馆软件探索从 Palo Alto 看到的夜空。",
-      "sourceUrl": "https://paloalto.bibliocommons.com/events/6ae3c3ad9b955d531f7ba1df",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:57:30.582Z",
-      "override": true
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/6ae3c3ad9b955d531f7ba1df"
     },
     {
       "id": "rss-6ae3c3fd035faf0033e003fd",
@@ -2731,14 +3149,14 @@
     },
     {
       "id": "rss-6ae7cc4e0b801373af91c541",
-      "sourceFingerprint": "076a313344da2aad4ddbca8d51903a70812783a1910c5715b10eec3c3dd9e08a",
+      "sourceFingerprint": "98318bfc72e5f384c77f4958eba9acfb357b33b021c7b7a9de853a47f6ae68f2",
+      "title": "思绪漂浮：艺术展",
+      "description": "回顾过去，我能看到自己的绘画方式和关注的事物发生了变化，也看到自己持续回归的一些熟悉主题。照片由艺术家提供。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-04T16:07:16.876Z",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
       "override": true,
-      "sourceUrl": "https://sccl.bibliocommons.com/events/6ae7cc4e0b801373af91c541",
-      "title": "思绪漂浮：艺术展",
-      "description": "回顾过去，我能看到自己的绘画方式和关注的事物发生了变化，同时也能发现一些始终反复出现的熟悉主题。"
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6ae7cc4e0b801373af91c541"
     },
     {
       "id": "rss-6ae92fd7de685359098d78de",
@@ -2750,6 +3168,28 @@
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-11-03T15:46:35.780Z",
       "override": true
+    },
+    {
+      "id": "rss-6aea1cf2377296003a50b55d",
+      "sourceFingerprint": "536fc5d7c64347c2f5aa4b93f314755064f4884cc9e1c3a6549eafc1e286ae84",
+      "title": "与 AnatoKidz 一起探索人体解剖学",
+      "description": "了解大脑、心脏、肺、骨骼等人体结构，培养好奇心、自信和批判性思维能力。这是免费的两部分系列活动，建议 5–10 岁儿童参加。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6aea1cf2377296003a50b55d"
+    },
+    {
+      "id": "rss-6aea1d9debad2200454a00b7",
+      "sourceFingerprint": "885e5c8792531c2582a2a0385793883805f21a61fa5d9b3b5d57da751bb2e2ab",
+      "title": "制作自己的波普艺术作品",
+      "description": "通过改造小雕像、橡皮擦等日常物品，探索周围世界中的艺术与科学之美。建议 8 岁及以上参加。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6aea1d9debad2200454a00b7"
     },
     {
       "id": "rss-6aea85909dbc2b002c933a6e",
@@ -2772,6 +3212,61 @@
       "sourceUrl": "https://sccl.bibliocommons.com/events/6aeaaa573c35b95bcb29923f",
       "title": "排灯节 DIY 纸灯",
       "description": "通过制作和装饰自己的纸制 Diya 灯庆祝排灯节。"
+    },
+    {
+      "id": "rss-6aeb81303c35b95bcb29b2ab",
+      "sourceFingerprint": "7d2d091800e377095aee66b991972c4286039e73616be923547d2cfb1a12f478",
+      "title": "Tutoring Kidz 课业辅导",
+      "description": "通过游戏、创意活动和互动课程，帮助学生提高英语和数学能力、建立自信并发现学习的乐趣。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6aeb81303c35b95bcb29b2ab"
+    },
+    {
+      "id": "rss-6aeb8b83f9d28050ccb13256",
+      "sourceFingerprint": "07ac1d367ba761bd367896085b6feaa381a2964bf9dde41d3858f5abfb07a7cb",
+      "title": "图书馆家庭电影之夜",
+      "description": "如需填写表格方面的帮助，可咨询当地分馆工作人员、拨打 (408) 540-3945，或发送邮件至 ask@lib.sccgov.org。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6aeb8b83f9d28050ccb13256"
+    },
+    {
+      "id": "rss-6aebaf12de685359098e075c",
+      "sourceFingerprint": "1f713b910b9fd9be0d7844824e68565e6569f40ff855769edd13896866278bc6",
+      "title": "家庭 BINGO 宾果游戏",
+      "description": "活动将进行多轮游戏，大家可随时到场参加。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6aebaf12de685359098e075c"
+    },
+    {
+      "id": "rss-6aebcd26ebad2200454a7776",
+      "sourceFingerprint": "03691c2e9578f3f68bd0d835bf577949856589196ff0e8c70ef78150f32df675",
+      "title": "免缝纫布艺小鸟挂饰手工",
+      "description": "制作一只独特可爱的布艺小鸟挂饰，无需缝纫。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6aebcd26ebad2200454a7776"
+    },
+    {
+      "id": "rss-6aebd2e3fb96d55bb888da9e",
+      "sourceFingerprint": "32f9fd95a9310113180b721568d1319073819d24008c9873d1537e6f311fb782",
+      "title": "Rinconada 图书馆节日电影之夜：《极地特快》",
+      "description": "欢迎来到 Rinconada 图书馆观看节日电影《The Polar Express》（《极地特快》）。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/6aebd2e3fb96d55bb888da9e"
     },
     {
       "id": "santana-bf9a9640f93b5b24",
@@ -2816,6 +3311,17 @@
       "translationSource": "chatgpt-reviewed",
       "reviewedAt": "2026-11-02T23:57:30.582Z",
       "override": true
+    },
+    {
+      "id": "series-1f1cd7ac4cee447b",
+      "sourceFingerprint": "e8345b9f00594aa6a3b9257750dec0289da8727a62e1ef8b7a55b354b9456d99",
+      "title": "Sandy 和 Kent 的排舞课",
+      "description": "报名后会收到活动提醒邮件，其中包含用于练习的课程歌曲播放列表链接。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/68faec5706078d3600744ca6"
     },
     {
       "id": "series-276cfefccce78432",
@@ -2917,6 +3423,17 @@
       "description": "在纸叶片上写下你感激的事物，再把它挂到咨询台旁的感恩树上。随着更多叶片加入，一起见证感恩树逐渐茂盛。"
     },
     {
+      "id": "series-78811112312e7841",
+      "sourceFingerprint": "469a469e28562f36e48eb9a0fbe2a4cb327ef75c8f964447b4015e15498be647",
+      "title": "亡灵节儿童手工面具材料包（数量有限）",
+      "description": "到馆领取免费的亡灵节纸质面具手工材料包，内含彩色手工材料，供孩子装饰自己的 Calavera（糖骷髅）面具。先到先得。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6aebb47fad40276591563806"
+    },
+    {
       "id": "series-7f48ed2548f3fe18",
       "sourceFingerprint": "0fc53e6c817654be09049881ed9546a875dc88a4fe962976b4d4ddcad4f14406",
       "status": "approved",
@@ -2926,6 +3443,17 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6abbdaf89abb62002c6af406",
       "title": "预约电脑拆装工作坊",
       "description": "通过拆开电脑再重新组装，了解电脑的工作原理。"
+    },
+    {
+      "id": "series-8834bed560548ba3",
+      "sourceFingerprint": "0f64887630175dda17c84e1a8ca5fe65fd74a2bc114000dca1b141b524357427",
+      "title": "LEGO 积木俱乐部",
+      "description": "欢迎 5 岁及以上儿童发挥搭建技能与想象力，体验 LEGO 积木的乐趣。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6aebb7a6fb96d55bb888d362"
     },
     {
       "id": "series-b4ca46c81e59fc6d",
@@ -2983,6 +3511,17 @@
       "override": true
     },
     {
+      "id": "series-d400a606502a3188",
+      "sourceFingerprint": "a1b7fc100f88c51e7f3d74d4f906c161ae9fe64c7847db1470d6f8f215f240fb",
+      "title": "摄影交流聚会",
+      "description": "每次活动将讨论摄影技巧、提高拍摄水平的方法和其他摄影话题。如有适合 5–10 分钟分享的主题、摄影故事或演示，可发邮件至 matthewtwhuang@gmail.com。",
+      "status": "approved",
+      "translationSource": "chatgpt-reviewed",
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/6a397278c7d3cd5800621210"
+    },
+    {
       "id": "series-da87e57acdfec45b",
       "sourceFingerprint": "707b8eee7d90c508560077f76ab7808daf715d5d0829e818799bc6a3b8f8fe39",
       "status": "approved",
@@ -3006,14 +3545,14 @@
     },
     {
       "id": "series-f8a4e697438e0ed2",
-      "sourceFingerprint": "c58b0c832f2573914924e25852af08d346e7e812becda0dfad6d5658b1ca8e92",
+      "sourceFingerprint": "b657669e1edc2fb21425d8ba4397e52525cb5128fbcebe610efa48693ec72a70",
       "title": "音乐与律动",
-      "description": "通过动作、歌曲和舞蹈培养早期读写能力。活动会介绍乐器、歌曲和舞步，让每个人都能随着音乐一起动起来。面向有孩子的家庭，无需任何经验。",
-      "sourceUrl": "https://paloalto.bibliocommons.com/events/6a3dbc0bfddb082f00fe14a3",
+      "description": "通过动作、歌曲和舞蹈培养早期读写能力。本周将庆祝美国原住民传统文化月。活动会介绍乐器、歌曲和舞步，让大家随着音乐一起活动。面向有孩子的家庭，无需经验。",
       "status": "approved",
       "translationSource": "chatgpt-reviewed",
-      "reviewedAt": "2026-11-02T23:57:30.582Z",
-      "override": true
+      "reviewedAt": "2026-11-05T15:44:39.342Z",
+      "override": true,
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/6a3dbc0bfddb082f00fe14a4"
     },
     {
       "id": "south-first-fridays-ea55a2b42f8f4afb",
