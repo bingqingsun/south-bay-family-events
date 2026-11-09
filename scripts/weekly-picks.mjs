@@ -26,7 +26,7 @@ export function weekendFor(value = pacificToday()) {
 }
 
 const banned = /champagne lounge|happy hour|meditation with|adult only|18\+|21\+|nr-rated|movie yotsuba|college admissions|business networking|technical lecture|fundraiser gala|private event|girl scout program/i;
-const poor = /storytime|regular class|homework help|library ukulele|museum open|practice your vote|thursday live on cal ave/i;
+const poor = /storytime|regular class|homework help|library ukulele|museum open|practice your vote|thursday live on cal ave|volunteer(?:ing)?|book sale|3d printing open hours|seed kits for adults|second saturday \(november\)/i;
 const focus = /halloween|spook|boo!|trick.or.treat|pumpkin|ghost|día de los muertos|dia de los muertos|lowrider|family festival|bluey|science fun/i;
 const family = /\bfamil(?:y|ies)\b|\bchildren\b|\bkids?\b|\bages?\b|\btoddlers?\b|\ball ages\b/i;
 // BiblioCommons blocks automated checks but its official, event-ID-specific
