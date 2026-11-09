@@ -10,6 +10,11 @@ on:
     # The publisher is idempotent and preserves a same-week reviewed edition.
     - cron: '20 16 * * 1'
     - cron: '20 19 * * 1'
+  # The daily source-refresh workflow is more frequent than the weekly cron.
+  # Its completion provides an independent Monday/Tuesday catch-up signal.
+  workflow_run:
+    workflows: ['Refresh South Bay events']
+    types: [completed]
   push:
     branches: [main]
     paths:
@@ -51,6 +56,9 @@ jobs:
           REQUESTED_MODE: ${{ inputs.operation }}
           REQUESTED_FRIDAY: ${{ inputs.friday }}
           REQUESTED_FORCE: ${{ inputs.force }}
+          REFRESH_BRANCH: ${{ github.event.workflow_run.head_branch }}
+          REFRESH_REPOSITORY: ${{ github.event.workflow_run.head_repository.full_name }}
+          CURRENT_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
           if [[ "$EVENT_NAME" == "schedule" ]]; then
@@ -73,6 +81,26 @@ jobs:
               echo "skip=true" >> "$GITHUB_OUTPUT"
               exit 0
             fi
+            friday=""
+            force=false
+          elif [[ "$EVENT_NAME" == "workflow_run" ]]; then
+            # Process only our own main-branch refreshes, never PR or fork runs.
+            if [[ "$REFRESH_BRANCH" != "main" || "$REFRESH_REPOSITORY" != "$CURRENT_REPOSITORY" ]]; then
+              echo "Skipping refresh from other repository or branch"
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            pacific_weekday=$(TZ=America/Los_Angeles date '+%u')
+            pacific_hour=$(TZ=America/Los_Angeles date '+%H')
+            # Monday 05:00–23:59, or Tuesday until 12:00, so a delayed
+            # refresh can still catch a missed week without republishing later.
+            if ! { [[ "$pacific_weekday" == "1" && $((10#$pacific_hour)) -ge 5 ]] ||
+                   [[ "$pacific_weekday" == "2" && $((10#$pacific_hour)) -le 12 ]]; }; then
+              echo "Outside the Monday/early-Tuesday publication window"
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            operation=publish
             friday=""
             force=false
           else
