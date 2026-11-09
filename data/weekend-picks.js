@@ -2,9 +2,9 @@ window.SBFF_WEEKEND_PICKS = {
   "id": "2026-11-07",
   "weekendStart": "2026-11-06",
   "weekendEnd": "2026-11-08",
-  "status": "published",
+  "status": "ended",
   "publishedAt": "2026-11-02T17:48:41.034Z",
-  "updatedAt": "2026-11-02T17:48:41.034Z",
+  "updatedAt": "2026-11-09T17:50:46.067Z",
   "intro": "12 handpicked South Bay family finds for Nov 6–8: Diwali celebrations, interactive magic, Minecraft coding, robotics, free STEM exploration, hockey and more.",
   "introZh": "精选 11月6日周五–11月8日周日 12 个南湾亲子活动：排灯节文化体验、互动魔术、Minecraft 编程、机器人、免费 STEM 科技活动和现场冰球等。",
   "picks": [

@@ -37,7 +37,7 @@
           unavailableDescription: '我们正在更新本周末的活动信息，你可以先浏览当前的南湾亲子活动。'
         })
       }),
-      published: true,
+      published: false,
       publishAt: "2026-11-02T17:48:41.034Z",
       lastChanceThreshold: 0,
       selectedEventRefs: [
