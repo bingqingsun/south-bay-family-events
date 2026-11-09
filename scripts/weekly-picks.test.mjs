@@ -32,6 +32,16 @@ events.push({
 });
 
 assert.equal(candidateEvents(events, '2026-10-30').length, 10);
+for (const title of [
+  'Drop-in Teens Reach Volunteering',
+  'Big Book Sale (Gran venta de libros) of the Friends of the Gilroy Library',
+  '3D Printing Open Hours',
+  'Second Saturday (November)'
+]) {
+  const routine = { ...events[0], title, id: 'routine-' + title };
+  assert.equal(candidateEvents([routine], '2026-10-30').length, 0,
+    'Routine services, volunteering or sales cannot fill a weekly editorial slot: ' + title);
+}
 const libraryVerified = {
   ...events[0], id: 'trusted-library',
   linkStatus: 'blocked-machine', source: 'Santa Clara County Library District',
