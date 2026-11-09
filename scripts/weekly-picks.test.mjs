@@ -32,6 +32,16 @@ events.push({
 });
 
 assert.equal(candidateEvents(events, '2026-10-30').length, 10);
+for (const title of [
+  'Drop-in Teens Reach Volunteering',
+  'Big Book Sale (Gran venta de libros) of the Friends of the Gilroy Library',
+  '3D Printing Open Hours',
+  'Second Saturday (November)'
+]) {
+  const routine = { ...events[0], title, id: 'routine-' + title };
+  assert.equal(candidateEvents([routine], '2026-10-30').length, 0,
+    'Routine services, volunteering or sales cannot fill a weekly editorial slot: ' + title);
+}
 const libraryVerified = {
   ...events[0], id: 'trusted-library',
   linkStatus: 'blocked-machine', source: 'Santa Clara County Library District',
@@ -100,4 +110,10 @@ const configYaml = await workflow;
 assert.match(configYaml, /cron: '20 16 \* \* 1'/, 'Monday catch-up attempt required');
 assert.match(configYaml, /cron: '20 19 \* \* 1'/, 'Late Monday catch-up attempt required');
 assert.match(configYaml, /paths:\s*\n\s*- '\.github\/workflows\/weekly-picks\.yml'/, 'Workflow changes should launch a catch-up run');
+assert.match(configYaml, /workflow_run:\s*\n\s*workflows:\s*\['Refresh South Bay events'\]/,
+  'Independent completed source refreshes must be able to trigger a Monday catch-up');
+assert.match(configYaml, /REFRESH_BRANCH:/, 'Catch-up must verify source workflow branch');
+assert.match(configYaml, /REFRESH_REPOSITORY:/, 'Catch-up must verify source repository');
+assert.match(configYaml, /Outside the Monday\/early-Tuesday publication window/,
+  'Refresh-triggered backfill must be limited to the publication window');
 console.log('Weekly Picks automation tests passed');
