@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title">
+  <title id="title">SBFF editorial illustration for Workshop Youth 10am 5-8yrs</title>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6a3b56"/><stop offset="1" stop-color="#c96f67"/></linearGradient></defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <circle cx="368" cy="441" r="21" fill="#f2b766" opacity=".22"/><circle cx="576" cy="350" r="27" fill="#f7dfb6" opacity=".22"/><circle cx="504" cy="523" r="18" fill="#f8f0e6" opacity=".22"/><circle cx="120" cy="546" r="26" fill="#6a3b56" opacity=".22"/><circle cx="794" cy="447" r="30" fill="#c96f67" opacity=".22"/><circle cx="524" cy="274" r="20" fill="#f2b766" opacity=".22"/><circle cx="294" cy="270" r="27" fill="#f7dfb6" opacity=".22"/>
+  
+    <path d="M390 170 C250 230 235 440 385 505 C520 565 650 480 652 385 C655 305 595 275 625 218 C652 165 525 115 390 170Z" fill="#f7dfb6"/>
+    <circle cx="392" cy="292" r="26" fill="#f2b766"/><circle cx="460" cy="245" r="24" fill="#c96f67"/><circle cx="522" cy="292" r="22" fill="#6a3b56"/><circle cx="435" cy="360" r="24" fill="#f8f0e6"/>
+    <g transform="translate(720 165) rotate(20)"><rect x="0" y="0" width="42" height="300" rx="20" fill="#f2b766"/><path d="M0 0 L21-70 L42 0Z" fill="#f7dfb6"/></g>
+    <rect x="760" y="430" width="220" height="38" rx="18" fill="#c96f67" transform="rotate(-12 760 430)"/>
+  
+  <rect x="20" y="20" width="1160" height="635" rx="38" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="3"/>
+</svg>
