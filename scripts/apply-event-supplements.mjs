@@ -123,8 +123,8 @@ function mergeVerifiedReplacement(existing, supplement) {
   // while a manually verified detail has precise start times and multi-day sessions.
   // Only upgrade date precision for the SAME occurrence; do not replace newer
   // recurrence dates reported by a live official calendar.
-  const verifiedStartIsPrecise = /^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}/.test(verified.dateValue);
-  const existingStartIsDateOnly = /^\\d{4}-\\d{2}-\\d{2}$/.test(existing.dateValue || '');
+  const verifiedStartIsPrecise = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/.test(verified.dateValue);
+  const existingStartIsDateOnly = /^\d{4}-\d{2}-\d{2}$/.test(existing.dateValue || '');
   const startDateValue = sameOccurrence && existingStartIsDateOnly && verifiedStartIsPrecise
     ? verified.dateValue : existing.dateValue || verified.dateValue;
   const hasVerifiedEnd = Boolean(verified.endDateValue);
