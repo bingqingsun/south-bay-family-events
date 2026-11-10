@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "note": "Organizer-verified November 13–15 South Bay weekend coverage",
+  "entries": [
+    {
+      "id": "editorial-sj-holiday-lights-2026",
+      "title": "2026 San Jose 假日灯光节",
+      "description": "在 Discovery Meadow 欣赏沉浸式户外节日灯光展：穿行于不同主题的光影世界，观看巨型圣诞装饰、发光动物和奇幻海洋生物。活动将在晚间持续开放至元旦。",
+      "sourceFingerprint": "abe4fa37fb6bcb07c73e4979ffeab01b27af7c2fb6e3afa251f40ab363b4d746",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-09T15:42:00-08:00"
+    },
+    {
+      "id": "editorial-los-altos-holiday-stroll-20261113",
+      "title": "第23届 Los Altos 节日漫步夜",
+      "description": "漫步节日气氛浓厚的 Downtown Los Altos，欣赏闪烁灯饰和沿街颂歌表演，逛逛节日主题商店及 Main Street、State Street 两侧的特色店铺。",
+      "sourceFingerprint": "cffcf40777a3993d1ade6d8caea422905a40eebf8bc096a4b149cfeb1f6e3c8a",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-09T15:42:00-08:00"
+    },
+    {
+      "id": "editorial-filoli-holiday-lights-2026",
+      "title": "Filoli 夜间灯光节",
+      "description": "夜晚走进挂满灯饰的 Filoli 历史庄园与花园，欣赏发光花朵、节日装饰树及梦幻灯光隧道，还能购买节日小食。夜间灯光活动与白天游览使用不同门票。",
+      "sourceFingerprint": "a26102bff3f34e860b6047d63760737098e22c5d6c4a9ec872e1e378cdf7425f",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-09T15:42:00-08:00"
+    },
+    {
+      "id": "editorial-raptor-fest-20261114",
+      "title": "Rancho San Vicente 猛禽科普节",
+      "description": "近距离认识活体猛禽，聆听猎鹰训练及生态保护讲解。活动以科普为主，更适合 10 岁及以上儿童；须提前报名，并从 Challenger School Almaden 乘坐免费接驳车前往现场。",
+      "sourceFingerprint": "884b51b037f9366caa8b336be11e248cf693abb315d911b1b814eb60050c6d8d",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-09T15:42:00-08:00"
+    },
+    {
+      "id": "editorial-sj-salmon-festival-20261114",
+      "title": "2026 San Jose 三文鱼节",
+      "description": "在 Guadalupe River 沿岸参加免费的亲子自然节，了解帝王鲑洄游，参与河道清洁、三文鱼导览以及互动环保教育活动。",
+      "sourceFingerprint": "a437f062d283b2b7344311caa38bfc063e3d3bcd1da257c55d7b4cb24a4ef702",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-09T15:42:00-08:00"
+    },
+    {
+      "id": "editorial-jrmf-raft-20261114",
+      "title": "RAFT 亲子数学嘉年华",
+      "description": "带孩子到 RAFT 参加免费动手数学活动，挑战趣味谜题、创意游戏和协作任务，在玩乐中发现数学的乐趣。活动期间可随时到场参加。",
+      "sourceFingerprint": "c120a5b9e833df8c134c52ca025434465bce6bb5b38e3901da25a73abf6583bf",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-09T15:42:00-08:00"
+    },
+    {
+      "id": "editorial-sbdc-coppelia-20261114",
+      "title": "South Bay Dance Center 芭蕾舞剧《葛蓓莉娅》",
+      "description": "在 Campbell Heritage Theatre 欣赏经典喜剧芭蕾《葛蓓莉娅》，由 South Bay Dance Center 和 South Bay Ballet Arts 的年轻舞者演出，周六晚及周日下午各有一场。",
+      "sourceFingerprint": "3f31ccfd91fd2cd4bedc2a0d4dbbb2c71b2966ac95f25cab31627f6a6d448f87",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-09T15:42:00-08:00"
+    },
+    {
+      "id": "editorial-sj-water-lantern-20261114",
+      "title": "San Jose 水灯节",
+      "description": "与家人来到 Almaden Lake Park 装饰漂浮灯笼，欣赏现场音乐、品尝美食，再一同参与湖面点灯放流活动。周六和周日分别有独立场次。",
+      "sourceFingerprint": "6252d39a7694401c7713e8ceb586ef1b388340e869e1dc4fbe2eace62965d5e6",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-09T15:42:00-08:00"
+    }
+  ]
+}

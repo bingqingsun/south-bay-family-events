@@ -1233,7 +1233,10 @@ async function readSantanaRow(source) {
 }
 
 function annualFestivalDateWindow(dateText) {
-  const text = String(dateText || '').replace(/\s+/g, ' ').trim();
+  // Official sites sometimes use ordinal dates (November 13th, 2026).
+  // Normalize the suffix before parsing so we retain the published year.
+  const text = String(dateText || '').replace(/\s+/g, ' ').trim()
+    .replace(/\b(\d{1,2})(?:st|nd|rd|th)(?=[,\s])/gi, '$1');
   const range = text.match(/\b(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2})\s*(?:-|–|—|&|and|to)\s*(\d{1,2}),?\s+(20\d{2})\b/i);
   if (range) {
     const startDateValue = isoDateFromOfficialText(`${range[1]} ${range[2]}, ${range[4]}`);
@@ -3801,8 +3804,17 @@ const weekday = process.env.SBFF_SCHEDULED_LOCAL_WEEKDAY
 const serpapiInput = process.env.INCLUDE_SERPAPI;
 const includeSerpapi = serpapiInput === 'true'
   || (serpapiInput !== 'false' && ['Tue', 'Thu'].includes(weekday));
-const searchSources = includeSerpapi ? sources.filter(source => !directMethods.includes(source.method)) : [];
-if (searchSources.length && !key) throw new Error('SERPAPI_KEY is required when the fallback search is scheduled or manually enabled.');
+// Scheduled discovery must not abort the entire official-feed refresh when
+// no paid SerpApi key is installed. An explicit manual search request still
+// fails clearly; recurring keyless official calendars run every day regardless.
+if (serpapiInput === 'true' && !key) {
+  throw new Error('SERPAPI_KEY is required for a manually requested SerpApi search.');
+}
+if (includeSerpapi && !key) {
+  console.warn('::warning::Optional SerpApi discovery skipped (SERPAPI_KEY not configured); official event sources will still refresh.');
+}
+const searchSources = includeSerpapi && key
+  ? sources.filter(source => !directMethods.includes(source.method)) : [];
 
 const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'jmz-family') return readJmzFamily(source);
@@ -3905,6 +3917,8 @@ const sourceHealth = {
   configuredSources: sources.length,
   directSources: directSources.length,
   fallbackSourcesRun: searchSources.length,
+  fallbackSourcesConfigured: sources.filter(source => !directMethods.includes(source.method)).length,
+  fallbackSearchStatus: !includeSerpapi ? 'not-scheduled' : key ? 'executed' : 'skipped-missing-key',
   sources: sources.map(source => {
     const key = sourceHealthKey(source);
     const previous = previousHealthByKey.get(key) || {};
