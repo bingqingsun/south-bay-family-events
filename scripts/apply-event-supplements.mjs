@@ -118,6 +118,20 @@ function canonicalSupplement(item) {
 function mergeVerifiedReplacement(existing, supplement) {
   const verified = canonicalSupplement({ ...supplement, id: existing.id || supplement.id });
   const registration = canonicalRegistration(supplement, existing);
+  const sameOccurrence = dateKey(existing.dateValue) === dateKey(verified.dateValue);
+  // An annual landing-page parser may know the correct day but not the time,
+  // while a manually verified detail has precise start times and multi-day sessions.
+  // Only upgrade date precision for the SAME occurrence; do not replace newer
+  // recurrence dates reported by a live official calendar.
+  const verifiedStartIsPrecise = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/.test(verified.dateValue);
+  const existingStartIsDateOnly = /^\d{4}-\d{2}-\d{2}$/.test(existing.dateValue || '');
+  const startDateValue = sameOccurrence && existingStartIsDateOnly && verifiedStartIsPrecise
+    ? verified.dateValue : existing.dateValue || verified.dateValue;
+  const hasVerifiedEnd = Boolean(verified.endDateValue);
+  const broadDefaultEnd = /T23:59:59$/.test(existing.endDateValue || '');
+  const verifiedSpansFurther = hasVerifiedEnd && dateKey(verified.endDateValue) > dateKey(existing.endDateValue);
+  const endDateValue = sameOccurrence && hasVerifiedEnd && (broadDefaultEnd || verifiedSpansFurther)
+    ? verified.endDateValue : existing.endDateValue || verified.endDateValue;
   return {
     ...existing,
     ...verified,
@@ -127,8 +141,8 @@ function mergeVerifiedReplacement(existing, supplement) {
     // Preserve canonical recurrence/session timing gathered by the live source
     // when replacing a recurring event whose supplement verification date may
     // refer to a different occurrence of the same official series.
-    dateValue: existing.dateValue || verified.dateValue,
-    endDateValue: existing.endDateValue || verified.endDateValue,
+    dateValue: startDateValue,
+    endDateValue,
     sessions: Array.isArray(existing.sessions) && existing.sessions.length ? existing.sessions : verified.sessions,
     image: supplement.image || existing.image || '',
     imagePresentation: existing.imagePresentation || '',
