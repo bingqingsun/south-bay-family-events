@@ -1,10 +1,10 @@
 {
   "version": 1,
   "locale": "zh-Hans",
-  "generatedAt": "2026-11-09T22:54:52.027Z",
+  "generatedAt": "2026-11-10T00:16:44.382Z",
   "generatedForDate": "2026-11-09",
   "batch": 1,
-  "totalBatches": 2,
+  "totalBatches": 3,
   "entries": [
     {
       "id": "rss-6aee82bd377296003a51a71f",
@@ -42,6 +42,19 @@
       "sourceUrl": "https://www.chcp.org/event-6905212",
       "status": "missing",
       "sourceFingerprint": "dc1c499ea5541ddc942b288441347fb00672bcf605443106ce5f7d4425cb9058",
+      "priorTitleZh": "",
+      "priorDescriptionZh": ""
+    },
+    {
+      "id": "rss-6a8e1f98b204780029958a71",
+      "dateValue": "2026-11-13T12:00",
+      "endDateValue": "2026-11-13T18:00",
+      "title": "Gratitude Tree",
+      "description": "You can also make your own paper leaves at home and bring them in to be added to our tree!",
+      "source": "San José Public Library",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a8e1f98b204780029958a71",
+      "status": "missing",
+      "sourceFingerprint": "9a86c58b20dc949370735894c768a6ffe695903b6d87f8200c0d58398d7c2571",
       "priorTitleZh": "",
       "priorDescriptionZh": ""
     },
@@ -475,6 +488,19 @@
       "priorDescriptionZh": ""
     },
     {
+      "id": "rss-69e7a8c91e64afd01e6aad57",
+      "dateValue": "2026-11-16T15:00",
+      "endDateValue": "2026-11-16T16:00",
+      "title": "Reading to Children with Aysha",
+      "description": "Participating in the Reading to Children program is a great way for children to develop their imagination and spark a love for books, reading and learning.",
+      "source": "San José Public Library",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/69e7a8c91e64afd01e6aad57",
+      "status": "missing",
+      "sourceFingerprint": "5334b1a8325caa866b490ce694e3305ea17593c8aec0ed7c176303e095e7c16d",
+      "priorTitleZh": "",
+      "priorDescriptionZh": ""
+    },
+    {
       "id": "rss-6ac02cfb29c3d600332d4774",
       "dateValue": "2026-11-17T10:30",
       "endDateValue": "2026-11-17T11:30",
@@ -497,32 +523,6 @@
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6a569a4471ef136200523343",
       "status": "missing",
       "sourceFingerprint": "e0029d4688572c39a0f90806d3c7d1906e02c2829750a43dba8a6a7b1ca4ed8b",
-      "priorTitleZh": "",
-      "priorDescriptionZh": ""
-    },
-    {
-      "id": "rss-6a85ecc5bf1aec09082bb800",
-      "dateValue": "2026-11-17T11:00",
-      "endDateValue": "2026-11-17T12:00",
-      "title": "Vietnamese Storytime with ICAN",
-      "description": "Vietnamese Storytime with ICAN welcomes children and their caregivers to participate in early literacy activities in both Vietnamese and English.",
-      "source": "San José Public Library",
-      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a85ecc5bf1aec09082bb800",
-      "status": "missing",
-      "sourceFingerprint": "5d3687c42e5a7fc805b96ae1d6e0ceae20a7e57c03e802ebd1174c02b75ba472",
-      "priorTitleZh": "",
-      "priorDescriptionZh": ""
-    },
-    {
-      "id": "rss-69caccbe66c3387a9d054711",
-      "dateValue": "2026-11-17T16:00",
-      "endDateValue": "2026-11-17T17:00",
-      "title": "Creative Writing Workshop",
-      "description": "Whether you've written for years or started yesterday, register for fresh inspiration to make your story shine!",
-      "source": "San José Public Library",
-      "sourceUrl": "https://sjpl.bibliocommons.com/events/69caccbe66c3387a9d054711",
-      "status": "missing",
-      "sourceFingerprint": "269ef1873a8a7f53ca359fda7b83d89d0953d4d9f07825160000cf455312b529",
       "priorTitleZh": "",
       "priorDescriptionZh": ""
     }
