@@ -186,4 +186,29 @@ assert.equal(curatedOverride.events[0].imageProvenance.source, 'curated-manual')
   assert.equal(localized.stats.current, 8, 'All eight event descriptions must be approved and current');
 }
 
+
+{
+  const dataRoot = new URL('../data/', import.meta.url);
+  const supplements = JSON.parse(await readFile(new URL('event-supplements.json', dataRoot), 'utf8'));
+  for (const [id, start, end] of [
+    ['editorial-sj-water-lantern-20261114', '2026-11-14T14:30:00', '2026-11-15T18:30:00'],
+    ['editorial-sj-salmon-festival-20261114', '2026-11-14T09:00:00', '2026-11-14']
+  ]) {
+    const verified = supplements.find(event => event.id === id);
+    assert.ok(verified);
+    const official = {
+      id: 'annual-official-' + id, title: verified.title,
+      dateValue: '2026-11-14', endDateValue: '2026-11-14T23:59:59',
+      source: verified.source, url: verified.url,
+      description: 'A source that knows only the event day rather than exact sessions.'
+    };
+    const [event] = mergeEventSupplements([official], [verified], { now: '2026-11-09T12:00:00' });
+    assert.equal(event.dateValue, start, 'Verified start time must survive annual-source merge');
+    assert.equal(event.endDateValue, end, 'Verified multi-day window must survive annual-source merge');
+    assert.equal(event.id, official.id, 'Stable official identity must survive supplement replacement');
+    assert.ok(event.legacyIds.includes(id), 'Editorial ID must remain available for translation');
+    if (id.includes('water-lantern')) assert.equal(event.sessions.length, 2);
+  }
+}
+
 console.log('Event supplement lifecycle, duplicate-guard and Nov 13–15 bilingual coverage tests passed.');
