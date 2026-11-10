@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-10T00:15:04.796Z",
+  "generatedAt": "2026-11-10T00:22:51.382Z",
   "configuredSources": 105,
   "directSources": 99,
   "fallbackSourcesRun": 0,
@@ -22,7 +22,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 327,
+      "eventCount": 342,
       "failureStreak": 0,
       "error": ""
     },
@@ -166,10 +166,10 @@
       "name": "Happy Hollow Park & Zoo",
       "method": "happyhollow",
       "mode": "direct",
-      "status": "failed",
+      "status": "ok",
       "eventCount": 0,
-      "failureStreak": 1,
-      "error": "Happy Hollow official calendar was not valid: 503"
+      "failureStreak": 0,
+      "error": ""
     },
     {
       "key": "Gilroy Gardens|gilroygardens.org|https://www.gilroygardens.org/calendar-hours/",
@@ -288,7 +288,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 92,
+      "failureStreak": 93,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -298,7 +298,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 92,
+      "failureStreak": 93,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -308,7 +308,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 92,
+      "failureStreak": 93,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -358,7 +358,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 2,
+      "failureStreak": 3,
       "error": "MLS official schedule was not valid: 404"
     },
     {
@@ -448,7 +448,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 25,
+      "failureStreak": 26,
       "error": "CivicPlus official calendar was not valid: 403"
     },
     {
@@ -618,7 +618,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 14,
+      "failureStreak": 15,
       "error": "Wix official event list was not valid: 200"
     },
     {
@@ -1042,27 +1042,32 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 92,
+      "failureStreak": 93,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 92,
+      "failureStreak": 93,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 92,
+      "failureStreak": 93,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
+      "name": "San Jose Earthquakes",
+      "failureStreak": 3,
+      "error": "MLS official schedule was not valid: 404"
+    },
+    {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 25,
+      "failureStreak": 26,
       "error": "CivicPlus official calendar was not valid: 403"
     },
     {
       "name": "365 Night Market",
-      "failureStreak": 14,
+      "failureStreak": 15,
       "error": "Wix official event list was not valid: 200"
     }
   ],
@@ -1070,7 +1075,7 @@
     "usable-official-description": {
       "before": {
         "Palo Alto City Library": 188,
-        "San José Public Library": 327,
+        "San José Public Library": 342,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 4,
         "City of Palo Alto": 4,
@@ -1086,7 +1091,7 @@
         "CMT San Jose": 9,
         "Peninsula Youth Theatre": 22,
         "San Jose Barracuda": 26,
-        "Filoli Historic House & Garden": 2,
+        "Filoli Historic House & Garden": 3,
         "Montalvo Arts Center": 2,
         "Gamble Garden": 2,
         "Symphony San Jose": 13,
@@ -1094,16 +1099,16 @@
         "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 2,
         "Santana Row": 4,
-        "Los Altos Village Association": 1,
+        "Los Altos Village Association": 2,
         "South Bay Clean Creeks Coalition": 1,
         "Water Lantern Festival": 1,
-        "Computer History Museum": 2,
+        "San Jose Holiday Lights": 1,
         "De Anza College Planetarium": 12,
         "History San José": 1
       },
       "after": {
         "Palo Alto City Library": 188,
-        "San José Public Library": 327,
+        "San José Public Library": 342,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 4,
         "City of Palo Alto": 4,
@@ -1119,7 +1124,7 @@
         "CMT San Jose": 9,
         "Peninsula Youth Theatre": 22,
         "San Jose Barracuda": 26,
-        "Filoli Historic House & Garden": 2,
+        "Filoli Historic House & Garden": 3,
         "Montalvo Arts Center": 2,
         "Gamble Garden": 2,
         "Symphony San Jose": 13,
@@ -1127,10 +1132,10 @@
         "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 2,
         "Santana Row": 4,
-        "Los Altos Village Association": 1,
+        "Los Altos Village Association": 2,
         "South Bay Clean Creeks Coalition": 1,
         "Water Lantern Festival": 1,
-        "Computer History Museum": 2,
+        "San Jose Holiday Lights": 1,
         "De Anza College Planetarium": 12,
         "History San José": 1
       }
@@ -1138,7 +1143,7 @@
     "not-closure": {
       "before": {
         "Palo Alto City Library": 188,
-        "San José Public Library": 327,
+        "San José Public Library": 342,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 4,
         "City of Palo Alto": 4,
@@ -1154,7 +1159,7 @@
         "CMT San Jose": 9,
         "Peninsula Youth Theatre": 22,
         "San Jose Barracuda": 26,
-        "Filoli Historic House & Garden": 2,
+        "Filoli Historic House & Garden": 3,
         "Montalvo Arts Center": 2,
         "Gamble Garden": 2,
         "Symphony San Jose": 13,
@@ -1162,16 +1167,16 @@
         "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 2,
         "Santana Row": 4,
-        "Los Altos Village Association": 1,
+        "Los Altos Village Association": 2,
         "South Bay Clean Creeks Coalition": 1,
         "Water Lantern Festival": 1,
-        "Computer History Museum": 2,
+        "San Jose Holiday Lights": 1,
         "De Anza College Planetarium": 12,
         "History San José": 1
       },
       "after": {
         "Palo Alto City Library": 188,
-        "San José Public Library": 327,
+        "San José Public Library": 342,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 4,
         "City of Palo Alto": 4,
@@ -1187,7 +1192,7 @@
         "CMT San Jose": 9,
         "Peninsula Youth Theatre": 22,
         "San Jose Barracuda": 26,
-        "Filoli Historic House & Garden": 2,
+        "Filoli Historic House & Garden": 3,
         "Montalvo Arts Center": 2,
         "Gamble Garden": 2,
         "Symphony San Jose": 13,
@@ -1195,10 +1200,10 @@
         "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 2,
         "Santana Row": 4,
-        "Los Altos Village Association": 1,
+        "Los Altos Village Association": 2,
         "South Bay Clean Creeks Coalition": 1,
         "Water Lantern Festival": 1,
-        "Computer History Museum": 2,
+        "San Jose Holiday Lights": 1,
         "De Anza College Planetarium": 12,
         "History San José": 1
       }
@@ -1206,7 +1211,7 @@
     "not-routine-venue-access": {
       "before": {
         "Palo Alto City Library": 188,
-        "San José Public Library": 327,
+        "San José Public Library": 342,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 4,
         "City of Palo Alto": 4,
@@ -1222,7 +1227,7 @@
         "CMT San Jose": 9,
         "Peninsula Youth Theatre": 22,
         "San Jose Barracuda": 26,
-        "Filoli Historic House & Garden": 2,
+        "Filoli Historic House & Garden": 3,
         "Montalvo Arts Center": 2,
         "Gamble Garden": 2,
         "Symphony San Jose": 13,
@@ -1230,16 +1235,16 @@
         "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 2,
         "Santana Row": 4,
-        "Los Altos Village Association": 1,
+        "Los Altos Village Association": 2,
         "South Bay Clean Creeks Coalition": 1,
         "Water Lantern Festival": 1,
-        "Computer History Museum": 2,
+        "San Jose Holiday Lights": 1,
         "De Anza College Planetarium": 12,
         "History San José": 1
       },
       "after": {
         "Palo Alto City Library": 188,
-        "San José Public Library": 327,
+        "San José Public Library": 342,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 4,
         "City of Palo Alto": 4,
@@ -1255,7 +1260,7 @@
         "CMT San Jose": 9,
         "Peninsula Youth Theatre": 22,
         "San Jose Barracuda": 26,
-        "Filoli Historic House & Garden": 2,
+        "Filoli Historic House & Garden": 3,
         "Montalvo Arts Center": 2,
         "Gamble Garden": 2,
         "Symphony San Jose": 13,
@@ -1263,10 +1268,10 @@
         "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 2,
         "Santana Row": 4,
-        "Los Altos Village Association": 1,
+        "Los Altos Village Association": 2,
         "South Bay Clean Creeks Coalition": 1,
         "Water Lantern Festival": 1,
-        "Computer History Museum": 2,
+        "San Jose Holiday Lights": 1,
         "De Anza College Planetarium": 12,
         "History San José": 1
       }
@@ -1274,7 +1279,7 @@
     "not-routine-support-service": {
       "before": {
         "Palo Alto City Library": 188,
-        "San José Public Library": 327,
+        "San José Public Library": 342,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 4,
         "City of Palo Alto": 4,
@@ -1290,7 +1295,7 @@
         "CMT San Jose": 9,
         "Peninsula Youth Theatre": 22,
         "San Jose Barracuda": 26,
-        "Filoli Historic House & Garden": 2,
+        "Filoli Historic House & Garden": 3,
         "Montalvo Arts Center": 2,
         "Gamble Garden": 2,
         "Symphony San Jose": 13,
@@ -1298,16 +1303,16 @@
         "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 2,
         "Santana Row": 4,
-        "Los Altos Village Association": 1,
+        "Los Altos Village Association": 2,
         "South Bay Clean Creeks Coalition": 1,
         "Water Lantern Festival": 1,
-        "Computer History Museum": 2,
+        "San Jose Holiday Lights": 1,
         "De Anza College Planetarium": 12,
         "History San José": 1
       },
       "after": {
         "Palo Alto City Library": 188,
-        "San José Public Library": 276,
+        "San José Public Library": 288,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 4,
         "City of Palo Alto": 4,
@@ -1323,7 +1328,7 @@
         "CMT San Jose": 9,
         "Peninsula Youth Theatre": 22,
         "San Jose Barracuda": 26,
-        "Filoli Historic House & Garden": 2,
+        "Filoli Historic House & Garden": 3,
         "Montalvo Arts Center": 2,
         "Gamble Garden": 2,
         "Symphony San Jose": 13,
@@ -1331,10 +1336,10 @@
         "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 2,
         "Santana Row": 4,
-        "Los Altos Village Association": 1,
+        "Los Altos Village Association": 2,
         "South Bay Clean Creeks Coalition": 1,
         "Water Lantern Festival": 1,
-        "Computer History Museum": 2,
+        "San Jose Holiday Lights": 1,
         "De Anza College Planetarium": 12,
         "History San José": 1
       }
@@ -1342,7 +1347,7 @@
     "available": {
       "before": {
         "Palo Alto City Library": 188,
-        "San José Public Library": 276,
+        "San José Public Library": 288,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 4,
         "City of Palo Alto": 4,
@@ -1358,7 +1363,7 @@
         "CMT San Jose": 9,
         "Peninsula Youth Theatre": 22,
         "San Jose Barracuda": 26,
-        "Filoli Historic House & Garden": 2,
+        "Filoli Historic House & Garden": 3,
         "Montalvo Arts Center": 2,
         "Gamble Garden": 2,
         "Symphony San Jose": 13,
@@ -1366,16 +1371,16 @@
         "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 2,
         "Santana Row": 4,
-        "Los Altos Village Association": 1,
+        "Los Altos Village Association": 2,
         "South Bay Clean Creeks Coalition": 1,
         "Water Lantern Festival": 1,
-        "Computer History Museum": 2,
+        "San Jose Holiday Lights": 1,
         "De Anza College Planetarium": 12,
         "History San José": 1
       },
       "after": {
         "Palo Alto City Library": 188,
-        "San José Public Library": 276,
+        "San José Public Library": 288,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 4,
         "City of Palo Alto": 4,
@@ -1391,7 +1396,7 @@
         "CMT San Jose": 9,
         "Peninsula Youth Theatre": 22,
         "San Jose Barracuda": 26,
-        "Filoli Historic House & Garden": 2,
+        "Filoli Historic House & Garden": 3,
         "Montalvo Arts Center": 2,
         "Gamble Garden": 2,
         "Symphony San Jose": 13,
@@ -1399,10 +1404,10 @@
         "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 2,
         "Santana Row": 4,
-        "Los Altos Village Association": 1,
+        "Los Altos Village Association": 2,
         "South Bay Clean Creeks Coalition": 1,
         "Water Lantern Festival": 1,
-        "Computer History Museum": 2,
+        "San Jose Holiday Lights": 1,
         "De Anza College Planetarium": 12,
         "History San José": 1
       }
@@ -1410,7 +1415,7 @@
     "family-relevant": {
       "before": {
         "Palo Alto City Library": 188,
-        "San José Public Library": 276,
+        "San José Public Library": 288,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 4,
         "City of Palo Alto": 4,
@@ -1426,7 +1431,7 @@
         "CMT San Jose": 9,
         "Peninsula Youth Theatre": 22,
         "San Jose Barracuda": 26,
-        "Filoli Historic House & Garden": 2,
+        "Filoli Historic House & Garden": 3,
         "Montalvo Arts Center": 2,
         "Gamble Garden": 2,
         "Symphony San Jose": 13,
@@ -1434,16 +1439,16 @@
         "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 2,
         "Santana Row": 4,
-        "Los Altos Village Association": 1,
+        "Los Altos Village Association": 2,
         "South Bay Clean Creeks Coalition": 1,
         "Water Lantern Festival": 1,
-        "Computer History Museum": 2,
+        "San Jose Holiday Lights": 1,
         "De Anza College Planetarium": 12,
         "History San José": 1
       },
       "after": {
         "Palo Alto City Library": 188,
-        "San José Public Library": 276,
+        "San José Public Library": 288,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 4,
         "City of Palo Alto": 4,
@@ -1459,7 +1464,7 @@
         "CMT San Jose": 9,
         "Peninsula Youth Theatre": 22,
         "San Jose Barracuda": 26,
-        "Filoli Historic House & Garden": 2,
+        "Filoli Historic House & Garden": 3,
         "Montalvo Arts Center": 2,
         "Gamble Garden": 2,
         "Symphony San Jose": 13,
@@ -1467,10 +1472,10 @@
         "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 2,
         "Santana Row": 4,
-        "Los Altos Village Association": 1,
+        "Los Altos Village Association": 2,
         "South Bay Clean Creeks Coalition": 1,
         "Water Lantern Festival": 1,
-        "Computer History Museum": 2,
+        "San Jose Holiday Lights": 1,
         "De Anza College Planetarium": 12,
         "History San José": 1
       }
@@ -1478,7 +1483,7 @@
     "quality-reviewed": {
       "before": {
         "Palo Alto City Library": 188,
-        "San José Public Library": 276,
+        "San José Public Library": 288,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 4,
         "City of Palo Alto": 4,
@@ -1494,7 +1499,7 @@
         "CMT San Jose": 9,
         "Peninsula Youth Theatre": 22,
         "San Jose Barracuda": 26,
-        "Filoli Historic House & Garden": 2,
+        "Filoli Historic House & Garden": 3,
         "Montalvo Arts Center": 2,
         "Gamble Garden": 2,
         "Symphony San Jose": 13,
@@ -1502,16 +1507,16 @@
         "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 2,
         "Santana Row": 4,
-        "Los Altos Village Association": 1,
+        "Los Altos Village Association": 2,
         "South Bay Clean Creeks Coalition": 1,
         "Water Lantern Festival": 1,
-        "Computer History Museum": 2,
+        "San Jose Holiday Lights": 1,
         "De Anza College Planetarium": 12,
         "History San José": 1
       },
       "after": {
         "Palo Alto City Library": 171,
-        "San José Public Library": 260,
+        "San José Public Library": 271,
         "Midpeninsula Regional Open Space District": 8,
         "The Tech Interactive": 3,
         "City of Palo Alto": 4,
@@ -1535,37 +1540,37 @@
         "Chinese Historical & Cultural Project": 1,
         "Google Visitor Experience": 2,
         "Santana Row": 3,
-        "Los Altos Village Association": 1,
+        "Los Altos Village Association": 2,
         "South Bay Clean Creeks Coalition": 1,
         "Water Lantern Festival": 1,
-        "Computer History Museum": 2,
         "De Anza College Planetarium": 12,
         "History San José": 1
       }
     }
   },
   "paloAltoChildrensTheatreEnrichment": {
-    "checkedAt": "2026-11-10T00:15:04.796Z",
+    "checkedAt": "2026-11-10T00:22:51.382Z",
     "enriched": 4
   },
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-11-10T00:15:04.796Z",
-    "enriched": 470,
+    "checkedAt": "2026-11-10T00:22:51.382Z",
+    "enriched": 436,
     "cached": 3,
-    "fetch-blocked": 27,
+    "fetch-failed": 2,
+    "fetch-blocked": 65,
     "identity-mismatch": 28,
     "fieldUpdates": {
-      "place": 270,
-      "description": 372,
-      "endDateValue": 360,
-      "address": 18,
-      "dateValue": 3,
+      "place": 240,
+      "description": 337,
+      "endDateValue": 326,
+      "address": 15,
+      "dateValue": 2,
       "image": 3,
-      "costStatus": 2,
-      "costLabel": 2,
-      "costSource": 2,
-      "costEvidence": 2,
+      "costStatus": 1,
+      "costLabel": 1,
+      "costSource": 1,
+      "costEvidence": 1,
       "registrationStatus": 1,
       "registrationSource": 1,
       "registrationEvidence": 1
@@ -1573,14 +1578,14 @@
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-11-10T00:15:04.796Z",
-    "official": 447,
-    "unclassified": 78,
+    "checkedAt": "2026-11-10T00:22:51.382Z",
+    "official": 413,
+    "unclassified": 118,
     "generated-editorial": 1
   },
   "editorialCoverGeneration": {
     "frameworkVersion": "editorial-cover-v1",
-    "checkedAt": "2026-11-10T00:15:04.796Z",
+    "checkedAt": "2026-11-10T00:22:51.382Z",
     "generated": 1,
     "byReason": {
       "refresh-generated-editorial": 1
@@ -1591,7 +1596,7 @@
   },
   "publishedSourceCounts": {
     "Santa Clara County Library District": 151,
-    "San José Public Library": 191,
+    "San José Public Library": 197,
     "San Jose Sharks": 34,
     "Official cinema listings": 1,
     "Palo Alto City Library": 50,
@@ -1624,7 +1629,7 @@
   },
   "officialImageMirror": {
     "frameworkVersion": "official-image-mirror-v1",
-    "checkedAt": "2026-11-10T00:16:43.176Z",
+    "checkedAt": "2026-11-10T00:24:28.430Z",
     "configuredSources": 1,
     "mirroredEvents": 4,
     "mirroredAssets": 4,
