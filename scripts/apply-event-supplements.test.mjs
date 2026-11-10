@@ -170,7 +170,7 @@ assert.equal(curatedOverride.events[0].imageProvenance.source, 'curated-manual')
   assert.equal(new Set(discoveries.map(e => e.url)).size, 8);
   for (const id of ['editorial-sbdc-coppelia-20261114', 'editorial-sj-water-lantern-20261114']) {
     const item = discoveries.find(event => event.id === id);
-    assert.equal(item.sessions.length, 2, 'Keep each day's own performance for ' + id);
+    assert.equal(item.sessions.length, 2, 'Keep both sessions for ' + id);
     assert.equal(new Set(item.sessions.map(session => session.dateValue.slice(0, 10))).size, 2);
   }
   const withOnePrior = [
