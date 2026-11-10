@@ -1,3 +1,5 @@
+import { readFile } from 'node:fs/promises';
+import { applyChineseTranslationCatalog, translationFingerprint } from './event-translations.mjs';
 import assert from 'node:assert/strict';
 import { applyCuratedImageOverrides, mergeEventSupplements } from './apply-event-supplements.mjs';
 
@@ -137,4 +139,51 @@ assert.equal(curatedOverride.events[0].imageProvenance.source, 'curated-manual')
   assert.match(enriched[0].description, /Organizer-verified/);
 }
 
-console.log('Event supplement lifecycle and duplicate-guard tests passed.');
+
+// Regression: all reviewed November 13–15 seasonal discoveries remain bilingual,
+// deduplicated and retain separate sessions for the two-day performances.
+{
+  const dataRoot = new URL('../data/', import.meta.url);
+  const supplements = JSON.parse(await readFile(new URL('event-supplements.json', dataRoot), 'utf8'));
+  const catalog = JSON.parse(await readFile(new URL('translations.zh.weekend-20261114.json', dataRoot), 'utf8'));
+  const expectedIds = [
+    'editorial-sj-holiday-lights-2026',
+    'editorial-los-altos-holiday-stroll-20261113',
+    'editorial-filoli-holiday-lights-2026',
+    'editorial-raptor-fest-20261114',
+    'editorial-sj-salmon-festival-20261114',
+    'editorial-jrmf-raft-20261114',
+    'editorial-sbdc-coppelia-20261114',
+    'editorial-sj-water-lantern-20261114'
+  ];
+  const discoveries = expectedIds.map(id => {
+    const event = supplements.find(item => item.id === id);
+    assert.ok(event, 'Missing verified event supplement: ' + id);
+    assert.ok(event.url.startsWith('https://'), 'Missing official detail URL: ' + id);
+    assert.ok(event.dateValue.startsWith('2026-11-'), 'Unverified date: ' + id);
+    const zh = catalog.entries.find(entry => entry.id === id);
+    assert.ok(zh, 'Missing reviewed Chinese translation: ' + id);
+    assert.equal(zh.sourceFingerprint, translationFingerprint(event), 'Translation does not match source: ' + id);
+    return event;
+  });
+  assert.equal(new Set(discoveries.map(e => e.id)).size, 8);
+  assert.equal(new Set(discoveries.map(e => e.url)).size, 8);
+  for (const id of ['editorial-sbdc-coppelia-20261114', 'editorial-sj-water-lantern-20261114']) {
+    const item = discoveries.find(event => event.id === id);
+    assert.equal(item.sessions.length, 2, 'Keep each day's own performance for ' + id);
+    assert.equal(new Set(item.sessions.map(session => session.dateValue.slice(0, 10))).size, 2);
+  }
+  const withOnePrior = [
+    { id: 'already-ingested-stroll', title: 'Holiday Stroll',
+      dateValue: '2026-11-13', url: 'https://downtownlosaltos.org/event/holiday-stroll/',
+      source: 'Los Altos Village Association' }
+  ];
+  const merged = mergeEventSupplements(withOnePrior, discoveries, { now: '2026-11-09T14:00:00' });
+  assert.equal(merged.length, 8, 'Official annual source and manual verified event must not double-publish');
+  assert.ok(merged.some(e => e.id === 'already-ingested-stroll'));
+  const variantsById = new Map(catalog.entries.map(entry => [entry.id, [entry]]));
+  const localized = applyChineseTranslationCatalog(merged, { ...catalog, variantsById }, { strict: true });
+  assert.equal(localized.stats.current, 8, 'All eight event descriptions must be approved and current');
+}
+
+console.log('Event supplement lifecycle, duplicate-guard and Nov 13–15 bilingual coverage tests passed.');
