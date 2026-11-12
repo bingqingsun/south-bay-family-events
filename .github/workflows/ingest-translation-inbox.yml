@@ -44,6 +44,7 @@ jobs:
           publish_branch="chore/fill-zh-translations-inbox-${GITHUB_RUN_ID}"
           git checkout -B "$publish_branch" origin/main
           node scripts/merge-translation-inbox.mjs "$RUNNER_TEMP/translation-inbox.json" data/translations.zh.automation.json
+          node scripts/preflight-translation-inbox.mjs "$RUNNER_TEMP/translation-inbox.json"
 
           if git diff --quiet -- data/translations.zh.automation.json; then
             echo "No translation catalog changes to publish."

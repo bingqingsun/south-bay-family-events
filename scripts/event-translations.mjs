@@ -6,8 +6,31 @@ export function translationFingerprint(event) {
     .digest('hex');
 }
 
+// Numeric facts must match, including Chinese grade labels such as "八年级".
+// Only normalize the explicitly bounded grade context; do not guess dates or prices.
+function normalizeChineseGrades(text) {
+  const originalText = String(text || '');
+  const digits = '一二三四五六七八九';
+  // A spelled-out grade can repeat an Arabic grade in the same translation.
+  // Do not count that explanatory repetition as another numeric fact.
+  const arabicFacts = new Set(
+    [...originalText.matchAll(/(?:[$€£¥]\s*)?\d+(?:[.,]\d+)?%?/g)]
+      .map(match => match[0].replace(/\s+/g, '').replace(/,/g, ''))
+  );
+  return originalText.replace(/([一二三四五六七八九十]{1,3})(?=\s*年级)/g, (original, chinese) => {
+    const single = digits.indexOf(chinese);
+    let number = null;
+    if (single !== -1) number = String(single + 1);
+    else if (chinese === '十') number = '10';
+    else if (chinese.length === 2 && chinese[0] === '十' && digits.includes(chinese[1])) {
+      number = String(10 + digits.indexOf(chinese[1]) + 1);
+    }
+    return number && !arabicFacts.has(number) ? number : original;
+  });
+}
+
 function normalizedNumbers(text) {
-  return [...String(text || '').matchAll(/(?:[$€£¥]\s*)?\d+(?:[.,]\d+)?%?/g)]
+  return [...normalizeChineseGrades(text).matchAll(/(?:[$€£¥]\s*)?\d+(?:[.,]\d+)?%?/g)]
     .map(match => match[0].replace(/\s+/g, '').replace(/,/g, ''))
     .sort();
 }
@@ -20,7 +43,7 @@ function unsupportedClaimIssues(source, translated) {
   const claims = [
     {
       target: /免费/,
-      source: /\bfree\b|\bno\s+(?:cost|charge|fee)\b|complimentary/,
+      source: /\bfree(?:nbsp;?|\b)|\bno\s+(?:cost|charge|fee)\b|complimentary/,
       label: 'free'
     },
     {
@@ -30,7 +53,7 @@ function unsupportedClaimIssues(source, translated) {
     },
     {
       target: /(?:无需|不需要|不用)报名/,
-      source: /\bno registration (?:is )?(?:required|needed)\b|\bregistration (?:is )?not (?:required|needed)\b/,
+      source: /\bno\s+(?:pre[-\s]?)?registration\s+(?:is\s+)?(?:required|needed)\b|\b(?:pre[-\s]?)?registration\s+(?:is\s+)?not\s+(?:required|needed)\b/,
       label: 'no-registration'
     }
   ];
