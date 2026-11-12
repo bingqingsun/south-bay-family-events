@@ -55,6 +55,9 @@ jobs:
             git push --force-with-lease origin "HEAD:${SOURCE_BRANCH}"
           fi
 
+      - name: Preflight reviewed translations against latest main
+        run: node scripts/preflight-translation-inbox.mjs --catalog-only
+
       - name: Rebuild translation overlay
         run: node scripts/build-translation-overlay.mjs
 
