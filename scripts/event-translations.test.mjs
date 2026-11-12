@@ -119,3 +119,15 @@ assert.equal(auditChineseTranslation(
   { title: 'Storytime', description: 'Pre-registration is not required.' },
   { title: '故事时间', description: '无需提前报名。' }
 ).ok, true);
+
+// Repeated Chinese grade names must not be double-counted when Arabic grades
+// already state the same factual number (e.g., "4–6 年级（六年级）").
+assert.equal(auditChineseTranslation(
+  { title: 'Books & Bricks for Grades 4-6', description: 'Discuss books.' },
+  { title: '4–6 年级读书会（六年级）', description: '讨论书籍。' }
+).ok, true);
+
+assert.equal(auditChineseTranslation(
+  { title: 'Books & Bricks for Grades 4-6', description: 'Discuss books.' },
+  { title: '4–6 年级读书会（八年级）', description: '讨论书籍。' }
+).ok, false);
