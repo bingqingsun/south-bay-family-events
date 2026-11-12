@@ -140,6 +140,10 @@ jobs:
           node --check scripts/halloween-collection.test.mjs
           node --check scripts/generate-sitemap.mjs
           node --check scripts/seo-foundation.test.mjs
+      - name: Test translation inbox preflight without network
+        run: |
+          node scripts/event-translations.test.mjs
+          node scripts/preflight-translation-inbox.test.mjs
       - name: Smoke-test live official source refresh
         run: node scripts/update-events.mjs
         env:
