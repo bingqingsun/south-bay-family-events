@@ -9,15 +9,23 @@ export function translationFingerprint(event) {
 // Numeric facts must match, including Chinese grade labels such as "八年级".
 // Only normalize the explicitly bounded grade context; do not guess dates or prices.
 function normalizeChineseGrades(text) {
+  const originalText = String(text || '');
   const digits = '一二三四五六七八九';
-  return String(text || '').replace(/([一二三四五六七八九十]{1,3})(?=\s*年级)/g, (original, chinese) => {
+  // A spelled-out grade can repeat an Arabic grade in the same translation.
+  // Do not count that explanatory repetition as another numeric fact.
+  const arabicFacts = new Set(
+    [...originalText.matchAll(/(?:[$€£¥]\s*)?\d+(?:[.,]\d+)?%?/g)]
+      .map(match => match[0].replace(/\s+/g, '').replace(/,/g, ''))
+  );
+  return originalText.replace(/([一二三四五六七八九十]{1,3})(?=\s*年级)/g, (original, chinese) => {
     const single = digits.indexOf(chinese);
-    if (single !== -1) return String(single + 1);
-    if (chinese === '十') return '10';
-    if (chinese.length === 2 && chinese[0] === '十' && digits.includes(chinese[1])) {
-      return String(10 + digits.indexOf(chinese[1]) + 1);
+    let number = null;
+    if (single !== -1) number = String(single + 1);
+    else if (chinese === '十') number = '10';
+    else if (chinese.length === 2 && chinese[0] === '十' && digits.includes(chinese[1])) {
+      number = String(10 + digits.indexOf(chinese[1]) + 1);
     }
-    return original;
+    return number && !arabicFacts.has(number) ? number : original;
   });
 }
 
