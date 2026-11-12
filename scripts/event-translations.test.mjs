@@ -97,3 +97,25 @@ assert.equal(auditChineseTranslation(
   { title: 'Poetry', description: 'No registration needed. Read poems together.' },
   { title: '诗歌朗读', description: '无需报名，大家一起朗读诗歌。' }
 ).ok, true);
+
+// Translating an ordinal grade into Chinese numerals must not drop numeric facts.
+assert.equal(auditChineseTranslation(
+  { title: 'Chess Club for 8th grade', description: 'Students learn chess.' },
+  { title: '八年级国际象棋俱乐部', description: '学生学习国际象棋。' }
+).ok, true);
+
+assert.equal(auditChineseTranslation(
+  { title: 'Chess Club for 8th grade', description: 'Students learn chess.' },
+  { title: '九年级国际象棋俱乐部', description: '学生学习国际象棋。' }
+).ok, false);
+
+// Event descriptions sometimes contain a mangled HTML &nbsp; entity.
+assert.equal(auditChineseTranslation(
+  { title: 'Crafts', description: 'Join a freenbsp;workshop.' },
+  { title: '手工', description: '参加免费工作坊。' }
+).ok, true);
+
+assert.equal(auditChineseTranslation(
+  { title: 'Storytime', description: 'Pre-registration is not required.' },
+  { title: '故事时间', description: '无需提前报名。' }
+).ok, true);
