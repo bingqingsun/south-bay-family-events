@@ -6,8 +6,23 @@ export function translationFingerprint(event) {
     .digest('hex');
 }
 
+// Numeric facts must match, including Chinese grade labels such as "八年级".
+// Only normalize the explicitly bounded grade context; do not guess dates or prices.
+function normalizeChineseGrades(text) {
+  const digits = '一二三四五六七八九';
+  return String(text || '').replace(/([一二三四五六七八九十]{1,3})(?=\s*年级)/g, (original, chinese) => {
+    const single = digits.indexOf(chinese);
+    if (single !== -1) return String(single + 1);
+    if (chinese === '十') return '10';
+    if (chinese.length === 2 && chinese[0] === '十' && digits.includes(chinese[1])) {
+      return String(10 + digits.indexOf(chinese[1]) + 1);
+    }
+    return original;
+  });
+}
+
 function normalizedNumbers(text) {
-  return [...String(text || '').matchAll(/(?:[$€£¥]\s*)?\d+(?:[.,]\d+)?%?/g)]
+  return [...normalizeChineseGrades(text).matchAll(/(?:[$€£¥]\s*)?\d+(?:[.,]\d+)?%?/g)]
     .map(match => match[0].replace(/\s+/g, '').replace(/,/g, ''))
     .sort();
 }
@@ -20,7 +35,7 @@ function unsupportedClaimIssues(source, translated) {
   const claims = [
     {
       target: /免费/,
-      source: /\bfree\b|\bno\s+(?:cost|charge|fee)\b|complimentary/,
+      source: /\bfree(?:nbsp;?|\b)|\bno\s+(?:cost|charge|fee)\b|complimentary/,
       label: 'free'
     },
     {
@@ -30,7 +45,7 @@ function unsupportedClaimIssues(source, translated) {
     },
     {
       target: /(?:无需|不需要|不用)报名/,
-      source: /\bno registration (?:is )?(?:required|needed)\b|\bregistration (?:is )?not (?:required|needed)\b/,
+      source: /\bno\s+(?:pre[-\s]?)?registration\s+(?:is\s+)?(?:required|needed)\b|\b(?:pre[-\s]?)?registration\s+(?:is\s+)?not\s+(?:required|needed)\b/,
       label: 'no-registration'
     }
   ];
