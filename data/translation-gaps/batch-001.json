@@ -1,7 +1,7 @@
 {
   "version": 1,
   "locale": "zh-Hans",
-  "generatedAt": "2026-11-17T20:18:04.420Z",
+  "generatedAt": "2026-11-17T20:21:33.409Z",
   "generatedForDate": "2026-11-17",
   "batch": 1,
   "totalBatches": 3,
@@ -516,13 +516,13 @@
     {
       "id": "rss-6adfcfca9dbc2b002c913449",
       "dateValue": "2026-11-24T16:30",
-      "endDateValue": "2026-11-24T17:30:00",
+      "endDateValue": "2026-11-24T17:30",
       "title": "Tiny Talkers: Public Speaking, Speech & Debate Workshop",
-      "description": "This workshop will be facilitated by High School volunteers with Speech & Debate experience.",
+      "description": "\\nThis workshop will be facilitated by High School volunteers with Speech nbsp;Debate experience.\\nRecommended for ages 6 to 12.\\nFree.",
       "source": "San José Public Library",
       "sourceUrl": "https://sjpl.bibliocommons.com/events/6adfcfca9dbc2b002c913449",
       "status": "missing",
-      "sourceFingerprint": "412687d4e26e61531d0b6d6c93ef4bb6bc4fb017f6e99661579c79782409b5b8",
+      "sourceFingerprint": "d85c7da608b4f39034aa2399afbacfdb30fa0b018af662b107097d15806a9776",
       "priorTitleZh": "",
       "priorDescriptionZh": ""
     }
