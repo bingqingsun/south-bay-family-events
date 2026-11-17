@@ -500,7 +500,9 @@
         "date": "2026-11-15",
         "url": "https://my.montalvoarts.org/3280/3282"
       }
-    ]
+    ],
+    "excludedTitlePattern": "(?:wild.foraged.)?wreath.making workshop",
+    "exclusionEvidence": "Official wreath workshop lists adult sessions and wine; youth holiday gift-making workshops are separate programs."
   },
   {
     "name": "City of Los Altos Parks & Recreation",
@@ -1811,7 +1813,7 @@
         "title": "Christmas in the Park",
         "dateValue": "2026-11-27T12:00",
         "endDateValue": "2027-01-03T22:00",
-        "description": "Walk among decorated Christmas trees and animated holiday displays, enjoy live entertainment and free Santa photos in downtown San Jose. Admission is free.",
+        "description": "Explore a forest of decorated Christmas trees and animated holiday displays, watch live entertainment, and meet Santa for a family photo.",
         "url": "https://christmasinthepark.com/",
         "place": "Plaza de Cesar Chavez",
         "address": "Market St between San Fernando St and San Carlos St, San Jose, CA",

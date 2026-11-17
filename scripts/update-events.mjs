@@ -4528,6 +4528,10 @@ function museumAsEvent(museum, source) {
 }
 
 let events = groupRepeatedSessions([...scheduledEvents, ...museums.map(museum => museumAsEvent(museum, museumSource)).map(qualityGateSummary).filter(Boolean)])
+  .filter(event => {
+    const source = sources.find(source => source.name === event.source);
+    return !source?.excludedTitlePattern || !new RegExp(source.excludedTitlePattern, 'i').test(event.title);
+  })
   .map(event => ({ ...event, image: optimizedOfficialImageUrl(event.image, event.source) }));
 
 // Once a stable official canonical destination exists, reopen that exact page
@@ -4586,6 +4590,10 @@ events = canonicalDetail.events
     delete restored.fieldProvenance.description;
     delete restored.fieldProvenance.sourceDescriptionRaw;
     return restored;
+  })
+  .filter(event => {
+    const source = sources.find(source => source.name === event.source);
+    return !source?.excludedTitlePattern || !new RegExp(source.excludedTitlePattern, 'i').test(event.title);
   })
   .map(event => ({ ...event, image: optimizedOfficialImageUrl(event.image, event.source) }));
 
