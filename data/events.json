@@ -40952,6 +40952,99 @@
     "translationStatus": "current"
   },
   {
+    "id": "editorial-train-of-lights-202611",
+    "title": "Train of Lights",
+    "dateValue": "2026-11-20T16:30",
+    "endDateValue": "",
+    "time": "",
+    "description": "A holiday train ride through Niles Canyon aboard decorated historic railcars. Fremont departures leave Niles Station and evening departures leave Sunol Depot. The 2026 season is sold out.",
+    "parentSummary": "A holiday train ride through Niles Canyon aboard decorated historic railcars. Fremont departures leave Niles Station and evening departures leave Sunol Depot. The 2026 season is sold out.",
+    "sourceDescriptionRaw": "A holiday train ride through Niles Canyon aboard decorated historic railcars. Fremont departures leave Niles Station and evening departures leave Sunol Depot. The 2026 season is sold out.",
+    "sourceDescriptionHash": "689c4149ef7e3c50ff1cbd84c7ae1c656b08709dacb01de6cafb2dc117403926",
+    "summaryStatus": "manual_verified",
+    "summaryVersion": "event-summary-v2-p9",
+    "summaryVerifiedAt": "2026-11-17T06:15:01.427Z",
+    "summaryMethod": "manual_verified",
+    "summaryQuality": "manual_verified",
+    "summaryEvidence": "A holiday train ride through Niles Canyon aboard decorated historic railcars. Fremont departures leave Niles Station and evening departures leave Sunol Depot. The 2026 season is sold out.",
+    "image": "",
+    "place": "Niles Station",
+    "address": "37029 Mission Blvd, Fremont, CA 94536",
+    "city": "Fremont",
+    "source": "Niles Canyon Railway",
+    "url": "https://www.ncry.org/ride/train-of-lights/",
+    "ageMin": null,
+    "ageMax": null,
+    "ageLabel": "",
+    "ageSource": "",
+    "audienceStatus": "not-confirmed",
+    "costStatus": "paid",
+    "costLabel": "需付费／价格见详情",
+    "costSource": "Official organizer or ticketing source",
+    "costEvidence": "",
+    "registrationStatus": "full",
+    "registrationSource": "Niles Canyon Railway",
+    "registrationEvidence": "",
+    "type": "community",
+    "icon": "🤝",
+    "color": "#dceeea",
+    "tag": "社区与家庭",
+    "format": "program",
+    "seasonalTheme": "",
+    "sessions": [
+      {
+        "id": "editorial-train-of-lights-202611-1",
+        "dateValue": "2026-11-20T16:30",
+        "endDateValue": "2026-11-20T18:00"
+      },
+      {
+        "id": "editorial-train-of-lights-202611-2",
+        "dateValue": "2026-11-20T19:30",
+        "endDateValue": "2026-11-20T21:00",
+        "place": "Sunol Depot",
+        "address": "6 Kilkare Rd, Sunol, CA 94586"
+      },
+      {
+        "id": "editorial-train-of-lights-202611-3",
+        "dateValue": "2026-11-21T16:30",
+        "endDateValue": "2026-11-21T18:00"
+      },
+      {
+        "id": "editorial-train-of-lights-202611-4",
+        "dateValue": "2026-11-21T19:30",
+        "endDateValue": "2026-11-21T21:00",
+        "place": "Sunol Depot",
+        "address": "6 Kilkare Rd, Sunol, CA 94586"
+      },
+      {
+        "id": "editorial-train-of-lights-202611-5",
+        "dateValue": "2026-11-22T16:30",
+        "endDateValue": "2026-11-22T18:00"
+      },
+      {
+        "id": "editorial-train-of-lights-202611-6",
+        "dateValue": "2026-11-22T19:30",
+        "endDateValue": "2026-11-22T21:00",
+        "place": "Sunol Depot",
+        "address": "6 Kilkare Rd, Sunol, CA 94586"
+      }
+    ],
+    "verification": "manual-verified",
+    "refreshStatus": "verified-supplement",
+    "linkSource": "manual_verified",
+    "translations": {
+      "zh": {
+        "title": "Niles Canyon 节日灯饰火车",
+        "description": "搭乘挂满节日灯饰的老式列车穿越 Niles Canyon。较早一班从 Fremont 的 Niles Station 出发，晚间班次从 Sunol Depot 出发。2026 年全季车票已售罄。",
+        "fingerprint": "c6136c5e1b002bf25fd8f2f65880ade25040b2ab328b195f0906c03182ef7585",
+        "translatedAt": "2026-11-17T06:15:01.427Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    },
+    "translationStatus": "current"
+  },
+  {
     "id": "rss-6aa970bd101eb7003f303fcf",
     "title": "Leyendo en español para niños - Reading to Children in Spanish",
     "date": "11月20日 17:00",
@@ -41442,6 +41535,74 @@
         "fingerprint": "3b071726fecc6a07900ba152508d127d6164af19eb4f6891006663d8c0286a36",
         "translatedAt": "2026-10-27T00:00:00Z",
         "translationSource": "editorial-assistant-reviewed",
+        "status": "approved"
+      }
+    },
+    "translationStatus": "current"
+  },
+  {
+    "id": "editorial-ainsley-house-photos-with-santa-202611",
+    "title": "Photos with Santa at the Ainsley House",
+    "dateValue": "2026-11-21T09:00",
+    "endDateValue": "",
+    "time": "",
+    "description": "Meet Santa and take a family photo in the historic Ainsley House Sunporch Room. The organizer has closed registration for both sessions.",
+    "parentSummary": "Meet Santa and take a family photo in the historic Ainsley House Sunporch Room. The organizer has closed registration for both sessions.",
+    "sourceDescriptionRaw": "Meet Santa and take a family photo in the historic Ainsley House Sunporch Room. The organizer has closed registration for both sessions.",
+    "sourceDescriptionHash": "033507abfa0fa35efd7229cb7d3587c8d6b107b68ccd9c6d998477f4c493b589",
+    "summaryStatus": "manual_verified",
+    "summaryVersion": "event-summary-v2-p9",
+    "summaryVerifiedAt": "2026-11-17T06:15:01.427Z",
+    "summaryMethod": "manual_verified",
+    "summaryQuality": "manual_verified",
+    "summaryEvidence": "Meet Santa and take a family photo in the historic Ainsley House Sunporch Room. The organizer has closed registration for both sessions.",
+    "image": "",
+    "place": "Ainsley House",
+    "address": "300 Grant St, Campbell, CA 95008",
+    "city": "Campbell",
+    "source": "Campbell Museums",
+    "url": "https://www.campbellmuseums.com/event-details/photos-with-santa-9am-10am-at-the-ainsley-house-2",
+    "ageMin": null,
+    "ageMax": null,
+    "ageLabel": "",
+    "ageSource": "",
+    "audienceStatus": "not-confirmed",
+    "costStatus": "paid",
+    "costLabel": "需付费／价格见详情",
+    "costSource": "Official organizer or ticketing source",
+    "costEvidence": "",
+    "registrationStatus": "unknown",
+    "registrationSource": "",
+    "registrationEvidence": "",
+    "type": "community",
+    "icon": "🤝",
+    "color": "#dceeea",
+    "tag": "社区与家庭",
+    "format": "program",
+    "seasonalTheme": "",
+    "sessions": [
+      {
+        "id": "editorial-ainsley-house-photos-with-santa-202611-1",
+        "dateValue": "2026-11-21T09:00",
+        "endDateValue": "2026-11-21T10:00"
+      },
+      {
+        "id": "editorial-ainsley-house-photos-with-santa-202611-2",
+        "dateValue": "2026-11-21T11:00",
+        "endDateValue": "2026-11-21T12:00",
+        "url": "https://www.campbellmuseums.com/event-details/photos-with-santa-11am-12pm-at-the-ainsley-house-1"
+      }
+    ],
+    "verification": "manual-verified",
+    "refreshStatus": "verified-supplement",
+    "linkSource": "manual_verified",
+    "translations": {
+      "zh": {
+        "title": "Ainsley House 圣诞老人合影",
+        "description": "在 Ainsley House 的阳光房见圣诞老人并拍张全家福。主办方已关闭两场活动的报名。",
+        "fingerprint": "491b54553c90e0dcc155ce76e95da05345e4155ea16db9e4635079eb6f7e7172",
+        "translatedAt": "2026-11-17T06:15:01.427Z",
+        "translationSource": "editorial-reviewed",
         "status": "approved"
       }
     },
@@ -42299,6 +42460,209 @@
         "status": "approved"
       }
     }
+  },
+  {
+    "id": "editorial-happy-hollow-hop-skip-jump-202611",
+    "title": "Family Fun: Hop, Skip & A Jump",
+    "dateValue": "2026-11-21T10:00",
+    "endDateValue": "",
+    "time": "",
+    "description": "Explore how animals hop and bounce and why jumping helps them move. Children must attend with an adult.",
+    "parentSummary": "Explore how animals hop and bounce and why jumping helps them move. Children must attend with an adult.",
+    "sourceDescriptionRaw": "Explore how animals hop and bounce and why jumping helps them move. Children must attend with an adult.",
+    "sourceDescriptionHash": "cf276ccb41a8759c3f60d355b0ed2c9a6685248cb60ccb8f7a2df38c454c0606",
+    "summaryStatus": "manual_verified",
+    "summaryVersion": "event-summary-v2-p9",
+    "summaryVerifiedAt": "2026-11-17T06:15:01.427Z",
+    "summaryMethod": "manual_verified",
+    "summaryQuality": "manual_verified",
+    "summaryEvidence": "Explore how animals hop and bounce and why jumping helps them move. Children must attend with an adult.",
+    "image": "",
+    "place": "Happy Hollow Park & Zoo",
+    "address": "748 Story Rd, San Jose, CA 95112",
+    "city": "San Jose",
+    "source": "Happy Hollow Park & Zoo",
+    "url": "https://happyhollow.org/learn/hh-experience-programs/",
+    "ageMin": null,
+    "ageMax": null,
+    "ageLabel": "",
+    "ageSource": "",
+    "audienceStatus": "not-confirmed",
+    "costStatus": "paid",
+    "costLabel": "需付费／价格见详情",
+    "costSource": "Official organizer or ticketing source",
+    "costEvidence": "",
+    "registrationStatus": "required",
+    "registrationSource": "Happy Hollow Park & Zoo",
+    "registrationEvidence": "",
+    "type": "learning",
+    "icon": "🔭",
+    "color": "#dce7fa",
+    "tag": "学习与 STEM",
+    "format": "program",
+    "seasonalTheme": "",
+    "sessions": [
+      {
+        "id": "editorial-happy-hollow-hop-skip-jump-202611-1",
+        "dateValue": "2026-11-21T10:00"
+      },
+      {
+        "id": "editorial-happy-hollow-hop-skip-jump-202611-2",
+        "dateValue": "2026-11-21T14:00"
+      }
+    ],
+    "verification": "manual-verified",
+    "refreshStatus": "verified-supplement",
+    "linkSource": "manual_verified",
+    "translations": {
+      "zh": {
+        "title": "Happy Hollow 亲子活动：动物跳跳跳",
+        "description": "和孩子一起认识会蹦跳的动物，探索它们为什么用跳跃来移动。儿童须由成人陪同。",
+        "fingerprint": "ee024e2aa3f44d800fada4651bd9b885e40635d975f0f14cbe0c7dc67ea05735",
+        "translatedAt": "2026-11-17T06:15:01.427Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    },
+    "translationStatus": "current"
+  },
+  {
+    "id": "editorial-little-red-riding-hood-202611",
+    "title": "Playhouse Series: Little Red Riding Hood",
+    "dateValue": "2026-11-21T10:00",
+    "endDateValue": "",
+    "time": "",
+    "description": "A storyteller-style performance of Little Red Riding Hood with simple sets and opportunities for young children to move around.",
+    "parentSummary": "A storyteller-style performance of Little Red Riding Hood with simple sets and opportunities for young children to move around.",
+    "sourceDescriptionRaw": "A storyteller-style performance of Little Red Riding Hood with simple sets and opportunities for young children to move around.",
+    "sourceDescriptionHash": "e8a939eff08a49a6a232b80e8afd0fd0132f343ddccaa955898d6cb620130214",
+    "summaryStatus": "manual_verified",
+    "summaryVersion": "event-summary-v2-p9",
+    "summaryVerifiedAt": "2026-11-17T06:15:01.427Z",
+    "summaryMethod": "manual_verified",
+    "summaryQuality": "manual_verified",
+    "summaryEvidence": "A storyteller-style performance of Little Red Riding Hood with simple sets and opportunities for young children to move around.",
+    "image": "",
+    "place": "Palo Alto Children's Theatre",
+    "address": "1305 Middlefield Rd, Palo Alto, CA 94301",
+    "city": "Palo Alto",
+    "source": "Palo Alto Children's Theatre",
+    "url": "https://www.paloalto.gov/Events-Directory/Community-Services/Playhouse-Series-Little-Red-Riding-Hood",
+    "ageMin": 2,
+    "ageMax": 6,
+    "ageLabel": "Ages 2–6",
+    "ageSource": "Palo Alto Children's Theatre",
+    "audienceStatus": "organizer-confirmed",
+    "costStatus": "paid",
+    "costLabel": "需付费／价格见详情",
+    "costSource": "Official organizer or ticketing source",
+    "costEvidence": "",
+    "registrationStatus": "unknown",
+    "registrationSource": "",
+    "registrationEvidence": "",
+    "type": "shows",
+    "icon": "🎭",
+    "color": "#f0def2",
+    "tag": "演出与表演",
+    "format": "live-show",
+    "seasonalTheme": "",
+    "sessions": [
+      {
+        "id": "editorial-little-red-riding-hood-202611-1",
+        "dateValue": "2026-11-21T10:00",
+        "endDateValue": "2026-11-21T11:00"
+      },
+      {
+        "id": "editorial-little-red-riding-hood-202611-2",
+        "dateValue": "2026-11-21T12:00",
+        "endDateValue": "2026-11-21T13:00"
+      },
+      {
+        "id": "editorial-little-red-riding-hood-202611-3",
+        "dateValue": "2026-11-22T10:00",
+        "endDateValue": "2026-11-22T11:00"
+      },
+      {
+        "id": "editorial-little-red-riding-hood-202611-4",
+        "dateValue": "2026-11-22T12:00",
+        "endDateValue": "2026-11-22T13:00"
+      },
+      {
+        "id": "editorial-little-red-riding-hood-202611-5",
+        "dateValue": "2026-11-22T14:00",
+        "endDateValue": "2026-11-22T15:00"
+      }
+    ],
+    "verification": "manual-verified",
+    "refreshStatus": "verified-supplement",
+    "linkSource": "manual_verified",
+    "translations": {
+      "zh": {
+        "title": "儿童剧《小红帽》",
+        "description": "以讲故事的方式演出《小红帽》，布景简单，小观众也有机会站起来动一动。",
+        "fingerprint": "f00f6a0bca6c90d71483546f234670218eb7c6f5940d96200cd4d87e4c9fa613",
+        "translatedAt": "2026-11-17T06:15:01.427Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    },
+    "translationStatus": "current"
+  },
+  {
+    "id": "editorial-triton-holiday-art-fair-202611",
+    "title": "Triton Holiday Art Fair",
+    "dateValue": "2026-11-21T10:00",
+    "endDateValue": "2026-11-21T16:00",
+    "time": "",
+    "description": "Browse holiday gifts and handmade work by local artists at the museum's indoor art fair. Admission and parking are free.",
+    "parentSummary": "Browse holiday gifts and handmade work by local artists at the museum's indoor art fair. Admission and parking are free.",
+    "sourceDescriptionRaw": "Browse holiday gifts and handmade work by local artists at the museum's indoor art fair. Admission and parking are free.",
+    "sourceDescriptionHash": "5568f74ce98e0faaf41519730db7386ed8db4ed5953286023f043e222eb1bfac",
+    "summaryStatus": "manual_verified",
+    "summaryVersion": "event-summary-v2-p9",
+    "summaryVerifiedAt": "2026-11-17T06:15:01.427Z",
+    "summaryMethod": "manual_verified",
+    "summaryQuality": "manual_verified",
+    "summaryEvidence": "Browse holiday gifts and handmade work by local artists at the museum's indoor art fair. Admission and parking are free.",
+    "image": "",
+    "place": "Triton Museum of Art",
+    "address": "1505 Warburton Ave, Santa Clara, CA 95050",
+    "city": "Santa Clara",
+    "source": "Triton Museum of Art",
+    "url": "https://www.tritonmuseum.org/holidayartfair",
+    "ageMin": null,
+    "ageMax": null,
+    "ageLabel": "",
+    "ageSource": "",
+    "audienceStatus": "not-confirmed",
+    "costStatus": "free",
+    "costLabel": "免费",
+    "costSource": "Official organizer or ticketing source",
+    "costEvidence": "",
+    "registrationStatus": "unknown",
+    "registrationSource": "",
+    "registrationEvidence": "",
+    "type": "community",
+    "icon": "🤝",
+    "color": "#dceeea",
+    "tag": "社区与家庭",
+    "format": "festival",
+    "seasonalTheme": "",
+    "sessions": [],
+    "verification": "manual-verified",
+    "refreshStatus": "verified-supplement",
+    "linkSource": "manual_verified",
+    "translations": {
+      "zh": {
+        "title": "Triton 节日艺术市集",
+        "description": "在博物馆室内逛节日市集，看看本地艺术家的手作和节日礼物。免费入场及停车。",
+        "fingerprint": "f35a430a41c6eabe19ae041ca54701bf8a4c6d0ed1893cd87a50569ff6d473fb",
+        "translatedAt": "2026-11-17T06:15:01.427Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    },
+    "translationStatus": "current"
   },
   {
     "id": "series-276cfefccce78432",
@@ -46797,6 +47161,79 @@
     "translationStatus": "current"
   },
   {
+    "id": "editorial-los-gatos-ballet-nutcracker-202611",
+    "title": "Los Gatos Ballet: The Nutcracker",
+    "dateValue": "2026-11-21T13:00",
+    "endDateValue": "",
+    "time": "",
+    "description": "Follow Clara and the Nutcracker Prince through the Snow Queen's realm to the Sugar Plum Fairy's palace in Los Gatos Ballet's family-friendly staging of Tchaikovsky's ballet.",
+    "parentSummary": "Follow Clara and the Nutcracker Prince through the Snow Queen's realm to the Sugar Plum Fairy's palace in Los Gatos Ballet's family-friendly staging of Tchaikovsky's ballet.",
+    "sourceDescriptionRaw": "Follow Clara and the Nutcracker Prince through the Snow Queen's realm to the Sugar Plum Fairy's palace in Los Gatos Ballet's family-friendly staging of Tchaikovsky's ballet.",
+    "sourceDescriptionHash": "f3c541bcbb81467f3eb70589980db824821b3321ea596151cd80d4016f289baf",
+    "summaryStatus": "manual_verified",
+    "summaryVersion": "event-summary-v2-p9",
+    "summaryVerifiedAt": "2026-11-17T06:15:01.427Z",
+    "summaryMethod": "manual_verified",
+    "summaryQuality": "manual_verified",
+    "summaryEvidence": "Follow Clara and the Nutcracker Prince through the Snow Queen's realm to the Sugar Plum Fairy's palace in Los Gatos Ballet's family-friendly staging of Tchaikovsky's ballet.",
+    "image": "",
+    "place": "McAfee Performing Arts Center",
+    "address": "20300 Herriman Ave, Saratoga, CA 95070",
+    "city": "Saratoga",
+    "source": "Los Gatos Ballet",
+    "url": "https://losgatosballet.org/nutcracker/",
+    "ageMin": null,
+    "ageMax": null,
+    "ageLabel": "",
+    "ageSource": "",
+    "audienceStatus": "not-confirmed",
+    "costStatus": "paid",
+    "costLabel": "需付费／价格见详情",
+    "costSource": "Official organizer or ticketing source",
+    "costEvidence": "",
+    "registrationStatus": "unknown",
+    "registrationSource": "",
+    "registrationEvidence": "",
+    "type": "shows",
+    "icon": "🎭",
+    "color": "#f0def2",
+    "tag": "演出与表演",
+    "format": "live-show",
+    "seasonalTheme": "",
+    "sessions": [
+      {
+        "id": "editorial-los-gatos-ballet-nutcracker-202611-1",
+        "dateValue": "2026-11-21T13:00"
+      },
+      {
+        "id": "editorial-los-gatos-ballet-nutcracker-202611-2",
+        "dateValue": "2026-11-21T18:00"
+      },
+      {
+        "id": "editorial-los-gatos-ballet-nutcracker-202611-3",
+        "dateValue": "2026-11-22T13:00"
+      },
+      {
+        "id": "editorial-los-gatos-ballet-nutcracker-202611-4",
+        "dateValue": "2026-11-22T18:00"
+      }
+    ],
+    "verification": "manual-verified",
+    "refreshStatus": "verified-supplement",
+    "linkSource": "manual_verified",
+    "translations": {
+      "zh": {
+        "title": "Los Gatos Ballet 芭蕾舞剧《胡桃夹子》",
+        "description": "跟随克拉拉和胡桃夹子王子穿越雪后王国，来到糖梅仙子的宫殿，欣赏 Los Gatos Ballet 带来的柴可夫斯基经典芭蕾。",
+        "fingerprint": "328bc8927faecd547684e3aebea64d328d97c40243a1b15b2eca7c06c868703f",
+        "translatedAt": "2026-11-17T06:15:01.427Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    },
+    "translationStatus": "current"
+  },
+  {
     "id": "series-f49752ef4651da8b",
     "title": "North Pole Nights",
     "date": "11月21日 13:00",
@@ -50590,6 +51027,62 @@
         "status": "approved"
       }
     }
+  },
+  {
+    "id": "editorial-palo-alto-friendsgiving-202611",
+    "title": "Friendsgiving in Palo Alto",
+    "dateValue": "2026-11-21T17:00",
+    "endDateValue": "2026-11-21T20:00",
+    "time": "",
+    "description": "A community gathering with food, storytelling and activities for different generations. The organizer has closed registration.",
+    "parentSummary": "A community gathering with food, storytelling and activities for different generations. The organizer has closed registration.",
+    "sourceDescriptionRaw": "A community gathering with food, storytelling and activities for different generations. The organizer has closed registration.",
+    "sourceDescriptionHash": "8f417f880314113c1a9689cd47dd3c89b57b5654f0fe0635c6e1ec4774df1708",
+    "summaryStatus": "manual_verified",
+    "summaryVersion": "event-summary-v2-p9",
+    "summaryVerifiedAt": "2026-11-17T06:15:01.427Z",
+    "summaryMethod": "manual_verified",
+    "summaryQuality": "manual_verified",
+    "summaryEvidence": "A community gathering with food, storytelling and activities for different generations. The organizer has closed registration.",
+    "image": "",
+    "place": "Lucie Stern Community Center",
+    "address": "1305 Middlefield Rd, Palo Alto, CA 94301",
+    "city": "Palo Alto",
+    "source": "Magical Bridge",
+    "url": "https://www.magicalbridge.org/event-details/friendsgiving-in-palo-alto",
+    "ageMin": null,
+    "ageMax": null,
+    "ageLabel": "",
+    "ageSource": "",
+    "audienceStatus": "not-confirmed",
+    "costStatus": "paid",
+    "costLabel": "需付费／价格见详情",
+    "costSource": "Official organizer or ticketing source",
+    "costEvidence": "",
+    "registrationStatus": "unknown",
+    "registrationSource": "",
+    "registrationEvidence": "",
+    "type": "community",
+    "icon": "🤝",
+    "color": "#dceeea",
+    "tag": "社区与家庭",
+    "format": "program",
+    "seasonalTheme": "",
+    "sessions": [],
+    "verification": "manual-verified",
+    "refreshStatus": "verified-supplement",
+    "linkSource": "manual_verified",
+    "translations": {
+      "zh": {
+        "title": "Palo Alto Friendsgiving 社区感恩聚会",
+        "description": "在社区聚会中分享美食和故事，参加适合不同年龄的互动活动。主办方已关闭报名。",
+        "fingerprint": "1deeeefd4bc5b2751ddca8222e1586f6bde11a8fb288391f849060d3a7f0eccb",
+        "translatedAt": "2026-11-17T06:15:01.427Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    },
+    "translationStatus": "current"
   },
   {
     "id": "nhl-2026020372",
