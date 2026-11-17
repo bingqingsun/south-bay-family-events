@@ -118,7 +118,11 @@ function canonicalSupplement(item) {
 
 function mergeVerifiedReplacement(existing, supplement) {
   const verified = canonicalSupplement({ ...supplement, id: existing.id || supplement.id });
-  const registration = canonicalRegistration(supplement, existing);
+  // A reviewed seed must not reopen an event that the live official feed
+  // now reports as full.
+  const registration = existing.registrationStatus === 'full'
+    ? canonicalRegistration(existing)
+    : canonicalRegistration(supplement, existing);
   const sameOccurrence = dateKey(existing.dateValue) === dateKey(verified.dateValue);
   // An annual landing-page parser may know the correct day but not the time,
   // while a manually verified detail has precise start times and multi-day sessions.

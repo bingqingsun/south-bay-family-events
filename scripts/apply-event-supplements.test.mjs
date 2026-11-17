@@ -212,3 +212,16 @@ assert.equal(curatedOverride.events[0].imageProvenance.source, 'curated-manual')
 }
 
 console.log('Event supplement lifecycle, duplicate-guard and Nov 13–15 bilingual coverage tests passed.');
+
+const fullOfficialEvent = {
+  id: 'official-full', title: 'Holiday Family Workshop', dateValue: '2099-12-01T10:00',
+  url: 'https://organizer.example/workshop', source: 'Official Organizer',
+  registrationStatus: 'full', registrationSource: 'Official live page',
+  registrationEvidence: 'Sold out'
+};
+const fullAfterSeed = mergeEventSupplements([fullOfficialEvent], [{
+  ...fullOfficialEvent, id: 'editorial-seed', replaceExisting: true,
+  registrationStatus: 'required', registrationEvidence: 'Advance booking required'
+}], { now: '2099-11-01T00:00' });
+assert.equal(fullAfterSeed[0].registrationStatus, 'full');
+assert.equal(fullAfterSeed[0].registrationEvidence, 'Sold out');
