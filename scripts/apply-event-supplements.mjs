@@ -108,6 +108,7 @@ function canonicalSupplement(item) {
     tag: meta.tag,
     format: item.format || 'program',
     seasonalTheme: item.seasonalTheme || '',
+    ...(item.ticketOnSaleAt ? { ticketOnSaleAt: item.ticketOnSaleAt } : {}),
     sessions: Array.isArray(item.sessions) ? item.sessions : [],
     verification: 'manual-verified',
     refreshStatus: 'verified-supplement',

@@ -1148,5 +1148,294 @@
     "costStatus": "paid",
     "costLabel": "需付费／价格见详情",
     "verifiedAt": "2026-11-17T06:15:01.427Z"
+  },
+  {
+    "id": "editorial-fantasy-of-lights-2026",
+    "title": "Fantasy of Lights Walk-Thru",
+    "source": "Santa Clara County Parks",
+    "place": "Vasona Lake County Park",
+    "address": "333 Blossom Hill Rd, Los Gatos, CA 95032",
+    "city": "Los Gatos",
+    "url": "https://santaclaracountyparks.ticketspice.com/fantasy-of-lights-2026-walk-thru",
+    "description": "Stroll through holiday light displays, meet Santa and Mrs. Claus, and enjoy live entertainment, food trucks and hot cocoa. Advance tickets are required for every attendee.",
+    "type": "community",
+    "format": "festival",
+    "dateValue": "2026-12-05T16:00",
+    "verifiedAt": "2026-11-17T20:00:00Z",
+    "costStatus": "paid",
+    "costLabel": "需付费／价格见详情",
+    "registrationStatus": "required",
+    "registrationSource": "Santa Clara County Parks",
+    "sessions": [
+      {
+        "id": "editorial-fantasy-of-lights-2026-1",
+        "dateValue": "2026-12-05T16:00",
+        "endDateValue": "2026-12-05T21:00"
+      },
+      {
+        "id": "editorial-fantasy-of-lights-2026-2",
+        "dateValue": "2026-12-06T16:00",
+        "endDateValue": "2026-12-06T21:00"
+      },
+      {
+        "id": "editorial-fantasy-of-lights-2026-3",
+        "dateValue": "2026-12-12T16:00",
+        "endDateValue": "2026-12-12T21:00"
+      },
+      {
+        "id": "editorial-fantasy-of-lights-2026-4",
+        "dateValue": "2026-12-13T16:00",
+        "endDateValue": "2026-12-13T21:00"
+      }
+    ],
+    "ticketOnSaleAt": "2026-11-01T08:00:00-08:00",
+    "replaceExisting": true
+  },
+  {
+    "id": "editorial-magical-cirque-2026",
+    "title": "A Magical Cirque Christmas",
+    "source": "Broadway San Jose",
+    "place": "Center for the Performing Arts",
+    "address": "255 S Almaden Blvd, San Jose, CA 95113",
+    "city": "San Jose",
+    "url": "https://www.sanjose.org/theaters/events/magical-cirque-christmas",
+    "description": "A family holiday variety show with acrobatics, comedy, magic and Christmas music.",
+    "type": "shows",
+    "format": "live-show",
+    "dateValue": "2026-12-16T19:00",
+    "verifiedAt": "2026-11-17T20:00:00Z",
+    "costStatus": "paid",
+    "costLabel": "需付费／价格见详情",
+    "registrationStatus": "required",
+    "registrationSource": "Broadway San Jose",
+    "sessions": [
+      {
+        "id": "editorial-magical-cirque-2026-1",
+        "dateValue": "2026-12-16T19:00"
+      },
+      {
+        "id": "editorial-magical-cirque-2026-2",
+        "dateValue": "2026-12-17T19:00"
+      }
+    ],
+    "replaceExisting": true
+  },
+  {
+    "id": "editorial-illuminodyssey-2026",
+    "title": "IlluminOdyssey 10",
+    "source": "CuriOdyssey",
+    "place": "CuriOdyssey",
+    "address": "1651 Coyote Point Dr, San Mateo, CA 94401",
+    "city": "San Mateo",
+    "url": "https://curiodyssey.org/illuminodyssey10/",
+    "description": "Explore an interactive science-of-light exhibition with luminous botanical shapes, rainbow refraction, light painting and shadow play. Included with museum admission.",
+    "type": "learning",
+    "format": "exhibit",
+    "dateValue": "2026-11-14T09:30",
+    "verifiedAt": "2026-11-17T20:00:00Z",
+    "costStatus": "paid",
+    "costLabel": "需付费／价格见详情",
+    "registrationStatus": "recommended",
+    "registrationSource": "CuriOdyssey",
+    "endDateValue": "2027-01-24T16:30",
+    "replaceExisting": true
+  },
+  {
+    "id": "editorial-dickens-fair-2026",
+    "title": "The Great Dickens Christmas Fair",
+    "source": "The Great Dickens Christmas Fair",
+    "place": "Cow Palace Exhibition Halls",
+    "address": "2600 Geneva Ave, Daly City, CA 94014",
+    "city": "Daly City",
+    "url": "https://dickensfair.com/media-info/",
+    "description": "Explore Victorian London brought to life with theatre, music, costumed characters and holiday shopping. Open weekends and the Friday after Thanksgiving.",
+    "type": "community",
+    "format": "festival",
+    "dateValue": "2026-11-21T10:00",
+    "verifiedAt": "2026-11-17T20:00:00Z",
+    "costStatus": "paid",
+    "costLabel": "需付费／价格见详情",
+    "registrationStatus": "required",
+    "registrationSource": "The Great Dickens Christmas Fair",
+    "sessions": [
+      {
+        "id": "editorial-dickens-fair-2026-1",
+        "dateValue": "2026-11-21T10:00",
+        "endDateValue": "2026-11-21T18:00"
+      },
+      {
+        "id": "editorial-dickens-fair-2026-2",
+        "dateValue": "2026-11-22T10:00",
+        "endDateValue": "2026-11-22T18:00"
+      },
+      {
+        "id": "editorial-dickens-fair-2026-3",
+        "dateValue": "2026-11-27T10:00",
+        "endDateValue": "2026-11-27T18:00"
+      },
+      {
+        "id": "editorial-dickens-fair-2026-4",
+        "dateValue": "2026-11-28T10:00",
+        "endDateValue": "2026-11-28T18:00"
+      },
+      {
+        "id": "editorial-dickens-fair-2026-5",
+        "dateValue": "2026-11-29T10:00",
+        "endDateValue": "2026-11-29T18:00"
+      },
+      {
+        "id": "editorial-dickens-fair-2026-6",
+        "dateValue": "2026-12-05T10:00",
+        "endDateValue": "2026-12-05T18:00"
+      },
+      {
+        "id": "editorial-dickens-fair-2026-7",
+        "dateValue": "2026-12-06T10:00",
+        "endDateValue": "2026-12-06T18:00"
+      },
+      {
+        "id": "editorial-dickens-fair-2026-8",
+        "dateValue": "2026-12-12T10:00",
+        "endDateValue": "2026-12-12T18:00"
+      },
+      {
+        "id": "editorial-dickens-fair-2026-9",
+        "dateValue": "2026-12-13T10:00",
+        "endDateValue": "2026-12-13T18:00"
+      },
+      {
+        "id": "editorial-dickens-fair-2026-10",
+        "dateValue": "2026-12-19T10:00",
+        "endDateValue": "2026-12-19T18:00"
+      },
+      {
+        "id": "editorial-dickens-fair-2026-11",
+        "dateValue": "2026-12-20T10:00",
+        "endDateValue": "2026-12-20T18:00"
+      }
+    ],
+    "replaceExisting": true
+  },
+  {
+    "id": "editorial-sjmade-holiday-fair-2026",
+    "title": "SJMADE Holiday Fair 2026",
+    "source": "San José Made",
+    "place": "Santa Clara Convention Center",
+    "address": "5001 Great America Pkwy, Santa Clara, CA 95054",
+    "city": "Santa Clara",
+    "url": "https://www.sanjosemade.com/pages/sjmade-holiday-fair-2026",
+    "description": "Browse handmade gifts, art, crafts and treats from local creative businesses at an indoor holiday fair. Admission and parking are free.",
+    "type": "community",
+    "format": "festival",
+    "dateValue": "2026-11-27T11:00",
+    "verifiedAt": "2026-11-17T20:00:00Z",
+    "costStatus": "free",
+    "costLabel": "免费",
+    "registrationStatus": "not-required",
+    "registrationSource": "San José Made",
+    "sessions": [
+      {
+        "id": "editorial-sjmade-holiday-fair-2026-1",
+        "dateValue": "2026-11-27T11:00",
+        "endDateValue": "2026-11-27T18:00"
+      },
+      {
+        "id": "editorial-sjmade-holiday-fair-2026-2",
+        "dateValue": "2026-11-28T11:00",
+        "endDateValue": "2026-11-28T18:00"
+      }
+    ],
+    "replaceExisting": true
+  },
+  {
+    "id": "editorial-winter-wonder-market-2026",
+    "title": "Winter Wonder Market 2026",
+    "source": "San José Made",
+    "place": "South Hall",
+    "address": "435 S Market St, San Jose, CA 95113",
+    "city": "San Jose",
+    "url": "https://www.sanjosemade.com/pages/winter-wonder-market-2026",
+    "description": "Shop local makers and artists at an indoor holiday market. General admission is free; kitten playtime is a separately ticketed activity.",
+    "type": "community",
+    "format": "festival",
+    "dateValue": "2026-12-12T11:00",
+    "verifiedAt": "2026-11-17T20:00:00Z",
+    "costStatus": "free",
+    "costLabel": "免费",
+    "registrationStatus": "not-required",
+    "registrationSource": "San José Made",
+    "sessions": [
+      {
+        "id": "editorial-winter-wonder-market-2026-1",
+        "dateValue": "2026-12-12T11:00",
+        "endDateValue": "2026-12-12T18:00"
+      },
+      {
+        "id": "editorial-winter-wonder-market-2026-2",
+        "dateValue": "2026-12-13T11:00",
+        "endDateValue": "2026-12-13T18:00"
+      }
+    ],
+    "replaceExisting": true
+  },
+  {
+    "id": "editorial-hiller-santa-2026",
+    "title": "Santa Arrives by Helicopter",
+    "source": "Hiller Aviation Museum",
+    "place": "Hiller Aviation Museum",
+    "address": "601 Skyway Rd, San Carlos, CA 94070",
+    "city": "San Carlos",
+    "url": "https://www.hiller.org/event/santa-arrives-by-helicopter/",
+    "description": "Watch Santa arrive by helicopter, listen to Christmas carols and share Christmas wishes with Santa. Watching the arrival is free; museum admission is separate.",
+    "type": "community",
+    "format": "program",
+    "dateValue": "2026-12-05T09:30",
+    "verifiedAt": "2026-11-17T20:00:00Z",
+    "costStatus": "variable",
+    "costLabel": "入场与体验费用见详情",
+    "registrationStatus": "unknown",
+    "registrationSource": "",
+    "endDateValue": "2026-12-05T12:00",
+    "replaceExisting": true
+  },
+  {
+    "id": "editorial-hiller-turkey-2026",
+    "title": "Helicopter Turkey Toss & Turkey Hunt",
+    "source": "Hiller Aviation Museum",
+    "place": "Hiller Aviation Museum",
+    "address": "601 Skyway Rd, San Carlos, CA 94070",
+    "city": "San Carlos",
+    "url": "https://www.hiller.org/calendar/",
+    "description": "Watch small soft toy turkeys drop from a helicopter and join a turkey hunt around the museum.",
+    "type": "learning",
+    "format": "program",
+    "dateValue": "2026-11-25T11:00",
+    "verifiedAt": "2026-11-17T20:00:00Z",
+    "costStatus": "unknown",
+    "costLabel": "费用未注明",
+    "registrationStatus": "unknown",
+    "registrationSource": "",
+    "endDateValue": "2026-11-25T12:00",
+    "replaceExisting": true
+  },
+  {
+    "id": "editorial-christmas-in-the-park-2026",
+    "title": "Christmas in the Park",
+    "source": "Christmas in the Park",
+    "place": "Plaza de Cesar Chavez",
+    "address": "Market St between San Fernando St and San Carlos St, San Jose, CA",
+    "city": "San Jose",
+    "url": "https://christmasinthepark.com/",
+    "description": "Walk among decorated Christmas trees and animated holiday displays, enjoy live entertainment and free Santa photos in downtown San Jose. Admission is free.",
+    "type": "community",
+    "format": "festival",
+    "dateValue": "2026-11-27T12:00",
+    "verifiedAt": "2026-11-17T20:00:00Z",
+    "costStatus": "free",
+    "costLabel": "免费",
+    "registrationStatus": "not-required",
+    "registrationSource": "Christmas in the Park",
+    "endDateValue": "2027-01-03T22:00",
+    "replaceExisting": true
   }
 ]

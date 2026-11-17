@@ -179,3 +179,11 @@ assert.equal(unrelatedTicket.events[0].linkStatus, 'content-mismatch');
 assert.equal(unrelatedTicket.events[0].url, '');
 
 console.log('link health tests passed');
+
+const ticketTemplate = await auditLinks(
+  [{ title: 'Wreath Making Workshop', source: source.name, url: 'https://library.org/workshop' }],
+  [source],
+  { fetchImpl: async url => ({ ok: true, status: 200, url,
+    text: async () => '<script>const error = "event unavailable";</script><h1>Wreath Making Workshop</h1>' }) }
+);
+assert.equal(ticketTemplate.events[0].linkStatus, 'ok');

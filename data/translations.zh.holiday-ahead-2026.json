@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "entries": [
+    {
+      "id": "editorial-fantasy-of-lights-2026",
+      "title": "Fantasy of Lights 步行灯展",
+      "description": "步行欣赏节日灯饰，与圣诞老人夫妇见面，现场有演出、餐车和热可可。所有参加者均须提前购票。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T20:00:00Z",
+      "sourceFingerprint": "3a1a18c241e2c7a47ea19e428c12a4087995944eb3b1c96e934c9fadb5021760"
+    },
+    {
+      "id": "editorial-magical-cirque-2026",
+      "title": "圣诞杂技秀 A Magical Cirque Christmas",
+      "description": "融合杂技、喜剧、魔术和圣诞音乐的家庭节日演出。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T20:00:00Z",
+      "sourceFingerprint": "50db90673a12afb1b38429537cdb427b43a856176a0f876def6bc05e8313feb2"
+    },
+    {
+      "id": "editorial-illuminodyssey-2026",
+      "title": "IlluminOdyssey 10 互动光影科学展",
+      "description": "体验发光植物造型、彩虹折射、光影绘画与影子互动，在玩耍中探索光的科学。包含在博物馆门票内。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T20:00:00Z",
+      "sourceFingerprint": "54a2dd64ea86c6e66ee4fb840548fdc5e78f580399d0f834816d1c337381d8d9"
+    },
+    {
+      "id": "editorial-dickens-fair-2026",
+      "title": "狄更斯圣诞集市",
+      "description": "走进维多利亚时代的伦敦街景，欣赏戏剧和音乐，与盛装角色互动并逛节日市集。周末及感恩节后的周五开放。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T20:00:00Z",
+      "sourceFingerprint": "e45dd309d264d88512f0c1cea3e726f4795dd364210f154ad431595366f3ebaa"
+    },
+    {
+      "id": "editorial-sjmade-holiday-fair-2026",
+      "title": "2026 SJMADE 节日创意市集",
+      "description": "在室内市集逛本地创意商家的手作礼物、艺术品、工艺品和美食。免费入场及停车。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T20:00:00Z",
+      "sourceFingerprint": "5c11d0cb58b20720a8fb9317929f52542124c8a265d731b5cb6abea5364c61e8"
+    },
+    {
+      "id": "editorial-winter-wonder-market-2026",
+      "title": "2026 Winter Wonder 冬日创意市集",
+      "description": "逛本地创作者与艺术家的室内节日市集。普通入场免费，小猫互动体验需单独购票。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T20:00:00Z",
+      "sourceFingerprint": "da4e527a0edc56a168986cd2fd308a6f51ccdd31a7924d95d369e48fba9cc87f"
+    },
+    {
+      "id": "editorial-hiller-santa-2026",
+      "title": "圣诞老人乘直升机到达 Hiller",
+      "description": "观看圣诞老人乘直升机降落，欣赏圣诞颂歌并向圣诞老人许愿。观看降落免费，入馆门票另计。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T20:00:00Z",
+      "sourceFingerprint": "128334e493747d0ce65a73a48fb133465ebace2f92972cc5b289e54d0a91365a"
+    },
+    {
+      "id": "editorial-hiller-turkey-2026",
+      "title": "Hiller 直升机投放玩具火鸡与寻宝",
+      "description": "观看直升机投下柔软的玩具火鸡，并在博物馆里参加寻找火鸡的活动。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T20:00:00Z",
+      "sourceFingerprint": "fcc2e5f0ccafc5a178e2bb1906bbf499e03be7950a6a8a3da1357f35db932ffd"
+    },
+    {
+      "id": "editorial-christmas-in-the-park-2026",
+      "title": "San Jose Christmas in the Park",
+      "description": "在 San Jose 市中心欣赏装饰圣诞树和动态节日装置，观看现场演出，并免费与圣诞老人合影。免费入场。",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T20:00:00Z",
+      "sourceFingerprint": "46251fd6ef692ee262728253760a145e08296979c62c38fde02829f1d5b9d5de"
+    }
+  ]
+}

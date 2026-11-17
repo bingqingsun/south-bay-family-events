@@ -26,6 +26,7 @@ import {
   hasUsableSourceContent,
   upgradeSummaryRecordVersion
 } from './event-summary-engine.mjs';
+import { shopifyEventSeeds } from './shopify-events.mjs';
 import { auditLinks, releaseBlockingLinks } from './link-health.mjs';
 import { enrichCanonicalEvents } from './canonical-detail-pipeline.mjs';
 import { applyEditorialCovers } from './editorial-cover.mjs';
@@ -625,9 +626,26 @@ async function tribePageDetails(url) {
 }
 
 async function readTribe(source) {
-  const response = await fetch(source.feedUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
-  const payload = await response.json();
-  if (!response.ok || !Array.isArray(payload.events)) throw new Error('Official calendar API was not valid: ' + response.status);
+  const calendarUrl = new URL(source.feedUrl);
+  const today = generatedAt.slice(0, 10);
+  const until = new Date(today + 'T12:00:00Z');
+  until.setUTCDate(until.getUTCDate() + (source.discoveryDays || 90));
+  calendarUrl.searchParams.set('start_date', today);
+  calendarUrl.searchParams.set('end_date', until.toISOString().slice(0, 10));
+  const collected = [];
+  let pageUrl = calendarUrl.href;
+  const visited = new Set();
+  while (pageUrl && !visited.has(pageUrl)) {
+    const next = new URL(pageUrl);
+    if (next.origin !== calendarUrl.origin) throw new Error('Calendar pagination left official origin');
+    visited.add(pageUrl);
+    const response = await fetch(pageUrl, { headers: { 'user-agent': 'SouthBayFamilyEventsBot/1.0' }, signal: AbortSignal.timeout(15000) });
+    const page = await response.json();
+    if (!response.ok || !Array.isArray(page.events)) throw new Error('Official calendar API was not valid: ' + response.status);
+    collected.push(...page.events);
+    pageUrl = page.next_rest_url || '';
+  }
+  const payload = { events: collected };
   const seeds = payload.events.flatMap((item, index) => {
     const startDate = String(item.start_date || '').replace(' ', 'T');
     const endDate = String(item.end_date || '').replace(' ', 'T');
@@ -856,7 +874,8 @@ async function curatedOfficialDescription(url, title) {
 }
 
 async function readCurated(source) {
-  const items = (source.events || []).filter(item => item.title && isUpcoming(item.dateValue));
+  const items = (source.events || []).filter(item => item.title && isUpcoming(item.dateValue, item.endDateValue));
+  if (source.events?.length && !items.length) console.warn('::warning::Curated source has no future events and needs seasonal review: ' + source.name);
   return (await Promise.all(items.map(async (item, index) => {
     const url = item.url || source.feedUrl;
     const organizerDescription = await curatedOfficialDescription(url, item.title);
@@ -3792,7 +3811,7 @@ const translationCatalog = await loadChineseTranslationCatalogs();
 const existingMuseums = JSON.parse(await readFile(museumTarget, 'utf8'));
 const existingSourceHealth = await readFile(sourceHealthTarget, 'utf8').then(JSON.parse).catch(() => ({ sources: [] }));
 const sources = JSON.parse(await readFile(new URL('../data/sources.json', import.meta.url), 'utf8'));
-const directMethods = ['jmz-family', 'stanford-venue-family', 'rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'paloalto-special-events', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'santana-row', 'annual-festival', 'chamber-seasonal', 'palo-alto-museum', 'senate-events', 'curated', 'google-visitor-events', 'eventbrite-organizer', 'official-venue-calendar'];
+const directMethods = ['shopify-events', 'jmz-family', 'stanford-venue-family', 'rss', 'tribe', 'history', 'chcp', 'thetech', 'foothill', 'midpen', 'stanford', 'cupertino', 'civic', 'slac', 'chm', 'deanza', 'paloalto', 'paloalto-special-events', 'happyhollow', 'gilroy', 'nhl', 'sapcenter', 'cinelux', 'cinemark', 'southfirstfridays', 'bayfc', 'mlb', 'mls', 'showare', 'cmt', 'pyt', 'barracuda', 'filoli', 'lahm', 'moah', 'montalvo', 'ics', 'symphony', 'timely', 'wix-events', 'squarespace-events', 'santana-row', 'annual-festival', 'chamber-seasonal', 'palo-alto-museum', 'senate-events', 'curated', 'google-visitor-events', 'eventbrite-organizer', 'official-venue-calendar'];
 const directSources = sources.filter(source => directMethods.includes(source.method) && source.feedUrl);
 // Use the scheduled *nominal Pacific day* so a delayed GitHub Actions cron
 // cannot accidentally skip (or double-spend) the Tue/Thu search fallback.
@@ -3819,6 +3838,17 @@ const searchSources = includeSerpapi && key
 const feedAttempts = (await Promise.allSettled(directSources.map(source => {
   if (source.method === 'jmz-family') return readJmzFamily(source);
   if (source.method === 'stanford-venue-family') return readStanfordVenueFamily(source);
+  if (source.method === 'shopify-events') {
+    return (async () => {
+      const response = await fetch(source.feedUrl, { signal: AbortSignal.timeout(15000) });
+      if (!response.ok) throw new Error('Official Shopify page feed returned ' + response.status);
+      const payload = await response.json();
+      if (!Array.isArray(payload.pages)) throw new Error('Official Shopify pages missing');
+      const discovered = shopifyEventSeeds(payload.pages, source, generatedAt.slice(0, 10));
+      if (!discovered.length) console.warn('::warning::No upcoming dated event pages discovered for ' + source.name);
+      return readCurated({ ...source, events: discovered });
+    })();
+  }
   if (source.method === 'curated') return readCurated(source);
   if (source.method === 'google-visitor-events') return readGoogleVisitorEvents(source);
   if (source.method === 'official-venue-calendar') return readOfficialVenueCalendar(source);

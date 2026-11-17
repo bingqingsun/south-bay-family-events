@@ -196,7 +196,9 @@ export async function checkLink(event, source, { fetchImpl = fetch, timeoutMs = 
         linkEvidence: 'Redirect left the official source allowlist.'
       };
     }
-    if (SOFT_ERROR.test(html)) {
+    // Ticketing templates contain hidden error strings even on valid pages.
+    const visibleHtml = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>|<style\b[^>]*>[\s\S]*?<\/style>/gi, '');
+    if (SOFT_ERROR.test(visibleHtml)) {
       return {
         ...result, linkStatus: 'content-mismatch', linkCheckMethod: 'machine',
         linkCheckedAt: checkedAt, redirectTarget,
