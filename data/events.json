@@ -615,7 +615,12 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "legacyIds": [
+      "editorial-sj-holiday-lights-2026"
+    ],
+    "imagePresentation": "",
+    "imageBackground": ""
   },
   {
     "id": "rss-6ac02d7dde300e004517d401",
@@ -916,7 +921,12 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "legacyIds": [
+      "editorial-filoli-holiday-lights-2026"
+    ],
+    "imagePresentation": "",
+    "imageBackground": ""
   },
   {
     "id": "series-7059bb6d3131a2fc",
@@ -18495,7 +18505,7 @@
         "title": "故事与律动 / Hora de cuentos",
         "description": "孩子和照护者可一起听故事、念童谣、做手指游戏，并参加音乐和律动活动，培养早期读写能力。",
         "fingerprint": "d6b33e0aebd10cd7cacfa4589360c37bda26467f0d3eb4d43d996d829cc76b42",
-        "translatedAt": "2026-11-17T20:18:04.264Z",
+        "translatedAt": "2026-11-17T20:19:02.614Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -24561,7 +24571,7 @@
         "title": "Tiny Tot Jamboree 幼儿欢乐会",
         "description": "家长和 1–2 岁幼儿一起参加短小有趣的故事、童谣、手指游戏、活动和歌曲。",
         "fingerprint": "19039c77101e7b754cea87442a5b6c527a3efc21cccdd8fb7c28d638065cb8c3",
-        "translatedAt": "2026-11-17T20:18:04.264Z",
+        "translatedAt": "2026-11-17T20:19:02.614Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -24781,7 +24791,7 @@
         "title": "Itty Bitty Jamboree 婴儿欢乐会",
         "description": "成人和 0–12 个月婴儿一起参加短小有趣的故事、童谣、手指游戏和歌曲。",
         "fingerprint": "c344a114ee050cef7355631d275d83e124d1be22ee47743a4e0aeb5fddf52f40",
-        "translatedAt": "2026-11-17T20:18:04.264Z",
+        "translatedAt": "2026-11-17T20:19:02.614Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -28446,7 +28456,10 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "legacyIds": [
+      "editorial-train-of-lights-202611"
+    ]
   },
   {
     "id": "rss-6a5552f5b93a5a73032beb8c",
@@ -29169,7 +29182,7 @@
         "title": "《Matilda The Musical》",
         "description": "聪明勇敢的 Matilda Wormwood 运用自己的机智和一点魔法，对抗专横的 Miss Trunchbull，并寻找属于自己的位置。",
         "fingerprint": "c28f15878095e2adac2b2cac63a5c48ddc4f43925316ef6257a5f90a09388e19",
-        "translatedAt": "2026-11-17T20:18:04.264Z",
+        "translatedAt": "2026-11-17T20:19:02.614Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -29452,7 +29465,10 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "legacyIds": [
+      "editorial-ainsley-house-photos-with-santa-202611"
+    ]
   },
   {
     "id": "midpen-d1efff7c2beb56ba",
@@ -30380,7 +30396,10 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "legacyIds": [
+      "editorial-little-red-riding-hood-202611"
+    ]
   },
   {
     "id": "curated-3760087d46fa1053",
@@ -30757,7 +30776,10 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "legacyIds": [
+      "editorial-triton-holiday-art-fair-202611"
+    ]
   },
   {
     "id": "series-276cfefccce78432",
@@ -34587,7 +34609,10 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "legacyIds": [
+      "editorial-los-gatos-ballet-nutcracker-202611"
+    ]
   },
   {
     "id": "series-4a93e67dd7ef1aaa",
@@ -39354,7 +39379,10 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "legacyIds": [
+      "editorial-palo-alto-friendsgiving-202611"
+    ]
   },
   {
     "id": "nhl-2026020372",
@@ -50672,62 +50700,6 @@
     "translationStatus": "current"
   },
   {
-    "id": "editorial-hiller-turkey-2026",
-    "title": "Helicopter Turkey Toss & Turkey Hunt",
-    "dateValue": "2026-11-25T11:00",
-    "endDateValue": "2026-11-25T12:00",
-    "time": "",
-    "description": "Watch small soft toy turkeys drop from a helicopter and join a turkey hunt around the museum.",
-    "parentSummary": "Watch small soft toy turkeys drop from a helicopter and join a turkey hunt around the museum.",
-    "sourceDescriptionRaw": "Watch small soft toy turkeys drop from a helicopter and join a turkey hunt around the museum.",
-    "sourceDescriptionHash": "56fbd3d853b8b711e68b508648170c0bcfc2942df526bad9443b5568a32cbff8",
-    "summaryStatus": "manual_verified",
-    "summaryVersion": "event-summary-v2-p9",
-    "summaryVerifiedAt": "2026-11-17T20:00:00Z",
-    "summaryMethod": "manual_verified",
-    "summaryQuality": "manual_verified",
-    "summaryEvidence": "Watch small soft toy turkeys drop from a helicopter and join a turkey hunt around the museum.",
-    "image": "",
-    "place": "Hiller Aviation Museum",
-    "address": "601 Skyway Rd, San Carlos, CA 94070",
-    "city": "San Carlos",
-    "source": "Hiller Aviation Museum",
-    "url": "https://www.hiller.org/calendar/",
-    "ageMin": null,
-    "ageMax": null,
-    "ageLabel": "",
-    "ageSource": "",
-    "audienceStatus": "not-confirmed",
-    "costStatus": "unknown",
-    "costLabel": "费用未注明",
-    "costSource": "",
-    "costEvidence": "",
-    "registrationStatus": "unknown",
-    "registrationSource": "",
-    "registrationEvidence": "",
-    "type": "learning",
-    "icon": "🔭",
-    "color": "#dce7fa",
-    "tag": "学习与 STEM",
-    "format": "program",
-    "seasonalTheme": "",
-    "sessions": [],
-    "verification": "manual-verified",
-    "refreshStatus": "verified-supplement",
-    "linkSource": "manual_verified",
-    "translations": {
-      "zh": {
-        "title": "Hiller 直升机投放玩具火鸡与寻宝",
-        "description": "观看直升机投下柔软的玩具火鸡，并在博物馆里参加寻找火鸡的活动。",
-        "fingerprint": "fcc2e5f0ccafc5a178e2bb1906bbf499e03be7950a6a8a3da1357f35db932ffd",
-        "translatedAt": "2026-11-17T20:00:00Z",
-        "translationSource": "editorial-reviewed",
-        "status": "approved"
-      }
-    },
-    "translationStatus": "current"
-  },
-  {
     "id": "series-743d51884f7bd548",
     "title": "Mini Makers",
     "date": "11月25日 11:00",
@@ -51061,33 +51033,33 @@
     "ageLabel": "",
     "ageSource": "",
     "familyFriendly": false,
-    "costStatus": "paid",
-    "costLabel": "需付费／价格见详情",
-    "costSource": "官方活动说明",
-    "costEvidence": "[/et_pb_text][et_pb_button button_url=”/tickets/” button_text=”Buy Tickets” _builder_version=”4.22.1″ _module_preset=”default” custom_button=”on” button_text_size=”16px” button_bg_",
+    "costStatus": "unknown",
+    "costLabel": "费用未注明",
+    "costSource": "",
+    "costEvidence": "",
     "registrationStatus": "unknown",
     "registrationSource": "",
     "registrationEvidence": "",
-    "type": "community",
-    "icon": "🤝",
-    "color": "#dceeea",
-    "tag": "社区与家庭",
-    "verification": "calendar",
+    "type": "learning",
+    "icon": "🔭",
+    "color": "#dce7fa",
+    "tag": "学习与 STEM",
+    "verification": "manual-verified",
     "lastVerifiedAt": "2026-11-17T20:16:18.659Z",
-    "description": "No, not real turkeys because domestic Turkeys can’t fly, as illustrated in the famous WKRP episode, so we will be dropping little soft, squeezable Turkeys that the kids can take home with them.",
-    "parentSummary": "No, not real turkeys because domestic Turkeys can’t fly, as illustrated in the famous WKRP episode, so we will be dropping little soft, squeezable Turkeys that the kids can take home with them.",
-    "sourceDescriptionRaw": "[et_pb_section fb_built=”1″ admin_label=”Turkey Toss section” _builder_version=”4.25.1″ da_disable_devices=”off|off|off” global_module=”285292″ saved_tabs=”all” global_colors_info=”{}” da_is_popup=”off” da_exit_intent=”off” da_has_close=”on” da_alt_close=”off” da_dark_close=”off” da_not_modal=”on” da_is_singular=”off” da_with_loader=”off” da_has_shadow=”on”][et_pb_row admin_label=”row” _builder_version=”4.16″ background_size=”initial” background_position=”top_left” background_repeat=”repeat” global_colors_info=”{}”][et_pb_column type=”4_4″ _builder_version=”4.16″ custom_padding=”|||” global_colors_info=”{}” custom_padding__hover=”|||”][et_pb_text admin_label=”Helicopter Turkey Toss & Turkey Hunt” _builder_version=”4.25.1″ _module_preset=”default” header_font=”|700|||||||” header_text_color=”#00A8E8″ header_font_size=”50px” header_font_size_tablet=”50px” header_font_size_phone=”38px” header_font_size_last_edited=”on|desktop” global_colors_info=”{}” header_font_size__hover_enabled=”on|desktop” header_font_size__hover=”50px”] Helicopter Turkey Toss & Turkey Hunt [/et_pb_text][et_pb_image src=” title_text=”2025 TAM_8806 Z9″ admin_label=”image Turkey Helicopter” _builder_version=”4.27.7″ _module_preset=”default” global_colors_info=”{}”][/et_pb_image][et_pb_text _builder_version=”4.25.1″ _module_preset=”default” global_colors_info=”{}”] In Commemoration of arguably the greatest sitcom episode ever aired on TV, the 1978 WKRP in Cincinnati “Turkeys Away” the Hiller Aviation Museum presents the Turkey Toss! The Museum is known for presenting many events using a helicopter. Santa and the Easter Bunny both arrive by helicopter, A Witch drops pumpkins on Halloween, and even a skydiving leprechaun jumps out of a helicopter for St. Patrick’s Day. Now once again the museum will be dropping Turkeys! No, not real turkeys because domestic Turkeys can’t fly, as illustrated in the famous WKRP episode, so we will be dropping little soft, squeezable Turkeys that the kids can take home with them. To quote Arthur Carlson, the GM of WKRP, “As God is my witness, I thought Turkeys could fly!” There will also be a Turkey Hunt all day. Find all the Turkey’s hiding in the Museum and win a prize! [/et_pb_text][difl_justifiedgallery gallery=”279626,38155″ image_size=”large” rowheight=”250″ space_between=”6″ load_more=”on” ini_count=”4″ load_more_text=”See More” use_lightbox=”on” more_btn_bg_bgcolor=”RGBA(255,255,255,0)” more_btn_use_icon=”on” more_btn_font_icon=”5||divi||400″ _builder_version=”4.25.1″ _module_preset=”default” more_btn_text_color=”#00A8E8″ global_colors_info=”{}”][/difl_justifiedgallery][et_pb_text admin_label=”Here is the script from that famous episode: Nov 1978″ _builder_version=”4.22.1″ _module_preset=”default” text_font_size=”18px” global_colors_info=”{}”] Here is the script from that famous episode: Nov 1978 Les Nessman: I’m here with hundreds of people who have gathered to witness what has been described as perhaps the greatest turkey event in Thanksgiving Day history. All we know for sure is that in a very few moments there are going to be a lot of happy people out here. Now the crowd is… [passers-by gawk at Les] Les Nessman: The… the crowd is uh… curious but well behaved. And I think I hear something now. Uh… The crowd is moving out into the parking area. And… oh yes! I can see it now. It’s a… it’s a… helicopter and it’s coming this way! Andy Travis: A helicopter? Les Nessman: It’s flying something behind it and I can’t quite make it out. It’s a large banner and it says H a p p y… T h a n k s… giving… from W… K… R… P! What a sight, ladies and gentlemen. What a sight. The ‘copter seems to circling the parking area now. I guess it’s looking for a place to land. No! Something just came out of the back of a helicopter. It’s a dark object, perhaps a skydiver plummeting to the earth from only two thousand feet in the air… There’s a third… No parachutes yet… Those can’t be skydivers. I can’t tell just yet what they are but… Oh my God! They…",
-    "sourceDescriptionHash": "6ad373a09a0025ad0808806d3491340cc19e76c4e732190119b108772a852b8f",
-    "summaryStatus": "extractive",
-    "summaryMethod": "concrete_sentence",
-    "summaryQuality": "strong",
-    "summaryEvidence": "No, not real turkeys because domestic Turkeys can’t fly, as illustrated in the famous WKRP episode, so we will be dropping little soft, squeezable Turkeys that the kids can take home with them.",
+    "description": "Watch small soft toy turkeys drop from a helicopter and join a turkey hunt around the museum.",
+    "parentSummary": "Watch small soft toy turkeys drop from a helicopter and join a turkey hunt around the museum.",
+    "sourceDescriptionRaw": "Watch small soft toy turkeys drop from a helicopter and join a turkey hunt around the museum.",
+    "sourceDescriptionHash": "56fbd3d853b8b711e68b508648170c0bcfc2942df526bad9443b5568a32cbff8",
+    "summaryStatus": "manual_verified",
+    "summaryMethod": "manual_verified",
+    "summaryQuality": "manual_verified",
+    "summaryEvidence": "Watch small soft toy turkeys drop from a helicopter and join a turkey hunt around the museum.",
     "summaryEvidenceData": null,
     "summaryVersion": "event-summary-v2-p9",
-    "summaryVerifiedAt": "2026-11-17T20:16:18.659Z",
+    "summaryVerifiedAt": "2026-11-17T20:00:00Z",
     "image": "https://www.hiller.org/wp-content/uploads/Turkey-Toss-600x450-1.jpg",
     "place": "Hiller Aviation Museum",
-    "address": "601 Skyway Rd, San Carlos",
+    "address": "601 Skyway Rd, San Carlos, CA 94070",
     "city": "San Carlos",
     "source": "Hiller Aviation Museum",
     "url": "https://www.hiller.org/event/turkey-toss-2/",
@@ -51157,8 +51129,23 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "b4e02dab57212948ec22cb0253495afd059f46a493051cc351ed738ecde9861d"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "b4e02dab57212948ec22cb0253495afd059f46a493051cc351ed738ecde9861d",
+    "time": "",
+    "refreshStatus": "verified-supplement",
+    "linkSource": "manual_verified",
+    "imagePresentation": "",
+    "imageBackground": "",
+    "translations": {
+      "zh": {
+        "title": "Hiller 直升机投放玩具火鸡与寻宝",
+        "description": "观看直升机投下柔软的玩具火鸡，并在博物馆里参加寻找火鸡的活动。",
+        "fingerprint": "4e0dc4b3dfb6a312108d016e55efd780fcffe155314db0c6545a56d9359050b7",
+        "translatedAt": "2026-11-17T20:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6aad7791f9ed2e003851b36f",
@@ -58321,7 +58308,7 @@
         "title": "圣诞树亮灯仪式",
         "description": "观看圣诞树点亮数百盏闪烁灯饰的时刻，感受充满节日气氛的灯光。",
         "fingerprint": "0cc0cf98a8e9c5ae75a6e830c437c72c2b9f594e32afdc47814515ad5de27f89",
-        "translatedAt": "2026-11-17T20:18:04.264Z",
+        "translatedAt": "2026-11-17T20:19:02.614Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -58534,7 +58521,7 @@
         "title": "与 Santa 共进早餐",
         "description": "现场会提供 North Pole Pancakes，Santa 也会和大家合影。",
         "fingerprint": "01a002b4339a174bdeb2e56f49abb6517622dc7b71704f74995db46cb4c6c35b",
-        "translatedAt": "2026-11-17T20:18:04.264Z",
+        "translatedAt": "2026-11-17T20:19:02.614Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -59775,7 +59762,7 @@
         "title": "Black Holes: The Other Side of Infinity 黑洞：无限的另一面",
         "description": "在这场节目中，你将穿越奇异的虫洞，体验银河系的形成，见证恒星猛烈死亡以及随后黑洞的诞生。",
         "fingerprint": "2dd57744a2a6c6f708b4c8867ec6e1d9ef8061df36b06f50907680bf27a53003",
-        "translatedAt": "2026-11-17T20:18:04.264Z",
+        "translatedAt": "2026-11-17T20:19:02.614Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -59860,7 +59847,12 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "legacyIds": [
+      "editorial-fantasy-of-lights-2026"
+    ],
+    "imagePresentation": "",
+    "imageBackground": ""
   },
   {
     "id": "series-529f771b024b328b",
@@ -60362,7 +60354,7 @@
         "title": "Laser Journey 激光音乐秀",
         "description": "无论你是在 80 年代滑旱冰时第一次爱上 Journey 的歌曲，还是通过 American Idol 或 Glee 接触到这些音乐，Laser Journey 都是一场适合各年龄观众的趣味演出。",
         "fingerprint": "0e912b10734904838e9461f07bd2764727a6cb5a8ae198fa2f904d23c55ae37e",
-        "translatedAt": "2026-11-17T20:18:04.264Z",
+        "translatedAt": "2026-11-17T20:19:02.614Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -64470,7 +64462,7 @@
         "title": "Legends of the Night Sky | Orion 夜空传说：猎户座",
         "description": "加入我们，以充满想象力的方式了解冬季天空中的伟大猎人 Orion 猎户座的故事与传说。",
         "fingerprint": "db10cc0837492a21326507443b5cbbaade5c7ef201492fea106b91519d46674f",
-        "translatedAt": "2026-11-17T20:18:04.264Z",
+        "translatedAt": "2026-11-17T20:19:02.614Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -64897,7 +64889,7 @@
         "title": "Earth, Moon & Sun 地球、月球与太阳",
         "description": "在一个改编自 Native American 口述传统、对我们的家园星球及其最熟悉邻居存在许多误解的幽默角色帮助下，探索地球、月球与太阳之间的关系。",
         "fingerprint": "28a46fb93fce150d9775b8bf731703e7d15d5cd35328155d4e30aabd9fafb852",
-        "translatedAt": "2026-11-17T20:18:04.264Z",
+        "translatedAt": "2026-11-17T20:19:02.614Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -64998,7 +64990,7 @@
         "title": "Explore Live: Tour of the Universe 现场探索：宇宙之旅",
         "description": "Explore Live: Tour of the Universe——从你一贯开始的地方出发：抬头仰望，然后离开夜空，继续探索。",
         "fingerprint": "68491a1654413dc30fb811396809ff4af9f4aa00eaaaa281f771c7e328d841f8",
-        "translatedAt": "2026-11-17T20:18:04.264Z",
+        "translatedAt": "2026-11-17T20:19:02.614Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -65179,7 +65171,7 @@
         "title": "Laser Holiday Magic 节日魔法激光秀",
         "description": "这场激光灯光秀包含多首节日音乐，如 Joy to the World、Jingle Bell Rock、Let it Snow、Rockin' Round the Christmas Tree 等！",
         "fingerprint": "058efd6d135f1bfe6e392614e8894c674d11b5c466b0ca1084cf51b94e0c4ca2",
-        "translatedAt": "2026-11-17T20:18:04.264Z",
+        "translatedAt": "2026-11-17T20:19:02.614Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -66357,7 +66349,12 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "legacyIds": [
+      "editorial-magical-cirque-2026"
+    ],
+    "imagePresentation": "",
+    "imageBackground": ""
   },
   {
     "id": "rss-6ae3c3ad9b955d531f7ba1df",
@@ -70532,7 +70529,7 @@
         "title": "San Jose Barracuda vs Eagles 冰球比赛",
         "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Eagles。特别活动包括 Jurassic World、Frenzy 的生日庆祝，以及向前 2,000 名球迷赠送 Frenzy 毛绒玩偶。",
         "fingerprint": "46f1cbf520789c315450e366f51b7c35dd161fbd1f57209e93dd1ab555f05a19",
-        "translatedAt": "2026-11-17T20:18:04.264Z",
+        "translatedAt": "2026-11-17T20:19:02.614Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }

@@ -165,6 +165,7 @@ export function applyCuratedImageOverrides(events, sources) {
       if (!item?.image) continue;
       const targetTitle = normalizeTitle(item.title);
       const targetDate = dateKey(item.dateValue);
+
       const targetSource = String(source.name || '').trim();
 
       for (let index = 0; index < output.length; index += 1) {
@@ -205,6 +206,13 @@ export function mergeEventSupplements(events, supplements, { now = pacificNowVal
     const targetTitle = normalizeTitle(item.title);
     const targetTitleWords = titleWordSignature(item.title);
     const targetDate = dateKey(item.dateValue);
+    // An edited editorial seed can acquire the official title/detail URL.
+    // Remove its earlier spelling before matching the live canonical event.
+    const renamedSeedIndex = output.findIndex(event =>
+      event.id === item.id && normalizeTitle(event.title) !== targetTitle
+    );
+    if (renamedSeedIndex >= 0) output.splice(renamedSeedIndex, 1);
+
 
     // A manual supplement can outlive the gap it was created to cover.
     // If the live official source later publishes the same activity with the

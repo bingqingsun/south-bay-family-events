@@ -225,3 +225,15 @@ const fullAfterSeed = mergeEventSupplements([fullOfficialEvent], [{
 }], { now: '2099-11-01T00:00' });
 assert.equal(fullAfterSeed[0].registrationStatus, 'full');
 assert.equal(fullAfterSeed[0].registrationEvidence, 'Sold out');
+
+const officialTurkey = {
+  id: 'official-turkey', title: 'Turkey Toss!', dateValue: '2099-11-25T11:00',
+  source: 'Hiller', url: 'https://hiller.example/turkey'
+};
+const renamedTurkey = mergeEventSupplements([
+  { ...officialTurkey, id: 'editorial-turkey', title: 'Helicopter Turkey Hunt', url: 'https://hiller.example/calendar' },
+  officialTurkey
+], [{ ...officialTurkey, id: 'editorial-turkey', replaceExisting: true }], { now: '2099-11-01' });
+assert.equal(renamedTurkey.length, 1);
+assert.equal(renamedTurkey[0].id, 'official-turkey');
+assert(renamedTurkey[0].legacyIds.includes('editorial-turkey'));
