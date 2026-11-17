@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "note": "Organizer-verified November 20–22 South Bay weekend coverage",
+  "entries": [
+    {
+      "id": "editorial-train-of-lights-202611",
+      "title": "Niles Canyon 节日灯饰火车",
+      "description": "搭乘挂满节日灯饰的老式列车穿越 Niles Canyon。较早一班从 Fremont 的 Niles Station 出发，晚间班次从 Sunol Depot 出发。2026 年全季车票已售罄。",
+      "sourceFingerprint": "c6136c5e1b002bf25fd8f2f65880ade25040b2ab328b195f0906c03182ef7585",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T06:15:01.427Z"
+    },
+    {
+      "id": "editorial-triton-holiday-art-fair-202611",
+      "title": "Triton 节日艺术市集",
+      "description": "在博物馆室内逛节日市集，看看本地艺术家的手作和节日礼物。免费入场及停车。",
+      "sourceFingerprint": "f35a430a41c6eabe19ae041ca54701bf8a4c6d0ed1893cd87a50569ff6d473fb",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T06:15:01.427Z"
+    },
+    {
+      "id": "editorial-little-red-riding-hood-202611",
+      "title": "儿童剧《小红帽》",
+      "description": "以讲故事的方式演出《小红帽》，布景简单，小观众也有机会站起来动一动。",
+      "sourceFingerprint": "f00f6a0bca6c90d71483546f234670218eb7c6f5940d96200cd4d87e4c9fa613",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T06:15:01.427Z"
+    },
+    {
+      "id": "editorial-happy-hollow-hop-skip-jump-202611",
+      "title": "Happy Hollow 亲子活动：动物跳跳跳",
+      "description": "和孩子一起认识会蹦跳的动物，探索它们为什么用跳跃来移动。儿童须由成人陪同。",
+      "sourceFingerprint": "ee024e2aa3f44d800fada4651bd9b885e40635d975f0f14cbe0c7dc67ea05735",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T06:15:01.427Z"
+    },
+    {
+      "id": "editorial-ainsley-house-photos-with-santa-202611",
+      "title": "Ainsley House 圣诞老人合影",
+      "description": "在 Ainsley House 的阳光房见圣诞老人并拍张全家福。主办方已关闭两场活动的报名。",
+      "sourceFingerprint": "491b54553c90e0dcc155ce76e95da05345e4155ea16db9e4635079eb6f7e7172",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T06:15:01.427Z"
+    },
+    {
+      "id": "editorial-los-gatos-ballet-nutcracker-202611",
+      "title": "Los Gatos Ballet 芭蕾舞剧《胡桃夹子》",
+      "description": "跟随克拉拉和胡桃夹子王子穿越雪后王国，来到糖梅仙子的宫殿，欣赏 Los Gatos Ballet 带来的柴可夫斯基经典芭蕾。",
+      "sourceFingerprint": "328bc8927faecd547684e3aebea64d328d97c40243a1b15b2eca7c06c868703f",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T06:15:01.427Z"
+    },
+    {
+      "id": "editorial-palo-alto-friendsgiving-202611",
+      "title": "Palo Alto Friendsgiving 社区感恩聚会",
+      "description": "在社区聚会中分享美食和故事，参加适合不同年龄的互动活动。主办方已关闭报名。",
+      "sourceFingerprint": "1deeeefd4bc5b2751ddca8222e1586f6bde11a8fb288391f849060d3a7f0eccb",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T06:15:01.427Z"
+    }
+  ]
+}

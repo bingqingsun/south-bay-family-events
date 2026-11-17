@@ -920,5 +920,233 @@
     ],
     "replaceExisting": true,
     "verifiedAt": "2026-11-09T15:42:00-08:00"
+  },
+  {
+    "id": "editorial-train-of-lights-202611",
+    "title": "Train of Lights",
+    "dateValue": "2026-11-20T16:30",
+    "description": "A holiday train ride through Niles Canyon aboard decorated historic railcars. Fremont departures leave Niles Station and evening departures leave Sunol Depot. The 2026 season is sold out.",
+    "place": "Niles Station",
+    "address": "37029 Mission Blvd, Fremont, CA 94536",
+    "city": "Fremont",
+    "source": "Niles Canyon Railway",
+    "url": "https://www.ncry.org/ride/train-of-lights/",
+    "type": "community",
+    "format": "program",
+    "costStatus": "paid",
+    "costLabel": "需付费／价格见详情",
+    "registrationStatus": "full",
+    "registrationSource": "Niles Canyon Railway",
+    "sessions": [
+      {
+        "id": "editorial-train-of-lights-202611-1",
+        "dateValue": "2026-11-20T16:30",
+        "endDateValue": "2026-11-20T18:00"
+      },
+      {
+        "id": "editorial-train-of-lights-202611-2",
+        "dateValue": "2026-11-20T19:30",
+        "endDateValue": "2026-11-20T21:00",
+        "place": "Sunol Depot",
+        "address": "6 Kilkare Rd, Sunol, CA 94586"
+      },
+      {
+        "id": "editorial-train-of-lights-202611-3",
+        "dateValue": "2026-11-21T16:30",
+        "endDateValue": "2026-11-21T18:00"
+      },
+      {
+        "id": "editorial-train-of-lights-202611-4",
+        "dateValue": "2026-11-21T19:30",
+        "endDateValue": "2026-11-21T21:00",
+        "place": "Sunol Depot",
+        "address": "6 Kilkare Rd, Sunol, CA 94586"
+      },
+      {
+        "id": "editorial-train-of-lights-202611-5",
+        "dateValue": "2026-11-22T16:30",
+        "endDateValue": "2026-11-22T18:00"
+      },
+      {
+        "id": "editorial-train-of-lights-202611-6",
+        "dateValue": "2026-11-22T19:30",
+        "endDateValue": "2026-11-22T21:00",
+        "place": "Sunol Depot",
+        "address": "6 Kilkare Rd, Sunol, CA 94586"
+      }
+    ],
+    "verifiedAt": "2026-11-17T06:15:01.427Z"
+  },
+  {
+    "id": "editorial-triton-holiday-art-fair-202611",
+    "title": "Triton Holiday Art Fair",
+    "dateValue": "2026-11-21T10:00",
+    "endDateValue": "2026-11-21T16:00",
+    "description": "Browse holiday gifts and handmade work by local artists at the museum's indoor art fair. Admission and parking are free.",
+    "place": "Triton Museum of Art",
+    "address": "1505 Warburton Ave, Santa Clara, CA 95050",
+    "city": "Santa Clara",
+    "source": "Triton Museum of Art",
+    "url": "https://www.tritonmuseum.org/holidayartfair",
+    "type": "community",
+    "format": "festival",
+    "costStatus": "free",
+    "costLabel": "免费",
+    "verifiedAt": "2026-11-17T06:15:01.427Z"
+  },
+  {
+    "id": "editorial-little-red-riding-hood-202611",
+    "title": "Playhouse Series: Little Red Riding Hood",
+    "dateValue": "2026-11-21T10:00",
+    "description": "A storyteller-style performance of Little Red Riding Hood with simple sets and opportunities for young children to move around.",
+    "place": "Palo Alto Children's Theatre",
+    "address": "1305 Middlefield Rd, Palo Alto, CA 94301",
+    "city": "Palo Alto",
+    "source": "Palo Alto Children's Theatre",
+    "url": "https://www.paloalto.gov/Events-Directory/Community-Services/Playhouse-Series-Little-Red-Riding-Hood",
+    "type": "shows",
+    "format": "live-show",
+    "costStatus": "paid",
+    "costLabel": "需付费／价格见详情",
+    "ageMin": 2,
+    "ageMax": 6,
+    "ageLabel": "Ages 2–6",
+    "ageSource": "Palo Alto Children's Theatre",
+    "sessions": [
+      {
+        "id": "editorial-little-red-riding-hood-202611-1",
+        "dateValue": "2026-11-21T10:00",
+        "endDateValue": "2026-11-21T11:00"
+      },
+      {
+        "id": "editorial-little-red-riding-hood-202611-2",
+        "dateValue": "2026-11-21T12:00",
+        "endDateValue": "2026-11-21T13:00"
+      },
+      {
+        "id": "editorial-little-red-riding-hood-202611-3",
+        "dateValue": "2026-11-22T10:00",
+        "endDateValue": "2026-11-22T11:00"
+      },
+      {
+        "id": "editorial-little-red-riding-hood-202611-4",
+        "dateValue": "2026-11-22T12:00",
+        "endDateValue": "2026-11-22T13:00"
+      },
+      {
+        "id": "editorial-little-red-riding-hood-202611-5",
+        "dateValue": "2026-11-22T14:00",
+        "endDateValue": "2026-11-22T15:00"
+      }
+    ],
+    "verifiedAt": "2026-11-17T06:15:01.427Z"
+  },
+  {
+    "id": "editorial-happy-hollow-hop-skip-jump-202611",
+    "title": "Family Fun: Hop, Skip & A Jump",
+    "dateValue": "2026-11-21T10:00",
+    "description": "Explore how animals hop and bounce and why jumping helps them move. Children must attend with an adult.",
+    "place": "Happy Hollow Park & Zoo",
+    "address": "748 Story Rd, San Jose, CA 95112",
+    "city": "San Jose",
+    "source": "Happy Hollow Park & Zoo",
+    "url": "https://happyhollow.org/learn/hh-experience-programs/",
+    "type": "learning",
+    "format": "program",
+    "costStatus": "paid",
+    "costLabel": "需付费／价格见详情",
+    "registrationStatus": "required",
+    "registrationSource": "Happy Hollow Park & Zoo",
+    "sessions": [
+      {
+        "id": "editorial-happy-hollow-hop-skip-jump-202611-1",
+        "dateValue": "2026-11-21T10:00"
+      },
+      {
+        "id": "editorial-happy-hollow-hop-skip-jump-202611-2",
+        "dateValue": "2026-11-21T14:00"
+      }
+    ],
+    "verifiedAt": "2026-11-17T06:15:01.427Z"
+  },
+  {
+    "id": "editorial-ainsley-house-photos-with-santa-202611",
+    "title": "Photos with Santa at the Ainsley House",
+    "dateValue": "2026-11-21T09:00",
+    "description": "Meet Santa and take a family photo in the historic Ainsley House Sunporch Room. The organizer has closed registration for both sessions.",
+    "place": "Ainsley House",
+    "address": "300 Grant St, Campbell, CA 95008",
+    "city": "Campbell",
+    "source": "Campbell Museums",
+    "url": "https://www.campbellmuseums.com/event-details/photos-with-santa-9am-10am-at-the-ainsley-house-2",
+    "type": "community",
+    "format": "program",
+    "costStatus": "paid",
+    "costLabel": "需付费／价格见详情",
+    "sessions": [
+      {
+        "id": "editorial-ainsley-house-photos-with-santa-202611-1",
+        "dateValue": "2026-11-21T09:00",
+        "endDateValue": "2026-11-21T10:00"
+      },
+      {
+        "id": "editorial-ainsley-house-photos-with-santa-202611-2",
+        "dateValue": "2026-11-21T11:00",
+        "endDateValue": "2026-11-21T12:00",
+        "url": "https://www.campbellmuseums.com/event-details/photos-with-santa-11am-12pm-at-the-ainsley-house-1"
+      }
+    ],
+    "verifiedAt": "2026-11-17T06:15:01.427Z"
+  },
+  {
+    "id": "editorial-los-gatos-ballet-nutcracker-202611",
+    "title": "Los Gatos Ballet: The Nutcracker",
+    "dateValue": "2026-11-21T13:00",
+    "description": "Follow Clara and the Nutcracker Prince through the Snow Queen's realm to the Sugar Plum Fairy's palace in Los Gatos Ballet's family-friendly staging of Tchaikovsky's ballet.",
+    "place": "McAfee Performing Arts Center",
+    "address": "20300 Herriman Ave, Saratoga, CA 95070",
+    "city": "Saratoga",
+    "source": "Los Gatos Ballet",
+    "url": "https://losgatosballet.org/nutcracker/",
+    "type": "shows",
+    "format": "live-show",
+    "costStatus": "paid",
+    "costLabel": "需付费／价格见详情",
+    "sessions": [
+      {
+        "id": "editorial-los-gatos-ballet-nutcracker-202611-1",
+        "dateValue": "2026-11-21T13:00"
+      },
+      {
+        "id": "editorial-los-gatos-ballet-nutcracker-202611-2",
+        "dateValue": "2026-11-21T18:00"
+      },
+      {
+        "id": "editorial-los-gatos-ballet-nutcracker-202611-3",
+        "dateValue": "2026-11-22T13:00"
+      },
+      {
+        "id": "editorial-los-gatos-ballet-nutcracker-202611-4",
+        "dateValue": "2026-11-22T18:00"
+      }
+    ],
+    "verifiedAt": "2026-11-17T06:15:01.427Z"
+  },
+  {
+    "id": "editorial-palo-alto-friendsgiving-202611",
+    "title": "Friendsgiving in Palo Alto",
+    "dateValue": "2026-11-21T17:00",
+    "endDateValue": "2026-11-21T20:00",
+    "description": "A community gathering with food, storytelling and activities for different generations. The organizer has closed registration.",
+    "place": "Lucie Stern Community Center",
+    "address": "1305 Middlefield Rd, Palo Alto, CA 94301",
+    "city": "Palo Alto",
+    "source": "Magical Bridge",
+    "url": "https://www.magicalbridge.org/event-details/friendsgiving-in-palo-alto",
+    "type": "community",
+    "format": "program",
+    "costStatus": "paid",
+    "costLabel": "需付费／价格见详情",
+    "verifiedAt": "2026-11-17T06:15:01.427Z"
   }
 ]
