@@ -1,36 +1,49 @@
 {
   "version": 1,
   "locale": "zh-Hans",
-  "generatedAt": "2026-11-18T04:04:37.644Z",
+  "generatedAt": "2026-11-18T04:07:56.709Z",
   "generatedForDate": "2026-11-17",
   "batch": 1,
   "totalBatches": 1,
   "entries": [
     {
-      "id": "series-32a14599d6424927",
-      "dateValue": "2027-01-20T15:30",
-      "endDateValue": "2027-01-20T16:30",
-      "title": "Button Making Pop-up for Teens!",
-      "description": "Drop by after school for button making in the Teen Zone!",
-      "source": "Palo Alto City Library",
-      "sourceUrl": "https://paloalto.bibliocommons.com/events/6aee37c330b4d5b2f42c0da6",
-      "status": "stale",
-      "sourceFingerprint": "fe99d843dbc9f67caf75f6a53c335d5c5cc5ce7fbd7d0d11e136952056f59fb9",
-      "priorTitleZh": "青少年徽章制作快闪活动",
-      "priorDescriptionZh": "使用旧漫画和连环画制作独特设计，或从头创作自己的图案。"
+      "id": "rss-6a94597f36204e08fbb8509e",
+      "dateValue": "2026-11-25T15:00",
+      "endDateValue": "2026-11-25T18:00",
+      "title": "Game On!",
+      "description": "Our Nintendo Switch console is available for teens to play after school.nbsp; Controllers and games may be checked out at the Information Desk for IN LIBRARY USE ONLY.nbsp;nbsp;For teens 13-18.",
+      "source": "San José Public Library",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a94597f36204e08fbb8509e",
+      "status": "missing",
+      "sourceFingerprint": "70e5df49dcd6b81d4cc0649e568d7772a8a515de4854d7365f54215b01879f3f",
+      "priorTitleZh": "",
+      "priorDescriptionZh": ""
     },
     {
-      "id": "rss-6afcebd404009d0033893d4b",
-      "dateValue": "2027-01-24T15:00",
-      "endDateValue": "2027-01-24T16:00",
-      "title": "TLAB presents: The Brave Fuzzy Author Talk",
-      "description": "Members of Pen Pipette, a nonprofit publisher for children's books run entirely by high school students, will dive into the inspirations behind the book, explore how art and science collide, and dive into a fun, hands-on workshop where you can experiment with your own creative ideas.",
-      "source": "Palo Alto City Library",
-      "sourceUrl": "https://paloalto.bibliocommons.com/events/6afcebd404009d0033893d4b",
-      "status": "stale",
-      "sourceFingerprint": "6ae00fa18715fe6179673a534341adcf3357e5b77d249be6360b7a671309d3b4",
-      "priorTitleZh": "TLAB：《勇敢的毛茸茸》作者分享",
-      "priorDescriptionZh": "由高中生运营的儿童图书非营利出版社 Pen & Pipette 分享创作灵感，探讨艺术与科学如何结合，并带领大家动手实践创意。"
+      "id": "rss-6a5e83e10e562e28009b3026",
+      "dateValue": "2026-11-25T16:00",
+      "endDateValue": "2026-11-25T17:00",
+      "title": "Crochet Club",
+      "description": "A casual beginner friendly introduction to crocheting.",
+      "source": "San José Public Library",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a5e83e10e562e28009b3026",
+      "status": "missing",
+      "sourceFingerprint": "3c2101859b670b905527e0ac297e423e4de55415accc68522570880893453480",
+      "priorTitleZh": "",
+      "priorDescriptionZh": ""
+    },
+    {
+      "id": "rss-6a2b3d5ac7d3cd58005fc0f6",
+      "dateValue": "2026-11-25T16:00",
+      "endDateValue": "2026-11-25T17:00",
+      "title": "Reading Buddy in English & Spanish",
+      "description": "Children in kindergartennbsp;through 3rd grade are invited to read aloud in English ornbsp;Spanish to trained teen volunteers who will offer encouragement and help with pronunciation when needed.",
+      "source": "San José Public Library",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a2b3d5ac7d3cd58005fc0f6",
+      "status": "missing",
+      "sourceFingerprint": "d22439da6292c52df489ac29de9e1cf7881e7364da7b00fddaec49e2a14b6c03",
+      "priorTitleZh": "",
+      "priorDescriptionZh": ""
     }
   ]
 }
