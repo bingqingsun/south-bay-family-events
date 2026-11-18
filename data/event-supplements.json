@@ -1443,7 +1443,7 @@
     "title": "A Christmas Carol 2026",
     "dateValue": "2026-12-04T19:30",
     "endDateValue": "2026-12-20T21:15",
-    "description": "Silicon Valley Shakespeare presents an immersive, walking production of A Christmas Carol across Montalvo’s villa and courtyards. Select performances run December 4–20; check the organizer’s ticket calendar for individual show dates and matinees.",
+    "description": "Walk through Montalvo’s historic Villa and courtyards as Silicon Valley Shakespeare brings Dickens’s A Christmas Carol to life in an immersive, roving holiday performance.",
     "sourceDescriptionRaw": "Silicon Valley Shakespeare presents A Christmas Carol at Montalvo Arts Center December 4–20, 2026. The roving performance is for audiences of all ages; approximately 1,000 steps. Individual performance dates and matinees vary.",
     "place": "Montalvo Arts Center",
     "address": "15400 Montalvo Rd, Saratoga, CA 95070",
@@ -1460,7 +1460,8 @@
     "registrationSource": "Silicon Valley Shakespeare official ticket page",
     "type": "shows",
     "format": "live-show",
-    "verifiedAt": "2026-11-18T04:30:00Z"
+    "verifiedAt": "2026-11-18T04:30:00Z",
+    "replaceExisting": true
   },
   {
     "id": "editorial-mv-tree-lighting-2026",
