@@ -487,7 +487,7 @@
     "summaryMethod": "manual_verified",
     "summaryQuality": "manual_verified",
     "summaryEvidence": "The organizer lists San Jose Holiday Lights from November 13, 2026 through January 1, 2027 at Discovery Meadow, with hours of 4:30 PM to 10:30 PM and immersive themed light displays.",
-    "image": "",
+    "image": "https://www.sanjoseholidaylights.com/_next/static/immutable/media/golden-christmas.3uk1iwdrc66d1.webp",
     "place": "Discovery Meadow",
     "address": "330 W San Carlos St, San Jose, CA 95110",
     "city": "San Jose",
@@ -525,7 +525,21 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "imageStatus": "official",
+    "imageProvenance": {
+      "source": "curated-manual",
+      "method": "manual_verified",
+      "sourceUrl": "https://www.sjhl.us/tickets",
+      "verifiedAt": "2026-11-09T15:42:00-08:00",
+      "score": 100,
+      "evidence": "organizer-event-image"
+    },
+    "legacyIds": [
+      "editorial-sj-holiday-lights-2026"
+    ],
+    "imagePresentation": "",
+    "imageBackground": ""
   },
   {
     "id": "rss-6ac02d7dde300e004517d401",
@@ -788,7 +802,7 @@
     "summaryMethod": "manual_verified",
     "summaryQuality": "manual_verified",
     "summaryEvidence": "Filoli confirms Holiday Lights November 14, 2026 through January 10, 2027, open 4 PM to 10 PM, with lights throughout the gardens and a 210-foot light tunnel. Evening admission is separately ticketed from Holiday Daytime.",
-    "image": "",
+    "image": "https://filoli.org/media/se5pe5s0/olivia-marshall-filoli-holiday-40-19.jpg",
     "place": "Filoli Historic House & Garden",
     "address": "86 Cañada Rd, Woodside, CA 94062",
     "city": "Woodside",
@@ -826,7 +840,21 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "imageStatus": "official",
+    "imageProvenance": {
+      "source": "curated-manual",
+      "method": "manual_verified",
+      "sourceUrl": "https://filoli.org/whats-on/events/holiday-lights/",
+      "verifiedAt": "2026-11-09T15:42:00-08:00",
+      "score": 100,
+      "evidence": "organizer-event-image"
+    },
+    "legacyIds": [
+      "editorial-filoli-holiday-lights-2026"
+    ],
+    "imagePresentation": "",
+    "imageBackground": ""
   },
   {
     "id": "series-7f48ed2548f3fe18",
@@ -13490,7 +13518,7 @@
         "title": "故事与律动 / Hora de cuentos",
         "description": "孩子和照护者可一起听故事、念童谣、做手指游戏，并参加音乐和律动活动，培养早期读写能力。",
         "fingerprint": "d6b33e0aebd10cd7cacfa4589360c37bda26467f0d3eb4d43d996d829cc76b42",
-        "translatedAt": "2026-11-18T15:49:55.508Z",
+        "translatedAt": "2026-11-18T17:50:44.788Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -19519,7 +19547,7 @@
         "title": "Tiny Tot Jamboree 幼儿欢乐会",
         "description": "家长和 1–2 岁幼儿一起参加短小有趣的故事、童谣、手指游戏、活动和歌曲。",
         "fingerprint": "19039c77101e7b754cea87442a5b6c527a3efc21cccdd8fb7c28d638065cb8c3",
-        "translatedAt": "2026-11-18T15:49:55.508Z",
+        "translatedAt": "2026-11-18T17:50:44.788Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -19739,7 +19767,7 @@
         "title": "Itty Bitty Jamboree 婴儿欢乐会",
         "description": "成人和 0–12 个月婴儿一起参加短小有趣的故事、童谣、手指游戏和歌曲。",
         "fingerprint": "c344a114ee050cef7355631d275d83e124d1be22ee47743a4e0aeb5fddf52f40",
-        "translatedAt": "2026-11-18T15:49:55.508Z",
+        "translatedAt": "2026-11-18T17:50:44.788Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -20223,9 +20251,9 @@
       "source": "sbff-generated",
       "method": "generated-svg",
       "sourceUrl": "https://curiodyssey.org/event/marsh-hike-at-coyote-point-6/2026-11-20/",
-      "verifiedAt": "2026-11-18T15:48:06.329Z",
+      "verifiedAt": "2026-11-18T17:46:38.470Z",
       "score": 100,
-      "evidence": "no_verified_official_image_candidate",
+      "evidence": "refresh-generated-editorial",
       "generatorVersion": "editorial-cover-v1",
       "visualTokens": [
         "science",
@@ -23477,7 +23505,7 @@
     "summaryMethod": "manual_verified",
     "summaryQuality": "manual_verified",
     "summaryEvidence": "A holiday train ride through Niles Canyon aboard decorated historic railcars. Fremont departures leave Niles Station and evening departures leave Sunol Depot. The 2026 season is sold out.",
-    "image": "",
+    "image": "https://www.ncry.org/wp-content/uploads/2021/10/NCRy_TOL_Reflection_141130_CRH_1200px_wm_211001-1.jpg",
     "place": "Niles Station",
     "address": "37029 Mission Blvd, Fremont, CA 94536",
     "city": "Fremont",
@@ -23552,7 +23580,19 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "legacyIds": [
+      "editorial-train-of-lights-202611"
+    ],
+    "imageStatus": "official",
+    "imageProvenance": {
+      "source": "supplement-detail",
+      "method": "og:image",
+      "sourceUrl": "https://www.ncry.org/ride/train-of-lights/",
+      "verifiedAt": "2026-11-18T17:44:56.226Z",
+      "score": 70,
+      "evidence": "og-title-matches-event"
+    }
   },
   {
     "id": "rss-6a5552f5b93a5a73032beb8c",
@@ -24275,7 +24315,7 @@
         "title": "《Matilda The Musical》",
         "description": "聪明勇敢的 Matilda Wormwood 运用自己的机智和一点魔法，对抗专横的 Miss Trunchbull，并寻找属于自己的位置。",
         "fingerprint": "c28f15878095e2adac2b2cac63a5c48ddc4f43925316ef6257a5f90a09388e19",
-        "translatedAt": "2026-11-18T15:49:55.508Z",
+        "translatedAt": "2026-11-18T17:50:44.788Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -24508,7 +24548,7 @@
     "summaryMethod": "manual_verified",
     "summaryQuality": "manual_verified",
     "summaryEvidence": "Meet Santa and take a family photo in the historic Ainsley House Sunporch Room. The organizer has closed registration for both sessions.",
-    "image": "",
+    "image": "https://static.wixstatic.com/media/0845a5_8bcd56305e7a481380cc0ae188de754b~mv2.jpg/v1/fill/w_2250,h_2250,al_c,q_90/0845a5_8bcd56305e7a481380cc0ae188de754b~mv2.jpg",
     "place": "Ainsley House",
     "address": "300 Grant St, Campbell, CA 95008",
     "city": "Campbell",
@@ -24558,7 +24598,19 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "legacyIds": [
+      "editorial-ainsley-house-photos-with-santa-202611"
+    ],
+    "imageStatus": "official",
+    "imageProvenance": {
+      "source": "supplement-detail",
+      "method": "schema.org",
+      "sourceUrl": "https://www.campbellmuseums.com/event-details/photos-with-santa-9am-10am-at-the-ainsley-house-2",
+      "verifiedAt": "2026-11-18T17:44:56.226Z",
+      "score": 100,
+      "evidence": "event-schema-image"
+    }
   },
   {
     "id": "midpen-d1efff7c2beb56ba",
@@ -25144,7 +25196,7 @@
       "source": "sbff-generated",
       "method": "generated-svg",
       "sourceUrl": "https://happyhollow.org/learn/hh-experience-programs/",
-      "verifiedAt": "2026-11-18T15:48:06.329Z",
+      "verifiedAt": "2026-11-18T17:46:38.470Z",
       "score": 100,
       "evidence": "refresh-generated-editorial",
       "generatorVersion": "editorial-cover-v1",
@@ -25469,7 +25521,7 @@
     "summaryMethod": "manual_verified",
     "summaryQuality": "manual_verified",
     "summaryEvidence": "A storyteller-style performance of Little Red Riding Hood with simple sets and opportunities for young children to move around.",
-    "image": "",
+    "image": "/assets/official/palo-alto-childrens-theatre/fe18f3ae135891074c8a.png",
     "place": "Palo Alto Children's Theatre",
     "address": "1305 Middlefield Rd, Palo Alto, CA 94301",
     "city": "Palo Alto",
@@ -25533,7 +25585,32 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "legacyIds": [
+      "editorial-little-red-riding-hood-202611"
+    ],
+    "imageStatus": "official",
+    "imageProvenance": {
+      "source": "supplement-detail",
+      "method": "og:image",
+      "sourceUrl": "https://www.paloalto.gov/Events-Directory/Community-Services/Playhouse-Series-Little-Red-Riding-Hood",
+      "verifiedAt": "2026-11-18T17:44:56.226Z",
+      "score": 70,
+      "evidence": "og-title-matches-event",
+      "originalImageUrl": "https://www.paloalto.gov/files/assets/public/v/1/community-services/childrens-theatre/production-pictures/111playhouse-web-poster.png?w=1200",
+      "mirroredImagePath": "/assets/official/palo-alto-childrens-theatre/fe18f3ae135891074c8a.png",
+      "mirroredAt": "2026-11-18T17:50:39.708Z"
+    },
+    "imageOriginalUrl": "https://www.paloalto.gov/files/assets/public/v/1/community-services/childrens-theatre/production-pictures/111playhouse-web-poster.png?w=1200",
+    "imageMirror": {
+      "status": "mirrored",
+      "originalUrl": "https://www.paloalto.gov/files/assets/public/v/1/community-services/childrens-theatre/production-pictures/111playhouse-web-poster.png?w=1200",
+      "finalUrl": "https://www.paloalto.gov/files/assets/public/v/1/community-services/childrens-theatre/production-pictures/111playhouse-web-poster.png?w=1200",
+      "localPath": "/assets/official/palo-alto-childrens-theatre/fe18f3ae135891074c8a.png",
+      "contentType": "image/png",
+      "bytes": 350238,
+      "mirroredAt": "2026-11-18T17:50:39.708Z"
+    }
   },
   {
     "id": "curated-3760087d46fa1053",
@@ -25607,9 +25684,9 @@
       "source": "sbff-generated",
       "method": "generated-svg",
       "sourceUrl": "https://dickensfair.com/media-info/",
-      "verifiedAt": "2026-11-18T15:48:06.329Z",
+      "verifiedAt": "2026-11-18T17:46:38.470Z",
       "score": 100,
-      "evidence": "official_page_identity_mismatch",
+      "evidence": "refresh-generated-editorial",
       "generatorVersion": "editorial-cover-v1",
       "visualTokens": [
         "farm",
@@ -25867,7 +25944,7 @@
     "summaryMethod": "manual_verified",
     "summaryQuality": "manual_verified",
     "summaryEvidence": "Browse holiday gifts and handmade work by local artists at the museum's indoor art fair. Admission and parking are free.",
-    "image": "",
+    "image": "https://static.wixstatic.com/media/a2db12_b53559e8d12d45ca8ebb4b76bc380332%7Emv2.jpg/v1/fit/w_2500,h_1330,al_c/a2db12_b53559e8d12d45ca8ebb4b76bc380332%7Emv2.jpg",
     "place": "Triton Museum of Art",
     "address": "1505 Warburton Ave, Santa Clara, CA 95050",
     "city": "Santa Clara",
@@ -25905,7 +25982,19 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "legacyIds": [
+      "editorial-triton-holiday-art-fair-202611"
+    ],
+    "imageStatus": "official",
+    "imageProvenance": {
+      "source": "supplement-detail",
+      "method": "og:image",
+      "sourceUrl": "https://www.tritonmuseum.org/holidayartfair",
+      "verifiedAt": "2026-11-18T17:44:56.226Z",
+      "score": 70,
+      "evidence": "og-title-matches-event"
+    }
   },
   {
     "id": "series-276cfefccce78432",
@@ -28955,12 +29044,12 @@
     "canonicalUrl": "https://www.cupertino.gov/Parks-Recreation/Events/McClellan-Events/Environmental-Education-Center-Open-House",
     "imageStatus": "official",
     "imageProvenance": {
-      "source": "canonical-detail",
-      "method": "event-image",
+      "source": "curated-manual",
+      "method": "manual_verified",
       "sourceUrl": "https://www.cupertino.gov/Parks-Recreation/Events/McClellan-Events/Environmental-Education-Center-Open-House",
-      "verifiedAt": "2026-11-18T15:48:06.329Z",
-      "score": 85,
-      "evidence": "image-alt-matches-event"
+      "verifiedAt": "2026-11-02T20:30:00-08:00",
+      "score": 100,
+      "evidence": "organizer-event-image"
     },
     "specialEventPageUrl": "https://www.cupertino.gov/Parks-Recreation/Events/McClellan-Events/Environmental-Education-Center-Open-House",
     "specialEventPageEvidence": "Sitemap candidate; title overlap 5; page contains November 21, 2026.",
@@ -29835,7 +29924,7 @@
     "summaryMethod": "manual_verified",
     "summaryQuality": "manual_verified",
     "summaryEvidence": "Follow Clara and the Nutcracker Prince through the Snow Queen's realm to the Sugar Plum Fairy's palace in Los Gatos Ballet's family-friendly staging of Tchaikovsky's ballet.",
-    "image": "",
+    "image": "https://losgatosballet.org/wp-content/uploads/2026/08/Performance_Nutcracker.webp",
     "place": "McAfee Performing Arts Center",
     "address": "20300 Herriman Ave, Saratoga, CA 95070",
     "city": "Saratoga",
@@ -29890,7 +29979,19 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "legacyIds": [
+      "editorial-los-gatos-ballet-nutcracker-202611"
+    ],
+    "imageStatus": "official",
+    "imageProvenance": {
+      "source": "curated-manual",
+      "method": "manual_verified",
+      "sourceUrl": "https://losgatosballet.org/nutcracker/",
+      "verifiedAt": "2026-11-17T06:15:01.427Z",
+      "score": 100,
+      "evidence": "organizer-event-image"
+    }
   },
   {
     "id": "series-4a93e67dd7ef1aaa",
@@ -34619,7 +34720,7 @@
     "summaryMethod": "manual_verified",
     "summaryQuality": "manual_verified",
     "summaryEvidence": "A community gathering with food, storytelling and activities for different generations. The organizer has closed registration.",
-    "image": "",
+    "image": "https://static.wixstatic.com/media/e05ca8_7c5fcb118b47424da17aff8cccf71ce8~mv2.png/v1/fill/w_1500,h_900,al_c/e05ca8_7c5fcb118b47424da17aff8cccf71ce8~mv2.png",
     "place": "Lucie Stern Community Center",
     "address": "1305 Middlefield Rd, Palo Alto, CA 94301",
     "city": "Palo Alto",
@@ -34657,7 +34758,19 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "legacyIds": [
+      "editorial-palo-alto-friendsgiving-202611"
+    ],
+    "imageStatus": "official",
+    "imageProvenance": {
+      "source": "supplement-detail",
+      "method": "schema.org",
+      "sourceUrl": "https://www.magicalbridge.org/event-details/friendsgiving-in-palo-alto",
+      "verifiedAt": "2026-11-18T17:44:56.226Z",
+      "score": 100,
+      "evidence": "event-schema-image"
+    }
   },
   {
     "id": "nhl-2026020372",
@@ -57014,7 +57127,7 @@
     "summaryMethod": "manual_verified",
     "summaryQuality": "manual_verified",
     "summaryEvidence": "The City of Santa Clara states that its 2026 Holiday Tree Lighting event will be held at Central Park on Friday, Dec. 4, from 5:30–8 p.m.",
-    "image": "",
+    "image": "/assets/generated/event-covers/editorial-sc-tree-lighting-2026.svg?v=editorial-cover-v1",
     "place": "Central Park",
     "address": "909 Kiely Blvd, Santa Clara, CA 95051",
     "city": "Santa Clara",
@@ -57052,7 +57165,30 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "legacyIds": [
+      "editorial-sc-tree-lighting-2026"
+    ],
+    "imageStatus": "generated-editorial",
+    "imageProvenance": {
+      "source": "sbff-generated",
+      "method": "generated-svg",
+      "sourceUrl": "https://www.santaclaraca.gov/Home/Components/Calendar/Event/111149/3371?curm=12&cury=2026",
+      "verifiedAt": "2026-11-18T17:46:38.470Z",
+      "score": 100,
+      "evidence": "refresh-generated-editorial",
+      "generatorVersion": "editorial-cover-v1",
+      "visualTokens": [
+        "outdoor",
+        "community"
+      ]
+    },
+    "generatedImage": {
+      "preset": "outdoor",
+      "seed": "editorial-sc-tree-lighting-2026",
+      "assetPath": "/assets/generated/event-covers/editorial-sc-tree-lighting-2026.svg",
+      "generatorVersion": "editorial-cover-v1"
+    }
   },
   {
     "id": "paloalto-fdf913bcaf6fa1ab",
@@ -57293,7 +57429,7 @@
         "title": "圣诞树亮灯仪式",
         "description": "观看圣诞树点亮数百盏闪烁灯饰的时刻，感受充满节日气氛的灯光。",
         "fingerprint": "0cc0cf98a8e9c5ae75a6e830c437c72c2b9f594e32afdc47814515ad5de27f89",
-        "translatedAt": "2026-11-18T15:49:55.508Z",
+        "translatedAt": "2026-11-18T17:50:44.788Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -57471,9 +57607,9 @@
       "source": "sbff-generated",
       "method": "generated-svg",
       "sourceUrl": "https://montalvoarts.org/experience/events-calendar/a-christmas-carol-2026/",
-      "verifiedAt": "2026-11-18T15:48:06.329Z",
+      "verifiedAt": "2026-11-18T17:46:38.470Z",
       "score": 100,
-      "evidence": "no_verified_official_image_candidate",
+      "evidence": "refresh-generated-editorial",
       "generatorVersion": "editorial-cover-v1",
       "visualTokens": [
         "arts",
@@ -57619,7 +57755,7 @@
         "title": "与 Santa 共进早餐",
         "description": "现场会提供 North Pole Pancakes，Santa 也会和大家合影。",
         "fingerprint": "01a002b4339a174bdeb2e56f49abb6517622dc7b71704f74995db46cb4c6c35b",
-        "translatedAt": "2026-11-18T15:49:55.508Z",
+        "translatedAt": "2026-11-18T17:50:44.788Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -58866,7 +59002,7 @@
         "title": "Black Holes: The Other Side of Infinity 黑洞：无限的另一面",
         "description": "在这场节目中，你将穿越奇异的虫洞，体验银河系的形成，见证恒星猛烈死亡以及随后黑洞的诞生。",
         "fingerprint": "2dd57744a2a6c6f708b4c8867ec6e1d9ef8061df36b06f50907680bf27a53003",
-        "translatedAt": "2026-11-18T15:49:55.508Z",
+        "translatedAt": "2026-11-18T17:50:44.788Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -58891,7 +59027,7 @@
     "summaryMethod": "manual_verified",
     "summaryQuality": "manual_verified",
     "summaryEvidence": "Stroll through holiday light displays, meet Santa and Mrs. Claus, and enjoy live entertainment, food trucks and hot cocoa. Advance tickets are required for every attendee.",
-    "image": "",
+    "image": "https://cdn.uploads.webconnex.com/180642/20%20%281%29.png?1793313955273",
     "place": "Vasona Lake County Park",
     "address": "333 Blossom Hill Rd, Los Gatos, CA 95032",
     "city": "Los Gatos",
@@ -58951,7 +59087,21 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "imageStatus": "official",
+    "imageProvenance": {
+      "source": "curated-manual",
+      "method": "manual_verified",
+      "sourceUrl": "https://santaclaracountyparks.ticketspice.com/fantasy-of-lights-2026-walk-thru",
+      "verifiedAt": "2026-11-17T20:00:00Z",
+      "score": 100,
+      "evidence": "organizer-event-image"
+    },
+    "legacyIds": [
+      "editorial-fantasy-of-lights-2026"
+    ],
+    "imagePresentation": "",
+    "imageBackground": ""
   },
   {
     "id": "series-529f771b024b328b",
@@ -59401,7 +59551,7 @@
         "title": "Laser Journey 激光音乐秀",
         "description": "无论你是在 80 年代滑旱冰时第一次爱上 Journey 的歌曲，还是通过 American Idol 或 Glee 接触到这些音乐，Laser Journey 都是一场适合各年龄观众的趣味演出。",
         "fingerprint": "0e912b10734904838e9461f07bd2764727a6cb5a8ae198fa2f904d23c55ae37e",
-        "translatedAt": "2026-11-18T15:49:55.508Z",
+        "translatedAt": "2026-11-18T17:50:44.788Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -60473,7 +60623,7 @@
     "summaryMethod": "manual_verified",
     "summaryQuality": "manual_verified",
     "summaryEvidence": "Monday, Dec. 7, 2026, 5:30 to 8 p.m. at Civic Center Plaza. Local performances, tributes to multicultural and diverse traditions, free refreshments, a train ride, games, crafts, tree lighting and Santa. Free and open to the public.",
-    "image": "",
+    "image": "/assets/generated/event-covers/editorial-mv-tree-lighting-2026.svg?v=editorial-cover-v1",
     "place": "Civic Center Plaza",
     "address": "500 Castro St, Mountain View, CA 94041",
     "city": "Mountain View",
@@ -60511,7 +60661,31 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "legacyIds": [
+      "editorial-mv-tree-lighting-2026"
+    ],
+    "imageStatus": "generated-editorial",
+    "imageProvenance": {
+      "source": "sbff-generated",
+      "method": "generated-svg",
+      "sourceUrl": "https://www.mountainview.gov/Home/Components/Calendar/Event/3490/",
+      "verifiedAt": "2026-11-18T17:46:38.470Z",
+      "score": 100,
+      "evidence": "refresh-generated-editorial",
+      "generatorVersion": "editorial-cover-v1",
+      "visualTokens": [
+        "arts",
+        "performance",
+        "community"
+      ]
+    },
+    "generatedImage": {
+      "preset": "arts",
+      "seed": "editorial-mv-tree-lighting-2026",
+      "assetPath": "/assets/generated/event-covers/editorial-mv-tree-lighting-2026.svg",
+      "generatorVersion": "editorial-cover-v1"
+    }
   },
   {
     "id": "series-f4e125f828162f16",
@@ -64010,7 +64184,7 @@
         "title": "Legends of the Night Sky | Orion 夜空传说：猎户座",
         "description": "加入我们，以充满想象力的方式了解冬季天空中的伟大猎人 Orion 猎户座的故事与传说。",
         "fingerprint": "db10cc0837492a21326507443b5cbbaade5c7ef201492fea106b91519d46674f",
-        "translatedAt": "2026-11-18T15:49:55.508Z",
+        "translatedAt": "2026-11-18T17:50:44.788Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -64459,7 +64633,7 @@
         "title": "Earth, Moon & Sun 地球、月球与太阳",
         "description": "在一个改编自 Native American 口述传统、对我们的家园星球及其最熟悉邻居存在许多误解的幽默角色帮助下，探索地球、月球与太阳之间的关系。",
         "fingerprint": "28a46fb93fce150d9775b8bf731703e7d15d5cd35328155d4e30aabd9fafb852",
-        "translatedAt": "2026-11-18T15:49:55.508Z",
+        "translatedAt": "2026-11-18T17:50:44.788Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -64560,7 +64734,7 @@
         "title": "Explore Live: Tour of the Universe 现场探索：宇宙之旅",
         "description": "Explore Live: Tour of the Universe——从你一贯开始的地方出发：抬头仰望，然后离开夜空，继续探索。",
         "fingerprint": "68491a1654413dc30fb811396809ff4af9f4aa00eaaaa281f771c7e328d841f8",
-        "translatedAt": "2026-11-18T15:49:55.508Z",
+        "translatedAt": "2026-11-18T17:50:44.788Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -64741,7 +64915,7 @@
         "title": "Laser Holiday Magic 节日魔法激光秀",
         "description": "这场激光灯光秀包含多首节日音乐，如 Joy to the World、Jingle Bell Rock、Let it Snow、Rockin' Round the Christmas Tree 等！",
         "fingerprint": "058efd6d135f1bfe6e392614e8894c674d11b5c466b0ca1084cf51b94e0c4ca2",
-        "translatedAt": "2026-11-18T15:49:55.508Z",
+        "translatedAt": "2026-11-18T17:50:44.788Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -65917,7 +66091,7 @@
     "summaryMethod": "manual_verified",
     "summaryQuality": "manual_verified",
     "summaryEvidence": "A family holiday variety show with acrobatics, comedy, magic and Christmas music.",
-    "image": "",
+    "image": "https://www.sanjose.org/sites/default/files/BSJ_AMCC_WEB_V1_1080x1080_2E8614D7-BF62-F06D-8EFD5083BFC077CA_2e864eec-f736-941f-926c1d264efe589f.jpg",
     "place": "Center for the Performing Arts",
     "address": "255 S Almaden Blvd, San Jose, CA 95113",
     "city": "San Jose",
@@ -65964,7 +66138,21 @@
         "status": "approved"
       }
     },
-    "translationStatus": "current"
+    "translationStatus": "current",
+    "imageStatus": "official",
+    "imageProvenance": {
+      "source": "curated-manual",
+      "method": "manual_verified",
+      "sourceUrl": "https://www.sanjose.org/theaters/events/magical-cirque-christmas",
+      "verifiedAt": "2026-11-17T20:00:00Z",
+      "score": 100,
+      "evidence": "organizer-event-image"
+    },
+    "legacyIds": [
+      "editorial-magical-cirque-2026"
+    ],
+    "imagePresentation": "",
+    "imageBackground": ""
   },
   {
     "id": "rss-6ae3c3ad9b955d531f7ba1df",
@@ -68291,7 +68479,7 @@
     "summaryEvidenceData": null,
     "summaryVersion": "event-summary-v2-p9",
     "summaryVerifiedAt": "2026-11-18T15:48:06.329Z",
-    "image": "/assets/generated/event-covers/series-eecc3b2ebe72f7c7.svg?v=editorial-cover-v1",
+    "image": "https://www.symphonysanjose.org/wp-content/uploads/2026/08/NBNutcracker337-1-scaled-e1787266671735.jpg",
     "imagePresentation": "",
     "imageBackground": "",
     "place": "California Theatre",
@@ -68431,28 +68619,17 @@
       "reason": "missing-fields",
       "canonicalChanged": false
     },
-    "imageStatus": "generated-editorial",
+    "imageStatus": "official",
     "detailVerifiedAt": "2026-11-18T15:48:06.329Z",
     "detailStatus": "enriched",
     "detailFailureCount": 0,
     "imageProvenance": {
-      "source": "sbff-generated",
-      "method": "generated-svg",
+      "source": "curated-manual",
+      "method": "manual_verified",
       "sourceUrl": "https://www.symphonysanjose.org/attend/2026-2027-season/special-events/the-san-jose-nutcracker/",
-      "verifiedAt": "2026-11-18T15:48:06.329Z",
+      "verifiedAt": "2026-11-18T17:50:25.120Z",
       "score": 100,
-      "evidence": "no_verified_official_image_candidate",
-      "generatorVersion": "editorial-cover-v1",
-      "visualTokens": [
-        "performance",
-        "community"
-      ]
-    },
-    "generatedImage": {
-      "preset": "performance",
-      "seed": "series-eecc3b2ebe72f7c7",
-      "assetPath": "/assets/generated/event-covers/series-eecc3b2ebe72f7c7.svg",
-      "generatorVersion": "editorial-cover-v1"
+      "evidence": "organizer-event-page-image"
     },
     "sourceId": "symphony-san-jose",
     "canonicalUrl": "https://www.symphonysanjose.org/attend/2026-2027-season/special-events/the-san-jose-nutcracker/",
@@ -69607,7 +69784,7 @@
         "title": "San Jose Barracuda vs Eagles 冰球比赛",
         "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Eagles。特别活动包括 Jurassic World、Frenzy 的生日庆祝，以及向前 2,000 名球迷赠送 Frenzy 毛绒玩偶。",
         "fingerprint": "46f1cbf520789c315450e366f51b7c35dd161fbd1f57209e93dd1ab555f05a19",
-        "translatedAt": "2026-11-18T15:49:55.508Z",
+        "translatedAt": "2026-11-18T17:50:44.788Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }

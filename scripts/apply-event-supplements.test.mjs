@@ -30,6 +30,27 @@ assert.equal(merged[0].url, 'https://daweb2.deanza.edu/events/event.html?id=1851
 assert.equal(merged[0].image, 'https://daweb2.deanza.edu/official.jpg');
 assert.deepEqual(merged[0].legacyIds, ['editorial-old-laser']);
 
+const supplementedImage = mergeEventSupplements([], [{
+  id: 'event-with-photo', title: 'Family Art Fair', dateValue: '2026-11-21T10:00',
+  source: 'Official Organizer', url: 'https://organizer.example/fair',
+  image: 'https://organizer.example/fair.jpg',
+  description: 'Officially verified family art fair.'
+}], { now: '2026-11-18T10:00:00' });
+assert.equal(supplementedImage[0].imageStatus, 'official');
+assert.equal(supplementedImage[0].imageProvenance.method, 'manual_verified');
+
+const imageOnlyRepair = mergeEventSupplements([{
+  id: 'live-fair', title: 'Family Art Fair', dateValue: '2026-11-21T10:00',
+  source: 'Official Organizer', url: 'https://organizer.example/fair',
+  image: '/assets/generated/event-covers/live-fair.svg', imageStatus: 'generated-editorial'
+}], [{
+  id: 'manual-fair', title: 'Family Art Fair', dateValue: '2026-11-21T10:00',
+  source: 'Official Organizer', url: 'https://organizer.example/fair',
+  image: 'https://organizer.example/fair.jpg', description: 'Verified fair.'
+}], { now: '2026-11-18T10:00:00' });
+assert.equal(imageOnlyRepair[0].image, 'https://organizer.example/fair.jpg');
+assert.equal(imageOnlyRepair[0].imageStatus, 'official');
+
 const differentSource = mergeEventSupplements(canonical, [{
   ...staleSupplement[0],
   id: 'different-source',

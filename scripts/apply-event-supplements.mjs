@@ -71,6 +71,7 @@ function canonicalSupplement(item) {
   const type = item.type || 'community';
   const meta = CATEGORY_META[type] || CATEGORY_META.community;
   const verifiedAt = item.verifiedAt || new Date().toISOString();
+  const verifiedImage = String(item.image || '').trim();
   const cost = canonicalCost(item);
   const registration = canonicalRegistration(item);
   return {
@@ -89,7 +90,18 @@ function canonicalSupplement(item) {
     summaryMethod: 'manual_verified',
     summaryQuality: 'manual_verified',
     summaryEvidence: raw,
-    image: item.image || '',
+    image: verifiedImage,
+    ...(verifiedImage ? {
+      imageStatus: 'official',
+      imageProvenance: {
+        source: 'curated-manual',
+        method: 'manual_verified',
+        sourceUrl: item.imageSourceUrl || item.url,
+        verifiedAt,
+        score: 100,
+        evidence: 'organizer-event-image'
+      }
+    } : {}),
     place: item.place || '',
     address: item.address || '',
     city: item.city || '',
@@ -137,7 +149,8 @@ function mergeVerifiedReplacement(existing, supplement) {
   const verifiedSpansFurther = hasVerifiedEnd && dateKey(verified.endDateValue) > dateKey(existing.endDateValue);
   const endDateValue = sameOccurrence && hasVerifiedEnd && (broadDefaultEnd || verifiedSpansFurther)
     ? verified.endDateValue : existing.endDateValue || verified.endDateValue;
-  return {
+  const image = supplement.image || existing.image || '';
+  const merged = {
     ...existing,
     ...verified,
     ...registration,
@@ -149,10 +162,15 @@ function mergeVerifiedReplacement(existing, supplement) {
     dateValue: startDateValue,
     endDateValue,
     sessions: Array.isArray(existing.sessions) && existing.sessions.length ? existing.sessions : verified.sessions,
-    image: supplement.image || existing.image || '',
+    image,
     imagePresentation: existing.imagePresentation || '',
     imageBackground: existing.imageBackground || ''
   };
+  if (supplement.image) {
+    delete merged.imageFailureReason;
+    delete merged.generatedImage;
+  }
+  return merged;
 }
 
 
@@ -243,6 +261,16 @@ export function mergeEventSupplements(events, supplements, { now = pacificNowVal
       } else {
         const legacyIds = new Set([...(existing.legacyIds || []), item.id]);
         existing.legacyIds = [...legacyIds];
+        // A supplement may only add reviewed artwork to an otherwise correct
+        // live event. This must also replace a prior generated illustration.
+        if (item.image && (!existing.image || existing.imageStatus === 'generated-editorial')) {
+          const verified = canonicalSupplement(item);
+          existing.image = verified.image;
+          existing.imageStatus = verified.imageStatus;
+          existing.imageProvenance = verified.imageProvenance;
+          delete existing.imageFailureReason;
+          delete existing.generatedImage;
+        }
       }
       continue;
     }

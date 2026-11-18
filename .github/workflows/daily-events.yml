@@ -29,6 +29,8 @@ on:
       - 'scripts/cupertino-audience.test.mjs'
       - 'scripts/apply-event-supplements.mjs'
       - 'scripts/apply-event-supplements.test.mjs'
+      - 'scripts/finalize-event-images.mjs'
+      - 'scripts/finalize-event-images.test.mjs'
       - 'scripts/public-event-payload.mjs'
       - 'scripts/public-event-payload.test.mjs'
       - 'scripts/build-translation-gaps.mjs'
@@ -111,6 +113,7 @@ jobs:
           node scripts/age-policy.test.cjs
           node scripts/public-event-payload.test.mjs
           node scripts/apply-event-supplements.test.mjs
+          node scripts/finalize-event-images.test.mjs
           node scripts/build-translation-gaps.test.mjs
           node scripts/discovery-audit.test.mjs
       - name: Refresh canonical event data
@@ -119,18 +122,21 @@ jobs:
         env:
           SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
           INCLUDE_SERPAPI: ${{ github.event_name == 'schedule' && 'auto' || github.event_name == 'push' && 'false' || inputs.include_serpapi }}
-      - name: Mirror configured official images
-        if: ${{ env.SKIP_REFRESH != 'true' }}
-        run: node scripts/mirror-official-images.mjs
       - name: Apply manually verified canonical supplements
         if: ${{ env.SKIP_REFRESH != 'true' }}
         run: node scripts/apply-event-supplements.mjs
+      - name: Mirror configured official images
+        if: ${{ env.SKIP_REFRESH != 'true' }}
+        run: node scripts/mirror-official-images.mjs
       - name: Audit curated official images after refresh
         if: ${{ env.SKIP_REFRESH != 'true' }}
         run: node scripts/curated-image-integrity.test.mjs
       - name: Repair grounded summary quality issues
         if: ${{ env.SKIP_REFRESH != 'true' }}
         run: node scripts/summary-quality-repair.mjs
+      - name: Resolve official artwork and finalize image coverage
+        if: ${{ env.SKIP_REFRESH != 'true' }}
+        run: node scripts/finalize-event-images.mjs
       - name: Re-apply approved Chinese translations
         if: ${{ env.SKIP_REFRESH != 'true' }}
         run: node scripts/apply-event-translations.mjs
