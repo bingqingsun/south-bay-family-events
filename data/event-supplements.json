@@ -1,5 +1,30 @@
 [
   {
+    "id": "rss-693c7e827ed7c62f00aa31b4",
+    "title": "Saturday Crafternoons",
+    "dateValue": "2026-11-21T15:00",
+    "endDateValue": "2026-11-21T16:30",
+    "description": "Create with a variety of materials at Alviso Branch Library. Supplies are provided; children of all ages may participate with caregiver help when needed.",
+    "sourceDescriptionRaw": "Join us in getting creative at Alviso Branch Library every 3rd Saturday! Each session, create with a variety of materials while expressing yourself. All supplies provided. Free. No registration necessary. All ages are welcome, although younger participants may need help from a caregiver.",
+    "place": "Alviso Branch Library",
+    "address": "5050 North First St, San Jose, CA 95002",
+    "city": "San Jose",
+    "source": "San José Public Library",
+    "url": "https://sjpl.bibliocommons.com/events/693c7e827ed7c62f00aa31b4",
+    "ageLabel": "All ages",
+    "ageSource": "San José Public Library official event page",
+    "costStatus": "free",
+    "costLabel": "免费",
+    "costSource": "San José Public Library official event page",
+    "costEvidence": "Free. No registration necessary.",
+    "registrationStatus": "not-required",
+    "registrationSource": "San José Public Library official event page",
+    "registrationEvidence": "No registration necessary.",
+    "type": "arts",
+    "format": "program",
+    "verifiedAt": "2026-11-18T18:00:00Z"
+  },
+  {
     "id": "editorial-32d6b7102984722f",
     "title": "Tech or Treat",
     "dateValue": "2026-10-31",
@@ -711,7 +736,9 @@
     "format": "festival",
     "seasonalTheme": "holiday",
     "replaceExisting": true,
-    "verifiedAt": "2026-11-09T15:42:00-08:00"
+    "verifiedAt": "2026-11-09T15:42:00-08:00",
+    "image": "https://www.sanjoseholidaylights.com/_next/static/immutable/media/golden-christmas.3uk1iwdrc66d1.webp",
+    "imageSourceUrl": "https://www.sjhl.us/tickets"
   },
   {
     "id": "editorial-los-altos-holiday-stroll-20261113",
@@ -761,7 +788,9 @@
     "format": "festival",
     "seasonalTheme": "holiday",
     "replaceExisting": true,
-    "verifiedAt": "2026-11-09T15:42:00-08:00"
+    "verifiedAt": "2026-11-09T15:42:00-08:00",
+    "image": "https://filoli.org/media/se5pe5s0/olivia-marshall-filoli-holiday-40-19.jpg",
+    "imageSourceUrl": "https://filoli.org/whats-on/events/holiday-lights/"
   },
   {
     "id": "editorial-raptor-fest-20261114",
@@ -975,7 +1004,9 @@
         "address": "6 Kilkare Rd, Sunol, CA 94586"
       }
     ],
-    "verifiedAt": "2026-11-17T06:15:01.427Z"
+    "verifiedAt": "2026-11-17T06:15:01.427Z",
+    "image": "https://www.ncry.org/wp-content/uploads/2021/10/NCRy_TOL_Reflection_141130_CRH_1200px_wm_211001-1.jpg",
+    "imageSourceUrl": "https://www.ncry.org/ride/train-of-lights/"
   },
   {
     "id": "editorial-triton-holiday-art-fair-202611",
@@ -992,7 +1023,9 @@
     "format": "festival",
     "costStatus": "free",
     "costLabel": "免费",
-    "verifiedAt": "2026-11-17T06:15:01.427Z"
+    "verifiedAt": "2026-11-17T06:15:01.427Z",
+    "image": "https://static.wixstatic.com/media/7781c5_ddf3583842c24c279a3c64e1b7664d1d~mv2.png/v1/fill/w_980,h_490,al_c,q_90/7781c5_ddf3583842c24c279a3c64e1b7664d1d~mv2.png",
+    "imageSourceUrl": "https://www.tritonmuseum.org/holidayartfair"
   },
   {
     "id": "editorial-little-red-riding-hood-202611",
@@ -1039,7 +1072,9 @@
         "endDateValue": "2026-11-22T15:00"
       }
     ],
-    "verifiedAt": "2026-11-17T06:15:01.427Z"
+    "verifiedAt": "2026-11-17T06:15:01.427Z",
+    "image": "https://www.paloalto.gov/files/assets/public/v/1/community-services/childrens-theatre/production-pictures/111playhouse-web-poster.png?w=1200",
+    "imageSourceUrl": "https://www.paloalto.gov/Events-Directory/Community-Services/Playhouse-Series-Little-Red-Riding-Hood"
   },
   {
     "id": "editorial-happy-hollow-hop-skip-jump-202611",
@@ -1096,7 +1131,9 @@
         "url": "https://www.campbellmuseums.com/event-details/photos-with-santa-11am-12pm-at-the-ainsley-house-1"
       }
     ],
-    "verifiedAt": "2026-11-17T06:15:01.427Z"
+    "verifiedAt": "2026-11-17T06:15:01.427Z",
+    "image": "https://static.wixstatic.com/media/0845a5_8bcd56305e7a481380cc0ae188de754b~mv2.jpg/v1/fill/w_2250,h_2250,al_c,q_90/0845a5_8bcd56305e7a481380cc0ae188de754b~mv2.jpg",
+    "imageSourceUrl": "https://www.campbellmuseums.com/event-details/photos-with-santa-9am-10am-at-the-ainsley-house-2"
   },
   {
     "id": "editorial-los-gatos-ballet-nutcracker-202611",
@@ -1130,7 +1167,9 @@
         "dateValue": "2026-11-22T18:00"
       }
     ],
-    "verifiedAt": "2026-11-17T06:15:01.427Z"
+    "verifiedAt": "2026-11-17T06:15:01.427Z",
+    "image": "https://losgatosballet.org/wp-content/uploads/2026/08/Performance_Nutcracker.webp",
+    "imageSourceUrl": "https://losgatosballet.org/nutcracker/"
   },
   {
     "id": "editorial-palo-alto-friendsgiving-202611",
@@ -1147,7 +1186,9 @@
     "format": "program",
     "costStatus": "paid",
     "costLabel": "需付费／价格见详情",
-    "verifiedAt": "2026-11-17T06:15:01.427Z"
+    "verifiedAt": "2026-11-17T06:15:01.427Z",
+    "image": "https://static.wixstatic.com/media/e05ca8_7c5fcb118b47424da17aff8cccf71ce8~mv2.png/v1/fill/w_1500,h_900,al_c/e05ca8_7c5fcb118b47424da17aff8cccf71ce8~mv2.png",
+    "imageSourceUrl": "https://www.magicalbridge.org/event-details/friendsgiving-in-palo-alto"
   },
   {
     "id": "editorial-fantasy-of-lights-2026",
@@ -1189,7 +1230,9 @@
       }
     ],
     "ticketOnSaleAt": "2026-11-01T08:00:00-08:00",
-    "replaceExisting": true
+    "replaceExisting": true,
+    "image": "https://cdn.uploads.webconnex.com/180642/20%20%281%29.png?1793313955273",
+    "imageSourceUrl": "https://santaclaracountyparks.ticketspice.com/fantasy-of-lights-2026-walk-thru"
   },
   {
     "id": "editorial-magical-cirque-2026",
@@ -1218,7 +1261,9 @@
         "dateValue": "2026-12-17T19:00"
       }
     ],
-    "replaceExisting": true
+    "replaceExisting": true,
+    "image": "https://www.sanjose.org/sites/default/files/BSJ_AMCC_WEB_V1_1080x1080_2E8614D7-BF62-F06D-8EFD5083BFC077CA_2e864eec-f736-941f-926c1d264efe589f.jpg",
+    "imageSourceUrl": "https://www.sanjose.org/theaters/events/magical-cirque-christmas"
   },
   {
     "id": "editorial-illuminodyssey-2026",

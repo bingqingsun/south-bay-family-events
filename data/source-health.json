@@ -1737,10 +1737,49 @@
   },
   "officialImageMirror": {
     "frameworkVersion": "official-image-mirror-v1",
-    "checkedAt": "2026-11-18T15:49:53.734Z",
+    "checkedAt": "2026-11-18T17:50:39.708Z",
     "configuredSources": 1,
-    "mirroredEvents": 5,
-    "mirroredAssets": 4,
+    "mirroredEvents": 1,
+    "mirroredAssets": 1,
     "failures": []
+  },
+  "publishedImageCoverage": {
+    "checkedAt": "2026-11-18T17:50:25.240Z",
+    "officialOrSource": 535,
+    "illustration": 6,
+    "missing": 0,
+    "unresolvedOfficial": [
+      {
+        "id": "calendar-10000709",
+        "title": "Marsh Hike at Coyote Point",
+        "reason": "no_loadable_event_image"
+      },
+      {
+        "id": "series-5a0f2a2292594f98",
+        "title": "Family Fun: Hop, Skip & A Jump",
+        "reason": "no_loadable_event_image"
+      },
+      {
+        "id": "curated-3760087d46fa1053",
+        "title": "The Great Dickens Christmas Fair",
+        "reason": "no_loadable_event_image"
+      },
+      {
+        "id": "editorial-sc-tree-lighting-2026",
+        "title": "Holiday Tree Lighting",
+        "reason": "detail_http_403"
+      },
+      {
+        "id": "editorial-montalvo-christmas-carol-2026",
+        "title": "A Christmas Carol 2026",
+        "reason": "no_loadable_event_image"
+      },
+      {
+        "id": "editorial-mv-tree-lighting-2026",
+        "title": "Community Tree Lighting Celebration",
+        "reason": "detail_http_403"
+      }
+    ],
+    "generated": 6
   }
 }
