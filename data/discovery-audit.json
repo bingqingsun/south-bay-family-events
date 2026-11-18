@@ -173,7 +173,7 @@
     }
   ],
   "onSale": [],
-  "translationGaps": 10,
+  "translationGaps": 0,
   "ticketed": [
     {
       "title": "San Jose Holiday Lights 2026",
@@ -307,11 +307,6 @@
       "kind": "ticket-review",
       "source": "The Great Dickens Christmas Fair",
       "detail": "Paid registration; confirm remaining tickets on the official page (https://dickensfair.com/media-info/). Last verified -1 days ago."
-    },
-    {
-      "kind": "translation-backlog",
-      "source": "Chinese event copy",
-      "detail": "10 current translations require review in data/translation-gaps/."
     }
   ]
 }
