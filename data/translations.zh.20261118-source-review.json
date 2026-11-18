@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "entries": [
+    {
+      "id": "editorial-montalvo-christmas-carol-2026",
+      "title": "《圣诞颂歌》2026",
+      "description": "跟随硅谷莎士比亚剧团走过 Montalvo 的历史别墅与庭院，在沉浸式步行演出中体验狄更斯的《圣诞颂歌》。",
+      "sourceFingerprint": "450100c54aefdf92dcd158169bb9f1ca0c9c53ead5fd47263fd0aabb0192cec4",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:30:00Z"
+    },
+    {
+      "id": "editorial-mv-tree-lighting-2026",
+      "title": "社区圣诞树点灯庆典",
+      "description": "在山景城中心迎接冬季：欣赏本地表演、多元文化传统活动，参加火车乘坐、游戏和手工制作，享用茶点，一起观看圣诞树点灯并见见圣诞老人。",
+      "sourceFingerprint": "27da0b0ad02a187f4ec29777567b688e922acf49ad328bbc74ced4e94592cc18",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:30:00Z"
+    },
+    {
+      "id": "editorial-sc-tree-lighting-2026",
+      "title": "节日圣诞树点灯庆典",
+      "description": "和 Santa Clara 社区一起在 Central Park 参加年度节日点灯庆典。",
+      "sourceFingerprint": "6be8e76b66bcb6b05c7a5b48d77b427409117496e70b05dd2f90a7108f416fd5",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:30:00Z"
+    },
+    {
+      "id": "editorial-sjt-alice-jr-2027",
+      "title": "《爱丽丝梦游仙境》青少年版",
+      "description": "CMT San Jose 呈献青少年音乐剧《爱丽丝梦游仙境》。爱丽丝掉进兔子洞，遇见白兔、疯帽匠、柴郡猫和红心皇后。演出于二月 10 日至 14 日期间择日举行。",
+      "sourceFingerprint": "7eb4d488437c96d47123c48dd81b3c52b4b8be99ee4a2133e66e6fd92a55d042",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:30:00Z"
+    },
+    {
+      "id": "editorial-once-upon-nutcracker-2026",
+      "title": "《初识胡桃夹子》",
+      "description": "San Jose Dance Theatre 为幼儿和学龄前儿童呈献一场适合全家观看、时长 55 分钟的《胡桃夹子》入门演出，包含芭蕾选段和幕后介绍。",
+      "sourceFingerprint": "a448fc1d9f7b003fac523d6ab576cb04cf14c00866ab781dde6988e2239347c4",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:30:00Z"
+    }
+  ]
+}
