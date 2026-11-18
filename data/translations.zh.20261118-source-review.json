@@ -28,6 +28,24 @@
       "status": "approved",
       "translationSource": "editorial-reviewed",
       "reviewedAt": "2026-11-18T04:30:00Z"
+    },
+    {
+      "id": "editorial-sjt-alice-jr-2027",
+      "title": "《爱丽丝梦游仙境》青少年版",
+      "description": "CMT San Jose 呈献青少年音乐剧《爱丽丝梦游仙境》。爱丽丝掉进兔子洞，遇见白兔、疯帽匠、柴郡猫和红心皇后。演出于二月 10 日至 14 日期间择日举行。",
+      "sourceFingerprint": "7eb4d488437c96d47123c48dd81b3c52b4b8be99ee4a2133e66e6fd92a55d042",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:30:00Z"
+    },
+    {
+      "id": "editorial-once-upon-nutcracker-2026",
+      "title": "《初识胡桃夹子》",
+      "description": "San Jose Dance Theatre 为幼儿和学龄前儿童呈献一场适合全家观看、时长 55 分钟的《胡桃夹子》入门演出，包含芭蕾选段和幕后介绍。",
+      "sourceFingerprint": "a448fc1d9f7b003fac523d6ab576cb04cf14c00866ab781dde6988e2239347c4",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:30:00Z"
     }
   ]
 }

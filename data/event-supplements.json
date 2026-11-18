@@ -1505,5 +1505,73 @@
     "type": "community",
     "format": "festival",
     "verifiedAt": "2026-11-18T04:30:00Z"
+  },
+  {
+    "id": "editorial-sjt-alice-jr-2027",
+    "title": "Alice in Wonderland Jr.",
+    "dateValue": "2027-02-10T19:00",
+    "endDateValue": "2027-02-14T15:00",
+    "description": "CMT San Jose presents a youth musical adaptation of Alice in Wonderland, following Alice through the rabbit hole to meet the White Rabbit, Mad Hatter, Cheshire Cat and Queen of Hearts. Select performances run February 10–14.",
+    "sourceDescriptionRaw": "Children’s Musical Theater San Jose presents Alice in Wonderland Jr. at Montgomery Theater February 10–14, 2027. Showtimes are listed on the official theater event page.",
+    "place": "Montgomery Theater",
+    "address": "271 S Market St, San Jose, CA 95113",
+    "city": "San Jose",
+    "source": "San Jose Theaters",
+    "url": "https://www.sanjose.org/theaters/events/alice-wonderland-jr",
+    "ageLabel": "Kids & Family",
+    "ageSource": "Visit San Jose official theater event page",
+    "costStatus": "paid",
+    "costLabel": "需付费／价格见详情",
+    "costSource": "CMT San Jose ticket link on official theater page",
+    "registrationStatus": "required",
+    "registrationSource": "CMT San Jose official ticket page",
+    "type": "shows",
+    "format": "live-show",
+    "sessions": [
+      {
+        "dateValue": "2027-02-10T19:00"
+      },
+      {
+        "dateValue": "2027-02-11T19:00"
+      },
+      {
+        "dateValue": "2027-02-12T19:00"
+      },
+      {
+        "dateValue": "2027-02-13T14:00"
+      },
+      {
+        "dateValue": "2027-02-13T19:00"
+      },
+      {
+        "dateValue": "2027-02-14T11:00"
+      },
+      {
+        "dateValue": "2027-02-14T15:00"
+      }
+    ],
+    "verifiedAt": "2026-11-18T04:30:00Z"
+  },
+  {
+    "id": "editorial-once-upon-nutcracker-2026",
+    "title": "Once Upon a Nutcracker",
+    "dateValue": "2026-12-11T13:00",
+    "description": "San Jose Dance Theatre presents a family-friendly, 55-minute introduction to The Nutcracker for toddlers, preschoolers and young children, with ballet excerpts and a behind-the-scenes presentation.",
+    "sourceDescriptionRaw": "Once Upon a Nutcracker is a 55-minute family-friendly performance designed for toddlers, preschoolers, and young children, Friday December 11, 2026 at 1:00 PM at Center for the Performing Arts.",
+    "place": "Center for the Performing Arts",
+    "address": "255 S Almaden Blvd, San Jose, CA 95113",
+    "city": "San Jose",
+    "source": "San Jose Theaters",
+    "url": "https://www.sanjose.org/events/once-upon-nutcracker",
+    "ageLabel": "Toddlers and young children",
+    "ageSource": "Visit San Jose official event page",
+    "costStatus": "paid",
+    "costLabel": "需付费／价格见详情",
+    "costSource": "Official ticket link on Visit San Jose event page",
+    "registrationStatus": "required",
+    "registrationSource": "Official ticket link on Visit San Jose event page",
+    "type": "shows",
+    "format": "live-show",
+    "verifiedAt": "2026-11-18T04:30:00Z"
   }
 ]
