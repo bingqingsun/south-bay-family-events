@@ -1,36 +1,23 @@
 {
   "version": 1,
   "locale": "zh-Hans",
-  "generatedAt": "2026-11-18T15:49:55.643Z",
+  "generatedAt": "2026-11-18T18:03:08.478Z",
   "generatedForDate": "2026-11-18",
   "batch": 1,
   "totalBatches": 1,
   "entries": [
     {
-      "id": "rss-6afd281e04009d0033894c85",
-      "dateValue": "2026-12-05T14:00",
-      "endDateValue": "2026-12-05T16:30:00",
-      "title": "Indian Carnatic Music Concert",
-      "description": "The Carnatic vocal concert will be presented by Ashwin Srikant, supported by Vignesh Thyagarajan on Violin, Amit Ranganthan on Mrudangam and A.V. Krishnan on ghatam.",
-      "source": "Santa Clara County Library District",
-      "sourceUrl": "https://sccl.bibliocommons.com/events/6afd281e04009d0033894c85",
+      "id": "rss-693c7e827ed7c62f00aa31b4",
+      "dateValue": "2026-11-21T15:00",
+      "endDateValue": "2026-11-21T16:30",
+      "title": "Saturday Crafternoons",
+      "description": "Create with a variety of materials at Alviso Branch Library. Supplies are provided; children of all ages may participate with caregiver help when needed.",
+      "source": "San José Public Library",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/693c7e827ed7c62f00aa31b4",
       "status": "stale",
-      "sourceFingerprint": "f1702d0cce570863de7a3a8bd74f1ab4f42c5c2ac16844b7f78601f09d94b306",
-      "priorTitleZh": "印度卡纳提克音乐会",
-      "priorDescriptionZh": "Saratoga 图书馆与 SR Fine Arts 合作，邀请湾区印度社区音乐家带来印度卡纳提克音乐会。"
-    },
-    {
-      "id": "rss-6a5911ef0e562e28009a4e80",
-      "dateValue": "2026-12-05T14:30",
-      "endDateValue": "2026-12-05T17:30:00",
-      "title": "Dungeons & Dragons Teen Club",
-      "description": "To become part of this club you must have attended the Session 0 event on Saturday, August 15th and committed to playing for the entire Spring 2026 semester.",
-      "source": "Santa Clara County Library District",
-      "sourceUrl": "https://sccl.bibliocommons.com/events/6a5911ef0e562e28009a4e80",
-      "status": "stale",
-      "sourceFingerprint": "8b487bbfff161f6baa8633d0c093f1cd6199e0bde688fac9ca17fdfe3d162b11",
-      "priorTitleZh": "青少年《龙与地下城》俱乐部",
-      "priorDescriptionZh": "如希望在有空位时收到通知，或了解其他《龙与地下城》活动，请联系青少年图书管理员 Hannah Clement：hannah.clement@lib.sccgov.org。青少年《龙与地下城》俱乐部今天举行聚会。"
+      "sourceFingerprint": "20561a715c4d5600ba9faa71799ab5669b611d93774887318741ef3bb370cae0",
+      "priorTitleZh": "周六手工下午",
+      "priorDescriptionZh": "每次活动都可使用多种材料创作并表达自我。提供全部材料。"
     },
     {
       "id": "rss-69d6e67ef29b90618efdcdd4",

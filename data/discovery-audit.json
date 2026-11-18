@@ -16,8 +16,8 @@
       "method": "rss",
       "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/sjpl/rss/events",
       "status": "ok",
-      "next60Days": 188,
-      "next90Days": 188
+      "next60Days": 187,
+      "next90Days": 187
     },
     {
       "source": "Palo Alto City Library",
@@ -127,7 +127,7 @@
       "source": "Santa Clara County Parks",
       "method": "search-only",
       "feedUrl": "",
-      "status": "ok",
+      "status": "not run",
       "next60Days": 1,
       "next90Days": 1
     },
@@ -135,7 +135,7 @@
       "source": "City of San José",
       "method": "search-only",
       "feedUrl": "",
-      "status": "ok",
+      "status": "not run",
       "next60Days": 0,
       "next90Days": 0
     },
@@ -151,7 +151,7 @@
       "source": "City of Mountain View",
       "method": "search-only",
       "feedUrl": "",
-      "status": "ok",
+      "status": "not run",
       "next60Days": 1,
       "next90Days": 1
     },
@@ -167,13 +167,13 @@
       "source": "Santa Clara Community Calendar",
       "method": "search-only",
       "feedUrl": "",
-      "status": "failed",
+      "status": "not run",
       "next60Days": 0,
       "next90Days": 0
     }
   ],
   "onSale": [],
-  "translationGaps": 7,
+  "translationGaps": 6,
   "ticketed": [
     {
       "title": "San Jose Holiday Lights 2026",
@@ -306,7 +306,7 @@
     {
       "kind": "translation-backlog",
       "source": "Chinese event copy",
-      "detail": "7 current translations require review in data/translation-gaps/."
+      "detail": "6 current translations require review in data/translation-gaps/."
     }
   ]
 }
