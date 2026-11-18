@@ -33,8 +33,11 @@ on:
       - 'scripts/public-event-payload.test.mjs'
       - 'scripts/build-translation-gaps.mjs'
       - 'scripts/build-translation-gaps.test.mjs'
+      - 'scripts/discovery-audit.mjs'
+      - 'scripts/discovery-audit.test.mjs'
       - 'data/sources.json'
       - 'data/event-supplements.json'
+      - 'data/translations.zh*.json'
       - 'app.js'
       - 'collections.js'
       - '.github/workflows/daily-events.yml'
@@ -55,6 +58,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   refresh:
@@ -109,6 +113,7 @@ jobs:
           node scripts/public-event-payload.test.mjs
           node scripts/apply-event-supplements.test.mjs
           node scripts/build-translation-gaps.test.mjs
+          node scripts/discovery-audit.test.mjs
       - name: Refresh canonical event data
         if: ${{ env.SKIP_REFRESH != 'true' }}
         run: node scripts/update-events.mjs
@@ -133,6 +138,9 @@ jobs:
       - name: Build compact translation gap snapshot
         if: ${{ env.SKIP_REFRESH != 'true' }}
         run: node scripts/build-translation-gaps.mjs
+      - name: Audit 90-day priority-source and ticket coverage
+        if: ${{ env.SKIP_REFRESH != 'true' }}
+        run: node scripts/discovery-audit.mjs
       - name: Audit published summary provenance
         if: ${{ env.SKIP_REFRESH != 'true' }}
         env:
@@ -146,7 +154,7 @@ jobs:
         run: |
           git config user.name "south-bay-events-bot"
           git config user.email "actions@github.com"
-          git add data/events.json data/events.js data/museums.json data/museums.js data/source-health.json data/translation-gaps assets/generated/event-covers assets/official
+          git add data/events.json data/events.js data/museums.json data/museums.js data/source-health.json data/discovery-audit.json data/translation-gaps assets/generated/event-covers assets/official
           if git diff --staged --quiet; then
             exit 0
           fi
@@ -154,3 +162,22 @@ jobs:
           git fetch origin "$GITHUB_REF_NAME"
           git rebase "origin/$GITHUB_REF_NAME"
           git push origin "HEAD:$GITHUB_REF_NAME"
+      - name: Update one actionable discovery review issue
+        if: ${{ env.SKIP_REFRESH != 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          title='Advance event discovery review'
+          issue=$(gh issue list --state open --limit 100 --json number,title --jq '.[] | select(.title == "Advance event discovery review") | .number' | head -n 1)
+          node scripts/discovery-audit.mjs --markdown > "$RUNNER_TEMP/discovery-review.md"
+          count=$(node -e 'console.log(require("./data/discovery-audit.json").alerts.length)')
+          if [ "$count" -gt 0 ]; then
+            if [ -n "$issue" ]; then
+              gh issue edit "$issue" --body-file "$RUNNER_TEMP/discovery-review.md" --add-assignee bingqingsun
+            else
+              gh issue create --title "$title" --body-file "$RUNNER_TEMP/discovery-review.md" --assignee bingqingsun
+            fi
+          elif [ -n "$issue" ]; then
+            gh issue close "$issue" --comment 'The latest 90-day organizer and ticket audit has no outstanding review alerts.'
+          fi
