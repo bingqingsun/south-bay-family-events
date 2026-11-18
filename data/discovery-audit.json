@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "auditedForDate": "2026-11-17",
+  "auditedForDate": "2026-11-18",
   "horizonDays": 90,
   "coverage": [
     {
@@ -79,7 +79,7 @@
       "source": "Filoli Historic House & Garden",
       "method": "filoli",
       "feedUrl": "https://filoli.org/whats-on/events/",
-      "status": "failed",
+      "status": "ok",
       "next60Days": 2,
       "next90Days": 2
     },
@@ -104,7 +104,7 @@
       "method": "tribe",
       "feedUrl": "https://www.hiller.org/wp-json/tribe/events/v1/events?per_page=50",
       "status": "ok",
-      "next60Days": 8,
+      "next60Days": 9,
       "next90Days": 10
     },
     {
@@ -127,7 +127,7 @@
       "source": "Santa Clara County Parks",
       "method": "search-only",
       "feedUrl": "",
-      "status": "not run",
+      "status": "ok",
       "next60Days": 1,
       "next90Days": 1
     },
@@ -135,7 +135,7 @@
       "source": "City of San José",
       "method": "search-only",
       "feedUrl": "",
-      "status": "not run",
+      "status": "ok",
       "next60Days": 0,
       "next90Days": 0
     },
@@ -151,7 +151,7 @@
       "source": "City of Mountain View",
       "method": "search-only",
       "feedUrl": "",
-      "status": "not run",
+      "status": "ok",
       "next60Days": 1,
       "next90Days": 1
     },
@@ -167,13 +167,13 @@
       "source": "Santa Clara Community Calendar",
       "method": "search-only",
       "feedUrl": "",
-      "status": "not run",
+      "status": "failed",
       "next60Days": 0,
       "next90Days": 0
     }
   ],
   "onSale": [],
-  "translationGaps": 0,
+  "translationGaps": 7,
   "ticketed": [
     {
       "title": "San Jose Holiday Lights 2026",
@@ -245,11 +245,6 @@
   "alerts": [
     {
       "kind": "source-health",
-      "source": "Filoli Historic House & Garden",
-      "detail": "fetch failed"
-    },
-    {
-      "kind": "source-health",
       "source": "San Jose Theaters",
       "detail": "San Jose Theaters calendar was not valid: 400"
     },
@@ -291,22 +286,27 @@
     {
       "kind": "ticket-review",
       "source": "San Jose Holiday Lights 2026",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://www.sjhl.us/tickets). Last verified 7 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://www.sjhl.us/tickets). Last verified 8 days ago."
     },
     {
       "kind": "ticket-review",
       "source": "Holiday Lights",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://filoli.org/whats-on/events/holiday-lights/). Last verified 7 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://filoli.org/whats-on/events/holiday-lights/). Last verified 8 days ago."
     },
     {
       "kind": "ticket-review",
       "source": "Family Fun: Hop, Skip & A Jump",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://happyhollow.org/learn/hh-experience-programs/). Last verified 0 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://happyhollow.org/learn/hh-experience-programs/). Last verified 1 days ago."
     },
     {
       "kind": "ticket-review",
       "source": "The Great Dickens Christmas Fair",
       "detail": "Paid registration; confirm remaining tickets on the official page (https://dickensfair.com/media-info/). Last verified -1 days ago."
+    },
+    {
+      "kind": "translation-backlog",
+      "source": "Chinese event copy",
+      "detail": "7 current translations require review in data/translation-gaps/."
     }
   ]
 }
