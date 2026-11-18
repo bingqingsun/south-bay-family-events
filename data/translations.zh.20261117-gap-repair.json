@@ -1,0 +1,744 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "entries": [
+    {
+      "id": "stanford-5587b60a3bb97c9a",
+      "title": "斯坦福国际配偶咖啡聚会",
+      "description": "通过咖啡聚会结识新朋友，了解 Bechtel 的项目、课程和工作坊，以及斯坦福校园与周边社区资源。",
+      "sourceFingerprint": "888eba42c7f8f32f3da9c43a0ed99bbb5f8cecdb4e0eea7cbc4b9462c53cb74b",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "calendar-10000709",
+      "title": "Coyote Point 湿地徒步",
+      "description": "走进海湾湿地，探索场馆附近充满生机的湿地生态系统。",
+      "sourceFingerprint": "cad3646013a7832c042341335f59aa9d3a95126b461081323b3d3b5d3416865e",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6a7fb617aafa6100295cbe9f",
+      "title": "沙锤与律动",
+      "description": "家长和照护者可带孩子用打击乐器、丝巾和沙锤一起活动，跟着节奏跳舞。",
+      "sourceFingerprint": "40b9f1e31f90e93d0cb46f4bc12b30803d1362af50d5cedea5e244754d84986e",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "santana-6028eb37f987b186",
+      "title": "Makers Market 本地艺术家街头市集",
+      "description": "逛逛本地艺术家、工艺师和设计师的摊位；活动介绍称每月第二个周六举行，时间为上午 11 点至下午 6 点。",
+      "sourceFingerprint": "dc26648d1f6ca752286f938b855bea29448a66c70b9d03fc762a8851b7195ae1",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "series-c3d2cb5679a66ffa",
+      "title": "机器人初体验",
+      "description": "使用机器人探索入门编程。",
+      "sourceFingerprint": "f1428d5cd433cab78d25330b4cc692b0930dcaef902fd1fb0476ef8e412c81d0",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "series-1d21a024b04c412b",
+      "title": "电影放映《极地特快》",
+      "description": "在 CineLux Plaza 观看 G 级电影《极地特快》。",
+      "sourceFingerprint": "67be42d332f45a795c54967b69f28d05b9db4f1099ab8b30cb4c6efc6c7e1130",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6a0f640b278f7c2f008eb4ae",
+      "title": "线上国际象棋俱乐部",
+      "description": "可先在 lichess.org 注册免费账号，再加入线上国际象棋俱乐部与大家对弈。",
+      "sourceFingerprint": "a6675e021bcb5e468c114cc45a897a514b2fa1566c6837542c8aff5a4bd41a8c",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-695476bebbe7a1f3ba64540e",
+      "title": "艺术俱乐部",
+      "description": "孩子们一起体验各种美术和手工活动。",
+      "sourceFingerprint": "cdc5a39debdb084bca41845e6169453b47eeaccd49f966266508a3fad5150551",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-69389c8c94297d36009f164c",
+      "title": "家庭游戏：卡牌与桌游",
+      "description": "儿童、青少年和家人可以一起玩多种卡牌与桌游。",
+      "sourceFingerprint": "f4d48e71c93a62f549cd24a244460142ed330918fdaceb5ebae8f76d1db549d5",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6aa4453c65abe8002a78720c",
+      "title": "图书馆游戏时间",
+      "description": "从图书馆的新游戏和经典游戏中挑选，和大家一起玩。",
+      "sourceFingerprint": "5ddcafe0ad05b0525f10cef82c5b903bdfce095830692f4a570891f8387971ec",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6941d6d57ed7c62f00aaca61",
+      "title": "乐高俱乐部",
+      "description": "用图书馆提供的乐高积木自由搭建与探索。",
+      "sourceFingerprint": "2a3b4b63cfceb984357e7807c1016030d972e16f43ccac2957027a090bf9f684",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6ada5ac229c3d6003331c02d",
+      "title": "Kathy 陪孩子阅读",
+      "description": "通过听故事和阅读，帮助孩子发展想象力，培养对书籍与学习的兴趣。",
+      "sourceFingerprint": "3d9c6eba4786f6dd845855a9ff1c8b98e4ba64b001caf360cefea164617d4cec",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6944507e293fe254002a1f35",
+      "title": "桌游专区",
+      "description": "每周日下午 2:00 至 4:00 在 Seven Trees Library 一起玩桌游。",
+      "sourceFingerprint": "b56630578b425318696553d21e11e88b6213e18f46951adda8e7b11f8103c798",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6a722160f213992f00c97327",
+      "title": "陪孩子阅读",
+      "description": "孩子可以随时来听故事，也可以练习朗读给志愿者听；无需预先报名。",
+      "sourceFingerprint": "fd52176b0bf23f3c505a5ab59e9beaea595fca7b29450fd2ad5c01f3dc4777da",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6aa44299129d8e0031f171b0",
+      "title": "定格动画入门",
+      "description": "这一系列五节课以感恩节和秋季为主题。第 1 节介绍定格动画，孩子会制作电影道具和角色。",
+      "sourceFingerprint": "b40043ead51574c13382a4fcb2e00a779dde5c674c3f925c06308b14d9730c3e",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6acfdd4c9d27a0004550eff9",
+      "title": "未来之声：演讲与辩论",
+      "description": "志愿者带领初学者组织有说服力的观点、练习当众清楚表达和批判性思考。项目共 4 节课。",
+      "sourceFingerprint": "cfcf2ab1680cb184c6087c2f85075f959d369af5e7db1537c8da9debba23f4c8",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-69e7a8c54dacf581ff8a2b04",
+      "title": "乐高俱乐部",
+      "description": "到 Cambrian 分馆参加乐高俱乐部。",
+      "sourceFingerprint": "945160fcd80b5f425c42e365aa45361f6e8bdefa2163318fbd52b2c8a04a8ce7",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6a95d33a36204e08fbb88e58",
+      "title": "儿童越南语课",
+      "description": "面向 5 至 12 岁儿童的越南语学习活动。",
+      "sourceFingerprint": "1f5356e56f657eff8503b802a22de29eea8db130457aa613424a260f70d8d26c",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6a722151e30fe4845966cabb",
+      "title": "家庭故事会与游戏时间",
+      "description": "故事会结束后，欢迎家庭留下来一起玩。",
+      "sourceFingerprint": "e1e28fb1c1d9c3c19a16d013fd5364d2f96726fb7026dc7efac82d0d8dac66db",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-69fb8818703c33630025ded9",
+      "title": "室内家庭故事会与游戏时间",
+      "description": "适合混龄家庭参与的故事、歌曲、童谣、手指游戏和律动；故事会后还可以一起玩。",
+      "sourceFingerprint": "d9e1bff4501967f84f0ab7ba9604277d836ffd8cc88f6b9b61700c0473f93b77",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6a5abf13f4e5db3d00c28661",
+      "title": "陪孩子阅读",
+      "description": "孩子在儿童区与志愿者小组互动，听故事、练习阅读，培养阅读兴趣。活动免费。",
+      "sourceFingerprint": "98d99ad3deb48435d1c7d474fb107ac84c094d587eb5424f30a9c82a26587c80",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6aa1bad556fe62004a2f2bbc",
+      "title": "音乐与律动",
+      "description": "全家可以一起参加互动音乐和律动活动，在体验中感受学习的乐趣。",
+      "sourceFingerprint": "b7dec20eafc0be739360f9b967aeaeda39dc214f141fdd4622e3ca7bbb4b1fc5",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-69e7a8c91e64afd01e6aad58",
+      "title": "Aysha 陪孩子阅读",
+      "description": "通过听故事和阅读，帮助孩子发展想象力，培养对书籍与学习的兴趣。",
+      "sourceFingerprint": "5334b1a8325caa866b490ce694e3305ea17593c8aec0ed7c176303e095e7c16d",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6a67cb469943bdf31ea202fb",
+      "title": "游戏专区",
+      "description": "可以展示自己的游戏技巧，也可以从基础学起。",
+      "sourceFingerprint": "b1a6fc907c7b811be72b8b1234da0ce30eecdb2fe003683394df1ccb47b84f98",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6931d4246f92613600093958",
+      "title": "儿童国际象棋俱乐部",
+      "description": "学习国际象棋，也可以和其他参加者对弈。",
+      "sourceFingerprint": "6f57e45e62e9de04a92fa0f45318df440450252f9b07f41d3709335a4c70f22b",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6a7e0ad9d4b10d0030064673",
+      "title": "国际象棋入门",
+      "description": "无论是初次接触还是想提升棋艺，都可以在轻松的环境里学习和下棋。",
+      "sourceFingerprint": "9f6e8e022024cb216a2e90daf929d2cb8c2af2e86d27c7b270f4235b7e3fc3a5",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6a4c36cc4407827f8aa9ca51",
+      "title": "钩针编织俱乐部",
+      "description": "带上自己的作品，或从新项目开始，一起练习编织技巧并交流。",
+      "sourceFingerprint": "58bfd9a243af98eb8f31fc4bf20b8e2ed5acf0a0e63e4a4076fb083e605d5679",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6a655635f494c55649eb2dec",
+      "title": "针线手工俱乐部",
+      "description": "学习或交流针织、钩针、梭织和梭芯蕾丝等针线手工，也可看看其他人的作品。",
+      "sourceFingerprint": "f203dd8f0f54c90e97ad1baa72a479c50f5f580af0e1dee2492ed38ea3714407",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-69e7a8d9b1165a41a660a9e1",
+      "title": "Cambrian 宝可梦俱乐部",
+      "description": "一起玩宝可梦、交换卡牌并学习游戏策略。",
+      "sourceFingerprint": "d58c1ca6ac8b3c93019cdad0f0034de1c810d1d34d5b3dfb7b3ec8fb30ce5089",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-69aa02ed6724c63d00f70210",
+      "title": "音乐与律动",
+      "description": "不同年龄的家庭成员可通过歌曲、童谣、手指游戏和律动体验早期阅读活动。",
+      "sourceFingerprint": "b4e7d5e40f8242bba9f4850156c4dbffd810dcb423c29c6e7c6f60895f1d346e",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-699f51ef2866a5b4883e515a",
+      "title": "婴幼儿与照护者游戏聚会",
+      "description": "孩子探索新玩具与活动，大人也有机会聊天、相互认识。",
+      "sourceFingerprint": "bc29a5b82a5563580372efa6782326cd209ff20649f97986a306dc84711a4f01",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-67ae6d3ab77ff728002c069c",
+      "title": "婴儿膝上故事会",
+      "description": "婴儿与照护者一起听故事、唱歌、念童谣，玩弹跳和互动游戏；故事会后还可留下来玩。",
+      "sourceFingerprint": "48d4f7c849a203fdd7523614dbdeb2bd0672a7a95251aec58cf904125cee3499",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-691fb8c1dff9d93e00d10dc8",
+      "title": "家庭故事会",
+      "description": "全家一起听故事、唱歌、念童谣、玩手指游戏与律动，体验早期阅读活动。",
+      "sourceFingerprint": "ddbc75db51bf33f42d384da9e9ca9e786851a2de1c31ec36c4fbe84a76cd205a",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-68cdb1eb62a8786065c374dc",
+      "title": "家庭故事会与游戏时间",
+      "description": "故事会结束后，欢迎家庭留下来一起玩。",
+      "sourceFingerprint": "e1e28fb1c1d9c3c19a16d013fd5364d2f96726fb7026dc7efac82d0d8dac66db",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-693330536724c63d00e572c5",
+      "title": "室内家庭故事会与游戏时间",
+      "description": "全家一起通过故事和互动活动体验阅读乐趣，结束后可留下来玩。",
+      "sourceFingerprint": "8243d3669fb5d2afa2c89e9a19094b25af64e4b0c034f52abd58f8b96371f4d5",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-677c54effea9b97171fe8f99",
+      "title": "Seven Trees 婴幼儿故事会",
+      "description": "婴幼儿与照护者一起听故事、唱歌、念童谣并互动；结束后可留下来玩。",
+      "sourceFingerprint": "6415e090e4b96dc02f66177d978ab2924044d7f6aaf1775d73ab2cba6c4b8cab",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6a55bdc71006a63d00224468",
+      "title": "学步前宝宝膝上故事会",
+      "description": "宝宝与照护者一起念童谣、玩膝上弹跳和身体律动、唱歌，并听简短的图画书。",
+      "sourceFingerprint": "5581b7210de417c562bb62e54423dbec0fde888605d1481d2977adbe7e3578cd",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6aeb7add9b955d531f7d0ff5",
+      "title": "欢乐鸟儿表演",
+      "description": "观看亚马孙鹦鹉、金刚鹦鹉和凤头鹦鹉表演骑车、打篮球、滑板和说话等本领。",
+      "sourceFingerprint": "85b957fe60fca76aa49410a533fbc23f6ceeb4a6cec121a89691c8d0dac2b1be",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6a569ae717f387c203a51ce1",
+      "title": "双语故事会与手工",
+      "description": "听完双语故事后，孩子会制作一件简单的手工作品带回家。",
+      "sourceFingerprint": "5b7962e6e847148792790ac065eabe4da186b19da197574f033289717367b362",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6adfcfca9dbc2b002c913449",
+      "title": "小演说家：演讲与辩论工作坊",
+      "description": "由有演讲和辩论经验的高中志愿者带领，建议 6 至 12 岁参加；活动免费。",
+      "sourceFingerprint": "d85c7da608b4f39034aa2399afbacfdb30fa0b018af662b107097d15806a9776",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-69fe1182e8af4a2f00711c62",
+      "title": "印地语与英语双语故事会",
+      "description": "通过印度文化中的童谣与故事练习语言理解。主要面向 3 至 10 岁孩子及家庭，也欢迎其他年龄和语言水平的参加者。",
+      "sourceFingerprint": "613f8ab57b38ef1057ee1eb2763ce84a19a8f6803ab458e6e2a327b43708eb37",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6aee2fd5f9d28050ccb1ac4e",
+      "title": "感恩节故事与手工活动",
+      "description": "听感恩节主题故事、唱歌，接着制作节日手工，并品尝小点心。",
+      "sourceFingerprint": "69ae7c4e1769d9d13b5281f0ade027ff3c05aa9f368fc3f76733a3756179faba",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6aad7791f9ed2e003851b36f",
+      "title": "家庭故事会",
+      "description": "全家一起听故事、唱歌、念童谣、玩手指游戏并活动身体。",
+      "sourceFingerprint": "a1b35d39671bc50f0d58ea8ae74f373e23de8e9e71b59e7af5c7ff45cd5745b0",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6ad9463c198b996a80a889b3",
+      "title": "乐器体验活动",
+      "description": "幼儿与照护者可在这个随到随参加的活动中一起尝试乐器和音乐。",
+      "sourceFingerprint": "f5c8d3455ca0fae2b328c04ae5e521e5443aba61cb584a3c12e9ef896fcb1c6f",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6a0df28643b41b3d0067dcf2",
+      "title": "陪孩子阅读",
+      "description": "孩子听故事，在阅读中培养对书籍的兴趣。",
+      "sourceFingerprint": "8e1b1f4fdfeb3455515de5b6c5268588b2bb4a6be41fa65e2836a38284456033",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6a87338f93b500003ff63e3d",
+      "title": "法语双语故事会",
+      "description": "全家一起听故事、唱歌、念童谣、玩手指游戏与律动。",
+      "sourceFingerprint": "5d18e0f5a01ace4e6d424c5c6dbbcb250623df4070eb8705fbc7a154f439af21",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6ae927ce377296003a508e1c",
+      "title": "Swift Playgrounds 编程",
+      "description": "使用 Swift Playgrounds 学习编程。",
+      "sourceFingerprint": "18b518270108efd8bc38e2c0826a0d69f19746dc5022f45660bd002c0738e44b",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6acfde9596ec3a003ada9598",
+      "title": "家庭电影俱乐部：《奇迹男孩》",
+      "description": "观看电影《奇迹男孩》；现场提供爆米花，也有涂色纸供希望安静活动的孩子使用。活动免费。",
+      "sourceFingerprint": "63342724cc5a61b5f2cc61122e924449c447aaaf129b5e1bacc00b2a32d8b656",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6927797a0886c5530056c25b",
+      "title": "TeenHQ 创客空间工作室",
+      "description": "每次最多 5 名青少年使用 3D 打印机、海报打印机、GlowForge、缝纫设备、Cricut、徽章机和其他手工材料。",
+      "sourceFingerprint": "5c284764ba0d7c2f33c3a527469546779ff28d834c79c7ab50c5ebd1bf8844d6",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-68af786309c63c2f007beba6",
+      "title": "创意星期三：咖啡滤纸火鸡手工",
+      "description": "每周围绕不同主题制作美术或手工作品；本次主题是咖啡滤纸火鸡。",
+      "sourceFingerprint": "3740ff380fe4975afde7a6fff06a8a345be4e703ca170b891e55c8ba3bf530ca",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "series-5751489816c1c0d1",
+      "title": "滑翔机探索",
+      "description": "参加户外家庭活动，探索飞行世界。",
+      "sourceFingerprint": "3db2f80c26607ae3295580b981d035ba4c7ab52480f3bed2d86625fc077c5108",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "google-visitor-604b18cebff9af0d",
+      "title": "用 My California Garden 规划 2027 年花园",
+      "description": "欢迎不同年龄的园艺爱好者一起构思并规划花园。",
+      "sourceFingerprint": "5d769fdf71748f749429deb1e1c4448e24a8deb895c38617c56a21c9860d2963",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "paloalto-61ef16ee15d4b4ec",
+      "title": "与 SF Autism Society 共度圣诞舞会",
+      "description": "跟着包容性 DJ Lori 和 RJ 跳舞、与圣诞老人合影、制作节日手工，并展示创意丑毛衣。",
+      "sourceFingerprint": "6516972dd436a194899aa03a1a5ef983f1538b6f40e89fbd4d4fdd0614155d84",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6ad50f5a295d793e2d17c7f6",
+      "title": "开放麦克风",
+      "description": "带上练习过的吉他、尤克里里或其他乐器，也可以用歌声登台表演。",
+      "sourceFingerprint": "a29f805f8a67053ae345b7311f661431a8ba33e991b2e6c3741aad556eed433d",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "calendar-10017546",
+      "title": "吸管火箭工作坊",
+      "description": "用常见手工材料改造瓶子，制作一辆高性能火箭车。",
+      "sourceFingerprint": "2c828d4cc7d80cadad58148ee22365d99deab6e8c894125fe62ca98f8e0b445f",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6afb959922b92c0041aa4dcc",
+      "title": "冰棒棍圣诞树挂饰",
+      "description": "用冰棒棍制作圣诞树挂饰，迎接节日。",
+      "sourceFingerprint": "c4ff77ac720bb997e8f4a2f02fb626de689a7f4845f981f1ba39f19afc283d31",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "calendar-293023",
+      "title": "会员专场：飞行与冬日心愿",
+      "description": "喝一杯热可可，在节日贺卡制作区动手创作。",
+      "sourceFingerprint": "dcabeacb4d174636a3f0ac5772d8cdf16e3f0894283f90030682c185235ab008",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6a4ec0f3cca66c2f00a22487",
+      "title": "Campbell 图书馆之友二手书义卖",
+      "description": "选购拼图、游戏、精装小说、儿童读物、言情与悬疑小说、有声书、DVD 和 CD 等。",
+      "sourceFingerprint": "1b6a11280f2400f6aff157d578a045e31318d6fc901b775c7b5a4fce10883024",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "series-854bcdc9ae9353e1",
+      "title": "音乐与律动：嘉宾 Marylee Sunseri",
+      "description": "孩子与家人一起唱歌、跳舞和学习。",
+      "sourceFingerprint": "152faed869c927f526783c96ce3a164487936345b398f132eb4035fd51d0abcc",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6934d94204caba2f00d3a3dd",
+      "title": "一起缝补",
+      "description": "提供少量手缝材料和简单指导，也欢迎自带常用工具、纽扣、布料边角料或经验分享。",
+      "sourceFingerprint": "8200479ec5f762c86c01ff12ae8253fd84ee54e7a7941261311d2cf39f229a77",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6af3c74e8b254c003ad88bea",
+      "title": "Molly 小姐泡泡表演",
+      "description": "观看充满惊喜和欢笑、适合不同年龄观众的泡泡表演。",
+      "sourceFingerprint": "7a50e863609611e312c5f44c3e4c3a3656fe5218bd673b0df0246dc3753660c4",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6a68e7d14523092f00332633",
+      "title": "Tiny Toots 音乐会：Farmer Arann",
+      "description": "Farmer Arann 带来乐器、响亮歌声和有趣的原创歌曲。",
+      "sourceFingerprint": "bdbcc61796560c0df095beaa4ec9be5009c81ae2f81a2ede9c835db9cf6b28a1",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6ad2b65c901b02002cc3081d",
+      "title": "成人与青少年手工下午：羊毛毡雪人",
+      "description": "学习针毡基础，制作入门雪人，也可尝试更复杂的雪地动物。",
+      "sourceFingerprint": "9562daf0cd70e77501f4244609297844224af4d4c40fbe618d15c99350db39f8",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-694b56bb9fb47cac989f46da",
+      "title": "开放诗歌朗读",
+      "description": "欢迎参加者聆听或朗读诗歌，并参与相关讨论。",
+      "sourceFingerprint": "2619f66d5a179742c7a6361f11184b40a7c5733ebc1569dbb95e61a07681576e",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6adfebef9dbc2b002c913fe2",
+      "title": "快乐小精灵故事会",
+      "description": "通过童谣、歌曲和故事，帮助孩子培养阅读所需的能力。",
+      "sourceFingerprint": "79c7c296dfd6627ce4f55e0efee7a74c7e27698a95c2fa525deaeac8e9ef2015",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-694338416f926136000b7a80",
+      "title": "4–6 年级图书与积木读书会",
+      "description": "四至六年级学生一起读书、讨论并搭建乐高作品。",
+      "sourceFingerprint": "644dd9742cb4f2d177d552e1dfc116eaf8dfed7463579fbe44ed2e916852ecf2",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6a03728bc7d3cd580058b77a",
+      "title": "普通话故事会",
+      "description": "听普通话故事、念童谣、玩手指游戏并唱歌。",
+      "sourceFingerprint": "76ba3ee6d4461522c0944631c8af97fb804df44eb1d2646b8fea55b8c5b15ec2",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6afb9f6be5605400508cdd4f",
+      "title": "2、3 年级 Book Bugs 读书俱乐部",
+      "description": "喜欢读书的孩子可以与同伴聊聊读过的书。",
+      "sourceFingerprint": "603d8c03cf7b2e1d73374e7ff777af5628f6b1fe578baf4ad232321f1096f46f",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6ae3c3ad9b955d531f7ba1df",
+      "title": "Astro Everywhere 夜空探索",
+      "description": "在 Treetop Room 通过天文馆软件观看和探索 Palo Alto 的夜空。",
+      "sourceFingerprint": "96a1d1c03a94676e576e0d5eb121303128f4cee17f118513ceb2c98fc888232e",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "google-visitor-5dadd99d2042c974",
+      "title": "Local Color 迷你雪人制作",
+      "description": "在这个面向 8 岁及以上参加者的免费冬季工作坊中，学习制作迷你雪人。",
+      "sourceFingerprint": "8eea6aebaca10a2ae3c64d114b2afb7a9848cb5964d28258a05741ca541bad40",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "chcp-b5d497904a89b76b",
+      "title": "CHCP 传统节日庆祝活动",
+      "description": "活动介绍称华裔美国历史博物馆位于 San Jose Kelley Park 的 History Park 内的 Ng Shing Gung 建筑中。",
+      "sourceFingerprint": "a9118f8eb5b6e9d0bd3e311221b8d801c4857b9d486d38071caf22a9599f15f3",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6adbde20377296003a4e306a",
+      "title": "Pan Dulce 墨西哥甜面包 Lotería 游戏",
+      "description": "参加热闹的社区游戏下午，与其他人交流。",
+      "sourceFingerprint": "ca68eaa96134d95b16d1e23e2b6204ada19e86d53ee99280e0937734c2aa264e",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6a384108c134422d50e9a7b3",
+      "title": "Neurosphere：3–8 年级脑科学活动",
+      "description": "了解大脑工作的基础知识，参与测试脑力的趣味活动，并认识未来的职业机会。",
+      "sourceFingerprint": "c74383fa516d4231206d6467ce70556a00b485789ea82826a37db0dfa73e3987",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "google-visitor-17063023e84ba47e",
+      "title": "Pixie Pop-Ups 冬季玻璃生态瓶",
+      "description": "在面向各年龄的免费工作坊中，制作属于自己的玻璃生态瓶。",
+      "sourceFingerprint": "82b5426b038863225e9492173fe2744d57029d382e08e4a0569e40195304ddf9",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6a595fbd82c03c5c17d88c57",
+      "title": "包容性感官律动与调节工作坊",
+      "description": "由受训的 JMM Dance Co. 带领者主持，孩子可按自己的舒适程度参与：活动、观看或休息都可以。",
+      "sourceFingerprint": "562dd75311e26a4580d296ed6cea51837ed21c0320aa3678cd80effb53512f2a",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-697025281e64afd01e559e3b",
+      "title": "周日手工下午",
+      "description": "孩子在负责照看的成人陪伴下自行完成手工。",
+      "sourceFingerprint": "dcee0192af571137981a364c70c9a63f37ad0da366662a7ca7f6f0a39e9aabff",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "rss-6a9c66ad2dac6e0037246195",
+      "title": "Marc Griffiths 冬季腹语表演",
+      "description": "如需填写报名表的帮助，可联系当地分馆工作人员，致电 (408) 540-3945，或发邮件至 ask@lib.sccgov.org。",
+      "sourceFingerprint": "af0865c67a0bf93ea9b6b045a8035e5109892c9a755849e67025a54daef20916",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "google-visitor-567682c1305226ac",
+      "title": "与 SCRAP SF 一起制作木制玩具",
+      "description": "面向 8 岁及以上参加者的免费工作坊，动手探索机械艺术并制作木制玩具。",
+      "sourceFingerprint": "567d3c8d3337035a23abf6f6aad91a98c6d6eb0749ccc5414f9e7653df3fef1f",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "calendar-293802",
+      "title": "U-2 与 T-38 飞行员分享",
+      "description": "2014 年从现役退役后，John “Huggy” Huggins 成为首位独自驾驶 U-2 的民间教练飞行员。",
+      "sourceFingerprint": "123b5e052d3564c3a53601282b19e3164ce47ca50a9aa54a3a57606ad49dd5fa",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "calendar-283207",
+      "title": "儿童跨年倒数活动",
+      "description": "孩子和家长一起听音乐、参加活动、画脸，并在中午倒数迎接三次大型气球降落。",
+      "sourceFingerprint": "809cc420ba07969d87969f77005ddd754671a6e15934b55ab44c7c253398cb68",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "calendar-10017549",
+      "title": "童军日",
+      "description": "参观历史飞机和直升机，了解 Hiller Aviation Museum 为 BSA 童军与女童军提供的特别项目。",
+      "sourceFingerprint": "bdcdcbbb32b3d36cc8681043daf1463ed3e76fe83f2e0a203eb2af3b74e48e2b",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    },
+    {
+      "id": "calendar-289528",
+      "title": "航空设计挑战",
+      "description": "探索设计与工程，参与航空设计挑战。",
+      "sourceFingerprint": "a2e3355bf85ea9b3e13d21438f8433aefed28226253b3f5c6276b4d03ff562c6",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-17T23:00:00Z"
+    }
+  ]
+}

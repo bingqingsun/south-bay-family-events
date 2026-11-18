@@ -37,7 +37,9 @@ function normalizedNumbers(text) {
 
 function unsupportedClaimIssues(source, translated) {
   const issues = [];
-  const sourceText = String(source || '').toLowerCase();
+  // Some RSS summaries contain literal backslash-n escapes. Treat them as
+  // whitespace so a following "Free." or registration sentence is recognized.
+  const sourceText = String(source || '').replace(/\\n/g, ' ').toLowerCase();
   const zh = String(translated || '');
 
   const claims = [

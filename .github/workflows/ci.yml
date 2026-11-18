@@ -90,6 +90,8 @@ jobs:
           node --check scripts/generate-chinese-translations.mjs
           node --check scripts/build-translation-gaps.mjs
           node --check scripts/build-translation-gaps.test.mjs
+          node --check scripts/discovery-audit.mjs
+          node --check scripts/discovery-audit.test.mjs
           node --check scripts/translation-text.mjs
           node --check scripts/translation-text.test.mjs
           node --check scripts/apply-event-translations.mjs
@@ -166,6 +168,7 @@ jobs:
           node scripts/translation-qa.mjs
           node scripts/translation-coverage-report.mjs
           node scripts/build-translation-gaps.test.mjs
+          node scripts/discovery-audit.test.mjs
           node scripts/preflight-translation-inbox.test.mjs
           node scripts/build-translation-gaps.mjs
           node scripts/public-event-payload.test.mjs

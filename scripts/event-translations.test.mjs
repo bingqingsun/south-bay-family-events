@@ -116,6 +116,11 @@ assert.equal(auditChineseTranslation(
 ).ok, true);
 
 assert.equal(auditChineseTranslation(
+  { title: 'Movie Club', description: 'Watch a movie.\\nFree.' },
+  { title: '电影俱乐部', description: '一起看电影，活动免费。' }
+).ok, true);
+
+assert.equal(auditChineseTranslation(
   { title: 'Storytime', description: 'Pre-registration is not required.' },
   { title: '故事时间', description: '无需提前报名。' }
 ).ok, true);
