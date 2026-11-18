@@ -1758,7 +1758,7 @@
     "domain": "waterlanternfestival.com",
     "method": "annual-festival",
     "feedUrl": "https://www.waterlanternfestival.com/events/san-jose",
-    "datePattern": "November\\s+\\d{1,2},?\\s+20\\d{2}",
+    "datePattern": "Dates\\s+(November\\s+\\d{1,2},?\\s+20\\d{2})",
     "title": "San Jose Water Lantern Festival",
     "place": "Almaden Lake Park",
     "address": "6099 Winfield Blvd, San Jose, CA 95120",

@@ -1275,7 +1275,10 @@ async function readAnnualFestival(source) {
   if (!response.ok) throw new Error('Annual festival official page was not valid: ' + response.status);
   const pageText = plainText(html);
   const pattern = new RegExp(source.datePattern || '', 'i');
-  let dateText = pattern.exec(pageText)?.[0] || '';
+  const dateMatch = pattern.exec(pageText);
+  // A source can anchor the public date under its visible "Dates" heading.
+  // Use the capture rather than a stray historic date elsewhere on the page.
+  let dateText = dateMatch?.[1] || dateMatch?.[0] || '';
   if (dateText && !/20\d{2}/.test(dateText) && source.yearPattern) {
     const yearMatch = new RegExp(source.yearPattern, 'i').exec(pageText);
     const year = yearMatch?.[1] || yearMatch?.[0]?.match(/20\d{2}/)?.[0] || '';
@@ -3997,6 +4000,10 @@ const freshOfficialKeys = new Set(freshFeedEvents.map(event =>
 async function revalidateMissingOfficialEvent(event) {
   const source = directSourceByName.get(event.source);
   if (!source || !event.url || !successfulDirectSourceNames.has(event.source) || !isStillActive(event)) return null;
+  // Annual landing pages are reused for each season. If their current date
+  // parser returned no future occurrence, a matching title cannot validate
+  // the old date; retaining it would manufacture a future ticket reminder.
+  if (source.method === 'annual-festival') return null;
   if (!isOfficialUrl(event.url, source.domain)) return null;
   const key = `${event.source}\u001f${plainText(event.title).toLowerCase()}\u001f${String(event.url).toLowerCase()}`;
   if (freshOfficialKeys.has(key)) return null;

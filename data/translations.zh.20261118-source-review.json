@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "entries": [
+    {
+      "id": "editorial-montalvo-christmas-carol-2026",
+      "title": "《圣诞颂歌》2026",
+      "description": "硅谷莎士比亚剧团在 Montalvo 的别墅和庭院呈献沉浸式步行演出《圣诞颂歌》。演出于 十二月 4 日至 20 日期间择日举行；具体场次和日场时间请查看主办方售票日历。",
+      "sourceFingerprint": "450100c54aefdf92dcd158169bb9f1ca0c9c53ead5fd47263fd0aabb0192cec4",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:30:00Z"
+    },
+    {
+      "id": "editorial-mv-tree-lighting-2026",
+      "title": "社区圣诞树点灯庆典",
+      "description": "在山景城中心迎接冬季：欣赏本地表演、多元文化传统活动，参加火车乘坐、游戏和手工制作，享用茶点，一起观看圣诞树点灯并见见圣诞老人。",
+      "sourceFingerprint": "27da0b0ad02a187f4ec29777567b688e922acf49ad328bbc74ced4e94592cc18",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:30:00Z"
+    },
+    {
+      "id": "editorial-sc-tree-lighting-2026",
+      "title": "节日圣诞树点灯庆典",
+      "description": "和 Santa Clara 社区一起在 Central Park 参加年度节日点灯庆典。",
+      "sourceFingerprint": "6be8e76b66bcb6b05c7a5b48d77b427409117496e70b05dd2f90a7108f416fd5",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:30:00Z"
+    }
+  ]
+}
