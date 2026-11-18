@@ -19,6 +19,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   baseline:
@@ -44,16 +45,37 @@ jobs:
         run: |
           node scripts/translation-qa.mjs
           node scripts/runtime-translation-fallback.test.mjs
+      - name: Rebuild translation gap and discovery review snapshots
+        run: |
+          node scripts/build-translation-gaps.mjs
+          node scripts/discovery-audit.mjs
       - name: Commit baselined catalogs, runtime overlay, and materialized event data
         run: |
-          if git diff --quiet -- 'data/translations.zh*.json' data/translations.zh.js data/events.json data/events.js; then
+          git add 'data/translations.zh*.json' data/translations.zh.js data/events.json data/events.js data/translation-gaps data/discovery-audit.json
+          if git diff --staged --quiet; then
             echo "Translation fingerprints, runtime overlay, and event materialization are current."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add 'data/translations.zh*.json' data/translations.zh.js data/events.json data/events.js
           git commit -m "chore: sync Chinese translations"
           git fetch origin "$GITHUB_REF_NAME"
           git rebase "origin/$GITHUB_REF_NAME"
           git push origin "HEAD:$GITHUB_REF_NAME"
+      - name: Update discovery review issue after translations
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          issue=$(gh issue list --state open --limit 100 --json number,title --jq '.[] | select(.title == "Advance event discovery review") | .number' | head -n 1)
+          node scripts/discovery-audit.mjs --markdown > "$RUNNER_TEMP/discovery-review.md"
+          count=$(node -e 'console.log(require("./data/discovery-audit.json").alerts.length)')
+          if [ "$count" -gt 0 ]; then
+            if [ -n "$issue" ]; then
+              gh issue edit "$issue" --body-file "$RUNNER_TEMP/discovery-review.md" --add-assignee bingqingsun
+            else
+              gh issue create --title 'Advance event discovery review' --body-file "$RUNNER_TEMP/discovery-review.md" --assignee bingqingsun
+            fi
+          elif [ -n "$issue" ]; then
+            gh issue close "$issue" --comment 'The latest 90-day organizer and ticket audit has no outstanding review alerts.'
+          fi
