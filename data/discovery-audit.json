@@ -8,16 +8,16 @@
       "method": "rss",
       "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/sccl/rss/events?audiences=5b28181c4727c7344c796675%2C5b28181c4727c7344c796676%2C5b28181c4727c7344c796677%2C5b28181c4727c7344c796678%2C5b28181c4727c7344c796679%2C5b28181c4727c7344c79667a%2C5b2a5dcb2c1d736b168c62ac",
       "status": "ok",
-      "next60Days": 145,
-      "next90Days": 145
+      "next60Days": 146,
+      "next90Days": 146
     },
     {
       "source": "San José Public Library",
       "method": "rss",
       "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/sjpl/rss/events",
       "status": "ok",
-      "next60Days": 184,
-      "next90Days": 184
+      "next60Days": 188,
+      "next90Days": 188
     },
     {
       "source": "Palo Alto City Library",
@@ -79,7 +79,7 @@
       "source": "Filoli Historic House & Garden",
       "method": "filoli",
       "feedUrl": "https://filoli.org/whats-on/events/",
-      "status": "ok",
+      "status": "failed",
       "next60Days": 2,
       "next90Days": 2
     },
@@ -88,8 +88,8 @@
       "method": "montalvo",
       "feedUrl": "https://montalvoarts.org/experience/events-calendar/",
       "status": "ok",
-      "next60Days": 0,
-      "next90Days": 0
+      "next60Days": 1,
+      "next90Days": 1
     },
     {
       "source": "San José Made",
@@ -120,8 +120,8 @@
       "method": "timely",
       "feedUrl": "https://events.timely.fun/jc0x91t0/stream?tags=677512582",
       "status": "failed",
-      "next60Days": 2,
-      "next90Days": 2
+      "next60Days": 3,
+      "next90Days": 4
     },
     {
       "source": "Santa Clara County Parks",
@@ -152,16 +152,16 @@
       "method": "search-only",
       "feedUrl": "",
       "status": "not run",
-      "next60Days": 0,
-      "next90Days": 0
+      "next60Days": 1,
+      "next90Days": 1
     },
     {
       "source": "City of Santa Clara",
       "method": "curated",
       "feedUrl": "https://calendar.santaclaraca.gov/santaclaraca/260168831",
       "status": "ok",
-      "next60Days": 0,
-      "next90Days": 0
+      "next60Days": 1,
+      "next90Days": 1
     },
     {
       "source": "Santa Clara Community Calendar",
@@ -173,7 +173,7 @@
     }
   ],
   "onSale": [],
-  "translationGaps": 0,
+  "translationGaps": 10,
   "ticketed": [
     {
       "title": "San Jose Holiday Lights 2026",
@@ -188,12 +188,6 @@
       "url": "https://filoli.org/whats-on/events/holiday-lights/"
     },
     {
-      "title": "San Jose Water Lantern Festival",
-      "dateValue": "2026-11-20",
-      "registrationStatus": "required",
-      "url": "https://www.waterlanternfestival.com/events/san-jose"
-    },
-    {
       "title": "Family Fun: Hop, Skip & A Jump",
       "dateValue": "2026-11-21T10:00",
       "registrationStatus": "required",
@@ -204,6 +198,12 @@
       "dateValue": "2026-11-21T10:00",
       "registrationStatus": "required",
       "url": "https://dickensfair.com/media-info/"
+    },
+    {
+      "title": "A Christmas Carol 2026",
+      "dateValue": "2026-12-04T19:30",
+      "registrationStatus": "required",
+      "url": "https://montalvoarts.org/experience/events-calendar/a-christmas-carol-2026/"
     },
     {
       "title": "Breakfast with Santa",
@@ -218,6 +218,12 @@
       "url": "https://santaclaracountyparks.ticketspice.com/fantasy-of-lights-2026-walk-thru"
     },
     {
+      "title": "Once Upon a Nutcracker",
+      "dateValue": "2026-12-11T13:00",
+      "registrationStatus": "required",
+      "url": "https://www.sanjose.org/events/once-upon-nutcracker"
+    },
+    {
       "title": "Signing Santa",
       "dateValue": "2026-12-12T10:00:00",
       "registrationStatus": "required",
@@ -228,13 +234,19 @@
       "dateValue": "2026-12-16T19:00",
       "registrationStatus": "required",
       "url": "https://www.sanjose.org/theaters/events/magical-cirque-christmas"
+    },
+    {
+      "title": "Alice in Wonderland Jr.",
+      "dateValue": "2027-02-10T19:00",
+      "registrationStatus": "required",
+      "url": "https://www.sanjose.org/theaters/events/alice-wonderland-jr"
     }
   ],
   "alerts": [
     {
-      "kind": "coverage-review",
-      "source": "Montalvo Arts Center",
-      "detail": "No published events in the next 60 days; check the official calendar."
+      "kind": "source-health",
+      "source": "Filoli Historic House & Garden",
+      "detail": "fetch failed"
     },
     {
       "kind": "source-health",
@@ -267,16 +279,6 @@
       "detail": "No direct official feed; discovery depends on optional search or manual supplements."
     },
     {
-      "kind": "coverage-review",
-      "source": "City of Mountain View",
-      "detail": "No published events in the next 60 days; check the official calendar."
-    },
-    {
-      "kind": "coverage-review",
-      "source": "City of Santa Clara",
-      "detail": "No published events in the next 60 days; check the official calendar."
-    },
-    {
       "kind": "search-only",
       "source": "Santa Clara Community Calendar",
       "detail": "No direct official feed; discovery depends on optional search or manual supplements."
@@ -298,11 +300,6 @@
     },
     {
       "kind": "ticket-review",
-      "source": "San Jose Water Lantern Festival",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://www.waterlanternfestival.com/events/san-jose). Last verified -1 days ago."
-    },
-    {
-      "kind": "ticket-review",
       "source": "Family Fun: Hop, Skip & A Jump",
       "detail": "Paid registration; confirm remaining tickets on the official page (https://happyhollow.org/learn/hh-experience-programs/). Last verified 0 days ago."
     },
@@ -310,6 +307,11 @@
       "kind": "ticket-review",
       "source": "The Great Dickens Christmas Fair",
       "detail": "Paid registration; confirm remaining tickets on the official page (https://dickensfair.com/media-info/). Last verified -1 days ago."
+    },
+    {
+      "kind": "translation-backlog",
+      "source": "Chinese event copy",
+      "detail": "10 current translations require review in data/translation-gaps/."
     }
   ]
 }
