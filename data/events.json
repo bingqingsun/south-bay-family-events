@@ -14438,7 +14438,7 @@
         "title": "故事与律动 / Hora de cuentos",
         "description": "孩子和照护者可一起听故事、念童谣、做手指游戏，并参加音乐和律动活动，培养早期读写能力。",
         "fingerprint": "d6b33e0aebd10cd7cacfa4589360c37bda26467f0d3eb4d43d996d829cc76b42",
-        "translatedAt": "2026-11-18T03:58:20.255Z",
+        "translatedAt": "2026-11-18T04:02:37.039Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -19255,7 +19255,7 @@
         "title": "Tiny Tot Jamboree 幼儿欢乐会",
         "description": "家长和 1–2 岁幼儿一起参加短小有趣的故事、童谣、手指游戏、活动和歌曲。",
         "fingerprint": "19039c77101e7b754cea87442a5b6c527a3efc21cccdd8fb7c28d638065cb8c3",
-        "translatedAt": "2026-11-18T03:58:20.255Z",
+        "translatedAt": "2026-11-18T04:02:37.039Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -19475,7 +19475,7 @@
         "title": "Itty Bitty Jamboree 婴儿欢乐会",
         "description": "成人和 0–12 个月婴儿一起参加短小有趣的故事、童谣、手指游戏和歌曲。",
         "fingerprint": "c344a114ee050cef7355631d275d83e124d1be22ee47743a4e0aeb5fddf52f40",
-        "translatedAt": "2026-11-18T03:58:20.255Z",
+        "translatedAt": "2026-11-18T04:02:37.039Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -24011,7 +24011,7 @@
         "title": "《Matilda The Musical》",
         "description": "聪明勇敢的 Matilda Wormwood 运用自己的机智和一点魔法，对抗专横的 Miss Trunchbull，并寻找属于自己的位置。",
         "fingerprint": "c28f15878095e2adac2b2cac63a5c48ddc4f43925316ef6257a5f90a09388e19",
-        "translatedAt": "2026-11-18T03:58:20.255Z",
+        "translatedAt": "2026-11-18T04:02:37.039Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -50224,7 +50224,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "婴儿膝上故事会与游戏时间",
+        "description": "婴儿和照护者通过故事、歌曲、弹跳、挠痒、童谣、图书及游戏一起学习、增进亲子关系；故事会后还可以留下来玩。",
+        "fingerprint": "d5c59aa5a1cc7f54ee95996f5c67b659603150267c9afcce27690f96c5976cdb",
+        "translatedAt": "2026-11-18T04:10:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a99d554aafa61002961600b",
@@ -50357,7 +50367,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "陪孩子阅读",
+        "description": "通过听故事和阅读，帮助孩子发挥想象力，培养对书籍、阅读和学习的兴趣。",
+        "fingerprint": "ac10bfa587d1c9496f43122eb253577e39d3b97796f4aee689b816d09f517147",
+        "translatedAt": "2026-11-18T04:10:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "curated-740968c66a49fc8d",
@@ -56445,7 +56465,7 @@
         "title": "圣诞树亮灯仪式",
         "description": "观看圣诞树点亮数百盏闪烁灯饰的时刻，感受充满节日气氛的灯光。",
         "fingerprint": "0cc0cf98a8e9c5ae75a6e830c437c72c2b9f594e32afdc47814515ad5de27f89",
-        "translatedAt": "2026-11-18T03:58:20.255Z",
+        "translatedAt": "2026-11-18T04:02:37.039Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -56658,7 +56678,7 @@
         "title": "与 Santa 共进早餐",
         "description": "现场会提供 North Pole Pancakes，Santa 也会和大家合影。",
         "fingerprint": "01a002b4339a174bdeb2e56f49abb6517622dc7b71704f74995db46cb4c6c35b",
-        "translatedAt": "2026-11-18T03:58:20.255Z",
+        "translatedAt": "2026-11-18T04:02:37.039Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -57900,7 +57920,7 @@
         "title": "Black Holes: The Other Side of Infinity 黑洞：无限的另一面",
         "description": "在这场节目中，你将穿越奇异的虫洞，体验银河系的形成，见证恒星猛烈死亡以及随后黑洞的诞生。",
         "fingerprint": "2dd57744a2a6c6f708b4c8867ec6e1d9ef8061df36b06f50907680bf27a53003",
-        "translatedAt": "2026-11-18T03:58:20.255Z",
+        "translatedAt": "2026-11-18T04:02:37.039Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -58495,7 +58515,7 @@
         "title": "Laser Journey 激光音乐秀",
         "description": "无论你是在 80 年代滑旱冰时第一次爱上 Journey 的歌曲，还是通过 American Idol 或 Glee 接触到这些音乐，Laser Journey 都是一场适合各年龄观众的趣味演出。",
         "fingerprint": "0e912b10734904838e9461f07bd2764727a6cb5a8ae198fa2f904d23c55ae37e",
-        "translatedAt": "2026-11-18T03:58:20.255Z",
+        "translatedAt": "2026-11-18T04:02:37.039Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -64687,7 +64707,7 @@
         "title": "Legends of the Night Sky | Orion 夜空传说：猎户座",
         "description": "加入我们，以充满想象力的方式了解冬季天空中的伟大猎人 Orion 猎户座的故事与传说。",
         "fingerprint": "db10cc0837492a21326507443b5cbbaade5c7ef201492fea106b91519d46674f",
-        "translatedAt": "2026-11-18T03:58:20.255Z",
+        "translatedAt": "2026-11-18T04:02:37.039Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -65372,7 +65392,7 @@
         "title": "Earth, Moon & Sun 地球、月球与太阳",
         "description": "在一个改编自 Native American 口述传统、对我们的家园星球及其最熟悉邻居存在许多误解的幽默角色帮助下，探索地球、月球与太阳之间的关系。",
         "fingerprint": "28a46fb93fce150d9775b8bf731703e7d15d5cd35328155d4e30aabd9fafb852",
-        "translatedAt": "2026-11-18T03:58:20.255Z",
+        "translatedAt": "2026-11-18T04:02:37.039Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -65473,7 +65493,7 @@
         "title": "Explore Live: Tour of the Universe 现场探索：宇宙之旅",
         "description": "Explore Live: Tour of the Universe——从你一贯开始的地方出发：抬头仰望，然后离开夜空，继续探索。",
         "fingerprint": "68491a1654413dc30fb811396809ff4af9f4aa00eaaaa281f771c7e328d841f8",
-        "translatedAt": "2026-11-18T03:58:20.255Z",
+        "translatedAt": "2026-11-18T04:02:37.039Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -65654,7 +65674,7 @@
         "title": "Laser Holiday Magic 节日魔法激光秀",
         "description": "这场激光灯光秀包含多首节日音乐，如 Joy to the World、Jingle Bell Rock、Let it Snow、Rockin' Round the Christmas Tree 等！",
         "fingerprint": "058efd6d135f1bfe6e392614e8894c674d11b5c466b0ca1084cf51b94e0c4ca2",
-        "translatedAt": "2026-11-18T03:58:20.255Z",
+        "translatedAt": "2026-11-18T04:02:37.039Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -66955,8 +66975,18 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "1840fe72396daf4dd36880cf02a5ccf8c49ecb0d7224f60b761c2bc4f142be92"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "1840fe72396daf4dd36880cf02a5ccf8c49ecb0d7224f60b761c2bc4f142be92",
+    "translations": {
+      "zh": {
+        "title": "2、3 年级 Book Bugs 读书俱乐部",
+        "description": "读书会将讨论选读书籍，并开展有趣的手工或活动。可到 Los Altos Library 或 Woodland Library 的儿童服务台借阅该书。",
+        "fingerprint": "1840fe72396daf4dd36880cf02a5ccf8c49ecb0d7224f60b761c2bc4f142be92",
+        "translatedAt": "2026-11-18T04:10:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "midpen-9b63dff300806f96",
@@ -69354,8 +69384,18 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "508927b4a7c9b31a053ee1e6d83e605faa07b4e77f553284eb4453f6fa155249"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "508927b4a7c9b31a053ee1e6d83e605faa07b4e77f553284eb4453f6fa155249",
+    "translations": {
+      "zh": {
+        "title": "儿童正念瑜伽与律动",
+        "description": "6 至 10 岁儿童通过正念律动、伸展和呼吸，体验身心健康的乐趣。",
+        "fingerprint": "508927b4a7c9b31a053ee1e6d83e605faa07b4e77f553284eb4453f6fa155249",
+        "translatedAt": "2026-11-18T04:10:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6abc44f5295b3b0033ca0dd7",
@@ -70110,8 +70150,18 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "51c31f3f509300dbeeec6ec566baa388ba42687f04abe8a54bd2a188f436b10f"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "51c31f3f509300dbeeec6ec566baa388ba42687f04abe8a54bd2a188f436b10f",
+    "translations": {
+      "zh": {
+        "title": "Neurosphere：3–8 年级脑科学活动",
+        "description": "了解大脑工作的基础知识，参与测试脑力的趣味活动，并认识未来的职业机会。",
+        "fingerprint": "51c31f3f509300dbeeec6ec566baa388ba42687f04abe8a54bd2a188f436b10f",
+        "translatedAt": "2026-11-18T04:10:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "google-visitor-17063023e84ba47e",
@@ -70342,8 +70392,18 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "c76247c8491ef73cabe3d317382af0babb64f7efd87207b6e0cc6cf60d83b3d7"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "c76247c8491ef73cabe3d317382af0babb64f7efd87207b6e0cc6cf60d83b3d7",
+    "translations": {
+      "zh": {
+        "title": "包容性感官律动与调节工作坊",
+        "description": "Gilroy Library 与 JMM Dance Co. 合作，在 2026 年余下的每月第三个周日举办工作坊。家庭可通过温和、结构化的律动，探索节奏、身体觉察与情绪安全感。",
+        "fingerprint": "c76247c8491ef73cabe3d317382af0babb64f7efd87207b6e0cc6cf60d83b3d7",
+        "translatedAt": "2026-11-18T04:10:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-697025281e64afd01e559e3b",
@@ -70476,8 +70536,18 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "9414fef6c2542e76d06fa8ac7651fb4bde9c05dd67fbec463d01a915f85530b0"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "9414fef6c2542e76d06fa8ac7651fb4bde9c05dd67fbec463d01a915f85530b0",
+    "translations": {
+      "zh": {
+        "title": "周日手工下午",
+        "description": "成人、青少年和孩子可在每月第三个周日一起参加轻松的手工活动。现场提供材料，内容当日揭晓；孩子须由负责照看的成人陪同，自行完成作品。活动室下午 3:30 关闭，请留出完成作品的时间。",
+        "fingerprint": "9414fef6c2542e76d06fa8ac7651fb4bde9c05dd67fbec463d01a915f85530b0",
+        "translatedAt": "2026-11-18T04:10:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-eecc3b2ebe72f7c7",
@@ -71838,7 +71908,7 @@
         "title": "San Jose Barracuda vs Eagles 冰球比赛",
         "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Eagles。特别活动包括 Jurassic World、Frenzy 的生日庆祝，以及向前 2,000 名球迷赠送 Frenzy 毛绒玩偶。",
         "fingerprint": "46f1cbf520789c315450e366f51b7c35dd161fbd1f57209e93dd1ab555f05a19",
-        "translatedAt": "2026-11-18T03:58:20.255Z",
+        "translatedAt": "2026-11-18T04:02:37.039Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
