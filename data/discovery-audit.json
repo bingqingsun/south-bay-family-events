@@ -16,8 +16,8 @@
       "method": "rss",
       "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/sjpl/rss/events",
       "status": "ok",
-      "next60Days": 181,
-      "next90Days": 181
+      "next60Days": 188,
+      "next90Days": 188
     },
     {
       "source": "Palo Alto City Library",
@@ -173,7 +173,7 @@
     }
   ],
   "onSale": [],
-  "translationGaps": 7,
+  "translationGaps": 2,
   "ticketed": [
     {
       "title": "San Jose Holiday Lights 2026",
@@ -314,7 +314,7 @@
     {
       "kind": "translation-backlog",
       "source": "Chinese event copy",
-      "detail": "7 current translations require review in data/translation-gaps/."
+      "detail": "2 current translations require review in data/translation-gaps/."
     }
   ]
 }

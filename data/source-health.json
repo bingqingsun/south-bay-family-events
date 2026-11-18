@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-18T03:56:41.691Z",
+  "generatedAt": "2026-11-18T04:02:47.782Z",
   "configuredSources": 109,
   "directSources": 103,
   "fallbackSourcesRun": 0,
@@ -22,7 +22,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 319,
+      "eventCount": 333,
       "failureStreak": 0,
       "error": ""
     },
@@ -96,7 +96,7 @@
       "method": "rss",
       "mode": "direct",
       "status": "ok",
-      "eventCount": 445,
+      "eventCount": 444,
       "failureStreak": 0,
       "error": ""
     },
@@ -288,7 +288,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 103,
+      "failureStreak": 104,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -298,7 +298,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 103,
+      "failureStreak": 104,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -308,7 +308,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 103,
+      "failureStreak": 104,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
@@ -358,7 +358,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 13,
+      "failureStreak": 14,
       "error": "MLS official schedule was not valid: 404"
     },
     {
@@ -448,7 +448,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 36,
+      "failureStreak": 37,
       "error": "CivicPlus official calendar was not valid: 403"
     },
     {
@@ -478,7 +478,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 6,
+      "failureStreak": 7,
       "error": "San Jose Theaters calendar was not valid: 400"
     },
     {
@@ -618,7 +618,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 25,
+      "failureStreak": 26,
       "error": "Wix official event list was not valid: 200"
     },
     {
@@ -1025,7 +1025,7 @@
       "mode": "direct",
       "status": "failed",
       "eventCount": 0,
-      "failureStreak": 5,
+      "failureStreak": 6,
       "error": "Annual festival official page was not valid: 404"
     },
     {
@@ -1082,42 +1082,42 @@
   "alerts": [
     {
       "name": "Cinemark Century Oakridge 20",
-      "failureStreak": 103,
+      "failureStreak": 104,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark Century Great Mall 20",
-      "failureStreak": 103,
+      "failureStreak": 104,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "Cinemark CineArts Santana Row",
-      "failureStreak": 103,
+      "failureStreak": 104,
       "error": "Cinemark official showtimes were not valid: 200"
     },
     {
       "name": "San Jose Earthquakes",
-      "failureStreak": 13,
+      "failureStreak": 14,
       "error": "MLS official schedule was not valid: 404"
     },
     {
       "name": "City of Los Altos Parks & Recreation",
-      "failureStreak": 36,
+      "failureStreak": 37,
       "error": "CivicPlus official calendar was not valid: 403"
     },
     {
       "name": "San Jose Theaters",
-      "failureStreak": 6,
+      "failureStreak": 7,
       "error": "San Jose Theaters calendar was not valid: 400"
     },
     {
       "name": "365 Night Market",
-      "failureStreak": 25,
+      "failureStreak": 26,
       "error": "Wix official event list was not valid: 200"
     },
     {
       "name": "South Bay Clean Creeks Coalition",
-      "failureStreak": 5,
+      "failureStreak": 6,
       "error": "Annual festival official page was not valid: 404"
     }
   ],
@@ -1125,12 +1125,12 @@
     "usable-official-description": {
       "before": {
         "Palo Alto City Library": 189,
-        "San José Public Library": 319,
+        "San José Public Library": 333,
         "Midpeninsula Regional Open Space District": 6,
-        "The Tech Interactive": 11,
+        "The Tech Interactive": 6,
         "City of Palo Alto": 5,
         "Palo Alto Junior Museum & Zoo": 10,
-        "Santa Clara County Library District": 445,
+        "Santa Clara County Library District": 444,
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "Stanford Events": 1,
@@ -1155,6 +1155,7 @@
         "The Great Dickens Christmas Fair": 1,
         "Christmas in the Park": 1,
         "San Jose Theaters": 3,
+        "Computer History Museum": 2,
         "San Jose Holiday Lights": 1,
         "Happy Hollow Park & Zoo": 2,
         "De Anza College Planetarium": 9,
@@ -1162,12 +1163,12 @@
       },
       "after": {
         "Palo Alto City Library": 189,
-        "San José Public Library": 318,
+        "San José Public Library": 332,
         "Midpeninsula Regional Open Space District": 6,
-        "The Tech Interactive": 11,
+        "The Tech Interactive": 6,
         "City of Palo Alto": 5,
         "Palo Alto Junior Museum & Zoo": 10,
-        "Santa Clara County Library District": 445,
+        "Santa Clara County Library District": 444,
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "Stanford Events": 1,
@@ -1192,6 +1193,7 @@
         "The Great Dickens Christmas Fair": 1,
         "Christmas in the Park": 1,
         "San Jose Theaters": 3,
+        "Computer History Museum": 2,
         "San Jose Holiday Lights": 1,
         "Happy Hollow Park & Zoo": 2,
         "De Anza College Planetarium": 9,
@@ -1201,12 +1203,12 @@
     "not-closure": {
       "before": {
         "Palo Alto City Library": 189,
-        "San José Public Library": 318,
+        "San José Public Library": 332,
         "Midpeninsula Regional Open Space District": 6,
-        "The Tech Interactive": 11,
+        "The Tech Interactive": 6,
         "City of Palo Alto": 5,
         "Palo Alto Junior Museum & Zoo": 10,
-        "Santa Clara County Library District": 445,
+        "Santa Clara County Library District": 444,
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "Stanford Events": 1,
@@ -1231,6 +1233,7 @@
         "The Great Dickens Christmas Fair": 1,
         "Christmas in the Park": 1,
         "San Jose Theaters": 3,
+        "Computer History Museum": 2,
         "San Jose Holiday Lights": 1,
         "Happy Hollow Park & Zoo": 2,
         "De Anza College Planetarium": 9,
@@ -1238,12 +1241,12 @@
       },
       "after": {
         "Palo Alto City Library": 189,
-        "San José Public Library": 318,
+        "San José Public Library": 332,
         "Midpeninsula Regional Open Space District": 6,
-        "The Tech Interactive": 11,
+        "The Tech Interactive": 6,
         "City of Palo Alto": 5,
         "Palo Alto Junior Museum & Zoo": 10,
-        "Santa Clara County Library District": 445,
+        "Santa Clara County Library District": 444,
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "Stanford Events": 1,
@@ -1268,6 +1271,7 @@
         "The Great Dickens Christmas Fair": 1,
         "Christmas in the Park": 1,
         "San Jose Theaters": 3,
+        "Computer History Museum": 2,
         "San Jose Holiday Lights": 1,
         "Happy Hollow Park & Zoo": 2,
         "De Anza College Planetarium": 9,
@@ -1277,12 +1281,12 @@
     "not-routine-venue-access": {
       "before": {
         "Palo Alto City Library": 189,
-        "San José Public Library": 318,
+        "San José Public Library": 332,
         "Midpeninsula Regional Open Space District": 6,
-        "The Tech Interactive": 11,
+        "The Tech Interactive": 6,
         "City of Palo Alto": 5,
         "Palo Alto Junior Museum & Zoo": 10,
-        "Santa Clara County Library District": 445,
+        "Santa Clara County Library District": 444,
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "Stanford Events": 1,
@@ -1307,6 +1311,7 @@
         "The Great Dickens Christmas Fair": 1,
         "Christmas in the Park": 1,
         "San Jose Theaters": 3,
+        "Computer History Museum": 2,
         "San Jose Holiday Lights": 1,
         "Happy Hollow Park & Zoo": 2,
         "De Anza College Planetarium": 9,
@@ -1314,12 +1319,12 @@
       },
       "after": {
         "Palo Alto City Library": 189,
-        "San José Public Library": 318,
+        "San José Public Library": 332,
         "Midpeninsula Regional Open Space District": 6,
-        "The Tech Interactive": 11,
+        "The Tech Interactive": 6,
         "City of Palo Alto": 5,
         "Palo Alto Junior Museum & Zoo": 10,
-        "Santa Clara County Library District": 445,
+        "Santa Clara County Library District": 444,
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "Stanford Events": 1,
@@ -1344,6 +1349,7 @@
         "The Great Dickens Christmas Fair": 1,
         "Christmas in the Park": 1,
         "San Jose Theaters": 3,
+        "Computer History Museum": 2,
         "San Jose Holiday Lights": 1,
         "Happy Hollow Park & Zoo": 2,
         "De Anza College Planetarium": 9,
@@ -1353,12 +1359,12 @@
     "not-routine-support-service": {
       "before": {
         "Palo Alto City Library": 189,
-        "San José Public Library": 318,
+        "San José Public Library": 332,
         "Midpeninsula Regional Open Space District": 6,
-        "The Tech Interactive": 11,
+        "The Tech Interactive": 6,
         "City of Palo Alto": 5,
         "Palo Alto Junior Museum & Zoo": 10,
-        "Santa Clara County Library District": 445,
+        "Santa Clara County Library District": 444,
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "Stanford Events": 1,
@@ -1383,6 +1389,7 @@
         "The Great Dickens Christmas Fair": 1,
         "Christmas in the Park": 1,
         "San Jose Theaters": 3,
+        "Computer History Museum": 2,
         "San Jose Holiday Lights": 1,
         "Happy Hollow Park & Zoo": 2,
         "De Anza College Planetarium": 9,
@@ -1390,12 +1397,12 @@
       },
       "after": {
         "Palo Alto City Library": 189,
-        "San José Public Library": 275,
+        "San José Public Library": 287,
         "Midpeninsula Regional Open Space District": 6,
-        "The Tech Interactive": 11,
+        "The Tech Interactive": 6,
         "City of Palo Alto": 5,
         "Palo Alto Junior Museum & Zoo": 10,
-        "Santa Clara County Library District": 380,
+        "Santa Clara County Library District": 379,
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "Stanford Events": 1,
@@ -1420,6 +1427,7 @@
         "The Great Dickens Christmas Fair": 1,
         "Christmas in the Park": 1,
         "San Jose Theaters": 3,
+        "Computer History Museum": 2,
         "San Jose Holiday Lights": 1,
         "Happy Hollow Park & Zoo": 2,
         "De Anza College Planetarium": 9,
@@ -1429,12 +1437,12 @@
     "available": {
       "before": {
         "Palo Alto City Library": 189,
-        "San José Public Library": 275,
+        "San José Public Library": 287,
         "Midpeninsula Regional Open Space District": 6,
-        "The Tech Interactive": 11,
+        "The Tech Interactive": 6,
         "City of Palo Alto": 5,
         "Palo Alto Junior Museum & Zoo": 10,
-        "Santa Clara County Library District": 380,
+        "Santa Clara County Library District": 379,
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "Stanford Events": 1,
@@ -1459,6 +1467,7 @@
         "The Great Dickens Christmas Fair": 1,
         "Christmas in the Park": 1,
         "San Jose Theaters": 3,
+        "Computer History Museum": 2,
         "San Jose Holiday Lights": 1,
         "Happy Hollow Park & Zoo": 2,
         "De Anza College Planetarium": 9,
@@ -1466,12 +1475,12 @@
       },
       "after": {
         "Palo Alto City Library": 189,
-        "San José Public Library": 275,
+        "San José Public Library": 287,
         "Midpeninsula Regional Open Space District": 6,
-        "The Tech Interactive": 11,
+        "The Tech Interactive": 6,
         "City of Palo Alto": 5,
         "Palo Alto Junior Museum & Zoo": 10,
-        "Santa Clara County Library District": 380,
+        "Santa Clara County Library District": 379,
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "Stanford Events": 1,
@@ -1496,6 +1505,7 @@
         "The Great Dickens Christmas Fair": 1,
         "Christmas in the Park": 1,
         "San Jose Theaters": 3,
+        "Computer History Museum": 2,
         "San Jose Holiday Lights": 1,
         "Happy Hollow Park & Zoo": 2,
         "De Anza College Planetarium": 9,
@@ -1505,12 +1515,12 @@
     "family-relevant": {
       "before": {
         "Palo Alto City Library": 189,
-        "San José Public Library": 275,
+        "San José Public Library": 287,
         "Midpeninsula Regional Open Space District": 6,
-        "The Tech Interactive": 11,
+        "The Tech Interactive": 6,
         "City of Palo Alto": 5,
         "Palo Alto Junior Museum & Zoo": 10,
-        "Santa Clara County Library District": 380,
+        "Santa Clara County Library District": 379,
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "Stanford Events": 1,
@@ -1535,6 +1545,7 @@
         "The Great Dickens Christmas Fair": 1,
         "Christmas in the Park": 1,
         "San Jose Theaters": 3,
+        "Computer History Museum": 2,
         "San Jose Holiday Lights": 1,
         "Happy Hollow Park & Zoo": 2,
         "De Anza College Planetarium": 9,
@@ -1542,12 +1553,12 @@
       },
       "after": {
         "Palo Alto City Library": 189,
-        "San José Public Library": 275,
+        "San José Public Library": 287,
         "Midpeninsula Regional Open Space District": 6,
-        "The Tech Interactive": 11,
+        "The Tech Interactive": 6,
         "City of Palo Alto": 5,
         "Palo Alto Junior Museum & Zoo": 10,
-        "Santa Clara County Library District": 380,
+        "Santa Clara County Library District": 379,
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "Stanford Events": 1,
@@ -1572,6 +1583,7 @@
         "The Great Dickens Christmas Fair": 1,
         "Christmas in the Park": 1,
         "San Jose Theaters": 3,
+        "Computer History Museum": 2,
         "San Jose Holiday Lights": 1,
         "Happy Hollow Park & Zoo": 2,
         "De Anza College Planetarium": 9,
@@ -1581,12 +1593,12 @@
     "quality-reviewed": {
       "before": {
         "Palo Alto City Library": 189,
-        "San José Public Library": 275,
+        "San José Public Library": 287,
         "Midpeninsula Regional Open Space District": 6,
-        "The Tech Interactive": 11,
+        "The Tech Interactive": 6,
         "City of Palo Alto": 5,
         "Palo Alto Junior Museum & Zoo": 10,
-        "Santa Clara County Library District": 380,
+        "Santa Clara County Library District": 379,
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "Stanford Events": 1,
@@ -1611,6 +1623,7 @@
         "The Great Dickens Christmas Fair": 1,
         "Christmas in the Park": 1,
         "San Jose Theaters": 3,
+        "Computer History Museum": 2,
         "San Jose Holiday Lights": 1,
         "Happy Hollow Park & Zoo": 2,
         "De Anza College Planetarium": 9,
@@ -1618,12 +1631,12 @@
       },
       "after": {
         "Palo Alto City Library": 175,
-        "San José Public Library": 258,
+        "San José Public Library": 268,
         "Midpeninsula Regional Open Space District": 6,
-        "The Tech Interactive": 10,
+        "The Tech Interactive": 5,
         "City of Palo Alto": 5,
         "Palo Alto Junior Museum & Zoo": 10,
-        "Santa Clara County Library District": 305,
+        "Santa Clara County Library District": 304,
         "City of Cupertino": 7,
         "Gilroy Gardens": 7,
         "Stanford Events": 1,
@@ -1648,6 +1661,7 @@
         "The Great Dickens Christmas Fair": 1,
         "Christmas in the Park": 1,
         "San Jose Theaters": 3,
+        "Computer History Museum": 2,
         "Happy Hollow Park & Zoo": 2,
         "De Anza College Planetarium": 9,
         "History San José": 1
@@ -1655,20 +1669,20 @@
     }
   },
   "paloAltoChildrensTheatreEnrichment": {
-    "checkedAt": "2026-11-18T03:56:41.691Z",
+    "checkedAt": "2026-11-18T04:02:47.782Z",
     "enriched": 5
   },
   "canonicalDetailEnrichment": {
     "frameworkVersion": "canonical-detail-enrichment-v1",
-    "checkedAt": "2026-11-18T03:56:41.691Z",
-    "enriched": 483,
+    "checkedAt": "2026-11-18T04:02:47.782Z",
+    "enriched": 500,
     "cached": 5,
     "identity-mismatch": 26,
-    "fetch-blocked": 22,
+    "fetch-blocked": 12,
     "fieldUpdates": {
-      "place": 261,
-      "description": 378,
-      "endDateValue": 362,
+      "place": 274,
+      "description": 396,
+      "endDateValue": 378,
       "address": 17,
       "dateValue": 3,
       "image": 3,
@@ -1684,16 +1698,16 @@
   },
   "officialImageEnrichment": {
     "frameworkVersion": "official-image-enrichment-v2",
-    "checkedAt": "2026-11-18T03:56:41.691Z",
-    "official": 457,
-    "unclassified": 71,
+    "checkedAt": "2026-11-18T04:02:47.782Z",
+    "official": 474,
+    "unclassified": 61,
     "missing": 4,
     "failure:no_verified_official_image_candidate": 4,
     "generated-editorial": 1
   },
   "editorialCoverGeneration": {
     "frameworkVersion": "editorial-cover-v1",
-    "checkedAt": "2026-11-18T03:56:41.691Z",
+    "checkedAt": "2026-11-18T04:02:47.782Z",
     "generated": 5,
     "byReason": {
       "no_verified_official_image_candidate": 4,
@@ -1707,10 +1721,10 @@
   },
   "publishedSourceCounts": {
     "Santa Clara County Library District": 145,
-    "San José Public Library": 186,
+    "San José Public Library": 193,
     "CuriOdyssey": 2,
-    "Palo Alto City Library": 50,
     "San Jose Sharks": 31,
+    "Palo Alto City Library": 50,
     "Stanford Events": 1,
     "Official cinema listings": 2,
     "City of Cupertino": 7,
@@ -1743,7 +1757,7 @@
   },
   "officialImageMirror": {
     "frameworkVersion": "official-image-mirror-v1",
-    "checkedAt": "2026-11-18T03:58:19.319Z",
+    "checkedAt": "2026-11-18T04:04:36.535Z",
     "configuredSources": 1,
     "mirroredEvents": 5,
     "mirroredAssets": 4,
