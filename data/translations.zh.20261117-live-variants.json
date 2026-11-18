@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "entries": [
+    {
+      "id": "rss-69fb88bf703c33630025dfab",
+      "title": "婴儿膝上故事会与游戏时间",
+      "description": "婴儿和照护者通过故事、歌曲、弹跳、挠痒、童谣、图书及游戏一起学习、增进亲子关系；故事会后还可以留下来玩。",
+      "status": "approved",
+      "sourceFingerprint": "d5c59aa5a1cc7f54ee95996f5c67b659603150267c9afcce27690f96c5976cdb",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:10:00Z",
+      "override": true
+    },
+    {
+      "id": "rss-6a99d554aafa61002961600b",
+      "title": "陪孩子阅读",
+      "description": "通过听故事和阅读，帮助孩子发挥想象力，培养对书籍、阅读和学习的兴趣。",
+      "status": "approved",
+      "sourceFingerprint": "ac10bfa587d1c9496f43122eb253577e39d3b97796f4aee689b816d09f517147",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:10:00Z",
+      "override": true
+    },
+    {
+      "id": "rss-6afb9f6be5605400508cdd4f",
+      "title": "2、3 年级 Book Bugs 读书俱乐部",
+      "description": "读书会将讨论选读书籍，并开展有趣的手工或活动。可到 Los Altos Library 或 Woodland Library 的儿童服务台借阅该书。",
+      "status": "approved",
+      "sourceFingerprint": "1840fe72396daf4dd36880cf02a5ccf8c49ecb0d7224f60b761c2bc4f142be92",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:10:00Z",
+      "override": true
+    },
+    {
+      "id": "rss-6afce68ae2267c00335d223d",
+      "title": "儿童正念瑜伽与律动",
+      "description": "6 至 10 岁儿童通过正念律动、伸展和呼吸，体验身心健康的乐趣。",
+      "status": "approved",
+      "sourceFingerprint": "508927b4a7c9b31a053ee1e6d83e605faa07b4e77f553284eb4453f6fa155249",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:10:00Z",
+      "override": true
+    },
+    {
+      "id": "rss-6a384108c134422d50e9a7b3",
+      "title": "Neurosphere：3–8 年级脑科学活动",
+      "description": "了解大脑工作的基础知识，参与测试脑力的趣味活动，并认识未来的职业机会。",
+      "status": "approved",
+      "sourceFingerprint": "51c31f3f509300dbeeec6ec566baa388ba42687f04abe8a54bd2a188f436b10f",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:10:00Z",
+      "override": true
+    },
+    {
+      "id": "rss-6a595fbd82c03c5c17d88c57",
+      "title": "包容性感官律动与调节工作坊",
+      "description": "Gilroy Library 与 JMM Dance Co. 合作，在 2026 年余下的每月第三个周日举办工作坊。家庭可通过温和、结构化的律动，探索节奏、身体觉察与情绪安全感。",
+      "status": "approved",
+      "sourceFingerprint": "c76247c8491ef73cabe3d317382af0babb64f7efd87207b6e0cc6cf60d83b3d7",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:10:00Z",
+      "override": true
+    },
+    {
+      "id": "rss-697025281e64afd01e559e3b",
+      "title": "周日手工下午",
+      "description": "成人、青少年和孩子可在每月第三个周日一起参加轻松的手工活动。现场提供材料，内容当日揭晓；孩子须由负责照看的成人陪同，自行完成作品。活动室下午 3:30 关闭，请留出完成作品的时间。",
+      "status": "approved",
+      "sourceFingerprint": "9414fef6c2542e76d06fa8ac7651fb4bde9c05dd67fbec463d01a915f85530b0",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:10:00Z",
+      "override": true
+    }
+  ]
+}
