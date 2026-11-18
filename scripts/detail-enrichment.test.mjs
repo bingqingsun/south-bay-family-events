@@ -440,6 +440,8 @@ const source = { name: 'City Test', method: 'civic', domain: 'example.gov', city
 // them as events. Do not accidentally hide genuine museum open days.
 assert.equal(isOfficialClosureNotice('CAH Museum Closed for Thanksgiving Holiday', 'The museum will be CLOSED for the holiday.'), true);
 assert.equal(isOfficialClosureNotice('Cupertino Library Closed for Veterans Day', ''), true);
+assert.equal(isOfficialClosureNotice("Cupertino Library Closes at 5pm for New Year's Eve", ''), true);
+assert.equal(isOfficialClosureNotice("Gilroy Library Closes at 5pm for New Year's Eve", ''), true);
 assert.equal(isOfficialClosureNotice('CAH Museum Open', 'Museum tours and cultural events.'), false);
 assert.equal(isOfficialClosureNotice('Children’s Museum Celebration', 'Enjoy history and crafts with your family.'), false);
 
