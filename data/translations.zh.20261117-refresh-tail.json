@@ -1,0 +1,159 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "entries": [
+    {
+      "id": "rss-692e108051da852800c45917",
+      "title": "钩针与针织俱乐部",
+      "description": "想看看其他人的作品、提升手艺、交流毛线项目，或学习针织与钩针，都可以来参加。",
+      "status": "approved",
+      "sourceFingerprint": "988d21325a06a9e11c260d6b5f57212a0b139b308a8fde7639e4cec420b7cf17",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:00:00Z"
+    },
+    {
+      "id": "rss-6ac81034377296003a4aa7f1",
+      "title": "幼儿双语故事会与游戏时间",
+      "description": "幼儿通过故事、童谣、手指游戏和律动参与早期阅读活动，之后还可以留下来玩。",
+      "status": "approved",
+      "sourceFingerprint": "2f9944cf4cf14fa21566e1cbde09c95490b04af3233166d8d9c06b3979c1e10a",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:00:00Z"
+    },
+    {
+      "id": "rss-6920f0c7dff9d93e00d12ee4",
+      "title": "Las Madres 家长游戏聚会",
+      "description": "与面临相似育儿问题的家长建立友谊；Las Madres Downtown/Rose Garden 每周二举行亲子聚会。",
+      "status": "approved",
+      "sourceFingerprint": "a7d94e52dcc69e76bc76e93a094832a50f8b9c69a46d808ca0de8e52e35f66b8",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:00:00Z"
+    },
+    {
+      "id": "rss-6a83713669166f088b92df7c",
+      "title": "儿童折纸",
+      "description": "用彩纸折帆船、企鹅、青蛙或武士头盔等造型。",
+      "status": "approved",
+      "sourceFingerprint": "dbbf67a97946c9d4fbee580e4f82218ca1e61c78a073079f3c53316a957c5727",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:00:00Z"
+    },
+    {
+      "id": "rss-6abc199e9dbc2b002c8b2098",
+      "title": "Educational Park 艺术俱乐部",
+      "description": "每周二认识一位艺术家或一种艺术风格，然后动手创作自己的作品。",
+      "status": "approved",
+      "sourceFingerprint": "035c8fc87a71c78f5cad4cc0a2cdbd69870900e6c471b872a787ae96f76fb75d",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:00:00Z"
+    },
+    {
+      "id": "rss-6ab40cd2da318a10e6363672",
+      "title": "儿童中文或英语故事会",
+      "description": "志愿者 Ning 为孩子与家人用普通话或英语朗读故事。",
+      "status": "approved",
+      "sourceFingerprint": "f2d36c3ce92bcaa92ead2458ba504c6db79af25f52b9f2d1d034d9fc51a7e0d4",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:00:00Z"
+    },
+    {
+      "id": "rss-6a4bcff0541102b7fa8ab383",
+      "title": "虚拟现实体验",
+      "description": "学习使用虚拟现实设备，体验互动游戏和谜题；面向 12 岁及以上青少年。设备可能引起眩晕或方向感混乱。",
+      "status": "approved",
+      "sourceFingerprint": "305f64833098bbbd897d2e563abcfca28810d693251f9fa89c8f827700a73742",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:00:00Z"
+    },
+    {
+      "id": "rss-6a73854af213992f00c9cfe7",
+      "title": "Almaden 课后 STEAM 活动",
+      "description": "孩子们用乐高积木构思和搭建作品，再根据挑战重新设计与搭建。",
+      "status": "approved",
+      "sourceFingerprint": "07ee695364e938ef022e65af7fc58aa4bdbed6edc2fc0d49bd4c82c99d217219",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:00:00Z"
+    },
+    {
+      "id": "rss-6a36f828c7d3cd580061b596",
+      "title": "乐高俱乐部",
+      "description": "每周二到图书馆，用乐高积木享受一小时的搭建乐趣。",
+      "status": "approved",
+      "sourceFingerprint": "c67bea4c3f1aecb74a06904a878c0b805de9096b8416c9637f11c14b9855c7ab",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:00:00Z"
+    },
+    {
+      "id": "rss-6a46b7bd7e16a03d00e9b7ea",
+      "title": "中英双语家庭故事会",
+      "description": "这场 30 分钟的故事会包括律动、唱歌与动作互动。",
+      "status": "approved",
+      "sourceFingerprint": "7199431514d79e0e5464c91b2d3b50ac6c207e2801e03baee7788b848cf59504",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:00:00Z"
+    },
+    {
+      "id": "rss-69d9863bad384e40edba35c4",
+      "title": "Willow Glen 青少年志愿者会议",
+      "description": "参加每月会议，了解青少年志愿服务机会，并分享自己的意见。",
+      "status": "approved",
+      "sourceFingerprint": "14d7bb31845fd56647c1c998e29303c6325ff4cfc4421259b42f3e568467c894",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:00:00Z"
+    },
+    {
+      "id": "series-a477b9fa57a3d126",
+      "title": "青少年期末复习空间",
+      "description": "到 Mitchell Park 图书馆找一处额外的复习空间，现场还有小点心。",
+      "status": "approved",
+      "sourceFingerprint": "c8edbf1f8630bea48ba7e3fa3f7ee33e09ffd0519d8773f8f155daaa36dbab88",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:00:00Z"
+    },
+    {
+      "id": "rss-6af3c4f104009d003387b3fe",
+      "title": "温馨创作活动",
+      "description": "孩子们在图书馆制作精美的应季手工作品，闪亮亮的手工材料也留在图书馆，不会弄得到处都是。",
+      "status": "approved",
+      "sourceFingerprint": "6e0ab3abe794066861cc4e481717c944d013793bce5da0321d09a04c6b0002a8",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:00:00Z"
+    },
+    {
+      "id": "rss-6917c8b306078d360077f44c",
+      "title": "13–25 岁 LGBTQ+ 青少年安全空间聚会",
+      "description": "由工作人员带领，在安全的空间里玩游戏、参加集体活动与讨论，并建立社群联系。",
+      "status": "approved",
+      "sourceFingerprint": "7b6751f7a85231b6e11f6685f856b7e742e27d747b0e0677554c70c9e6184d24",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:00:00Z"
+    },
+    {
+      "id": "rss-6afce68ae2267c00335d223d",
+      "title": "儿童正念瑜伽与律动",
+      "description": "孩子通过正念活动、伸展和呼吸，体验身心健康的乐趣。",
+      "status": "approved",
+      "sourceFingerprint": "335ca20655186ead607720a9d28b993269c054bb6fc6bbd9c791a908e8d62523",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:00:00Z"
+    },
+    {
+      "id": "calendar-26197",
+      "title": "January 每月第二个周六活动",
+      "description": "免费参加教育站、手工站、演示、寻宝游戏、故事会和 Elizabeth 的房屋参观；导览时间为上午 10:00、10:30 和 11:00。本月合作伙伴待公布。",
+      "status": "approved",
+      "sourceFingerprint": "bc94c933ba374646da62d545c7774333d7f6f918355f9b049a2f61a72751d3ed",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:00:00Z"
+    },
+    {
+      "id": "rss-6afcebd404009d0033893d4b",
+      "title": "TLAB：《勇敢的毛茸茸》作者分享",
+      "description": "由高中生运营的儿童图书非营利出版社 Pen & Pipette 分享创作灵感，探讨艺术与科学如何结合，并带领大家动手实践创意。",
+      "status": "approved",
+      "sourceFingerprint": "2e39cc8695a515ee14b820894210236243ecf8e345e9baad655b43fe8c10f959",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:00:00Z"
+    }
+  ]
+}
