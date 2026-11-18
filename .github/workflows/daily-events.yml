@@ -37,7 +37,6 @@ on:
       - 'scripts/discovery-audit.test.mjs'
       - 'data/sources.json'
       - 'data/event-supplements.json'
-      - 'data/translations.zh*.json'
       - 'app.js'
       - 'collections.js'
       - '.github/workflows/daily-events.yml'
