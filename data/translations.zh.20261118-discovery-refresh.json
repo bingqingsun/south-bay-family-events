@@ -1,0 +1,106 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "entries": [
+    {
+      "id": "editorial-montalvo-christmas-carol-2026",
+      "title": "《圣诞颂歌》2026",
+      "description": "跟随硅谷莎士比亚剧团走过 Montalvo 的历史别墅与庭院，在沉浸式步行演出中体验狄更斯的《圣诞颂歌》。",
+      "sourceFingerprint": "20906fa9d9ac23df61cf6f2f40afb74ff07b43274a864e6ff87c356d122aac4c",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:35:00Z",
+      "override": true
+    },
+    {
+      "id": "rss-6afd281e04009d0033894c85",
+      "title": "印度卡纳提克音乐会",
+      "description": "Saratoga 图书馆与 SR Fine Arts 合作，邀请湾区印度社区音乐家带来印度卡纳提克音乐会。",
+      "sourceFingerprint": "af35c59d9bd4e0cfe583f92e5d58c7cf227bbedc5b21e2ad03d9a9636a53f44e",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:35:00Z",
+      "override": true
+    },
+    {
+      "id": "rss-69433e6f8b29ea2800c4c58f",
+      "title": "K–8 年级 LEGO 积木俱乐部",
+      "description": "孩子们运用创造力和工程技能，自由搭建想象中的作品。",
+      "sourceFingerprint": "a85f305cfeb9f3cfbf0790197ec9704c328328b070a0a1c55c6e8f710c45cccf",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:35:00Z",
+      "override": true
+    },
+    {
+      "id": "rss-6a8e25f42dac6e003721b7ac",
+      "title": "培养阅读者：帮助有写作兴趣的孩子",
+      "description": "Santa Clara County Office of Education 与 Santa Clara County Library District 的 The Reading Program 联合举办面向家长和照护者的免费工作坊。",
+      "sourceFingerprint": "8fea1e657fb7abd8e4c0a2924e336fd81f5c53929ba0e54c2d905ba0d566a5d7",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:35:00Z",
+      "override": true
+    },
+    {
+      "id": "series-a477b9fa57a3d126",
+      "title": "青少年期末复习空间",
+      "description": "到 Mitchell Park 图书馆使用额外的复习空间，现场还有小点心。",
+      "sourceFingerprint": "485422be84024be358a4f6b4a52b7b8494f2c823723576a6ca1e891c6f73369d",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:35:00Z",
+      "override": true
+    },
+    {
+      "id": "rss-69bb3dd8491b809c6f217ab3",
+      "title": "Morgan Hill 图书馆尤克里里社团",
+      "description": "学习几首歌曲，和大家一起弹奏。",
+      "sourceFingerprint": "e88f1e545bb875417fd29b8b4a379792faa4b1a333cca2d15dcb781fdfa2c94f",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:35:00Z",
+      "override": true
+    },
+    {
+      "id": "rss-6af3c4fee4f7a1002c0711b4",
+      "title": "故事探索者：TK–1 年级读书会",
+      "description": "大家将一起阅读、简短讨论每本书、随音乐活动，并以趣味手工结束。",
+      "sourceFingerprint": "91dada2f12b3c54f15ddd8df74fcff8a0ca1523d01b87f4dd5443a77c85817c3",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:35:00Z",
+      "override": true
+    },
+    {
+      "id": "rss-6aee1d2c9b955d531f7d9235",
+      "title": "线上作家讲座：Robin Ha",
+      "description": "这本书以漫画式食谱介绍简易步骤、实用技巧和美味菜肴，让烹饪新手和有经验的厨师都能轻松在家学习韩国料理。",
+      "sourceFingerprint": "439ff7fa79e86ffcd62d34da0e059c95be1ec90c023302eef23325e04ba17df2",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:35:00Z",
+      "override": true
+    },
+    {
+      "id": "rss-6aad858df9ed2e003851bb23",
+      "title": "黑暗中的诗歌",
+      "description": "一起用心聆听、欣赏彼此的不同，并向塑造社区的多种语言致敬。",
+      "sourceFingerprint": "6f3a245c0548b9f688c342c7c4c540e1c204c3892c498ce81e2ab58793f28dad",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:35:00Z",
+      "override": true
+    },
+    {
+      "id": "rss-6a5a6f9482c03c5c17d8b1d6",
+      "title": "LEGO 积木俱乐部",
+      "description": "孩子们可以按照活动提示搭建，也可以自由发挥想象力。",
+      "sourceFingerprint": "bf1188e073910e1a3182403419ef3ed3f75748fb56d3b766d11ca5501dabeebc",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:35:00Z",
+      "override": true
+    }
+  ]
+}
