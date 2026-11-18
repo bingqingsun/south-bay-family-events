@@ -174,9 +174,9 @@ jobs:
           count=$(node -e 'console.log(require("./data/discovery-audit.json").alerts.length)')
           if [ "$count" -gt 0 ]; then
             if [ -n "$issue" ]; then
-              gh issue edit "$issue" --body-file "$RUNNER_TEMP/discovery-review.md"
+              gh issue edit "$issue" --body-file "$RUNNER_TEMP/discovery-review.md" --add-assignee bingqingsun
             else
-              gh issue create --title "$title" --body-file "$RUNNER_TEMP/discovery-review.md"
+              gh issue create --title "$title" --body-file "$RUNNER_TEMP/discovery-review.md" --assignee bingqingsun
             fi
           elif [ -n "$issue" ]; then
             gh issue close "$issue" --comment 'The latest 90-day organizer and ticket audit has no outstanding review alerts.'
