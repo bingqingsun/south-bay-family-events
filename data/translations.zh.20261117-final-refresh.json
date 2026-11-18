@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "entries": [
+    {
+      "id": "rss-6a94597f36204e08fbb8509e",
+      "title": "Game On! 青少年游戏时间",
+      "description": "13–18 岁青少年可在放学后使用 Nintendo Switch 游戏机。手柄与游戏可在信息台借用，仅限馆内使用。",
+      "sourceFingerprint": "70e5df49dcd6b81d4cc0649e568d7772a8a515de4854d7365f54215b01879f3f",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:10:00Z"
+    },
+    {
+      "id": "rss-6a5e83e10e562e28009b3026",
+      "title": "钩针编织俱乐部",
+      "description": "轻松友好的钩针编织入门活动，适合初学者。",
+      "sourceFingerprint": "3c2101859b670b905527e0ac297e423e4de55415accc68522570880893453480",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:10:00Z"
+    },
+    {
+      "id": "rss-6a2b3d5ac7d3cd58005fc0f6",
+      "title": "英西双语阅读伙伴",
+      "description": "幼儿园至 3 年级的孩子可用英语或西班牙语朗读，受过培训的青少年志愿者会给予鼓励，并在需要时帮助纠正发音。",
+      "sourceFingerprint": "d22439da6292c52df489ac29de9e1cf7881e7364da7b00fddaec49e2a14b6c03",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-18T04:10:00Z"
+    }
+  ]
+}
