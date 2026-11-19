@@ -1,0 +1,126 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "entries": [
+    {
+      "id": "rss-693c7e827ed7c62f00aa31b4",
+      "title": "周六创意手工",
+      "description": "在 Alviso 分馆使用多种材料自由创作。活动提供材料，所有年龄的孩子都可参加；有需要时可由照护者协助。",
+      "sourceFingerprint": "20561a715c4d5600ba9faa71799ab5669b611d93774887318741ef3bb370cae0",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-19T17:00:00Z",
+      "override": true
+    },
+    {
+      "id": "editorial-polar-play-days-2026",
+      "title": "冬日科学游乐季",
+      "description": "在 The Tech Interactive 通过动手科学实验、创意手工、冰城堡搭建、袜子滑冰等季节活动探索冬日乐趣。",
+      "sourceFingerprint": "035d4b3e388afdb822af3916c293f124b6d5f9af6a74e91d4fb633e8476cbfa5",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-19T17:00:00Z",
+      "override": true
+    },
+    {
+      "id": "editorial-sunnyvale-breakfast-with-santa-2026",
+      "title": "Sunnyvale 圣诞老人早餐会",
+      "description": "在 Sunnyvale Senior Center 与家人一起享用节日早餐，并和圣诞老人拍一张特别的全家福。",
+      "sourceFingerprint": "fa9f659e0d8d756534eccd1ffc409bc4a4f1402d4acf38b380a2ed5761be307a",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-19T17:00:00Z",
+      "override": true
+    },
+    {
+      "id": "editorial-menorahs-and-miracles-2026",
+      "title": "烛台与奇迹：光明节庆典",
+      "description": "通过陀螺游戏、互动演出、学生歌唱、多语言故事时间、寻宝活动和传统点心，一起了解并庆祝犹太光明节。",
+      "sourceFingerprint": "e15edbcbc75a3e08659d668edbccdf8c866764b67e00cf745a07459d64f8edb3",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-19T17:00:00Z",
+      "override": true
+    },
+    {
+      "id": "rss-69d6e67ef29b90618efdcdd4",
+      "title": "宝宝手语与歌唱",
+      "description": "成人照护者将学习基础手语，以便和宝宝进行交流。",
+      "sourceFingerprint": "86ca7be35cccb6e563ebe84725b1c529696a8399e12155b8397aa85fc9548149",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-19T17:00:00Z",
+      "override": true
+    },
+    {
+      "id": "rss-6af3c998e4f7a1002c07127c",
+      "title": "魔术师 Mike Della Penna 冬季魔术秀",
+      "description": "这场冬季魔术秀以日照变短、夜晚变冷以及一年一度的灯光庆典为灵感，为全家带来欢乐与惊奇。",
+      "sourceFingerprint": "a43c4bfd4c5649e27256fcbc4b2382530dc0ce201542d97f932801bc26dcf536",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-19T17:00:00Z",
+      "override": true
+    },
+    {
+      "id": "rss-6ae10914377296003a4f0a6f",
+      "title": "周日电影与点心",
+      "description": "电影结束后将简短讨论影片的历史、制作过程和主题。",
+      "sourceFingerprint": "7084a5953cb04cb76b09245fd0241d4248e7b3348aae47daf379dc7eab4323d1",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-19T17:00:00Z",
+      "override": true
+    },
+    {
+      "id": "editorial-once-upon-nutcracker-2026",
+      "title": "《初识胡桃夹子》",
+      "description": "这是一场为幼儿、学龄前儿童和低龄孩子设计的 55 分钟亲子演出，将于 2026 年十二月 11 日星期五下午 1:00 在 Center for the Performing Arts 上演。",
+      "sourceFingerprint": "321ab49394030540a08d8b2bd5ff994baaaca95d103b1aa55931fc7bbd66d20f",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-19T17:00:00Z",
+      "override": true
+    },
+    {
+      "id": "editorial-holiday-spectacular-symphony-sj-2026",
+      "title": "节日盛典音乐会",
+      "description": "欣赏交响乐团、合唱团、青少年歌手和芭蕾舞者带来的节日经典与互动合唱；演出前还可与圣诞老人合影并装饰姜饼。",
+      "sourceFingerprint": "3c11d9f1c629b357a5a24fc4cf486801cc8858104d0b96af8f703417836a27e1",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-19T17:00:00Z",
+      "override": true
+    },
+    {
+      "id": "editorial-cdm-noon-years-eve-2026",
+      "title": "儿童探索博物馆中午跨年庆典",
+      "description": "不用熬夜也能迎接 2027 年：正午、下午 1 点和 2 点将举行三次倒计时与彩纸球降落，并介绍不同国家在相应时刻的跨年方式。",
+      "sourceFingerprint": "4fb8f2b35e0fbd13871ef80de13c61b88683070bd720be626514fae51c1eac91",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-19T17:00:00Z",
+      "override": true
+    },
+    {
+      "id": "editorial-wild-kratts-live-san-jose-2027",
+      "title": "《Wild Kratts Live! 2.0：激活动物超能力》",
+      "description": "Martin 和 Chris Kratt 把 Wild Kratts 冒险搬上舞台，穿上观众熟悉的动物超能力服，并邀请现场观众一起从滑稽反派手中营救动物。",
+      "sourceFingerprint": "635a50a6a643bda10e9f7ca94bd067f68e6423f06aa5489527b9e5a3f8866a68",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-19T17:00:00Z",
+      "override": true
+    },
+    {
+      "id": "editorial-sjt-alice-jr-2027",
+      "title": "《爱丽丝梦游仙境》青少年版",
+      "description": "Children’s Musical Theater San Jose 将于 2027 年二月 10 日至 14 日在 Montgomery Theater 上演《爱丽丝梦游仙境》青少年版；具体场次见剧院官方活动页面。",
+      "sourceFingerprint": "7ce651a298a264f2a4640b35fa392359dfa186ef371923cca53d500ee54f55f2",
+      "status": "approved",
+      "translationSource": "editorial-reviewed",
+      "reviewedAt": "2026-11-19T17:00:00Z",
+      "override": true
+    }
+  ]
+}
