@@ -1,34 +1,21 @@
 {
   "version": 1,
   "locale": "zh-Hans",
-  "generatedAt": "2026-11-19T17:30:51.872Z",
+  "generatedAt": "2026-11-19T17:32:55.553Z",
   "generatedForDate": "2026-11-19",
   "batch": 1,
   "totalBatches": 1,
   "entries": [
     {
-      "id": "rss-68fbc717831f063d00538867",
-      "dateValue": "2026-12-31",
-      "endDateValue": "2026-12-31T23:59:59",
-      "title": "All Libraries Close at 5pm for New Year's Eve",
-      "description": "Visit our website for eBooks, downloads, streaming, and more!",
-      "source": "Santa Clara County Library District",
-      "sourceUrl": "https://sccl.bibliocommons.com/events/68fbc717831f063d00538867",
+      "id": "rss-6a397278c7d3cd5800621211",
+      "dateValue": "2026-12-27T10:00",
+      "endDateValue": "2026-12-27T11:00:00",
+      "title": "Photography Meetup",
+      "description": "Each session will feature discussions on techniques, tips for improving your craft, and other aspects of photography.",
+      "source": "Palo Alto City Library",
+      "sourceUrl": "https://paloalto.bibliocommons.com/events/6a397278c7d3cd5800621211",
       "status": "missing",
-      "sourceFingerprint": "192ea974be54213e753b49a2ad94801c983b137bda6677078f79da58c8450ffe",
-      "priorTitleZh": "",
-      "priorDescriptionZh": ""
-    },
-    {
-      "id": "cupertino-554f12c089ea8740",
-      "dateValue": "2027-01-13T16:00",
-      "endDateValue": "2027-01-13T17:00:00",
-      "title": "Safe Routes to School Working Group Meetings for 2026-27",
-      "description": "Working Group meetings bring together these partners to discuss how to further the program's mission: to make it safer for students and families in Cupertino to get to and from school actively.",
-      "source": "City of Cupertino",
-      "sourceUrl": "https://www.cupertino.gov/Your-City/Departments/Public-Works/Transportation-Mobility/Safe-Routes-to-School-SR2S/SR2S-Working-Group",
-      "status": "missing",
-      "sourceFingerprint": "932b6eb53b21601422d4dfc255ff940e692044c401458d323deee7034583d795",
+      "sourceFingerprint": "dc05c41072bf8dbd0bd745628fd7f8e99ebb396a588a957b1174745beba58c26",
       "priorTitleZh": "",
       "priorDescriptionZh": ""
     }

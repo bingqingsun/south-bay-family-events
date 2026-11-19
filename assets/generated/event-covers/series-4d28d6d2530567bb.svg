@@ -2,7 +2,7 @@
   <title id="title">SBFF editorial illustration for Holiday Spectacular</title>
   <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#392858"/><stop offset="1" stop-color="#76558a"/></linearGradient></defs>
   <rect width="1200" height="675" fill="url(#bg)"/>
-  <circle cx="167" cy="271" r="22" fill="#e59179" opacity=".22"/><circle cx="1040" cy="270" r="16" fill="#f4c97b" opacity=".22"/><circle cx="218" cy="327" r="25" fill="#f9efe6" opacity=".22"/><circle cx="250" cy="510" r="29" fill="#392858" opacity=".22"/><circle cx="175" cy="330" r="31" fill="#76558a" opacity=".22"/><circle cx="884" cy="350" r="32" fill="#e59179" opacity=".22"/><circle cx="309" cy="545" r="33" fill="#f4c97b" opacity=".22"/>
+  <circle cx="472" cy="237" r="18" fill="#e59179" opacity=".22"/><circle cx="784" cy="150" r="14" fill="#f4c97b" opacity=".22"/><circle cx="686" cy="504" r="12" fill="#f9efe6" opacity=".22"/><circle cx="510" cy="224" r="11" fill="#392858" opacity=".22"/><circle cx="578" cy="70" r="22" fill="#76558a" opacity=".22"/><circle cx="748" cy="310" r="16" fill="#e59179" opacity=".22"/><circle cx="572" cy="440" r="13" fill="#f4c97b" opacity=".22"/>
   
     <path d="M0 0 H330 C280 130 300 300 410 675 H0Z" fill="#76558a"/><path d="M1200 0 H870 C920 130 900 300 790 675 H1200Z" fill="#76558a"/>
     <path d="M520 80 L600 430 L680 80 Z" fill="#f4c97b" opacity=".45"/>
