@@ -173,7 +173,7 @@
     }
   ],
   "onSale": [],
-  "translationGaps": 51,
+  "translationGaps": 2,
   "ticketed": [
     {
       "title": "San Jose Holiday Lights 2026",
@@ -319,7 +319,7 @@
     {
       "kind": "translation-backlog",
       "source": "Chinese event copy",
-      "detail": "51 current translations require review in data/translation-gaps/."
+      "detail": "2 current translations require review in data/translation-gaps/."
     }
   ]
 }

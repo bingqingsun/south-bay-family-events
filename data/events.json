@@ -2652,7 +2652,7 @@
         "title": "故事与律动 / Hora de cuentos",
         "description": "孩子和照护者可一起听故事、念童谣、做手指游戏，并参加音乐和律动活动，培养早期读写能力。",
         "fingerprint": "d6b33e0aebd10cd7cacfa4589360c37bda26467f0d3eb4d43d996d829cc76b42",
-        "translatedAt": "2026-11-19T17:19:02.990Z",
+        "translatedAt": "2026-11-19T17:30:51.488Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -9332,7 +9332,7 @@
         "title": "Tiny Tot Jamboree 幼儿欢乐会",
         "description": "家长和 1–2 岁幼儿一起参加短小有趣的故事、童谣、手指游戏、活动和歌曲。",
         "fingerprint": "19039c77101e7b754cea87442a5b6c527a3efc21cccdd8fb7c28d638065cb8c3",
-        "translatedAt": "2026-11-19T17:19:02.990Z",
+        "translatedAt": "2026-11-19T17:30:51.488Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -9552,7 +9552,7 @@
         "title": "Itty Bitty Jamboree 婴儿欢乐会",
         "description": "成人和 0–12 个月婴儿一起参加短小有趣的故事、童谣、手指游戏和歌曲。",
         "fingerprint": "c344a114ee050cef7355631d275d83e124d1be22ee47743a4e0aeb5fddf52f40",
-        "translatedAt": "2026-11-19T17:19:02.990Z",
+        "translatedAt": "2026-11-19T17:30:51.488Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -14287,7 +14287,7 @@
         "title": "《Matilda The Musical》",
         "description": "聪明勇敢的 Matilda Wormwood 运用自己的机智和一点魔法，对抗专横的 Miss Trunchbull，并寻找属于自己的位置。",
         "fingerprint": "c28f15878095e2adac2b2cac63a5c48ddc4f43925316ef6257a5f90a09388e19",
-        "translatedAt": "2026-11-19T17:19:02.990Z",
+        "translatedAt": "2026-11-19T17:30:51.488Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -29430,8 +29430,18 @@
     "redirectTarget": "https://sjpl.bibliocommons.com/events/6ad13d48e06996003a83cc88",
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "e6894244751f2b49b1274484e788411a8a29d561bdda4d58baf4dfe60447bdab"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "e6894244751f2b49b1274484e788411a8a29d561bdda4d58baf4dfe60447bdab",
+    "translations": {
+      "zh": {
+        "title": "儿童阅读陪伴",
+        "description": "孩子可以向志愿者练习朗读。无需提前报名，活动期间可随时来听故事。适合学龄前儿童及 K–3 年级学生，地点在儿童区。免费。",
+        "fingerprint": "e6894244751f2b49b1274484e788411a8a29d561bdda4d58baf4dfe60447bdab",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6ab595ab65abe8002a7bdd79",
@@ -36974,8 +36984,18 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "0aa423e99280a1fe47129dd0a89ef321dbb9ada78a92f9c6c501a7238c722403"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "0aa423e99280a1fe47129dd0a89ef321dbb9ada78a92f9c6c501a7238c722403",
+    "translations": {
+      "zh": {
+        "title": "针织与钩针俱乐部",
+        "description": "看看其他人的作品、提升技巧、交流各种毛线话题，或学习针织和钩针。",
+        "fingerprint": "0aa423e99280a1fe47129dd0a89ef321dbb9ada78a92f9c6c501a7238c722403",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a55bdc71006a63d00224468",
@@ -41098,7 +41118,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "Mount Pleasant 分馆无障碍活动",
+        "description": "通过美术、手工和游戏结识新朋友、轻松交流并享受乐趣。",
+        "fingerprint": "b0053a8ac55e77108fce8f4b4fbb65a645ab2dfcdd64284ba0b9d8021c57fcfc",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-705d5cc6cfc39b68",
@@ -41845,7 +41875,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "宝宝膝上故事会",
+        "description": "面向尚未学会走路的宝宝及其家长或照护者，通过故事、歌曲、律动、挠痒、童谣、图书和游戏一起学习并增进亲子关系。",
+        "fingerprint": "dd9779e1342ac977edb2d32de437263d02f77bbc378d362d09d6ffe795dcebe7",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-1520b840ff624b48",
@@ -42390,8 +42430,18 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing",
-    "summaryQualityRepairVersion": "summary-quality-repair-v1"
+    "translationStatus": "current",
+    "summaryQualityRepairVersion": "summary-quality-repair-v1",
+    "translations": {
+      "zh": {
+        "title": "室内亲子故事会",
+        "description": "适合不同年龄的孩子，全家可一起参加故事、歌曲、童谣、手指游戏和肢体活动，培养早期读写能力。",
+        "fingerprint": "11a95780cb3ca2ca78110e6089389e79f86cafd6a3ace17300576ae41442c4d3",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a45a6af0e851028002e983e",
@@ -42524,7 +42574,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "婴幼儿故事会",
+        "description": "孩子和照护者将随着多元图书、歌曲与手指游戏一起摆动、念童谣和歌唱，鼓励语言、游戏与探索。主要面向 0–3 岁儿童及家长或照护者，也欢迎所有孩子。",
+        "fingerprint": "e339adfffaed3ddb10924c6d36ee019b5a51d5c486c618d000cbf479798af414",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-743d51884f7bd548",
@@ -42845,7 +42905,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "儿童与照护者亲子游戏会",
+        "description": "孩子练习分享、轮流、模仿游戏和共同关注等早期社交技能，照护者也可彼此交流，一起感受游戏与社区连接的快乐。",
+        "fingerprint": "2e8744d8653febe5320c875d4a081e9ceb31e58b4ee41d49fc3e0688191fb085",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a5e86410e562e28009b31f9",
@@ -42977,7 +43047,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "儿童阅读陪伴",
+        "description": "通过小组互动和志愿者阅读，帮助孩子发展想象力并培养对图书、阅读和学习的兴趣。活动在儿童区的“Read to Children”标志下举行。免费。",
+        "fingerprint": "98d99ad3deb48435d1c7d474fb107ac84c094d587eb5424f30a9c82a26587c80",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6aee2fd5f9d28050ccb1ac4e",
@@ -45596,7 +45676,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "大学申请个人洞察问题写作工作坊",
+        "description": "与经验丰富的写作老师一对一修改 PIQ，避开常见错误，并向招生团队更好地展现自己的特点。",
+        "fingerprint": "5d9b1727ef374326a1f36593dba5993377e6933f6d7c9c1aca990a46d6759448",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a9863ec69166f088b96d0af",
@@ -45728,7 +45818,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "针织、钩针与蕾丝手工俱乐部",
+        "description": "学习新的针线手工、看看他人的作品、提升技巧，或交流各种手工项目。",
+        "fingerprint": "f203dd8f0f54c90e97ad1baa72a479c50f5f580af0e1dee2492ed38ea3714407",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-69d9863bad384e40edba35c4",
@@ -46004,7 +46104,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "宝莱坞舞蹈",
+        "description": "参加由志愿者带领的活力课程，学习宝莱坞舞步，在舞蹈中健身并享受乐趣。",
+        "fingerprint": "5a02677c17e7731f6f636cce9c098909736fd2cb97a2b54fbc5921492950a573",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6aac8994607483003827c033",
@@ -46137,7 +46247,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "生活印地语",
+        "description": "适合不同背景的学习者，无论家里常听印地语还是第一次接触都可参加。课程依照美国学术标准和加州世界语言框架，培养口语、听力、阅读和写作四项核心能力。",
+        "fingerprint": "48a0e2c13615f0911cfb6ead3c6506f3b6dfb3ea0c3f6c17658d45f81b41a0ad",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-69fbb1fd43b41b3d0064a3f3",
@@ -46270,7 +46390,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "室内音乐与律动",
+        "description": "充满活力的互动故事会，全家可随着音乐一起学习、运动并享受乐趣。",
+        "fingerprint": "1a4e5af1aafa430df359ff0091626d4bdc9eb1620e89eaac9fd23bbf7fde6975",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a0632da43b41b3d00668ceb",
@@ -46403,7 +46533,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "儿童阅读陪伴",
+        "description": "通过小组互动和志愿者阅读，帮助孩子发展想象力并培养对图书、阅读和学习的兴趣。活动在儿童区的“Read to Children”标志下举行。免费。",
+        "fingerprint": "98d99ad3deb48435d1c7d474fb107ac84c094d587eb5424f30a9c82a26587c80",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-796525eb0e97032f",
@@ -47972,7 +48112,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "社区游戏与手工日",
+        "description": "无论想认识新朋友、学习新游戏、继续手工作品，还是和其他爱好者轻松度过一个下午，都欢迎参加。",
+        "fingerprint": "aedb28aefa1b19b8ef31bd751fbc5bfc8a5c0fe8c4684174bcdad23b31d2d39e",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-690e9c9c0562322f002f35b0",
@@ -48105,7 +48255,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "音乐与律动",
+        "description": "适合全家和所有年龄参加的趣味互动活动，在音乐和运动中感受学习的快乐。",
+        "fingerprint": "b7dec20eafc0be739360f9b967aeaeda39dc214f141fdd4622e3ca7bbb4b1fc5",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6aecc6fd938566ae4f579b97",
@@ -48238,7 +48398,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "钩针俱乐部",
+        "description": "带上自己的作品继续制作，也可以开始新项目，或在志愿者帮助下学习基础技巧。",
+        "fingerprint": "cdfe19f5728a08da94bc5c13b68c7b43141229f70ce98044117ee57ed276fe83",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6ad39f6fde300e00451b0dd1",
@@ -48371,7 +48541,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "K-Pop 舞蹈",
+        "description": "学习 K-Pop 舞步，并认识同样喜欢 K-Pop 的朋友。",
+        "fingerprint": "4a14b8a065bfb22e7e16737ba78898f7ebc5d3e5a1190515ee06d8fa5bfc78bd",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a68e7ebe9de6536001ed073",
@@ -49198,7 +49378,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "亲子故事会",
+        "description": "故事会结束后，欢迎全家留下来继续玩耍。",
+        "fingerprint": "8d17b73e06e597089696e3b0ee6338bce2150bfe467e7a37a6bbde57ca5278d1",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-69fa35bff56bd86e00adaed3",
@@ -49331,7 +49521,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "动漫与流行文化物品交换会",
+        "description": "可以放下想交换的物品后离开，也可以留下来看看其他人带来了什么。",
+        "fingerprint": "f1df4c11fa143587e7607f61187d864f63ae1841ce1772fe4064b28c6f6caef0",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6ad13dbcfee2d21deb239013",
@@ -49464,7 +49664,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "酷儿咖啡馆：温馨阅读版",
+        "description": "现场提供 LGBTQ+ 主题读物供浏览和借阅，还有小吃、饮料、手工材料，以及以酷儿角色、作者和“选择的家人”为主题的温馨读物。活动旨在提供安全舒适的空间，也欢迎所有参与者和阅读材料。",
+        "fingerprint": "d0f4dbdb94a6a8d39b5684bea92167f450ae6a802f8072b7ca7ccb8c2ce7bdd5",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a722160f213992f00c97328",
@@ -49601,7 +49811,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "儿童阅读陪伴",
+        "description": "孩子可以向志愿者练习朗读。无需提前报名，活动期间可随时来听故事。",
+        "fingerprint": "fd52176b0bf23f3c505a5ab59e9beaea595fca7b29450fd2ad5c01f3dc4777da",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6abaf4d6e8cf1c005cafd2b8",
@@ -50019,7 +50239,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "Village Square 作业俱乐部",
+        "description": "欢迎参加 Village Square 作业俱乐部。",
+        "fingerprint": "8500149ec244c620e0e0b8ec921d8cfe30d23f4a5662665d76cd4999d8a2c572",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-b3b8d4af2971484a",
@@ -50340,7 +50570,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "周一创意手工：冬日树木",
+        "description": "每周安排不同的艺术活动，通过创作培养创造力、社交情绪能力和入学准备技能。",
+        "fingerprint": "4daa43c8d6d01ac7bc8c3b0db635dc9d9c8045af1abe36b58ce4cef83a55ccb0",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a5008e7cca66c2f00a25b0a",
@@ -50473,7 +50713,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "STEM 俱乐部：吸管飞机挑战",
+        "description": "每周一下午 4pm–5pm 随时加入，和家人一起体验 STEM 趣味活动。",
+        "fingerprint": "04a24536b3a5379ddde690e1503a82dc95d0d6ece6c8cb74dcbede046f51d8a8",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "santana-bf9a9640f93b5b24",
@@ -51402,7 +51652,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "ArtSEE 创意表达：彩绘节日挂饰",
+        "description": "参加由青少年 Sharvi 带领的工作坊，设计并绘制个性化节日挂饰。",
+        "fingerprint": "6c84cbf6004dcd0d1a6885cb1d27a28ed3c723ee16f881ac5f66846655232c9c",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a83d64fbf1aec09082b53e1",
@@ -51866,7 +52126,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "Bel Canto 长笛团节日音乐会",
+        "description": "Bel Canto Flutes 以跨越不同时代和音乐类型的曲目，展现长笛的优美音色与丰富表现力。",
+        "fingerprint": "dc772d5dfd1303867c852dcfd5e3244fb2a2c301fc16be503f6221899c4740cb",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "barracuda-54791",
@@ -53281,8 +53551,18 @@
     "redirectTarget": "https://paloalto.bibliocommons.com/events/6a3dbc0bfddb082f00fe14a6",
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "c58b0c832f2573914924e25852af08d346e7e812becda0dfad6d5658b1ca8e92"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "c58b0c832f2573914924e25852af08d346e7e812becda0dfad6d5658b1ca8e92",
+    "translations": {
+      "zh": {
+        "title": "音乐与律动",
+        "description": "通过动作、歌曲和舞蹈培养早期读写能力。活动会介绍乐器、歌曲和舞步，让每个人都能随着音乐一起活动。面向有孩子的家庭，无需经验。",
+        "fingerprint": "c58b0c832f2573914924e25852af08d346e7e812becda0dfad6d5658b1ca8e92",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-36fb3c1a1c31bd8b",
@@ -54128,7 +54408,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "冬季骑行课程（VTA）",
+        "description": "已经能在晴好天气骑车，并想学习如何在天黑、寒冷或下雨时继续安全骑行吗？",
+        "fingerprint": "cdc5298f4b1efdfc7b31af4ddc8a031e40a089fe422b49705df6d24cb113f4ab",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-807d6b3d9b3f8a53",
@@ -57687,7 +57977,7 @@
         "title": "Black Holes: The Other Side of Infinity 黑洞：无限的另一面",
         "description": "在这场节目中，你将穿越奇异的虫洞，体验银河系的形成，见证恒星猛烈死亡以及随后黑洞的诞生。",
         "fingerprint": "2dd57744a2a6c6f708b4c8867ec6e1d9ef8061df36b06f50907680bf27a53003",
-        "translatedAt": "2026-11-19T17:19:02.990Z",
+        "translatedAt": "2026-11-19T17:30:51.488Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -58291,7 +58581,7 @@
         "title": "Laser Journey 激光音乐秀",
         "description": "无论你是在 80 年代滑旱冰时第一次爱上 Journey 的歌曲，还是通过 American Idol 或 Glee 接触到这些音乐，Laser Journey 都是一场适合各年龄观众的趣味演出。",
         "fingerprint": "0e912b10734904838e9461f07bd2764727a6cb5a8ae198fa2f904d23c55ae37e",
-        "translatedAt": "2026-11-19T17:19:02.990Z",
+        "translatedAt": "2026-11-19T17:30:51.488Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -59210,8 +59500,18 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "abbf619a3ab3938fee933d8cdb5a9375651870a53d84360bf27a196398a6a653"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "abbf619a3ab3938fee933d8cdb5a9375651870a53d84360bf27a196398a6a653",
+    "translations": {
+      "zh": {
+        "title": "周日电影与点心：《Bugambilia》",
+        "description": "电影结束后将简短讨论影片的历史、制作过程和主题，观影时还会提供点心。",
+        "fingerprint": "abbf619a3ab3938fee933d8cdb5a9375651870a53d84360bf27a196398a6a653",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-69433e6f8b29ea2800c4c58f",
@@ -61165,7 +61465,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "警员伴读故事会",
+        "description": "县警署警员将为孩子们读书并分享安全小贴士。",
+        "fingerprint": "82e54fc786d9f935ac38aafa5a75b6396564179e69cf3ed7c98fa840a1c59695",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6af3c4fee4f7a1002c0711b4",
@@ -63608,7 +63918,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "手语圣诞老人见面会",
+        "description": "2026 年十二月 12 日星期六 10:00–12:00，聋人和听障儿童可与家人一起见一位懂手语的圣诞老人。",
+        "fingerprint": "a05b8b3f8e619cd91012a77c9b1f95c9bd35f1ba70ba656ef3b101f5da3f0b0a",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "series-854bcdc9ae9353e1",
@@ -63936,7 +64256,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "冬季故事会",
+        "description": "家长和孩子将一起聆听、学习和歌唱。活动限前 100 个家庭参加，每个家庭组最多 2 位成人。",
+        "fingerprint": "ceee3bb481697d5ac45d5bef72ffa93002b1aa12c8320df6738f29e3e3a019b6",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-698e125a2a787a47a5e73bee",
@@ -65085,7 +65415,7 @@
         "title": "Legends of the Night Sky | Orion 夜空传说：猎户座",
         "description": "加入我们，以充满想象力的方式了解冬季天空中的伟大猎人 Orion 猎户座的故事与传说。",
         "fingerprint": "db10cc0837492a21326507443b5cbbaade5c7ef201492fea106b91519d46674f",
-        "translatedAt": "2026-11-19T17:19:02.990Z",
+        "translatedAt": "2026-11-19T17:30:51.488Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -65770,7 +66100,7 @@
         "title": "Earth, Moon & Sun 地球、月球与太阳",
         "description": "在一个改编自 Native American 口述传统、对我们的家园星球及其最熟悉邻居存在许多误解的幽默角色帮助下，探索地球、月球与太阳之间的关系。",
         "fingerprint": "28a46fb93fce150d9775b8bf731703e7d15d5cd35328155d4e30aabd9fafb852",
-        "translatedAt": "2026-11-19T17:19:02.990Z",
+        "translatedAt": "2026-11-19T17:30:51.488Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -65871,7 +66201,7 @@
         "title": "Explore Live: Tour of the Universe 现场探索：宇宙之旅",
         "description": "Explore Live: Tour of the Universe——从你一贯开始的地方出发：抬头仰望，然后离开夜空，继续探索。",
         "fingerprint": "68491a1654413dc30fb811396809ff4af9f4aa00eaaaa281f771c7e328d841f8",
-        "translatedAt": "2026-11-19T17:19:02.990Z",
+        "translatedAt": "2026-11-19T17:30:51.488Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -66052,7 +66382,7 @@
         "title": "Laser Holiday Magic 节日魔法激光秀",
         "description": "这场激光灯光秀包含多首节日音乐，如 Joy to the World、Jingle Bell Rock、Let it Snow、Rockin' Round the Christmas Tree 等！",
         "fingerprint": "058efd6d135f1bfe6e392614e8894c674d11b5c466b0ca1084cf51b94e0c4ca2",
-        "translatedAt": "2026-11-19T17:19:02.990Z",
+        "translatedAt": "2026-11-19T17:30:51.488Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -67491,7 +67821,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "宝宝手语与歌唱",
+        "description": "成人照护者将学习基础美国手语手势，以便和宝宝交流。",
+        "fingerprint": "65228864d22e98ed0e37322303287f7a731e1f78ee98c48801b8c39d2a652175",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "midpen-9b63dff300806f96",
@@ -67720,7 +68060,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "彩泥游戏时间",
+        "description": "孩子使用不同形状的模具来捏、滚和压彩泥，在发挥想象力与创造力的同时锻炼精细动作能力。",
+        "fingerprint": "12802e9411e9e2b927fbd544e8a46fce48d66c1ee321aa0f2aa72e4d188c38b0",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a9a043b4cb69d003e25a23f",
@@ -67985,7 +68335,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "乐高俱乐部",
+        "description": "5 岁及以上的孩子可以发挥搭建技巧和想象力，用乐高积木创作并享受乐趣。",
+        "fingerprint": "69843a91ff8677d7f12e84a9a9fe56d55238f33badb76f4acc7921a2b53a9c75",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6aee2e1df9d28050ccb1ac27",
@@ -68230,7 +68590,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "初学者原声乐器合奏",
+        "description": "参加每月一次的初学者原声乐器合奏，和大家一起演奏音乐。",
+        "fingerprint": "6689209a707bf8ddf343fd190e0cf7879bec2a0c1ddf28157255b99c973c2d72",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "editorial-magical-cirque-2026",
@@ -69431,7 +69801,17 @@
     "redirectTarget": "https://www.foothill.edu/physics/index.html",
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "趣味物理秀",
+        "description": "观看深受欢迎的 Foothill College 物理秀，通过精彩演示了解物理概念如何在现实中呈现。",
+        "fingerprint": "905febe9cae09ff845fb5987ca2a54344f5a218e3714e31bd3b938c86b323845",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6afe44a76aae8314dad938e9",
@@ -69564,7 +69944,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "制作个性季节蜡烛",
+        "description": "本地创作者和纺织艺术家 Bea Byrne 将指导大家设计、调配并制作自己的个性化蜡烛。",
+        "fingerprint": "7e85acd5c2438d2cc95aef9f0ca588dff93587c63074367fd062234a3ef2ddc9",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6a9615a569166f088b965900",
@@ -69908,8 +70298,18 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "stale",
-    "translationSourceFingerprint": "07e8137f837b17fc4a71c9a82aefdd57e79d45db092213f3ff3a8d697b6e443a"
+    "translationStatus": "current",
+    "translationSourceFingerprint": "07e8137f837b17fc4a71c9a82aefdd57e79d45db092213f3ff3a8d697b6e443a",
+    "translations": {
+      "zh": {
+        "title": "青少年与成人趣味丑毛衣装饰派对",
+        "description": "亲手制作自己的趣味丑毛衣，感受节日气氛。",
+        "fingerprint": "07e8137f837b17fc4a71c9a82aefdd57e79d45db092213f3ff3a8d697b6e443a",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6afe37a632ce6d08d54bde25",
@@ -69982,7 +70382,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "制作个性季节蜡烛",
+        "description": "本地创作者和纺织艺术家 Bea Byrne 将指导大家设计、调配并制作自己的个性化蜡烛。",
+        "fingerprint": "7e85acd5c2438d2cc95aef9f0ca588dff93587c63074367fd062234a3ef2ddc9",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6adbde20377296003a4e306a",
@@ -70557,7 +70967,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "青少年节日帆布袋装饰",
+        "description": "无论是制作个性化节日礼袋，还是为自己设计特别的帆布袋，都能在动手创作中表达创意、庆祝节日。",
+        "fingerprint": "1e23cb89166eaf2c25759e51754fed33bd3deecc1d491601bfe64eed04be0259",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6abc44f5295b3b0033ca0dd7",
@@ -72246,7 +72666,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "3–4 年级 Voyagers 读书会",
+        "description": "活动提供手工材料和点心。",
+        "fingerprint": "ee75dd48d33b3315cda29f6d9768d1b467d776a1b15646ecdacb1a4842e58ce0",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "calendar-293802",
@@ -72440,7 +72870,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "5–8 年级 Freedom Readers 读书会",
+        "description": "一起讨论书中的冒险与主题，并完成一项手工。",
+        "fingerprint": "f8c0431d03420dfbf7f3b4eb9619d87b0bc1a0b2cc3f3d1dc928fc0f4575756c",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6afe82e4e4f7a1002c08eba4",
@@ -72513,7 +72953,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "家庭知识问答日",
+        "description": "邀请亲友组队参加，用各种随机知识题目挑战自己。",
+        "fingerprint": "b9b1cb741bb82194830de5857b0cb95a71326c71d721f691a68ed88aa5c4a5e1",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6afe0a7c8b254c003ada4dbf",
@@ -72586,7 +73036,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "1–2 年级 Changemakers 读书会",
+        "description": "小读者将讨论图书，并制作一件表现主人公或主题的文化手工。",
+        "fingerprint": "ed83a168338e43baefd728168460a36003188defeba352427838eabd1036d29d",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-68fbc717831f063d00538867",
@@ -73025,7 +73485,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "中午跨年舞会",
+        "description": "欢迎所有年龄的孩子和家人参加，在欢乐舞会中一起倒计时迎接新年。",
+        "fingerprint": "0e313c03ca874a7c6997aeadce5bc450d6d09ed23f6c9832e56425dc8706b988",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "rss-6ae64f3d9d27a0004554c2e9",
@@ -73098,7 +73568,17 @@
     "linkEvidence": "GET returned 403; user-browser availability is not inferred.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "中午跨年庆典",
+        "description": "庆典从上午 11:30 开始，安排适合 2–8 岁孩子的趣味手工和丰富的舞蹈音乐。",
+        "fingerprint": "1f08551bb3e4885a303063640d41cb3da2479571fb0bb11f2d7db92f4d68caeb",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "nhl-2026020653",
@@ -73309,7 +73789,7 @@
         "title": "San Jose Barracuda vs Eagles 冰球比赛",
         "description": "San Jose Barracuda 在 Tech CU Arena 主场迎战 Eagles。特别活动包括 Jurassic World、Frenzy 的生日庆祝，以及向前 2,000 名球迷赠送 Frenzy 毛绒玩偶。",
         "fingerprint": "46f1cbf520789c315450e366f51b7c35dd161fbd1f57209e93dd1ab555f05a19",
-        "translatedAt": "2026-11-19T17:19:02.990Z",
+        "translatedAt": "2026-11-19T17:30:51.488Z",
         "translationSource": "reviewed-batch",
         "status": "approved"
       }
@@ -76098,7 +76578,17 @@
     "linkEvidence": "GET succeeded and event identity matched.",
     "linkResolution": "canonical",
     "sessions": [],
-    "translationStatus": "missing"
+    "translationStatus": "current",
+    "translations": {
+      "zh": {
+        "title": "Cupertino 拼字比赛",
+        "description": "Cupertino 拼字比赛设有两个年级组别，让参赛者在各自对应组别中公平、投入地竞技。",
+        "fingerprint": "e70d4f4661d89c35ea9d27984980f76adc913f1bac4bf3c702f9ccdff2872b67",
+        "translatedAt": "2026-11-19T18:00:00Z",
+        "translationSource": "editorial-reviewed",
+        "status": "approved"
+      }
+    }
   },
   {
     "id": "barracuda-54813",
