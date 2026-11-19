@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "auditedForDate": "2026-11-18",
+  "auditedForDate": "2026-11-19",
   "horizonDays": 90,
   "coverage": [
     {
@@ -8,32 +8,32 @@
       "method": "rss",
       "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/sccl/rss/events?audiences=5b28181c4727c7344c796675%2C5b28181c4727c7344c796676%2C5b28181c4727c7344c796677%2C5b28181c4727c7344c796678%2C5b28181c4727c7344c796679%2C5b28181c4727c7344c79667a%2C5b2a5dcb2c1d736b168c62ac",
       "status": "ok",
-      "next60Days": 146,
-      "next90Days": 146
+      "next60Days": 128,
+      "next90Days": 128
     },
     {
       "source": "San José Public Library",
       "method": "rss",
       "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/sjpl/rss/events",
       "status": "ok",
-      "next60Days": 187,
-      "next90Days": 187
+      "next60Days": 154,
+      "next90Days": 154
     },
     {
       "source": "Palo Alto City Library",
       "method": "rss",
       "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/paloalto/rss/events",
       "status": "ok",
-      "next60Days": 39,
-      "next90Days": 47
+      "next60Days": 36,
+      "next90Days": 44
     },
     {
       "source": "City of Cupertino",
       "method": "cupertino",
       "feedUrl": "https://www.cupertino.gov/Events-directory",
       "status": "ok",
-      "next60Days": 5,
-      "next90Days": 5
+      "next60Days": 4,
+      "next90Days": 4
     },
     {
       "source": "City of Palo Alto",
@@ -173,7 +173,7 @@
     }
   ],
   "onSale": [],
-  "translationGaps": 6,
+  "translationGaps": 0,
   "ticketed": [
     {
       "title": "San Jose Holiday Lights 2026",
@@ -286,27 +286,22 @@
     {
       "kind": "ticket-review",
       "source": "San Jose Holiday Lights 2026",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://www.sjhl.us/tickets). Last verified 8 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://www.sjhl.us/tickets). Last verified 9 days ago."
     },
     {
       "kind": "ticket-review",
       "source": "Holiday Lights",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://filoli.org/whats-on/events/holiday-lights/). Last verified 8 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://filoli.org/whats-on/events/holiday-lights/). Last verified 9 days ago."
     },
     {
       "kind": "ticket-review",
       "source": "Family Fun: Hop, Skip & A Jump",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://happyhollow.org/learn/hh-experience-programs/). Last verified 1 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://happyhollow.org/learn/hh-experience-programs/). Last verified 2 days ago."
     },
     {
       "kind": "ticket-review",
       "source": "The Great Dickens Christmas Fair",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://dickensfair.com/media-info/). Last verified -1 days ago."
-    },
-    {
-      "kind": "translation-backlog",
-      "source": "Chinese event copy",
-      "detail": "6 current translations require review in data/translation-gaps/."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://dickensfair.com/media-info/). Last verified 0 days ago."
     }
   ]
 }
