@@ -27,4 +27,6 @@ for (const [title, fragment] of [
 }
 assert.ok(!events.some(event => /CAH Museum Closed for Thanksgiving Holiday/i.test(event.title)),
   'Museum closure is not an outing and must not be published');
+assert.ok(!events.some(event => /All Libraries Close at 5pm for New Year's Eve/i.test(event.title)),
+  'Early-closing notices are operational information, not family outings');
 console.log('Current source-description publication regressions passed');

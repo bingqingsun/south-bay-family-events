@@ -21,7 +21,7 @@ export function isOfficialClosureNotice(title, description = '') {
   // CMS calendars often label a venue closure as an event, particularly on
   // holidays. Keep this narrowly scoped to an explicit operational notice.
   return /^(?:closed|closure|closing|holiday (?:hours|closure)|special hours)\b/i.test(name)
-    || /\b(?:museum|libraries|library|bookmobile|branches?|visitor center)\b.{0,70}\b(?:closed|closure|closes)\b/i.test(name)
+    || /\b(?:museum|libraries|library|bookmobile|branches?|visitor center)\b.{0,70}\b(?:close|closed|closure|closes)\b/i.test(name)
     || /\b(?:museum|libraries|library branches?|bookmobile)\s+(?:will be|is|are)\s+closed\b/i.test(detail);
 }
 

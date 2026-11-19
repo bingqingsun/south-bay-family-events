@@ -20,7 +20,8 @@ for (const title of [
   'Virtual Library App Tour',
   '*Virtual* Resume Review',
   '*Virtual* Mock Interview',
-  '*In Person* Interview & Networking Skills Workshop'
+  '*In Person* Interview & Networking Skills Workshop',
+  'Safe Routes to School Working Group Meetings for 2026-27'
 ]) {
   assert.equal(isRoutineSupportService({ title }), true, `Routine service must not appear as an event: ${title}`);
 }
