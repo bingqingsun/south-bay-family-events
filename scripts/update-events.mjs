@@ -1582,7 +1582,7 @@ async function readFoothill(source) {
       // the canonical detail link; the schedule is still read from the show's
       // official site above.
       place: 'Smithwick Theatre', address: source.address || '', city: source.city || '', source: source.name,
-      url: 'https://foothill.edu/sli/elevating-stem/physics-show.html'
+      url: 'https://foothill.edu/physics/index.html'
     })];
   });
   const homepageEvents = html.split(/<div class="Events__item">/i).slice(1).flatMap(block => {
