@@ -1577,7 +1577,12 @@ async function readFoothill(source) {
     return [directEvent({
       id: 'physics-show-' + createHash('sha256').update(`${url}|${dateValue}|${index}`).digest('hex').slice(0, 16),
       title: 'The Physics Show', dateValue, description: physicsDescription, image: physicsImage,
-      place: 'Smithwick Theatre', address: source.address || '', city: source.city || '', source: source.name, url
+      // EventCreate periodically retires individual checkout URLs before the
+      // official schedule removes them. Keep Foothill's stable program page as
+      // the canonical detail link; the schedule is still read from the show's
+      // official site above.
+      place: 'Smithwick Theatre', address: source.address || '', city: source.city || '', source: source.name,
+      url: 'https://foothill.edu/physics/index.html'
     })];
   });
   const homepageEvents = html.split(/<div class="Events__item">/i).slice(1).flatMap(block => {
