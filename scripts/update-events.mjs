@@ -1582,7 +1582,7 @@ async function readFoothill(source) {
       // canonical detail link; it carries the complete schedule, price and
       // current on-sale state for every performance.
       place: 'Smithwick Theatre', address: source.address || '', city: source.city || '', source: source.name,
-      url: 'https://www.thephysicsshow.com/'
+      url: 'https://www.thephysicsshow.com/home'
     })];
   });
   const homepageEvents = html.split(/<div class="Events__item">/i).slice(1).flatMap(block => {
