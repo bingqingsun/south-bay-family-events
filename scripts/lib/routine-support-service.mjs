@@ -33,5 +33,9 @@ export function isRoutineSupportService(event = {}) {
 
   // General-purpose job-search services are not family leisure activities.
   if (/\b(?:resume (?:review|help)|mock interview|interview\s*(?:&|and)\s*networking skills|job(?:-|\s)search assistance)\b/.test(title)) return true;
+
+  // Administrative stakeholder meetings may mention students and families,
+  // but they are not parent-and-child activities for the event guide.
+  if (/\bsafe routes to school working group meetings?\b/.test(title)) return true;
   return false;
 }
