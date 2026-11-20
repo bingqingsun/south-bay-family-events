@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "auditedForDate": "2026-11-19",
+  "auditedForDate": "2026-11-20",
   "horizonDays": 90,
   "coverage": [
     {
@@ -8,32 +8,32 @@
       "method": "rss",
       "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/sccl/rss/events?audiences=5b28181c4727c7344c796675%2C5b28181c4727c7344c796676%2C5b28181c4727c7344c796677%2C5b28181c4727c7344c796678%2C5b28181c4727c7344c796679%2C5b28181c4727c7344c79667a%2C5b2a5dcb2c1d736b168c62ac",
       "status": "ok",
-      "next60Days": 152,
-      "next90Days": 152
+      "next60Days": 155,
+      "next90Days": 155
     },
     {
       "source": "San José Public Library",
       "method": "rss",
       "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/sjpl/rss/events",
       "status": "ok",
-      "next60Days": 186,
-      "next90Days": 186
+      "next60Days": 175,
+      "next90Days": 175
     },
     {
       "source": "Palo Alto City Library",
       "method": "rss",
       "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/paloalto/rss/events",
       "status": "ok",
-      "next60Days": 36,
-      "next90Days": 45
+      "next60Days": 38,
+      "next90Days": 46
     },
     {
       "source": "City of Cupertino",
       "method": "cupertino",
       "feedUrl": "https://www.cupertino.gov/Events-directory",
       "status": "ok",
-      "next60Days": 4,
-      "next90Days": 5
+      "next60Days": 3,
+      "next90Days": 4
     },
     {
       "source": "City of Palo Alto",
@@ -103,7 +103,7 @@
       "source": "Hiller Aviation Museum",
       "method": "tribe",
       "feedUrl": "https://www.hiller.org/wp-json/tribe/events/v1/events?per_page=50",
-      "status": "ok",
+      "status": "failed",
       "next60Days": 9,
       "next90Days": 10
     },
@@ -127,7 +127,7 @@
       "source": "Santa Clara County Parks",
       "method": "search-only",
       "feedUrl": "",
-      "status": "not run",
+      "status": "ok",
       "next60Days": 1,
       "next90Days": 1
     },
@@ -135,7 +135,7 @@
       "source": "City of San José",
       "method": "search-only",
       "feedUrl": "",
-      "status": "not run",
+      "status": "ok",
       "next60Days": 0,
       "next90Days": 0
     },
@@ -151,7 +151,7 @@
       "source": "City of Mountain View",
       "method": "search-only",
       "feedUrl": "",
-      "status": "not run",
+      "status": "ok",
       "next60Days": 1,
       "next90Days": 1
     },
@@ -167,13 +167,13 @@
       "source": "Santa Clara Community Calendar",
       "method": "search-only",
       "feedUrl": "",
-      "status": "not run",
+      "status": "failed",
       "next60Days": 0,
       "next90Days": 0
     }
   ],
   "onSale": [],
-  "translationGaps": 0,
+  "translationGaps": 28,
   "ticketed": [
     {
       "title": "San Jose Holiday Lights 2026",
@@ -230,12 +230,6 @@
       "url": "https://www.sanjose.org/events/once-upon-nutcracker"
     },
     {
-      "title": "Signing Santa",
-      "dateValue": "2026-12-12T10:00:00",
-      "registrationStatus": "required",
-      "url": "https://www.cupertino.gov/Parks-Recreation/Events/Signing-Santa/Signing-Santa-Event"
-    },
-    {
       "title": "Holiday Spectacular",
       "dateValue": "2026-12-12T14:30",
       "registrationStatus": "required",
@@ -261,6 +255,11 @@
     }
   ],
   "alerts": [
+    {
+      "kind": "source-health",
+      "source": "Hiller Aviation Museum",
+      "detail": "The operation was aborted due to timeout"
+    },
     {
       "kind": "source-health",
       "source": "San Jose Theaters",
@@ -299,22 +298,32 @@
     {
       "kind": "ticket-review",
       "source": "San Jose Holiday Lights 2026",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://www.sjhl.us/tickets). Last verified 9 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://www.sjhl.us/tickets). Last verified 10 days ago."
     },
     {
       "kind": "ticket-review",
       "source": "Holiday Lights",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://filoli.org/whats-on/events/holiday-lights/). Last verified 9 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://filoli.org/whats-on/events/holiday-lights/). Last verified 10 days ago."
     },
     {
       "kind": "ticket-review",
       "source": "Family Fun: Hop, Skip & A Jump",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://happyhollow.org/learn/hh-experience-programs/). Last verified 2 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://happyhollow.org/learn/hh-experience-programs/). Last verified 3 days ago."
     },
     {
       "kind": "ticket-review",
       "source": "The Great Dickens Christmas Fair",
       "detail": "Paid registration; confirm remaining tickets on the official page (https://dickensfair.com/media-info/). Last verified -1 days ago."
+    },
+    {
+      "kind": "ticket-review",
+      "source": "A Christmas Carol 2026",
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://montalvoarts.org/experience/events-calendar/a-christmas-carol-2026/). Last verified 2 days ago."
+    },
+    {
+      "kind": "translation-backlog",
+      "source": "Chinese event copy",
+      "detail": "28 current translations require review in data/translation-gaps/."
     }
   ]
 }
