@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "generatedAt": "2026-11-21T14:48:41.948Z",
+  "generatedForDate": "2026-11-21",
+  "batch": 2,
+  "totalBatches": 2,
+  "entries": [
+    {
+      "id": "rss-6b0093f0e4f7a1002c0947b2",
+      "dateValue": "2026-12-17T11:30",
+      "endDateValue": "2026-12-17T12:15:00",
+      "title": "Sensory Play for Babies and Toddlers",
+      "description": "Join us for a fun, interactive, and informative event at Cupertino library with Alyanna Poniente, pediatric occupational therapist from Development Is Child’s Play, as she explores sensory regulation and resources for babies and toddlers!",
+      "source": "Santa Clara County Library District",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6b0093f0e4f7a1002c0947b2",
+      "status": "missing",
+      "sourceFingerprint": "c39e9be1de817228683da8855256fe0972d4fd67e0b28dc9030ae20c777f5919",
+      "priorTitleZh": "",
+      "priorDescriptionZh": ""
+    },
+    {
+      "id": "chcp-b965afe9b256f35a",
+      "dateValue": "2026-12-19T12:00",
+      "endDateValue": "2026-12-19T15:45:00",
+      "title": "CHCP Celebrates Heritage Holiday",
+      "description": "The Chinese American Historical Museum (CAHM) is housed in the Ng Shing Gung building, which is part of History Park, located in Kelley Park, San Jose.",
+      "source": "Chinese Historical & Cultural Project",
+      "sourceUrl": "https://www.chcp.org/event-6918749",
+      "status": "missing",
+      "sourceFingerprint": "a9118f8eb5b6e9d0bd3e311221b8d801c4857b9d486d38071caf22a9599f15f3",
+      "priorTitleZh": "",
+      "priorDescriptionZh": ""
+    },
+    {
+      "id": "rss-6aff4349d164f314d93cc40c",
+      "dateValue": "2026-12-22T17:30",
+      "endDateValue": "2026-12-22T19:00:00",
+      "title": "Astro Everywhere Planetarium",
+      "description": "Soar to the edge of the universe and back as we explore our own solar system up close in a planetarium at the Morgan Hill Library!",
+      "source": "Santa Clara County Library District",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6aff4349d164f314d93cc40c",
+      "status": "missing",
+      "sourceFingerprint": "273513b5ae2ca26e87af3f55d3dfb1e8533b253ddaa02fa36c8a488c71189b9c",
+      "priorTitleZh": "",
+      "priorDescriptionZh": ""
+    },
+    {
+      "id": "rss-6b00a0a93d532329887617e2",
+      "dateValue": "2026-12-22T19:15",
+      "endDateValue": "2026-12-22T20:00:00",
+      "title": "Astro Everywhere Planetarium for Teens and Adults",
+      "description": "Soar to the edge of the universe and back as we explore our own solar system up close in a planetarium at the Morgan Hill Library!",
+      "source": "Santa Clara County Library District",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6b00a0a93d532329887617e2",
+      "status": "missing",
+      "sourceFingerprint": "2adecfac86efff652132f2e2845ce1252af91b1f2f1e7c84ba8047d14b40051c",
+      "priorTitleZh": "",
+      "priorDescriptionZh": ""
+    },
+    {
+      "id": "rss-6aff9cab22b92c0041ab1a92",
+      "dateValue": "2026-12-24T14:00",
+      "endDateValue": "2026-12-24T15:45:00",
+      "title": "Winter Holiday Movie: Home Alone",
+      "description": "Movie run time is 103 minutes and is rated PG.",
+      "source": "Santa Clara County Library District",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6aff9cab22b92c0041ab1a92",
+      "status": "missing",
+      "sourceFingerprint": "c09b856f789285fdab3aa8e765c391e091a4a92bd80bbb3cb2d3a62ddd35f61d",
+      "priorTitleZh": "",
+      "priorDescriptionZh": ""
+    },
+    {
+      "id": "rss-6aff99b4e4f7a1002c09243f",
+      "dateValue": "2026-12-31T11:00",
+      "endDateValue": "2026-12-31T12:30:00",
+      "title": "Noon Year's Eve Party",
+      "description": "Big Blue Blocks 10 - 11:30 AM Craft at 11:15 AM Countdown at 11:45 AM Balloons, music, and lots of fun!",
+      "source": "Santa Clara County Library District",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6aff99b4e4f7a1002c09243f",
+      "status": "missing",
+      "sourceFingerprint": "193755b5c30a55eee8a5b5573cc344777b1835abd4515a3476aeb353f9682128",
+      "priorTitleZh": "",
+      "priorDescriptionZh": ""
+    },
+    {
+      "id": "rss-6afce7440ad4ed003a03ec72",
+      "dateValue": "2027-01-07T10:30",
+      "endDateValue": "2027-01-07T11:00:00",
+      "title": "Toddler Storytime: Stories and Songs for 12-36 Month Olds",
+      "description": "This story time features lots of movement, singing, and action.",
+      "source": "Santa Clara County Library District",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6afce7440ad4ed003a03ec72",
+      "status": "missing",
+      "sourceFingerprint": "43577d8365eb0739aeb1a3a28e608ba030b66be4ebbd89d026cdb393129ebfe5",
+      "priorTitleZh": "",
+      "priorDescriptionZh": ""
+    }
+  ]
+}

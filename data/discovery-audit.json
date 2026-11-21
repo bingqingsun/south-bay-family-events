@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "auditedForDate": "2026-11-20",
+  "auditedForDate": "2026-11-21",
   "horizonDays": 90,
   "coverage": [
     {
@@ -8,23 +8,23 @@
       "method": "rss",
       "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/sccl/rss/events?audiences=5b28181c4727c7344c796675%2C5b28181c4727c7344c796676%2C5b28181c4727c7344c796677%2C5b28181c4727c7344c796678%2C5b28181c4727c7344c796679%2C5b28181c4727c7344c79667a%2C5b2a5dcb2c1d736b168c62ac",
       "status": "ok",
-      "next60Days": 155,
-      "next90Days": 155
+      "next60Days": 154,
+      "next90Days": 154
     },
     {
       "source": "San José Public Library",
       "method": "rss",
       "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/sjpl/rss/events",
       "status": "ok",
-      "next60Days": 175,
-      "next90Days": 175
+      "next60Days": 161,
+      "next90Days": 161
     },
     {
       "source": "Palo Alto City Library",
       "method": "rss",
       "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/paloalto/rss/events",
       "status": "ok",
-      "next60Days": 38,
+      "next60Days": 40,
       "next90Days": 46
     },
     {
@@ -112,14 +112,14 @@
       "method": "tribe",
       "feedUrl": "https://curiodyssey.org/wp-json/tribe/events/v1/events?per_page=50",
       "status": "ok",
-      "next60Days": 2,
-      "next90Days": 2
+      "next60Days": 1,
+      "next90Days": 1
     },
     {
       "source": "San Jose Theaters",
       "method": "timely",
       "feedUrl": "https://events.timely.fun/jc0x91t0/stream?tags=677512582",
-      "status": "failed",
+      "status": "ok",
       "next60Days": 3,
       "next90Days": 5
     },
@@ -127,7 +127,7 @@
       "source": "Santa Clara County Parks",
       "method": "search-only",
       "feedUrl": "",
-      "status": "ok",
+      "status": "not run",
       "next60Days": 1,
       "next90Days": 1
     },
@@ -135,7 +135,7 @@
       "source": "City of San José",
       "method": "search-only",
       "feedUrl": "",
-      "status": "ok",
+      "status": "not run",
       "next60Days": 0,
       "next90Days": 0
     },
@@ -151,7 +151,7 @@
       "source": "City of Mountain View",
       "method": "search-only",
       "feedUrl": "",
-      "status": "ok",
+      "status": "not run",
       "next60Days": 1,
       "next90Days": 1
     },
@@ -167,13 +167,13 @@
       "source": "Santa Clara Community Calendar",
       "method": "search-only",
       "feedUrl": "",
-      "status": "failed",
+      "status": "not run",
       "next60Days": 0,
       "next90Days": 0
     }
   ],
   "onSale": [],
-  "translationGaps": 28,
+  "translationGaps": 47,
   "ticketed": [
     {
       "title": "San Jose Holiday Lights 2026",
@@ -258,12 +258,7 @@
     {
       "kind": "source-health",
       "source": "Hiller Aviation Museum",
-      "detail": "The operation was aborted due to timeout"
-    },
-    {
-      "kind": "source-health",
-      "source": "San Jose Theaters",
-      "detail": "San Jose Theaters calendar was not valid: 400"
+      "detail": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
     },
     {
       "kind": "search-only",
@@ -298,17 +293,17 @@
     {
       "kind": "ticket-review",
       "source": "San Jose Holiday Lights 2026",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://www.sjhl.us/tickets). Last verified 10 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://www.sjhl.us/tickets). Last verified 11 days ago."
     },
     {
       "kind": "ticket-review",
       "source": "Holiday Lights",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://filoli.org/whats-on/events/holiday-lights/). Last verified 10 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://filoli.org/whats-on/events/holiday-lights/). Last verified 11 days ago."
     },
     {
       "kind": "ticket-review",
       "source": "Family Fun: Hop, Skip & A Jump",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://happyhollow.org/learn/hh-experience-programs/). Last verified 3 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://happyhollow.org/learn/hh-experience-programs/). Last verified 4 days ago."
     },
     {
       "kind": "ticket-review",
@@ -318,12 +313,27 @@
     {
       "kind": "ticket-review",
       "source": "A Christmas Carol 2026",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://montalvoarts.org/experience/events-calendar/a-christmas-carol-2026/). Last verified 2 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://montalvoarts.org/experience/events-calendar/a-christmas-carol-2026/). Last verified 3 days ago."
+    },
+    {
+      "kind": "ticket-review",
+      "source": "Breakfast with Santa",
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://www.cupertino.gov/Parks-Recreation/Events/Breakfast-with-Santa). Last verified -1 days ago."
+    },
+    {
+      "kind": "ticket-review",
+      "source": "Breakfast with Santa – Sunnyvale",
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://anc.apm.activecommunities.com/sunnyvaleactivities/activity/search/detail/2146?from_original_cui=true&locale=en-US&onlineSiteId=0). Last verified 1 days ago."
+    },
+    {
+      "kind": "ticket-review",
+      "source": "Fantasy of Lights Walk-Thru",
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://santaclaracountyparks.ticketspice.com/fantasy-of-lights-2026-walk-thru). Last verified 3 days ago."
     },
     {
       "kind": "translation-backlog",
       "source": "Chinese event copy",
-      "detail": "28 current translations require review in data/translation-gaps/."
+      "detail": "47 current translations require review in data/translation-gaps/."
     }
   ]
 }
