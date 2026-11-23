@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "generatedAt": "2026-11-23T18:28:37.273Z",
+  "generatedForDate": "2026-11-23",
+  "batch": 1,
+  "totalBatches": 1,
+  "entries": [
+    {
+      "id": "series-cf547fe68def7771",
+      "dateValue": "2026-11-24T11:00",
+      "endDateValue": "2026-11-24T12:00:00",
+      "title": "Family Storytime + Stay & Play",
+      "description": "Storytime is designed to accommodate a mix of ages and invites the entire family to participate in early literacy activities such as stories, songs, rhymes, fingerplays, and movement activities.",
+      "source": "San José Public Library",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/68cdb1eb62a8786065c374dc",
+      "status": "stale",
+      "sourceFingerprint": "551b535f6407d746ae6fcd6c579aaa130b5725d7fad57d173019e0857efe30d6",
+      "priorTitleZh": "家庭故事会与游戏时间",
+      "priorDescriptionZh": "故事会结束后，欢迎家庭留下来一起玩。"
+    },
+    {
+      "id": "series-91dafaf9b791b947",
+      "dateValue": "2026-11-24T16:30",
+      "endDateValue": "2026-11-24T17:30:00",
+      "title": "After-School STEaM at Almaden",
+      "description": "Sept 8 - Lego Engineering Challenge (***please note topic change***) In this workshop, children will be encouraged to build and solve problems.",
+      "source": "San José Public Library",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a73854af213992f00c9cfe7",
+      "status": "stale",
+      "sourceFingerprint": "a170f00a01f90b2cc4f02c8ff8f94cdece648d0c81b0e9166df2f90e76ac5610",
+      "priorTitleZh": "Almaden 课后 STEAM 活动",
+      "priorDescriptionZh": "孩子们用乐高积木构思和搭建作品，再根据挑战重新设计与搭建。"
+    },
+    {
+      "id": "rss-6a945bd936204e08fbb85196",
+      "dateValue": "2026-11-28T10:30",
+      "endDateValue": "2026-11-28T11:30:00",
+      "title": "Family Storytime & Stay and Play",
+      "description": "Meet other families and have fun playing with new and old friends.",
+      "source": "San José Public Library",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a945bd936204e08fbb85196",
+      "status": "stale",
+      "sourceFingerprint": "9b13d3e96b8ef9e90ecd5afeec982d6c0dcc8db28286fa76a3a6e9cc004078a9",
+      "priorTitleZh": "家庭故事会与自由玩耍",
+      "priorDescriptionZh": "现场提供玩具，欢迎家庭一起玩耍、认识其他家庭和新朋友。活动免费，名额有限。"
+    },
+    {
+      "id": "rss-6b04812095b0491ca0048195",
+      "dateValue": "2026-11-28T15:00",
+      "endDateValue": "2026-11-28T16:00",
+      "title": "Reading to Children with Volunteer Venkat",
+      "description": "Would you like your children to have fun listening to stories while building vocabulary, developing listening skills, and enhancing their reading comprehension?",
+      "source": "San José Public Library",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6b04812095b0491ca0048195",
+      "status": "missing",
+      "sourceFingerprint": "ed9ac7d3fff0cc9c86d0da726fa60c74b5a8deb713d443b7c500a2682863af45",
+      "priorTitleZh": "",
+      "priorDescriptionZh": ""
+    },
+    {
+      "id": "rss-69caccbe66c3387a9d054712",
+      "dateValue": "2026-12-01T16:00",
+      "endDateValue": "2026-12-01T17:00:00",
+      "title": "Creative Writing Workshop",
+      "description": "Attendees will learn to: Write fiction that reads like reality Create characters that leave readers breathless Identify plot points that serve multiple genres This series will run from Tuesday.",
+      "source": "San José Public Library",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/69caccbe66c3387a9d054712",
+      "status": "stale",
+      "sourceFingerprint": "f95e928fea66fe403783ae900cda17988ec7bd38156527d7a5db41bbab375ad2",
+      "priorTitleZh": "创意写作工作坊",
+      "priorDescriptionZh": "无论你已写作多年还是刚刚开始，都可以报名参加，寻找新灵感，让故事更加精彩。"
+    },
+    {
+      "id": "rss-6a4bcf2d4407827f8aa9a6cf",
+      "dateValue": "2026-12-03T16:00",
+      "endDateValue": "2026-12-03T17:00",
+      "title": "LEGO® Fun",
+      "description": "Bring your creativity and imagination to build unique models using our LEGO® pieces. \\nImportant: Children under 5 must be accompanied by their parents as small LEGO® pieces can be choking hazards.\\nFor children and families.",
+      "source": "San José Public Library",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a4bcf2d4407827f8aa9a6cf",
+      "status": "missing",
+      "sourceFingerprint": "eaa1d0e74cffdd2e0b1d858d75d258a88bd514ea22980b0f192011635bfdcc6e",
+      "priorTitleZh": "",
+      "priorDescriptionZh": ""
+    },
+    {
+      "id": "rss-6a5fb6310d65ac36004141f5",
+      "dateValue": "2026-12-03T16:30",
+      "endDateValue": "2026-12-03T17:30",
+      "title": "Kids' Writing Club: Letter to Santa",
+      "description": "Join us for a fun writing program and learn how to write a letter to Santa.",
+      "source": "San José Public Library",
+      "sourceUrl": "https://sjpl.bibliocommons.com/events/6a5fb6310d65ac36004141f5",
+      "status": "stale",
+      "sourceFingerprint": "69f1ee27577ed6bb593a58ce847ae27f6c1f6dadded48855de4c9c844cb59478",
+      "priorTitleZh": "儿童写作俱乐部",
+      "priorDescriptionZh": "孩子们学习通过故事表达自己，并练习书信、感谢信等实用写作。"
+    }
+  ]
+}

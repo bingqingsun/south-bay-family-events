@@ -16,8 +16,8 @@
       "method": "rss",
       "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/sjpl/rss/events",
       "status": "ok",
-      "next60Days": 164,
-      "next90Days": 164
+      "next60Days": 161,
+      "next90Days": 161
     },
     {
       "source": "Palo Alto City Library",
@@ -173,7 +173,7 @@
     }
   ],
   "onSale": [],
-  "translationGaps": 0,
+  "translationGaps": 7,
   "ticketed": [
     {
       "title": "San Jose Holiday Lights 2026",
@@ -335,6 +335,11 @@
       "kind": "ticket-review",
       "source": "Fantasy of Lights Walk-Thru",
       "detail": "Paid registration; confirm remaining tickets on the official page (https://santaclaracountyparks.ticketspice.com/fantasy-of-lights-2026-walk-thru). Last verified 5 days ago."
+    },
+    {
+      "kind": "translation-backlog",
+      "source": "Chinese event copy",
+      "detail": "7 current translations require review in data/translation-gaps/."
     }
   ]
 }
