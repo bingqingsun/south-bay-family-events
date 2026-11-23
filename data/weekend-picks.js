@@ -1,67 +1,55 @@
 window.SBFF_WEEKEND_PICKS = {
-  "id": "2026-11-21",
-  "weekendStart": "2026-11-20",
-  "weekendEnd": "2026-11-22",
+  "id": "2026-11-28",
+  "weekendStart": "2026-11-27",
+  "weekendEnd": "2026-11-29",
   "status": "published",
-  "publishedAt": "2026-11-16T13:45:11.386Z",
-  "updatedAt": "2026-11-16T13:45:11.386Z",
-  "intro": "14 curated South Bay family activities for Nov 20–Nov 22, selected from verified organizer listings.",
-  "introZh": "精选 11月20日周五–11月22日周日 14 个南湾亲子活动，活动信息来自主办方官方渠道。",
+  "publishedAt": "2026-11-23T16:06:32.727Z",
+  "updatedAt": "2026-11-23T16:06:32.727Z",
+  "intro": "9 curated South Bay family activities for Nov 27–Nov 29, selected from verified organizer listings.",
+  "introZh": "精选 11月27日周五–11月29日周日 9 个南湾亲子活动，活动信息来自主办方官方渠道。",
   "picks": [
     {
       "eventRef": {
-        "id": "midpen-d1efff7c2beb56ba",
-        "title": "Counting Banana Slugs!",
-        "url": "https://www.openspace.org/events/guided-activities/counting-banana-slugs-0",
-        "dateValue": "2026-11-21T09:30"
-      },
-      "label": "Outdoor Adventure Pick",
-      "labelZh": "户外探索精选",
-      "whyWePicked": "As you meander beneath the redwood canopy along the Purisima Creek Trail, you’ll count and learn about these amazing creatures and where they live.",
-      "whyWePickedZh": "沿 Purisima Creek Trail 在红杉树冠下漫步，一边数香蕉蛞蝓，一边了解这些有趣生物及它们的栖息环境。"
-    },
-    {
-      "eventRef": {
-        "id": "series-c52271eabbc94706",
-        "title": "Bay Area Games Day",
-        "url": "https://sccl.bibliocommons.com/events/6961562d8b29ea2800c880a8",
-        "dateValue": "2026-11-21T10:00"
+        "id": "curated-01d12e2578784d51",
+        "title": "Christmas in the Park",
+        "url": "https://christmasinthepark.com/",
+        "dateValue": "2026-11-27T12:00"
       },
       "label": "Community Favorite",
       "labelZh": "社区亲子精选",
-      "whyWePicked": "We play mostly more recent hobbyist games, but also classic strategy games such as Catan or Pandemic, and family and party games.",
-      "whyWePickedZh": "一起玩现代爱好者桌游，也有《卡坦岛》《瘟疫危机》等经典策略游戏，以及适合家庭和聚会的游戏。"
+      "whyWePicked": "Explore a forest of decorated Christmas trees and animated holiday displays, watch live entertainment, and meet Santa for a family photo.",
+      "whyWePickedZh": "探索由装饰圣诞树和动态节日装置组成的节日森林，欣赏现场演出，并与圣诞老人拍张全家福。"
     },
     {
       "eventRef": {
-        "id": "rss-6a1f0f9643b41b3d006b10d6",
-        "title": "The Rhinoceros Project Sewing Circles",
-        "url": "https://paloalto.bibliocommons.com/events/6a1f0f9643b41b3d006b10d6",
-        "dateValue": "2026-11-21T10:00"
+        "id": "nhl-2026020410",
+        "title": "San Jose Sharks vs Vegas Golden Knights",
+        "url": "https://www.nhl.com/gamecenter/vgk-vs-sjs/2026/11/27/2026020410",
+        "dateValue": "2026-11-27T13:00"
       },
-      "label": "Creative Arts Pick",
-      "labelZh": "艺术体验精选",
-      "whyWePicked": "Join The Rhinoceros Project with artists Michelle Wilson and Anne Beck for community sewing circles where participants help create embroidered maps connecting Palo Alto to historic routes across…",
-      "whyWePickedZh": "与艺术家 Michelle Wilson 和 Anne Beck 一起参与社区缝纫活动，协助制作连接 Palo Alto 与加州、墨西哥历史路线的刺绣地图。ArtLift Grant Program 支持本地艺术家的临时艺术项目，促进社区交流与参与。工作坊。"
+      "label": "Live Sports Pick",
+      "labelZh": "现场体育精选",
+      "whyWePicked": "Official San Jose Sharks home game against Vegas Golden Knights at SAP Center at San Jose.",
+      "whyWePickedZh": "圣何塞鲨鱼队在圣何塞 SAP Center 主场迎战维加斯金骑士队的官方比赛。"
     },
     {
       "eventRef": {
-        "id": "rss-6a08e108e13d3b4603b486f1",
-        "title": "Soul 4Kidz Performance at Community Hall",
-        "url": "https://sccl.bibliocommons.com/events/6a08e108e13d3b4603b486f1",
-        "dateValue": "2026-11-21T10:30"
+        "id": "rss-690e9c9c0562322f002f35b0",
+        "title": "Music and Movement",
+        "url": "https://sjpl.bibliocommons.com/events/690e9c9c0562322f002f35b0",
+        "dateValue": "2026-11-28T11:00"
       },
       "label": "Community Favorite",
       "labelZh": "社区亲子精选",
-      "whyWePicked": "This amazing group performs classic children's songs and family favorites with a lively, soulful twist!",
-      "whyWePickedZh": "该团体将以活泼、富有灵魂乐风格的方式演绎经典儿童歌曲和家庭喜爱的曲目。"
+      "whyWePicked": "Music and Movement is a fun and interactive experience for the whole family that promotes the joys of learning for all ages.",
+      "whyWePickedZh": "适合全家和所有年龄参加的趣味互动活动，在音乐和运动中感受学习的快乐。"
     },
     {
       "eventRef": {
-        "id": "cupertino-bc45b97893dbfffe",
+        "id": "cupertino-2554569f378a4cbf",
         "title": "Environmental Education Center Open House",
         "url": "https://www.cupertino.gov/Parks-Recreation/Events/McClellan-Events/Environmental-Education-Center-Open-House",
-        "dateValue": "2026-11-21T11:00:00"
+        "dateValue": "2026-11-28T11:00:00"
       },
       "label": "Hands-on Learning Pick",
       "labelZh": "探索学习精选",
@@ -70,111 +58,63 @@ window.SBFF_WEEKEND_PICKS = {
     },
     {
       "eventRef": {
-        "id": "midpen-6b1eabe104ea662e",
-        "title": "Fall & Winter Berries",
-        "url": "https://www.openspace.org/events/guided-activities/fall-winter-berries",
-        "dateValue": "2026-11-21T12:00"
+        "id": "series-4a93e67dd7ef1aaa",
+        "title": "Mindfulness Meditation",
+        "url": "https://paloalto.bibliocommons.com/events/68faeb383cbc052f00816107",
+        "dateValue": "2026-11-28T13:00"
       },
-      "label": "Outdoor Adventure Pick",
-      "labelZh": "户外探索精选",
-      "whyWePicked": "‘Tis the season to learn about what natural gifts late fall brings such as the berries and nuts found growing wild in the local habitats.",
-      "whyWePickedZh": "一起认识深秋带来的自然馈赠，例如当地栖息地中野生生长的浆果和坚果。"
+      "label": "Hands-on Learning Pick",
+      "labelZh": "探索学习精选",
+      "whyWePicked": "It is open to all levels of experience and no registration is required.\\nParticipants are encouraged to bring their own yoga mats and/or meditation cushions.",
+      "whyWePickedZh": "欢迎各种经验水平者参加，无需报名。建议自带瑜伽垫或冥想垫；未携带者可使用现场座椅。Phuong 是一位具有正念冥想带领经验的佛教尼师。"
     },
     {
       "eventRef": {
-        "id": "rss-69445123571fb4d550be6385",
-        "title": "Saturday Fun: Arts, Crafts, and More",
-        "url": "https://sjpl.bibliocommons.com/events/69445123571fb4d550be6385",
-        "dateValue": "2026-11-21T13:00"
-      },
-      "label": "Creative Arts Pick",
-      "labelZh": "艺术体验精选",
-      "whyWePicked": "Join us for a free, fun-filled program with arts, crafts more!",
-      "whyWePickedZh": "欢迎参加免费的艺术与手工等趣味活动！"
-    },
-    {
-      "eventRef": {
-        "id": "series-f49752ef4651da8b",
-        "title": "North Pole Nights",
-        "url": "https://www.gilroygardens.org/holiday/",
-        "dateValue": "2026-11-21T13:00:00+00:00"
-      },
-      "label": "Family Show Pick",
-      "labelZh": "亲子演出精选",
-      "whyWePicked": "The following rides will be closed during this Signature Event: Rainbow Garden Round Boat Ride, Paddle Boats, and Sky Trail Monorail Once you’ve made the trek across Candy Cane Lane bridge, you’ll…",
-      "whyWePickedZh": "本次特别活动期间，Rainbow Garden Round Boat Ride、脚踏船和 Sky Trail Monorail 将关闭。穿过 Candy Cane Lane 大桥后，便会进入充满节日气氛的 North Pole Village，还有机会见到圣诞老人欢乐又调皮的小精灵。"
-    },
-    {
-      "eventRef": {
-        "id": "rss-693c7e827ed7c62f00aa31b4",
-        "title": "Saturday Crafternoons",
-        "url": "https://sjpl.bibliocommons.com/events/693c7e827ed7c62f00aa31b4",
-        "dateValue": "2026-11-21T15:00"
-      },
-      "label": "Creative Arts Pick",
-      "labelZh": "艺术体验精选",
-      "whyWePicked": "Each session, create with a variety of materials while expressing yourself. All supplies provided. \\nFree.",
-      "whyWePickedZh": "每次活动都可使用多种材料创作并表达自我。提供全部材料。"
-    },
-    {
-      "eventRef": {
-        "id": "rss-6ad7bd6c901b02002cc3d710",
-        "title": "Learn About the Muwekma Ohlone Tribe",
-        "url": "https://paloalto.bibliocommons.com/events/6ad7bd6c901b02002cc3d710",
-        "dateValue": "2026-11-21T16:00"
+        "id": "rss-6a68e7ebe9de6536001ed073",
+        "title": "Reading Buddies for Grades K-5",
+        "url": "https://sccl.bibliocommons.com/events/6a68e7ebe9de6536001ed073",
+        "dateValue": "2026-11-28T14:00"
       },
       "label": "Community Favorite",
       "labelZh": "社区亲子精选",
-      "whyWePicked": "There will be a storytime featuring the Muwekma creation story Kàanak Hašepekne Muwekma: I Made The People, By Me, Coyote by Bernadette Quiroz, followed by a craft.",
-      "whyWePickedZh": "聆听 Bernadette Quiroz 创作的 Muwekma 起源故事《Kàanak Hašepekne Muwekma: I Made The People, By Me, Coyote》，随后参加手工活动。面向 2–8 年级儿童及其家庭，必须报名。"
+      "whyWePicked": "Children can buddy up with a furry friend and read one on one from a favorite book.",
+      "whyWePickedZh": "孩子们可以与毛茸茸的动物朋友结伴，一对一朗读自己喜爱的图书。"
     },
     {
       "eventRef": {
-        "id": "nhl-2026020372",
-        "title": "San Jose Sharks vs Seattle Kraken",
-        "url": "https://www.nhl.com/gamecenter/sea-vs-sjs/2026/11/21/2026020372",
-        "dateValue": "2026-11-21T19:00"
-      },
-      "label": "Live Sports Pick",
-      "labelZh": "现场体育精选",
-      "whyWePicked": "Official San Jose Sharks home game against Seattle Kraken at SAP Center at San Jose.",
-      "whyWePickedZh": "圣何塞鲨鱼队在圣何塞 SAP Center 主场迎战西雅图海怪队的官方比赛。"
-    },
-    {
-      "eventRef": {
-        "id": "santana-ea4b6be7f0eb3507",
-        "title": "Thanksgiving on The Row",
-        "url": "https://santanarow.com/event/thanksgiving-on-the-row/",
-        "dateValue": "2026-11-22"
-      },
-      "label": "Community Favorite",
-      "labelZh": "社区亲子精选",
-      "whyWePicked": "Explore our restaurants serving holiday specials on Thursday, November 26, and reserve your table: Suspiro – Skip the cooking this Thanksgiving.",
-      "whyWePickedZh": "十一月 26 日星期四，探索推出节日特别菜单的餐厅并预订餐位：Suspiro 邀请你在这个感恩节免去下厨的麻烦。"
-    },
-    {
-      "eventRef": {
-        "id": "google-visitor-f68f2e8859294d02",
-        "title": "Ceramic Dish Painting with Arely Cardenas and Local Color",
-        "url": "https://rsvp.withgoogle.com/events/ceramic-dish-painting-with-arely-cardenas-and-local-color?psv=1",
-        "dateValue": "2026-11-22T12:00"
+        "id": "series-d400a606502a3188",
+        "title": "Photography Meetup",
+        "url": "https://paloalto.bibliocommons.com/events/6a397278c7d3cd5800621210",
+        "dateValue": "2026-11-29T10:00"
       },
       "label": "Creative Arts Pick",
       "labelZh": "艺术体验精选",
-      "whyWePicked": "Bring your imagination to life with artist Arely Cardenas and Local Color's free ceramic dish painting workshop (for ages 5 and up).",
-      "whyWePickedZh": "参加艺术家 Arely Cardenas 与 Local Color 举办的免费陶瓷盘彩绘工作坊，发挥想象力创作。适合 5 岁及以上参加。"
+      "whyWePicked": "Each session will feature discussions on techniques, tips for improving your craft, and other aspects of photography.",
+      "whyWePickedZh": "每次活动将讨论摄影技巧、提高拍摄水平的方法和其他摄影话题。如有适合 5–10 分钟分享的主题、摄影故事或演示，可发邮件至 matthewtwhuang@gmail.com。"
     },
     {
       "eventRef": {
-        "id": "pyt-7c6a039c7aafa772",
-        "title": "The Wizard of Oz",
-        "url": "https://pytnet.org/shows/the-wizard-of-oz/",
-        "dateValue": "2026-11-22T13:00"
+        "id": "series-5751489816c1c0d1",
+        "title": "Glider Discovery",
+        "url": "https://www.hiller.org/event/glider-discovery/2026-11-29/",
+        "dateValue": "2026-11-29T11:00:00"
       },
-      "label": "Family Show Pick",
-      "labelZh": "亲子演出精选",
-      "whyWePicked": "Follow the yellow brick road to join Dorothy’s adventures with her friends as they brave the Wizard in the Emerald City.",
-      "whyWePickedZh": "沿着黄砖路加入 Dorothy 和朋友们的冒险，一同前往 Emerald City 面对 Wizard。"
+      "label": "Community Favorite",
+      "labelZh": "社区亲子精选",
+      "whyWePicked": "Discover the world of flight in a special outdoor family event!",
+      "whyWePickedZh": "参加户外家庭活动，探索飞行世界。"
+    },
+    {
+      "eventRef": {
+        "id": "rss-6ad13dbcfee2d21deb239013",
+        "title": "Queer Cafe - Cozy Vibes Edition",
+        "url": "https://sjpl.bibliocommons.com/events/6ad13dbcfee2d21deb239013",
+        "dateValue": "2026-11-29T14:00"
+      },
+      "label": "Creative Arts Pick",
+      "labelZh": "艺术体验精选",
+      "whyWePicked": "A selection of queer reading materials will be available to browse and checkout.",
+      "whyWePickedZh": "现场提供 LGBTQ+ 主题读物供浏览和借阅，还有小吃、饮料、手工材料，以及以酷儿角色、作者和“选择的家人”为主题的温馨读物。活动旨在提供安全舒适的空间，也欢迎所有参与者和阅读材料。"
     }
   ]
 };
