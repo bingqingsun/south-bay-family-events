@@ -173,7 +173,7 @@
     }
   ],
   "onSale": [],
-  "translationGaps": 54,
+  "translationGaps": 0,
   "ticketed": [
     {
       "title": "San Jose Holiday Lights 2026",
@@ -335,11 +335,6 @@
       "kind": "ticket-review",
       "source": "Fantasy of Lights Walk-Thru",
       "detail": "Paid registration; confirm remaining tickets on the official page (https://santaclaracountyparks.ticketspice.com/fantasy-of-lights-2026-walk-thru). Last verified 5 days ago."
-    },
-    {
-      "kind": "translation-backlog",
-      "source": "Chinese event copy",
-      "detail": "54 current translations require review in data/translation-gaps/."
     }
   ]
 }
