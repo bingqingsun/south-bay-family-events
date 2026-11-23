@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "auditedForDate": "2026-11-22",
+  "auditedForDate": "2026-11-23",
   "horizonDays": 90,
   "coverage": [
     {
@@ -8,16 +8,16 @@
       "method": "rss",
       "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/sccl/rss/events?audiences=5b28181c4727c7344c796675%2C5b28181c4727c7344c796676%2C5b28181c4727c7344c796677%2C5b28181c4727c7344c796678%2C5b28181c4727c7344c796679%2C5b28181c4727c7344c79667a%2C5b2a5dcb2c1d736b168c62ac",
       "status": "ok",
-      "next60Days": 151,
-      "next90Days": 151
+      "next60Days": 154,
+      "next90Days": 154
     },
     {
       "source": "San José Public Library",
       "method": "rss",
       "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/sjpl/rss/events",
       "status": "ok",
-      "next60Days": 159,
-      "next90Days": 159
+      "next60Days": 164,
+      "next90Days": 164
     },
     {
       "source": "Palo Alto City Library",
@@ -25,15 +25,15 @@
       "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/paloalto/rss/events",
       "status": "ok",
       "next60Days": 38,
-      "next90Days": 44
+      "next90Days": 45
     },
     {
       "source": "City of Cupertino",
       "method": "cupertino",
       "feedUrl": "https://www.cupertino.gov/Events-directory",
       "status": "ok",
-      "next60Days": 3,
-      "next90Days": 4
+      "next60Days": 5,
+      "next90Days": 6
     },
     {
       "source": "City of Palo Alto",
@@ -103,9 +103,9 @@
       "source": "Hiller Aviation Museum",
       "method": "tribe",
       "feedUrl": "https://www.hiller.org/wp-json/tribe/events/v1/events?per_page=50",
-      "status": "ok",
-      "next60Days": 9,
-      "next90Days": 10
+      "status": "failed",
+      "next60Days": 8,
+      "next90Days": 9
     },
     {
       "source": "CuriOdyssey",
@@ -173,7 +173,7 @@
     }
   ],
   "onSale": [],
-  "translationGaps": 52,
+  "translationGaps": 54,
   "ticketed": [
     {
       "title": "San Jose Holiday Lights 2026",
@@ -224,6 +224,12 @@
       "url": "https://www.sanjose.org/events/once-upon-nutcracker"
     },
     {
+      "title": "Signing Santa",
+      "dateValue": "2026-12-12T10:00:00",
+      "registrationStatus": "required",
+      "url": "https://www.cupertino.gov/Parks-Recreation/Events/Signing-Santa/Signing-Santa-Event"
+    },
+    {
       "title": "Holiday Spectacular",
       "dateValue": "2026-12-12T14:30",
       "registrationStatus": "required",
@@ -234,6 +240,12 @@
       "dateValue": "2026-12-16T19:00",
       "registrationStatus": "required",
       "url": "https://www.sanjose.org/theaters/events/magical-cirque-christmas"
+    },
+    {
+      "title": "Join-A-Ranger: Night Hike and Flashlight Tour",
+      "dateValue": "2026-12-18T18:00:00",
+      "registrationStatus": "required",
+      "url": "https://www.cupertino.gov/Parks-Recreation/Events/McClellan-Events/Join-A-Ranger-Night-Hike-and-Flashlight-Tour"
     },
     {
       "title": "Wild Kratts Live! 2.0 – Activate Creature Power!",
@@ -253,6 +265,11 @@
       "kind": "coverage-review",
       "source": "Happy Hollow Park & Zoo",
       "detail": "No published events in the next 60 days; check the official calendar."
+    },
+    {
+      "kind": "source-health",
+      "source": "Hiller Aviation Museum",
+      "detail": "The operation was aborted due to timeout"
     },
     {
       "kind": "search-only",
@@ -287,12 +304,12 @@
     {
       "kind": "ticket-review",
       "source": "San Jose Holiday Lights 2026",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://www.sjhl.us/tickets). Last verified 12 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://www.sjhl.us/tickets). Last verified 13 days ago."
     },
     {
       "kind": "ticket-review",
       "source": "Holiday Lights",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://filoli.org/whats-on/events/holiday-lights/). Last verified 12 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://filoli.org/whats-on/events/holiday-lights/). Last verified 13 days ago."
     },
     {
       "kind": "ticket-review",
@@ -302,7 +319,7 @@
     {
       "kind": "ticket-review",
       "source": "A Christmas Carol 2026",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://montalvoarts.org/experience/events-calendar/a-christmas-carol-2026/). Last verified 4 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://montalvoarts.org/experience/events-calendar/a-christmas-carol-2026/). Last verified 5 days ago."
     },
     {
       "kind": "ticket-review",
@@ -312,17 +329,17 @@
     {
       "kind": "ticket-review",
       "source": "Breakfast with Santa – Sunnyvale",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://anc.apm.activecommunities.com/sunnyvaleactivities/activity/search/detail/2146?from_original_cui=true&locale=en-US&onlineSiteId=0). Last verified 2 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://anc.apm.activecommunities.com/sunnyvaleactivities/activity/search/detail/2146?from_original_cui=true&locale=en-US&onlineSiteId=0). Last verified 3 days ago."
     },
     {
       "kind": "ticket-review",
       "source": "Fantasy of Lights Walk-Thru",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://santaclaracountyparks.ticketspice.com/fantasy-of-lights-2026-walk-thru). Last verified 4 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://santaclaracountyparks.ticketspice.com/fantasy-of-lights-2026-walk-thru). Last verified 5 days ago."
     },
     {
       "kind": "translation-backlog",
       "source": "Chinese event copy",
-      "detail": "52 current translations require review in data/translation-gaps/."
+      "detail": "54 current translations require review in data/translation-gaps/."
     }
   ]
 }
