@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "auditedForDate": "2026-11-23",
+  "auditedForDate": "2026-11-24",
   "horizonDays": 90,
   "coverage": [
     {
@@ -8,23 +8,23 @@
       "method": "rss",
       "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/sccl/rss/events?audiences=5b28181c4727c7344c796675%2C5b28181c4727c7344c796676%2C5b28181c4727c7344c796677%2C5b28181c4727c7344c796678%2C5b28181c4727c7344c796679%2C5b28181c4727c7344c79667a%2C5b2a5dcb2c1d736b168c62ac",
       "status": "ok",
-      "next60Days": 154,
-      "next90Days": 154
+      "next60Days": 158,
+      "next90Days": 158
     },
     {
       "source": "San José Public Library",
       "method": "rss",
       "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/sjpl/rss/events",
       "status": "ok",
-      "next60Days": 161,
-      "next90Days": 161
+      "next60Days": 186,
+      "next90Days": 186
     },
     {
       "source": "Palo Alto City Library",
       "method": "rss",
       "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/paloalto/rss/events",
       "status": "ok",
-      "next60Days": 38,
+      "next60Days": 39,
       "next90Days": 45
     },
     {
@@ -32,8 +32,8 @@
       "method": "cupertino",
       "feedUrl": "https://www.cupertino.gov/Events-directory",
       "status": "ok",
-      "next60Days": 5,
-      "next90Days": 6
+      "next60Days": 7,
+      "next90Days": 7
     },
     {
       "source": "City of Palo Alto",
@@ -56,14 +56,14 @@
       "method": "thetech",
       "feedUrl": "https://www.thetech.org/explore/upcoming-events",
       "status": "ok",
-      "next60Days": 4,
-      "next90Days": 6
+      "next60Days": 5,
+      "next90Days": 7
     },
     {
       "source": "Happy Hollow Park & Zoo",
       "method": "happyhollow",
       "feedUrl": "https://happyhollow.org/events/",
-      "status": "ok",
+      "status": "failed",
       "next60Days": 0,
       "next90Days": 0
     },
@@ -173,7 +173,7 @@
     }
   ],
   "onSale": [],
-  "translationGaps": 7,
+  "translationGaps": 52,
   "ticketed": [
     {
       "title": "San Jose Holiday Lights 2026",
@@ -262,6 +262,11 @@
   ],
   "alerts": [
     {
+      "kind": "source-health",
+      "source": "Happy Hollow Park & Zoo",
+      "detail": "The operation was aborted due to timeout"
+    },
+    {
       "kind": "coverage-review",
       "source": "Happy Hollow Park & Zoo",
       "detail": "No published events in the next 60 days; check the official calendar."
@@ -304,12 +309,12 @@
     {
       "kind": "ticket-review",
       "source": "San Jose Holiday Lights 2026",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://www.sjhl.us/tickets). Last verified 13 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://www.sjhl.us/tickets). Last verified 14 days ago."
     },
     {
       "kind": "ticket-review",
       "source": "Holiday Lights",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://filoli.org/whats-on/events/holiday-lights/). Last verified 13 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://filoli.org/whats-on/events/holiday-lights/). Last verified 14 days ago."
     },
     {
       "kind": "ticket-review",
@@ -319,7 +324,7 @@
     {
       "kind": "ticket-review",
       "source": "A Christmas Carol 2026",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://montalvoarts.org/experience/events-calendar/a-christmas-carol-2026/). Last verified 5 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://montalvoarts.org/experience/events-calendar/a-christmas-carol-2026/). Last verified 6 days ago."
     },
     {
       "kind": "ticket-review",
@@ -329,17 +334,17 @@
     {
       "kind": "ticket-review",
       "source": "Breakfast with Santa – Sunnyvale",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://anc.apm.activecommunities.com/sunnyvaleactivities/activity/search/detail/2146?from_original_cui=true&locale=en-US&onlineSiteId=0). Last verified 3 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://anc.apm.activecommunities.com/sunnyvaleactivities/activity/search/detail/2146?from_original_cui=true&locale=en-US&onlineSiteId=0). Last verified 4 days ago."
     },
     {
       "kind": "ticket-review",
       "source": "Fantasy of Lights Walk-Thru",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://santaclaracountyparks.ticketspice.com/fantasy-of-lights-2026-walk-thru). Last verified 5 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://santaclaracountyparks.ticketspice.com/fantasy-of-lights-2026-walk-thru). Last verified 6 days ago."
     },
     {
       "kind": "translation-backlog",
       "source": "Chinese event copy",
-      "detail": "7 current translations require review in data/translation-gaps/."
+      "detail": "52 current translations require review in data/translation-gaps/."
     }
   ]
 }
