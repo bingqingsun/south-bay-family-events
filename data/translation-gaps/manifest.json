@@ -1,15 +1,15 @@
 {
   "version": 1,
   "locale": "zh-Hans",
-  "generatedAt": "2026-11-24T17:57:04.639Z",
-  "generatedForDate": "2026-11-24",
-  "sourceEventCount": 538,
-  "activeEventCount": 538,
+  "generatedAt": "2026-11-25T17:25:04.595Z",
+  "generatedForDate": "2026-11-25",
+  "sourceEventCount": 549,
+  "activeEventCount": 549,
   "stats": {
-    "current": 486,
-    "gaps": 52,
-    "missing": 50,
-    "stale": 2,
+    "current": 448,
+    "gaps": 101,
+    "missing": 94,
+    "stale": 7,
     "invalid": 0
   },
   "batches": [
@@ -19,7 +19,11 @@
     },
     {
       "file": "batch-002.json",
-      "count": 12
+      "count": 40
+    },
+    {
+      "file": "batch-003.json",
+      "count": 21
     }
   ]
 }
