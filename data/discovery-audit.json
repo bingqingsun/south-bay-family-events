@@ -8,24 +8,24 @@
       "method": "rss",
       "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/sccl/rss/events?audiences=5b28181c4727c7344c796675%2C5b28181c4727c7344c796676%2C5b28181c4727c7344c796677%2C5b28181c4727c7344c796678%2C5b28181c4727c7344c796679%2C5b28181c4727c7344c79667a%2C5b2a5dcb2c1d736b168c62ac",
       "status": "ok",
-      "next60Days": 151,
-      "next90Days": 151
+      "next60Days": 163,
+      "next90Days": 163
     },
     {
       "source": "San José Public Library",
       "method": "rss",
       "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/sjpl/rss/events",
       "status": "ok",
-      "next60Days": 163,
-      "next90Days": 163
+      "next60Days": 197,
+      "next90Days": 197
     },
     {
       "source": "Palo Alto City Library",
       "method": "rss",
       "feedUrl": "https://gateway.bibliocommons.com/v2/libraries/paloalto/rss/events",
       "status": "ok",
-      "next60Days": 39,
-      "next90Days": 44
+      "next60Days": 40,
+      "next90Days": 45
     },
     {
       "source": "City of Cupertino",
@@ -103,7 +103,7 @@
       "source": "Hiller Aviation Museum",
       "method": "tribe",
       "feedUrl": "https://www.hiller.org/wp-json/tribe/events/v1/events?per_page=50",
-      "status": "ok",
+      "status": "failed",
       "next60Days": 8,
       "next90Days": 9
     },
@@ -112,8 +112,8 @@
       "method": "tribe",
       "feedUrl": "https://curiodyssey.org/wp-json/tribe/events/v1/events?per_page=50",
       "status": "ok",
-      "next60Days": 1,
-      "next90Days": 1
+      "next60Days": 2,
+      "next90Days": 2
     },
     {
       "source": "San Jose Theaters",
@@ -127,7 +127,7 @@
       "source": "Santa Clara County Parks",
       "method": "search-only",
       "feedUrl": "",
-      "status": "ok",
+      "status": "not run",
       "next60Days": 1,
       "next90Days": 1
     },
@@ -135,7 +135,7 @@
       "source": "City of San José",
       "method": "search-only",
       "feedUrl": "",
-      "status": "ok",
+      "status": "not run",
       "next60Days": 0,
       "next90Days": 0
     },
@@ -151,7 +151,7 @@
       "source": "City of Mountain View",
       "method": "search-only",
       "feedUrl": "",
-      "status": "ok",
+      "status": "not run",
       "next60Days": 1,
       "next90Days": 1
     },
@@ -167,13 +167,13 @@
       "source": "Santa Clara Community Calendar",
       "method": "search-only",
       "feedUrl": "",
-      "status": "failed",
+      "status": "not run",
       "next60Days": 0,
       "next90Days": 0
     }
   ],
   "onSale": [],
-  "translationGaps": 0,
+  "translationGaps": 43,
   "ticketed": [
     {
       "title": "San Jose Holiday Lights 2026",
@@ -197,7 +197,7 @@
       "title": "A Christmas Carol 2026",
       "dateValue": "2026-12-04T19:30",
       "registrationStatus": "required",
-      "url": "https://montalvoarts.org/experience/events-calendar/a-christmas-carol-2026/"
+      "url": "https://www.svshakespeare.org/carol"
     },
     {
       "title": "Breakfast with Santa",
@@ -267,6 +267,11 @@
       "detail": "No published events in the next 60 days; check the official calendar."
     },
     {
+      "kind": "source-health",
+      "source": "Hiller Aviation Museum",
+      "detail": "The operation was aborted due to timeout"
+    },
+    {
       "kind": "search-only",
       "source": "Santa Clara County Parks",
       "detail": "No direct official feed; discovery depends on optional search or manual supplements."
@@ -309,17 +314,17 @@
     {
       "kind": "ticket-review",
       "source": "The Great Dickens Christmas Fair",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://dickensfair.com/media-info/). Last verified 0 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://dickensfair.com/media-info/). Last verified -1 days ago."
     },
     {
       "kind": "ticket-review",
       "source": "A Christmas Carol 2026",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://montalvoarts.org/experience/events-calendar/a-christmas-carol-2026/). Last verified 8 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://www.svshakespeare.org/carol). Last verified -1 days ago."
     },
     {
       "kind": "ticket-review",
       "source": "Breakfast with Santa",
-      "detail": "Paid registration; confirm remaining tickets on the official page (https://www.cupertino.gov/Parks-Recreation/Events/Breakfast-with-Santa). Last verified 0 days ago."
+      "detail": "Paid registration; confirm remaining tickets on the official page (https://www.cupertino.gov/Parks-Recreation/Events/Breakfast-with-Santa). Last verified -1 days ago."
     },
     {
       "kind": "ticket-review",
@@ -340,6 +345,11 @@
       "kind": "ticket-review",
       "source": "A Magical Cirque Christmas",
       "detail": "Paid registration; confirm remaining tickets on the official page (https://www.sanjose.org/theaters/events/magical-cirque-christmas). Last verified 8 days ago."
+    },
+    {
+      "kind": "translation-backlog",
+      "source": "Chinese event copy",
+      "detail": "43 current translations require review in data/translation-gaps/."
     }
   ]
 }

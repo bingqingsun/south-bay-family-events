@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "locale": "zh-Hans",
+  "generatedAt": "2026-11-26T16:29:08.486Z",
+  "generatedForDate": "2026-11-26",
+  "batch": 2,
+  "totalBatches": 2,
+  "entries": [
+    {
+      "id": "rss-6b037b0c22b92c0041abc43f",
+      "dateValue": "2026-12-18T16:00",
+      "endDateValue": "2026-12-18T17:00",
+      "title": "Family Coloring",
+      "description": "nbsp;Coloring pages with various themes, designs, and levels of complexity can be enjoyed by patrons of all ages.",
+      "source": "Santa Clara County Library District",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6b037b0c22b92c0041abc43f",
+      "status": "stale",
+      "sourceFingerprint": "f51c9e8cd3c01fd854978d93ef4185af3776aaa15530d31e6171193f1d953a53",
+      "priorTitleZh": "家庭涂色活动",
+      "priorDescriptionZh": "各年龄参与者都可以选择不同主题、设计和难度的涂色页。"
+    },
+    {
+      "id": "rss-6af8f561e4f7a1002c07f432",
+      "dateValue": "2026-12-30T11:00",
+      "endDateValue": "2026-12-30T12:00:00",
+      "title": "Mini Makers",
+      "description": "We’ll have three different stations to practice and learn more about fine motor skills.",
+      "source": "Santa Clara County Library District",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6af8f561e4f7a1002c07f432",
+      "status": "missing",
+      "sourceFingerprint": "4a4d57939ea1f68f90205745687f957618b56adf09bc626bfc049f5cc74a3c74",
+      "priorTitleZh": "",
+      "priorDescriptionZh": ""
+    },
+    {
+      "id": "rss-6b075f4f614b8b0045fa4781",
+      "dateValue": "2027-01-02T14:00",
+      "endDateValue": "2027-01-02T16:00:00",
+      "title": "Board Game Day at Saratoga Library",
+      "description": "We will have a variety of board games and card games suitable for ages from 6 to adult.",
+      "source": "Santa Clara County Library District",
+      "sourceUrl": "https://sccl.bibliocommons.com/events/6b075f4f614b8b0045fa4781",
+      "status": "missing",
+      "sourceFingerprint": "ab56399f3384bf58cd6eacd3407d0a84a7a4d60482878b5123aaa428d2968a3e",
+      "priorTitleZh": "",
+      "priorDescriptionZh": ""
+    }
+  ]
+}
