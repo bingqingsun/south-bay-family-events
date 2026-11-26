@@ -1554,6 +1554,7 @@
   },
   {
     "id": "editorial-sjt-alice-jr-2027",
+    "replaceExisting": true,
     "title": "Alice in Wonderland Jr.",
     "dateValue": "2027-02-10T19:00",
     "endDateValue": "2027-02-14T15:00",
@@ -1563,7 +1564,7 @@
     "address": "271 S Market St, San Jose, CA 95113",
     "city": "San Jose",
     "source": "San Jose Theaters",
-    "url": "https://www.sanjose.org/theaters/events/alice-wonderland-jr",
+    "url": "https://www.cmtsj.org/alice-in-wonderland/",
     "ageLabel": "Kids & Family",
     "ageSource": "Visit San Jose official theater event page",
     "costStatus": "paid",
@@ -1571,6 +1572,9 @@
     "costSource": "CMT San Jose ticket link on official theater page",
     "registrationStatus": "required",
     "registrationSource": "CMT San Jose official ticket page",
+    "registrationEvidence": "Single tickets go on sale January 15, 2027; subscriber early access is available before the public sale.",
+    "ticketOnSaleAt": "2027-01-15T00:00:00-08:00",
+    "availabilityStatus": "tickets-on-sale-2027-01-15",
     "type": "shows",
     "format": "live-show",
     "sessions": [
@@ -1596,7 +1600,7 @@
         "dateValue": "2027-02-14T15:00"
       }
     ],
-    "verifiedAt": "2026-11-18T04:30:00Z"
+    "verifiedAt": "2026-11-26T16:25:00Z"
   },
   {
     "id": "editorial-once-upon-nutcracker-2026",
