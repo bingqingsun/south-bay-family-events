@@ -1494,7 +1494,7 @@
     "address": "15400 Montalvo Rd, Saratoga, CA 95070",
     "city": "Saratoga",
     "source": "Montalvo Arts Center",
-    "url": "https://montalvoarts.org/experience/events-calendar/a-christmas-carol-2026/",
+    "url": "https://www.svshakespeare.org/carol",
     "ageLabel": "All ages",
     "ageSource": "Silicon Valley Shakespeare official event page",
     "costStatus": "paid",
@@ -1503,9 +1503,10 @@
     "costEvidence": "Performances $45–$78; benefit $200.",
     "registrationStatus": "required",
     "registrationSource": "Silicon Valley Shakespeare official ticket page",
+    "registrationEvidence": "Tickets are on sale now; each performance is limited to 60 guests and a general waiting list is available for sold-out dates.",
     "type": "shows",
     "format": "live-show",
-    "verifiedAt": "2026-11-18T04:30:00Z",
+    "verifiedAt": "2026-11-26T16:30:00Z",
     "replaceExisting": true
   },
   {
